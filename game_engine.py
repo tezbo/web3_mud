@@ -236,18 +236,18 @@ def handle_onboarding_command(command, onboarding_state, username=None, db_conn=
             character["race"] = command_lower
             onboarding_state["character"] = character
             onboarding_state["step"] = 2
-            return ONBOARDING_GENDER_PROMPT, onboarding_state, False
+            return ONBOARDING_GENDER_PROMPT, onboarding_state, False, None
         else:
-            return "Please choose a valid race: human, elf, dwarf, halfling, fae-touched, or outlander", onboarding_state, False
+            return "Please choose a valid race: human, elf, dwarf, halfling, fae-touched, or outlander", onboarding_state, False, None
     
     elif step == 2:  # Gender selection
         if command_lower in AVAILABLE_GENDERS:
             character["gender"] = command_lower
             onboarding_state["character"] = character
             onboarding_state["step"] = 3
-            return ONBOARDING_STATS_PROMPT, onboarding_state, False
+            return ONBOARDING_STATS_PROMPT, onboarding_state, False, None
         else:
-            return "Please choose a valid gender: male, female, nonbinary, or other", onboarding_state, False
+            return "Please choose a valid gender: male, female, nonbinary, or other", onboarding_state, False, None
     
     elif step == 3:  # Stat allocation
         # Parse stat allocation: "str 3, agi 2, wis 2, wil 2, luck 1"
@@ -266,23 +266,23 @@ def handle_onboarding_command(command, onboarding_state, username=None, db_conn=
                     if stat_name in stats:
                         stats[stat_name] = stat_value
                     else:
-                        return f"Unknown stat: {stat_name}. Valid stats are: str, agi, wis, wil, luck", onboarding_state, False
+                        return f"Unknown stat: {stat_name}. Valid stats are: str, agi, wis, wil, luck", onboarding_state, False, None
             
             # Validate total
             total = sum(stats.values())
             if total != TOTAL_STAT_POINTS:
-                return f"Your stats must total exactly {TOTAL_STAT_POINTS} points. You allocated {total} points. Please try again.", onboarding_state, False
+                return f"Your stats must total exactly {TOTAL_STAT_POINTS} points. You allocated {total} points. Please try again.", onboarding_state, False, None
             
             # Check for negative values
             if any(v < 0 for v in stats.values()):
-                return "Stat values cannot be negative. Please try again.", onboarding_state, False
+                return "Stat values cannot be negative. Please try again.", onboarding_state, False, None
             
             character["stats"] = stats
             onboarding_state["character"] = character
             onboarding_state["step"] = 4
-            return ONBOARDING_BACKSTORY_PROMPT, onboarding_state, False
+            return ONBOARDING_BACKSTORY_PROMPT, onboarding_state, False, None
         except Exception as e:
-            return f"Invalid stat format. Please use: str 3, agi 2, wis 2, wil 2, luck 1", onboarding_state, False
+            return f"Invalid stat format. Please use: str 3, agi 2, wis 2, wil 2, luck 1", onboarding_state, False, None
     
     elif step == 4:  # Backstory selection
         if command_lower == "custom":
