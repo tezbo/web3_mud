@@ -399,7 +399,13 @@ def welcome_command():
                 session.pop("login_username", None)
                 
                 # Check if user has character - if not, start onboarding
-                game = get_game()
+                # get_game() requires user_id in session, which we just set
+                try:
+                    game = get_game()
+                except Exception as e:
+                    # If get_game fails, just proceed to index
+                    return jsonify({"redirect": url_for("index")})
+                
                 if game is None:
                     # No game state at all - this is fine, user can play without character data (backward compatibility)
                     # Only start onboarding if they explicitly want to create character
@@ -522,62 +528,8 @@ def index():
     return render_template("index.html", log=processed_log, session=session, onboarding=False)
 
 
-@app.route("/login", methods=["GET", "POST"])
-def login():
-    """Login page and handler."""
-    if request.method == "POST":
-        username = request.form.get("username", "").strip()
-        password = request.form.get("password", "")
-        
-        if not username or not password:
-            flash("Please provide both username and password.", "error")
-            return render_template("login.html")
-        
-        conn = get_db()
-        user = conn.execute(
-            "SELECT id, username, password_hash FROM users WHERE username = ?",
-            (username,)
-        ).fetchone()
-        conn.close()
-        
-        if user and check_password_hash(user["password_hash"], password):
-            session["user_id"] = user["id"]
-            session["username"] = user["username"]
-            username = user["username"]
-            
-            # Get or create game state
-            game = get_game()
-            
-            # Add session welcome to existing game state if it exists
-            if game:
-                add_session_welcome(game, username)
-                # Add current location description
-                game.setdefault("log", [])
-                game["log"].append(describe_location(game))
-                save_game(game)
-            
-            # Broadcast login notification to other players who have it enabled
-            for uname, g in ACTIVE_GAMES.items():
-                if uname == username:
-                    continue
-                notify_cfg = g.get("notify", {})
-                if notify_cfg.get("login"):
-                    g.setdefault("log", [])
-                    g["log"].append(f"[{username} has logged in]")
-                    g["log"] = g["log"][-50:]
-                    save_game(g)
-            
-            save_state_to_disk()
-            return redirect(url_for("index"))
-        else:
-            flash("Invalid username or password.", "error")
-            return render_template("login.html")
-    
-    # If already logged in, redirect to game
-    if "user_id" in session:
-        return redirect(url_for("index"))
-    
-    return render_template("login.html")
+# /login route removed - login is now text-based via /welcome screen
+# Admin login is available at /admin/login
 
 
 # Registration is now handled text-based via /welcome screen
