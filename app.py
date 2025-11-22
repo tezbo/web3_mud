@@ -269,16 +269,9 @@ def get_game():
             from economy import initialize_player_gold
             initialize_player_gold(game)
             game.setdefault("notify", {"login": False})
-            # Ensure character object exists (backward compatibility)
-            if "character" not in game:
-                game["character"] = {
-                    "race": "",
-                    "gender": "",
-                    "stats": {"str": 0, "agi": 0, "wis": 0, "wil": 0, "luck": 0},
-                    "backstory": "",
-                    "backstory_text": "",
-                    "description": "",
-                }
+            # Don't auto-create character object - allow backward compatibility
+            # Character object will be created during onboarding for new users
+            # Existing users without character objects can play normally
             # Store in memory
             ACTIVE_GAMES[username] = game
             save_state_to_disk()
