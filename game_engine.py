@@ -1602,7 +1602,7 @@ def apply_weather_to_description(description, time_of_day):
             if time_of_day == "night":
                 # Fix visibility descriptions - do most specific first
                 if "only the faintest lights from Hollowvale visible" in modified:
-                    modified = modified.replace("only the faintest lights from Hollowvale visible", "no lights are visible from Hollowvale")
+                    modified = modified.replace("only the faintest lights from Hollowvale visible", "no lights visible from Hollowvale")
                 elif "faintest lights" in modified:
                     modified = modified.replace("faintest lights", "no lights visible")
                 # Fix horizon descriptions - do most specific first
