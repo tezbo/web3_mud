@@ -3118,20 +3118,6 @@ def handle_command(
                                 room_items.append(matched_item)
                                 display_name = render_item_name(matched_item)
                                 response = f"You drop the {display_name}."
-                if not item_def.get("droppable", True):
-                    display_name = render_item_name(matched_item)
-                    response = f"You cannot drop the {display_name}."
-                else:
-                    # Remove from inventory and add to room
-                    inventory.remove(matched_item)
-                    game["inventory"] = inventory
-                    
-                    room_state = ROOM_STATE.setdefault(loc_id, {"items": []})
-                    room_items = room_state["items"]
-                    room_items.append(matched_item)
-                    
-                    display_name = render_item_name(matched_item)
-                    response = f"You drop the {display_name}."
 
     elif tokens[0] == "give" and len(tokens) >= 2:
         # Give command: "give <item> to <npc>" or "give <npc> <item>"

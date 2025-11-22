@@ -357,9 +357,8 @@ def welcome_command():
         session["onboarding_state"] = {"step": 0, "character": {}}
         # Force session save
         session.modified = True
-        # Return redirect to index route
-        index_url = url_for("index")
-        return jsonify({"redirect": index_url})
+        # Return redirect to index route - use absolute path
+        return jsonify({"redirect": "/"})
     elif cmd_upper == "L":
         # Login - prompt for username
         session["login_step"] = "username"
