@@ -68,9 +68,16 @@ git init
 git add .
 git commit -m "Initial Tiny Web MUD"
 git branch -M main
-git remote add origin git@github.com:tezbo/web3_mud.git
+git remote add origin https://github.com/tezbo/web3_mud.git
 git push -u origin main
 ```
+
+**Note**: When pushing, GitHub will prompt for credentials:
+- **Username**: Your GitHub username (`tezbo`)
+- **Password**: Use a [Personal Access Token](https://github.com/settings/tokens) (not your GitHub password)
+  - Go to GitHub Settings → Developer settings → Personal access tokens → Tokens (classic)
+  - Generate a new token with `repo` scope
+  - Use this token as your password when prompted
 
 #### 2. Deploy on Render
 
@@ -90,8 +97,12 @@ git push -u origin main
 
 ### Important Notes
 
-- **State Persistence**: The game uses `mud_state.json` for persisting room state, NPC state, and active player games. This works fine for a single Render instance, but **state may reset on redeploys**. This is acceptable for personal use and small-scale hosting.
-- **Database**: User accounts and game states are stored in SQLite (`users.db`). On Render, this file persists in the filesystem but may be lost on redeploys unless using persistent disk storage.
+- **State Persistence**: The game uses `mud_state.json` for persisting room state, NPC state, and active player games. 
+- **Database**: User accounts and game states are stored in SQLite (`users.db`). 
+- **Render Deployment**: By default, data is **NOT persisted** between redeployments. To persist data:
+  1. Add a Persistent Disk to your Render service (Settings → Add Disk)
+  2. Set the `PERSISTENT_DISK_PATH` environment variable to the mount path (e.g., `/persistent`)
+  3. The database and state files will be stored on the persistent disk and survive redeployments
 - **Multi-Instance Scaling**: The current persistence mechanism (local JSON file) is **not suitable for multi-instance deployments**. For production scaling, consider using Redis or a database for shared state.
 
 ## Environment Variables
@@ -101,10 +112,23 @@ git push -u origin main
 | `FLASK_SECRET_KEY` | Secret key for Flask sessions | Yes (production) | `dev-secret-change-me` |
 | `OPENAI_API_KEY` | OpenAI API key for AI NPCs | No | - |
 | `OPENAI_MODEL` | OpenAI model to use | No | `gpt-4o-mini` |
+| `ADMIN_USERS` | Comma-separated list of admin usernames | No | `admin,tezbo` |
 | `AI_MAX_REQUESTS_PER_HOUR` | Rate limit for AI requests per user | No | `60` |
 | `PORT` | Port to run the server on | No | `5000` |
 | `IN_GAME_HOUR_DURATION` | Real-world hours per in-game hour | No | `1.0` |
 | `IN_GAME_DAY_DURATION` | Real-world hours per in-game day | No | `2.0` |
+
+## Making a User Admin
+
+There are two ways to make a user an admin:
+
+1. **Environment Variable** (Recommended): Add `ADMIN_USERS=tezbo` to your Render environment variables. This works immediately without database changes.
+
+2. **Database Update**: Use the provided script:
+   ```bash
+   python3 promote_admin.py tezbo
+   ```
+   On Render, you can run this via Render Shell (SSH into your service).
 
 ## Project Structure
 

@@ -392,6 +392,12 @@ MERCHANT_ITEMS = {
 }
 
 # --- Simple game world definition (static, never mutated at runtime) ---
+# 
+# Room definitions can include an optional "movement_message" field for custom
+# messages when entering the room. Examples:
+#   "movement_message": "You step through the archway and enter {location}."
+#   "movement_message": lambda direction, location: f"You climb {direction}ward and reach {location}."
+# If not specified, defaults to: "You go {direction}, and find yourself in the {location}."
 
 WORLD = {
     "town_square": {
@@ -461,6 +467,8 @@ WORLD = {
         "exits": {"north": "market_lane"},
         "items": ["smooth_rune_stone"],
         "npcs": ["quiet_acolyte"],
+        # Example of custom movement message:
+        # "movement_message": "You step through the ancient archway and find yourself at the {location}.",
     },
     "forest_edge": {
         "name": "Edge of the Whispering Wood",
@@ -1329,6 +1337,40 @@ def handle_emote(verb, args, game, username=None):
     return response, game
 
 
+def get_movement_message(target_room_id, direction):
+    """
+    Get the movement message when entering a room.
+    
+    Args:
+        target_room_id: The room ID being entered
+        direction: The direction traveled (e.g., "north", "east")
+    
+    Returns:
+        str: HTML-formatted movement message in dark green
+    """
+    if target_room_id not in WORLD:
+        # Fallback if room doesn't exist
+        location_name = "an unknown place"
+    else:
+        room_def = WORLD[target_room_id]
+        location_name = room_def.get("name", target_room_id)
+        
+        # Check if room has custom movement message
+        movement_message = room_def.get("movement_message")
+        if movement_message:
+            # Support both string templates and callable functions
+            if callable(movement_message):
+                return f'<span style="color: #006400;">{movement_message(direction, location_name)}</span>'
+            else:
+                # Format string template with {direction} and {location} placeholders
+                formatted = movement_message.format(direction=direction, location=location_name)
+                return f'<span style="color: #006400;">{formatted}</span>'
+    
+    # Default message
+    default_message = f"You go {direction}, and find yourself in the {location_name}."
+    return f'<span style="color: #006400;">{default_message}</span>'
+
+
 def format_time_message(game):
     """
     Format a creative time message based on the player's location and current in-game time.
@@ -2036,7 +2078,10 @@ def handle_command(
                     arrive_msg = f"{actor_name} arrives from the {opposite}."
                     broadcast_fn(target, arrive_msg)
                 
-                response = describe_location(game)
+                # Get movement message and room description
+                movement_msg = get_movement_message(target, full_direction)
+                location_desc = describe_location(game)
+                response = f"{movement_msg}\n{location_desc}"
             else:
                 response = "You can't go that way."
     
@@ -2084,7 +2129,10 @@ def handle_command(
                     arrive_msg = f"{actor_name} arrives from the {opposite}."
                     broadcast_fn(target, arrive_msg)
                 
-                response = describe_location(game)
+                # Get movement message and room description
+                movement_msg = get_movement_message(target, full_direction)
+                location_desc = describe_location(game)
+                response = f"{movement_msg}\n{location_desc}"
             else:
                 response = "You can't go that way."
 
