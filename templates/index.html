@@ -115,6 +115,10 @@
       color: #34d399;
       font-weight: 500;
     }
+    #output .cyan-message {
+      color: #00ffff;
+      font-weight: 500;
+    }
     /* Spacing between messages */
     #output > * {
       margin-bottom: 8px;
@@ -237,6 +241,9 @@
         
         // Highlight Exits:
         processed = processed.replace(/Exits:/g, '<span class="exits-highlight">Exits:</span>');
+        
+        // Handle cyan color tags [CYAN]...[/CYAN]
+        processed = processed.replace(/\[CYAN\](.*?)\[\/CYAN\]/g, '<span class="cyan-message">$1</span>');
         
         // Highlight error messages
         if (processed.includes('[Error') || processed.includes('Error:') || processed.includes("can't") || processed.includes("don't")) {

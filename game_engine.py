@@ -3593,7 +3593,14 @@ def handle_command(
 
     elif tokens[0] == "say" and len(tokens) >= 2:
         # Say something to everyone in the room
-        message = " ".join(tokens[1:])
+        # Preserve original message formatting (don't lowercase)
+        original_command = command.strip()
+        # Extract message part after "say "
+        say_index = original_command.lower().find("say ")
+        if say_index != -1:
+            message = original_command[say_index + 4:]  # +4 for "say "
+        else:
+            message = " ".join(tokens[1:])
         loc_id = game.get("location", "town_square")
         actor_name = username or "Someone"
         
@@ -3723,9 +3730,11 @@ def handle_command(
                 if ai_reactions:
                     response += "\n" + "\n".join(ai_reactions)
                 
-                # Broadcast say message to other players in the room
+                # Broadcast say message to other players in the room (in cyan)
                 if broadcast_fn is not None:
-                    broadcast_fn(loc_id, player_message)
+                    # Preserve original formatting and capitalize properly
+                    formatted_message = f"[CYAN]{player_message}[/CYAN]"
+                    broadcast_fn(loc_id, formatted_message)
 
     elif tokens[0] in ["talk", "speak", "chat"]:
         if len(tokens) < 2:

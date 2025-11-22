@@ -713,6 +713,24 @@ def command():
                 who_fn=list_active_players,
             )
             
+            # Trigger NPC periodic actions (random chance on each command)
+            import random
+            from npc_actions import get_all_npc_actions_for_room
+            if random.random() < 0.3:  # 30% chance per command
+                room_id = game.get("location", "town_square")
+                npc_actions = get_all_npc_actions_for_room(room_id)
+                if npc_actions:
+                    # Pick one random NPC action
+                    npc_id, action = random.choice(list(npc_actions.items()))
+                    # Broadcast to all players in the room (including the one who triggered it)
+                    # Format with cyan color tag
+                    action_text = f"[CYAN]{action}[/CYAN]"
+                    for uname, g in ACTIVE_GAMES.items():
+                        if g.get("location") == room_id:
+                            g.setdefault("log", [])
+                            g["log"].append(action_text)
+                            g["log"] = g["log"][-50:]
+            
             # If description was updated, save it to database immediately
             if "user_description" in game:
                 conn.execute(
