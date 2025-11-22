@@ -103,7 +103,7 @@ TOTAL_STAT_POINTS = 10
 
 # --- Onboarding Narrative Text ---
 
-ONBOARDING_INTRO = """In the darkness, you drift...
+ONBOARDING_USERNAME_PROMPT = """In the darkness, you drift...
 
 A voice, ancient and warm, reaches through the void:
 
@@ -113,7 +113,13 @@ Slowly, awareness returns. You feel... something. A presence. A purpose.
 
 "Before you step into Hollowvale, you must remember who you are."
 
-The darkness begins to fade..."""
+The voice asks: "What name will you bear in this realm?"
+
+Enter your username (this will be your character name):"""
+
+ONBOARDING_PASSWORD_PROMPT = """"Good. Now, choose a password to protect your identity."
+
+Enter your password (minimum 4 characters):"""
 
 ONBOARDING_RACE_PROMPT = """The voice speaks again:
 
@@ -174,23 +180,58 @@ Light floods your vision. The darkness fades away...
 You find yourself standing in the Town Square of Hollowvale, a frontier town where adventure awaits."""
 
 
-def handle_onboarding_command(command, onboarding_state, username):
+def handle_onboarding_command(command, onboarding_state, username=None, db_conn=None):
     """
     Handle commands during the onboarding process.
     
     Args:
         command: User's command input
         onboarding_state: Dict with onboarding_step and character data
-        username: Player's username
+        username: Player's username (optional, may be None during account creation)
+        db_conn: Optional database connection for creating user account
     
     Returns:
-        tuple: (response_text, updated_onboarding_state, is_complete)
+        tuple: (response_text, updated_onboarding_state, is_complete, created_user_id)
     """
-    step = onboarding_state.get("step", 1)
+    step = onboarding_state.get("step", 0)
     character = onboarding_state.get("character", {})
     command_lower = command.strip().lower()
+    created_user_id = None
     
-    if step == 1:  # Race selection
+    if step == 0:  # Username creation
+        username_input = command.strip()
+        if not username_input:
+            return "Please enter a username.", onboarding_state, False, None
+        if len(username_input) < 2:
+            return "Username must be at least 2 characters long.", onboarding_state, False, None
+        if len(username_input) > 20:
+            return "Username must be 20 characters or less.", onboarding_state, False, None
+        
+        # Check if username already exists
+        if db_conn:
+            existing = db_conn.execute(
+                "SELECT id FROM users WHERE username = ?",
+                (username_input,)
+            ).fetchone()
+            if existing:
+                return f"Username '{username_input}' is already taken. Please choose another.", onboarding_state, False, None
+        
+        onboarding_state["username"] = username_input
+        onboarding_state["step"] = 0.5  # Next: password
+        return ONBOARDING_PASSWORD_PROMPT, onboarding_state, False, None
+    
+    elif step == 0.5:  # Password creation
+        password_input = command
+        if not password_input:
+            return "Please enter a password.", onboarding_state, False, None
+        if len(password_input) < 4:
+            return "Password must be at least 4 characters long.", onboarding_state, False, None
+        
+        onboarding_state["password"] = password_input
+        onboarding_state["step"] = 1  # Next: race
+        return ONBOARDING_RACE_PROMPT, onboarding_state, False, None
+    
+    elif step == 1:  # Race selection
         if command_lower in AVAILABLE_RACES:
             character["race"] = command_lower
             onboarding_state["character"] = character
@@ -252,9 +293,26 @@ def handle_onboarding_command(command, onboarding_state, username):
             character["backstory_text"] = AVAILABLE_BACKSTORIES[command_lower]["description"]
             onboarding_state["character"] = character
             onboarding_state["step"] = 6  # Complete
-            return ONBOARDING_COMPLETE.format(username=username), onboarding_state, True
+            
+            # Create user account now that character is complete
+            if db_conn and onboarding_state.get("username") and onboarding_state.get("password"):
+                from werkzeug.security import generate_password_hash
+                username_final = onboarding_state["username"]
+                password_hash = generate_password_hash(onboarding_state["password"])
+                try:
+                    cursor = db_conn.execute(
+                        "INSERT INTO users (username, password_hash) VALUES (?, ?)",
+                        (username_final, password_hash)
+                    )
+                    db_conn.commit()
+                    created_user_id = cursor.lastrowid
+                except Exception as e:
+                    return f"Error creating account: {str(e)}", onboarding_state, False, None
+            
+            final_username = onboarding_state.get("username", username or "adventurer")
+            return ONBOARDING_COMPLETE.format(username=final_username), onboarding_state, True, created_user_id
         else:
-            return "Please choose a valid backstory or type 'custom' to write your own.", onboarding_state, False
+            return "Please choose a valid backstory or type 'custom' to write your own.", onboarding_state, False, None
     
     elif step == 5:  # Custom backstory input
         if command_lower and len(command_lower) > 5:
@@ -262,11 +320,28 @@ def handle_onboarding_command(command, onboarding_state, username):
             character["backstory_text"] = command.strip()  # Keep original case
             onboarding_state["character"] = character
             onboarding_state["step"] = 6  # Complete
-            return ONBOARDING_COMPLETE.format(username=username), onboarding_state, True
+            
+            # Create user account now that character is complete
+            if db_conn and onboarding_state.get("username") and onboarding_state.get("password"):
+                from werkzeug.security import generate_password_hash
+                username_final = onboarding_state["username"]
+                password_hash = generate_password_hash(onboarding_state["password"])
+                try:
+                    cursor = db_conn.execute(
+                        "INSERT INTO users (username, password_hash) VALUES (?, ?)",
+                        (username_final, password_hash)
+                    )
+                    db_conn.commit()
+                    created_user_id = cursor.lastrowid
+                except Exception as e:
+                    return f"Error creating account: {str(e)}", onboarding_state, False, None
+            
+            final_username = onboarding_state.get("username", username or "adventurer")
+            return ONBOARDING_COMPLETE.format(username=final_username), onboarding_state, True, created_user_id
         else:
-            return "Please provide a brief backstory (at least a few words).", onboarding_state, False
+            return "Please provide a brief backstory (at least a few words).", onboarding_state, False, None
     
-    return "Invalid command during onboarding.", onboarding_state, False
+    return "Invalid command during onboarding.", onboarding_state, False, None
 
 
 def is_admin_user(username=None, game=None):

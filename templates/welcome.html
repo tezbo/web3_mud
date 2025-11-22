@@ -186,15 +186,42 @@
       </div>
     </div>
 
-    <div class="prompt">
-      <form method="POST" action="{{ url_for('welcome') }}" id="welcomeForm">
-        <div>Your choice:</div>
-        <div class="input-group">
-          <input type="text" name="choice" id="choice" autocomplete="off" autofocus placeholder="Enter command (N, L, G, Q, or character name)">
-          <button type="submit">Enter</button>
-        </div>
-      </form>
-    </div>
+    {% if login_mode %}
+      <div class="prompt">
+        <form method="POST" action="{{ url_for('welcome') }}" id="loginForm">
+          {% if login_username %}
+            <div>Enter password for <strong>{{ login_username }}</strong>:</div>
+            <input type="hidden" name="username" value="{{ login_username }}">
+            <div class="input-group">
+              <input type="password" name="password" id="password" autocomplete="off" autofocus placeholder="Password">
+              <button type="submit">Login</button>
+            </div>
+            <div style="margin-top: 10px; font-size: 12px; color: #999;">
+              <a href="{{ url_for('welcome') }}" style="color: #60a5fa;">← Back</a>
+            </div>
+          {% else %}
+            <div>Enter your username:</div>
+            <div class="input-group">
+              <input type="text" name="username" id="username" autocomplete="off" autofocus placeholder="Username">
+              <button type="submit">Next</button>
+            </div>
+            <div style="margin-top: 10px; font-size: 12px; color: #999;">
+              <a href="{{ url_for('welcome') }}" style="color: #60a5fa;">← Back</a>
+            </div>
+          {% endif %}
+        </form>
+      </div>
+    {% else %}
+      <div class="prompt">
+        <form method="POST" action="{{ url_for('welcome') }}" id="welcomeForm">
+          <div>Your choice:</div>
+          <div class="input-group">
+            <input type="text" name="choice" id="choice" autocomplete="off" autofocus placeholder="Enter command (N, L, G, Q, or character name)">
+            <button type="submit">Enter</button>
+          </div>
+        </form>
+      </div>
+    {% endif %}
   </div>
 
   <script>

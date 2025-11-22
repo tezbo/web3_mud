@@ -326,7 +326,7 @@ def save_game(game):
 
 @app.route("/welcome", methods=["GET", "POST"])
 def welcome():
-    """Welcome screen with ASCII art and character creation menu."""
+    """Welcome screen with ASCII art and character creation/login menu."""
     # If already logged in, redirect to game
     if "user_id" in session:
         return redirect(url_for("index"))
@@ -337,27 +337,29 @@ def welcome():
         
         # Handle menu commands
         if choice_upper == "Q":
-            return redirect(url_for("login"))
+            # Quit - just show welcome again
+            return render_template("welcome.html")
         elif choice_upper == "G":
             return redirect(url_for("guide"))
         elif choice_upper == "N":
-            # New character - redirect to registration
-            return redirect(url_for("register"))
+            # New character - start onboarding with username/password creation
+            session["onboarding_step"] = 0
+            session["onboarding_state"] = {"step": 0, "character": {}}
+            return redirect(url_for("index"))
         elif choice_upper == "L":
-            # Login - redirect to login page
-            return redirect(url_for("login"))
+            # Login - start login flow
+            session["login_step"] = "username"
+            return render_template("welcome.html", login_mode=True)
         else:
-            # Assume it's a username - redirect to login with username
+            # Assume it's a username - start login flow
             if choice:
-                flash("Please enter your password to login.", "info")
-                return redirect(url_for("login", username=choice))
+                session["login_username"] = choice
+                session["login_step"] = "password"
+                return render_template("welcome.html", login_mode=True, login_username=choice)
             else:
                 flash("Invalid choice. Please enter N, L, G, Q, or your character name.", "error")
     
-    # Check if this is a new user (from registration)
-    new_user = request.args.get("new_user", False)
-    
-    return render_template("welcome.html", new_user=new_user)
+    return render_template("welcome.html", login_mode=request.args.get("login_mode", False))
 
 
 @app.route("/guide")
@@ -367,26 +369,39 @@ def guide():
 
 
 @app.route("/")
-@require_auth
 def index():
+    # If not logged in, redirect to welcome
+    if "user_id" not in session:
+        return redirect(url_for("welcome"))
+    
     # Check if user is in onboarding
     onboarding_step = session.get("onboarding_step")
     if onboarding_step and onboarding_step != "complete":
         # User is in onboarding - show onboarding screen
-        from game_engine import ONBOARDING_INTRO, handle_onboarding_command
+        from game_engine import ONBOARDING_USERNAME_PROMPT, handle_onboarding_command
         
         # Initialize onboarding if needed
-        if onboarding_step == "start":
+        if onboarding_step == 0:
             onboarding_state = {
-                "step": 1,
+                "step": 0,
                 "character": {}
             }
             session["onboarding_state"] = onboarding_state
-            session["onboarding_step"] = 1
-            log = [ONBOARDING_INTRO, "...", "...", "...", "Type 'continue' or press Enter to begin."]
+            log = [ONBOARDING_USERNAME_PROMPT]
         else:
-            onboarding_state = session.get("onboarding_state", {"step": 1, "character": {}})
-            log = ["Continue your character creation..."]
+            onboarding_state = session.get("onboarding_state", {"step": 0, "character": {}})
+            # Show current step prompt
+            current_step = onboarding_state.get("step", 0)
+            if current_step == 0:
+                log = [ONBOARDING_USERNAME_PROMPT]
+            elif current_step == 0.5:
+                from game_engine import ONBOARDING_PASSWORD_PROMPT
+                log = [ONBOARDING_PASSWORD_PROMPT]
+            elif current_step == 1:
+                from game_engine import ONBOARDING_RACE_PROMPT
+                log = [ONBOARDING_RACE_PROMPT]
+            else:
+                log = ["Continue your character creation..."]
         
         processed_log = highlight_exits_in_log(log)
         return render_template("index.html", log=processed_log, session=session, onboarding=True)
@@ -580,36 +595,39 @@ def logout():
 
 
 @app.route("/command", methods=["POST"])
-@require_auth
 def command():
+    # Allow commands during onboarding (before login)
+    # But also allow normal commands if logged in
     data = request.get_json() or {}
     cmd = data.get("command", "")
     username = session.get("username", "adventurer")
     user_id = session.get("user_id")
     
-    # Check if user is in onboarding
+    # Check if user is in onboarding (but not logged in yet - this is for new character creation)
     onboarding_step = session.get("onboarding_step")
-    if onboarding_step and onboarding_step != "complete":
-        # Handle onboarding commands
-        from game_engine import handle_onboarding_command, ONBOARDING_INTRO
+    if onboarding_step and onboarding_step != "complete" and not user_id:
+        # Handle onboarding commands for new character creation
+        from game_engine import handle_onboarding_command
         
-        onboarding_state = session.get("onboarding_state", {"step": 1, "character": {}})
+        onboarding_state = session.get("onboarding_state", {"step": 0, "character": {}})
         
-        # Handle "continue" or empty command to start
-        if onboarding_step == "start" and (not cmd or cmd.lower() in ["continue", "start", ""]):
-            onboarding_state = {"step": 1, "character": {}}
-            session["onboarding_state"] = onboarding_state
-            session["onboarding_step"] = 1
-            response = ONBOARDING_INTRO + "\n\n" + "...\n...\n...\n\n" + "The voice speaks again:\n\n\"First, tell me: what form do you remember? What blood flows in your veins?\"\n\nChoose your race:\n- human\n- elf\n- dwarf\n- halfling\n- fae-touched\n- outlander\n\nType the name of your race:"
-            log = response.split("\n")
-            processed_log = highlight_exits_in_log(log)
-            return jsonify({"response": response, "log": processed_log, "onboarding": True})
+        # Get database connection for account creation
+        conn = get_db()
         
         # Process onboarding command
-        response, updated_state, is_complete = handle_onboarding_command(cmd, onboarding_state, username)
+        response, updated_state, is_complete, created_user_id = handle_onboarding_command(
+            cmd, onboarding_state, username=None, db_conn=conn
+        )
         session["onboarding_state"] = updated_state
         
         if is_complete:
+            # Account was created during onboarding
+            if created_user_id:
+                session["user_id"] = created_user_id
+                session["username"] = updated_state.get("username", "adventurer")
+                username = session["username"]
+                user_id = created_user_id
+            
             session["onboarding_step"] = "complete"
             # Create game state with character
             character = updated_state.get("character", {})
@@ -624,14 +642,15 @@ def command():
                 storyteller = NPCS["old_storyteller"]
                 race_name = AVAILABLE_RACES.get(character.get("race", ""), {}).get("name", "traveler")
                 backstory_name = AVAILABLE_BACKSTORIES.get(character.get("backstory", ""), {}).get("name", "mystery")
-                # Old Storyteller is an NPC object, check for possessive attribute
-                possessive = getattr(storyteller, 'possessive', 'their') if hasattr(storyteller, 'possessive') else 'their'
+                # Old Storyteller is a dict, use 'their' as default
+                possessive = 'their'
                 greeting = f"The Old Storyteller looks up from {possessive} tales and smiles warmly. 'Ah, a {race_name} with a {backstory_name.lower()}... Welcome to Hollowvale, {username}. Your story is just beginning.'"
                 game["log"].append(greeting)
                 game["log"].append(describe_location(game))
                 save_game(game)
             
             log = game["log"]
+            conn.close()
         else:
             # Add delay dots for narrative effect
             log = response.split("\n")
