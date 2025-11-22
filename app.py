@@ -26,6 +26,9 @@ app = Flask(__name__)
 
 # Use an environment variable if available (better for real deployments)
 app.config["SECRET_KEY"] = os.environ.get("FLASK_SECRET_KEY", "dev-secret-change-me")
+# Configure session cookie settings for better persistence
+app.config["SESSION_COOKIE_HTTPONLY"] = True
+app.config["SESSION_COOKIE_SAMESITE"] = "Lax"
 
 # Database setup
 # Use persistent disk path if available (for Render deployments)
