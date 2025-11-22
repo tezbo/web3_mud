@@ -1614,34 +1614,44 @@ def get_player_weather_description(game, pronouns=None):
     if max_condition == 0:
         return ""
     
+    # Use proper verb conjugation based on pronoun
+    if pronoun in ["he", "she", "it"]:
+        verb_look = "looks"
+        verb_be = "is"
+        verb_have = "has"
+    else:  # they
+        verb_look = "look"
+        verb_be = "are"
+        verb_have = "have"
+    
     # Generate description for dominant condition
     if wetness == max_condition:
         if wetness <= 2:
-            return f"{pronoun.capitalize()} look a bit damp."
+            return f"{pronoun.capitalize()} {verb_look} a bit damp."
         elif wetness <= 4:
-            return f"You can tell {pronoun} have been standing in the rain for a while."
+            return f"You can tell {pronoun} {verb_have} been standing in the rain for a while."
         elif wetness <= 7:
-            return f"{pronoun.capitalize()} look thoroughly soaked through."
+            return f"{pronoun.capitalize()} {verb_look} thoroughly soaked through."
         else:
-            return f"{pronoun.capitalize()} are absolutely drenched from head to toe."
+            return f"{pronoun.capitalize()} {verb_be} absolutely drenched from head to toe."
     elif cold == max_condition:
         if cold <= 2:
-            return f"{pronoun.capitalize()} look a little chilled."
+            return f"{pronoun.capitalize()} {verb_look} a little chilled."
         elif cold <= 4:
-            return f"{pronoun.capitalize()} are shivering slightly in the cold."
+            return f"{pronoun.capitalize()} {verb_be} shivering slightly in the cold."
         elif cold <= 7:
-            return f"{pronoun.capitalize()} look very cold and uncomfortable."
+            return f"{pronoun.capitalize()} {verb_look} very cold and uncomfortable."
         else:
-            return f"{pronoun.capitalize()} are shivering violently, lips tinged blue."
+            return f"{pronoun.capitalize()} {verb_be} shivering violently, lips tinged blue."
     else:  # heat
         if heat <= 2:
-            return f"{pronoun.capitalize()} look a touch flushed from the heat."
+            return f"{pronoun.capitalize()} {verb_look} a touch flushed from the heat."
         elif heat <= 4:
             return f"A sheen of sweat glistens on {pronoun} skin."
         elif heat <= 7:
-            return f"{pronoun.capitalize()} look overheated and unsteady."
+            return f"{pronoun.capitalize()} {verb_look} overheated and unsteady."
         else:
-            return f"{pronoun.capitalize()} are drenched in sweat and look ready to collapse from the heat."
+            return f"{pronoun.capitalize()} {verb_be} drenched in sweat and look ready to collapse from the heat."
 
 
 def should_restock_merchant(npc_id):
