@@ -244,8 +244,9 @@ def get_game():
                 save_state_to_disk()
                 return game
             
-            # Check if character exists - if not, need onboarding
-            if not game.get("character") or not game.get("character", {}).get("race"):
+            # Check if character exists and has race - if character exists but no race, need onboarding
+            # If character doesn't exist at all, it's backward compatibility - allow through
+            if game.get("character") and not game.get("character", {}).get("race"):
                 conn.close()
                 return None
             
