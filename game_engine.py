@@ -310,6 +310,84 @@ def get_item_def(item_id: str) -> dict:
     }
 
 
+def group_inventory_items(inventory: list) -> list:
+    """
+    Group inventory items by type and return formatted strings.
+    
+    Args:
+        inventory: List of item IDs
+    
+    Returns:
+        list: List of formatted strings like "4 loaves of bread", "1 iron hammer"
+    """
+    from collections import Counter
+    
+    if not inventory:
+        return []
+    
+    # Count items
+    item_counts = Counter(inventory)
+    
+    grouped = []
+    for item_id, count in sorted(item_counts.items()):
+        item_name = render_item_name(item_id)
+        
+        # Handle pluralization
+        if count == 1:
+            # Use singular form with article
+            if item_name.lower().startswith(('a', 'e', 'i', 'o', 'u')):
+                grouped.append(f"an {item_name}")
+            else:
+                grouped.append(f"a {item_name}")
+        else:
+            # Use plural form
+            # Try to pluralize intelligently
+            plural_name = pluralize_item_name(item_name, count)
+            grouped.append(f"{count} {plural_name}")
+    
+    return grouped
+
+
+def pluralize_item_name(item_name: str, count: int) -> str:
+    """
+    Pluralize an item name intelligently.
+    
+    Args:
+        item_name: Singular item name
+        count: Quantity
+    
+    Returns:
+        str: Pluralized item name
+    """
+    # Remove article if present
+    if item_name.lower().startswith(('a ', 'an ')):
+        item_name = item_name.split(' ', 1)[1] if ' ' in item_name else item_name
+    
+    # Common pluralization rules
+    lower_name = item_name.lower()
+    
+    # Already plural or special cases
+    if lower_name.endswith(('loaves', 'leaves', 'knives', 'wives')):
+        return item_name
+    
+    # Words ending in 'y' -> 'ies'
+    if lower_name.endswith('y') and not lower_name.endswith(('ay', 'ey', 'oy', 'uy')):
+        return item_name[:-1] + 'ies'
+    
+    # Words ending in 's', 'sh', 'ch', 'x', 'z' -> 'es'
+    if lower_name.endswith(('s', 'sh', 'ch', 'x', 'z')):
+        return item_name + 'es'
+    
+    # Words ending in 'f' or 'fe' -> 'ves'
+    if lower_name.endswith('f'):
+        return item_name[:-1] + 'ves'
+    if lower_name.endswith('fe'):
+        return item_name[:-2] + 'ves'
+    
+    # Default: add 's'
+    return item_name + 's'
+
+
 def render_item_name(item_id: str) -> str:
     """
     Render a human-friendly item name from an item_id.
@@ -1167,10 +1245,11 @@ def _format_player_stat(game, username):
     else:
         lines.append("Inventory: (empty)")
     
-    # Gold
-    gold = game.get("gold", 0)
-    if gold is not None:
-        lines.append(f"Gold: {gold}")
+    # Currency
+    from economy.currency import get_currency, format_currency
+    currency = get_currency(game)
+    currency_str = format_currency(currency)
+    lines.append(f"Currency: {currency_str}")
     
     # Reputation
     reputation = game.get("reputation", {})
@@ -1229,8 +1308,8 @@ def new_game_state(username="adventurer"):
     Returns:
         dict: A new game state dictionary
     """
-    # Initialize economy
-    from economy import initialize_player_gold
+    # Initialize economy (currency system)
+    from economy.economy_manager import initialize_player_currency
     game_state = {
         "location": "town_square",
         "inventory": [],
@@ -1249,7 +1328,7 @@ def new_game_state(username="adventurer"):
             "time": False,  # player can enable with 'notify time'
         },
     }
-    initialize_player_gold(game_state)
+    initialize_player_currency(game_state)
     return game_state
 
 
@@ -1748,7 +1827,8 @@ def _parse_purchase_intent_ai(text, merchant_items, npc, room_def, game, usernam
     
     # Build list of available items for the AI
     # Prices are calculated dynamically using the economy system
-    from economy import get_item_price, format_gold
+    from economy.economy_manager import get_item_price
+    from economy.currency import format_currency, copper_to_currency
     
     # Get npc_id - prefer passed parameter, then try to extract from npc object
     npc_id_for_pricing = npc_id
@@ -1766,11 +1846,12 @@ def _parse_purchase_intent_ai(text, merchant_items, npc, room_def, game, usernam
     items_list = []
     for item_key, item_info in merchant_items.items():
         display_name = item_info.get("display_name", item_key.replace("_", " "))
-        # Get price dynamically from economy system
+        # Get price dynamically from economy system (returns copper coins)
         try:
             if npc_id_for_pricing:
-                price = get_item_price(item_key, npc_id_for_pricing, game)
-                price_str = format_gold(price)
+                price_copper = get_item_price(item_key, npc_id_for_pricing, game)
+                price_currency = copper_to_currency(price_copper)
+                price_str = format_currency(price_currency)
             else:
                 # Fallback: use a generic price estimate
                 price_str = "varies"
@@ -2165,26 +2246,32 @@ def handle_command(
     elif tokens[0] in ["inventory", "inv", "i"]:
         inventory = game.get("inventory", [])
         if inventory:
-            item_names = [render_item_name(item_id) for item_id in inventory]
-            response = "You are carrying: " + ", ".join(item_names) + "."
+            grouped_items = group_inventory_items(inventory)
+            if len(grouped_items) == 1:
+                response = f"You are carrying {grouped_items[0]}."
+            elif len(grouped_items) == 2:
+                response = f"You are carrying {grouped_items[0]} and {grouped_items[1]}."
+            else:
+                response = "You are carrying: " + ", ".join(grouped_items[:-1]) + f", and {grouped_items[-1]}."
         else:
             response = "You are not carrying anything."
     
-    elif tokens[0] in ["gold", "money"]:
-        # Show player's gold amount
-        from economy import get_gold, format_gold
-        gold_amount = get_gold(game)
-        response = f"You have {format_gold(gold_amount)}."
+    elif tokens[0] in ["gold", "money", "currency"]:
+        # Show player's currency amount
+        from economy.currency import get_currency, format_currency
+        currency = get_currency(game)
+        currency_str = format_currency(currency)
+        response = f"You have {currency_str}."
     
     elif tokens[0] == "earn" and len(tokens) >= 2:
-        # Debug/admin command to add gold
+        # Debug/admin command to add currency (legacy: accepts gold amount, converts to new system)
         # TODO: Add admin check in production
         try:
             amount = int(tokens[1])
             if amount <= 0:
                 response = "Amount must be positive."
             else:
-                from economy import add_gold, format_gold
+                from economy.currency import add_gold, format_gold
                 new_total = add_gold(game, amount)
                 response = f"You earn {format_gold(amount)}. You now have {format_gold(new_total)}."
         except ValueError:
@@ -2612,7 +2699,8 @@ def handle_command(
                 response = "There's nothing for sale here."
             else:
                 # Build list of items for sale using economy system
-                from economy import get_item_price, format_gold
+                from economy.economy_manager import get_item_price
+                from economy.currency import format_currency, copper_to_currency
                 items_list = []
                 merchant_npc_id = None
                 merchant_npc = None
@@ -2627,7 +2715,7 @@ def handle_command(
                     
                     # Deduplicate by item_given to avoid showing the same item multiple times
                     # (e.g., "stew" and "bowl_of_stew" both give "bowl_of_stew")
-                    seen_items = {}  # item_given -> (display_name, price, item_key)
+                    seen_items = {}  # item_given -> (display_name, price_copper, item_key)
                     
                     for item_key, item_info in items.items():
                         item_given = item_info.get("item_given")
@@ -2637,28 +2725,32 @@ def handle_command(
                         # Only add if we haven't seen this item_given before, or if this is a more specific key
                         # (prefer longer keys like "bowl_of_stew" over "stew")
                         if item_given not in seen_items:
-                            # Get price using economy system
-                            price = get_item_price(item_key, npc_id, game)
+                            # Get price using economy system (returns copper coins)
+                            price_copper = get_item_price(item_key, npc_id, game)
                             display_name = item_info.get("display_name", item_key.replace("_", " "))
-                            seen_items[item_given] = (display_name, price, item_key)
+                            seen_items[item_given] = (display_name, price_copper, item_key)
                         else:
                             # If we've seen it, prefer the more specific key (longer key name)
                             existing_key = seen_items[item_given][2]
                             if len(item_key) > len(existing_key):
-                                price = get_item_price(item_key, npc_id, game)
+                                price_copper = get_item_price(item_key, npc_id, game)
                                 display_name = item_info.get("display_name", item_key.replace("_", " "))
-                                seen_items[item_given] = (display_name, price, item_key)
+                                seen_items[item_given] = (display_name, price_copper, item_key)
                     
                     # Build the list from unique items, showing availability
-                    for display_name, price, item_key in seen_items.values():
+                    for display_name, price_copper, item_key in seen_items.values():
                         item_info = items[item_key]
                         item_given = item_info.get("item_given")
                         stock = _get_merchant_stock(npc_id, item_given)
                         
+                        # Convert price to currency format
+                        price_currency = copper_to_currency(price_copper)
+                        price_str = format_currency(price_currency)
+                        
                         if stock > 0:
-                            items_list.append(f"  {display_name} - {format_gold(price)}")
+                            items_list.append(f"  {display_name} - {price_str}")
                         else:
-                            items_list.append(f"  {display_name} - {format_gold(price)} (sold out)")
+                            items_list.append(f"  {display_name} - {price_str} (sold out)")
                     
                     # Only show first merchant's items for now
                     break
