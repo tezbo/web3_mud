@@ -1,0 +1,472 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Player's Guide - Tiny Web MUD</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+      color: #e0e0e0;
+      font-family: 'Georgia', 'Times New Roman', serif;
+      line-height: 1.6;
+      padding: 20px;
+      min-height: 100vh;
+    }
+    .guide-container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: rgba(20, 20, 20, 0.95);
+      border: 2px solid #3b82f6;
+      border-radius: 8px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+      padding: 40px;
+    }
+    .header {
+      text-align: center;
+      border-bottom: 3px solid #3b82f6;
+      padding-bottom: 20px;
+      margin-bottom: 30px;
+    }
+    .header h1 {
+      font-size: 2.5em;
+      color: #3b82f6;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+      margin-bottom: 10px;
+      font-family: 'Georgia', serif;
+    }
+    .header .subtitle {
+      color: #999;
+      font-style: italic;
+      font-size: 1.1em;
+    }
+    .nav-links {
+      text-align: center;
+      margin-bottom: 30px;
+      padding: 15px;
+      background: rgba(59, 130, 246, 0.1);
+      border-radius: 4px;
+    }
+    .nav-links a {
+      color: #3b82f6;
+      text-decoration: none;
+      margin: 0 15px;
+      font-weight: bold;
+    }
+    .nav-links a:hover {
+      text-decoration: underline;
+      color: #60a5fa;
+    }
+    .section {
+      margin-bottom: 40px;
+      padding: 25px;
+      background: rgba(10, 10, 10, 0.6);
+      border-left: 4px solid #3b82f6;
+      border-radius: 4px;
+    }
+    .section h2 {
+      color: #3b82f6;
+      font-size: 1.8em;
+      margin-bottom: 15px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #333;
+    }
+    .section h3 {
+      color: #60a5fa;
+      font-size: 1.3em;
+      margin-top: 20px;
+      margin-bottom: 10px;
+    }
+    .command-list {
+      background: rgba(0, 0, 0, 0.4);
+      padding: 15px;
+      border-radius: 4px;
+      margin: 15px 0;
+      font-family: 'Courier New', monospace;
+    }
+    .command-list dt {
+      color: #86efac;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+    .command-list dt:first-child {
+      margin-top: 0;
+    }
+    .command-list dd {
+      color: #ccc;
+      margin-left: 20px;
+      margin-bottom: 8px;
+    }
+    .example {
+      background: rgba(59, 130, 246, 0.1);
+      border-left: 3px solid #3b82f6;
+      padding: 12px;
+      margin: 15px 0;
+      border-radius: 4px;
+      font-family: 'Courier New', monospace;
+      color: #86efac;
+    }
+    .tip {
+      background: rgba(255, 193, 7, 0.1);
+      border-left: 3px solid #ffc107;
+      padding: 12px;
+      margin: 15px 0;
+      border-radius: 4px;
+    }
+    .tip strong {
+      color: #ffc107;
+    }
+    .emote-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 10px;
+      margin: 15px 0;
+    }
+    .emote-item {
+      background: rgba(0, 0, 0, 0.4);
+      padding: 8px;
+      border-radius: 4px;
+      text-align: center;
+      font-family: 'Courier New', monospace;
+      color: #86efac;
+    }
+    ul, ol {
+      margin-left: 25px;
+      margin-top: 10px;
+    }
+    li {
+      margin-bottom: 8px;
+    }
+    .highlight {
+      color: #ffc107;
+      font-weight: bold;
+    }
+    .footer {
+      text-align: center;
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 1px solid #333;
+      color: #666;
+      font-size: 0.9em;
+    }
+    @media (max-width: 768px) {
+      .guide-container {
+        padding: 20px;
+      }
+      .header h1 {
+        font-size: 2em;
+      }
+      .emote-grid {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="guide-container">
+    <div class="header">
+      <h1>📜 The Player's Guide</h1>
+      <div class="subtitle">A Traveler's Companion to Hollowvale</div>
+    </div>
+
+    <div class="nav-links">
+      {% if session.username %}
+        <a href="{{ url_for('index') }}">← Return to Game</a>
+      {% else %}
+        <a href="{{ url_for('login') }}">← Return to Login</a>
+      {% endif %}
+    </div>
+
+    <div class="section">
+      <h2>🌍 Welcome to Hollowvale</h2>
+      <p>Welcome, traveler, to the world of Tiny Web MUD—a text-based adventure where you explore the frontier town of Hollowvale and its surrounding lands. This is a multiplayer world where your actions matter, NPCs remember your deeds, and every conversation can shape your reputation.</p>
+      <p>This guide will help you navigate the world, understand the commands at your disposal, and make the most of your adventure.</p>
+    </div>
+
+    <div class="section">
+      <h2>🚶 Basic Movement</h2>
+      <p>Explore the world by moving between locations. Each room has exits in different directions.</p>
+      <div class="command-list">
+        <dt>go <span class="highlight">&lt;direction&gt;</span></dt>
+        <dd>Move in a direction (north, south, east, west)</dd>
+        <dt>n, s, e, w</dt>
+        <dd>Shortcuts for north, south, east, west</dd>
+        <dt>move <span class="highlight">&lt;direction&gt;</span></dt>
+        <dd>Alternative to 'go'</dd>
+        <dt>walk <span class="highlight">&lt;direction&gt;</span></dt>
+        <dd>Another alternative to 'go'</dd>
+      </div>
+      <div class="example">
+        Example: go north<br>
+        Example: e (shortcut for east)
+      </div>
+      <div class="tip">
+        <strong>💡 Tip:</strong> When you move between rooms, you'll see a message in <span style="color: #006400;">dark green</span> describing your journey. Some locations have custom movement messages that add flavor to your travels!
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>👁️ Observing Your Surroundings</h2>
+      <div class="command-list">
+        <dt>look</dt>
+        <dd>View your current location, including description, exits, items, and NPCs</dd>
+        <dt>l</dt>
+        <dd>Shortcut for 'look'</dd>
+        <dt>examine</dt>
+        <dd>Alternative to 'look'</dd>
+        <dt>look <span class="highlight">&lt;item&gt;</span></dt>
+        <dd>Examine a specific item in the room or your inventory</dd>
+        <dt>look <span class="highlight">&lt;npc&gt;</span></dt>
+        <dd>Look at an NPC to learn about them</dd>
+        <dt>look me</dt>
+        <dd>View your own character information</dd>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>🎒 Inventory Management</h2>
+      <div class="command-list">
+        <dt>take <span class="highlight">&lt;item&gt;</span></dt>
+        <dd>Pick up an item from the current room</dd>
+        <dt>drop <span class="highlight">&lt;item&gt;</span></dt>
+        <dd>Drop an item from your inventory</dd>
+        <dt>drop all</dt>
+        <dd>Drop all droppable items from your inventory</dd>
+        <dt>inventory</dt>
+        <dd>View all items you're carrying</dd>
+        <dt>inv</dt>
+        <dd>Shortcut for 'inventory'</dd>
+        <dt>i</dt>
+        <dd>Shortcut for 'inventory'</dd>
+      </div>
+      <div class="tip">
+        <strong>💡 Tip:</strong> Some items are bound to you and cannot be dropped. These are usually special artifacts or quest items.
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>💬 Communication</h2>
+      <h3>Talking to NPCs</h3>
+      <div class="command-list">
+        <dt>talk <span class="highlight">&lt;npc&gt;</span></dt>
+        <dd>Start a conversation with an NPC</dd>
+        <dt>talk to <span class="highlight">&lt;npc&gt;</span></dt>
+        <dd>Alternative syntax for talking</dd>
+      </div>
+      <div class="example">
+        Example: talk mara<br>
+        Example: talk to innkeeper
+      </div>
+
+      <h3>Speaking to Everyone</h3>
+      <div class="command-list">
+        <dt>say <span class="highlight">&lt;message&gt;</span></dt>
+        <dd>Speak to everyone in the room (players and NPCs)</dd>
+      </div>
+      <div class="tip">
+        <strong>💡 Tip:</strong> AI-enhanced NPCs will react to what you say! Try saying things like "I'd like some stew" to merchants, or engage NPCs in conversation. They remember your past interactions and your reputation affects how they respond.
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>😊 Social Actions & Emotes</h2>
+      <p>Express yourself with emotes! You can use them alone or target specific NPCs.</p>
+      <div class="emote-grid">
+        <div class="emote-item">nod</div>
+        <div class="emote-item">smile</div>
+        <div class="emote-item">wave</div>
+        <div class="emote-item">shrug</div>
+        <div class="emote-item">stare</div>
+        <div class="emote-item">laugh</div>
+        <div class="emote-item">grin</div>
+        <div class="emote-item">frown</div>
+        <div class="emote-item">sigh</div>
+        <div class="emote-item">yawn</div>
+        <div class="emote-item">clap</div>
+        <div class="emote-item">bow</div>
+        <div class="emote-item">salute</div>
+      </div>
+      <div class="example">
+        Example: nod<br>
+        Example: smile mara<br>
+        Example: wave guard
+      </div>
+      <div class="tip">
+        <strong>💡 Tip:</strong> NPCs will react to your emotes! Being polite and friendly can improve your reputation with them.
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>💰 Economy & Trading</h2>
+      <h3>Buying from Merchants</h3>
+      <div class="command-list">
+        <dt>list</dt>
+        <dd>See what items are for sale from merchants in the current room</dd>
+        <dt>buy <span class="highlight">&lt;item&gt;</span></dt>
+        <dd>Purchase an item from a merchant</dd>
+        <dt>buy <span class="highlight">&lt;item&gt;</span> from <span class="highlight">&lt;npc&gt;</span></dt>
+        <dd>Buy from a specific merchant</dd>
+      </div>
+      <div class="example">
+        Example: buy stew<br>
+        Example: buy ale from mara
+      </div>
+      <div class="tip">
+        <strong>💡 Tip:</strong> You can also use natural language! Try saying "I'd like some stew" or "Can I get a tankard of ale?" to merchants. Your reputation affects prices—better relationships mean better deals!
+      </div>
+
+      <h3>Giving Items</h3>
+      <div class="command-list">
+        <dt>give <span class="highlight">&lt;item&gt;</span> to <span class="highlight">&lt;npc&gt;</span></dt>
+        <dd>Give an item to an NPC</dd>
+        <dt>give <span class="highlight">&lt;npc&gt;</span> <span class="highlight">&lt;item&gt;</span></dt>
+        <dd>Alternative syntax</dd>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>🔍 Exploration & Discovery</h2>
+      <div class="command-list">
+        <dt>search</dt>
+        <dd>Search the current room for hidden items or loot</dd>
+        <dt>scavenge</dt>
+        <dd>Alternative to 'search'</dd>
+        <dt>loot</dt>
+        <dd>Another alternative to 'search'</dd>
+      </div>
+      <div class="tip">
+        <strong>💡 Tip:</strong> Not all rooms have loot, but searching can reveal hidden treasures! Some locations are more rewarding than others.
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>👥 Multiplayer Features</h2>
+      <div class="command-list">
+        <dt>who</dt>
+        <dd>List all players currently online and their locations</dd>
+        <dt>say <span class="highlight">&lt;message&gt;</span></dt>
+        <dd>Speak to all players in the same room</dd>
+      </div>
+      <div class="tip">
+        <strong>💡 Tip:</strong> When other players enter or leave your room, you'll see movement messages. You can interact with them using 'say' to communicate!
+      </div>
+
+      <h3>Notifications</h3>
+      <div class="command-list">
+        <dt>notify</dt>
+        <dd>View your notification settings</dd>
+        <dt>notify login</dt>
+        <dd>Toggle login/logout notifications</dd>
+        <dt>notify login on</dt>
+        <dd>Enable login notifications</dd>
+        <dt>notify login off</dt>
+        <dd>Disable login notifications</dd>
+        <dt>notify time</dt>
+        <dd>Toggle day/night cycle notifications</dd>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>⏰ Time & World</h2>
+      <div class="command-list">
+        <dt>time</dt>
+        <dd>Check the current in-game time</dd>
+      </div>
+      <div class="tip">
+        <strong>💡 Tip:</strong> The world has a day/night cycle. Some events and merchant restocking happen based on in-game time!
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>⭐ Reputation System</h2>
+      <p>Your actions affect how NPCs perceive you. Being polite, giving gifts, and helping NPCs improves your reputation. Negative actions lower it.</p>
+      <ul>
+        <li><strong>High Reputation:</strong> Better prices, friendlier NPCs, special dialogue</li>
+        <li><strong>Low Reputation:</strong> Higher prices, suspicious NPCs, limited interactions</li>
+        <li><strong>NPCs Remember:</strong> AI-enhanced NPCs remember your past conversations and actions</li>
+      </ul>
+      <div class="tip">
+        <strong>💡 Tip:</strong> Use polite language, give items to NPCs, and engage in friendly conversation to build reputation. Check your reputation by using 'look me' to see your character stats.
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>🎮 Game Management</h2>
+      <div class="command-list">
+        <dt>help</dt>
+        <dd>Show a quick reference of commands</dd>
+        <dt>restart</dt>
+        <dd>Reset your game (starts fresh)</dd>
+        <dt>reset</dt>
+        <dd>Alternative to 'restart'</dd>
+        <dt>quit</dt>
+        <dd>Log out of the game</dd>
+        <dt>logout</dt>
+        <dd>Alternative to 'quit'</dd>
+        <dt>exit</dt>
+        <dd>Alternative to 'quit'</dd>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>🏛️ The World of Hollowvale</h2>
+      <p>Hollowvale is a frontier town with several key locations:</p>
+      <ul>
+        <li><strong>Hollowvale Town Square:</strong> The heart of the town, where many paths converge</li>
+        <li><strong>The Rusty Tankard Tavern:</strong> A warm gathering place run by Mara, the innkeeper</li>
+        <li><strong>Old Stoneforge Smithy:</strong> Where metalwork is crafted</li>
+        <li><strong>Market Lane:</strong> A quiet lane where vendors set up their wares</li>
+        <li><strong>Shrine of the Forgotten Path:</strong> An ancient place of mystery and power</li>
+        <li><strong>The Whispering Wood:</strong> A dense forest that seems alive</li>
+        <li><strong>Old Watchtower:</strong> A vantage point overlooking the valley</li>
+      </ul>
+      <div class="tip">
+        <strong>💡 Tip:</strong> Explore everywhere! Each location has its own character, items, and NPCs. Some places hold secrets waiting to be discovered.
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>🤖 AI-Enhanced NPCs</h2>
+      <p>Some NPCs in Hollowvale are powered by AI, making conversations dynamic and memorable:</p>
+      <ul>
+        <li>They remember your past conversations</li>
+        <li>They react to your reputation</li>
+        <li>They respond contextually to what you say</li>
+        <li>They can understand natural language purchases</li>
+      </ul>
+      <div class="tip">
+        <strong>💡 Tip:</strong> Try having real conversations with AI NPCs! Ask them questions, tell them about yourself, or just chat. They'll respond in character based on their personality.
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>📋 Quick Reference</h2>
+      <div class="command-list">
+        <dt>Movement:</dt>
+        <dd>go/look, n/s/e/w, move, walk</dd>
+        <dt>Items:</dt>
+        <dd>take, drop, inventory, give</dd>
+        <dt>Communication:</dt>
+        <dd>talk, say, emotes (nod, smile, wave, etc.)</dd>
+        <dt>Trading:</dt>
+        <dd>list, buy, search</dd>
+        <dt>Information:</dt>
+        <dd>look, who, time, help</dd>
+        <dt>Settings:</dt>
+        <dd>notify, quit, restart</dd>
+      </div>
+    </div>
+
+    <div class="footer">
+      <p>May your journey through Hollowvale be filled with adventure and discovery!</p>
+      <p style="margin-top: 10px; color: #444;">Tiny Web MUD - A text-based multiplayer adventure</p>
+    </div>
+  </div>
+</body>
+</html>
+

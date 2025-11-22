@@ -1736,7 +1736,7 @@ def _get_purchase_intent_user_message(text):
     return load_prompt("purchase_intent_user.txt", fallback_text=fallback, text=text)
 
 
-def _parse_purchase_intent_ai(text, merchant_items, npc, room_def, game, username, user_id=None, db_conn=None):
+def _parse_purchase_intent_ai(text, merchant_items, npc, room_def, game, username, user_id=None, db_conn=None, npc_id=None):
     """
     Use AI to parse purchase intent from natural language.
     Much more robust than pattern matching - understands context.
@@ -1747,11 +1747,37 @@ def _parse_purchase_intent_ai(text, merchant_items, npc, room_def, game, usernam
         return None, 0  # AI not available, fall back to pattern matching
     
     # Build list of available items for the AI
+    # Prices are calculated dynamically using the economy system
+    from economy import get_item_price, format_gold
+    
+    # Get npc_id - prefer passed parameter, then try to extract from npc object
+    npc_id_for_pricing = npc_id
+    if not npc_id_for_pricing:
+        if npc and hasattr(npc, 'id'):
+            npc_id_for_pricing = npc.id
+        elif npc and isinstance(npc, dict):
+            # Try to find npc_id by matching npc name
+            from npc import NPCS
+            for nid, n in NPCS.items():
+                if hasattr(n, 'name') and n.name == npc.get('name'):
+                    npc_id_for_pricing = nid
+                    break
+    
     items_list = []
     for item_key, item_info in merchant_items.items():
         display_name = item_info.get("display_name", item_key.replace("_", " "))
-        price = item_info["price"]
-        items_list.append(f"- {display_name} (key: {item_key}, price: {price} copper coin{'s' if price > 1 else ''})")
+        # Get price dynamically from economy system
+        try:
+            if npc_id_for_pricing:
+                price = get_item_price(item_key, npc_id_for_pricing, game)
+                price_str = format_gold(price)
+            else:
+                # Fallback: use a generic price estimate
+                price_str = "varies"
+        except Exception:
+            # Fallback if price calculation fails
+            price_str = "varies"
+        items_list.append(f"- {display_name} (key: {item_key}, price: {price_str})")
     
     items_text = "\n".join(items_list)
     
@@ -1804,7 +1830,7 @@ def _parse_purchase_intent_ai(text, merchant_items, npc, room_def, game, usernam
         return None, 0
 
 
-def _parse_purchase_intent(text, merchant_items, npc=None, room_def=None, game=None, username=None, user_id=None, db_conn=None):
+def _parse_purchase_intent(text, merchant_items, npc=None, room_def=None, game=None, username=None, user_id=None, db_conn=None, npc_id=None):
     """
     Parse natural language to detect purchase intent.
     Uses AI if available, falls back to pattern matching.
@@ -1813,7 +1839,7 @@ def _parse_purchase_intent(text, merchant_items, npc=None, room_def=None, game=N
     """
     # Try AI first if available and we have the necessary context
     if npc and room_def and game and generate_npc_reply:
-        ai_result = _parse_purchase_intent_ai(text, merchant_items, npc, room_def, game, username or "adventurer", user_id, db_conn)
+        ai_result = _parse_purchase_intent_ai(text, merchant_items, npc, room_def, game, username or "adventurer", user_id, db_conn, npc_id)
         if ai_result[0] is not None:
             return ai_result
     
@@ -2658,7 +2684,7 @@ def handle_command(
                     item_key, quantity = _parse_purchase_intent(
                         message, merchant_items, npc=npc, room_def=room_def,
                         game=game, username=username or "adventurer",
-                        user_id=user_id, db_conn=db_conn
+                        user_id=user_id, db_conn=db_conn, npc_id=npc_id
                     )
                     
                     if item_key:

@@ -288,6 +288,12 @@ def save_game(game):
 # --- Routes ---
 
 
+@app.route("/guide")
+def guide():
+    """Player's guide page - accessible without authentication."""
+    return render_template("guide.html", session=session)
+
+
 @app.route("/")
 @require_auth
 def index():
