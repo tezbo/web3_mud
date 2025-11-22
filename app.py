@@ -248,13 +248,14 @@ def get_game():
             # If character doesn't exist at all, it's backward compatibility - allow through (don't force onboarding)
             # Only require onboarding if character object exists but is incomplete
             character = game.get("character")
-            if character and isinstance(character, dict):
-                # Character object exists - check if it has race
-                if not character.get("race"):
-                    conn.close()
-                    return None  # Need onboarding to complete character
-                # Character has race - good to go
-            # If no character object, it's backward compatibility - allow through
+            if character and isinstance(character, dict) and character.get("race"):
+                # Character object exists and has race - good to go
+                pass
+            elif character and isinstance(character, dict) and not character.get("race"):
+                # Character object exists but no race - need onboarding
+                conn.close()
+                return None
+            # If no character object or empty character, it's backward compatibility - allow through
             
             # Load user description from users table
             user_row = conn.execute(
@@ -408,12 +409,17 @@ def welcome_command():
                     return jsonify({"redirect": url_for("index")})
                 
                 # Check if character object exists and is incomplete
+                # Only require onboarding if character object exists but has no race
+                # If no character object exists, it's backward compatibility - allow through
                 character = game.get("character")
-                if character and isinstance(character, dict) and not character.get("race"):
-                    # Character object exists but no race - need to complete onboarding
-                    session["onboarding_step"] = 1
-                    session["onboarding_state"] = {"step": 1, "character": character}
-                    return jsonify({"redirect": url_for("index")})
+                if character and isinstance(character, dict):
+                    # Character object exists - check if it has race
+                    if not character.get("race"):
+                        # Character object exists but no race - need to complete onboarding
+                        session["onboarding_step"] = 1
+                        session["onboarding_state"] = {"step": 1, "character": character}
+                        return jsonify({"redirect": url_for("index")})
+                    # Character has race - good to go
                 
                 # User has valid game state (with or without character object) - proceed to game
                 return jsonify({"redirect": url_for("index")})
