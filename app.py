@@ -235,11 +235,20 @@ def get_game():
             # Defensive: if game is corrupted, start fresh
             if not isinstance(game, dict) or "location" not in game:
                 conn.close()
+                # Check if character exists - if not, need onboarding
+                if not game.get("character"):
+                    return None
                 game = new_game_state(username)
                 ACTIVE_GAMES[username] = game
                 save_game(game)
                 save_state_to_disk()
                 return game
+            
+            # Check if character exists - if not, need onboarding
+            if not game.get("character") or not game.get("character", {}).get("race"):
+                conn.close()
+                return None
+            
             # Load user description from users table
             user_row = conn.execute(
                 "SELECT description FROM users WHERE id = ?",
@@ -252,25 +261,31 @@ def get_game():
             from economy import initialize_player_gold
             initialize_player_gold(game)
             game.setdefault("notify", {"login": False})
+            # Ensure character object exists (backward compatibility)
+            if "character" not in game:
+                game["character"] = {
+                    "race": "",
+                    "gender": "",
+                    "stats": {"str": 0, "agi": 0, "wis": 0, "wil": 0, "luck": 0},
+                    "backstory": "",
+                    "backstory_text": "",
+                    "description": "",
+                }
             # Store in memory
             ACTIVE_GAMES[username] = game
             save_state_to_disk()
             return game
         except (json.JSONDecodeError, TypeError):
-            # If JSON is corrupted, start fresh
-            game = new_game_state(username)
-            ACTIVE_GAMES[username] = game
-            save_game(game)
-            save_state_to_disk()
-            return game
+            # If JSON is corrupted, check if we need onboarding
+            conn.close()
+            return None
     else:
-        # No game state exists, create new one
-        game = new_game_state(username)
-        # Store in memory
-        ACTIVE_GAMES[username] = game
-        save_game(game)
-        save_state_to_disk()
-        return game
+        # No game state exists - check if character exists (onboarding complete)
+        # If no character, user needs onboarding
+        # For now, return None to indicate onboarding needed
+        # The index route will handle this
+        conn.close()
+        return None
 
 
 def save_game(game):
@@ -354,15 +369,70 @@ def guide():
 @app.route("/")
 @require_auth
 def index():
+    # Check if user is in onboarding
+    onboarding_step = session.get("onboarding_step")
+    if onboarding_step and onboarding_step != "complete":
+        # User is in onboarding - show onboarding screen
+        from game_engine import ONBOARDING_INTRO, handle_onboarding_command
+        
+        # Initialize onboarding if needed
+        if onboarding_step == "start":
+            onboarding_state = {
+                "step": 1,
+                "character": {}
+            }
+            session["onboarding_state"] = onboarding_state
+            session["onboarding_step"] = 1
+            log = [ONBOARDING_INTRO, "...", "...", "...", "Type 'continue' or press Enter to begin."]
+        else:
+            onboarding_state = session.get("onboarding_state", {"step": 1, "character": {}})
+            log = ["Continue your character creation..."]
+        
+        processed_log = highlight_exits_in_log(log)
+        return render_template("index.html", log=processed_log, session=session, onboarding=True)
+    
     # Ensure game exists (this loads from DB or creates new)
     game = get_game()
+    
+    # If no game state and onboarding is complete, create new game
+    if game is None:
+        # Check if onboarding was just completed
+        onboarding_state = session.get("onboarding_state")
+        if onboarding_state and onboarding_state.get("step") == 6:
+            # Onboarding complete - create game with character
+            character = onboarding_state.get("character", {})
+            game = new_game_state(username=session.get("username", "adventurer"), character=character)
+            ACTIVE_GAMES[session.get("username")] = game
+            save_game(game)
+            save_state_to_disk()
+            
+            # Add special Old Storyteller greeting
+            from game_engine import NPCS, AVAILABLE_RACES, AVAILABLE_BACKSTORIES, describe_location
+            if "old_storyteller" in NPCS:
+                storyteller = NPCS["old_storyteller"]
+                race_name = AVAILABLE_RACES.get(character.get("race", ""), {}).get("name", "traveler")
+                backstory_name = AVAILABLE_BACKSTORIES.get(character.get("backstory", ""), {}).get("name", "mystery")
+                possessive = getattr(storyteller, 'possessive', 'their')
+                greeting = f"The Old Storyteller looks up from {possessive} tales and smiles warmly. 'Ah, a {race_name} with a {backstory_name.lower()}... Welcome to Hollowvale, {session.get('username')}. Your story is just beginning.'"
+                game["log"].append(greeting)
+                game["log"].append(describe_location(game))
+                save_game(game)
+            
+            # Clear onboarding from session
+            session.pop("onboarding_step", None)
+            session.pop("onboarding_state", None)
+        else:
+            # Start onboarding
+            session["onboarding_step"] = "start"
+            return redirect(url_for("index"))
+    
     # For brand new games (just initial welcome messages), add location description
-    if len(game["log"]) == 2 and "Type 'look' to see where you are" in game["log"][-1]:
+    if len(game.get("log", [])) == 2 and "Type 'look' to see where you are" in game["log"][-1]:
         game["log"].append(describe_location(game))
         save_game(game)
     # Process log to highlight Exits in yellow
     processed_log = highlight_exits_in_log(game["log"])
-    return render_template("index.html", log=processed_log, session=session)
+    return render_template("index.html", log=processed_log, session=session, onboarding=False)
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -464,9 +534,22 @@ def register():
         conn.commit()
         conn.close()
         
-        # Redirect to welcome screen for first-time users
-        flash(f"Welcome, {username}! Your account has been created.", "success")
-        return redirect(url_for("welcome", new_user=True))
+        # Log the user in automatically after registration
+        user = conn.execute(
+            "SELECT id, username FROM users WHERE username = ?",
+            (username,)
+        ).fetchone()
+        conn.close()
+        
+        if user:
+            session["user_id"] = user["id"]
+            session["username"] = user["username"]
+            # Start onboarding immediately
+            session["onboarding_step"] = "start"
+            return redirect(url_for("index"))
+        
+        flash("Registration successful! Please log in.", "success")
+        return redirect(url_for("login"))
     
     return render_template("login.html", show_register=True)
 
@@ -499,11 +582,79 @@ def logout():
 @app.route("/command", methods=["POST"])
 @require_auth
 def command():
-    game = get_game()
     data = request.get_json() or {}
     cmd = data.get("command", "")
     username = session.get("username", "adventurer")
     user_id = session.get("user_id")
+    
+    # Check if user is in onboarding
+    onboarding_step = session.get("onboarding_step")
+    if onboarding_step and onboarding_step != "complete":
+        # Handle onboarding commands
+        from game_engine import handle_onboarding_command, ONBOARDING_INTRO
+        
+        onboarding_state = session.get("onboarding_state", {"step": 1, "character": {}})
+        
+        # Handle "continue" or empty command to start
+        if onboarding_step == "start" and (not cmd or cmd.lower() in ["continue", "start", ""]):
+            onboarding_state = {"step": 1, "character": {}}
+            session["onboarding_state"] = onboarding_state
+            session["onboarding_step"] = 1
+            response = ONBOARDING_INTRO + "\n\n" + "...\n...\n...\n\n" + "The voice speaks again:\n\n\"First, tell me: what form do you remember? What blood flows in your veins?\"\n\nChoose your race:\n- human\n- elf\n- dwarf\n- halfling\n- fae-touched\n- outlander\n\nType the name of your race:"
+            log = response.split("\n")
+            processed_log = highlight_exits_in_log(log)
+            return jsonify({"response": response, "log": processed_log, "onboarding": True})
+        
+        # Process onboarding command
+        response, updated_state, is_complete = handle_onboarding_command(cmd, onboarding_state, username)
+        session["onboarding_state"] = updated_state
+        
+        if is_complete:
+            session["onboarding_step"] = "complete"
+            # Create game state with character
+            character = updated_state.get("character", {})
+            game = new_game_state(username=username, character=character)
+            ACTIVE_GAMES[username] = game
+            save_game(game)
+            save_state_to_disk()
+            
+            # Add special Old Storyteller greeting
+            from game_engine import NPCS, AVAILABLE_RACES, AVAILABLE_BACKSTORIES, describe_location
+            if "old_storyteller" in NPCS:
+                storyteller = NPCS["old_storyteller"]
+                race_name = AVAILABLE_RACES.get(character.get("race", ""), {}).get("name", "traveler")
+                backstory_name = AVAILABLE_BACKSTORIES.get(character.get("backstory", ""), {}).get("name", "mystery")
+                # Old Storyteller is an NPC object, check for possessive attribute
+                possessive = getattr(storyteller, 'possessive', 'their') if hasattr(storyteller, 'possessive') else 'their'
+                greeting = f"The Old Storyteller looks up from {possessive} tales and smiles warmly. 'Ah, a {race_name} with a {backstory_name.lower()}... Welcome to Hollowvale, {username}. Your story is just beginning.'"
+                game["log"].append(greeting)
+                game["log"].append(describe_location(game))
+                save_game(game)
+            
+            log = game["log"]
+        else:
+            # Add delay dots for narrative effect
+            log = response.split("\n")
+            # Add dots between paragraphs for dramatic effect
+            formatted_log = []
+            for i, line in enumerate(log):
+                formatted_log.append(line)
+                if line.strip() and i < len(log) - 1 and log[i+1].strip():
+                    formatted_log.append("...")
+            log = formatted_log
+        
+        processed_log = highlight_exits_in_log(log)
+        return jsonify({"response": response, "log": processed_log, "onboarding": not is_complete})
+    
+    # Normal game command handling
+    game = get_game()
+    if game is None:
+        # No game state - should start onboarding
+        session["onboarding_step"] = "start"
+        from game_engine import ONBOARDING_INTRO
+        log = [ONBOARDING_INTRO, "...", "...", "...", "Type 'continue' or press Enter to begin."]
+        processed_log = highlight_exits_in_log(log)
+        return jsonify({"response": "Please complete character creation first.", "log": processed_log, "onboarding": True})
     
     # Create broadcast function for this user
     def broadcast_fn(room_id, text):

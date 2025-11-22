@@ -28,6 +28,246 @@ from npc import NPCS, match_npc_in_room, get_npc_reaction, generate_npc_line
 # Admin users (can be extended via environment variable or database)
 ADMIN_USERS = set(os.environ.get("ADMIN_USERS", "admin,tezbo").split(","))
 
+# --- Character Creation & Onboarding Constants ---
+
+AVAILABLE_RACES = {
+    "human": {
+        "name": "Human",
+        "description": "Versatile and adaptable, humans are the most common folk in Hollowvale. You have no special abilities, but your flexibility allows you to excel in any path you choose.",
+    },
+    "elf": {
+        "name": "Elf",
+        "description": "Graceful and long-lived, elves have keen senses and a natural affinity for the arcane. You move with an otherworldly elegance.",
+    },
+    "dwarf": {
+        "name": "Dwarf",
+        "description": "Sturdy and resilient, dwarves are masters of craft and stone. You have a natural toughness and an eye for detail.",
+    },
+    "halfling": {
+        "name": "Halfling",
+        "description": "Small but determined, halflings are known for their luck and resourcefulness. You have a knack for finding opportunities where others see none.",
+    },
+    "fae-touched": {
+        "name": "Fairy",
+        "description": "Touched by the magic of the fae realm, you have an otherworldly presence. Reality seems to bend slightly around you.",
+    },
+    "outlander": {
+        "name": "Lyzard",
+        "description": "From lands unknown, you are a mystery to most. Your origins are strange, and you carry the weight of distant places.",
+    },
+}
+
+AVAILABLE_GENDERS = {
+    "male": {"name": "Male", "pronoun": "he", "pronoun_cap": "He", "possessive": "his"},
+    "female": {"name": "Female", "pronoun": "she", "pronoun_cap": "She", "possessive": "her"},
+    "nonbinary": {"name": "Nonbinary", "pronoun": "they", "pronoun_cap": "They", "possessive": "their"},
+    "other": {"name": "Other", "pronoun": "they", "pronoun_cap": "They", "possessive": "their"},
+}
+
+AVAILABLE_BACKSTORIES = {
+    "scarred_past": {
+        "name": "Scarred Past",
+        "description": "You carry the weight of loss and hardship. Your past has left marks, but also made you stronger.",
+    },
+    "forgotten_lineage": {
+        "name": "Forgotten Lineage",
+        "description": "You know little of your true heritage, but sense there is more to your story than meets the eye.",
+    },
+    "broken_oath": {
+        "name": "Broken Oath",
+        "description": "You once made a promise you could not keep. The weight of that failure drives you forward.",
+    },
+    "hopeful_spark": {
+        "name": "Hopeful Spark",
+        "description": "Despite the darkness in the world, you carry a light within. You believe in better days ahead.",
+    },
+    "quiet_mystery": {
+        "name": "Quiet Mystery",
+        "description": "You prefer to keep your past to yourself. There are things you know that others do not.",
+    },
+    "custom": {
+        "name": "Custom",
+        "description": "Your story is your own to tell.",
+    },
+}
+
+STAT_NAMES = {
+    "str": "Strength",
+    "agi": "Agility",
+    "wis": "Wisdom",
+    "wil": "Willpower",
+    "luck": "Luck",
+}
+
+TOTAL_STAT_POINTS = 10
+
+# --- Onboarding Narrative Text ---
+
+ONBOARDING_INTRO = """In the darkness, you drift...
+
+A voice, ancient and warm, reaches through the void:
+
+"Awaken, lost soul. Your journey begins in the realm between worlds."
+
+Slowly, awareness returns. You feel... something. A presence. A purpose.
+
+"Before you step into Hollowvale, you must remember who you are."
+
+The darkness begins to fade..."""
+
+ONBOARDING_RACE_PROMPT = """The voice speaks again:
+
+"First, tell me: what form do you remember? What blood flows in your veins?"
+
+Choose your race:
+- human
+- elf
+- dwarf
+- halfling
+- fae-touched
+- outlander
+
+Type the name of your race:"""
+
+ONBOARDING_GENDER_PROMPT = """"Good. Now, how do you know yourself? What is your nature?"
+
+Choose your gender:
+- male
+- female
+- nonbinary
+- other
+
+Type your choice:"""
+
+ONBOARDING_STATS_PROMPT = """"Your essence takes shape. Now, where do your strengths lie?"
+
+You have 10 points to distribute across five attributes:
+- str (Strength): Physical power and might
+- agi (Agility): Speed, dexterity, and reflexes
+- wis (Wisdom): Knowledge, insight, and understanding
+- wil (Willpower): Mental fortitude and determination
+- luck (Luck): Fortune and chance
+
+Enter your stat allocation like this: str 3, agi 2, wis 2, wil 2, luck 1
+(All five stats must total exactly 10 points)
+
+Your allocation:"""
+
+ONBOARDING_BACKSTORY_PROMPT = """"Every soul carries a story. What is yours?"
+
+Choose your backstory:
+- scarred_past: You carry the weight of loss and hardship
+- forgotten_lineage: You know little of your true heritage
+- broken_oath: You once made a promise you could not keep
+- hopeful_spark: You believe in better days ahead
+- quiet_mystery: You prefer to keep your past to yourself
+- custom: Your story is your own to tell
+
+Type your choice (or 'custom' to write your own):"""
+
+ONBOARDING_COMPLETE = """The voice grows distant:
+
+"Your form is complete. Your story begins. Welcome to Hollowvale, {username}."
+
+Light floods your vision. The darkness fades away...
+
+You find yourself standing in the Town Square of Hollowvale, a frontier town where adventure awaits."""
+
+
+def handle_onboarding_command(command, onboarding_state, username):
+    """
+    Handle commands during the onboarding process.
+    
+    Args:
+        command: User's command input
+        onboarding_state: Dict with onboarding_step and character data
+        username: Player's username
+    
+    Returns:
+        tuple: (response_text, updated_onboarding_state, is_complete)
+    """
+    step = onboarding_state.get("step", 1)
+    character = onboarding_state.get("character", {})
+    command_lower = command.strip().lower()
+    
+    if step == 1:  # Race selection
+        if command_lower in AVAILABLE_RACES:
+            character["race"] = command_lower
+            onboarding_state["character"] = character
+            onboarding_state["step"] = 2
+            return ONBOARDING_GENDER_PROMPT, onboarding_state, False
+        else:
+            return "Please choose a valid race: human, elf, dwarf, halfling, fae-touched, or outlander", onboarding_state, False
+    
+    elif step == 2:  # Gender selection
+        if command_lower in AVAILABLE_GENDERS:
+            character["gender"] = command_lower
+            onboarding_state["character"] = character
+            onboarding_state["step"] = 3
+            return ONBOARDING_STATS_PROMPT, onboarding_state, False
+        else:
+            return "Please choose a valid gender: male, female, nonbinary, or other", onboarding_state, False
+    
+    elif step == 3:  # Stat allocation
+        # Parse stat allocation: "str 3, agi 2, wis 2, wil 2, luck 1"
+        stats = {"str": 0, "agi": 0, "wis": 0, "wil": 0, "luck": 0}
+        try:
+            # Split by comma and parse each stat
+            parts = [p.strip() for p in command_lower.split(",")]
+            for part in parts:
+                if not part:
+                    continue
+                # Match pattern like "str 3" or "str:3" or "str=3"
+                match = re.match(r'(\w+)\s*[:=]?\s*(\d+)', part)
+                if match:
+                    stat_name = match.group(1).lower()
+                    stat_value = int(match.group(2))
+                    if stat_name in stats:
+                        stats[stat_name] = stat_value
+                    else:
+                        return f"Unknown stat: {stat_name}. Valid stats are: str, agi, wis, wil, luck", onboarding_state, False
+            
+            # Validate total
+            total = sum(stats.values())
+            if total != TOTAL_STAT_POINTS:
+                return f"Your stats must total exactly {TOTAL_STAT_POINTS} points. You allocated {total} points. Please try again.", onboarding_state, False
+            
+            # Check for negative values
+            if any(v < 0 for v in stats.values()):
+                return "Stat values cannot be negative. Please try again.", onboarding_state, False
+            
+            character["stats"] = stats
+            onboarding_state["character"] = character
+            onboarding_state["step"] = 4
+            return ONBOARDING_BACKSTORY_PROMPT, onboarding_state, False
+        except Exception as e:
+            return f"Invalid stat format. Please use: str 3, agi 2, wis 2, wil 2, luck 1", onboarding_state, False
+    
+    elif step == 4:  # Backstory selection
+        if command_lower == "custom":
+            onboarding_state["step"] = 5  # Custom backstory input
+            return "Tell me your story in your own words (keep it brief, 1-2 sentences):", onboarding_state, False
+        elif command_lower in AVAILABLE_BACKSTORIES:
+            character["backstory"] = command_lower
+            character["backstory_text"] = AVAILABLE_BACKSTORIES[command_lower]["description"]
+            onboarding_state["character"] = character
+            onboarding_state["step"] = 6  # Complete
+            return ONBOARDING_COMPLETE.format(username=username), onboarding_state, True
+        else:
+            return "Please choose a valid backstory or type 'custom' to write your own.", onboarding_state, False
+    
+    elif step == 5:  # Custom backstory input
+        if command_lower and len(command_lower) > 5:
+            character["backstory"] = "custom"
+            character["backstory_text"] = command.strip()  # Keep original case
+            onboarding_state["character"] = character
+            onboarding_state["step"] = 6  # Complete
+            return ONBOARDING_COMPLETE.format(username=username), onboarding_state, True
+        else:
+            return "Please provide a brief backstory (at least a few words).", onboarding_state, False
+    
+    return "Invalid command during onboarding.", onboarding_state, False
+
 
 def is_admin_user(username=None, game=None):
     """
@@ -1193,14 +1433,44 @@ def _format_player_look(game, username, db_conn=None):
         str: Player-facing self-description
     """
     lines = ["You look at yourself."]
-    lines.append("You are an adventurer in Hollowvale.")
+    
+    # Character info (race, gender, stats, backstory)
+    character = game.get("character", {})
+    if character:
+        race = character.get("race", "")
+        gender = character.get("gender", "")
+        stats = character.get("stats", {})
+        backstory_text = character.get("backstory_text", "")
+        
+        if race:
+            race_name = AVAILABLE_RACES.get(race, {}).get("name", race.capitalize())
+            gender_name = AVAILABLE_GENDERS.get(gender, {}).get("name", gender.capitalize()) if gender else ""
+            if gender_name:
+                lines.append(f"You are a {gender_name.lower()} {race_name.lower()} adventurer in Hollowvale.")
+            else:
+                lines.append(f"You are a {race_name.lower()} adventurer in Hollowvale.")
+        else:
+            lines.append("You are an adventurer in Hollowvale.")
+        
+        # Stats
+        if stats and any(v > 0 for v in stats.values()):
+            stat_lines = []
+            for stat_key, stat_value in stats.items():
+                stat_name = STAT_NAMES.get(stat_key, stat_key.capitalize())
+                stat_lines.append(f"{stat_name}: {stat_value}")
+            lines.append("Stats: " + ", ".join(stat_lines))
+        
+        # Backstory
+        if backstory_text:
+            lines.append(f"Backstory: {backstory_text}")
+    else:
+        lines.append("You are an adventurer in Hollowvale.")
     
     # User description (first person)
     description = game.get("user_description")
     if not description and db_conn:
         # Try to load from database if not in game state
         try:
-            from app import get_db
             if db_conn:
                 user_row = db_conn.execute(
                     "SELECT description FROM users WHERE username = ?",
@@ -1261,7 +1531,31 @@ def _format_other_player_look(target_username, target_game, db_conn=None):
         str: Player-facing description of other player
     """
     lines = [f"You look at {target_username}."]
-    lines.append(f"{target_username} is an adventurer in Hollowvale.")
+    
+    # Character info (race, gender, stats, backstory)
+    character = target_game.get("character", {})
+    if character:
+        race = character.get("race", "")
+        gender = character.get("gender", "")
+        
+        # Get pronoun from gender
+        gender_info = AVAILABLE_GENDERS.get(gender, {})
+        pronoun = gender_info.get("pronoun", "they")
+        pronoun_cap = gender_info.get("pronoun_cap", "They")
+        
+        if race:
+            race_name = AVAILABLE_RACES.get(race, {}).get("name", race.capitalize())
+            gender_name = gender_info.get("name", gender.capitalize()) if gender else ""
+            if gender_name:
+                lines.append(f"{target_username} is a {gender_name.lower()} {race_name.lower()} adventurer in Hollowvale.")
+            else:
+                lines.append(f"{target_username} is a {race_name.lower()} adventurer in Hollowvale.")
+        else:
+            lines.append(f"{target_username} is an adventurer in Hollowvale.")
+    else:
+        # Default pronoun if no character info
+        pronoun_cap = "He"
+        lines.append(f"{target_username} is an adventurer in Hollowvale.")
     
     # User description (third person)
     description = target_game.get("user_description")
@@ -1279,11 +1573,11 @@ def _format_other_player_look(target_username, target_game, db_conn=None):
             pass
     
     if description:
-        # Determine pronoun (he/she/they) - for now default to "he" to match example
-        # Could be enhanced later with gender/pronoun preferences stored in user profile
-        pronoun = "he"  # Default
-        pronoun_cap = "He"
-        
+        # Get pronoun from character if available
+        if character:
+            gender = character.get("gender", "")
+            gender_info = AVAILABLE_GENDERS.get(gender, {})
+            pronoun_cap = gender_info.get("pronoun_cap", "They")
         # Third person: "He/She/They is..."
         lines.append(f"{pronoun_cap} is {description}.")
     
@@ -1433,6 +1727,26 @@ def _format_player_stat(game, username):
     lines = ["Player:"]
     lines.append(f"Name: {username}")
     
+    # Character object
+    character = game.get("character", {})
+    if character:
+        lines.append("Character:")
+        lines.append(f"  Race: {character.get('race', 'none')}")
+        lines.append(f"  Gender: {character.get('gender', 'none')}")
+        stats = character.get("stats", {})
+        if stats:
+            lines.append("  Stats:")
+            for stat_key, stat_value in stats.items():
+                stat_name = STAT_NAMES.get(stat_key, stat_key.capitalize())
+                lines.append(f"    {stat_name}: {stat_value}")
+        lines.append(f"  Backstory: {character.get('backstory', 'none')}")
+        if character.get("backstory_text"):
+            lines.append(f"  Backstory Text: {character.get('backstory_text')}")
+        if character.get("description"):
+            lines.append(f"  Description: {character.get('description')}")
+    else:
+        lines.append("Character: (not created)")
+    
     # Location
     loc_id = game.get("location", "town_square")
     room_name = WORLD.get(loc_id, {}).get("name", loc_id)
@@ -1497,7 +1811,7 @@ def move_npc(npc_id, new_room_id):
 init_npc_state()
 
 
-def new_game_state(username="adventurer"):
+def new_game_state(username="adventurer", character=None):
     """
     Create a fresh game state for one player.
 
@@ -1507,16 +1821,30 @@ def new_game_state(username="adventurer"):
 
     Args:
         username: The username of the player (default: "adventurer")
+        character: Optional character object from onboarding
 
     Returns:
         dict: A new game state dictionary
     """
     # Initialize economy (currency system)
     from economy.economy_manager import initialize_player_currency
+    
+    # Create character object if not provided (for backward compatibility)
+    if character is None:
+        character = {
+            "race": "",
+            "gender": "",
+            "stats": {"str": 0, "agi": 0, "wis": 0, "wil": 0, "luck": 0},
+            "backstory": "",
+            "backstory_text": "",
+            "description": "",
+        }
+    
     game_state = {
         "location": "town_square",
         "inventory": [],
         "max_carry_weight": 20.0,  # Default max carry weight in kg
+        "character": character,  # Character object
         "log": [
             "Welcome to the Tiny MUD, " + username + "!",
             "Type 'look' to see where you are, 'go north/east/south/west' to move, "
