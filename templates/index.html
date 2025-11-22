@@ -6,8 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
     body {
-      background: #111;
-      color: #eee;
+      background: #0a0a0a;
+      color: #e0e0e0;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       margin: 0;
       padding: 0;
@@ -19,10 +19,10 @@
     .container {
       display: flex;
       flex-direction: column;
-      max-width: 800px;
+      max-width: 900px;
       width: 100%;
       margin: 0 auto;
-      padding: 12px;
+      padding: 16px;
       flex: 1;
       min-height: 0;
       overflow: hidden;
@@ -31,65 +31,152 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 12px;
-      padding-bottom: 12px;
-      border-bottom: 1px solid #444;
+      margin-bottom: 16px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid #333;
       font-size: 14px;
       flex-shrink: 0;
     }
     .top-bar a {
-      color: #3b82f6;
+      color: #60a5fa;
       text-decoration: none;
+      transition: color 0.2s;
     }
     .top-bar a:hover {
+      color: #93c5fd;
       text-decoration: underline;
     }
     .top-bar strong {
-      color: #eee;
+      color: #f0f0f0;
+      font-weight: 600;
     }
     #output {
       flex: 1;
-      border: 1px solid #444;
-      border-radius: 4px;
-      padding: 8px;
+      border: 1px solid #333;
+      border-radius: 6px;
+      padding: 16px;
       overflow-y: auto;
       white-space: pre-wrap;
-      background: #050505;
-      font-family: monospace;
+      background: #0f0f0f;
+      font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
       font-size: 14px;
+      line-height: 1.6;
+      word-wrap: break-word;
+    }
+    /* Scrollbar styling */
+    #output::-webkit-scrollbar {
+      width: 8px;
+    }
+    #output::-webkit-scrollbar-track {
+      background: #1a1a1a;
+      border-radius: 4px;
+    }
+    #output::-webkit-scrollbar-thumb {
+      background: #444;
+      border-radius: 4px;
+    }
+    #output::-webkit-scrollbar-thumb:hover {
+      background: #555;
+    }
+    /* Text styling classes */
+    #output .command-prompt {
+      color: #60a5fa;
+      font-weight: 600;
+    }
+    #output .system-message {
+      color: #9ca3af;
+      font-style: italic;
+    }
+    #output .error-message {
+      color: #f87171;
+      font-weight: 500;
+    }
+    #output .success-message {
+      color: #34d399;
+    }
+    #output .npc-message {
+      color: #fbbf24;
+      font-weight: 500;
+    }
+    #output .location-name {
+      color: #a78bfa;
+      font-weight: 600;
+      font-size: 15px;
+    }
+    #output .item-name {
+      color: #60a5fa;
+      font-weight: 500;
     }
     #output .exits-highlight {
-      color: #ffff00;
+      color: #fbbf24;
       font-weight: bold;
+    }
+    #output .wallet-info {
+      color: #34d399;
+      font-weight: 500;
+    }
+    /* Spacing between messages */
+    #output > * {
+      margin-bottom: 8px;
     }
     .input-row {
       display: flex;
-      margin-top: 8px;
-      gap: 8px;
+      margin-top: 12px;
+      gap: 10px;
       flex-shrink: 0;
     }
     #command {
       flex: 1;
-      padding: 8px;
-      border-radius: 4px;
-      border: 1px solid #444;
+      padding: 10px 14px;
+      border-radius: 6px;
+      border: 1px solid #333;
       background: #1a1a1a;
-      color: #eee;
-      font-family: monospace;
+      color: #e0e0e0;
+      font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
       font-size: 14px;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    #command:focus {
+      outline: none;
+      border-color: #60a5fa;
+      background: #1f1f1f;
     }
     button {
-      padding: 8px 12px;
-      border-radius: 4px;
+      padding: 10px 20px;
+      border-radius: 6px;
       border: none;
       background: #3b82f6;
       color: #fff;
       font-size: 14px;
+      font-weight: 500;
       cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+    }
+    button:hover:not(:disabled) {
+      background: #2563eb;
+      transform: translateY(-1px);
+    }
+    button:active:not(:disabled) {
+      transform: translateY(0);
     }
     button:disabled {
       opacity: 0.6;
       cursor: default;
+    }
+    /* Typing indicator */
+    .typing-indicator {
+      color: #9ca3af;
+      font-style: italic;
+      opacity: 0.7;
+    }
+    .typing-indicator::after {
+      content: '...';
+      animation: dots 1.5s steps(4, end) infinite;
+    }
+    @keyframes dots {
+      0%, 20% { content: '.'; }
+      40% { content: '..'; }
+      60%, 100% { content: '...'; }
     }
   </style>
 </head>
@@ -118,47 +205,137 @@
     const commandEl = document.getElementById("command");
     const sendBtn = document.getElementById("sendBtn");
 
+    // Auto-scroll to bottom on page load
+    function scrollToBottom() {
+      outputEl.scrollTop = outputEl.scrollHeight;
+    }
+    
+    // Scroll to bottom when page loads
+    window.addEventListener('load', () => {
+      setTimeout(scrollToBottom, 100);
+    });
+    
+    // Also scroll on initial render
+    setTimeout(scrollToBottom, 50);
+
     function processLogForDisplay(logArray) {
-      // Process each log entry to highlight "Exits:" in yellow if not already HTML
+      // Process each log entry to add styling and formatting
       return logArray.map(entry => {
-        // Replace "Exits:" with highlighted version if not already HTML
-        if (entry.includes('Exits:') && !entry.includes('<span')) {
-          entry = entry.replace(/Exits:/g, '<span style="color: #ffff00; font-weight: bold;">Exits:</span>');
+        if (!entry || typeof entry !== 'string') return entry;
+        
+        let processed = entry;
+        
+        // Skip if already HTML
+        if (processed.includes('<span') || processed.includes('<div')) {
+          return processed;
         }
-        return entry;
+        
+        // Highlight command prompts (lines starting with >)
+        if (processed.startsWith('> ')) {
+          processed = `<span class="command-prompt">${processed}</span>`;
+        }
+        
+        // Highlight Exits:
+        processed = processed.replace(/Exits:/g, '<span class="exits-highlight">Exits:</span>');
+        
+        // Highlight error messages
+        if (processed.includes('[Error') || processed.includes('Error:') || processed.includes("can't") || processed.includes("don't")) {
+          processed = `<span class="error-message">${processed}</span>`;
+        }
+        
+        // Highlight success messages (You pick up, You drop, etc.)
+        if (processed.match(/^You (pick up|drop|take|give|buy|sell)/i)) {
+          processed = `<span class="success-message">${processed}</span>`;
+        }
+        
+        // Highlight NPC messages (NPC says, NPC name:)
+        if (processed.match(/^[A-Z][a-z]+ (says|says:|replies|replies:)/) || processed.match(/^[A-Z][a-z]+:/)) {
+          processed = `<span class="npc-message">${processed}</span>`;
+        }
+        
+        // Highlight wallet info
+        if (processed.includes('Wallet:') || processed.includes('You have') && processed.includes('coin')) {
+          processed = processed.replace(/Wallet:.*/g, (match) => `<span class="wallet-info">${match}</span>`);
+        }
+        
+        // Highlight location names (in descriptions)
+        if (processed.match(/^(You are in|You stand in|Welcome to) [A-Z]/)) {
+          processed = processed.replace(/([A-Z][a-z]+ [A-Z]?[a-z]+ (Town Square|Tavern|Smithy|Lane|Path|Shrine|Watchtower|Forest|Edge))/g, 
+            '<span class="location-name">$1</span>');
+        }
+        
+        // Add spacing after certain message types
+        if (processed.match(/^(You are carrying|Inventory:|Wallet:)/)) {
+          processed = processed + '<br>';
+        }
+        
+        return processed;
       }).join('\n');
     }
 
-    function appendText(text) {
+    function appendText(text, showTyping = false) {
+      // Show typing indicator if requested
+      if (showTyping) {
+        const typingEl = document.createElement('div');
+        typingEl.className = 'typing-indicator';
+        typingEl.textContent = 'Thinking';
+        outputEl.appendChild(typingEl);
+        scrollToBottom();
+      }
+      
       // If text is a string (from error), process it; if it's an array, process it
       if (typeof text === 'string') {
-        // Process string to highlight Exits:
-        text = text.replace(/Exits:/g, '<span style="color: #ffff00; font-weight: bold;">Exits:</span>');
+        // Process string to highlight various elements
+        text = text.replace(/Exits:/g, '<span class="exits-highlight">Exits:</span>');
+        if (text.includes('[Error') || text.includes('Error:')) {
+          text = `<span class="error-message">${text}</span>`;
+        }
         outputEl.innerHTML = text;
       } else {
         // Process array of log entries
         outputEl.innerHTML = processLogForDisplay(text);
       }
-      outputEl.scrollTop = outputEl.scrollHeight;
+      scrollToBottom();
     }
 
     async function sendCommand() {
       const cmd = commandEl.value.trim();
       if (!cmd) return;
+      
+      // Show user's command immediately
+      const commandLine = `> ${cmd}`;
+      appendText(outputEl.innerHTML + '\n' + `<span class="command-prompt">${commandLine}</span>`, false);
+      
       sendBtn.disabled = true;
-
+      
+      // Add slight delay for natural feel (200-400ms)
+      const delay = Math.random() * 200 + 200;
+      
       try {
+        // Show typing indicator
+        const typingEl = document.createElement('div');
+        typingEl.className = 'typing-indicator';
+        typingEl.textContent = 'Thinking';
+        outputEl.appendChild(typingEl);
+        scrollToBottom();
+        
+        await new Promise(resolve => setTimeout(resolve, delay));
+        
         const res = await fetch("/command", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ command: cmd }),
         });
         
+        // Remove typing indicator
+        const typingIndicators = outputEl.querySelectorAll('.typing-indicator');
+        typingIndicators.forEach(el => el.remove());
+        
         // Check if response is OK
         if (!res.ok) {
           const errorText = await res.text();
           console.error("Server error:", res.status, errorText);
-          appendText(outputEl.textContent + `\n[Error: Server returned ${res.status}. Please try again.]`);
+          appendText(outputEl.innerHTML + `\n<span class="error-message">[Error: Server returned ${res.status}. Please try again.]</span>`, false);
           return;
         }
         
@@ -172,10 +349,14 @@
         }
         
         // Pass the log array directly for proper processing
-        appendText(data.log);
+        appendText(data.log, false);
       } catch (e) {
+        // Remove typing indicator on error
+        const typingIndicators = outputEl.querySelectorAll('.typing-indicator');
+        typingIndicators.forEach(el => el.remove());
+        
         console.error("Error sending command:", e);
-        appendText(outputEl.textContent + "\n[Error sending command. Please check your connection and try again.]");
+        appendText(outputEl.innerHTML + `\n<span class="error-message">[Error sending command. Please check your connection and try again.]</span>`, false);
       } finally {
         commandEl.value = "";
         commandEl.focus();
@@ -191,8 +372,19 @@
       }
     });
 
-    // Focus input on load
-    commandEl.focus();
+    // Focus input on load and scroll to bottom
+    window.addEventListener('load', () => {
+      commandEl.focus();
+      setTimeout(scrollToBottom, 100);
+    });
+    
+    // Also scroll on DOMContentLoaded
+    document.addEventListener('DOMContentLoaded', () => {
+      setTimeout(scrollToBottom, 50);
+    });
+    
+    // Initial scroll
+    setTimeout(scrollToBottom, 50);
   </script>
 </body>
 </html>
