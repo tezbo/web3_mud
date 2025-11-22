@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Welcome to Hollowvale - Tiny Web MUD</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      background: #0a0a0a;
+      color: #e0e0e0;
+      font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+    .welcome-container {
+      max-width: 900px;
+      width: 100%;
+      background: #0f0f0f;
+      border: 1px solid #333;
+      border-radius: 8px;
+      padding: 40px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+    }
+    .ascii-art {
+      color: #fbbf24;
+      font-size: 12px;
+      line-height: 1.2;
+      text-align: center;
+      margin: 20px 0;
+      white-space: pre;
+      overflow-x: auto;
+    }
+    .welcome-text {
+      color: #60a5fa;
+      font-size: 16px;
+      line-height: 1.8;
+      margin: 30px 0;
+      text-align: center;
+    }
+    .menu {
+      background: #1a1a1a;
+      border: 1px solid #333;
+      border-radius: 6px;
+      padding: 24px;
+      margin: 30px 0;
+    }
+    .menu-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid #2a2a2a;
+      font-size: 14px;
+    }
+    .menu-item:last-child {
+      border-bottom: none;
+    }
+    .menu-key {
+      color: #fbbf24;
+      font-weight: bold;
+      min-width: 30px;
+    }
+    .menu-desc {
+      color: #e0e0e0;
+      flex: 1;
+    }
+    .prompt {
+      margin-top: 30px;
+      font-size: 16px;
+      color: #60a5fa;
+    }
+    .input-group {
+      display: flex;
+      gap: 10px;
+      margin-top: 15px;
+    }
+    input[type="text"] {
+      flex: 1;
+      padding: 12px;
+      border-radius: 6px;
+      border: 1px solid #333;
+      background: #0a0a0a;
+      color: #e0e0e0;
+      font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+      font-size: 14px;
+    }
+    input[type="text"]:focus {
+      outline: none;
+      border-color: #60a5fa;
+    }
+    button {
+      padding: 12px 24px;
+      border-radius: 6px;
+      border: none;
+      background: #3b82f6;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    }
+    button:hover {
+      background: #2563eb;
+    }
+    .message {
+      padding: 12px;
+      border-radius: 6px;
+      margin-bottom: 20px;
+      font-size: 14px;
+    }
+    .message.error {
+      background: #7f1d1d;
+      border: 1px solid #991b1b;
+      color: #fca5a5;
+    }
+    .message.success {
+      background: #14532d;
+      border: 1px solid #166534;
+      color: #86efac;
+    }
+  </style>
+</head>
+<body>
+  <div class="welcome-container">
+    <div class="ascii-art">
+╔═══════════════════════════════════════════════════════════════╗
+║                                                               ║
+║        🐉  WELCOME TO THE REALM OF HOLLOWVALE  ⚔️            ║
+║                                                               ║
+║                                                               ║
+║                    __----__                                  ║
+║                  /          \                                ║
+║                 |            |                               ║
+║                 |    🐉      |                               ║
+║                 |            |                               ║
+║                  \__----__/                                 ║
+║                                                               ║
+║                    ⚔️  ⚔️  ⚔️                                ║
+║                                                               ║
+║                  /|      |\                                 ║
+║                 / |      | \                                ║
+║                |  |  🛡️  |  |                               ║
+║                |  |      |  |                               ║
+║                 \ |      | /                                ║
+║                  \|______|/                                 ║
+║                                                               ║
+╚═══════════════════════════════════════════════════════════════╝
+    </div>
+    
+    <div class="welcome-text">
+      <p>Welcome, traveler, to the world of <strong>Hollowvale</strong>—a frontier town where adventure awaits at every turn.</p>
+      <p>Here, dragons soar through ancient skies, and knights guard the paths between realms.</p>
+      <p>Your journey begins now. Choose your path wisely.</p>
+      {% if new_user %}
+        <p style="color: #34d399; margin-top: 20px;"><strong>Your account has been created! Please login to begin your adventure.</strong></p>
+      {% endif %}
+    </div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="message {{ category }}">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <div class="menu">
+      <div class="menu-item">
+        <span class="menu-key">N</span>
+        <span class="menu-desc">New character - Create your adventurer</span>
+      </div>
+      <div class="menu-item">
+        <span class="menu-key">L</span>
+        <span class="menu-desc">Login - Enter your existing character's name</span>
+      </div>
+      <div class="menu-item">
+        <span class="menu-key">G</span>
+        <span class="menu-desc">Guide - Read the Player's Guide</span>
+      </div>
+      <div class="menu-item">
+        <span class="menu-key">Q</span>
+        <span class="menu-desc">Quit - Leave this realm</span>
+      </div>
+    </div>
+
+    <div class="prompt">
+      <form method="POST" action="{{ url_for('welcome') }}" id="welcomeForm">
+        <div>Your choice:</div>
+        <div class="input-group">
+          <input type="text" name="choice" id="choice" autocomplete="off" autofocus placeholder="Enter command (N, L, G, Q, or character name)">
+          <button type="submit">Enter</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const choiceInput = document.getElementById('choice');
+    const form = document.getElementById('welcomeForm');
+    
+    // Handle keyboard shortcuts
+    choiceInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        form.submit();
+      }
+    });
+    
+    // Auto-focus on load
+    choiceInput.focus();
+  </script>
+</body>
+</html>
+

@@ -308,6 +308,42 @@ def save_game(game):
 # --- Routes ---
 
 
+@app.route("/welcome", methods=["GET", "POST"])
+def welcome():
+    """Welcome screen with ASCII art and character creation menu."""
+    # If already logged in, redirect to game
+    if "user_id" in session:
+        return redirect(url_for("index"))
+    
+    if request.method == "POST":
+        choice = request.form.get("choice", "").strip()
+        choice_upper = choice.upper()
+        
+        # Handle menu commands
+        if choice_upper == "Q":
+            return redirect(url_for("login"))
+        elif choice_upper == "G":
+            return redirect(url_for("guide"))
+        elif choice_upper == "N":
+            # New character - redirect to registration
+            return redirect(url_for("register"))
+        elif choice_upper == "L":
+            # Login - redirect to login page
+            return redirect(url_for("login"))
+        else:
+            # Assume it's a username - redirect to login with username
+            if choice:
+                flash("Please enter your password to login.", "info")
+                return redirect(url_for("login", username=choice))
+            else:
+                flash("Invalid choice. Please enter N, L, G, Q, or your character name.", "error")
+    
+    # Check if this is a new user (from registration)
+    new_user = request.args.get("new_user", False)
+    
+    return render_template("welcome.html", new_user=new_user)
+
+
 @app.route("/guide")
 def guide():
     """Player's guide page - accessible without authentication."""
@@ -427,8 +463,9 @@ def register():
         conn.commit()
         conn.close()
         
-        flash("Registration successful! Please log in.", "success")
-        return render_template("login.html")
+        # Redirect to welcome screen for first-time users
+        flash(f"Welcome, {username}! Your account has been created.", "success")
+        return redirect(url_for("welcome", new_user=True))
     
     return render_template("login.html", show_register=True)
 
