@@ -2236,7 +2236,13 @@ def _format_other_player_look(target_username, target_game, db_conn=None):
     else:
         # Default pronoun if no character info
         pronoun_cap = "He"
+        pronoun = "he"
         lines.append(f"{target_username} is an adventurer in Hollowvale.")
+    
+    # Add weather description for other player
+    weather_desc = get_player_weather_description(target_game, pronouns={"pronoun": pronoun})
+    if weather_desc:
+        lines.append(weather_desc)
     
     # User description (third person)
     description = target_game.get("user_description")
