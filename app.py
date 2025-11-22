@@ -28,7 +28,17 @@ app = Flask(__name__)
 app.config["SECRET_KEY"] = os.environ.get("FLASK_SECRET_KEY", "dev-secret-change-me")
 
 # Database setup
-DATABASE = "users.db"
+# Use persistent disk path if available (for Render deployments)
+# Set PERSISTENT_DISK_PATH environment variable to enable persistent storage
+PERSISTENT_DISK_PATH = os.environ.get("PERSISTENT_DISK_PATH")
+if PERSISTENT_DISK_PATH:
+    # Ensure the persistent directory exists
+    os.makedirs(PERSISTENT_DISK_PATH, exist_ok=True)
+    DATABASE = os.path.join(PERSISTENT_DISK_PATH, "users.db")
+    STATE_FILE = os.path.join(PERSISTENT_DISK_PATH, "mud_state.json")
+else:
+    DATABASE = "users.db"
+    STATE_FILE = os.path.join(os.path.dirname(__file__), "mud_state.json")
 
 
 def init_db():
@@ -101,11 +111,10 @@ def get_db():
 # Active games storage for multiplayer support
 ACTIVE_GAMES = {}  # username -> game state dict
 
-# State file for persistence
+# State file for persistence (set above if PERSISTENT_DISK_PATH is configured)
 # NOTE: This uses a local mud_state.json file for persistence. This works fine for
 # a single Render instance, but is not suitable for multi-instance scaling where
 # multiple servers would need shared state (would require Redis or similar).
-STATE_FILE = os.path.join(os.path.dirname(__file__), "mud_state.json")
 
 
 def load_state_from_disk():
