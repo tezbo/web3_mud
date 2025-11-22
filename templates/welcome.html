@@ -187,6 +187,7 @@ Your choice:`;
         const data = await res.json();
         
         if (data.redirect) {
+          // Handle redirect
           window.location.href = data.redirect;
           return;
         }
@@ -197,6 +198,15 @@ Your choice:`;
 
         if (data.log) {
           data.log.forEach(line => appendText(line));
+        }
+        
+        // If no response, just show the command was processed
+        if (!data.redirect && !data.message && !data.log) {
+          // Command was processed but no response - might be a redirect issue
+          // Try reloading to see if state changed
+          setTimeout(() => {
+            window.location.reload();
+          }, 500);
         }
       } catch (e) {
         console.error("Error sending command:", e);
