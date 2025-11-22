@@ -3595,6 +3595,8 @@ def handle_command(
                             response = f"You say: \"{message}\"\n{purchase_response}"
                             
                             # Generate AI response
+                            ai_response = None
+                            error_message = None
                             npc_dict = npc.to_dict() if hasattr(npc, 'to_dict') else npc
                             if (npc.use_ai if hasattr(npc, 'use_ai') else npc.get("use_ai", False)) and generate_npc_reply is not None:
                                 game["_current_npc_id"] = npc_id
