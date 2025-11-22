@@ -462,14 +462,17 @@ def guide():
 def index():
     # Check if user is in onboarding (allow without login for new character creation)
     onboarding_step = session.get("onboarding_step")
-    # Debug: log onboarding step to help diagnose
-    import logging
-    logging.basicConfig(level=logging.DEBUG)
-    logger = logging.getLogger(__name__)
-    logger.debug(f"Index route - onboarding_step: {onboarding_step}, type: {type(onboarding_step)}, session keys: {list(session.keys())}")
+    
+    # Also check query parameter as fallback if session isn't set yet
+    if onboarding_step is None and request.args.get("onboarding") == "start":
+        session["onboarding_step"] = 0
+        session["onboarding_state"] = {"step": 0, "character": {}}
+        session.permanent = True
+        session.modified = True
+        onboarding_step = 0
     
     # Check explicitly for None - onboarding_step can be 0 (which is falsy but valid)
-    if onboarding_step is not None and onboarding_step != "complete":
+    if onboarding_step is not None and onboarding_step != "complete" and onboarding_step != "":
         # User is in onboarding - show onboarding screen
         from game_engine import ONBOARDING_USERNAME_PROMPT, ONBOARDING_PASSWORD_PROMPT, ONBOARDING_RACE_PROMPT
         
