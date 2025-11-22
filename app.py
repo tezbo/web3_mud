@@ -325,32 +325,60 @@ def save_game(game):
 # --- Routes ---
 
 
-@app.route("/welcome", methods=["GET", "POST"])
+@app.route("/welcome")
 def welcome():
     """Welcome screen with ASCII art and character creation/login menu."""
     # If already logged in, redirect to game
     if "user_id" in session:
         return redirect(url_for("index"))
     
-    # Handle login form submission
-    login_step = session.get("login_step")
-    if request.method == "POST" and login_step:
+    return render_template("welcome.html")
+
+
+@app.route("/welcome_command", methods=["POST"])
+def welcome_command():
+    """Handle text-based commands from welcome screen."""
+    # If already logged in, redirect to game
+    if "user_id" in session:
+        return jsonify({"redirect": url_for("index")})
+    
+    data = request.get_json() or {}
+    cmd = data.get("command", "").strip()
+    cmd_upper = cmd.upper()
+    
+    # Handle menu commands
+    if cmd_upper == "Q":
+        return jsonify({"message": "Type N to create a new character, L to login, or G for the guide."})
+    elif cmd_upper == "G":
+        return jsonify({"redirect": url_for("guide")})
+    elif cmd_upper == "N":
+        # New character - start onboarding with username/password creation
+        session["onboarding_step"] = 0
+        session["onboarding_state"] = {"step": 0, "character": {}}
+        return jsonify({"redirect": url_for("index")})
+    elif cmd_upper == "L":
+        # Login - prompt for username
+        session["login_step"] = "username"
+        return jsonify({"message": "Enter your username:"})
+    else:
+        # Check if we're in login flow
+        login_step = session.get("login_step")
+        
         if login_step == "username":
-            username = request.form.get("username", "").strip()
-            if username:
-                session["login_username"] = username
-                session["login_step"] = "password"
-                return render_template("welcome.html", login_mode=True, login_username=username)
-            else:
-                flash("Please enter your username.", "error")
-                return render_template("welcome.html", login_mode=True)
+            # User entered username, now ask for password
+            if not cmd:
+                return jsonify({"message": "Please enter your username:"})
+            session["login_username"] = cmd
+            session["login_step"] = "password"
+            return jsonify({"message": f"Enter password for {cmd}:"})
+        
         elif login_step == "password":
-            password = request.form.get("password", "")
+            # User entered password, authenticate
+            password = cmd
             username = session.get("login_username", "")
             
             if not password:
-                flash("Please enter your password.", "error")
-                return render_template("welcome.html", login_mode=True, login_username=username)
+                return jsonify({"message": f"Enter password for {username}:"})
             
             # Authenticate user
             conn = get_db()
@@ -368,56 +396,31 @@ def welcome():
                 
                 # Check if user has character - if not, start onboarding
                 game = get_game()
-                # Only redirect to onboarding if game is None (no game state) OR character exists but has no race
-                # If game exists but character is missing, it's backward compatibility - allow through
                 if game is None:
                     # No game state at all - start onboarding (but skip username/password)
                     session["onboarding_step"] = 1
                     session["onboarding_state"] = {"step": 1, "character": {}}
-                    return redirect(url_for("index"))
+                    return jsonify({"redirect": url_for("index")})
                 elif game.get("character") and not game.get("character", {}).get("race"):
                     # Character object exists but no race - need to complete onboarding
                     session["onboarding_step"] = 1
                     session["onboarding_state"] = {"step": 1, "character": game.get("character", {})}
-                    return redirect(url_for("index"))
-                # If game exists and either no character object (backward compat) or character has race, proceed to game
+                    return jsonify({"redirect": url_for("index")})
                 
-                return redirect(url_for("index"))
+                return jsonify({"redirect": url_for("index")})
             else:
-                flash("Invalid username or password.", "error")
                 session["login_step"] = "username"
                 session.pop("login_username", None)
-                return render_template("welcome.html", login_mode=True)
-    
-    if request.method == "POST":
-        choice = request.form.get("choice", "").strip()
-        choice_upper = choice.upper()
+                return jsonify({"message": "Invalid username or password.\nEnter your username:"})
         
-        # Handle menu commands
-        if choice_upper == "Q":
-            # Quit - just show welcome again
-            return render_template("welcome.html")
-        elif choice_upper == "G":
-            return redirect(url_for("guide"))
-        elif choice_upper == "N":
-            # New character - start onboarding with username/password creation
-            session["onboarding_step"] = 0
-            session["onboarding_state"] = {"step": 0, "character": {}}
-            return redirect(url_for("index"))
-        elif choice_upper == "L":
-            # Login - start login flow
-            session["login_step"] = "username"
-            return render_template("welcome.html", login_mode=True)
         else:
             # Assume it's a username - start login flow
-            if choice:
-                session["login_username"] = choice
+            if cmd:
+                session["login_username"] = cmd
                 session["login_step"] = "password"
-                return render_template("welcome.html", login_mode=True, login_username=choice)
+                return jsonify({"message": f"Enter password for {cmd}:"})
             else:
-                flash("Invalid choice. Please enter N, L, G, Q, or your character name.", "error")
-    
-    return render_template("welcome.html", login_mode=request.args.get("login_mode", False), login_username=session.get("login_username"))
+                return jsonify({"message": "Invalid choice. Please enter N, L, G, Q, or your character name."})
 
 
 @app.route("/guide")

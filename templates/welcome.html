@@ -10,72 +10,47 @@
       color: #e0e0e0;
       font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
       margin: 0;
-      padding: 20px;
+      padding: 0;
       display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
+      flex-direction: column;
+      height: 100vh;
+      overflow: hidden;
     }
-    .welcome-container {
+    .container {
+      display: flex;
+      flex-direction: column;
       max-width: 900px;
       width: 100%;
+      margin: 0 auto;
+      padding: 16px;
+      flex: 1;
+      min-height: 0;
+      overflow: hidden;
+    }
+    #output {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px;
       background: #0f0f0f;
       border: 1px solid #333;
-      border-radius: 8px;
-      padding: 40px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
-    }
-    .ascii-art {
-      color: #fbbf24;
-      font-size: 12px;
-      line-height: 1.2;
-      text-align: center;
-      margin: 20px 0;
-      white-space: pre;
-      overflow-x: auto;
-    }
-    .welcome-text {
-      color: #60a5fa;
-      font-size: 16px;
-      line-height: 1.8;
-      margin: 30px 0;
-      text-align: center;
-    }
-    .menu {
-      background: #1a1a1a;
-      border: 1px solid #333;
       border-radius: 6px;
-      padding: 24px;
-      margin: 30px 0;
-    }
-    .menu-item {
-      display: flex;
-      justify-content: space-between;
-      padding: 8px 0;
-      border-bottom: 1px solid #2a2a2a;
+      margin-bottom: 16px;
       font-size: 14px;
+      line-height: 1.6;
+      white-space: pre-wrap;
+      word-wrap: break-word;
     }
-    .menu-item:last-child {
-      border-bottom: none;
-    }
-    .menu-key {
-      color: #fbbf24;
+    #output .command-prompt {
+      color: #3b82f6;
       font-weight: bold;
-      min-width: 30px;
     }
-    .menu-desc {
-      color: #e0e0e0;
-      flex: 1;
+    #output .error-message {
+      color: #fca5a5;
     }
-    .prompt {
-      margin-top: 30px;
-      font-size: 16px;
-      color: #60a5fa;
-    }
-    .input-group {
+    .input-row {
       display: flex;
       gap: 10px;
-      margin-top: 15px;
+      flex-shrink: 0;
     }
     input[type="text"] {
       flex: 1;
@@ -105,140 +80,148 @@
     button:hover {
       background: #2563eb;
     }
-    .message {
-      padding: 12px;
-      border-radius: 6px;
-      margin-bottom: 20px;
-      font-size: 14px;
+    button:disabled {
+      background: #555;
+      cursor: not-allowed;
     }
-    .message.error {
-      background: #7f1d1d;
-      border: 1px solid #991b1b;
-      color: #fca5a5;
-    }
-    .message.success {
-      background: #14532d;
-      border: 1px solid #166534;
-      color: #86efac;
+    .ascii-art {
+      color: #fbbf24;
+      font-size: 11px;
+      line-height: 1.2;
+      text-align: center;
+      margin: 10px 0;
+      white-space: pre;
     }
   </style>
 </head>
 <body>
-  <div class="welcome-container">
-    <div class="ascii-art">
-╔═══════════════════════════════════════════════════════════════╗
+  <div class="container">
+    <div id="output"></div>
+    <div class="input-row">
+      <input id="command" type="text" placeholder="Type a command (N, L, G, Q, or your username)" autocomplete="off">
+      <button id="sendBtn">Enter</button>
+    </div>
+  </div>
+
+  <script>
+    const outputEl = document.getElementById("output");
+    const commandEl = document.getElementById("command");
+    const sendBtn = document.getElementById("sendBtn");
+
+    // Initial welcome message
+    const welcomeText = `╔═══════════════════════════════════════════════════════════════╗
 ║                                                               ║
 ║     🐉  WELCOME TO THE REALM OF HOLLOWVALE  ⚔️               ║
 ║                                                               ║
-║                                                               ║
 ║                    __----__                                  ║
-║                  /          \                                ║
+║                  /          \\                                ║
 ║                 |            |                               ║
 ║                 |    🐉      |                               ║
 ║                 |            |                               ║
-║                  \__----__/                                 ║
+║                  \\__----__/                                 ║
 ║                                                               ║
 ║                    ⚔️  ⚔️  ⚔️                                ║
 ║                                                               ║
-║                  /|      |\                                 ║
-║                 / |      | \                                ║
+║                  /|      |\\                                 ║
+║                 / |      | \\                                ║
 ║                |  |  🛡️  |  |                               ║
 ║                |  |      |  |                               ║
-║                 \ |      | /                                ║
-║                  \|______|/                                 ║
+║                 \\ |      | /                                ║
+║                  \\|______|/                                 ║
 ║                                                               ║
 ║        Where dragons soar and knights stand guard            ║
 ║        A frontier town where legends are forged               ║
 ║                                                               ║
 ╚═══════════════════════════════════════════════════════════════╝
-    </div>
-    
-    <div class="welcome-text">
-      <p>Welcome, traveler, to the world of <strong>Hollowvale</strong>—a frontier town where adventure awaits at every turn.</p>
-      <p>Here, dragons soar through ancient skies, and knights guard the paths between realms.</p>
-      <p>Your journey begins now. Choose your path wisely.</p>
-    </div>
 
-    {% with messages = get_flashed_messages(with_categories=true) %}
-      {% if messages %}
-        {% for category, message in messages %}
-          <div class="message {{ category }}">{{ message }}</div>
-        {% endfor %}
-      {% endif %}
-    {% endwith %}
+Welcome, traveler, to the world of Hollowvale—a frontier town where adventure awaits at every turn.
 
-    <div class="menu">
-      <div class="menu-item">
-        <span class="menu-key">N</span>
-        <span class="menu-desc">New character - Create your adventurer</span>
-      </div>
-      <div class="menu-item">
-        <span class="menu-key">L</span>
-        <span class="menu-desc">Login - Enter your existing character's name</span>
-      </div>
-      <div class="menu-item">
-        <span class="menu-key">G</span>
-        <span class="menu-desc">Guide - Read the Player's Guide</span>
-      </div>
-      <div class="menu-item">
-        <span class="menu-key">Q</span>
-        <span class="menu-desc">Quit - Leave this realm</span>
-      </div>
-    </div>
+Here, dragons soar through ancient skies, and knights guard the paths between realms.
 
-    {% if login_mode %}
-      <div class="prompt">
-        <form method="POST" action="{{ url_for('welcome') }}" id="loginForm">
-          {% if login_username %}
-            <div>Enter password for <strong>{{ login_username }}</strong>:</div>
-            <input type="hidden" name="username" value="{{ login_username }}">
-            <div class="input-group">
-              <input type="password" name="password" id="password" autocomplete="off" autofocus placeholder="Password">
-              <button type="submit">Login</button>
-            </div>
-            <div style="margin-top: 10px; font-size: 12px; color: #999;">
-              <a href="{{ url_for('welcome') }}" style="color: #60a5fa;">← Back</a>
-            </div>
-          {% else %}
-            <div>Enter your username:</div>
-            <div class="input-group">
-              <input type="text" name="username" id="username" autocomplete="off" autofocus placeholder="Username">
-              <button type="submit">Next</button>
-            </div>
-            <div style="margin-top: 10px; font-size: 12px; color: #999;">
-              <a href="{{ url_for('welcome') }}" style="color: #60a5fa;">← Back</a>
-            </div>
-          {% endif %}
-        </form>
-      </div>
-    {% else %}
-      <div class="prompt">
-        <form method="POST" action="{{ url_for('welcome') }}" id="welcomeForm">
-          <div>Your choice:</div>
-          <div class="input-group">
-            <input type="text" name="choice" id="choice" autocomplete="off" autofocus placeholder="Enter command (N, L, G, Q, or character name)">
-            <button type="submit">Enter</button>
-          </div>
-        </form>
-      </div>
-    {% endif %}
-  </div>
+Your journey begins now. Choose your path wisely.
 
-  <script>
-    const choiceInput = document.getElementById('choice');
-    const form = document.getElementById('welcomeForm');
-    
-    // Handle keyboard shortcuts
-    choiceInput.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') {
+Commands:
+  N - New character - Create your adventurer
+  L - Login - Enter your existing character's name
+  G - Guide - Read the Player's Guide
+  Q - Quit - Leave this realm
+
+Or type your username to login.
+
+Your choice:`;
+
+    outputEl.textContent = welcomeText;
+
+    function scrollToBottom() {
+      outputEl.scrollTop = outputEl.scrollHeight;
+    }
+
+    function appendText(text) {
+      outputEl.textContent += '\n' + text;
+      scrollToBottom();
+    }
+
+    async function sendCommand() {
+      const cmd = commandEl.value.trim();
+      if (!cmd) return;
+
+      // Show user's command
+      appendText(`> ${cmd}`);
+
+      sendBtn.disabled = true;
+      commandEl.value = "";
+
+      try {
+        const res = await fetch("/welcome_command", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ command: cmd }),
+        });
+
+        if (!res.ok) {
+          const errorText = await res.text();
+          appendText(`[Error: ${errorText}]`);
+          return;
+        }
+
+        const data = await res.json();
+        
+        if (data.redirect) {
+          window.location.href = data.redirect;
+          return;
+        }
+
+        if (data.message) {
+          appendText(data.message);
+        }
+
+        if (data.log) {
+          data.log.forEach(line => appendText(line));
+        }
+      } catch (e) {
+        console.error("Error sending command:", e);
+        appendText("[Error sending command. Please check your connection and try again.]");
+      } finally {
+        commandEl.focus();
+        sendBtn.disabled = false;
+      }
+    }
+
+    sendBtn.addEventListener("click", sendCommand);
+    commandEl.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
         e.preventDefault();
-        form.submit();
+        sendCommand();
       }
     });
+
+    // Focus input on load and scroll to bottom
+    window.addEventListener('load', () => {
+      commandEl.focus();
+      setTimeout(scrollToBottom, 100);
+    });
     
-    // Auto-focus on load
-    choiceInput.focus();
+    setTimeout(scrollToBottom, 50);
   </script>
 </body>
 </html>
-
