@@ -357,8 +357,13 @@ def welcome_command():
         session["onboarding_state"] = {"step": 0, "character": {}}
         # Force session save
         session.modified = True
-        # Return redirect to index route - use absolute path
-        return jsonify({"redirect": "/"})
+        # Return message and redirect - the redirect will happen after session is saved
+        # Use a small delay to ensure session cookie is set
+        return jsonify({
+            "message": "Starting character creation...",
+            "redirect": "/",
+            "delay": 200
+        })
     elif cmd_upper == "L":
         # Login - prompt for username
         session["login_step"] = "username"

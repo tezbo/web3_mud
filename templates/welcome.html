@@ -187,10 +187,11 @@ Your choice:`;
         const data = await res.json();
         
         if (data.redirect) {
-          // Handle redirect - use a small delay to ensure session is saved
+          // Handle redirect - use delay from server or default 200ms to ensure session is saved
+          const delay = data.delay || 200;
           setTimeout(() => {
             window.location.href = data.redirect;
-          }, 100);
+          }, delay);
           return;
         }
 
