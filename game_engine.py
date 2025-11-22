@@ -1392,13 +1392,14 @@ def update_weather_if_needed():
 
 def get_weather_message():
     """
-    Get a random weather message based on current weather state.
+    Get a random weather message based on current weather state and time of day.
     
     Returns:
         str: Weather message or empty string
     """
     wtype = WEATHER_STATE.get("type", "clear")
     intensity = WEATHER_STATE.get("intensity", "none")
+    time_of_day = get_time_of_day()
     
     if wtype not in WEATHER_MESSAGES:
         return ""
@@ -1409,7 +1410,18 @@ def get_weather_message():
         messages = WEATHER_MESSAGES[wtype].get("none", [])
     
     if messages:
-        return random.choice(messages)
+        message = random.choice(messages)
+        # Make weather messages time-aware
+        if time_of_day in ["night", "dusk"]:
+            # Replace sun references with moon/stars at night
+            message = message.replace("the sun", "the moon")
+            message = message.replace("sun high above", "moon and stars above")
+            message = message.replace("sun beats down", "night air")
+            message = message.replace("sun's position", "stars' positions")
+        elif time_of_day == "dawn":
+            message = message.replace("the sun", "the rising sun")
+            message = message.replace("sun high above", "dawn light")
+        return message
     return ""
 
 
@@ -2932,7 +2944,15 @@ def describe_location(game):
     room_def = WORLD[loc_id]
     room_state = ROOM_STATE.get(loc_id, {"items": []})
 
-    desc = room_def["description"]
+    # Get time-appropriate description
+    time_of_day = get_time_of_day()
+    descriptions_by_time = room_def.get("descriptions_by_time", {})
+    
+    # Use time-specific description if available, otherwise fall back to base description
+    if descriptions_by_time and time_of_day in descriptions_by_time:
+        desc = descriptions_by_time[time_of_day]
+    else:
+        desc = room_def["description"]
     exits = ", ".join(room_def["exits"].keys()) or "none"
     items = room_state.get("items", [])
     

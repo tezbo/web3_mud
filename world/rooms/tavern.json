@@ -2,6 +2,12 @@
   "id": "tavern",
   "name": "The Rusty Tankard Tavern",
   "description": "The Rusty Tankard welcomes you with warmth and noise. The air is thick with the smell of stew and wood smoke. Rough-hewn tables fill the space, and adventurers and locals share stories over tankards of ale. A fire crackles in the hearth, casting dancing shadows on the walls. This is the kind of place where news travels and friendships are forged.",
+  "descriptions_by_time": {
+    "dawn": "The Rusty Tankard is quiet in the early morning light. A few early risers sit at tables, nursing mugs of something warm. The hearth glows with banked embers, and the air still carries the lingering scents of last night's revelry. The place feels peaceful, a moment of calm before the day begins.",
+    "day": "The Rusty Tankard welcomes you with warmth and noise. The air is thick with the smell of stew and wood smoke. Rough-hewn tables fill the space, and adventurers and locals share stories over tankards of ale. A fire crackles in the hearth, casting dancing shadows on the walls. This is the kind of place where news travels and friendships are forged.",
+    "dusk": "As evening settles, The Rusty Tankard comes alive. Lanterns cast warm pools of light across the tables, and the hearth fire burns brighter. The noise level rises as more people gather, their voices mixing with the clink of tankards. The atmosphere is convivial, a place to unwind after the day's work.",
+    "night": "The Rusty Tankard is at its busiest now. The fire in the hearth roars, casting flickering shadows that dance across the walls. The air is thick with laughter, stories, and the rich smell of ale and food. Lanterns hang from the beams, creating pockets of warm light in the dim interior. This is where the night's stories are born."
+  },
   "exits": {
     "north": "town_square",
     "south": "smithy"

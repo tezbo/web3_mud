@@ -2,6 +2,12 @@
   "id": "shrine_of_the_forgotten",
   "name": "Shrine of the Forgotten Path",
   "description": "A small stone shrine stands here, its carvings worn smooth by time and weather. The patterns etched into the stone are ancient, their meaning lost to most, but they seem to hum with a subtle energy. There's something mysterious about this place—a sense of deep history and forgotten knowledge. The air feels different here, as if the boundary between the mundane and something more is thinner. This is a place of quiet power, waiting to be understood.",
+  "descriptions_by_time": {
+    "dawn": "The shrine stands in the pale morning light, its carvings barely visible in the dimness. The patterns etched into the stone seem to shift in the early light, their meaning still lost. The air feels different here, as if the boundary between the mundane and something more is thinner at dawn. This is a place of quiet power, waiting to be understood.",
+    "day": "A small stone shrine stands here, its carvings worn smooth by time and weather. The patterns etched into the stone are ancient, their meaning lost to most, but they seem to hum with a subtle energy. There's something mysterious about this place—a sense of deep history and forgotten knowledge. The air feels different here, as if the boundary between the mundane and something more is thinner. This is a place of quiet power, waiting to be understood.",
+    "dusk": "As evening approaches, the shrine takes on a golden glow. The carvings seem to catch the last rays of sunlight, their patterns more visible now. The air feels different here, as if the boundary between the mundane and something more is thinner at dusk. This is a place of quiet power, waiting to be understood.",
+    "night": "In the darkness, the shrine is truly mysterious. The carvings are barely visible, just dark patterns against the stone. The air feels different here, as if the boundary between the mundane and something more is thinnest at night. The shrine seems to hum with a subtle energy, and you can't shake the feeling that something ancient is watching. This is a place of quiet power, waiting to be understood."
+  },
   "exits": {
     "north": "market_lane"
   },

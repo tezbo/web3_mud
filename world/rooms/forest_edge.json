@@ -2,6 +2,12 @@
   "id": "forest_edge",
   "name": "Edge of the Whispering Wood",
   "description": "The last cottages of Hollowvale give way to the forest here. The trees begin to crowd closer, and the familiar sounds of village life—birdsong, voices, the clang of the smithy—begin to fade. There's a slight unease in the air, as if the wood itself is watching. The path into the trees looks inviting yet somehow foreboding. This is where the known world meets the unknown, where stories of the deeper forest begin.",
+  "descriptions_by_time": {
+    "dawn": "The forest edge is shrouded in morning mist. The cottages are barely visible, their shapes emerging from the grey. The trees loom dark and silent, their branches still. The familiar sounds of village life are muted, replaced by the quiet of early morning. The path into the trees seems to disappear into the fog, mysterious and uncertain.",
+    "day": "The last cottages of Hollowvale give way to the forest here. The trees begin to crowd closer, and the familiar sounds of village life—birdsong, voices, the clang of the smithy—begin to fade. There's a slight unease in the air, as if the wood itself is watching. The path into the trees looks inviting yet somehow foreboding. This is where the known world meets the unknown, where stories of the deeper forest begin.",
+    "dusk": "As daylight fades, the forest edge takes on a more ominous feel. The cottages are dark shapes against the dimming sky, and the trees seem to press closer. The sounds of the village grow distant, replaced by the rustling of leaves and the calls of evening birds. The path into the trees looks darker now, more foreboding than inviting.",
+    "night": "In the pitch dark of night, the forest edge feels truly menacing. The cottages are barely visible, just dark shapes against the blackness. The trees loom like giants, their branches creating a wall of shadow. The familiar sounds of village life are gone, replaced by the unsettling silence of the forest. The path into the trees is lost in darkness, and you can't shake the feeling that something is watching from the shadows."
+  },
   "exits": {
     "east": "town_square",
     "north": "whispering_trees"

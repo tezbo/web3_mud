@@ -2,6 +2,12 @@
   "id": "old_road",
   "name": "Old Eastward Road",
   "description": "An old, rutted road runs eastward out of Hollowvale, its surface worn by countless travelers and the passage of time. This road leads toward lands you've only heard of in stories—kingdoms, cities, and adventures that lie beyond the horizon. For now, it feels like the edge of your known world, a threshold between the familiar and the vast unknown. The road promises journeys yet to come, stories yet to be written.",
+  "descriptions_by_time": {
+    "dawn": "The old road runs eastward in the pale morning light, its ruts filled with dew. The surface is worn by countless travelers, and the horizon is just visible in the dimness. This road leads toward lands you've only heard of in stories—kingdoms, cities, and adventures that lie beyond. For now, it feels like the edge of your known world, a threshold between the familiar and the vast unknown. The road promises journeys yet to come, stories yet to be written.",
+    "day": "An old, rutted road runs eastward out of Hollowvale, its surface worn by countless travelers and the passage of time. This road leads toward lands you've only heard of in stories—kingdoms, cities, and adventures that lie beyond the horizon. For now, it feels like the edge of your known world, a threshold between the familiar and the vast unknown. The road promises journeys yet to come, stories yet to be written.",
+    "dusk": "As evening approaches, the old road takes on a golden hue. The ruts are dark shadows, and the horizon is darkening. This road leads toward lands you've only heard of in stories—kingdoms, cities, and adventures that lie beyond. For now, it feels like the edge of your known world, a threshold between the familiar and the vast unknown. The road promises journeys yet to come, stories yet to be written.",
+    "night": "In the pitch dark, the old road is barely visible, just a darker line against the blackness. The ruts are invisible, and the horizon is lost in darkness. This road leads toward lands you've only heard of in stories—kingdoms, cities, and adventures that lie beyond. For now, it feels like the edge of your known world, a threshold between the familiar and the vast unknown. The road promises journeys yet to come, stories yet to be written, but in the darkness, it feels more dangerous, more mysterious."
+  },
   "exits": {
     "west": "market_lane"
   },

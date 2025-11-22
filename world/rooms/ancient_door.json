@@ -2,6 +2,12 @@
   "id": "ancient_door",
   "name": "The Buried Door",
   "description": "Half-buried in the earth and overgrown with moss, a stone door stands here, its surface covered in runes that seem to shift when you look away. The door is clearly ancient, older than the village, older than memory. It doesn't open—not yet, perhaps not ever by ordinary means. But its presence here is significant, a marker of something important that lies beyond current understanding. The runes whisper of forgotten ages and paths not yet taken.",
+  "descriptions_by_time": {
+    "dawn": "The ancient door stands half-buried in the earth, its runes barely visible in the pale morning light. The moss that covers it is dark and wet with dew, and the door seems to shift in the dimness. It's clearly ancient, older than the village, older than memory. The runes whisper of forgotten ages and paths not yet taken, their meaning lost in the morning mist.",
+    "day": "Half-buried in the earth and overgrown with moss, a stone door stands here, its surface covered in runes that seem to shift when you look away. The door is clearly ancient, older than the village, older than memory. It doesn't open—not yet, perhaps not ever by ordinary means. But its presence here is significant, a marker of something important that lies beyond current understanding. The runes whisper of forgotten ages and paths not yet taken.",
+    "dusk": "As evening approaches, the ancient door takes on a more ominous feel. The runes seem to shift more in the fading light, and the moss is dark and shadowed. The door is clearly ancient, older than the village, older than memory. The runes whisper of forgotten ages and paths not yet taken, their meaning more urgent in the twilight.",
+    "night": "In the pitch dark, the ancient door is truly mysterious. The runes are barely visible, just dark patterns against the stone, and they seem to shift constantly in the darkness. The moss is invisible, and the door is just a dark shape against the blackness. It's clearly ancient, older than the village, older than memory. The runes whisper of forgotten ages and paths not yet taken, and you can't shake the feeling that something is watching from beyond the door. The darkness makes it feel more powerful, more dangerous."
+  },
   "exits": {
     "west": "whispering_trees"
   },

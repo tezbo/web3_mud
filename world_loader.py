@@ -92,6 +92,8 @@ def load_world_from_json(base_dir: str = "world") -> Dict[str, Any]:
             room_data["outdoor"] = False  # Default to indoor
         if "features" not in room_data:
             room_data["features"] = []  # Default to no features
+        if "descriptions_by_time" not in room_data:
+            room_data["descriptions_by_time"] = {}  # Optional time-of-day descriptions
         
         # Add to world dict
         world[room_id] = room_data

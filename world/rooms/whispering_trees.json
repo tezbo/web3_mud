@@ -2,6 +2,12 @@
   "id": "whispering_trees",
   "name": "The Whispering Trees",
   "description": "You've entered a dense grove where the trees seem to lean in, their branches creating a canopy that filters the light. The air is still, and there's a sense that you're not entirely alone. The trees themselves seem to hold conversations in rustling leaves, though you can't quite make out the words. This place feels alive in a way that goes beyond the ordinary, as if the forest has its own voice, its own awareness. A good place to listen, if you know how.",
+  "descriptions_by_time": {
+    "dawn": "The grove is shrouded in morning mist, the trees emerging like dark giants from the grey. The canopy filters the pale dawn light into strange patterns on the forest floor. The air is still and heavy, and the trees' whispers are muted, as if they're still waking. This place feels ancient and watchful in the early light.",
+    "day": "You've entered a dense grove where the trees seem to lean in, their branches creating a canopy that filters the light. The air is still, and there's a sense that you're not entirely alone. The trees themselves seem to hold conversations in rustling leaves, though you can't quite make out the words. This place feels alive in a way that goes beyond the ordinary, as if the forest has its own voice, its own awareness. A good place to listen, if you know how.",
+    "dusk": "As daylight fades, the grove becomes more mysterious. The trees lean closer, their branches creating deeper shadows. The canopy filters the fading light into dim patterns, and the air grows still. The trees' whispers seem louder now, more urgent, as if they're sharing secrets in the twilight. This place feels more alive, more aware, as darkness approaches.",
+    "night": "In the pitch dark of night, the grove is truly otherworldly. The trees are black shapes against the starless sky, their branches creating a canopy so thick that no light penetrates. The air is deathly still, and the trees' whispers are the only sound—urgent, mysterious, and impossible to understand. This place feels alive in a way that defies explanation, as if the forest itself is watching, waiting. You can't shake the feeling that you're not alone."
+  },
   "exits": {
     "south": "forest_edge",
     "east": "ancient_door"

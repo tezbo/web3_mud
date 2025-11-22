@@ -2,6 +2,12 @@
   "id": "smithy",
   "name": "Old Stoneforge Smithy",
   "description": "The smithy is a low building of stone and timber, its walls hung with tools and half-finished work. The forge glows with banked embers, and the air carries the scent of coal and hot metal. Anvils stand ready, and the walls are lined with hammers, tongs, and other implements of the trade. This is where the village's metalwork is born, practical and honest.",
+  "descriptions_by_time": {
+    "dawn": "The smithy is quiet in the early morning. The forge holds only banked embers, their glow dim in the pale light. Tools hang silent on the walls, and the anvils stand empty. The air still carries the scent of coal and metal from yesterday's work. This is a moment of calm before the day's hammering begins.",
+    "day": "The smithy is a low building of stone and timber, its walls hung with tools and half-finished work. The forge glows with banked embers, and the air carries the scent of coal and hot metal. Anvils stand ready, and the walls are lined with hammers, tongs, and other implements of the trade. This is where the village's metalwork is born, practical and honest.",
+    "dusk": "As evening settles, the smithy takes on a warm glow. The forge's embers burn brighter, casting flickering light across the tools and anvils. The air is still thick with the scent of coal and hot metal, but the work has slowed. The smithy feels like a place of rest after a day's labor.",
+    "night": "In the darkness, the smithy is transformed. The forge glows like a beacon, its embers casting deep shadows across the walls. Tools hang like dark shapes, and the anvils are barely visible in the dim light. The air is still warm, carrying the lingering scent of metal and coal. The smithy feels mysterious and powerful in the night."
+  },
   "exits": {
     "north": "tavern"
   },

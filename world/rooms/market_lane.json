@@ -2,6 +2,12 @@
   "id": "market_lane",
   "name": "Market Lane",
   "description": "A narrow lane runs between buildings, where market stalls would normally crowd the space. Today it's quiet, but you can see where vendors set up their wares—bread, herbs, trinkets, and simple goods. The lane feels lived-in, with worn stones underfoot and the lingering scents of spices and fresh bread. On market days, this place would be bustling, but now it holds a peaceful, almost contemplative air.",
+  "descriptions_by_time": {
+    "dawn": "Market Lane is quiet in the early morning. The empty stalls stand like silent sentinels, their canvas covers still. The worn stones underfoot are damp with dew, and the air carries only the faintest hint of yesterday's spices. A few early vendors might be setting up, but for now, the lane belongs to the morning light.",
+    "day": "A narrow lane runs between buildings, where market stalls would normally crowd the space. Today it's quiet, but you can see where vendors set up their wares—bread, herbs, trinkets, and simple goods. The lane feels lived-in, with worn stones underfoot and the lingering scents of spices and fresh bread. On market days, this place would be bustling, but now it holds a peaceful, almost contemplative air.",
+    "dusk": "As evening approaches, Market Lane takes on a golden glow. The empty stalls cast long shadows across the worn stones. The lingering scents of spices and bread are fainter now, mixed with the cool evening air. The lane feels peaceful, a quiet moment between the day's activity and the night's rest.",
+    "night": "In the darkness, Market Lane is transformed. The empty stalls are dark shapes against the night sky, their canvas covers rustling in the breeze. The worn stones are barely visible, and the scents of the day are gone, replaced by the cool night air. The lane feels mysterious and quiet, holding secrets in the shadows."
+  },
   "exits": {
     "west": "town_square",
     "east": "old_road",

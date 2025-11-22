@@ -2,6 +2,12 @@
   "id": "watchtower",
   "name": "Old Watchtower",
   "description": "You stand at the top of the watchtower, where the wind whips freely and the valley spreads out below. The stone is crumbling in places, but the structure still serves its purpose. From here, you can see Hollowvale spread out like a map—the square, the lanes, the forest edge, and beyond that, the unknown lands that stretch to the horizon. There's something slightly eerie about this place, as if the tower has seen things it cannot forget. Yet it also offers a sense of perspective, a reminder that this village is part of a much larger world.",
+  "descriptions_by_time": {
+    "dawn": "You stand at the top of the watchtower as dawn breaks over the valley. The wind is sharp and cold, and the stone beneath your feet is damp with dew. The valley below is still shrouded in mist, with Hollowvale emerging like a ghost town. The horizon is just visible in the pale light, promising a new day. The tower feels ancient and watchful, a sentinel greeting the morning.",
+    "day": "You stand at the top of the watchtower, where the wind whips freely and the valley spreads out below. The stone is crumbling in places, but the structure still serves its purpose. From here, you can see Hollowvale spread out like a map—the square, the lanes, the forest edge, and beyond that, the unknown lands that stretch to the horizon. There's something slightly eerie about this place, as if the tower has seen things it cannot forget. Yet it also offers a sense of perspective, a reminder that this village is part of a much larger world.",
+    "dusk": "You stand at the top of the watchtower as evening approaches. The wind is cooler now, and the valley below is bathed in golden light. Hollowvale spreads out like a map, its buildings casting long shadows. The horizon is darkening, and the unknown lands beyond seem more mysterious. The tower feels like a bridge between day and night, holding secrets in its ancient stones.",
+    "night": "You stand at the top of the watchtower in the pitch dark of night. The wind howls around you, and the stone is cold beneath your feet. The valley below is a sea of darkness, with only the faintest lights from Hollowvale visible. The horizon is lost in blackness, and the unknown lands beyond are invisible. The tower feels truly eerie now, as if it's seen things in the darkness that cannot be forgotten. You can't shake the feeling that you're being watched from the shadows below."
+  },
   "exits": {
     "south": "watchtower_path"
   },

@@ -2,6 +2,12 @@
   "id": "watchtower_path",
   "name": "Watchtower Path",
   "description": "A rocky path winds up the hill from the town square. Scrub and hardy grasses cling to the slopes, and the wind has a sharper bite here. The path is well-worn, suggesting regular use, though you see no one on it now. Above, the watchtower stands sentinel, its stone weathered but still strong. This path connects the heart of the village to its highest point, where the wider world can be seen.",
+  "descriptions_by_time": {
+    "dawn": "The path winds up the hill in the pale morning light. The scrub and grasses are damp with dew, and the wind is sharp and cold. The path is well-worn but empty now, and the watchtower above is just visible against the lightening sky. The path feels like a journey into the unknown, connecting the familiar village below to the mysteries above.",
+    "day": "A rocky path winds up the hill from the town square. Scrub and hardy grasses cling to the slopes, and the wind has a sharper bite here. The path is well-worn, suggesting regular use, though you see no one on it now. Above, the watchtower stands sentinel, its stone weathered but still strong. This path connects the heart of the village to its highest point, where the wider world can be seen.",
+    "dusk": "As evening approaches, the path takes on a golden hue. The scrub and grasses are darkening, and the wind is cooler. The path is well-worn but quiet now, and the watchtower above is silhouetted against the darkening sky. The path feels like a threshold between day and night, connecting the familiar below to the mysterious above.",
+    "night": "In the pitch dark, the path is treacherous. The scrub and grasses are invisible, and the wind is sharp and cold. The path is barely visible, just a darker line against the blackness. The watchtower above is lost in shadow, and you can't shake the feeling that something is watching from the darkness. The path feels dangerous now, a journey into the unknown."
+  },
   "exits": {
     "south": "town_square",
     "north": "watchtower"
