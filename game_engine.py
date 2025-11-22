@@ -3957,6 +3957,13 @@ def highlight_exits_in_log(log_entries):
                 r'<span style="color: #ffff00; font-weight: bold;">Exits:</span>',
                 entry
             )
+        # Handle [DARK_GREEN]...[/DARK_GREEN] tags if present (convert to HTML)
+        if "[DARK_GREEN]" in entry and "[/DARK_GREEN]" in entry:
+            entry = re.sub(
+                r'\[DARK_GREEN\](.*?)\[/DARK_GREEN\]',
+                r'<span style="color: #006400;">\1</span>',
+                entry
+            )
         processed.append(entry)
     return processed
 

@@ -598,6 +598,8 @@ def logout():
         # Remove from active games
         ACTIVE_GAMES.pop(username, None)
     
+    # Clear welcome flag on logout so it shows again on next login
+    session.pop("welcome_added", None)
     session.clear()
     flash("You have been logged out.", "info")
     return redirect(url_for("welcome"))
