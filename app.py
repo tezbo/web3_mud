@@ -355,7 +355,9 @@ def welcome_command():
         # New character - start onboarding with username/password creation
         session["onboarding_step"] = 0
         session["onboarding_state"] = {"step": 0, "character": {}}
-        return jsonify({"redirect": url_for("index")})
+        # Force session save
+        session.permanent = True
+        return jsonify({"redirect": "/"})
     elif cmd_upper == "L":
         # Login - prompt for username
         session["login_step"] = "username"
