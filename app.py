@@ -331,6 +331,55 @@ def welcome():
     if "user_id" in session:
         return redirect(url_for("index"))
     
+    # Handle login form submission
+    login_step = session.get("login_step")
+    if request.method == "POST" and login_step:
+        if login_step == "username":
+            username = request.form.get("username", "").strip()
+            if username:
+                session["login_username"] = username
+                session["login_step"] = "password"
+                return render_template("welcome.html", login_mode=True, login_username=username)
+            else:
+                flash("Please enter your username.", "error")
+                return render_template("welcome.html", login_mode=True)
+        elif login_step == "password":
+            password = request.form.get("password", "")
+            username = session.get("login_username", "")
+            
+            if not password:
+                flash("Please enter your password.", "error")
+                return render_template("welcome.html", login_mode=True, login_username=username)
+            
+            # Authenticate user
+            conn = get_db()
+            user = conn.execute(
+                "SELECT id, username, password_hash FROM users WHERE username = ?",
+                (username,)
+            ).fetchone()
+            conn.close()
+            
+            if user and check_password_hash(user["password_hash"], password):
+                session["user_id"] = user["id"]
+                session["username"] = user["username"]
+                session.pop("login_step", None)
+                session.pop("login_username", None)
+                
+                # Check if user has character - if not, start onboarding
+                game = get_game()
+                if game is None or not game.get("character") or not game.get("character", {}).get("race"):
+                    # No character - start onboarding (but skip username/password)
+                    session["onboarding_step"] = 1
+                    session["onboarding_state"] = {"step": 1, "character": {}}
+                    return redirect(url_for("index"))
+                
+                return redirect(url_for("index"))
+            else:
+                flash("Invalid username or password.", "error")
+                session["login_step"] = "username"
+                session.pop("login_username", None)
+                return render_template("welcome.html", login_mode=True)
+    
     if request.method == "POST":
         choice = request.form.get("choice", "").strip()
         choice_upper = choice.upper()
@@ -359,7 +408,7 @@ def welcome():
             else:
                 flash("Invalid choice. Please enter N, L, G, Q, or your character name.", "error")
     
-    return render_template("welcome.html", login_mode=request.args.get("login_mode", False))
+    return render_template("welcome.html", login_mode=request.args.get("login_mode", False), login_username=session.get("login_username"))
 
 
 @app.route("/guide")
@@ -609,14 +658,16 @@ def command():
         # Handle onboarding commands for new character creation
         from game_engine import handle_onboarding_command
         
-        onboarding_state = session.get("onboarding_state", {"step": 0, "character": {}})
+        onboarding_state = session.get("onboarding_state", {"step": 0 if not user_id else 1, "character": {}})
         
-        # Get database connection for account creation
+        # Get database connection for account creation (if not logged in) or character updates
         conn = get_db()
         
         # Process onboarding command
+        # If user is logged in but in onboarding, they're completing character creation (skip username/password)
+        onboarding_username = username if user_id else None
         response, updated_state, is_complete, created_user_id = handle_onboarding_command(
-            cmd, onboarding_state, username=None, db_conn=conn
+            cmd, onboarding_state, username=onboarding_username, db_conn=conn
         )
         session["onboarding_state"] = updated_state
         
@@ -665,13 +716,17 @@ def command():
         processed_log = highlight_exits_in_log(log)
         return jsonify({"response": response, "log": processed_log, "onboarding": not is_complete})
     
-    # Normal game command handling
+    # Normal game command handling - require authentication
+    if not user_id:
+        return jsonify({"response": "Please login first.", "log": ["Please login first."], "onboarding": False})
+    
     game = get_game()
     if game is None:
-        # No game state - should start onboarding
-        session["onboarding_step"] = "start"
-        from game_engine import ONBOARDING_INTRO
-        log = [ONBOARDING_INTRO, "...", "...", "...", "Type 'continue' or press Enter to begin."]
+        # No game state - check if character exists, if not start onboarding (skip username/password)
+        session["onboarding_step"] = 1
+        session["onboarding_state"] = {"step": 1, "character": {}}
+        from game_engine import ONBOARDING_RACE_PROMPT
+        log = [ONBOARDING_RACE_PROMPT]
         processed_log = highlight_exits_in_log(log)
         return jsonify({"response": "Please complete character creation first.", "log": processed_log, "onboarding": True})
     
