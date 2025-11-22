@@ -2333,6 +2333,12 @@ def handle_command(
             # Parse the command - handle both "give item to npc" and "give npc item"
             args_str = " ".join(tokens[1:]).lower()
             
+            # Initialize variables
+            matched_npc_id = None
+            matched_npc = None
+            npc_target = None
+            item_name = None
+            
             # Try to find "to" separator
             if " to " in args_str:
                 parts = args_str.split(" to ", 1)
@@ -2341,8 +2347,6 @@ def handle_command(
             else:
                 # Try to match NPC first, then item
                 # Look for known NPC names/IDs in the args
-                npc_target = None
-                item_name = None
                 
                 # Try to match NPC using centralized matching
                 matched_npc_id, matched_npc = match_npc_in_room(npc_ids, args_str)
@@ -2567,6 +2571,8 @@ def handle_command(
                             response = purchase_response
                             
                             # No AI for transactional commands - simple deterministic response
+                            # Get item_info from npc_items using item_key
+                            item_info = npc_items.get(item_key, {})
                             item_display = item_info.get("display_name", item_key.replace("_", " "))
                             npc_name = matched_npc.name if hasattr(matched_npc, 'name') else matched_npc.get('name', 'merchant')
                             npc_response = f"\n{npc_name} hands you the {item_display}."
