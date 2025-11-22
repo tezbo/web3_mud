@@ -461,6 +461,7 @@ def index():
     onboarding_step = session.get("onboarding_step")
     
     # Also check query parameter as fallback if session isn't set yet
+    # Only set session if query parameter is explicitly present
     if onboarding_step is None and request.args.get("onboarding") == "start":
         session["onboarding_step"] = 0
         session["onboarding_state"] = {"step": 0, "character": {}}
@@ -469,6 +470,8 @@ def index():
         onboarding_step = 0
     
     # Check explicitly for None - onboarding_step can be 0 (which is falsy but valid)
+    # Only show onboarding if we have a valid onboarding step AND user is not logged in
+    # OR if user is logged in but has incomplete character
     if onboarding_step is not None and onboarding_step != "complete" and onboarding_step != "":
         # User is in onboarding - show onboarding screen
         from game_engine import ONBOARDING_USERNAME_PROMPT, ONBOARDING_PASSWORD_PROMPT, ONBOARDING_RACE_PROMPT
@@ -498,9 +501,11 @@ def index():
         return render_template("index.html", log=processed_log, session=session, onboarding=True)
     
     # If not logged in and not in onboarding, redirect to welcome
-    # But check onboarding first - if in onboarding, we already handled it above
-    if "user_id" not in session and not (onboarding_step is not None and onboarding_step != "complete"):
-        return redirect(url_for("welcome"))
+    # Only redirect if we're not in onboarding (onboarding_step is None or "complete")
+    if "user_id" not in session:
+        # Clear any stale onboarding state if user is not in onboarding
+        if onboarding_step is None or onboarding_step == "complete":
+            return redirect(url_for("welcome"))
     
     # Ensure game exists (this loads from DB or creates new)
     game = get_game()
