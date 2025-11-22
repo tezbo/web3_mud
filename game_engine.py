@@ -290,13 +290,16 @@ def get_item_def(item_id: str) -> dict:
         item_id: The item identifier (e.g., "copper_coin")
     
     Returns:
-        dict: Item definition with at least name, type, description, flags, droppable
+        dict: Item definition with at least name, type, description, flags, droppable, weight
     """
     if item_id in ITEM_DEFS:
         item_def = ITEM_DEFS[item_id].copy()
         # Ensure droppable defaults to True if not specified
         if "droppable" not in item_def:
             item_def["droppable"] = True
+        # Ensure weight is set (default 0.1 kg for unknown items)
+        if "weight" not in item_def:
+            item_def["weight"] = 0.1
         return item_def
     
     # Fallback for unknown items
@@ -304,10 +307,51 @@ def get_item_def(item_id: str) -> dict:
         "name": item_id.replace("_", " "),
         "type": "misc",
         "description": "",
-        "weight": 0.1,
+        "weight": 0.1,  # Default weight in kg
         "flags": [],
         "droppable": True,  # Default to droppable
     }
+
+
+def calculate_inventory_weight(inventory: list) -> float:
+    """
+    Calculate total weight of items in inventory (in kg).
+    
+    Args:
+        inventory: List of item IDs
+    
+    Returns:
+        float: Total weight in kg
+    """
+    total_weight = 0.0
+    for item_id in inventory:
+        item_def = get_item_def(item_id)
+        weight = item_def.get("weight", 0.1)
+        total_weight += weight
+    return total_weight
+
+
+def calculate_room_items_weight(room_items: list) -> float:
+    """
+    Calculate total weight of items in a room (in kg).
+    
+    Args:
+        room_items: List of item IDs in the room
+    
+    Returns:
+        float: Total weight in kg
+    """
+    total_weight = 0.0
+    for item_id in room_items:
+        item_def = get_item_def(item_id)
+        weight = item_def.get("weight", 0.1)
+        total_weight += weight
+    return total_weight
+
+
+# Room capacity constants
+MAX_ROOM_ITEMS = 50  # Maximum number of items a room can hold
+MAX_ROOM_WEIGHT = 100.0  # Maximum total weight (kg) a room can hold
 
 
 def group_inventory_items(inventory: list) -> list:
@@ -1390,6 +1434,7 @@ def new_game_state(username="adventurer"):
     game_state = {
         "location": "town_square",
         "inventory": [],
+        "max_carry_weight": 20.0,  # Default max carry weight in kg
         "log": [
             "Welcome to the Tiny MUD, " + username + "!",
             "Type 'look' to see where you are, 'go north/east/south/west' to move, "
@@ -2402,12 +2447,53 @@ def handle_command(
             response = handle_search_command(game, loc_id)
 
     elif tokens[0] == "take" and len(tokens) >= 2:
-        item_input = " ".join(tokens[1:])
+        item_input = " ".join(tokens[1:]).lower()
         loc_id = game.get("location", "town_square")
+        inventory = game.get("inventory", [])
+        max_weight = game.get("max_carry_weight", 20.0)
+        current_weight = calculate_inventory_weight(inventory)
 
         if loc_id not in WORLD:
             response = "You reach for something that isn't really there."
+        elif item_input in ["all", "everything"]:
+            # Take all items from room (respecting weight limits)
+            room_state = ROOM_STATE.setdefault(loc_id, {"items": []})
+            room_items = room_state["items"]
+            
+            if not room_items:
+                response = "There's nothing here to pick up."
+            else:
+                taken_items = []
+                skipped_items = []
+                
+                for item_id in list(room_items):  # Copy list to avoid modification during iteration
+                    item_def = get_item_def(item_id)
+                    item_weight = item_def.get("weight", 0.1)
+                    
+                    if current_weight + item_weight > max_weight:
+                        skipped_items.append(item_id)
+                    else:
+                        room_items.remove(item_id)
+                        inventory.append(item_id)
+                        current_weight += item_weight
+                        taken_items.append(item_id)
+                
+                game["inventory"] = inventory
+                
+                if taken_items:
+                    if len(taken_items) == 1:
+                        display_name = render_item_name(taken_items[0])
+                        response = f"You pick up the {display_name}."
+                    else:
+                        item_names = [render_item_name(item) for item in taken_items]
+                        response = f"You pick up: {', '.join(item_names)}."
+                    
+                    if skipped_items:
+                        response += f"\nYou can't carry any more - you'll fall over!"
+                else:
+                    response = "You can't pick up much more, you'll fall over!"
         else:
+            # Take a specific item
             room_state = ROOM_STATE.setdefault(loc_id, {"items": []})
             room_items = room_state["items"]
 
@@ -2415,10 +2501,17 @@ def handle_command(
             matched_item = match_item_name_in_collection(item_input, room_items)
             
             if matched_item:
-                room_items.remove(matched_item)
-                game.setdefault("inventory", []).append(matched_item)
-                display_name = render_item_name(matched_item)
-                response = f"You pick up the {display_name}."
+                item_def = get_item_def(matched_item)
+                item_weight = item_def.get("weight", 0.1)
+                
+                if current_weight + item_weight > max_weight:
+                    response = "You can't pick up much more, you'll fall over!"
+                else:
+                    room_items.remove(matched_item)
+                    inventory.append(matched_item)
+                    game["inventory"] = inventory
+                    display_name = render_item_name(matched_item)
+                    response = f"You pick up the {display_name}."
             else:
                 response = f"You don't see a '{item_input}' here."
 
@@ -2431,57 +2524,92 @@ def handle_command(
             response = "You feel disoriented for a moment."
         elif not inventory:
             response = "You're not carrying anything."
-        elif item_input in ["all", "everything"]:
-            # Drop all droppable items
-            dropped_items = []
-            non_droppable_items = []
-            
-            # Work backwards through inventory to avoid index issues when removing
-            items_to_drop = []
-            for item_id in inventory:
-                item_def = get_item_def(item_id)
-                if item_def.get("droppable", True):
-                    items_to_drop.append(item_id)
-                else:
-                    non_droppable_items.append(item_id)
-            
-            # Remove droppable items from inventory and add to room
+        else:
             room_state = ROOM_STATE.setdefault(loc_id, {"items": []})
             room_items = room_state["items"]
             
-            for item_id in items_to_drop:
-                if item_id in inventory:
-                    inventory.remove(item_id)
-                    room_items.append(item_id)
-                    dropped_items.append(item_id)
-            
-            game["inventory"] = inventory
-            
-            # Build response
-            if dropped_items:
-                item_names = [render_item_name(item_id) for item_id in dropped_items]
-                if len(dropped_items) == 1:
-                    response = f"You drop the {item_names[0]}."
-                else:
-                    response = f"You drop: {', '.join(item_names)}."
+            # Check room capacity
+            if len(room_items) >= MAX_ROOM_ITEMS:
+                response = "There just isn't enough space to make such a mess here!"
+            else:
+                room_weight = calculate_room_items_weight(room_items)
                 
-                if non_droppable_items:
-                    non_droppable_names = [render_item_name(item_id) for item_id in non_droppable_items]
-                    response += f"\n(You cannot drop: {', '.join(non_droppable_names)}.)"
-            else:
-                if non_droppable_items:
-                    non_droppable_names = [render_item_name(item_id) for item_id in non_droppable_items]
-                    response = f"You cannot drop any of your items. ({', '.join(non_droppable_names)} cannot be dropped.)"
+                if item_input in ["all", "everything"]:
+                    # Drop all droppable items (checking room capacity)
+                    dropped_items = []
+                    non_droppable_items = []
+                    
+                    # Work backwards through inventory to avoid index issues when removing
+                    items_to_drop = []
+                    for item_id in inventory:
+                        item_def = get_item_def(item_id)
+                        if item_def.get("droppable", True):
+                            items_to_drop.append(item_id)
+                        else:
+                            non_droppable_items.append(item_id)
+                    
+                    # Check if dropping all items would exceed room capacity
+                    total_items_after = len(room_items) + len(items_to_drop)
+                    if total_items_after > MAX_ROOM_ITEMS:
+                        response = "There just isn't enough space to make such a mess here!"
+                    else:
+                        # Check weight capacity (though weight is less restrictive than item count)
+                        for item_id in items_to_drop:
+                            item_def = get_item_def(item_id)
+                            item_weight = item_def.get("weight", 0.1)
+                            if room_weight + item_weight > MAX_ROOM_WEIGHT:
+                                response = "There just isn't enough space to make such a mess here!"
+                                break
+                        else:
+                            # All items can fit, drop them
+                            for item_id in items_to_drop:
+                                if item_id in inventory:
+                                    inventory.remove(item_id)
+                                    room_items.append(item_id)
+                                    dropped_items.append(item_id)
+                            
+                            game["inventory"] = inventory
+                            
+                            # Build response
+                            if dropped_items:
+                                item_names = [render_item_name(item_id) for item_id in dropped_items]
+                                if len(dropped_items) == 1:
+                                    response = f"You drop the {item_names[0]}."
+                                else:
+                                    response = f"You drop: {', '.join(item_names)}."
+                                
+                                if non_droppable_items:
+                                    non_droppable_names = [render_item_name(item_id) for item_id in non_droppable_items]
+                                    response += f"\n(You cannot drop: {', '.join(non_droppable_names)}.)"
+                            else:
+                                if non_droppable_items:
+                                    non_droppable_names = [render_item_name(item_id) for item_id in non_droppable_items]
+                                    response = f"You cannot drop any of your items. ({', '.join(non_droppable_names)} cannot be dropped.)"
+                                else:
+                                    response = "You have nothing to drop."
                 else:
-                    response = "You have nothing to drop."
-        else:
-            # Drop a specific item
-            matched_item = match_item_name_in_collection(item_input, inventory)
-            
-            if not matched_item:
-                response = f"You're not carrying a '{item_input}'."
-            else:
-                item_def = get_item_def(matched_item)
+                    # Drop a specific item
+                    matched_item = match_item_name_in_collection(item_input, inventory)
+                    
+                    if not matched_item:
+                        response = f"You're not carrying a '{item_input}'."
+                    else:
+                        item_def = get_item_def(matched_item)
+                        
+                        if not item_def.get("droppable", True):
+                            response = "You cannot drop that item."
+                        elif len(room_items) >= MAX_ROOM_ITEMS:
+                            response = "There just isn't enough space to make such a mess here!"
+                        else:
+                            item_weight = item_def.get("weight", 0.1)
+                            if room_weight + item_weight > MAX_ROOM_WEIGHT:
+                                response = "There just isn't enough space to make such a mess here!"
+                            else:
+                                inventory.remove(matched_item)
+                                game["inventory"] = inventory
+                                room_items.append(matched_item)
+                                display_name = render_item_name(matched_item)
+                                response = f"You drop the {display_name}."
                 if not item_def.get("droppable", True):
                     display_name = render_item_name(matched_item)
                     response = f"You cannot drop the {display_name}."
@@ -3064,10 +3192,22 @@ def handle_command(
         else:
             response = "Usage: stat <target> or stat me"
 
+    elif tokens[0] == "describe" and len(tokens) >= 2:
+        # Describe command: edit user's own description
+        description_text = " ".join(tokens[1:])
+        
+        # Check length (max 500 characters)
+        if len(description_text) > 500:
+            response = "Your description is too long! It must be 500 characters or less (including spaces and punctuation)."
+        else:
+            # Store description in game state (will be saved to database via app.py)
+            game["user_description"] = description_text
+            response = f"Your description has been updated: {description_text}"
+    
     elif tokens[0] in ["help", "?"]:
         emote_list = ", ".join(sorted(EMOTES.keys())[:5])  # Show first 5 emotes
         response = (
-            "Commands: look, go <direction>, take <item>, drop <item>, drop all, inventory, talk <npc>, say <message>, give <item> to <npc>, list, buy <item>, restart, quit.\n"
+            "Commands: look, go <direction>, take <item>, take all, drop <item>, drop all, inventory, talk <npc>, say <message>, give <item> to <npc>, list, buy <item>, describe <text>, restart, quit.\n"
             "Emotes: nod, smile, wave, shrug, stare, laugh, grin, frown, sigh, yawn, clap, bow, salute, and more.\n"
             "You can use emotes alone (e.g., 'nod') or target NPCs (e.g., 'nod guard').\n"
             "Use 'say <message>' to speak to everyone in the room. AI-enhanced NPCs will react!\n"

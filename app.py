@@ -51,7 +51,8 @@ def init_db():
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             username TEXT UNIQUE NOT NULL,
             password_hash TEXT NOT NULL,
-            is_admin INTEGER DEFAULT 0
+            is_admin INTEGER DEFAULT 0,
+            description TEXT
         )
         """
     )
@@ -93,6 +94,11 @@ def init_db():
         ON ai_rate_limits(user_id, request_time)
         """
     )
+    # Add description column if it doesn't exist (migration for existing databases)
+    try:
+        cursor.execute("ALTER TABLE users ADD COLUMN description TEXT")
+    except sqlite3.OperationalError:
+        pass  # Column already exists
     conn.commit()
     conn.close()
 
@@ -221,18 +227,26 @@ def get_game():
         "SELECT game_state FROM games WHERE user_id = ?",
         (user_id,)
     ).fetchone()
-    conn.close()
     
     if row:
         try:
             game = json.loads(row["game_state"])
             # Defensive: if game is corrupted, start fresh
             if not isinstance(game, dict) or "location" not in game:
+                conn.close()
                 game = new_game_state(username)
                 ACTIVE_GAMES[username] = game
                 save_game(game)
                 save_state_to_disk()
                 return game
+            # Load user description from users table
+            user_row = conn.execute(
+                "SELECT description FROM users WHERE id = ?",
+                (user_id,)
+            ).fetchone()
+            conn.close()
+            if user_row and user_row["description"]:
+                game["user_description"] = user_row["description"]
             # Ensure gold and notify are initialized
             from economy import initialize_player_gold
             initialize_player_gold(game)
@@ -281,6 +295,12 @@ def save_game(game):
         """,
         (user_id, game_json)
     )
+    # Also save user description if it was updated
+    if "user_description" in game:
+        conn.execute(
+            "UPDATE users SET description = ? WHERE id = ?",
+            (game["user_description"], user_id)
+        )
     conn.commit()
     conn.close()
 
@@ -464,6 +484,14 @@ def command():
                 broadcast_fn=broadcast_fn,
                 who_fn=list_active_players,
             )
+            
+            # If description was updated, save it to database immediately
+            if "user_description" in game:
+                conn.execute(
+                    "UPDATE users SET description = ? WHERE id = ?",
+                    (game["user_description"], user_id)
+                )
+                conn.commit()
         except Exception as e:
             # Log the error for debugging
             import traceback
