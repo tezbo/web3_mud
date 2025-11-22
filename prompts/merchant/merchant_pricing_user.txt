@@ -1,0 +1,7 @@
+The player ({username}) wants to buy: {item_name} (base price: {base_price} gold)
+
+Your personality: {personality}
+Your reputation with the player: {reputation} ({reputation_desc})
+
+Calculate the final price and respond with a brief comment about the price.
+

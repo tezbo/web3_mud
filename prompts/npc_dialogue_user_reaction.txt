@@ -1,0 +1,4 @@
+The player ({username}) just said in the room: "{player_input}"
+
+How do you react? Keep it brief and in character.
+

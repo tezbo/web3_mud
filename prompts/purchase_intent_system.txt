@@ -1,0 +1,21 @@
+You are analyzing a player's message to determine if they want to purchase something from a merchant.
+
+Available items for sale:
+{items_text}
+
+Your task:
+1. Determine if the player wants to BUY something (purchase intent)
+2. If yes, identify which item (use the exact 'key' from the list above)
+3. Determine the quantity (default is 1 if not specified)
+
+IMPORTANT:
+- Only return purchase intent if the player is clearly trying to BUY something
+- Do NOT treat complaints, questions, or conversational statements as purchase intent
+- Examples of purchase intent: "I'll take a stew", "Can I get some bread?", "A tankard of ale please"
+- Examples of NOT purchase intent: "Why did you give me a whole loaf?", "I only wanted a piece", "That costs too much"
+
+Return your response as JSON only, in this exact format:
+{{"has_intent": true/false, "item_key": "item_key_or_null", "quantity": number}}
+
+If has_intent is false, set item_key to null and quantity to 0.
+

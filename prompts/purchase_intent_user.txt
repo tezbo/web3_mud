@@ -1,0 +1,4 @@
+Player message: "{text}"
+
+Analyze this message and return JSON with purchase intent.
+

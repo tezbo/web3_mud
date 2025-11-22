@@ -1,0 +1,4 @@
+The player ({username}) is talking directly to you. They said: "{player_input}"
+
+How do you respond? Keep it brief and in character.
+
