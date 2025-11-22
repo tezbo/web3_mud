@@ -455,7 +455,8 @@ def guide():
 def index():
     # Check if user is in onboarding (allow without login for new character creation)
     onboarding_step = session.get("onboarding_step")
-    if onboarding_step and onboarding_step != "complete":
+    # Check explicitly for None - onboarding_step can be 0 (which is falsy but valid)
+    if onboarding_step is not None and onboarding_step != "complete":
         # User is in onboarding - show onboarding screen
         from game_engine import ONBOARDING_USERNAME_PROMPT, ONBOARDING_PASSWORD_PROMPT, ONBOARDING_RACE_PROMPT
         
