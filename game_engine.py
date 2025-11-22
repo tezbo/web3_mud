@@ -2245,16 +2245,30 @@ def handle_command(
 
     elif tokens[0] in ["inventory", "inv", "i"]:
         inventory = game.get("inventory", [])
+        response_parts = []
+        
+        # Show items
         if inventory:
             grouped_items = group_inventory_items(inventory)
             if len(grouped_items) == 1:
-                response = f"You are carrying {grouped_items[0]}."
+                response_parts.append(f"You are carrying {grouped_items[0]}.")
             elif len(grouped_items) == 2:
-                response = f"You are carrying {grouped_items[0]} and {grouped_items[1]}."
+                response_parts.append(f"You are carrying {grouped_items[0]} and {grouped_items[1]}.")
             else:
-                response = "You are carrying: " + ", ".join(grouped_items[:-1]) + f", and {grouped_items[-1]}."
+                response_parts.append("You are carrying: " + ", ".join(grouped_items[:-1]) + f", and {grouped_items[-1]}.")
         else:
-            response = "You are not carrying anything."
+            response_parts.append("You are not carrying anything.")
+        
+        # Show currency in wallet
+        from economy.currency import get_currency, format_currency
+        currency = get_currency(game)
+        currency_str = format_currency(currency)
+        
+        # Only show wallet if player has currency
+        if currency_str != "no currency":
+            response_parts.append(f"Wallet: You have {currency_str}.")
+        
+        response = "\n".join(response_parts)
     
     elif tokens[0] in ["gold", "money", "currency"]:
         # Show player's currency amount
