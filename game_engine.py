@@ -352,9 +352,12 @@ def pluralize_item_name(item_name: str, count: int) -> str:
     """
     Pluralize an item name intelligently.
     
+    Handles compound nouns (e.g., "loaf of bread" -> "loaves of bread"),
+    special cases (e.g., "loaf" -> "loaves"), and regular pluralization.
+    
     Args:
         item_name: Singular item name
-        count: Quantity
+        count: Quantity (unused but kept for API consistency)
     
     Returns:
         str: Pluralized item name
@@ -363,29 +366,103 @@ def pluralize_item_name(item_name: str, count: int) -> str:
     if item_name.lower().startswith(('a ', 'an ')):
         item_name = item_name.split(' ', 1)[1] if ' ' in item_name else item_name
     
-    # Common pluralization rules
-    lower_name = item_name.lower()
+    # Handle compound nouns with "of" (e.g., "loaf of bread", "bowl of stew")
+    if ' of ' in item_name.lower():
+        parts = item_name.split(' of ', 1)
+        if len(parts) == 2:
+            first_word = parts[0].strip()
+            rest = parts[1].strip()
+            # Pluralize the first word
+            plural_first = pluralize_word(first_word)
+            return f"{plural_first} of {rest}"
     
-    # Already plural or special cases
-    if lower_name.endswith(('loaves', 'leaves', 'knives', 'wives')):
-        return item_name
+    # Handle simple nouns - pluralize the whole thing
+    return pluralize_word(item_name)
+
+
+def pluralize_word(word: str) -> str:
+    """
+    Pluralize a single word using English rules.
     
-    # Words ending in 'y' -> 'ies'
-    if lower_name.endswith('y') and not lower_name.endswith(('ay', 'ey', 'oy', 'uy')):
-        return item_name[:-1] + 'ies'
+    Args:
+        word: Single word to pluralize
+    
+    Returns:
+        str: Pluralized word
+    """
+    if not word:
+        return word
+    
+    lower_word = word.lower()
+    
+    # Special cases dictionary for irregular plurals
+    irregular_plurals = {
+        'loaf': 'loaves',
+        'leaf': 'leaves',
+        'knife': 'knives',
+        'wife': 'wives',
+        'life': 'lives',
+        'half': 'halves',
+        'wolf': 'wolves',
+        'thief': 'thieves',
+        'shelf': 'shelves',
+        'elf': 'elves',
+        'calf': 'calves',
+        'self': 'selves',
+        'piece': 'pieces',
+        'child': 'children',
+        'person': 'people',
+        'man': 'men',
+        'woman': 'women',
+        'mouse': 'mice',
+        'goose': 'geese',
+        'tooth': 'teeth',
+        'foot': 'feet',
+        'ox': 'oxen',
+        'fish': 'fish',  # Can be singular or plural
+        'deer': 'deer',  # Can be singular or plural
+        'sheep': 'sheep',  # Can be singular or plural
+    }
+    
+    # Check irregular plurals first
+    if lower_word in irregular_plurals:
+        # Preserve capitalization
+        if word[0].isupper():
+            return irregular_plurals[lower_word].capitalize()
+        return irregular_plurals[lower_word]
+    
+    # Already plural? (ends with common plural endings)
+    if lower_word.endswith(('loaves', 'leaves', 'knives', 'wives', 'pieces', 'children', 'men', 'women', 'mice', 'geese', 'teeth', 'feet')):
+        return word
+    
+    # Words ending in 'y' -> 'ies' (but not if preceded by vowel)
+    if lower_word.endswith('y') and len(lower_word) > 1:
+        second_last = lower_word[-2]
+        if second_last not in 'aeiou':
+            # Change 'y' to 'ies'
+            if word[0].isupper():
+                return word[:-1].capitalize() + 'ies'
+            return word[:-1] + 'ies'
     
     # Words ending in 's', 'sh', 'ch', 'x', 'z' -> 'es'
-    if lower_name.endswith(('s', 'sh', 'ch', 'x', 'z')):
-        return item_name + 'es'
+    if lower_word.endswith(('s', 'sh', 'ch', 'x', 'z')):
+        # But not if it already ends in 'es'
+        if not lower_word.endswith('es'):
+            return word + 'es'
+        return word
     
-    # Words ending in 'f' or 'fe' -> 'ves'
-    if lower_name.endswith('f'):
-        return item_name[:-1] + 'ves'
-    if lower_name.endswith('fe'):
-        return item_name[:-2] + 'ves'
+    # Words ending in 'f' -> 'ves' (but not all 'f' words)
+    if lower_word.endswith('f') and len(lower_word) > 1:
+        # Common 'f' -> 'ves' words
+        if lower_word in ('loaf', 'leaf', 'knife', 'wife', 'life', 'half', 'wolf', 'thief', 'shelf', 'elf', 'calf', 'self'):
+            return word[:-1] + 'ves'
+    
+    # Words ending in 'fe' -> 'ves'
+    if lower_word.endswith('fe'):
+        return word[:-2] + 'ves'
     
     # Default: add 's'
-    return item_name + 's'
+    return word + 's'
 
 
 def render_item_name(item_id: str) -> str:
