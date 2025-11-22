@@ -1600,20 +1600,18 @@ def apply_weather_to_description(description, time_of_day):
         if intensity == "heavy":
             # Heavy precipitation affects visibility
             if time_of_day == "night":
-                # Fix visibility descriptions
-                if "only the faintest lights from" in modified:
-                    if wtype == "rain":
-                        modified = modified.replace("only the faintest lights from", "no lights are visible from")
-                    elif wtype == "snow":
-                        modified = modified.replace("only the faintest lights from", "no lights are visible through the blizzard from")
-                    elif wtype == "sleet":
-                        modified = modified.replace("only the faintest lights from", "no lights are visible through the sleet from")
+                # Fix visibility descriptions - do most specific first
+                if "only the faintest lights from Hollowvale visible" in modified:
+                    modified = modified.replace("only the faintest lights from Hollowvale visible", "no lights are visible from Hollowvale")
                 elif "faintest lights" in modified:
                     modified = modified.replace("faintest lights", "no lights visible")
-                modified = modified.replace("horizon is lost", "horizon is completely obscured")
-                modified = modified.replace("horizon is", "horizon is barely visible through the")
+                # Fix horizon descriptions - do most specific first
+                if "horizon is lost in blackness" in modified:
+                    modified = modified.replace("horizon is lost in blackness", "horizon is completely obscured")
+                elif "horizon is lost" in modified:
+                    modified = modified.replace("horizon is lost", "horizon is completely obscured")
                 # Add precipitation context to "pitch dark of night" or "pitch dark"
-                if "pitch dark of night" in modified:
+                if "pitch dark of night" in modified and "rain" not in modified.lower() and "snow" not in modified.lower() and "sleet" not in modified.lower():
                     if wtype == "rain":
                         modified = modified.replace("pitch dark of night", "pitch dark of night, with torrential rain lashing down")
                     elif wtype == "snow":
