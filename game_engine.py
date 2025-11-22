@@ -4126,6 +4126,13 @@ def highlight_exits_in_log(log_entries):
                 r'<span style="color: #006400;">\1</span>',
                 entry
             )
+        # Handle [CYAN]...[/CYAN] tags if present (convert to HTML)
+        if "[CYAN]" in entry and "[/CYAN]" in entry:
+            entry = re.sub(
+                r'\[CYAN\](.*?)\[\/CYAN\]',
+                r'<span style="color: #00ffff; font-weight: 500;">\1</span>',
+                entry
+            )
         processed.append(entry)
     return processed
 
