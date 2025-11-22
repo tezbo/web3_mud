@@ -439,15 +439,32 @@ def command():
     # Get database connection for AI token tracking
     conn = get_db()
     try:
-        response, game = handle_command(
-            cmd,
-            game,
-            username=username,
-            user_id=user_id,
-            db_conn=conn,
-            broadcast_fn=broadcast_fn,
-            who_fn=list_active_players,
-        )
+        try:
+            response, game = handle_command(
+                cmd,
+                game,
+                username=username,
+                user_id=user_id,
+                db_conn=conn,
+                broadcast_fn=broadcast_fn,
+                who_fn=list_active_players,
+            )
+        except Exception as e:
+            # Log the error for debugging
+            import traceback
+            print(f"Error handling command '{cmd}': {e}")
+            print(traceback.format_exc())
+            
+            # Return a user-friendly error message
+            game.setdefault("log", [])
+            error_msg = f"An error occurred while processing your command. Please try again."
+            game["log"].append(error_msg)
+            game["log"] = game["log"][-50:]
+            response = error_msg
+            save_game(game)
+            save_state_to_disk()
+            processed_log = highlight_exits_in_log(game["log"])
+            return jsonify({"response": response, "log": processed_log}), 200
     finally:
         conn.close()
     
