@@ -287,7 +287,7 @@ def handle_onboarding_command(command, onboarding_state, username=None, db_conn=
     elif step == 4:  # Backstory selection
         if command_lower == "custom":
             onboarding_state["step"] = 5  # Custom backstory input
-            return "Tell me your story in your own words (keep it brief, 1-2 sentences):", onboarding_state, False
+            return "Tell me your story in your own words (keep it brief, 1-2 sentences):", onboarding_state, False, None
         elif command_lower in AVAILABLE_BACKSTORIES:
             character["backstory"] = command_lower
             character["backstory_text"] = AVAILABLE_BACKSTORIES[command_lower]["description"]
@@ -341,7 +341,7 @@ def handle_onboarding_command(command, onboarding_state, username=None, db_conn=
         else:
             return "Please provide a brief backstory (at least a few words).", onboarding_state, False, None
     
-    return "Invalid command during onboarding.", onboarding_state, False, None
+    return "Invalid command during onboarding.", onboarding_state, False, None, None
 
 
 def is_admin_user(username=None, game=None):
