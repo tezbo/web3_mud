@@ -335,6 +335,13 @@ def welcome():
     if "user_id" in session:
         return redirect(url_for("index"))
     
+    # Clear any stale onboarding state when showing welcome screen
+    # This ensures users see the welcome screen, not onboarding
+    if "onboarding_step" in session:
+        session.pop("onboarding_step", None)
+        session.pop("onboarding_state", None)
+        session.modified = True
+    
     return render_template("welcome.html")
 
 
