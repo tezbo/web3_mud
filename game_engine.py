@@ -3855,6 +3855,33 @@ def handle_command(
                     "'notify login on/off', 'notify time', 'notify time on/off'."
                 )
 
+    elif tokens[0] == "touch" and len(tokens) >= 2:
+        # Touch command for interacting with room details/fixtures
+        target_text = " ".join(tokens[1:]).lower()
+        
+        # Try to resolve as room detail
+        detail_id, detail, room_id = resolve_room_detail(game, target_text)
+        if detail_id and detail:
+            # Check if there's a touch callback
+            callback_result = invoke_room_detail_callback("touch", game, username or "adventurer", room_id, detail_id)
+            if callback_result:
+                response = callback_result
+            else:
+                # Default response if no callback
+                detail_name = detail.get("name", detail_id)
+                response = f"You touch the {detail_name}. It feels solid and real."
+        else:
+            # Not a room detail - check if it's an item or NPC
+            item_id, source, container = resolve_item_target(game, target_text)
+            if item_id:
+                response = f"You touch the {item_id.replace('_', ' ')}. It feels like an ordinary item."
+            else:
+                npc_id, npc = resolve_npc_target(game, target_text)
+                if npc_id and npc:
+                    response = f"You reach out to touch {npc.name}, but they step back slightly. Perhaps that's not appropriate."
+                else:
+                    response = f"You don't see anything like '{target_text}' to touch here."
+
     elif text.lower() in ["restart", "reset"]:
         # Create a new game state with the provided username
         game = new_game_state(username or "adventurer")
