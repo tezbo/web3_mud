@@ -361,12 +361,15 @@ def welcome_command():
         # Force session save - set permanent to ensure cookie is sent
         session.permanent = True
         session.modified = True
-        # Return message and redirect - the redirect will happen after session is saved
-        # Use a longer delay to ensure session cookie is set and persisted
+        # Instead of redirecting via JSON, render the onboarding screen directly
+        # This ensures the session is saved before rendering
+        from game_engine import ONBOARDING_USERNAME_PROMPT
+        log = [ONBOARDING_USERNAME_PROMPT]
+        from game_engine import highlight_exits_in_log
+        processed_log = highlight_exits_in_log(log)
         return jsonify({
-            "message": "Starting character creation...",
             "redirect": "/",
-            "delay": 500
+            "delay": 100
         })
     elif cmd_upper == "L":
         # Login - prompt for username
