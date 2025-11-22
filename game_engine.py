@@ -1442,6 +1442,254 @@ def get_weather_message():
     return ""
 
 
+def apply_weather_to_description(description, time_of_day):
+    """
+    Apply weather-aware modifications to a room description.
+    Modifies descriptions to reflect current weather conditions.
+    
+    Args:
+        description: The base room description
+        time_of_day: Current time of day (dawn/day/dusk/night)
+    
+    Returns:
+        str: Modified description that reflects weather conditions
+    """
+    wtype = WEATHER_STATE.get("type", "clear")
+    intensity = WEATHER_STATE.get("intensity", "none")
+    temp = WEATHER_STATE.get("temperature", "mild")
+    
+    modified = description
+    
+    # Wind modifications
+    if wtype == "windy":
+        if intensity == "heavy":
+            # Replace calm wind references with strong wind
+            modified = modified.replace("The wind is", "The wind is")
+            modified = modified.replace("wind whips", "wind howls and tears")
+            modified = modified.replace("wind howls", "wind howls violently")
+            modified = modified.replace("The air is still", "The wind howls around you")
+            modified = modified.replace("still air", "howling wind")
+        elif intensity == "moderate":
+            modified = modified.replace("The air is still", "A brisk wind blows")
+            modified = modified.replace("still air", "brisk wind")
+        elif intensity == "light":
+            modified = modified.replace("The air is still", "A gentle breeze stirs")
+            modified = modified.replace("still air", "gentle breeze")
+    elif wtype in ["clear", "heatwave"] and intensity == "none":
+        # Still conditions - only modify if description mentions wind
+        if "wind howls" in modified.lower() or "wind whips" in modified.lower():
+            if time_of_day == "night":
+                modified = modified.replace("wind howls", "air is still")
+                modified = modified.replace("wind whips", "air is still")
+            else:
+                modified = modified.replace("wind howls", "wind is calm")
+                modified = modified.replace("wind whips", "wind is calm")
+    
+    # Rain/snow/sleet modifications
+    if wtype in ["rain", "snow", "sleet"]:
+        if intensity == "heavy":
+            # Heavy precipitation affects visibility
+            if time_of_day == "night":
+                modified = modified.replace("only the faintest lights", "no lights are visible through the")
+                modified = modified.replace("faintest lights", "no lights visible")
+                modified = modified.replace("horizon is lost", "horizon is completely obscured")
+                modified = modified.replace("horizon is", "horizon is barely visible through the")
+            else:
+                modified = modified.replace("horizon is", "horizon is obscured by the")
+                modified = modified.replace("you can see", "you can barely see")
+        # Add precipitation context
+        if "rain" in wtype and "rain" not in modified.lower():
+            if time_of_day == "night":
+                modified = modified.replace("pitch dark", "pitch dark, with rain lashing")
+            else:
+                modified = modified.replace("spreads out", "spreads out, though visibility is reduced by the rain")
+    
+    # Snow/sleet specific
+    if wtype in ["snow", "sleet"]:
+        if intensity == "heavy":
+            if time_of_day == "night":
+                modified = modified.replace("pitch dark", "pitch dark, with snow/sleet blinding")
+                modified = modified.replace("sea of darkness", "blinding whiteout")
+            else:
+                modified = modified.replace("spreads out", "spreads out, though the snow/sleet makes it hard to see far")
+    
+    # Temperature modifications
+    if temp == "hot" and time_of_day == "night":
+        modified = modified.replace("cold beneath your feet", "warm, still radiating heat from the day")
+        modified = modified.replace("stone is cold", "stone is still warm")
+        modified = modified.replace("air is still", "air is hot and still, heavy with humidity")
+    elif temp == "cold" and time_of_day == "night":
+        modified = modified.replace("stone is cold", "stone is freezing cold")
+        modified = modified.replace("cold beneath your feet", "bitterly cold beneath your feet")
+    
+    # Heatwave modifications
+    if wtype == "heatwave":
+        if time_of_day == "night":
+            modified = modified.replace("pitch dark", "oppressively hot and dark")
+            modified = modified.replace("air is still", "air is hot and heavy, making it hard to breathe")
+        else:
+            modified = modified.replace("spreads out", "spreads out, shimmering in the heat")
+    
+    # Storm modifications
+    if wtype == "storm":
+        if intensity == "heavy":
+            if time_of_day == "night":
+                modified = modified.replace("pitch dark", "pitch dark, with lightning illuminating")
+                modified = modified.replace("horizon is lost", "horizon flashes with lightning")
+            else:
+                modified = modified.replace("spreads out", "spreads out, though the storm makes it hard to see")
+    
+    # Overcast modifications
+    if wtype == "overcast":
+        if time_of_day == "night":
+            modified = modified.replace("pitch dark", "pitch dark, with clouds blocking any starlight")
+            modified = modified.replace("moon and stars", "no moon or stars visible")
+        else:
+            modified = modified.replace("spreads out", "spreads out under the grey, overcast sky")
+    
+    return modified
+
+
+def apply_weather_to_description(description, time_of_day):
+    """
+    Apply weather-aware modifications to a room description.
+    Modifies descriptions to reflect current weather conditions.
+    
+    Args:
+        description: The base room description
+        time_of_day: Current time of day (dawn/day/dusk/night)
+    
+    Returns:
+        str: Modified description that reflects weather conditions
+    """
+    wtype = WEATHER_STATE.get("type", "clear")
+    intensity = WEATHER_STATE.get("intensity", "none")
+    temp = WEATHER_STATE.get("temperature", "mild")
+    
+    modified = description
+    
+    # Wind modifications
+    if wtype == "windy":
+        if intensity == "heavy":
+            # Replace calm wind references with strong wind
+            modified = modified.replace("wind whips", "wind howls and tears")
+            modified = modified.replace("wind howls", "wind howls violently")
+            modified = modified.replace("The air is still", "The wind howls around you")
+            modified = modified.replace("still air", "howling wind")
+            modified = modified.replace("air is still", "wind howls")
+        elif intensity == "moderate":
+            modified = modified.replace("The air is still", "A brisk wind blows")
+            modified = modified.replace("still air", "brisk wind")
+            modified = modified.replace("air is still", "brisk wind blows")
+        elif intensity == "light":
+            modified = modified.replace("The air is still", "A gentle breeze stirs")
+            modified = modified.replace("still air", "gentle breeze")
+            modified = modified.replace("air is still", "gentle breeze stirs")
+    elif wtype in ["clear", "heatwave"] and intensity == "none":
+        # Still conditions - only modify if description mentions wind
+        if "wind howls" in modified.lower() or "wind whips" in modified.lower():
+            if time_of_day == "night":
+                modified = modified.replace("wind howls", "air is still")
+                modified = modified.replace("wind whips", "air is still")
+            else:
+                modified = modified.replace("wind howls", "wind is calm")
+                modified = modified.replace("wind whips", "wind is calm")
+    
+    # Rain/snow/sleet modifications
+    if wtype in ["rain", "snow", "sleet"]:
+        if intensity == "heavy":
+            # Heavy precipitation affects visibility
+            if time_of_day == "night":
+                # Fix visibility descriptions
+                if "only the faintest lights from" in modified:
+                    if wtype == "rain":
+                        modified = modified.replace("only the faintest lights from", "no lights are visible from")
+                    elif wtype == "snow":
+                        modified = modified.replace("only the faintest lights from", "no lights are visible through the blizzard from")
+                    elif wtype == "sleet":
+                        modified = modified.replace("only the faintest lights from", "no lights are visible through the sleet from")
+                elif "faintest lights" in modified:
+                    modified = modified.replace("faintest lights", "no lights visible")
+                modified = modified.replace("horizon is lost", "horizon is completely obscured")
+                modified = modified.replace("horizon is", "horizon is barely visible through the")
+                # Add precipitation context to "pitch dark of night" or "pitch dark"
+                if "pitch dark of night" in modified:
+                    if wtype == "rain":
+                        modified = modified.replace("pitch dark of night", "pitch dark of night, with torrential rain lashing down")
+                    elif wtype == "snow":
+                        modified = modified.replace("pitch dark of night", "pitch dark of night, with blinding snow")
+                    elif wtype == "sleet":
+                        modified = modified.replace("pitch dark of night", "pitch dark of night, with freezing sleet")
+                elif "pitch dark" in modified and "rain" not in modified.lower() and "snow" not in modified.lower() and "sleet" not in modified.lower():
+                    if wtype == "rain":
+                        modified = modified.replace("pitch dark", "pitch dark, with torrential rain lashing down")
+                    elif wtype == "snow":
+                        modified = modified.replace("pitch dark", "pitch dark, with blinding snow")
+                    elif wtype == "sleet":
+                        modified = modified.replace("pitch dark", "pitch dark, with freezing sleet")
+            else:
+                modified = modified.replace("horizon is", "horizon is obscured by the")
+                modified = modified.replace("you can see", "you can barely see")
+                if "spreads out" in modified and "rain" not in modified.lower() and "snow" not in modified.lower():
+                    if wtype == "rain":
+                        modified = modified.replace("spreads out", "spreads out, though visibility is reduced by the driving rain")
+                    elif wtype == "snow":
+                        modified = modified.replace("spreads out", "spreads out, though the heavy snow makes it hard to see far")
+                    elif wtype == "sleet":
+                        modified = modified.replace("spreads out", "spreads out, though the freezing sleet obscures your view")
+    
+    # Temperature modifications
+    if temp == "hot" and time_of_day == "night":
+        modified = modified.replace("cold beneath your feet", "warm, still radiating heat from the day")
+        modified = modified.replace("stone is cold", "stone is still warm")
+        if "air is still" in modified:
+            modified = modified.replace("air is still", "air is hot and still, heavy with humidity")
+    elif temp == "cold" and time_of_day == "night":
+        modified = modified.replace("stone is cold", "stone is freezing cold")
+        if "cold beneath your feet" in modified:
+            modified = modified.replace("cold beneath your feet", "bitterly cold beneath your feet")
+        elif "stone is freezing cold" in modified and "bitterly" not in modified:
+            # Avoid double modification
+            pass
+    
+    # Heatwave modifications
+    if wtype == "heatwave":
+        if time_of_day == "night":
+            if "pitch dark of night" in modified:
+                modified = modified.replace("pitch dark of night", "oppressively hot and dark night")
+            elif "pitch dark" in modified:
+                modified = modified.replace("pitch dark", "oppressively hot and dark")
+            if "air is still" in modified:
+                modified = modified.replace("air is still", "air is hot and heavy, making it hard to breathe")
+        else:
+            modified = modified.replace("spreads out", "spreads out, shimmering in the heat")
+    
+    # Storm modifications
+    if wtype == "storm":
+        if intensity == "heavy":
+            if time_of_day == "night":
+                if "pitch dark of night" in modified:
+                    modified = modified.replace("pitch dark of night", "pitch dark of night, with lightning illuminating the sky")
+                elif "pitch dark" in modified:
+                    modified = modified.replace("pitch dark", "pitch dark, with lightning illuminating the sky")
+                modified = modified.replace("horizon is lost", "horizon flashes with lightning")
+            else:
+                modified = modified.replace("spreads out", "spreads out, though the storm makes it hard to see")
+    
+    # Overcast modifications
+    if wtype == "overcast":
+        if time_of_day == "night":
+            if "pitch dark of night" in modified:
+                modified = modified.replace("pitch dark of night", "pitch dark of night, with clouds blocking any starlight")
+            elif "pitch dark" in modified:
+                modified = modified.replace("pitch dark", "pitch dark, with clouds blocking any starlight")
+            modified = modified.replace("moon and stars", "no moon or stars visible")
+        else:
+            modified = modified.replace("spreads out", "spreads out under the grey, overcast sky")
+    
+    return modified
+
+
 def get_seasonal_room_overlay(room_def, season, weather_state):
     """
     Get seasonal overlay text based on room features.
@@ -2970,6 +3218,10 @@ def describe_location(game):
         desc = descriptions_by_time[time_of_day]
     else:
         desc = room_def["description"]
+    
+    # Apply weather-aware modifications to the description (for outdoor rooms)
+    if room_def.get("outdoor", False):
+        desc = apply_weather_to_description(desc, time_of_day)
     exits = ", ".join(room_def["exits"].keys()) or "none"
     items = room_state.get("items", [])
     
