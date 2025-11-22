@@ -602,7 +602,10 @@ def command():
     
     # Check if user is in onboarding (for new character creation - may not be logged in yet)
     onboarding_step = session.get("onboarding_step")
-    if onboarding_step and onboarding_step != "complete":
+    
+    # If in onboarding, handle onboarding commands (user may not be logged in yet)
+    # Check explicitly for None - onboarding_step can be 0 (which is falsy but valid)
+    if onboarding_step is not None and onboarding_step != "complete" and onboarding_step != "":
         # Handle onboarding commands for new character creation
         from game_engine import handle_onboarding_command
         
