@@ -355,14 +355,15 @@ def welcome_command():
         # New character - start onboarding with username/password creation
         session["onboarding_step"] = 0
         session["onboarding_state"] = {"step": 0, "character": {}}
-        # Force session save
+        # Force session save - set permanent to ensure cookie is sent
+        session.permanent = True
         session.modified = True
         # Return message and redirect - the redirect will happen after session is saved
-        # Use a small delay to ensure session cookie is set
+        # Use a longer delay to ensure session cookie is set and persisted
         return jsonify({
             "message": "Starting character creation...",
             "redirect": "/",
-            "delay": 200
+            "delay": 500
         })
     elif cmd_upper == "L":
         # Login - prompt for username
@@ -455,6 +456,12 @@ def guide():
 def index():
     # Check if user is in onboarding (allow without login for new character creation)
     onboarding_step = session.get("onboarding_step")
+    # Debug: log onboarding step to help diagnose
+    import logging
+    logging.basicConfig(level=logging.DEBUG)
+    logger = logging.getLogger(__name__)
+    logger.debug(f"Index route - onboarding_step: {onboarding_step}, type: {type(onboarding_step)}, session keys: {list(session.keys())}")
+    
     # Check explicitly for None - onboarding_step can be 0 (which is falsy but valid)
     if onboarding_step is not None and onboarding_step != "complete":
         # User is in onboarding - show onboarding screen
