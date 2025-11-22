@@ -2039,7 +2039,7 @@ def add_session_welcome(game, username):
 
 # generate_npc_line moved to npc.py
 
-def handle_emote(verb, args, game, username=None):
+def handle_emote(verb, args, game, username=None, broadcast_fn=None):
     """
     Handle social/emote verbs like 'nod' or 'smile'.
     
@@ -2048,6 +2048,7 @@ def handle_emote(verb, args, game, username=None):
         args: List of remaining tokens, e.g. ['guard']
         game: The game state dictionary
         username: Optional username of the player
+        broadcast_fn: Optional callback(room_id: str, text: str) for broadcasting to room
     
     Returns:
         tuple: (response_string, updated_game_state)
@@ -2091,6 +2092,9 @@ def handle_emote(verb, args, game, username=None):
     
     if reaction:
         response = player_view + "\n" + reaction
+        # Broadcast NPC reaction to all players in the room
+        if broadcast_fn is not None:
+            broadcast_fn(loc_id, reaction)
     else:
         response = player_view
     
@@ -2795,7 +2799,7 @@ def handle_command(
 
     # Emote / social commands (check before other commands)
     if verb in EMOTES:
-        response, game = handle_emote(verb, args, game, username=username or "adventurer")
+        response, game = handle_emote(verb, args, game, username=username or "adventurer", broadcast_fn=broadcast_fn)
 
     # Core commands
     elif verb in ["look", "l", "examine"]:
@@ -3600,10 +3604,14 @@ def handle_command(
                                     recent_log=game.get("log", [])[-10:],
                                     user_id=user_id, db_conn=db_conn
                                 )
-                                if ai_response and ai_response.strip():
-                                    response += "\n" + ai_response
-                                    if error_message:
-                                        response += f"\n[Note: {error_message}]"
+                            if ai_response and ai_response.strip():
+                                response += "\n" + ai_response
+                                if error_message:
+                                    response += f"\n[Note: {error_message}]"
+                                
+                                # Broadcast AI response to all players in the room
+                                if broadcast_fn is not None:
+                                    broadcast_fn(loc_id, ai_response)
                                 
                                 # Update memory
                                 if npc_id not in game.get("npc_memory", {}):
@@ -3654,6 +3662,10 @@ def handle_command(
                             
                             if ai_response and ai_response.strip():
                                 ai_reactions.append(ai_response)
+                                
+                                # Broadcast AI reaction to all players in the room
+                                if broadcast_fn is not None:
+                                    broadcast_fn(loc_id, ai_response)
                                 
                                 # Add error message if present
                                 if error_message:
@@ -3738,6 +3750,12 @@ def handle_command(
                     if matched_npc:
                         # Generate dialogue for the NPC
                         response = generate_npc_line(matched_npc_id, game, username, user_id=user_id, db_conn=db_conn)
+                        
+                        # Broadcast NPC dialogue to all players in the room
+                        if broadcast_fn is not None and response and response.strip():
+                            # Only broadcast if it's actual dialogue (not error messages)
+                            if not response.startswith("There's no one") and not response.startswith("You can't"):
+                                broadcast_fn(loc_id, response)
                     else:
                         response = "There's no one like that to talk to here."
 
