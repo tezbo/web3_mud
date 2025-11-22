@@ -489,6 +489,14 @@ def require_admin(f):
             flash("You must be logged in to access this page.", "error")
             return redirect(url_for("login"))
         
+        username = session.get("username")
+        
+        # Check environment variable first (ADMIN_USERS)
+        admin_users = set(os.environ.get("ADMIN_USERS", "admin,tezbo").split(","))
+        if username and username.lower() in {u.lower().strip() for u in admin_users}:
+            return f(*args, **kwargs)
+        
+        # Check database is_admin field
         conn = get_db()
         user = conn.execute(
             "SELECT is_admin FROM users WHERE id = ?",
