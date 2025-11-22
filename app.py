@@ -833,7 +833,7 @@ def require_admin(f):
     def decorated_function(*args, **kwargs):
         if "user_id" not in session:
             flash("You must be logged in to access this page.", "error")
-            return redirect(url_for("login"))
+            return redirect(url_for("admin_login"))
         
         username = session.get("username")
         
@@ -852,7 +852,7 @@ def require_admin(f):
         
         if not user or not user["is_admin"]:
             flash("Access denied. Admin privileges required.", "error")
-            return redirect(url_for("index"))
+            return redirect(url_for("admin_login"))
         
         return f(*args, **kwargs)
     return decorated_function
