@@ -2003,13 +2003,12 @@ def add_session_welcome(game, username):
     game["log"].append(f'<span style="color: #006400;">You\'re standing in the {room_name}</span>')
     
     # Add room description
+    # describe_location returns a formatted string with room name, description, exits, items, NPCs
+    # We want to add it as-is to the log
     room_description = describe_location(game)
-    # Split description into lines if it's multi-line
+    # describe_location returns a single string, so add it directly
     if isinstance(room_description, str):
-        desc_lines = room_description.split("\n")
-        for line in desc_lines:
-            if line.strip():
-                game["log"].append(line)
+        game["log"].append(room_description)
 
 
 # generate_npc_line moved to npc.py
