@@ -1180,13 +1180,14 @@ def _format_npc_look(npc_id, npc, game):
     return "\n".join(lines)
 
 
-def _format_player_look(game, username):
+def _format_player_look(game, username, db_conn=None):
     """
-    Format a player-facing description of the player themselves.
+    Format a player-facing description of the player themselves (first person).
     
     Args:
         game: Game state dict
         username: Player username
+        db_conn: Optional database connection for loading description
     
     Returns:
         str: Player-facing self-description
@@ -1194,16 +1195,42 @@ def _format_player_look(game, username):
     lines = ["You look at yourself."]
     lines.append("You are an adventurer in Hollowvale.")
     
+    # User description (first person)
+    description = game.get("user_description")
+    if not description and db_conn:
+        # Try to load from database if not in game state
+        try:
+            from app import get_db
+            if db_conn:
+                user_row = db_conn.execute(
+                    "SELECT description FROM users WHERE username = ?",
+                    (username,)
+                ).fetchone()
+                if user_row and user_row["description"]:
+                    description = user_row["description"]
+                    game["user_description"] = description
+        except Exception:
+            pass
+    
+    if description:
+        # First person: "You are..."
+        lines.append(f"You are {description}.")
+    
     # Status effects (if tracked)
     status_effects = game.get("status_effects", [])
     if status_effects:
         lines.append(f"Status: {', '.join(status_effects)}")
     
-    # Inventory
+    # Inventory (grouped)
     inventory = game.get("inventory", [])
     if inventory:
-        item_names = [render_item_name(item_id) for item_id in inventory]
-        lines.append(f"You are carrying: {', '.join(item_names)}.")
+        grouped_items = group_inventory_items(inventory)
+        if len(grouped_items) == 1:
+            lines.append(f"You are carrying {grouped_items[0]}.")
+        elif len(grouped_items) == 2:
+            lines.append(f"You are carrying {grouped_items[0]} and {grouped_items[1]}.")
+        else:
+            lines.append("You are carrying: " + ", ".join(grouped_items[:-1]) + f", and {grouped_items[-1]}.")
     else:
         lines.append("You are not carrying anything.")
     
@@ -1217,6 +1244,61 @@ def _format_player_look(game, username):
                 notable.append(f"{npc.name}")
         if notable:
             lines.append(f"You feel you are on good terms with {', '.join(notable)}.")
+    
+    return "\n".join(lines)
+
+
+def _format_other_player_look(target_username, target_game, db_conn=None):
+    """
+    Format a player-facing description of another player (third person).
+    
+    Args:
+        target_username: Username of the player being looked at
+        target_game: Game state dict of the target player
+        db_conn: Optional database connection for loading description
+    
+    Returns:
+        str: Player-facing description of other player
+    """
+    lines = [f"You look at {target_username}."]
+    lines.append(f"{target_username} is an adventurer in Hollowvale.")
+    
+    # User description (third person)
+    description = target_game.get("user_description")
+    if not description and db_conn:
+        # Try to load from database if not in game state
+        try:
+            user_row = db_conn.execute(
+                "SELECT description FROM users WHERE username = ?",
+                (target_username,)
+            ).fetchone()
+            if user_row and user_row["description"]:
+                description = user_row["description"]
+                target_game["user_description"] = description
+        except Exception:
+            pass
+    
+    if description:
+        # Determine pronoun (he/she/they) - for now default to "he" to match example
+        # Could be enhanced later with gender/pronoun preferences stored in user profile
+        pronoun = "he"  # Default
+        pronoun_cap = "He"
+        
+        # Third person: "He/She/They is..."
+        lines.append(f"{pronoun_cap} is {description}.")
+    
+    # Inventory (grouped, third person)
+    inventory = target_game.get("inventory", [])
+    if inventory:
+        grouped_items = group_inventory_items(inventory)
+        if len(grouped_items) == 1:
+            lines.append(f"{pronoun_cap} is carrying {grouped_items[0]}.")
+        elif len(grouped_items) == 2:
+            lines.append(f"{pronoun_cap} is carrying {grouped_items[0]} and {grouped_items[1]}.")
+        else:
+            lines.append(f"{pronoun_cap} is carrying: " + ", ".join(grouped_items[:-1]) + f", and {grouped_items[-1]}.")
+    else:
+        lines.append(f"{pronoun_cap} is not carrying anything.")
     
     return "\n".join(lines)
 
@@ -2245,22 +2327,45 @@ def handle_command(
             response = describe_location(game)
         elif len(tokens) >= 2:
             target_text = " ".join(tokens[1:]).lower()
+            original_target = " ".join(tokens[1:])  # Preserve original case for username matching
             
             # Handle "me" or username
             if target_text in ["me", "self"] or target_text == (username or "").lower():
                 # Look at self
-                response = _format_player_look(game, username or "adventurer")
+                response = _format_player_look(game, username or "adventurer", db_conn)
             else:
-                # Try to resolve as item or NPC
-                item_id, source, container = resolve_item_target(game, target_text)
-                if item_id:
-                    response = _format_item_look(item_id, source)
-                else:
-                    npc_id, npc = resolve_npc_target(game, target_text)
-                    if npc_id and npc:
-                        response = _format_npc_look(npc_id, npc, game)
+                # Check if target is another player in the same room
+                other_player_found = False
+                if who_fn:
+                    try:
+                        active_players = who_fn()
+                        loc_id = game.get("location", "town_square")
+                        
+                        for player_info in active_players:
+                            player_username = player_info.get("username", "")
+                            # Match by username (case-insensitive)
+                            if player_username.lower() == target_text and player_info.get("location") == loc_id:
+                                # Found another player in the same room
+                                from app import ACTIVE_GAMES
+                                if player_username in ACTIVE_GAMES:
+                                    target_game = ACTIVE_GAMES[player_username]
+                                    response = _format_other_player_look(player_username, target_game, db_conn)
+                                    other_player_found = True
+                                    break
+                    except Exception:
+                        pass  # If who_fn fails, continue to item/NPC resolution
+                
+                if not other_player_found:
+                    # Try to resolve as item or NPC
+                    item_id, source, container = resolve_item_target(game, target_text)
+                    if item_id:
+                        response = _format_item_look(item_id, source)
                     else:
-                        response = f"You don't see anything like '{target_text}' here."
+                        npc_id, npc = resolve_npc_target(game, target_text)
+                        if npc_id and npc:
+                            response = _format_npc_look(npc_id, npc, game)
+                        else:
+                            response = f"You don't see anything like '{original_target}' here."
         else:
             response = describe_location(game)
 
