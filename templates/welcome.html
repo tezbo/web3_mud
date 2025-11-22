@@ -187,8 +187,10 @@ Your choice:`;
         const data = await res.json();
         
         if (data.redirect) {
-          // Handle redirect
-          window.location.href = data.redirect;
+          // Handle redirect - use a small delay to ensure session is saved
+          setTimeout(() => {
+            window.location.href = data.redirect;
+          }, 100);
           return;
         }
 
