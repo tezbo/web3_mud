@@ -7,6 +7,8 @@
   },
   "items": ["iron_hammer", "lump_of_ore"],
   "npcs": ["blacksmith"],
+  "outdoor": false,
+  "features": [],
   "details": {
     "hammers": {
       "name": "hammers",

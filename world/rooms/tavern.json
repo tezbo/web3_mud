@@ -8,6 +8,8 @@
   },
   "items": ["wooden_tankard"],
   "npcs": ["innkeeper"],
+  "outdoor": false,
+  "features": [],
   "details": {
     "tables": {
       "name": "tables",

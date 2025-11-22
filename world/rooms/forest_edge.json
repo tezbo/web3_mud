@@ -8,6 +8,8 @@
   },
   "items": ["bundle_of_herbs"],
   "npcs": ["nervous_farmer"],
+  "outdoor": true,
+  "features": ["trees", "leaves", "forest", "village"],
   "details": {
     "cottages": {
       "name": "cottages",

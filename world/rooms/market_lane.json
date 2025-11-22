@@ -9,6 +9,8 @@
   },
   "items": ["fresh_bread", "simple_amulet"],
   "npcs": ["herbalist"],
+  "outdoor": true,
+  "features": ["market", "village"],
   "details": {
     "stalls": {
       "name": "market stalls",

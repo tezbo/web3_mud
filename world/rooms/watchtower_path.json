@@ -8,6 +8,8 @@
   },
   "items": ["loose_stone"],
   "npcs": ["patrolling_guard"],
+  "outdoor": true,
+  "features": ["path", "hill"],
   "details": {
     "path": {
       "name": "path",

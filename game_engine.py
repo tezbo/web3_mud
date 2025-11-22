@@ -10,6 +10,7 @@ import os
 import json
 import time
 import sys
+import random
 from datetime import datetime, timedelta
 
 # Safe import of AI client (optional)
@@ -1039,6 +1040,610 @@ def check_period_transition():
     return None
 
 
+# --- Weather and Season System ---
+
+# Time constants for weather system
+TICKS_PER_MINUTE = 1
+MINUTES_PER_HOUR = 60
+HOURS_PER_DAY = 24
+DAYS_PER_YEAR = 120  # Short in-game year for gameplay
+
+# GAME_TIME tracks tick-based progression (independent of real-world time)
+GAME_TIME = {
+    "tick": 0,          # Monotonically increasing tick count
+    "minutes": 0,       # Total in-game minutes elapsed
+}
+
+# WEATHER_STATE tracks current global weather
+WEATHER_STATE = {
+    "type": "clear",      # "clear", "windy", "rain", "storm", "snow", "sleet", "overcast", "heatwave"
+    "intensity": "none",  # "none", "light", "moderate", "heavy"
+    "temperature": "mild",  # "cold", "chilly", "mild", "warm", "hot"
+    "last_update_tick": 0,
+}
+
+# Weather messages by type and intensity
+WEATHER_MESSAGES = {
+    "windy": {
+        "light": [
+            "A gentle breeze rustles through the area.",
+            "The wind picks up slightly, carrying a few leaves along the ground.",
+        ],
+        "moderate": [
+            "A brisk wind tugs at your clothes.",
+            "The wind is picking up, carrying leaves and dust along the ground.",
+        ],
+        "heavy": [
+            "It's blowing a gale. Debris whips past you – you should find shelter.",
+            "Strong winds howl around you, making it hard to keep your footing.",
+        ],
+    },
+    "rain": {
+        "light": [
+            "A light rain patters gently around you.",
+            "Drizzle falls softly, barely noticeable at first.",
+        ],
+        "moderate": [
+            "Rain falls steadily, soaking the road and your clothes.",
+            "The rain comes down in sheets, making everything slick and wet.",
+        ],
+        "heavy": [
+            "Sheets of rain hammer the ground, making it hard to see far.",
+            "Torrential rain lashes down, turning the ground to mud.",
+        ],
+    },
+    "snow": {
+        "light": [
+            "A light snow floats gently to the ground, vanishing as it touches the earth.",
+            "Delicate snowflakes drift down, dusting everything in white.",
+        ],
+        "moderate": [
+            "Snow drifts down in thick flakes, softening the edges of the world.",
+            "Steady snowfall blankets the ground, muffling all sound.",
+        ],
+        "heavy": [
+            "A heavy snowfall blankets everything in white; your footprints fill in behind you.",
+            "Blinding snow falls in thick curtains, obscuring the world around you.",
+        ],
+    },
+    "sleet": {
+        "moderate": [
+            "Freezing sleet stings your face and soaks your clothes.",
+            "Icy sleet pelts down, making the ground treacherous.",
+        ],
+        "heavy": [
+            "Driving sleet cuts through the air like needles.",
+            "The sleet comes down hard, coating everything in a layer of ice.",
+        ],
+    },
+    "clear": {
+        "none": [
+            "The sky is clear and bright, with the sun high above.",
+            "Clear skies stretch overhead, promising a pleasant day.",
+        ],
+    },
+    "heatwave": {
+        "moderate": [
+            "It's hot and still; heat shimmers above the stone.",
+            "The air is oppressive with heat, making every breath feel heavy.",
+        ],
+        "heavy": [
+            "The heat is unbearable; the sun beats down mercilessly.",
+            "Scorching heat radiates from every surface, making shade a precious commodity.",
+        ],
+    },
+    "overcast": {
+        "light": [
+            "Grey clouds hang low overhead, muting the light.",
+            "The sky is overcast, casting everything in a dull grey light.",
+        ],
+        "moderate": [
+            "Thick clouds block out most of the sun, creating a somber atmosphere.",
+            "Heavy clouds press down, making the day feel darker than it should.",
+        ],
+    },
+    "storm": {
+        "moderate": [
+            "Thunder rumbles in the distance as dark clouds gather overhead.",
+            "A storm is brewing; lightning flashes across the sky.",
+        ],
+        "heavy": [
+            "A fierce storm rages, with thunder and lightning crashing all around.",
+            "The storm unleashes its fury; you can barely see through the driving rain and wind.",
+        ],
+    },
+}
+
+# Seasonal overlays by feature and season
+SEASONAL_OVERLAYS = {
+    "autumn": {
+        "trees": [
+            "The leaves are starting to turn shades of red and yellow.",
+            "Autumn colors paint the trees in brilliant hues.",
+        ],
+        "leaves": [
+            "Fallen leaves swirl around your feet in the gusts.",
+            "Crisp autumn leaves crunch underfoot.",
+        ],
+        "forest": [
+            "The forest is awash with autumn colors, a final burst of beauty before winter.",
+            "Autumn has transformed the forest into a tapestry of gold and crimson.",
+        ],
+    },
+    "winter": {
+        "trees": [
+            "The trees stand bare, their branches etched dark against the sky.",
+            "Bare branches reach skyward like skeletal fingers.",
+        ],
+        "village": [
+            "A chill hangs in the air; your breath ghosts in front of you.",
+            "The village looks stark and cold under the winter sky.",
+        ],
+        "market": [
+            "The market stalls are quiet, their owners huddled against the cold.",
+            "Winter has emptied the market; only the hardiest venture out.",
+        ],
+        "forest": [
+            "The forest sleeps under a blanket of snow and silence.",
+            "Winter has stripped the forest bare, leaving only the hardiest evergreens.",
+        ],
+    },
+    "spring": {
+        "trees": [
+            "Fresh buds and blossoms dot the branches; new growth is everywhere.",
+            "The trees are coming alive with new leaves and flowers.",
+        ],
+        "flowers": [
+            "Wildflowers bloom along the paths, adding splashes of color.",
+            "Spring flowers dot the landscape, a welcome sign of renewal.",
+        ],
+        "forest": [
+            "Birdsong drifts through the air, bright and lively.",
+            "The forest awakens with the sounds and scents of spring.",
+        ],
+    },
+    "summer": {
+        "fields": [
+            "The air is warm, and the sky overhead is a deep, clear blue.",
+            "Summer heat shimmers over the fields.",
+        ],
+        "village": [
+            "The village basks in warm summer sunlight.",
+            "Summer brings life and activity to the village streets.",
+        ],
+        "forest": [
+            "The forest is lush and green, full of life and shade.",
+            "Summer has filled the forest with vibrant green and dappled sunlight.",
+        ],
+    },
+}
+
+
+def advance_time(ticks=1):
+    """
+    Advance the game time by the given number of ticks.
+    
+    Args:
+        ticks: Number of ticks to advance (default: 1)
+    """
+    global GAME_TIME
+    GAME_TIME["tick"] += ticks
+    GAME_TIME["minutes"] = GAME_TIME["tick"] // TICKS_PER_MINUTE
+
+
+def get_time_of_day():
+    """
+    Get the time of day based on current in-game minutes.
+    
+    Returns:
+        str: "night", "dawn", "day", or "dusk"
+    """
+    minutes_in_day = GAME_TIME["minutes"] % (HOURS_PER_DAY * MINUTES_PER_HOUR)
+    hour = minutes_in_day // MINUTES_PER_HOUR
+    
+    if 0 <= hour < 6:
+        return "night"
+    elif 6 <= hour < 8:
+        return "dawn"
+    elif 8 <= hour < 18:
+        return "day"
+    elif 18 <= hour < 20:
+        return "dusk"
+    else:
+        return "night"
+
+
+def get_day_of_year():
+    """
+    Get the current day of the year (0-based).
+    
+    Returns:
+        int: Day of year (0 to DAYS_PER_YEAR-1)
+    """
+    days_elapsed = GAME_TIME["minutes"] // (HOURS_PER_DAY * MINUTES_PER_HOUR)
+    return days_elapsed % DAYS_PER_YEAR
+
+
+def get_season():
+    """
+    Get the current season based on day of year.
+    
+    Returns:
+        str: "spring", "summer", "autumn", or "winter"
+    """
+    day = get_day_of_year()
+    days_per_season = DAYS_PER_YEAR // 4
+    
+    if 0 <= day < days_per_season:
+        return "spring"
+    elif days_per_season <= day < days_per_season * 2:
+        return "summer"
+    elif days_per_season * 2 <= day < days_per_season * 3:
+        return "autumn"
+    else:
+        return "winter"
+
+
+def update_weather_if_needed():
+    """
+    Update weather state based on season and time.
+    Called periodically to create weather transitions.
+    """
+    global WEATHER_STATE
+    
+    current_tick = GAME_TIME["tick"]
+    last_update = WEATHER_STATE.get("last_update_tick", 0)
+    
+    # Update weather every 10 ticks (roughly every 10 commands)
+    if current_tick - last_update < 10:
+        return
+    
+    WEATHER_STATE["last_update_tick"] = current_tick
+    season = get_season()
+    
+    # Weather transition probabilities by season
+    season_weather = {
+        "spring": {
+            "clear": 0.3,
+            "rain": 0.4,
+            "overcast": 0.2,
+            "storm": 0.1,
+        },
+        "summer": {
+            "clear": 0.5,
+            "heatwave": 0.2,
+            "storm": 0.2,
+            "windy": 0.1,
+        },
+        "autumn": {
+            "windy": 0.3,
+            "rain": 0.3,
+            "overcast": 0.2,
+            "clear": 0.2,
+        },
+        "winter": {
+            "snow": 0.4,
+            "sleet": 0.2,
+            "overcast": 0.2,
+            "clear": 0.1,
+            "windy": 0.1,
+        },
+    }
+    
+    # Temperature by season
+    season_temp = {
+        "spring": ["mild", "chilly"],
+        "summer": ["warm", "hot"],
+        "autumn": ["mild", "chilly"],
+        "winter": ["cold", "chilly"],
+    }
+    
+    # Get current weather type probabilities
+    weather_probs = season_weather.get(season, season_weather["spring"])
+    
+    # Decide if weather should change (30% chance)
+    if random.random() < 0.3:
+        # Pick new weather type based on probabilities
+        rand = random.random()
+        cumulative = 0
+        new_type = WEATHER_STATE["type"]  # Default: stay same
+        
+        for wtype, prob in weather_probs.items():
+            cumulative += prob
+            if rand <= cumulative:
+                new_type = wtype
+                break
+        
+        WEATHER_STATE["type"] = new_type
+        
+        # Set intensity based on weather type
+        if new_type in ["rain", "snow", "sleet"]:
+            intensities = ["light", "moderate", "heavy"]
+            weights = [0.4, 0.4, 0.2]
+            WEATHER_STATE["intensity"] = random.choices(intensities, weights=weights)[0]
+        elif new_type == "windy":
+            intensities = ["light", "moderate", "heavy"]
+            weights = [0.3, 0.5, 0.2]
+            WEATHER_STATE["intensity"] = random.choices(intensities, weights=weights)[0]
+        elif new_type == "heatwave":
+            intensities = ["moderate", "heavy"]
+            weights = [0.6, 0.4]
+            WEATHER_STATE["intensity"] = random.choices(intensities, weights=weights)[0]
+        elif new_type == "storm":
+            intensities = ["moderate", "heavy"]
+            weights = [0.5, 0.5]
+            WEATHER_STATE["intensity"] = random.choices(intensities, weights=weights)[0]
+        elif new_type == "overcast":
+            intensities = ["light", "moderate"]
+            weights = [0.5, 0.5]
+            WEATHER_STATE["intensity"] = random.choices(intensities, weights=weights)[0]
+        else:
+            WEATHER_STATE["intensity"] = "none"
+    
+    # Update temperature based on season and weather
+    temp_options = season_temp.get(season, ["mild"])
+    if WEATHER_STATE["type"] in ["snow", "sleet"]:
+        WEATHER_STATE["temperature"] = "cold"
+    elif WEATHER_STATE["type"] == "heatwave":
+        WEATHER_STATE["temperature"] = "hot"
+    else:
+        WEATHER_STATE["temperature"] = random.choice(temp_options)
+
+
+def get_weather_message():
+    """
+    Get a random weather message based on current weather state.
+    
+    Returns:
+        str: Weather message or empty string
+    """
+    wtype = WEATHER_STATE.get("type", "clear")
+    intensity = WEATHER_STATE.get("intensity", "none")
+    
+    if wtype not in WEATHER_MESSAGES:
+        return ""
+    
+    messages = WEATHER_MESSAGES[wtype].get(intensity, [])
+    if not messages:
+        # Fallback to "none" intensity if available
+        messages = WEATHER_MESSAGES[wtype].get("none", [])
+    
+    if messages:
+        return random.choice(messages)
+    return ""
+
+
+def get_seasonal_room_overlay(room_def, season, weather_state):
+    """
+    Get seasonal overlay text based on room features.
+    
+    Args:
+        room_def: Room definition dict
+        season: Current season string
+        weather_state: Current weather state dict
+    
+    Returns:
+        str: Overlay text or empty string
+    """
+    features = room_def.get("features", [])
+    if not features:
+        return ""
+    
+    overlays = SEASONAL_OVERLAYS.get(season, {})
+    if not overlays:
+        return ""
+    
+    # Find matching feature
+    for feature in features:
+        if feature in overlays:
+            messages = overlays[feature]
+            return random.choice(messages)
+    
+    return ""
+
+
+def get_npc_weather_reaction(npc_id, weather_state, season):
+    """
+    Get an NPC's reaction to current weather/season.
+    
+    Args:
+        npc_id: NPC ID
+        weather_state: Current weather state dict
+        season: Current season string
+    
+    Returns:
+        str or None: Reaction message or None
+    """
+    wtype = weather_state.get("type", "clear")
+    intensity = weather_state.get("intensity", "none")
+    
+    reactions = {
+        "old_storyteller": {
+            ("heatwave", "moderate"): "The Old Storyteller wipes sweat from his brow. 'These summers grow warmer every year,' he murmurs.",
+            ("heatwave", "heavy"): "The Old Storyteller fans himself with a weathered hand. 'This heat is unbearable. I remember when summers were gentler.'",
+            ("snow", "heavy"): "The Old Storyteller shivers slightly. 'Winter's grip tightens. Stay warm, traveler.'",
+            ("rain", "heavy"): "The Old Storyteller pulls his robes closer. 'The rain tells stories of its own, if you know how to listen.'",
+        },
+        "innkeeper": {
+            ("rain", "heavy"): "'Good night for staying inside,' Mara says, glancing toward the rain-streaked windows.",
+            ("snow", "moderate"): "Mara looks out at the falling snow. 'At least it'll keep the troublemakers indoors tonight.'",
+            ("heatwave", "moderate"): "Mara wipes her brow. 'This heat makes the ale taste better, at least.'",
+        },
+        "patrolling_guard": {
+            ("rain", "moderate"): "The Patrolling Guard grumbles, adjusting their cloak. 'You'd think they'd issue us umbrellas for this job.'",
+            ("sleet", "moderate"): "The Patrolling Guard shivers. 'This sleet is worse than snow. At least snow doesn't soak through everything.'",
+            ("snow", "heavy"): "The Patrolling Guard stamps their feet. 'Standing watch in this weather is no joke.'",
+        },
+        "forest_spirit": {
+            ("rain", "light"): "The Forest Spirit seems to dance with the falling rain, its form rippling with delight.",
+            ("rain", "moderate"): "The Forest Spirit moves through the rain as if it were part of the water itself.",
+            ("windy", "moderate"): "The Forest Spirit sways with the wind, its form blending with the rustling leaves.",
+        },
+        "nervous_farmer": {
+            ("windy", "heavy"): "The Nervous Farmer peers anxiously at the trees. 'Wind like this always brings trouble from the woods,' they mutter.",
+            ("storm", "moderate"): "The Nervous Farmer looks skyward nervously. 'Storms make the forest restless. Best stay away.'",
+            ("snow", "heavy"): "The Nervous Farmer shivers. 'When the snow falls this heavy, you never know what's hiding beneath it.'",
+        },
+        "blacksmith": {
+            ("snow", "moderate"): "The Blacksmith works the forge harder. 'At least the fire keeps me warm in this weather.'",
+            ("heatwave", "moderate"): "The Blacksmith wipes sweat from their brow. 'This heat makes the forge unbearable, but work must go on.'",
+        },
+    }
+    
+    npc_reactions = reactions.get(npc_id, {})
+    key = (wtype, intensity)
+    
+    if key in npc_reactions:
+        return npc_reactions[key]
+    
+    return None
+
+
+def update_player_weather_status(game):
+    """
+    Update player's weather exposure status based on current location and weather.
+    
+    Args:
+        game: Player's game state dict (will be mutated)
+    """
+    if "weather_status" not in game:
+        game["weather_status"] = {
+            "wetness": 0,
+            "cold": 0,
+            "heat": 0,
+            "last_update_tick": 0,
+        }
+    
+    status = game["weather_status"]
+    current_tick = GAME_TIME["tick"]
+    last_update = status.get("last_update_tick", 0)
+    
+    # Update every tick
+    if current_tick <= last_update:
+        return
+    
+    status["last_update_tick"] = current_tick
+    
+    # Get player's current room
+    loc_id = game.get("location", "town_square")
+    if loc_id not in WORLD:
+        return
+    
+    room_def = WORLD[loc_id]
+    is_outdoor = room_def.get("outdoor", False)
+    
+    if not is_outdoor:
+        # Indoor: gradually decay all status
+        if status["wetness"] > 0:
+            status["wetness"] = max(0, status["wetness"] - 1)
+        if status["cold"] > 0:
+            status["cold"] = max(0, status["cold"] - 1)
+        if status["heat"] > 0:
+            status["heat"] = max(0, status["heat"] - 1)
+        return
+    
+    # Outdoor: apply weather effects
+    wtype = WEATHER_STATE.get("type", "clear")
+    intensity = WEATHER_STATE.get("intensity", "none")
+    temp = WEATHER_STATE.get("temperature", "mild")
+    season = get_season()
+    
+    # Wetness from rain/snow/sleet
+    if wtype in ["rain", "snow", "sleet"]:
+        if intensity == "light":
+            status["wetness"] = min(10, status["wetness"] + 1)
+        elif intensity == "moderate":
+            status["wetness"] = min(10, status["wetness"] + 2)
+        elif intensity == "heavy":
+            status["wetness"] = min(10, status["wetness"] + 3)
+    else:
+        # Gradually dry off if not in precipitation
+        if status["wetness"] > 0:
+            status["wetness"] = max(0, status["wetness"] - 1)
+    
+    # Cold from winter/snow/sleet/cold temps
+    if season == "winter" or wtype in ["snow", "sleet"] or temp in ["cold", "chilly"]:
+        if wtype == "snow" and intensity == "heavy":
+            status["cold"] = min(10, status["cold"] + 2)
+        elif temp == "cold":
+            status["cold"] = min(10, status["cold"] + 1)
+        else:
+            status["cold"] = min(10, status["cold"] + 1)
+    else:
+        # Gradually warm up
+        if status["cold"] > 0:
+            status["cold"] = max(0, status["cold"] - 1)
+    
+    # Heat from summer/heatwave/hot temps
+    if season == "summer" or wtype == "heatwave" or temp == "hot":
+        if wtype == "heatwave" and intensity == "heavy":
+            status["heat"] = min(10, status["heat"] + 2)
+        elif temp == "hot":
+            status["heat"] = min(10, status["heat"] + 1)
+        else:
+            status["heat"] = min(10, status["heat"] + 1)
+    else:
+        # Gradually cool down
+        if status["heat"] > 0:
+            status["heat"] = max(0, status["heat"] - 1)
+
+
+def get_player_weather_description(game, pronouns=None):
+    """
+    Get weather condition description for a player.
+    
+    Args:
+        game: Player's game state dict
+        pronouns: Optional dict with "pronoun" key (default: "they")
+    
+    Returns:
+        str: Weather description or empty string
+    """
+    if "weather_status" not in game:
+        return ""
+    
+    status = game["weather_status"]
+    pronoun = (pronouns or {}).get("pronoun", "they") if pronouns else "they"
+    
+    wetness = status.get("wetness", 0)
+    cold = status.get("cold", 0)
+    heat = status.get("heat", 0)
+    
+    # Find dominant condition
+    max_condition = max(wetness, cold, heat)
+    if max_condition == 0:
+        return ""
+    
+    # Generate description for dominant condition
+    if wetness == max_condition:
+        if wetness <= 2:
+            return f"{pronoun.capitalize()} look a bit damp."
+        elif wetness <= 4:
+            return f"You can tell {pronoun} have been standing in the rain for a while."
+        elif wetness <= 7:
+            return f"{pronoun.capitalize()} look thoroughly soaked through."
+        else:
+            return f"{pronoun.capitalize()} are absolutely drenched from head to toe."
+    elif cold == max_condition:
+        if cold <= 2:
+            return f"{pronoun.capitalize()} look a little chilled."
+        elif cold <= 4:
+            return f"{pronoun.capitalize()} are shivering slightly in the cold."
+        elif cold <= 7:
+            return f"{pronoun.capitalize()} look very cold and uncomfortable."
+        else:
+            return f"{pronoun.capitalize()} are shivering violently, lips tinged blue."
+    else:  # heat
+        if heat <= 2:
+            return f"{pronoun.capitalize()} look a touch flushed from the heat."
+        elif heat <= 4:
+            return f"A sheen of sweat glistens on {pronoun} skin."
+        elif heat <= 7:
+            return f"{pronoun.capitalize()} look overheated and unsteady."
+        else:
+            return f"{pronoun.capitalize()} are drenched in sweat and look ready to collapse from the heat."
+
+
 def should_restock_merchant(npc_id):
     """
     Check if a merchant should restock (24 in-game hours since last restock).
@@ -1527,6 +2132,11 @@ def _format_player_look(game, username, db_conn=None):
     else:
         lines.append("You are an adventurer in Hollowvale.")
     
+    # Add weather description
+    weather_desc = get_player_weather_description(game, pronouns=AVAILABLE_GENDERS.get(character.get("gender", ""), {}))
+    if weather_desc:
+        lines.append(weather_desc)
+    
     # User description (first person)
     description = game.get("user_description")
     if not description and db_conn:
@@ -1960,6 +2570,12 @@ def new_game_state(username="adventurer", character=None):
             "login": False,  # player can enable with 'notify login'
             "time": False,  # player can enable with 'notify time'
         },
+        "weather_status": {
+            "wetness": 0,
+            "cold": 0,
+            "heat": 0,
+            "last_update_tick": 0,
+        },
     }
     initialize_player_currency(game_state)
     return game_state
@@ -2341,16 +2957,56 @@ def describe_location(game):
             all_but_last = ", ".join(present_entities[:-1])
             npcs_text = f"{notice_prefix} {all_but_last} and {present_entities[-1]} are here."
 
+    # Add weather and seasonal overlays for outdoor rooms
+    weather_text = ""
+    seasonal_overlay = ""
+    npc_weather_reaction = ""
+    
+    if room_def.get("outdoor", False):
+        # Get weather message
+        weather_msg = get_weather_message()
+        if weather_msg:
+            weather_text = weather_msg
+        
+        # Get seasonal overlay
+        season = get_season()
+        seasonal_overlay = get_seasonal_room_overlay(room_def, season, WEATHER_STATE)
+        
+        # Occasionally add NPC weather reaction (10% chance)
+        if npc_ids and random.random() < 0.1:
+            for npc_id in npc_ids:
+                reaction = get_npc_weather_reaction(npc_id, WEATHER_STATE, season)
+                if reaction:
+                    npc_weather_reaction = reaction
+                    break
+    
     # Combine all parts
     parts = [
         room_def['name'],
         desc,
-        f"<span style='color: #ffff00; font-weight: bold;'>Exits:</span> {exits}.",
-        items_text,
     ]
     
+    # Add seasonal overlay after main description
+    if seasonal_overlay:
+        parts.append(seasonal_overlay)
+    
+    # Add weather message
+    if weather_text:
+        parts.append(weather_text)
+    
+    # Add exits
+    parts.append(f"<span style='color: #ffff00; font-weight: bold;'>Exits:</span> {exits}.")
+    
+    # Add items
+    parts.append(items_text)
+    
+    # Add NPCs
     if npcs_text:
         parts.append(npcs_text)
+    
+    # Add NPC weather reaction if present
+    if npc_weather_reaction:
+        parts.append(npc_weather_reaction)
     
     return "\n".join(parts)
 
@@ -2823,6 +3479,11 @@ def handle_command(
     Returns:
         tuple: (response_string, updated_game_state)
     """
+    # Advance game time and update weather
+    advance_time(ticks=1)
+    update_weather_if_needed()
+    update_player_weather_status(game)
+    
     text = command.strip()
     if not text:
         return "You say nothing.", game
@@ -4004,6 +4665,23 @@ def handle_command(
         game.pop("pending_quit", None)
         response = "You decide to carry on adventuring. The world awaits!"
 
+    elif tokens[0] == "weather":
+        # Weather command - show current weather and season info
+        season = get_season()
+        time_of_day = get_time_of_day()
+        day_of_year = get_day_of_year()
+        wtype = WEATHER_STATE.get("type", "clear")
+        intensity = WEATHER_STATE.get("intensity", "none")
+        temp = WEATHER_STATE.get("temperature", "mild")
+        
+        response = (
+            f"Current Season: {season.capitalize()}\n"
+            f"Time of Day: {time_of_day.capitalize()}\n"
+            f"Day of Year: {day_of_year + 1} / {DAYS_PER_YEAR}\n"
+            f"Weather: {wtype.capitalize()} ({intensity})\n"
+            f"Temperature: {temp.capitalize()}"
+        )
+
     else:
         # Any other command clears pending quit
         game.pop("pending_quit", None)
@@ -4022,26 +4700,28 @@ def handle_command(
 
 def get_global_state_snapshot():
     """
-    Returns a JSON-serialisable dict containing global state (ROOM_STATE, NPC_STATE).
+    Returns a JSON-serialisable dict containing global state (ROOM_STATE, NPC_STATE, GAME_TIME, WEATHER_STATE).
     
     Returns:
-        dict: {"room_state": ROOM_STATE, "npc_state": NPC_STATE}
+        dict: {"room_state": ROOM_STATE, "npc_state": NPC_STATE, "game_time": GAME_TIME, "weather_state": WEATHER_STATE}
     """
     return {
         "room_state": ROOM_STATE,
         "npc_state": NPC_STATE,
+        "game_time": GAME_TIME,
+        "weather_state": WEATHER_STATE,
     }
 
 
 def load_global_state_snapshot(snapshot):
     """
-    Updates ROOM_STATE, NPC_STATE, and WORLD_CLOCK from a snapshot dict.
+    Updates ROOM_STATE, NPC_STATE, WORLD_CLOCK, GAME_TIME, and WEATHER_STATE from a snapshot dict.
     Backfills missing fields for backward compatibility.
     
     Args:
-        snapshot: dict with optional "room_state", "npc_state", and "world_clock" keys
+        snapshot: dict with optional "room_state", "npc_state", "world_clock", "game_time", and "weather_state" keys
     """
-    global ROOM_STATE, NPC_STATE, WORLD_CLOCK
+    global ROOM_STATE, NPC_STATE, WORLD_CLOCK, GAME_TIME, WEATHER_STATE
     from npc import NPCS
     
     if not isinstance(snapshot, dict):
@@ -4061,6 +4741,26 @@ def load_global_state_snapshot(snapshot):
             WORLD_CLOCK["current_period"] = "day"
         if "last_period_change_hour" not in WORLD_CLOCK:
             WORLD_CLOCK["last_period_change_hour"] = 0
+    
+    if "game_time" in snapshot and isinstance(snapshot["game_time"], dict):
+        GAME_TIME.update(snapshot["game_time"])
+        # Ensure required fields exist
+        if "tick" not in GAME_TIME:
+            GAME_TIME["tick"] = 0
+        if "minutes" not in GAME_TIME:
+            GAME_TIME["minutes"] = 0
+    
+    if "weather_state" in snapshot and isinstance(snapshot["weather_state"], dict):
+        WEATHER_STATE.update(snapshot["weather_state"])
+        # Ensure required fields exist
+        if "type" not in WEATHER_STATE:
+            WEATHER_STATE["type"] = "clear"
+        if "intensity" not in WEATHER_STATE:
+            WEATHER_STATE["intensity"] = "none"
+        if "temperature" not in WEATHER_STATE:
+            WEATHER_STATE["temperature"] = "mild"
+        if "last_update_tick" not in WEATHER_STATE:
+            WEATHER_STATE["last_update_tick"] = 0
     
     if "npc_state" in snapshot and isinstance(snapshot["npc_state"], dict):
         NPC_STATE = snapshot["npc_state"]

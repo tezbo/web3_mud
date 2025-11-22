@@ -10,6 +10,8 @@
   },
   "items": ["copper_coin"],
   "npcs": ["old_storyteller"],
+  "outdoor": true,
+  "features": ["village", "fountain", "cobblestones"],
   "details": {
     "cobblestones": {
       "name": "cobblestones",

@@ -8,6 +8,8 @@
   },
   "items": ["strange_leaf"],
   "npcs": ["forest_spirit"],
+  "outdoor": true,
+  "features": ["trees", "leaves", "forest"],
   "details": {
     "trees": {
       "name": "trees",
