@@ -105,6 +105,25 @@ git push -u origin main
   3. The database and state files will be stored on the persistent disk and survive redeployments
 - **Multi-Instance Scaling**: The current persistence mechanism (local JSON file) is **not suitable for multi-instance deployments**. For production scaling, consider using Redis or a database for shared state.
 
+### Deployment Behavior
+
+**Zero-Downtime Deployments**:
+- Render supports zero-downtime deployments, but **only for services without persistent disks**
+- If you're using `PERSISTENT_DISK_PATH`, each deployment will have brief downtime (typically 5-30 seconds)
+- The old instance stops, then the new instance starts with the updated code
+- For zero-downtime deployments, consider:
+  - Using Render's PostgreSQL database instead of SQLite + persistent disk
+  - Using external storage (S3, etc.) instead of persistent disk
+  - Accepting brief downtime (deployments are usually very quick)
+
+**Frequent Deployments**:
+- Render automatically deploys on every push to the connected branch (usually `main`)
+- Each deployment takes 1-3 minutes (build + start time)
+- For rapid development with 50-100 commits:
+  - Brief downtime is usually acceptable (5-30 seconds per deploy)
+  - Consider batching commits or using a staging environment for testing
+  - The persistent disk ensures data survives redeployments
+
 ## Environment Variables
 
 | Variable | Description | Required | Default |
