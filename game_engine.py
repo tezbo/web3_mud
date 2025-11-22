@@ -2039,7 +2039,7 @@ def add_session_welcome(game, username):
 
 # generate_npc_line moved to npc.py
 
-def handle_emote(verb, args, game, username=None, broadcast_fn=None):
+def handle_emote(verb, args, game, username=None, broadcast_fn=None, who_fn=None):
     """
     Handle social/emote verbs like 'nod' or 'smile'.
     
@@ -2049,6 +2049,7 @@ def handle_emote(verb, args, game, username=None, broadcast_fn=None):
         game: The game state dictionary
         username: Optional username of the player
         broadcast_fn: Optional callback(room_id: str, text: str) for broadcasting to room
+        who_fn: Optional callback() -> list[dict] for getting active players
     
     Returns:
         tuple: (response_string, updated_game_state)
@@ -2059,15 +2060,19 @@ def handle_emote(verb, args, game, username=None, broadcast_fn=None):
     
     # Determine actor name
     actor_name = username or "Someone"
+    loc_id = game.get("location", "town_square")
     
     # No target (e.g. command is just "nod")
     if not args:
         response = EMOTES[verb]["self"]
+        # Broadcast emote to other players in the room
+        if broadcast_fn is not None and loc_id in WORLD:
+            room_message = EMOTES[verb]["room"].format(actor=actor_name)
+            broadcast_fn(loc_id, room_message)
         return response, game
     
     # With target (e.g. "nod guard" or "nod watch guard")
     target_text = " ".join(args).lower()
-    loc_id = game.get("location", "town_square")
     
     if loc_id not in WORLD:
         return "You feel disoriented for a moment.", game
@@ -2078,27 +2083,56 @@ def handle_emote(verb, args, game, username=None, broadcast_fn=None):
     # Use centralized NPC matching
     matched_npc_id, matched_npc = match_npc_in_room(npc_ids, target_text)
     
-    if not matched_npc:
-        return "You do not see anyone like that here.", game
-    
-    # Get target name
-    target_name = matched_npc.name or matched_npc.title or "someone"
-    
-    # Generate player view using self_target template
-    player_view = EMOTES[verb]["self_target"].format(target=target_name)
-    
-    # Get NPC reaction if available
-    reaction = get_npc_reaction(matched_npc_id, verb)
-    
-    if reaction:
-        response = player_view + "\n" + reaction
-        # Broadcast NPC reaction to all players in the room
+    if matched_npc:
+        # Targeting an NPC
+        target_name = matched_npc.name or matched_npc.title or "someone"
+        
+        # Generate player view using self_target template
+        player_view = EMOTES[verb]["self_target"].format(target=target_name)
+        
+        # Broadcast player emote to other players in the room
         if broadcast_fn is not None:
-            broadcast_fn(loc_id, reaction)
-    else:
-        response = player_view
+            room_message = EMOTES[verb]["room_target"].format(actor=actor_name, target=target_name)
+            broadcast_fn(loc_id, room_message)
+        
+        # Get NPC reaction if available
+        reaction = get_npc_reaction(matched_npc_id, verb)
+        
+        if reaction:
+            response = player_view + "\n" + reaction
+            # Broadcast NPC reaction to all players in the room
+            if broadcast_fn is not None:
+                broadcast_fn(loc_id, reaction)
+        else:
+            response = player_view
+        
+        return response, game
     
-    return response, game
+    # Not an NPC - check if it's another player
+    if who_fn is not None:
+        active_players = who_fn()
+        for player_info in active_players:
+            player_username = player_info.get("username", "")
+            if player_username.lower() == target_text and player_info.get("location") == loc_id and player_username != username:
+                # Found another player in the same room
+                target_name = player_username
+                
+                # Generate player view using self_target template
+                player_view = EMOTES[verb]["self_target"].format(target=target_name)
+                
+                # Broadcast to other players (including the target)
+                if broadcast_fn is not None:
+                    # General room message for everyone (including the target)
+                    room_message = EMOTES[verb]["room_target"].format(actor=actor_name, target=target_name)
+                    broadcast_fn(loc_id, room_message)
+                    # Note: For a personalized "nods at you" message, we'd need to enhance
+                    # broadcast_to_room in app.py to handle target-specific messages
+                
+                response = player_view
+                return response, game
+    
+    # Invalid target
+    return "You do not see anyone like that here.", game
 
 
 def get_movement_message(target_room_id, direction):
@@ -2799,7 +2833,7 @@ def handle_command(
 
     # Emote / social commands (check before other commands)
     if verb in EMOTES:
-        response, game = handle_emote(verb, args, game, username=username or "adventurer", broadcast_fn=broadcast_fn)
+        response, game = handle_emote(verb, args, game, username=username or "adventurer", broadcast_fn=broadcast_fn, who_fn=who_fn)
 
     # Core commands
     elif verb in ["look", "l", "examine"]:
