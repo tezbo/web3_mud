@@ -1,0 +1,13 @@
+{
+  "id": "tavern",
+  "name": "The Rusty Tankard Tavern",
+  "description": "The Rusty Tankard welcomes you with warmth and noise. The air is thick with the smell of stew and wood smoke. Rough-hewn tables fill the space, and adventurers and locals share stories over tankards of ale. A fire crackles in the hearth, casting dancing shadows on the walls. This is the kind of place where news travels and friendships are forged.",
+  "exits": {
+    "north": "town_square",
+    "south": "smithy"
+  },
+  "items": ["wooden_tankard"],
+  "npcs": ["innkeeper"],
+  "details": {}
+}
+

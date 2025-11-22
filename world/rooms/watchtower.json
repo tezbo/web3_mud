@@ -1,0 +1,12 @@
+{
+  "id": "watchtower",
+  "name": "Old Watchtower",
+  "description": "You stand at the top of the watchtower, where the wind whips freely and the valley spreads out below. The stone is crumbling in places, but the structure still serves its purpose. From here, you can see Hollowvale spread out like a map—the square, the lanes, the forest edge, and beyond that, the unknown lands that stretch to the horizon. There's something slightly eerie about this place, as if the tower has seen things it cannot forget. Yet it also offers a sense of perspective, a reminder that this village is part of a much larger world.",
+  "exits": {
+    "south": "watchtower_path"
+  },
+  "items": ["cracked_spyglass"],
+  "npcs": ["watch_guard"],
+  "details": {}
+}
+

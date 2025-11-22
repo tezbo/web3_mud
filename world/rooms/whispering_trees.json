@@ -1,0 +1,13 @@
+{
+  "id": "whispering_trees",
+  "name": "The Whispering Trees",
+  "description": "You've entered a dense grove where the trees seem to lean in, their branches creating a canopy that filters the light. The air is still, and there's a sense that you're not entirely alone. The trees themselves seem to hold conversations in rustling leaves, though you can't quite make out the words. This place feels alive in a way that goes beyond the ordinary, as if the forest has its own voice, its own awareness. A good place to listen, if you know how.",
+  "exits": {
+    "south": "forest_edge",
+    "east": "ancient_door"
+  },
+  "items": ["strange_leaf"],
+  "npcs": ["forest_spirit"],
+  "details": {}
+}
+

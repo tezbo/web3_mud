@@ -1,0 +1,15 @@
+{
+  "id": "town_square",
+  "name": "Hollowvale Town Square",
+  "description": "You stand in the heart of Hollowvale, a cozy frontier square where cracked cobblestones circle an old fountain. The water still flows, though the basin is weathered with age. A notice board stands to one side, its parchment fluttering in the breeze. To the north, a rocky path leads up toward the watchtower that overlooks the valley. The square feels familiar and safe, yet there's a sense that this place has seen many stories.",
+  "exits": {
+    "north": "watchtower_path",
+    "south": "tavern",
+    "east": "market_lane",
+    "west": "forest_edge"
+  },
+  "items": ["copper_coin"],
+  "npcs": ["old_storyteller"],
+  "details": {}
+}
+

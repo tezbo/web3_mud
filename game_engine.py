@@ -9,6 +9,7 @@ import re
 import os
 import json
 import time
+import sys
 from datetime import datetime, timedelta
 
 # Safe import of AI client (optional)
@@ -912,164 +913,22 @@ MERCHANT_ITEMS = {
 #   "movement_message": "You step through the archway and enter {location}."
 #   "movement_message": lambda direction, location: f"You climb {direction}ward and reach {location}."
 # If not specified, defaults to: "You go {direction}, and find yourself in the {location}."
+#
+# WORLD is now loaded from JSON files via world_loader.py
 
-WORLD = {
-    "town_square": {
-        "name": "Hollowvale Town Square",
-        "description": (
-            "You stand in the heart of Hollowvale, a cozy frontier square where "
-            "cracked cobblestones circle an old fountain. The water still flows, "
-            "though the basin is weathered with age. A notice board stands to one side, "
-            "its parchment fluttering in the breeze. To the north, a rocky path leads "
-            "up toward the watchtower that overlooks the valley. The square feels "
-            "familiar and safe, yet there's a sense that this place has seen many stories."
-        ),
-        "exits": {"north": "watchtower_path", "south": "tavern", "east": "market_lane", "west": "forest_edge"},
-        "items": ["copper_coin"],
-        "npcs": ["old_storyteller"],
-    },
-    "tavern": {
-        "name": "The Rusty Tankard Tavern",
-        "description": (
-            "The Rusty Tankard welcomes you with warmth and noise. The air is thick with "
-            "the smell of stew and wood smoke. Rough-hewn tables fill the space, and "
-            "adventurers and locals share stories over tankards of ale. A fire crackles "
-            "in the hearth, casting dancing shadows on the walls. This is the kind of "
-            "place where news travels and friendships are forged."
-        ),
-        "exits": {"north": "town_square", "south": "smithy"},
-        "items": ["wooden_tankard"],
-        "npcs": ["innkeeper"],
-    },
-    "smithy": {
-        "name": "Old Stoneforge Smithy",
-        "description": (
-            "The smithy is a low building of stone and timber, its walls hung with tools "
-            "and half-finished work. The forge glows with banked embers, and the air "
-            "carries the scent of coal and hot metal. Anvils stand ready, and the walls "
-            "are lined with hammers, tongs, and other implements of the trade. This is "
-            "where the village's metalwork is born, practical and honest."
-        ),
-        "exits": {"north": "tavern"},
-        "items": ["iron_hammer", "lump_of_ore"],
-        "npcs": ["blacksmith"],
-    },
-    "market_lane": {
-        "name": "Market Lane",
-        "description": (
-            "A narrow lane runs between buildings, where market stalls would normally "
-            "crowd the space. Today it's quiet, but you can see where vendors set up "
-            "their wares—bread, herbs, trinkets, and simple goods. The lane feels "
-            "lived-in, with worn stones underfoot and the lingering scents of spices "
-            "and fresh bread. On market days, this place would be bustling, but now "
-            "it holds a peaceful, almost contemplative air."
-        ),
-        "exits": {"west": "town_square", "east": "old_road", "south": "shrine_of_the_forgotten"},
-        "items": ["fresh_bread", "simple_amulet"],
-        "npcs": ["herbalist"],
-    },
-    "shrine_of_the_forgotten": {
-        "name": "Shrine of the Forgotten Path",
-        "description": (
-            "A small stone shrine stands here, its carvings worn smooth by time and weather. "
-            "The patterns etched into the stone are ancient, their meaning lost to most, "
-            "but they seem to hum with a subtle energy. There's something mysterious about "
-            "this place—a sense of deep history and forgotten knowledge. The air feels "
-            "different here, as if the boundary between the mundane and something more "
-            "is thinner. This is a place of quiet power, waiting to be understood."
-        ),
-        "exits": {"north": "market_lane"},
-        "items": ["smooth_rune_stone"],
-        "npcs": ["quiet_acolyte"],
-        # Example of custom movement message:
-        # "movement_message": "You step through the ancient archway and find yourself at the {location}.",
-    },
-    "forest_edge": {
-        "name": "Edge of the Whispering Wood",
-        "description": (
-            "The last cottages of Hollowvale give way to the forest here. The trees begin "
-            "to crowd closer, and the familiar sounds of village life—birdsong, voices, "
-            "the clang of the smithy—begin to fade. There's a slight unease in the air, "
-            "as if the wood itself is watching. The path into the trees looks inviting "
-            "yet somehow foreboding. This is where the known world meets the unknown, "
-            "where stories of the deeper forest begin."
-        ),
-        "exits": {"east": "town_square", "north": "whispering_trees"},
-        "items": ["bundle_of_herbs"],
-        "npcs": ["nervous_farmer"],
-    },
-    "whispering_trees": {
-        "name": "The Whispering Trees",
-        "description": (
-            "You've entered a dense grove where the trees seem to lean in, their branches "
-            "creating a canopy that filters the light. The air is still, and there's a "
-            "sense that you're not entirely alone. The trees themselves seem to hold "
-            "conversations in rustling leaves, though you can't quite make out the words. "
-            "This place feels alive in a way that goes beyond the ordinary, as if the "
-            "forest has its own voice, its own awareness. A good place to listen, if you "
-            "know how."
-        ),
-        "exits": {"south": "forest_edge", "east": "ancient_door"},
-        "items": ["strange_leaf"],
-        "npcs": ["forest_spirit"],
-    },
-    "ancient_door": {
-        "name": "The Buried Door",
-        "description": (
-            "Half-buried in the earth and overgrown with moss, a stone door stands here, "
-            "its surface covered in runes that seem to shift when you look away. The door "
-            "is clearly ancient, older than the village, older than memory. It doesn't "
-            "open—not yet, perhaps not ever by ordinary means. But its presence here is "
-            "significant, a marker of something important that lies beyond current "
-            "understanding. The runes whisper of forgotten ages and paths not yet taken."
-        ),
-        "exits": {"west": "whispering_trees"},
-        "items": [],
-        "npcs": [],
-    },
-    "watchtower_path": {
-        "name": "Watchtower Path",
-        "description": (
-            "A rocky path winds up the hill from the town square. Scrub and hardy grasses "
-            "cling to the slopes, and the wind has a sharper bite here. The path is well-worn, "
-            "suggesting regular use, though you see no one on it now. Above, the watchtower "
-            "stands sentinel, its stone weathered but still strong. This path connects the "
-            "heart of the village to its highest point, where the wider world can be seen."
-        ),
-        "exits": {"south": "town_square", "north": "watchtower"},
-        "items": ["loose_stone"],
-        "npcs": ["patrolling_guard"],
-    },
-    "watchtower": {
-        "name": "Old Watchtower",
-        "description": (
-            "You stand at the top of the watchtower, where the wind whips freely and the "
-            "valley spreads out below. The stone is crumbling in places, but the structure "
-            "still serves its purpose. From here, you can see Hollowvale spread out like a "
-            "map—the square, the lanes, the forest edge, and beyond that, the unknown lands "
-            "that stretch to the horizon. There's something slightly eerie about this place, "
-            "as if the tower has seen things it cannot forget. Yet it also offers a sense "
-            "of perspective, a reminder that this village is part of a much larger world."
-        ),
-        "exits": {"south": "watchtower_path"},
-        "items": ["cracked_spyglass"],
-        "npcs": ["watch_guard"],
-    },
-    "old_road": {
-        "name": "Old Eastward Road",
-        "description": (
-            "An old, rutted road runs eastward out of Hollowvale, its surface worn by "
-            "countless travelers and the passage of time. This road leads toward lands "
-            "you've only heard of in stories—kingdoms, cities, and adventures that lie "
-            "beyond the horizon. For now, it feels like the edge of your known world, "
-            "a threshold between the familiar and the vast unknown. The road promises "
-            "journeys yet to come, stories yet to be written."
-        ),
-        "exits": {"west": "market_lane"},
-        "items": ["weathered_signpost"],
-        "npcs": ["wandering_trader"],
-    },
-}
+# Import world loader
+try:
+    from world_loader import load_world_from_json
+    WORLD = load_world_from_json()
+except (FileNotFoundError, ValueError, json.JSONDecodeError) as e:
+    # Fallback: if JSON loading fails, use empty dict and log error
+    # This will cause issues, but at least the module will import
+    print(f"ERROR: Failed to load world from JSON: {e}", file=sys.stderr)
+    print("The game will not function correctly until world data is available.", file=sys.stderr)
+    WORLD = {}
+
+# Legacy hardcoded WORLD dict removed - now loaded from JSON
+# If you need to see the old structure, check git history
 
 # --- Global shared room state (shared across all players) ---
 
@@ -1387,6 +1246,133 @@ def resolve_npc_target(game, target_text):
             return candidate_id, candidate_npc
     
     return None, None
+
+
+def resolve_room_detail(game, target_text):
+    """
+    Resolve a room detail/fixture target from user input.
+    
+    Args:
+        game: Game state dict
+        target_text: User input (e.g., "hammers", "anvils", "forge")
+    
+    Returns:
+        tuple: (detail_id, detail_dict, room_id) or (None, None, None) if not found
+    """
+    loc_id = game.get("location", "town_square")
+    
+    if loc_id not in WORLD:
+        return None, None, None
+    
+    room_def = WORLD[loc_id]
+    details = room_def.get("details", {})
+    
+    target_lower = target_text.lower()
+    
+    # Search through all details
+    for detail_id, detail in details.items():
+        # Check detail ID
+        if detail_id.lower() == target_lower:
+            return detail_id, detail, loc_id
+        
+        # Check detail name
+        detail_name = detail.get("name", "").lower()
+        if detail_name == target_lower:
+            return detail_id, detail, loc_id
+        
+        # Check aliases
+        aliases = detail.get("aliases", [])
+        for alias in aliases:
+            if alias.lower() == target_lower:
+                return detail_id, detail, loc_id
+    
+    return None, None, None
+
+
+def invoke_room_detail_callback(action, game, username, room_id, detail_id):
+    """
+    Invoke a callback function for a room detail interaction.
+    
+    Args:
+        action: The action being performed (e.g., "touch", "smell", "use", "on_look")
+        game: The game state dictionary (can be mutated by callback)
+        username: The username of the player
+        room_id: The room ID where this detail is located
+        detail_id: The detail ID that was interacted with
+    
+    Returns:
+        str or None: Response message from callback, or None if no callback found/executed
+    """
+    if room_id not in WORLD:
+        return None
+    
+    room = WORLD.get(room_id, {})
+    details = room.get("details", {})
+    detail = details.get(detail_id)
+    
+    if not detail:
+        return None
+    
+    callbacks = detail.get("callbacks", {})
+    callback_name = callbacks.get(action)
+    
+    if not callback_name:
+        return None
+    
+    # Import room_callbacks module
+    try:
+        import room_callbacks
+    except ImportError:
+        # If module doesn't exist, return None gracefully
+        return None
+    
+    # Resolve callback function
+    callback_func = getattr(room_callbacks, callback_name, None)
+    
+    if not callback_func:
+        # Callback function not found
+        return None
+    
+    # Invoke callback
+    try:
+        result = callback_func(game, username, room_id, detail_id)
+        return result
+    except Exception as e:
+        # Log error but don't crash - return generic error message
+        print(f"Error invoking room detail callback {callback_name}: {e}", file=sys.stderr)
+        return "Something unexpected happens, but you're not sure what."
+
+
+def _format_detail_look(detail_id, detail, room_id):
+    """
+    Format a player-facing description of a room detail/fixture.
+    
+    Args:
+        detail_id: The detail ID
+        detail: The detail dict from room JSON
+        room_id: The room ID (for context)
+    
+    Returns:
+        str: Player-facing description
+    """
+    description = detail.get("description", "You see nothing special about it.")
+    
+    # Optionally add extra hints from stat block if relevant
+    stat = detail.get("stat", {})
+    extra_hints = []
+    
+    if stat.get("temperature") == "hot":
+        extra_hints.append("It radiates heat.")
+    elif stat.get("temperature") == "cold":
+        extra_hints.append("It feels cold to the touch.")
+    
+    if stat.get("quality") == "well-used":
+        extra_hints.append("It shows signs of frequent use.")
+    
+    if extra_hints:
+        description += " " + " ".join(extra_hints)
+    
+    return description
 
 
 def _format_item_look(item_id, source):
@@ -1784,6 +1770,46 @@ def _format_npc_stat(npc_id, npc):
         status = state.get("status")
         if status:
             lines.append(f"Status: {status}")
+    
+    return "\n".join(lines)
+
+
+def _format_detail_stat(detail_id, detail, room_id):
+    """
+    Format an admin-facing detailed stat view of a room detail/fixture.
+    
+    Args:
+        detail_id: Detail identifier
+        detail: Detail dict from room JSON
+        room_id: Room ID where this detail is located
+    
+    Returns:
+        str: Admin stat view
+    """
+    lines = ["Room Detail/Fixture:"]
+    lines.append(f"Room ID: {room_id}")
+    lines.append(f"Detail ID: {detail_id}")
+    lines.append(f"Name: {detail.get('name', detail_id)}")
+    
+    aliases = detail.get("aliases", [])
+    if aliases:
+        lines.append(f"Aliases: {', '.join(aliases)}")
+    
+    description = detail.get("description", "")
+    if description:
+        lines.append(f"Description: {description}")
+    
+    stat = detail.get("stat", {})
+    if stat:
+        lines.append("Stat properties:")
+        for key, value in stat.items():
+            lines.append(f"  {key}: {value}")
+    
+    callbacks = detail.get("callbacks", {})
+    if callbacks:
+        lines.append("Callbacks:")
+        for action, callback_name in callbacks.items():
+            lines.append(f"  {action}: {callback_name}")
     
     return "\n".join(lines)
 
@@ -2807,7 +2833,7 @@ def handle_command(
                         pass  # If who_fn fails, continue to item/NPC resolution
                 
                 if not other_player_found:
-                    # Try to resolve as item or NPC
+                    # Try to resolve in order: item, NPC, room detail
                     item_id, source, container = resolve_item_target(game, target_text)
                     if item_id:
                         response = _format_item_look(item_id, source)
@@ -2816,7 +2842,12 @@ def handle_command(
                         if npc_id and npc:
                             response = _format_npc_look(npc_id, npc, game)
                         else:
-                            response = f"You don't see anything like '{original_target}' here."
+                            # Try room details/fixtures
+                            detail_id, detail, room_id = resolve_room_detail(game, target_text)
+                            if detail_id and detail:
+                                response = _format_detail_look(detail_id, detail, room_id)
+                            else:
+                                response = f"You don't see anything like '{original_target}' here."
         else:
             response = describe_location(game)
 
@@ -3721,7 +3752,7 @@ def handle_command(
             if target_text in ["me", "self"] or target_text == (username or "").lower():
                 response = _format_player_stat(game, username or "adventurer")
             else:
-                # Try to resolve as item or NPC
+                # Try to resolve in order: item, NPC, room detail
                 item_id, source, container = resolve_item_target(game, target_text)
                 if item_id:
                     response = _format_item_stat(item_id, source)
@@ -3730,7 +3761,12 @@ def handle_command(
                     if npc_id and npc:
                         response = _format_npc_stat(npc_id, npc)
                     else:
-                        response = f"You see nothing like '{target_text}' to examine."
+                        # Try room details/fixtures
+                        detail_id, detail, room_id = resolve_room_detail(game, target_text)
+                        if detail_id and detail:
+                            response = _format_detail_stat(detail_id, detail, room_id)
+                        else:
+                            response = f"You see nothing like '{target_text}' to examine."
         else:
             response = "Usage: stat <target> or stat me"
 

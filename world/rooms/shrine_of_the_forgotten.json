@@ -1,0 +1,12 @@
+{
+  "id": "shrine_of_the_forgotten",
+  "name": "Shrine of the Forgotten Path",
+  "description": "A small stone shrine stands here, its carvings worn smooth by time and weather. The patterns etched into the stone are ancient, their meaning lost to most, but they seem to hum with a subtle energy. There's something mysterious about this place—a sense of deep history and forgotten knowledge. The air feels different here, as if the boundary between the mundane and something more is thinner. This is a place of quiet power, waiting to be understood.",
+  "exits": {
+    "north": "market_lane"
+  },
+  "items": ["smooth_rune_stone"],
+  "npcs": ["quiet_acolyte"],
+  "details": {}
+}
+

@@ -1,0 +1,13 @@
+{
+  "id": "forest_edge",
+  "name": "Edge of the Whispering Wood",
+  "description": "The last cottages of Hollowvale give way to the forest here. The trees begin to crowd closer, and the familiar sounds of village life—birdsong, voices, the clang of the smithy—begin to fade. There's a slight unease in the air, as if the wood itself is watching. The path into the trees looks inviting yet somehow foreboding. This is where the known world meets the unknown, where stories of the deeper forest begin.",
+  "exits": {
+    "east": "town_square",
+    "north": "whispering_trees"
+  },
+  "items": ["bundle_of_herbs"],
+  "npcs": ["nervous_farmer"],
+  "details": {}
+}
+

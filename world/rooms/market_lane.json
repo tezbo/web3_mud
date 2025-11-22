@@ -1,0 +1,14 @@
+{
+  "id": "market_lane",
+  "name": "Market Lane",
+  "description": "A narrow lane runs between buildings, where market stalls would normally crowd the space. Today it's quiet, but you can see where vendors set up their wares—bread, herbs, trinkets, and simple goods. The lane feels lived-in, with worn stones underfoot and the lingering scents of spices and fresh bread. On market days, this place would be bustling, but now it holds a peaceful, almost contemplative air.",
+  "exits": {
+    "west": "town_square",
+    "east": "old_road",
+    "south": "shrine_of_the_forgotten"
+  },
+  "items": ["fresh_bread", "simple_amulet"],
+  "npcs": ["herbalist"],
+  "details": {}
+}
+

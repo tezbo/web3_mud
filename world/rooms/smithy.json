@@ -1,0 +1,55 @@
+{
+  "id": "smithy",
+  "name": "Old Stoneforge Smithy",
+  "description": "The smithy is a low building of stone and timber, its walls hung with tools and half-finished work. The forge glows with banked embers, and the air carries the scent of coal and hot metal. Anvils stand ready, and the walls are lined with hammers, tongs, and other implements of the trade. This is where the village's metalwork is born, practical and honest.",
+  "exits": {
+    "north": "tavern"
+  },
+  "items": ["iron_hammer", "lump_of_ore"],
+  "npcs": ["blacksmith"],
+  "details": {
+    "hammers": {
+      "name": "hammers",
+      "aliases": ["hammer", "hammers", "smith's hammers"],
+      "description": "The walls are lined with hammers of all shapes and sizes, used by the town blacksmith to create some of the finest weapons found in Hollowvale. Each hammer shows signs of careful use—worn handles polished smooth by countless hours of work, and heads that have been shaped and reshaped over time.",
+      "stat": {
+        "type": "fixture",
+        "material": "iron",
+        "quality": "well-used"
+      },
+      "callbacks": {
+        "touch": "smithy_touch_hammers"
+      }
+    },
+    "tongs": {
+      "name": "tongs",
+      "aliases": ["tongs", "iron tongs"],
+      "description": "Heavy iron tongs hang neatly on hooks, each pair perfectly balanced for gripping hot metal. The handles are wrapped in leather to protect against heat, and the jaws are shaped to hold various sizes of workpieces.",
+      "stat": {
+        "type": "fixture",
+        "material": "iron"
+      }
+    },
+    "anvils": {
+      "name": "anvils",
+      "aliases": ["anvil", "anvils"],
+      "description": "Several anvils stand ready around the forge, their surfaces scarred and polished from years of metalwork. Each anvil is positioned for optimal use, with tools and workpieces arranged nearby.",
+      "stat": {
+        "type": "fixture",
+        "material": "steel",
+        "condition": "well-maintained"
+      }
+    },
+    "forge": {
+      "name": "forge",
+      "aliases": ["forge", "furnace"],
+      "description": "The forge glows with banked embers, radiating a steady heat. The coals are carefully tended, ready to be stoked when the blacksmith needs to heat metal for shaping. The air around it shimmers with warmth.",
+      "stat": {
+        "type": "fixture",
+        "material": "stone and iron",
+        "temperature": "hot"
+      }
+    }
+  }
+}
+

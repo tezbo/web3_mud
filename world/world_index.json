@@ -1,0 +1,16 @@
+{
+  "rooms": [
+    { "id": "town_square", "file": "town_square.json" },
+    { "id": "tavern", "file": "tavern.json" },
+    { "id": "smithy", "file": "smithy.json" },
+    { "id": "market_lane", "file": "market_lane.json" },
+    { "id": "shrine_of_the_forgotten", "file": "shrine_of_the_forgotten.json" },
+    { "id": "forest_edge", "file": "forest_edge.json" },
+    { "id": "whispering_trees", "file": "whispering_trees.json" },
+    { "id": "ancient_door", "file": "ancient_door.json" },
+    { "id": "watchtower_path", "file": "watchtower_path.json" },
+    { "id": "watchtower", "file": "watchtower.json" },
+    { "id": "old_road", "file": "old_road.json" }
+  ]
+}
+

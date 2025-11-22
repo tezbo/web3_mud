@@ -1,0 +1,12 @@
+{
+  "id": "ancient_door",
+  "name": "The Buried Door",
+  "description": "Half-buried in the earth and overgrown with moss, a stone door stands here, its surface covered in runes that seem to shift when you look away. The door is clearly ancient, older than the village, older than memory. It doesn't open—not yet, perhaps not ever by ordinary means. But its presence here is significant, a marker of something important that lies beyond current understanding. The runes whisper of forgotten ages and paths not yet taken.",
+  "exits": {
+    "west": "whispering_trees"
+  },
+  "items": [],
+  "npcs": [],
+  "details": {}
+}
+

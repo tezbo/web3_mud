@@ -1,0 +1,13 @@
+{
+  "id": "watchtower_path",
+  "name": "Watchtower Path",
+  "description": "A rocky path winds up the hill from the town square. Scrub and hardy grasses cling to the slopes, and the wind has a sharper bite here. The path is well-worn, suggesting regular use, though you see no one on it now. Above, the watchtower stands sentinel, its stone weathered but still strong. This path connects the heart of the village to its highest point, where the wider world can be seen.",
+  "exits": {
+    "south": "town_square",
+    "north": "watchtower"
+  },
+  "items": ["loose_stone"],
+  "npcs": ["patrolling_guard"],
+  "details": {}
+}
+
