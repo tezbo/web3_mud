@@ -3785,12 +3785,14 @@ def handle_command(
     elif tokens[0] in ["help", "?"]:
         emote_list = ", ".join(sorted(EMOTES.keys())[:5])  # Show first 5 emotes
         response = (
-            "Commands: look, go <direction>, take <item>, take all, drop <item>, drop all, inventory, talk <npc>, say <message>, give <item> to <npc>, list, buy <item>, describe <text>, restart, quit.\n"
+            "Commands: look, go <direction>, take <item>, take all, drop <item>, drop all, inventory, talk <npc>, say <message>, give <item> to <npc>, list, buy <item>, describe <text>, touch <thing>, restart, quit.\n"
             "Emotes: nod, smile, wave, shrug, stare, laugh, grin, frown, sigh, yawn, clap, bow, salute, and more.\n"
             "You can use emotes alone (e.g., 'nod') or target NPCs (e.g., 'nod guard').\n"
             "Use 'say <message>' to speak to everyone in the room. AI-enhanced NPCs will react!\n"
             "Use 'drop <item>' to drop an item, or 'drop all' to drop all droppable items.\n"
             "Use 'give <item> to <npc>' to give items to NPCs. Use 'list' to see what's for sale. Use 'buy <item>' to purchase from merchants.\n"
+            "Use 'touch <thing>' to interact with room fixtures, items, or NPCs.\n"
+            "Use 'look <thing>' to examine items, NPCs, room fixtures, or yourself.\n"
             "Directions: north, south, east, west."
         )
 
@@ -3867,9 +3869,31 @@ def handle_command(
             if callback_result:
                 response = callback_result
             else:
-                # Default response if no callback
+                # Default response based on stat properties
                 detail_name = detail.get("name", detail_id)
-                response = f"You touch the {detail_name}. It feels solid and real."
+                stat = detail.get("stat", {})
+                
+                # Check temperature property
+                temperature = stat.get("temperature")
+                if temperature == "hot":
+                    response = f"You reach out to touch the {detail_name}, but pull your hand back quickly. It's very hot!"
+                elif temperature == "cold":
+                    response = f"You touch the {detail_name}. It's cold to the touch, sending a chill through your fingers."
+                elif temperature == "warm":
+                    response = f"You touch the {detail_name}. It's pleasantly warm."
+                else:
+                    # Default response if no special properties
+                    material = stat.get("material", "")
+                    quality = stat.get("quality", "")
+                    
+                    if material and quality:
+                        response = f"You touch the {detail_name}. It's made of {material} and feels {quality}."
+                    elif material:
+                        response = f"You touch the {detail_name}. It's made of {material}."
+                    elif quality:
+                        response = f"You touch the {detail_name}. It feels {quality}."
+                    else:
+                        response = f"You touch the {detail_name}. It feels solid and real."
         else:
             # Not a room detail - check if it's an item or NPC
             item_id, source, container = resolve_item_target(game, target_text)
