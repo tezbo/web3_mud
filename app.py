@@ -486,7 +486,7 @@ def index():
     
     # If not logged in and not in onboarding, redirect to welcome
     # But check onboarding first - if in onboarding, we already handled it above
-    if "user_id" not in session and not (onboarding_step and onboarding_step != "complete"):
+    if "user_id" not in session and not (onboarding_step is not None and onboarding_step != "complete"):
         return redirect(url_for("welcome"))
     
     # Ensure game exists (this loads from DB or creates new)
