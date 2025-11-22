@@ -517,6 +517,18 @@ def index():
     # Ensure game exists (this loads from DB or creates new)
     game = get_game()
     
+    # If game exists and user just logged in, add session welcome
+    # Check if this is a returning user (game exists but no recent welcome message)
+    # Use a session flag to track if we've already added the welcome for this login
+    if game and "user_id" in session:
+        # Check if we need to add a welcome message
+        # Only add if we haven't added it yet this session
+        if not session.get("welcome_added"):
+            from game_engine import add_session_welcome
+            add_session_welcome(game, session.get("username", "adventurer"))
+            session["welcome_added"] = True
+            save_game(game)
+    
     # If no game state and onboarding is complete, create new game
     if game is None:
         # Check if onboarding was just completed

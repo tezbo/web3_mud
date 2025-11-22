@@ -1955,12 +1955,61 @@ def add_session_welcome(game, username):
         username: The username of the player
     """
     game.setdefault("log", [])
-    game["log"].append("------------------------------")
-    game["log"].append("Welcome to the Tiny MUD, " + username + "!")
-    game["log"].append("Type 'look' to see where you are, 'go north/east/south/west' to move, "
-                      "'take <item>' to pick something up, 'talk <npc>' to talk, "
-                      "'nod', 'smile', 'wave' and other emotes to express yourself, "
-                      "and 'inventory' to see what you're carrying.")
+    
+    # Add two blank lines for spacing
+    game["log"].append("")
+    game["log"].append("")
+    
+    # Add separator line
+    game["log"].append("-------------------------------------------")
+    
+    # Add one blank line
+    game["log"].append("")
+    
+    # Get current in-game time - extract just the time string from format_time_message
+    # format_time_message returns a full message, we need to extract the time
+    current_hour = get_current_in_game_hour()
+    in_game_hours_per_day = IN_GAME_DAY_DURATION / IN_GAME_HOUR_DURATION
+    hour_in_day = current_hour % in_game_hours_per_day
+    
+    # Convert to 12-hour format with exact minutes
+    if hour_in_day < 1.0:
+        total_minutes_in_period = hour_in_day * 12 * 60
+        total_minutes_from_6am = 6 * 60 + total_minutes_in_period
+    else:
+        total_minutes_in_period = (hour_in_day - 1.0) * 12 * 60
+        total_minutes_from_6am = 18 * 60 + total_minutes_in_period
+    
+    if total_minutes_from_6am >= 24 * 60:
+        total_minutes_from_6am -= 24 * 60
+    
+    real_hour = int(total_minutes_from_6am // 60)
+    minutes = int(total_minutes_from_6am % 60)
+    period = "AM" if real_hour < 12 else "PM"
+    display_hour = real_hour if real_hour <= 12 else real_hour - 12
+    if display_hour == 0:
+        display_hour = 12
+    time_str = f"{display_hour}:{minutes:02d}{period}"
+    
+    # Get location information
+    loc_id = game.get("location", "town_square")
+    room_def = WORLD.get(loc_id, {})
+    room_name = room_def.get("name", loc_id.replace("_", " ").title())
+    
+    # Add welcome back message with time
+    game["log"].append(f"You blink and wake up. Welcome back to Hollowvale, {username}! It's currently {time_str}.")
+    
+    # Add room name in dark green (using HTML like movement messages)
+    game["log"].append(f'<span style="color: #006400;">You\'re standing in the {room_name}</span>')
+    
+    # Add room description
+    room_description = describe_location(game)
+    # Split description into lines if it's multi-line
+    if isinstance(room_description, str):
+        desc_lines = room_description.split("\n")
+        for line in desc_lines:
+            if line.strip():
+                game["log"].append(line)
 
 
 # generate_npc_line moved to npc.py
