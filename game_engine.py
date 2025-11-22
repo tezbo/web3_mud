@@ -1117,10 +1117,24 @@ WEATHER_MESSAGES = {
         ],
     },
     "clear": {
-        "none": [
-            "The sky is clear and bright, with the sun high above.",
-            "Clear skies stretch overhead, promising a pleasant day.",
-        ],
+        "none": {
+            "dawn": [
+                "The sky is clear in the pale morning light, with the rising sun just visible on the horizon.",
+                "Clear skies stretch overhead as dawn breaks, promising a pleasant day.",
+            ],
+            "day": [
+                "The sky is clear and bright, with the sun high above.",
+                "Clear skies stretch overhead, promising a pleasant day.",
+            ],
+            "dusk": [
+                "The sky is clear as evening approaches, with the sun setting in the west.",
+                "Clear skies stretch overhead, the last rays of sunlight painting the horizon.",
+            ],
+            "night": [
+                "The sky is clear and dark, with stars and the moon visible above.",
+                "Clear skies stretch overhead, the moon and stars providing the only light.",
+            ],
+        },
     },
     "heatwave": {
         "moderate": [
@@ -1404,24 +1418,27 @@ def get_weather_message():
     if wtype not in WEATHER_MESSAGES:
         return ""
     
-    messages = WEATHER_MESSAGES[wtype].get(intensity, [])
-    if not messages:
+    # Check if this weather type has time-specific messages
+    intensity_dict = WEATHER_MESSAGES[wtype].get(intensity, {})
+    
+    # If intensity_dict is a dict with time keys, use time-specific messages
+    if isinstance(intensity_dict, dict) and time_of_day in intensity_dict:
+        messages = intensity_dict[time_of_day]
+    elif isinstance(intensity_dict, list):
+        # Old format: list of messages
+        messages = intensity_dict
+    else:
         # Fallback to "none" intensity if available
-        messages = WEATHER_MESSAGES[wtype].get("none", [])
+        none_dict = WEATHER_MESSAGES[wtype].get("none", {})
+        if isinstance(none_dict, dict) and time_of_day in none_dict:
+            messages = none_dict[time_of_day]
+        elif isinstance(none_dict, list):
+            messages = none_dict
+        else:
+            messages = []
     
     if messages:
-        message = random.choice(messages)
-        # Make weather messages time-aware
-        if time_of_day in ["night", "dusk"]:
-            # Replace sun references with moon/stars at night
-            message = message.replace("the sun", "the moon")
-            message = message.replace("sun high above", "moon and stars above")
-            message = message.replace("sun beats down", "night air")
-            message = message.replace("sun's position", "stars' positions")
-        elif time_of_day == "dawn":
-            message = message.replace("the sun", "the rising sun")
-            message = message.replace("sun high above", "dawn light")
-        return message
+        return random.choice(messages)
     return ""
 
 
