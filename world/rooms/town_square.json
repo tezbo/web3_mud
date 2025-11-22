@@ -10,6 +10,47 @@
   },
   "items": ["copper_coin"],
   "npcs": ["old_storyteller"],
-  "details": {}
+  "details": {
+    "cobblestones": {
+      "name": "cobblestones",
+      "aliases": ["cobblestone", "cobblestones", "stones", "stone"],
+      "description": "The cobblestones beneath your feet are cracked and weathered, worn smooth by countless footsteps over the years. They circle the old fountain, forming a rough pattern that speaks of the square's long history.",
+      "stat": {
+        "type": "fixture",
+        "material": "stone",
+        "condition": "weathered"
+      }
+    },
+    "fountain": {
+      "name": "fountain",
+      "aliases": ["fountain", "old fountain"],
+      "description": "An old fountain stands at the center of the square, its basin weathered with age. Despite its years, water still flows from it, clear and fresh. The stonework shows signs of careful maintenance, suggesting the villagers still value this landmark.",
+      "stat": {
+        "type": "fixture",
+        "material": "stone",
+        "condition": "weathered but functional"
+      }
+    },
+    "notice_board": {
+      "name": "notice board",
+      "aliases": ["notice board", "board", "noticeboard", "bulletin board"],
+      "description": "A weathered notice board stands to one side of the square, its surface covered with parchment that flutters in the breeze. Various notices and announcements are pinned to it, some fresh, others yellowed with age.",
+      "stat": {
+        "type": "fixture",
+        "material": "wood",
+        "condition": "weathered"
+      }
+    },
+    "watchtower": {
+      "name": "watchtower",
+      "aliases": ["watchtower", "tower"],
+      "description": "To the north, a watchtower overlooks the valley. It stands as a sentinel, watching over Hollowvale and the lands beyond. The path leading up to it is rocky but well-traveled.",
+      "stat": {
+        "type": "fixture",
+        "material": "stone",
+        "condition": "maintained"
+      }
+    }
+  }
 }
 

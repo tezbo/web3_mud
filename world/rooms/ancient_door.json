@@ -7,6 +7,37 @@
   },
   "items": [],
   "npcs": [],
-  "details": {}
+  "details": {
+    "door": {
+      "name": "door",
+      "aliases": ["door", "stone door", "ancient door", "buried door"],
+      "description": "Half-buried in the earth and overgrown with moss, a stone door stands here, its surface covered in runes that seem to shift when you look away. The door is clearly ancient, older than the village, older than memory. It doesn't open—not yet, perhaps not ever by ordinary means.",
+      "stat": {
+        "type": "fixture",
+        "material": "stone",
+        "condition": "ancient, sealed"
+      }
+    },
+    "runes": {
+      "name": "runes",
+      "aliases": ["rune", "runes", "markings"],
+      "description": "Runes cover the surface of the door, their patterns seeming to shift when you look away. They whisper of forgotten ages and paths not yet taken, their meaning lost to time but their power still palpable.",
+      "stat": {
+        "type": "fixture",
+        "material": "stone",
+        "condition": "ancient, mysterious"
+      }
+    },
+    "moss": {
+      "name": "moss",
+      "aliases": ["moss", "overgrowth"],
+      "description": "Moss grows thick over the door, covering it in a green blanket that speaks of long years of neglect. Yet the door itself remains intact beneath, as if waiting for something.",
+      "stat": {
+        "type": "fixture",
+        "material": "organic",
+        "condition": "thick, overgrown"
+      }
+    }
+  }
 }
 

@@ -7,6 +7,27 @@
   },
   "items": ["smooth_rune_stone"],
   "npcs": ["quiet_acolyte"],
-  "details": {}
+  "details": {
+    "shrine": {
+      "name": "shrine",
+      "aliases": ["shrine", "stone shrine", "altar"],
+      "description": "A small stone shrine stands here, its carvings worn smooth by time and weather. The patterns etched into the stone are ancient, their meaning lost to most, but they seem to hum with a subtle energy. There's something mysterious about this place—a sense of deep history and forgotten knowledge.",
+      "stat": {
+        "type": "fixture",
+        "material": "stone",
+        "condition": "ancient, weathered"
+      }
+    },
+    "carvings": {
+      "name": "carvings",
+      "aliases": ["carving", "carvings", "runes", "patterns"],
+      "description": "Ancient patterns are etched into the stone, worn smooth by time and weather. They seem to shift when you look away, as if holding secrets that refuse to be fully understood. The carvings hum with a subtle energy.",
+      "stat": {
+        "type": "fixture",
+        "material": "stone",
+        "condition": "ancient, mysterious"
+      }
+    }
+  }
 }
 

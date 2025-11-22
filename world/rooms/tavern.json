@@ -8,6 +8,27 @@
   },
   "items": ["wooden_tankard"],
   "npcs": ["innkeeper"],
-  "details": {}
+  "details": {
+    "tables": {
+      "name": "tables",
+      "aliases": ["table", "tables"],
+      "description": "Rough-hewn tables fill the space, each one showing the marks of countless meals and conversations. They're sturdy and well-used, the kind of furniture that has seen many stories unfold around it.",
+      "stat": {
+        "type": "fixture",
+        "material": "wood",
+        "condition": "well-used"
+      }
+    },
+    "hearth": {
+      "name": "hearth",
+      "aliases": ["hearth", "fire", "fireplace"],
+      "description": "A fire crackles in the hearth, casting dancing shadows on the walls. The warmth is welcoming, and the flames seem to have a life of their own, creating an atmosphere of comfort and camaraderie.",
+      "stat": {
+        "type": "fixture",
+        "material": "stone",
+        "temperature": "warm"
+      }
+    }
+  }
 }
 

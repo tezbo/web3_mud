@@ -3915,6 +3915,11 @@ def handle_command(
         # Touch command for interacting with room details/fixtures
         target_text = " ".join(tokens[1:]).lower()
         
+        # Handle "me" or "self" - touching yourself
+        if target_text in ["me", "self"] or target_text == (username or "").lower():
+            response = "You touch yourself. You feel solid and real."
+            return response, game
+        
         # Try to resolve as room detail
         detail_id, detail, room_id = resolve_room_detail(game, target_text)
         if detail_id and detail:
@@ -3956,7 +3961,15 @@ def handle_command(
             else:
                 npc_id, npc = resolve_npc_target(game, target_text)
                 if npc_id and npc:
-                    response = f"You reach out to touch {npc.name}, but they step back slightly. Perhaps that's not appropriate."
+                    # Use NPC's pronoun with proper verb conjugation
+                    pronoun = getattr(npc, 'pronoun', 'they')
+                    npc_name = npc.name or "someone"
+                    # Conjugate "step" based on pronoun
+                    if pronoun in ["he", "she", "it"]:
+                        verb = "steps"
+                    else:  # they
+                        verb = "step"
+                    response = f"You reach out to touch {npc_name}, but {pronoun} {verb} back slightly. Perhaps that's not appropriate."
                 else:
                     response = f"You don't see anything like '{target_text}' to touch here."
 

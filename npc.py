@@ -21,7 +21,7 @@ class NPC:
                  description: str = "", personality: str = "",
                  reactions: dict = None, home: Optional[str] = None,
                  use_ai: bool = False, shortname: Optional[str] = None,
-                 stats: dict = None, traits: dict = None):
+                 stats: dict = None, traits: dict = None, pronoun: str = "they"):
         self.id = npc_id
         self.name = name
         self.title = title
@@ -32,6 +32,7 @@ class NPC:
         self.use_ai = use_ai
         self.stats = stats or {}
         self.traits = traits or {}
+        self.pronoun = pronoun  # "he", "she", "they", "it"
         
         # Auto-generate shortname if not provided (last word of name, lowercased)
         if shortname is None:
@@ -71,6 +72,7 @@ _NPCS_DICT = {
         "title": "Old Storyteller",
         "description": "An elderly figure with kind eyes, known for sharing tales of the past.",
         "personality": "wise, patient, loves stories",
+        "pronoun": "he",
         "stats": {
             "max_hp": 15,
             "attack": 1,
@@ -104,6 +106,7 @@ _NPCS_DICT = {
         "personality": "gruff but kind, keeps a sharp eye on trouble",
         "home": "tavern",
         "use_ai": True,
+        "pronoun": "she",
         "stats": {
             "max_hp": 18,
             "attack": 2,
@@ -135,6 +138,7 @@ _NPCS_DICT = {
         "title": "Blacksmith",
         "description": "A burly figure with soot-stained hands, master of the forge.",
         "personality": "practical, straightforward, takes pride in work",
+        "pronoun": "they",
         "stats": {
             "max_hp": 25,
             "attack": 4,
@@ -162,6 +166,7 @@ _NPCS_DICT = {
         "title": "Herbalist",
         "description": "A quiet person with knowledge of plants and their uses.",
         "personality": "quiet, observant, gentle",
+        "pronoun": "they",
         "stats": {
             "max_hp": 12,
             "attack": 1,
@@ -189,6 +194,7 @@ _NPCS_DICT = {
         "title": "Quiet Acolyte",
         "description": "A robed figure who tends the shrine with quiet devotion.",
         "personality": "serene, contemplative, speaks rarely",
+        "pronoun": "they",
         "stats": {
             "max_hp": 15,
             "attack": 1,
@@ -216,6 +222,7 @@ _NPCS_DICT = {
         "title": "Nervous Farmer",
         "description": "A local farmer who seems uneasy near the forest edge.",
         "personality": "anxious, cautious, superstitious",
+        "pronoun": "they",
         "stats": {
             "max_hp": 14,
             "attack": 2,
@@ -243,6 +250,7 @@ _NPCS_DICT = {
         "title": "Forest Spirit",
         "description": "An ethereal presence that seems to watch from the shadows of the trees.",
         "personality": "mysterious, ancient, otherworldly",
+        "pronoun": "it",
         "stats": {
             "max_hp": 30,
             "attack": 3,
@@ -271,6 +279,7 @@ _NPCS_DICT = {
         "title": "Patrolling Guard",
         "description": "A watchful figure keeping an eye on the path to the watchtower.",
         "personality": "alert, professional, duty-focused",
+        "pronoun": "they",
         "stats": {
             "max_hp": 20,
             "attack": 3,
@@ -298,6 +307,7 @@ _NPCS_DICT = {
         "title": "Watch Guard",
         "description": "A vigilant guard stationed at the watchtower, scanning the horizon.",
         "personality": "dutiful, dry sense of humour, a bit tired",
+        "pronoun": "he",
         "stats": {
             "max_hp": 22,
             "attack": 3,
@@ -326,6 +336,7 @@ _NPCS_DICT = {
         "title": "Wandering Trader",
         "description": "A traveler with goods from distant lands, always ready to trade stories.",
         "personality": "friendly, talkative, always looking for business",
+        "pronoun": "they",
         "stats": {
             "max_hp": 16,
             "attack": 2,
@@ -374,7 +385,8 @@ def load_npcs() -> dict:
             use_ai=npc_data.get("use_ai", False),
             shortname=npc_data.get("shortname"),  # Allow explicit shortname override
             stats=npc_data.get("stats"),  # Optional stats dict
-            traits=npc_data.get("traits")  # Optional traits dict
+            traits=npc_data.get("traits"),  # Optional traits dict
+            pronoun=npc_data.get("pronoun", "they")  # Default to "they" if not specified
         )
         npcs[npc_id] = npc
     return npcs

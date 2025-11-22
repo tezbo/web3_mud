@@ -8,6 +8,37 @@
   },
   "items": ["bundle_of_herbs"],
   "npcs": ["nervous_farmer"],
-  "details": {}
+  "details": {
+    "cottages": {
+      "name": "cottages",
+      "aliases": ["cottage", "cottages", "last cottages"],
+      "description": "The last cottages of Hollowvale stand here, marking the boundary between the village and the wild. They're simple structures, built to last, with gardens that show signs of careful tending. Beyond them, the forest begins.",
+      "stat": {
+        "type": "fixture",
+        "material": "wood, stone",
+        "condition": "well-maintained"
+      }
+    },
+    "trees": {
+      "name": "trees",
+      "aliases": ["tree", "trees", "forest"],
+      "description": "The trees begin to crowd closer here, their branches creating a canopy that filters the light. They seem to watch, their presence both inviting and foreboding. The path into the trees looks inviting yet somehow mysterious.",
+      "stat": {
+        "type": "fixture",
+        "material": "wood",
+        "condition": "ancient"
+      }
+    },
+    "path": {
+      "name": "path",
+      "aliases": ["path", "forest path"],
+      "description": "A path leads into the trees, winding its way deeper into the forest. It looks well-traveled, suggesting others have ventured this way before, but there's something about it that makes you pause.",
+      "stat": {
+        "type": "fixture",
+        "material": "earth",
+        "condition": "well-worn"
+      }
+    }
+  }
 }
 

@@ -7,6 +7,27 @@
   },
   "items": ["cracked_spyglass"],
   "npcs": ["watch_guard"],
-  "details": {}
+  "details": {
+    "stone": {
+      "name": "stone",
+      "aliases": ["stone", "stones", "tower stone"],
+      "description": "The stone of the watchtower is crumbling in places, but the structure still serves its purpose. It's weathered by time and the elements, yet remains strong enough to stand sentinel over the valley.",
+      "stat": {
+        "type": "fixture",
+        "material": "stone",
+        "condition": "weathered, crumbling in places"
+      }
+    },
+    "valley": {
+      "name": "valley",
+      "aliases": ["valley", "view", "horizon"],
+      "description": "From here, you can see Hollowvale spread out like a map—the square, the lanes, the forest edge, and beyond that, the unknown lands that stretch to the horizon. The view offers a sense of perspective, a reminder that this village is part of a much larger world.",
+      "stat": {
+        "type": "fixture",
+        "material": "landscape",
+        "condition": "vast"
+      }
+    }
+  }
 }
 

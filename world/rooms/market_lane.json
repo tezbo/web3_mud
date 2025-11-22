@@ -9,6 +9,27 @@
   },
   "items": ["fresh_bread", "simple_amulet"],
   "npcs": ["herbalist"],
-  "details": {}
+  "details": {
+    "stalls": {
+      "name": "market stalls",
+      "aliases": ["stall", "stalls", "market stall", "market stalls"],
+      "description": "Market stalls would normally crowd this space, but today it's quiet. You can see where vendors set up their wares—spaces marked by worn stones and the lingering scents of spices and fresh bread. On market days, this place would be bustling with activity.",
+      "stat": {
+        "type": "fixture",
+        "material": "wood, stone",
+        "condition": "empty but ready"
+      }
+    },
+    "stones": {
+      "name": "stones",
+      "aliases": ["stone", "stones", "worn stones"],
+      "description": "Worn stones lie underfoot, polished smooth by the passage of countless feet. They mark the spaces where vendors set up their stalls, creating a pattern that speaks of regular use and community gathering.",
+      "stat": {
+        "type": "fixture",
+        "material": "stone",
+        "condition": "worn smooth"
+      }
+    }
+  }
 }
 

@@ -7,6 +7,27 @@
   },
   "items": ["weathered_signpost"],
   "npcs": ["wandering_trader"],
-  "details": {}
+  "details": {
+    "road": {
+      "name": "road",
+      "aliases": ["road", "old road", "rutted road"],
+      "description": "An old, rutted road runs eastward out of Hollowvale, its surface worn by countless travelers and the passage of time. This road leads toward lands you've only heard of in stories—kingdoms, cities, and adventures that lie beyond the horizon.",
+      "stat": {
+        "type": "fixture",
+        "material": "earth, stone",
+        "condition": "worn, rutted"
+      }
+    },
+    "horizon": {
+      "name": "horizon",
+      "aliases": ["horizon", "east", "distance"],
+      "description": "The road promises journeys yet to come, stories yet to be written. Beyond the horizon lie lands you've only heard of in stories—kingdoms, cities, and adventures waiting to be discovered.",
+      "stat": {
+        "type": "fixture",
+        "material": "landscape",
+        "condition": "distant, unknown"
+      }
+    }
+  }
 }
 

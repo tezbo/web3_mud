@@ -8,6 +8,27 @@
   },
   "items": ["strange_leaf"],
   "npcs": ["forest_spirit"],
-  "details": {}
+  "details": {
+    "trees": {
+      "name": "trees",
+      "aliases": ["tree", "trees", "whispering trees"],
+      "description": "The trees here seem to lean in, their branches creating a dense canopy that filters the light. They hold conversations in rustling leaves, though you can't quite make out the words. This place feels alive in a way that goes beyond the ordinary.",
+      "stat": {
+        "type": "fixture",
+        "material": "wood",
+        "condition": "ancient, alive"
+      }
+    },
+    "canopy": {
+      "name": "canopy",
+      "aliases": ["canopy", "branches", "leaves"],
+      "description": "The branches create a canopy overhead, filtering the light into dappled patterns on the forest floor. The leaves rustle with a language all their own, whispering secrets to those who know how to listen.",
+      "stat": {
+        "type": "fixture",
+        "material": "wood, leaves",
+        "condition": "dense"
+      }
+    }
+  }
 }
 
