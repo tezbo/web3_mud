@@ -355,9 +355,11 @@ def welcome_command():
         # New character - start onboarding with username/password creation
         session["onboarding_step"] = 0
         session["onboarding_state"] = {"step": 0, "character": {}}
-        # Force session save by accessing it
+        # Force session save
         session.modified = True
-        return jsonify({"redirect": "/", "message": "Starting character creation..."})
+        # Return redirect to index route
+        index_url = url_for("index")
+        return jsonify({"redirect": index_url})
     elif cmd_upper == "L":
         # Login - prompt for username
         session["login_step"] = "username"
