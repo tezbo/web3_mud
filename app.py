@@ -580,65 +580,8 @@ def login():
     return render_template("login.html")
 
 
-@app.route("/register", methods=["GET", "POST"])
-def register():
-    """Registration page and handler."""
-    if request.method == "POST":
-        username = request.form.get("username", "").strip()
-        password = request.form.get("password", "")
-        confirm_password = request.form.get("confirm_password", "")
-        
-        if not username or not password:
-            flash("Please provide both username and password.", "error")
-            return render_template("login.html", show_register=True)
-        
-        if password != confirm_password:
-            flash("Passwords do not match.", "error")
-            return render_template("login.html", show_register=True)
-        
-        if len(password) < 4:
-            flash("Password must be at least 4 characters long.", "error")
-            return render_template("login.html", show_register=True)
-        
-        conn = get_db()
-        # Check if username already exists
-        existing = conn.execute(
-            "SELECT id FROM users WHERE username = ?",
-            (username,)
-        ).fetchone()
-        
-        if existing:
-            conn.close()
-            flash("Username already exists. Please choose another.", "error")
-            return render_template("login.html", show_register=True)
-        
-        # Create new user
-        password_hash = generate_password_hash(password)
-        conn.execute(
-            "INSERT INTO users (username, password_hash) VALUES (?, ?)",
-            (username, password_hash)
-        )
-        conn.commit()
-        conn.close()
-        
-        # Log the user in automatically after registration
-        user = conn.execute(
-            "SELECT id, username FROM users WHERE username = ?",
-            (username,)
-        ).fetchone()
-        conn.close()
-        
-        if user:
-            session["user_id"] = user["id"]
-            session["username"] = user["username"]
-            # Start onboarding immediately
-            session["onboarding_step"] = "start"
-            return redirect(url_for("index"))
-        
-        flash("Registration successful! Please log in.", "success")
-        return redirect(url_for("login"))
-    
-    return render_template("login.html", show_register=True)
+# Registration is now handled text-based via /welcome screen
+# Removed /register route - all registration happens through onboarding flow
 
 
 @app.route("/logout")
@@ -663,7 +606,7 @@ def logout():
     
     session.clear()
     flash("You have been logged out.", "info")
-    return redirect(url_for("login"))
+    return redirect(url_for("welcome"))
 
 
 @app.route("/command", methods=["POST"])
