@@ -367,11 +367,19 @@ def welcome():
                 
                 # Check if user has character - if not, start onboarding
                 game = get_game()
-                if game is None or not game.get("character") or not game.get("character", {}).get("race"):
-                    # No character - start onboarding (but skip username/password)
+                # Only redirect to onboarding if game is None (no game state) OR character exists but has no race
+                # If game exists but character is missing, it's backward compatibility - allow through
+                if game is None:
+                    # No game state at all - start onboarding (but skip username/password)
                     session["onboarding_step"] = 1
                     session["onboarding_state"] = {"step": 1, "character": {}}
                     return redirect(url_for("index"))
+                elif game.get("character") and not game.get("character", {}).get("race"):
+                    # Character object exists but no race - need to complete onboarding
+                    session["onboarding_step"] = 1
+                    session["onboarding_state"] = {"step": 1, "character": game.get("character", {})}
+                    return redirect(url_for("index"))
+                # If game exists and either no character object (backward compat) or character has race, proceed to game
                 
                 return redirect(url_for("index"))
             else:
@@ -419,15 +427,11 @@ def guide():
 
 @app.route("/")
 def index():
-    # If not logged in, redirect to welcome
-    if "user_id" not in session:
-        return redirect(url_for("welcome"))
-    
-    # Check if user is in onboarding
+    # Check if user is in onboarding (allow without login for new character creation)
     onboarding_step = session.get("onboarding_step")
     if onboarding_step and onboarding_step != "complete":
         # User is in onboarding - show onboarding screen
-        from game_engine import ONBOARDING_USERNAME_PROMPT, handle_onboarding_command
+        from game_engine import ONBOARDING_USERNAME_PROMPT, ONBOARDING_PASSWORD_PROMPT, ONBOARDING_RACE_PROMPT
         
         # Initialize onboarding if needed
         if onboarding_step == 0:
@@ -444,16 +448,18 @@ def index():
             if current_step == 0:
                 log = [ONBOARDING_USERNAME_PROMPT]
             elif current_step == 0.5:
-                from game_engine import ONBOARDING_PASSWORD_PROMPT
                 log = [ONBOARDING_PASSWORD_PROMPT]
             elif current_step == 1:
-                from game_engine import ONBOARDING_RACE_PROMPT
                 log = [ONBOARDING_RACE_PROMPT]
             else:
                 log = ["Continue your character creation..."]
         
         processed_log = highlight_exits_in_log(log)
         return render_template("index.html", log=processed_log, session=session, onboarding=True)
+    
+    # If not logged in and not in onboarding, redirect to welcome
+    if "user_id" not in session:
+        return redirect(url_for("welcome"))
     
     # Ensure game exists (this loads from DB or creates new)
     game = get_game()
@@ -652,9 +658,9 @@ def command():
     username = session.get("username", "adventurer")
     user_id = session.get("user_id")
     
-    # Check if user is in onboarding (but not logged in yet - this is for new character creation)
+    # Check if user is in onboarding (for new character creation - may not be logged in yet)
     onboarding_step = session.get("onboarding_step")
-    if onboarding_step and onboarding_step != "complete" and not user_id:
+    if onboarding_step and onboarding_step != "complete":
         # Handle onboarding commands for new character creation
         from game_engine import handle_onboarding_command
         
