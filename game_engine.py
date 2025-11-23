@@ -6904,18 +6904,35 @@ def _legacy_handle_command_body(
     process_npc_movements(broadcast_fn=broadcast_fn)
     
     # Process room ambiance (contextual environmental messages based on time, weather, room)
+    # Show accumulated messages based on elapsed time since last check
     import ambiance
     current_tick = get_current_game_tick()
     current_room = game.get("location", "town_square")
-    if ambiance.should_show_ambiance(current_room, current_tick):
-        ambiance_messages = ambiance.process_room_ambiance(game, broadcast_fn=broadcast_fn)
-        if ambiance_messages:
+    accumulated_count = ambiance.get_accumulated_ambiance_messages(current_room, current_tick, game)
+    
+    if accumulated_count > 0:
+        # Generate and show accumulated ambiance messages
+        ambiance_messages = []
+        for _ in range(accumulated_count):
+            msg = ambiance.process_room_ambiance(game, broadcast_fn=broadcast_fn)
+            if msg:
+                ambiance_messages.extend(msg)
+        
+        # Remove duplicates while preserving order
+        seen = set()
+        unique_messages = []
+        for msg in ambiance_messages:
+            if msg not in seen:
+                seen.add(msg)
+                unique_messages.append(msg)
+        
+        if unique_messages:
             game.setdefault("log", [])
-            for msg in ambiance_messages:
+            for msg in unique_messages:
                 game["log"].append(msg)
             game["log"] = game["log"][-50:]
             # Update the tick tracker
-            ambiance.update_ambiance_tick(current_room, current_tick)
+            ambiance.update_ambiance_tick(current_room, current_tick, messages_shown=len(unique_messages))
     
     # Tick quests (check for expired quests)
     import quests
@@ -9223,18 +9240,35 @@ def handle_command(
     process_npc_movements(broadcast_fn=broadcast_fn)
     
     # Process room ambiance (contextual environmental messages based on time, weather, room)
+    # Show accumulated messages based on elapsed time since last check
     import ambiance
     current_tick = get_current_game_tick()
     current_room = game.get("location", "town_square")
-    if ambiance.should_show_ambiance(current_room, current_tick):
-        ambiance_messages = ambiance.process_room_ambiance(game, broadcast_fn=broadcast_fn)
-        if ambiance_messages:
+    accumulated_count = ambiance.get_accumulated_ambiance_messages(current_room, current_tick, game)
+    
+    if accumulated_count > 0:
+        # Generate and show accumulated ambiance messages
+        ambiance_messages = []
+        for _ in range(accumulated_count):
+            msg = ambiance.process_room_ambiance(game, broadcast_fn=broadcast_fn)
+            if msg:
+                ambiance_messages.extend(msg)
+        
+        # Remove duplicates while preserving order
+        seen = set()
+        unique_messages = []
+        for msg in ambiance_messages:
+            if msg not in seen:
+                seen.add(msg)
+                unique_messages.append(msg)
+        
+        if unique_messages:
             game.setdefault("log", [])
-            for msg in ambiance_messages:
+            for msg in unique_messages:
                 game["log"].append(msg)
             game["log"] = game["log"][-50:]
             # Update the tick tracker
-            ambiance.update_ambiance_tick(current_room, current_tick)
+            ambiance.update_ambiance_tick(current_room, current_tick, messages_shown=len(unique_messages))
     
     # Tick quests (check for expired quests)
     import quests
