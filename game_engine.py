@@ -8809,6 +8809,24 @@ def _legacy_handle_command_body(
                     # Custom teleport messages for admin goto command
                     game[property_name] = value_text  # Keep as string to allow {name} placeholder
                     response = f"Set {property_name} to: {value_text}"
+                elif property_name == "token_budget" and db_conn:
+                    # Set AI token budget (requires database connection)
+                    if isinstance(value, int) and value >= 0:
+                        try:
+                            db_conn.execute(
+                                """
+                                INSERT INTO ai_usage (user_id, token_budget, tokens_used)
+                                VALUES (?, ?, 0)
+                                ON CONFLICT(user_id) DO UPDATE SET token_budget = ?
+                                """,
+                                (user_id, value, value)
+                            )
+                            db_conn.commit()
+                            response = f"Set your AI token budget to {value} tokens."
+                        except Exception as e:
+                            response = f"Error setting token budget: {e}"
+                    else:
+                        response = "Token budget must be a non-negative integer."
                 else:
                     # Generic property set
                     game[property_name] = value
@@ -8874,6 +8892,33 @@ def _legacy_handle_command_body(
                             else:
                                 target_player["character"][char_prop] = value_text
                                 response = f"Set {target_username}'s character.{char_prop} to {value_text}."
+                        elif property_name == "token_budget" and db_conn:
+                            # Set AI token budget for another player (requires database connection)
+                            if isinstance(value, int) and value >= 0:
+                                try:
+                                    # Get target user_id from database
+                                    target_user_row = db_conn.execute(
+                                        "SELECT id FROM users WHERE username = ?",
+                                        (target_username,)
+                                    ).fetchone()
+                                    if target_user_row:
+                                        target_user_id = target_user_row["id"]
+                                        db_conn.execute(
+                                            """
+                                            INSERT INTO ai_usage (user_id, token_budget, tokens_used)
+                                            VALUES (?, ?, 0)
+                                            ON CONFLICT(user_id) DO UPDATE SET token_budget = ?
+                                            """,
+                                            (target_user_id, value, value)
+                                        )
+                                        db_conn.commit()
+                                        response = f"Set {target_username}'s AI token budget to {value} tokens."
+                                    else:
+                                        response = f"Could not find user '{target_username}' in database."
+                                except Exception as e:
+                                    response = f"Error setting token budget: {e}"
+                            else:
+                                response = "Token budget must be a non-negative integer."
                         else:
                             target_player[property_name] = value
                             response = f"Set {target_username}'s {property_name} to {value}."

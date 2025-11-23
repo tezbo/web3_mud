@@ -177,6 +177,9 @@ def _check_token_budget(user_id, db_conn=None):
         return True, None, None
     
     try:
+        # Get default budget from environment variable
+        default_budget = int(os.environ.get("AI_DEFAULT_TOKEN_BUDGET", "10000"))
+        
         row = db_conn.execute(
             "SELECT token_budget, tokens_used FROM ai_usage WHERE user_id = ?",
             (user_id,)
@@ -191,8 +194,18 @@ def _check_token_budget(user_id, db_conn=None):
                 return False, remaining, "Your AI token budget has been exhausted. Please contact an administrator."
             return True, remaining, None
         else:
-            # No budget set - unlimited
-            return True, None, None
+            # No budget set - use default budget
+            # Initialize the user's budget with default
+            db_conn.execute(
+                """
+                INSERT INTO ai_usage (user_id, token_budget, tokens_used)
+                VALUES (?, ?, 0)
+                ON CONFLICT(user_id) DO NOTHING
+                """,
+                (user_id, default_budget)
+            )
+            db_conn.commit()
+            return True, default_budget, None
     except Exception:
         # If database check fails, allow the request
         return True, None, None

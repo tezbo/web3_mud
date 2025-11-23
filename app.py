@@ -1050,7 +1050,7 @@ def require_admin(f):
     def decorated_function(*args, **kwargs):
         if "user_id" not in session:
             flash("You must be logged in to access this page.", "error")
-            return redirect(url_for("admin_login"))
+            return redirect(url_for("welcome"))
         
         username = session.get("username")
         
@@ -1069,7 +1069,7 @@ def require_admin(f):
         
         if not user or not user["is_admin"]:
             flash("Access denied. Admin privileges required.", "error")
-            return redirect(url_for("admin_login"))
+            return redirect(url_for("welcome"))
         
         return f(*args, **kwargs)
     return decorated_function
@@ -1130,6 +1130,9 @@ def admin_dashboard():
     
     conn.close()
     
+    # Get default token budget from environment variable
+    default_budget = int(os.environ.get("AI_DEFAULT_TOKEN_BUDGET", "10000"))
+    
     return render_template(
         "admin.html",
         total_users=total_users,
@@ -1140,6 +1143,7 @@ def admin_dashboard():
         cache_size=cache_size,
         cache_hits=cache_hits,
         max_requests_per_hour=os.environ.get("AI_MAX_REQUESTS_PER_HOUR", "60"),
+        default_budget=default_budget,
     )
 
 
@@ -1199,6 +1203,41 @@ def reset_usage():
     conn.close()
     
     return jsonify({"success": True, "message": "Usage reset successfully"})
+
+
+@app.route("/admin/set_default_budget", methods=["POST"])
+@require_admin
+def set_default_budget():
+    """Set default token budget for all users without a budget."""
+    data = request.get_json() or {}
+    budget = data.get("budget")
+    
+    if budget is None:
+        return jsonify({"error": "Missing budget"}), 400
+    
+    try:
+        budget = int(budget)
+        if budget < 0:
+            return jsonify({"error": "Budget must be non-negative"}), 400
+    except ValueError:
+        return jsonify({"error": "Budget must be an integer"}), 400
+    
+    conn = get_db()
+    
+    # Update all users without a budget set
+    conn.execute(
+        """
+        INSERT INTO ai_usage (user_id, token_budget, tokens_used)
+        SELECT id, ?, 0
+        FROM users
+        WHERE id NOT IN (SELECT user_id FROM ai_usage)
+        """,
+        (budget,)
+    )
+    conn.commit()
+    conn.close()
+    
+    return jsonify({"success": True, "message": f"Default budget of {budget} tokens applied to all users without budgets"})
 
 
 if __name__ == "__main__":
