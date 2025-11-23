@@ -800,8 +800,17 @@ def command():
     
     # Check if user is in onboarding (for new character creation - may not be logged in yet)
     onboarding_step = session.get("onboarding_step")
+    onboarding_state = session.get("onboarding_state")
     
-    # Also check query parameter as fallback if session isn't set yet
+    # Fallback: if onboarding_state exists but onboarding_step doesn't, infer onboarding_step from state
+    if onboarding_step is None and onboarding_state:
+        step = onboarding_state.get("step")
+        if step is not None:
+            onboarding_step = step
+            session["onboarding_step"] = step
+            session.modified = True
+    
+    # Also check query parameter as fallback if session isn't set yet (for GET requests)
     if onboarding_step is None and request.args.get("onboarding") == "start":
         session["onboarding_step"] = 0
         session["onboarding_state"] = {"step": 0, "character": {}}
@@ -815,7 +824,8 @@ def command():
         # Handle onboarding commands for new character creation
         from game_engine import handle_onboarding_command
         
-        onboarding_state = session.get("onboarding_state", {"step": 0 if not user_id else 1, "character": {}})
+        # Get onboarding state from session (already retrieved above, but may need to refresh)
+        onboarding_state = session.get("onboarding_state", {"step": onboarding_step if onboarding_step is not None else (0 if not user_id else 1), "character": {}})
         
         # Get database connection for account creation (if not logged in) or character updates
         conn = get_db()
