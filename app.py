@@ -29,6 +29,8 @@ app.config["SECRET_KEY"] = os.environ.get("FLASK_SECRET_KEY", "dev-secret-change
 # Configure session cookie settings for better persistence
 app.config["SESSION_COOKIE_HTTPONLY"] = True
 app.config["SESSION_COOKIE_SAMESITE"] = "Lax"
+app.config["SESSION_COOKIE_SECURE"] = False  # Set to True in production with HTTPS
+app.config["PERMANENT_SESSION_LIFETIME"] = 86400  # 24 hours
 
 # Database setup
 # Use persistent disk path if available (for Render deployments)
