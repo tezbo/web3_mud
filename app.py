@@ -667,7 +667,7 @@ def command():
             save_state_to_disk()
             
             # Create cinematic entrance
-            from game_engine import NPCS, AVAILABLE_RACES, AVAILABLE_BACKSTORIES, describe_location, broadcast_to_room
+            from game_engine import NPCS, AVAILABLE_RACES, AVAILABLE_BACKSTORIES, describe_location
             
             race_name = AVAILABLE_RACES.get(character.get("race", ""), {}).get("name", "traveler")
             backstory_name = AVAILABLE_BACKSTORIES.get(character.get("backstory", ""), {}).get("name", "mystery")
@@ -723,10 +723,10 @@ def command():
         return jsonify({"response": "Please complete character creation first.", "log": processed_log, "onboarding": True})
     
     # Create broadcast function for this user
-    # Capture broadcast_to_room function in local variable to ensure closure works
-    _broadcast_fn = broadcast_to_room
+    # Import broadcast_to_room at module level and reference it directly
+    # to avoid closure issues - it's already defined at module level
     def broadcast_fn(room_id, text):
-        _broadcast_fn(username, room_id, text)
+        broadcast_to_room(username, room_id, text)
     
     # Get database connection for AI token tracking
     conn = get_db()
