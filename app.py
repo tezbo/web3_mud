@@ -927,7 +927,8 @@ def command():
 
 
 # Track last poll timestamp per player for ambiance/NPC messages
-LAST_POLL_STATE = {}  # username -> {"last_poll_tick": int, "last_poll_time": datetime}
+# Format: {username: {"last_ambiance_time": datetime, "last_npc_action_time": datetime}}
+LAST_POLL_STATE = {}
 
 
 @app.route("/poll", methods=["POST"])
@@ -935,7 +936,8 @@ LAST_POLL_STATE = {}  # username -> {"last_poll_tick": int, "last_poll_time": da
 def poll_updates():
     """
     Poll endpoint for real-time ambiance and NPC action updates.
-    Returns new messages that have accumulated since last poll.
+    Returns new messages that have appeared since last poll.
+    Messages appear automatically based on elapsed real-world time.
     """
     username = session.get("username")
     user_id = session.get("user_id")
@@ -948,7 +950,7 @@ def poll_updates():
         return jsonify({"messages": []})
     
     # Update session activity
-    from datetime import datetime
+    from datetime import datetime, timedelta
     ACTIVE_SESSIONS[username] = {
         "last_activity": datetime.now(),
         "session_id": session.get("session_id", id(session)),
@@ -958,17 +960,17 @@ def poll_updates():
     def broadcast_fn(room_id, text):
         broadcast_to_room(username, room_id, text)
     
-    # Get current tick
-    from game_engine import get_current_game_tick, advance_time, update_weather_if_needed
+    # Get current game time
+    from game_engine import get_current_game_tick, update_weather_if_needed
     from game_engine import update_player_weather_status, update_npc_weather_statuses
-    from game_engine import cleanup_buried_items, process_npc_periodic_actions
-    from game_engine import process_time_based_exit_states, process_npc_movements
+    from game_engine import cleanup_buried_items, process_time_based_exit_states
+    from game_engine import process_npc_movements
     import ambiance
     
-    # Advance time slightly (but don't accumulate too much - just for ambiance processing)
     current_tick = get_current_game_tick()
+    current_time = datetime.now()
     
-    # Update weather/player status
+    # Update weather/player status (but don't accumulate messages)
     update_weather_if_needed()
     update_player_weather_status(game)
     update_npc_weather_statuses()
@@ -980,61 +982,70 @@ def poll_updates():
     # Process NPC movements
     process_npc_movements(broadcast_fn=broadcast_fn)
     
-    # Collect new messages since last poll
+    # Initialize poll state if needed
+    if username not in LAST_POLL_STATE:
+        LAST_POLL_STATE[username] = {
+            "last_ambiance_time": current_time,
+            "last_npc_action_time": current_time,
+        }
+    
+    poll_state = LAST_POLL_STATE[username]
     new_messages = []
-    log_length_before = len(game.get("log", []))
-    
-    # Process NPC periodic actions (this adds to game["log"] if actions occur)
-    process_npc_periodic_actions(game, broadcast_fn=broadcast_fn, who_fn=list_active_players)
-    
-    # Process room ambiance
     current_room = game.get("location", "town_square")
     
-    # Check if enough time has passed for ambiance (15-25 game minutes = 15-25 ticks)
-    last_poll_info = LAST_POLL_STATE.get(username, {})
-    last_poll_tick = last_poll_info.get("last_poll_tick", current_tick)
-    elapsed_ticks = current_tick - last_poll_tick
+    # Check for NPC actions (should happen every 3-5 game minutes = 15-25 real-world seconds)
+    # At 12x speed: 3 game minutes = 15 real seconds, 5 game minutes = 25 real seconds
+    last_npc_time = poll_state.get("last_npc_action_time", current_time)
+    elapsed_npc_seconds = (current_time - last_npc_time).total_seconds()
     
-    # Only show ambiance if enough time has passed (15+ ticks = 15+ game minutes)
-    if elapsed_ticks >= 15:
-        accumulated_count = ambiance.get_accumulated_ambiance_messages(current_room, current_tick, game)
+    # NPC actions every 15-25 real-world seconds (3-5 game minutes at 12x speed)
+    if elapsed_npc_seconds >= 15:
+        from game_engine import get_npcs_in_room
+        from npc_actions import get_all_npc_actions_for_room
+        import random
         
-        if accumulated_count > 0:
-            # Generate ambiance messages
-            ambiance_messages = []
-            for _ in range(min(accumulated_count, 1)):  # Max 1 message per poll to avoid spam
-                msg = ambiance.process_room_ambiance(game, broadcast_fn=broadcast_fn)
-                if msg:
-                    ambiance_messages.extend(msg)
+        npc_ids = get_npcs_in_room(current_room)
+        if npc_ids:
+            npc_actions = get_all_npc_actions_for_room(current_room)
+            if npc_actions:
+                # Show one random NPC action
+                npc_id, action = random.choice(list(npc_actions.items()))
+                action_text = f"[CYAN]{action}[/CYAN]"
+                new_messages.append(action_text)
+                
+                # Broadcast to other players in the room
+                broadcast_fn(current_room, action_text)
+                
+                # Update last NPC action time (randomize interval between 15-25 seconds)
+                import random
+                next_interval = random.uniform(15, 25)
+                poll_state["last_npc_action_time"] = current_time - timedelta(seconds=elapsed_npc_seconds - next_interval)
+    
+    # Check for ambiance messages (should happen every 15-25 game minutes = 1.25-2.08 real-world minutes)
+    # At 12x speed: 15 game minutes = 75 real seconds, 25 game minutes = 125 real seconds
+    last_ambiance_time = poll_state.get("last_ambiance_time", current_time)
+    elapsed_ambiance_seconds = (current_time - last_ambiance_time).total_seconds()
+    
+    # Ambiance every 75-125 real-world seconds (15-25 game minutes at 12x speed)
+    if elapsed_ambiance_seconds >= 75:
+        # Generate one ambiance message
+        ambiance_msg = ambiance.process_room_ambiance(game, broadcast_fn=broadcast_fn)
+        if ambiance_msg and len(ambiance_msg) > 0:
+            new_messages.append(ambiance_msg[0])  # process_room_ambiance returns a list
             
-            # Remove duplicates
-            seen = set()
-            unique_messages = []
-            for msg in ambiance_messages:
-                if msg not in seen:
-                    seen.add(msg)
-                    unique_messages.append(msg)
-            
-            if unique_messages:
-                game.setdefault("log", [])
-                for msg in unique_messages:
-                    game["log"].append(msg)
-                game["log"] = game["log"][-50:]
-                ambiance.update_ambiance_tick(current_room, current_tick, messages_shown=len(unique_messages))
+            # Update last ambiance time (randomize interval between 75-125 seconds)
+            import random
+            next_interval = random.uniform(75, 125)
+            poll_state["last_ambiance_time"] = current_time - timedelta(seconds=elapsed_ambiance_seconds - next_interval)
     
-    # Get new messages added to log
-    log_after = game.get("log", [])
-    if len(log_after) > log_length_before:
-        new_messages = log_after[log_length_before:]
-    
-    # Update last poll state
-    LAST_POLL_STATE[username] = {
-        "last_poll_tick": current_tick,
-        "last_poll_time": datetime.now(),
-    }
-    
-    # Save game state if new messages were added
+    # Add new messages to game log
     if new_messages:
+        game.setdefault("log", [])
+        for msg in new_messages:
+            game["log"].append(msg)
+        game["log"] = game["log"][-50:]
+        
+        # Save game state
         save_game(game)
         save_state_to_disk()
     
