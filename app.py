@@ -428,9 +428,17 @@ def welcome_command():
             
             if user and check_password_hash(user["password_hash"], password):
                 session["user_id"] = user["id"]
-                session["username"] = user["username"]
+                username = user["username"]
+                session["username"] = username
                 session.pop("login_step", None)
                 session.pop("login_username", None)
+                
+                # Track active session on login
+                from datetime import datetime
+                ACTIVE_SESSIONS[username] = {
+                    "last_activity": datetime.now(),
+                    "session_id": session.get("session_id", id(session)),
+                }
                 
                 # Check if user has character - if not, start onboarding
                 # get_game() requires user_id in session, which we just set
@@ -532,6 +540,15 @@ def index():
         # Clear any stale onboarding state if user is not in onboarding
         if onboarding_step is None or onboarding_step == "complete":
             return redirect(url_for("welcome"))
+    
+    # Track active session when user accesses the game
+    if "user_id" in session:
+        from datetime import datetime
+        username = session.get("username", "adventurer")
+        ACTIVE_SESSIONS[username] = {
+            "last_activity": datetime.now(),
+            "session_id": session.get("session_id", id(session)),
+        }
     
     # Ensure game exists (this loads from DB or creates new)
     game = get_game()
