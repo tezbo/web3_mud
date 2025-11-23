@@ -9088,6 +9088,62 @@ def _legacy_handle_command_body(
                 room_name = WORLD.get(loc_id, {}).get("name", loc_id)
                 lines.append(f"  {uname} - {room_name}")
             response = "\n".join(lines)
+    
+    elif tokens[0] == "settings" and is_admin_user(username, game):
+        # Admin command to view and modify game settings
+        from app import get_all_game_settings, get_game_setting, set_game_setting
+        
+        if len(tokens) == 1:
+            # List all settings
+            settings = get_all_game_settings()
+            if not settings:
+                response = "No game settings configured."
+            else:
+                lines = ["[YELLOW]Game Settings:[/YELLOW]"]
+                lines.append("")
+                for key, info in settings.items():
+                    value = info["value"]
+                    desc = info.get("description", "No description")
+                    lines.append(f"  {key}: {value}")
+                    lines.append(f"    {desc}")
+                lines.append("")
+                lines.append("Usage: settings <key> [new_value]")
+                lines.append("Example: settings npc_action_interval_min 45")
+                response = "\n".join(lines)
+        elif len(tokens) == 2:
+            # View a specific setting
+            key = tokens[1]
+            value = get_game_setting(key)
+            if value is None:
+                response = f"Setting '{key}' not found."
+            else:
+                settings = get_all_game_settings()
+                desc = settings.get(key, {}).get("description", "No description")
+                response = f"[YELLOW]{key}:[/YELLOW] {value}\n{desc}"
+        elif len(tokens) >= 3:
+            # Set a setting
+            key = tokens[1]
+            new_value = " ".join(tokens[2:])
+            
+            # Validate numeric settings
+            numeric_settings = ["npc_action_interval_min", "npc_action_interval_max", 
+                              "ambiance_interval_min", "ambiance_interval_max", "poll_interval"]
+            if key in numeric_settings:
+                try:
+                    float_value = float(new_value)
+                    if float_value <= 0:
+                        response = f"Value must be greater than 0."
+                    else:
+                        set_game_setting(key, new_value)
+                        response = f"[GREEN]Setting '{key}' updated to {new_value}.[/GREEN]"
+                except ValueError:
+                    response = f"Invalid value. '{key}' must be a number."
+            else:
+                # Allow any string value for other settings
+                set_game_setting(key, new_value)
+                response = f"[GREEN]Setting '{key}' updated to '{new_value}'.[/GREEN]"
+        else:
+            response = "Usage: settings [<key> [new_value]]"
 
     elif tokens[0] == "time":
         # Display current in-game time in a creative format

@@ -97,11 +97,38 @@ def init_db():
         ON ai_rate_limits(user_id, request_time)
         """
     )
+    # Game settings table for admin-configurable parameters
+    cursor.execute(
+        """
+        CREATE TABLE IF NOT EXISTS game_settings (
+            key TEXT PRIMARY KEY,
+            value TEXT NOT NULL,
+            description TEXT,
+            updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )
+        """
+    )
     # Add description column if it doesn't exist (migration for existing databases)
     try:
         cursor.execute("ALTER TABLE users ADD COLUMN description TEXT")
     except sqlite3.OperationalError:
         pass  # Column already exists
+    
+    # Initialize default settings if they don't exist
+    default_settings = {
+        "npc_action_interval_min": ("30", "Minimum seconds between NPC actions (real-world time)"),
+        "npc_action_interval_max": ("60", "Maximum seconds between NPC actions (real-world time)"),
+        "ambiance_interval_min": ("120", "Minimum seconds between ambiance messages (real-world time)"),
+        "ambiance_interval_max": ("240", "Maximum seconds between ambiance messages (real-world time)"),
+        "poll_interval": ("3", "Client polling interval in seconds"),
+    }
+    
+    for key, (default_value, description) in default_settings.items():
+        cursor.execute(
+            "INSERT OR IGNORE INTO game_settings (key, value, description) VALUES (?, ?, ?)",
+            (key, default_value, description)
+        )
+    
     conn.commit()
     conn.close()
 
@@ -1024,24 +1051,26 @@ def poll_updates():
                 # Broadcast to other players in the room
                 broadcast_fn(current_room, action_text)
                 
-                # Update last NPC action time (randomize interval between 15-25 seconds)
-                next_interval = random.uniform(15, 25)
+                # Update last NPC action time (randomize interval between min and max)
+                next_interval = random.uniform(npc_interval_min, npc_interval_max)
                 poll_state["last_npc_action_time"] = current_time - timedelta(seconds=elapsed_npc_seconds - next_interval)
     
-    # Check for ambiance messages (should happen every 15-25 game minutes = 1.25-2.08 real-world minutes)
-    # At 12x speed: 15 game minutes = 75 real seconds, 25 game minutes = 125 real seconds
+    # Check for ambiance messages - use configurable interval from settings
+    ambiance_interval_min = float(get_game_setting("ambiance_interval_min", "120"))
+    ambiance_interval_max = float(get_game_setting("ambiance_interval_max", "240"))
+    
     last_ambiance_time = poll_state.get("last_ambiance_time", current_time)
     elapsed_ambiance_seconds = (current_time - last_ambiance_time).total_seconds()
     
-    # Ambiance every 75-125 real-world seconds (15-25 game minutes at 12x speed)
-    if elapsed_ambiance_seconds >= 75:
+    # Ambiance at configurable interval
+    if elapsed_ambiance_seconds >= ambiance_interval_min:
         # Generate one ambiance message
         ambiance_msg = ambiance.process_room_ambiance(game, broadcast_fn=broadcast_fn)
         if ambiance_msg and len(ambiance_msg) > 0:
             new_messages.append(ambiance_msg[0])  # process_room_ambiance returns a list
             
-            # Update last ambiance time (randomize interval between 75-125 seconds)
-            next_interval = random.uniform(75, 125)
+            # Update last ambiance time (randomize interval between min and max)
+            next_interval = random.uniform(ambiance_interval_min, ambiance_interval_max)
             poll_state["last_ambiance_time"] = current_time - timedelta(seconds=elapsed_ambiance_seconds - next_interval)
     
     # Add new messages to game log

@@ -409,6 +409,9 @@
         // Handle yellow color tags [YELLOW]...[/YELLOW] (for tell messages)
         processed = processed.replace(/\[YELLOW\](.*?)\[\/YELLOW\]/g, '<span style="color: #ffff00; font-weight: 500;">$1</span>');
         
+        // Handle green color tags [GREEN]...[/GREEN] (for success messages)
+        processed = processed.replace(/\[GREEN\](.*?)\[\/GREEN\]/g, '<span style="color: #00ff00; font-weight: 500;">$1</span>');
+        
         // Highlight error messages
         if (processed.includes('[Error') || processed.includes('Error:') || processed.includes("can't") || processed.includes("don't")) {
           processed = `<span class="error-message">${processed}</span>`;
