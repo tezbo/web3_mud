@@ -9197,11 +9197,11 @@ def _legacy_handle_command_body(
                 if not target_found:
                     response = f"{target_username} is not currently online."
                 else:
-                # Get target player's game state from ACTIVE_GAMES
-                # This import is safe because app.py imports game_engine, not the other way around
-                from app import ACTIVE_GAMES, save_game, save_state_to_disk
-                
-                if target_username in ACTIVE_GAMES:
+                    # Get target player's game state from ACTIVE_GAMES
+                    # This import is safe because app.py imports game_engine, not the other way around
+                    from app import ACTIVE_GAMES, save_game, save_state_to_disk
+                    
+                    if target_username in ACTIVE_GAMES:
                     target_game = ACTIVE_GAMES[target_username]
                     sender_name = username or "Someone"
                     
