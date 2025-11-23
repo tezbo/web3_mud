@@ -21,7 +21,8 @@ class NPC:
                  description: str = "", personality: str = "",
                  reactions: dict = None, home: Optional[str] = None,
                  use_ai: bool = False, shortname: Optional[str] = None,
-                 stats: dict = None, traits: dict = None, pronoun: str = "they"):
+                 stats: dict = None, traits: dict = None, pronoun: str = "they",
+                 attackable: bool = False, hostile: bool = False):
         self.id = npc_id
         self.name = name
         self.title = title
@@ -33,6 +34,8 @@ class NPC:
         self.stats = stats or {}
         self.traits = traits or {}
         self.pronoun = pronoun  # "he", "she", "they", "it"
+        self.attackable = attackable  # Whether this NPC can be attacked
+        self.hostile = hostile  # Whether this NPC is hostile (for future aggro)
         
         # Auto-generate shortname if not provided (last word of name, lowercased)
         if shortname is None:
@@ -386,7 +389,9 @@ def load_npcs() -> dict:
             shortname=npc_data.get("shortname"),  # Allow explicit shortname override
             stats=npc_data.get("stats"),  # Optional stats dict
             traits=npc_data.get("traits"),  # Optional traits dict
-            pronoun=npc_data.get("pronoun", "they")  # Default to "they" if not specified
+            pronoun=npc_data.get("pronoun", "they"),  # Default to "they" if not specified
+            attackable=npc_data.get("attackable", False),  # Default to False for backwards compatibility
+            hostile=npc_data.get("hostile", False)  # Default to False
         )
         npcs[npc_id] = npc
     return npcs

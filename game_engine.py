@@ -1286,6 +1286,54 @@ def get_current_hour_in_minutes():
     return int(minutes_in_day)
 
 
+def set_npc_talk_cooldown(game, npc_id, duration_minutes: int):
+    """
+    Set a cooldown for an NPC refusing to talk to the player.
+    
+    Args:
+        game: The game state dictionary
+        npc_id: The NPC ID
+        duration_minutes: Duration in in-game minutes
+    """
+    if "npc_cooldowns" not in game:
+        game["npc_cooldowns"] = {}
+    
+    if npc_id not in game["npc_cooldowns"]:
+        game["npc_cooldowns"][npc_id] = {}
+    
+    # Calculate the tick when the cooldown expires
+    current_tick = GAME_TIME.get("tick", 0)
+    ticks_per_minute = TICKS_PER_MINUTE
+    cooldown_ticks = duration_minutes * ticks_per_minute
+    expire_tick = current_tick + cooldown_ticks
+    
+    game["npc_cooldowns"][npc_id]["no_talk_until_tick"] = expire_tick
+
+
+def is_npc_refusing_to_talk(game, npc_id) -> bool:
+    """
+    Check if an NPC is refusing to talk to the player.
+    
+    Args:
+        game: The game state dictionary
+        npc_id: The NPC ID
+    
+    Returns:
+        bool: True if NPC is refusing to talk, False otherwise
+    """
+    if "npc_cooldowns" not in game:
+        return False
+    
+    npc_cooldown = game["npc_cooldowns"].get(npc_id, {})
+    no_talk_until = npc_cooldown.get("no_talk_until_tick")
+    
+    if no_talk_until is None:
+        return False
+    
+    current_tick = GAME_TIME.get("tick", 0)
+    return current_tick < no_talk_until
+
+
 def get_current_hour_12h():
     """
     Get current hour in 12-hour format (1-12).
@@ -3353,6 +3401,7 @@ def new_game_state(username="adventurer", character=None):
         ],
         "npc_memory": {},  # Track conversation history with NPCs: {npc_id: [list of interactions]}
         "reputation": {},  # Track reputation with NPCs: {npc_id: score}
+        "npc_cooldowns": {},  # Track NPC interaction cooldowns: {npc_id: {"no_talk_until_tick": int}}
         "notify": {
             "login": False,  # player can enable with 'notify login'
             "time": False,  # player can enable with 'notify time'
@@ -5239,23 +5288,130 @@ def handle_command(
                 if loc_id not in WORLD:
                     response = "You feel disoriented for a moment."
                 else:
-                    room_def = WORLD[loc_id]
-                    npc_ids = room_def.get("npcs", [])
+                    # Resolve NPC target
+                    npc_id, npc = resolve_npc_target(game, npc_target)
                     
-                    # Use centralized NPC matching
-                    matched_npc_id, matched_npc = match_npc_in_room(npc_ids, npc_target)
-                    
-                    if matched_npc:
+                    if not npc_id or not npc:
+                        response = f"You don't see anyone like '{npc_target}' here to talk to."
+                    elif is_npc_refusing_to_talk(game, npc_id):
+                        # NPC is refusing to talk due to cooldown
+                        npc_name = npc.name if hasattr(npc, 'name') else npc_id
+                        response = f"{npc_name} pointedly ignores you and refuses to talk."
+                    else:
+                        # Normal talk processing
                         # Generate dialogue for the NPC
-                        response = generate_npc_line(matched_npc_id, game, username, user_id=user_id, db_conn=db_conn)
+                        response = generate_npc_line(npc_id, game, username, user_id=user_id, db_conn=db_conn)
                         
                         # Broadcast NPC dialogue to all players in the room
                         if broadcast_fn is not None and response and response.strip():
                             # Only broadcast if it's actual dialogue (not error messages)
                             if not response.startswith("There's no one") and not response.startswith("You can't"):
                                 broadcast_fn(loc_id, response)
+
+    elif tokens[0] in ["attack", "hit", "strike"] and len(tokens) >= 2:
+        # Attack command
+        target_text = " ".join(tokens[1:]).lower()
+        loc_id = game.get("location", "town_square")
+        
+        # Default message constant
+        DEFAULT_CANT_ATTACK_MESSAGE = "You can't attack {name}."
+        
+        # Resolve NPC target
+        npc_id, npc = resolve_npc_target(game, target_text)
+        
+        if not npc_id or not npc:
+            # Check if it's a player (for now, disallow)
+            if who_fn:
+                active_players = who_fn()
+                for player_info in active_players:
+                    player_username = player_info.get("username", "")
+                    if player_username.lower() == target_text and player_info.get("location") == loc_id:
+                        response = "You can't attack other players yet."
+                        return response, game
+            
+            response = "You don't see anyone like that here to attack."
+        else:
+            # Check if NPC is attackable
+            attackable = getattr(npc, "attackable", False)
+            
+            if not attackable:
+                # Non-attackable NPC - check for on_attack callback
+                from npc import get_npc_on_attack_callback
+                callback = get_npc_on_attack_callback(npc_id)
+                
+                if callback:
+                    # Call the callback
+                    callback_message = callback(game, username or "adventurer", npc_id)
+                    response = callback_message
+                    
+                    # Note: The callback handles reputation, movement, and cooldown internally
+                    # via imports from game_engine, so we don't need to do it here
+                else:
+                    # Default message
+                    npc_name = npc.name if hasattr(npc, 'name') else npc_id
+                    response = DEFAULT_CANT_ATTACK_MESSAGE.format(name=npc_name)
+            else:
+                # Attackable NPC - implement combat
+                # Initialize or get NPC state
+                if npc_id not in NPC_STATE:
+                    # Initialize NPC state
+                    npc_home = getattr(npc, "home", None) or loc_id
+                    max_hp = npc.stats.get("max_hp", 10) if hasattr(npc, "stats") and npc.stats else 10
+                    NPC_STATE[npc_id] = {
+                        "room": loc_id,
+                        "home_room": npc_home,
+                        "hp": max_hp,
+                        "alive": True,
+                    }
+                
+                npc_state = NPC_STATE[npc_id]
+                
+                # Check if NPC is already dead
+                if not npc_state.get("alive", True):
+                    npc_name = npc.name if hasattr(npc, 'name') else npc_id
+                    response = f"{npc_name} is already dead."
+                else:
+                    # Calculate damage
+                    player_stats = game.get("character", {}).get("stats", {})
+                    player_str = player_stats.get("str", 1)
+                    base_damage = max(1, player_str)
+                    
+                    npc_defense = npc.stats.get("defense", 0) if hasattr(npc, "stats") and npc.stats else 0
+                    damage = max(1, base_damage - npc_defense)
+                    
+                    # Apply damage
+                    current_hp = npc_state.get("hp", npc.stats.get("max_hp", 10) if hasattr(npc, "stats") and npc.stats else 10)
+                    new_hp = max(0, current_hp - damage)
+                    npc_state["hp"] = new_hp
+                    
+                    npc_name = npc.name if hasattr(npc, 'name') else npc_id
+                    
+                    if new_hp <= 0:
+                        # NPC dies
+                        npc_state["alive"] = False
+                        response = f"You strike {npc_name} a final blow. {npc_name} collapses and dies."
+                        
+                        # Remove NPC from room (move to a "dead" state or remove from room)
+                        # For now, just mark as dead - they'll still appear but won't be interactive
+                        # TODO: Could move to a special "corpse" room or remove from room entirely
+                        
+                        # Broadcast death to room
+                        if broadcast_fn:
+                            broadcast_fn(loc_id, f"{npc_name} collapses and dies.")
                     else:
-                        response = "There's no one like that to talk to here."
+                        # NPC still alive
+                        response = f"You strike {npc_name} for {damage} damage. {npc_name} has {new_hp} HP remaining."
+                        
+                        # Broadcast attack to room
+                        if broadcast_fn:
+                            broadcast_fn(loc_id, f"{username or 'Someone'} attacks {npc_name}!")
+                    
+                    # Check for on_attack callback (for attackable NPCs, this runs after combat)
+                    from npc import get_npc_on_attack_callback
+                    callback = get_npc_on_attack_callback(npc_id)
+                    if callback:
+                        callback_message = callback(game, username or "adventurer", npc_id)
+                        response += " " + callback_message
 
     elif tokens[0] == "stat":
         # Admin-only stat command
