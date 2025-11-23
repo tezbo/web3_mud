@@ -541,17 +541,31 @@ def index():
             save_game(game)
             save_state_to_disk()
             
-            # Add special Old Storyteller greeting
-            from game_engine import NPCS, AVAILABLE_RACES, AVAILABLE_BACKSTORIES, describe_location
+            # Create cinematic entrance
+            from game_engine import NPCS, AVAILABLE_RACES, AVAILABLE_BACKSTORIES, describe_location, broadcast_to_room
+            from game_engine import get_npcs_in_room
+            
+            username_final = session.get("username", "adventurer")
+            race_name = AVAILABLE_RACES.get(character.get("race", ""), {}).get("name", "traveler")
+            backstory_name = AVAILABLE_BACKSTORIES.get(character.get("backstory", ""), {}).get("name", "mystery")
+            
+            # Get player's starting location
+            loc_id = game.get("location", "town_square")
+            
+            # Broadcast dramatic entrance to other players in the room
+            entrance_message = f"✨ A brilliant flash of light pierces the air, and {username_final} materializes in the center of the square, their form solidifying from ethereal mist. The cycle has brought another soul to Hollowvale. ✨"
+            broadcast_to_room(username_final, loc_id, entrance_message)
+            
+            # Add special Old Storyteller greeting for the new player
             if "old_storyteller" in NPCS:
                 storyteller = NPCS["old_storyteller"]
-                race_name = AVAILABLE_RACES.get(character.get("race", ""), {}).get("name", "traveler")
-                backstory_name = AVAILABLE_BACKSTORIES.get(character.get("backstory", ""), {}).get("name", "mystery")
                 possessive = getattr(storyteller, 'possessive', 'their')
-                greeting = f"The Old Storyteller looks up from {possessive} tales and smiles warmly. 'Ah, a {race_name} with a {backstory_name.lower()}... Welcome to Hollowvale, {session.get('username')}. Your story is just beginning.'"
+                greeting = f"The Old Storyteller looks up from {possessive} tales, eyes twinkling with ancient wisdom. '{username_final}... a {race_name} with a {backstory_name.lower()}...' {storyteller.name if hasattr(storyteller, 'name') else 'The Old Storyteller'} smiles warmly. 'Welcome to Hollowvale. Your story is just beginning. The wheel has turned, and you have returned.'"
                 game["log"].append(greeting)
-                game["log"].append(describe_location(game))
-                save_game(game)
+            
+            # Add location description
+            game["log"].append(describe_location(game))
+            save_game(game)
             
             # Clear onboarding from session
             session.pop("onboarding_step", None)
@@ -652,33 +666,46 @@ def command():
             save_game(game)
             save_state_to_disk()
             
-            # Add special Old Storyteller greeting
-            from game_engine import NPCS, AVAILABLE_RACES, AVAILABLE_BACKSTORIES, describe_location
+            # Create cinematic entrance
+            from game_engine import NPCS, AVAILABLE_RACES, AVAILABLE_BACKSTORIES, describe_location, broadcast_to_room
+            
+            race_name = AVAILABLE_RACES.get(character.get("race", ""), {}).get("name", "traveler")
+            backstory_name = AVAILABLE_BACKSTORIES.get(character.get("backstory", ""), {}).get("name", "mystery")
+            
+            # Get player's starting location
+            loc_id = game.get("location", "town_square")
+            
+            # Broadcast dramatic entrance to other players in the room
+            entrance_message = f"✨ A brilliant flash of light pierces the air, and {username} materializes in the center of the square, their form solidifying from ethereal mist. The cycle has brought another soul to Hollowvale. ✨"
+            broadcast_to_room(username, loc_id, entrance_message)
+            
+            # Add special Old Storyteller greeting for the new player
             if "old_storyteller" in NPCS:
                 storyteller = NPCS["old_storyteller"]
-                race_name = AVAILABLE_RACES.get(character.get("race", ""), {}).get("name", "traveler")
-                backstory_name = AVAILABLE_BACKSTORIES.get(character.get("backstory", ""), {}).get("name", "mystery")
-                # Old Storyteller is a dict, use 'their' as default
-                possessive = 'their'
-                greeting = f"The Old Storyteller looks up from {possessive} tales and smiles warmly. 'Ah, a {race_name} with a {backstory_name.lower()}... Welcome to Hollowvale, {username}. Your story is just beginning.'"
+                possessive = getattr(storyteller, 'possessive', 'their')
+                storyteller_name = storyteller.name if hasattr(storyteller, 'name') else 'The Old Storyteller'
+                greeting = f"The Old Storyteller looks up from {possessive} tales, eyes twinkling with ancient wisdom. '{username}... a {race_name} with a {backstory_name.lower()}...' {storyteller_name} smiles warmly. 'Welcome to Hollowvale. Your story is just beginning. The wheel has turned, and you have returned.'"
                 game["log"].append(greeting)
-                game["log"].append(describe_location(game))
-                save_game(game)
             
-            log = game["log"]
+            # Add location description
+            game["log"].append(describe_location(game))
+            save_game(game)
+            
+            # Return completion message with pauses as a single string for frontend processing
+            log = [response] + game["log"]
             conn.close()
         else:
-            # Add delay dots for narrative effect
-            log = response.split("\n")
-            # Add dots between paragraphs for dramatic effect
-            formatted_log = []
-            for i, line in enumerate(log):
-                formatted_log.append(line)
-                if line.strip() and i < len(log) - 1 and log[i+1].strip():
-                    formatted_log.append("...")
-            log = formatted_log
+            # Return onboarding response as a string (with pause markers) for frontend processing
+            log = [response]
+            conn.close()
         
-        processed_log = highlight_exits_in_log(log)
+        # For onboarding messages with pause markers, return as single string for frontend processing
+        # Frontend will handle the pause markers and display progressively
+        if isinstance(log, list) and len(log) == 1 and isinstance(log[0], str) and ('[PAUSE:' in log[0] or '[ELLIPSIS:' in log[0]):
+            # Return as single string for pause processing
+            processed_log = log[0]
+        else:
+            processed_log = highlight_exits_in_log(log)
         return jsonify({"response": response, "log": processed_log, "onboarding": not is_complete})
     
     # Normal game command handling - require authentication
@@ -738,23 +765,9 @@ def command():
                 who_fn=list_active_players
             )
             
-            # Trigger NPC periodic actions (random chance on each command)
-            import random
-            from npc_actions import get_all_npc_actions_for_room
-            if random.random() < 0.3:  # 30% chance per command
-                room_id = game.get("location", "town_square")
-                npc_actions = get_all_npc_actions_for_room(room_id)
-                if npc_actions:
-                    # Pick one random NPC action
-                    npc_id, action = random.choice(list(npc_actions.items()))
-                    # Broadcast to all players in the room (including the one who triggered it)
-                    # Format with cyan color tag
-                    action_text = f"[CYAN]{action}[/CYAN]"
-                    for uname, g in ACTIVE_GAMES.items():
-                        if g.get("location") == room_id:
-                            g.setdefault("log", [])
-                            g["log"].append(action_text)
-                            g["log"] = g["log"][-50:]
+            # NPC periodic actions are now handled automatically in handle_command
+            # via process_npc_periodic_actions() which shows accumulated actions
+            # based on elapsed time since last action
             
             # If description was updated, save it to database immediately
             if "user_description" in game:

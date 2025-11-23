@@ -104,82 +104,292 @@ STAT_NAMES = {
 TOTAL_STAT_POINTS = 10
 
 # --- Onboarding Narrative Text ---
+# Special marker for delayed messages: [PAUSE:seconds] or [ELLIPSIS:seconds]
 
-ONBOARDING_USERNAME_PROMPT = """In the darkness, you drift...
+ONBOARDING_USERNAME_PROMPT = """[PAUSE:1]
+In the endless void between lives, you drift...
 
-A voice, ancient and warm, reaches through the void:
+[PAUSE:1.5]
+Memories fade. Identity dissolves. You are... nothing. And everything.
 
-"Awaken, lost soul. Your journey begins in the realm between worlds."
+[PAUSE:2]
+A presence stirs in the darkness. Ancient. Patient. Wise.
 
-Slowly, awareness returns. You feel... something. A presence. A purpose.
+[PAUSE:1.5]
+"Awaken, wandering soul."
 
-"Before you step into Hollowvale, you must remember who you are."
+The voice echoes through the emptiness, warm yet distant.
 
-The voice asks: "What name will you bear in this realm?"
+[PAUSE:2]
+"You have walked the cycle many times. Life. Death. Rebirth. The wheel turns, and you return."
 
+[PAUSE:1.5]
+A flicker of light appears in the distance. Growing. Calling.
+
+[PAUSE:2]
+"Before you take form once more, you must remember. Who were you? Who will you become?"
+
+[PAUSE:1.5]
+The light intensifies, and you feel yourself being drawn forward.
+
+[PAUSE:1]
+"What name will you bear in this new life? What identity will you claim?"
+
+[PAUSE:0.5]
 Enter your username (this will be your character name):"""
 
-ONBOARDING_PASSWORD_PROMPT = """"Good. Now, choose a password to protect your identity."
+ONBOARDING_PASSWORD_PROMPT = """[PAUSE:1]
+"Good. A name is chosen. Now, you must protect it."
 
+[PAUSE:1.5]
+The void around you shimmers. You sense other presences—some friendly, some... not.
+
+[PAUSE:2]
+"Choose a password. A secret. A key that only you will know. Guard it well."
+
+[PAUSE:1]
 Enter your password (minimum 4 characters):"""
 
-ONBOARDING_RACE_PROMPT = """The voice speaks again:
+ONBOARDING_RACE_PROMPT = """[PAUSE:1.5]
+The light grows stronger. Shapes begin to form in the darkness.
 
-"First, tell me: what form do you remember? What blood flows in your veins?"
+[PAUSE:2]
+"Now, tell me... what form calls to you? What bloodline do you remember?"
 
-Choose your race:
-- human
-- elf
-- dwarf
-- halfling
-- fae-touched
-- outlander
+[PAUSE:1.5]
+Images flash before you—fragments of past lives, echoes of distant kin.
 
-Type the name of your race:"""
+[PAUSE:2]
+"Choose the vessel that will carry your soul into Hollowvale:"
 
-ONBOARDING_GENDER_PROMPT = """"Good. Now, how do you know yourself? What is your nature?"
+[PAUSE:1]
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-Choose your gender:
-- male
-- female
-- nonbinary
-- other
+  • HUMAN
+    The most common folk. Versatile, adaptable, unbound by ancient pacts.
+    You remember countless lives as farmer, merchant, warrior, scholar.
+    In you flows the blood of endless possibility.
 
+  • ELF
+    Graceful and long-lived, touched by the magic of the old world.
+    You recall lifetimes spent in ancient forests, under starlit skies.
+    The arcane whispers to you, and you move with otherworldly elegance.
+
+  • DWARF
+    Sturdy and unyielding, forged in the depths of the earth.
+    Memories of stone halls and ringing hammers fill your mind.
+    You carry the resilience of mountains and the craft of ages.
+
+  • HALFLING
+    Small but determined, blessed with luck and resourcefulness.
+    You remember cozy hearths, warm meals, and finding joy in simple things.
+    Fortune smiles upon you, and opportunity finds you where others see none.
+
+  • FAE-TOUCHED
+    Touched by the magic of the fae realm, reality bends around you.
+    Fragments of the Otherworld linger in your soul.
+    You are not entirely of this realm, and the world knows it.
+
+  • OUTLANDER
+    From lands unknown, a mystery even to yourself.
+    Your origins are strange, your past a puzzle.
+    You carry the weight of distant places and forgotten truths.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[PAUSE:1]
+Type the name of your race (human, elf, dwarf, halfling, fae-touched, or outlander):"""
+
+ONBOARDING_GENDER_PROMPT = """[PAUSE:1]
+The form takes shape. Flesh remembers. Bone aligns.
+
+[PAUSE:1.5]
+"But form is only part of who you are. How do you know yourself?"
+
+[PAUSE:2]
+"Gender is not merely flesh—it is spirit, identity, the truth of your being."
+
+[PAUSE:1.5]
+Choose how you know yourself:
+
+  • MALE
+  • FEMALE
+  • NONBINARY
+  • OTHER
+
+[PAUSE:1]
 Type your choice:"""
 
-ONBOARDING_STATS_PROMPT = """"Your essence takes shape. Now, where do your strengths lie?"
+ONBOARDING_STATS_PROMPT = """[PAUSE:1]
+Your essence solidifies. The void recedes.
 
-You have 10 points to distribute across five attributes:
-- str (Strength): Physical power and might
-- agi (Agility): Speed, dexterity, and reflexes
-- wis (Wisdom): Knowledge, insight, and understanding
-- wil (Willpower): Mental fortitude and determination
-- luck (Luck): Fortune and chance
+[PAUSE:2]
+"Now, where do your strengths lie? What gifts will you carry into this life?"
 
+[PAUSE:1.5]
+You feel power gathering within you—five aspects of your being, waiting to be shaped.
+
+[PAUSE:2]
+"Distribute your essence across these attributes. You have 10 points to allocate:"
+
+[PAUSE:1]
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  STRENGTH (str)    - Physical power, might, the force of your body
+  AGILITY (agi)     - Speed, dexterity, reflexes, grace of movement
+  WISDOM (wis)      - Knowledge, insight, understanding of the world
+  WILLPOWER (wil)   - Mental fortitude, determination, inner strength
+  LUCK (luck)       - Fortune, chance, the favor of fate
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[PAUSE:1]
 Enter your stat allocation like this: str 3, agi 2, wis 2, wil 2, luck 1
 (All five stats must total exactly 10 points)
 
 Your allocation:"""
 
-ONBOARDING_BACKSTORY_PROMPT = """"Every soul carries a story. What is yours?"
+ONBOARDING_BACKSTORY_PROMPT = """[PAUSE:1.5]
+The form is nearly complete. Almost there...
 
-Choose your backstory:
-- scarred_past: You carry the weight of loss and hardship
-- forgotten_lineage: You know little of your true heritage
-- broken_oath: You once made a promise you could not keep
-- hopeful_spark: You believe in better days ahead
-- quiet_mystery: You prefer to keep your past to yourself
-- custom: Your story is your own to tell
+[PAUSE:2]
+"But every soul carries a story. Scars from past lives. Promises made and broken. Hope that endures."
 
+[PAUSE:1.5]
+"What tale will you bring with you? What weight will you carry?"
+
+[PAUSE:2]
+"Choose the story that defines you:"
+
+[PAUSE:1]
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  • SCARRED_PAST
+    You carry the weight of loss and hardship.
+    Your past has left marks, but also made you stronger.
+    Pain has shaped you, but it does not define you.
+
+  • FORGOTTEN_LINEAGE
+    You know little of your true heritage.
+    There are gaps in your memory, mysteries in your blood.
+    Something important was lost, and you sense there is more to your story.
+
+  • BROKEN_OATH
+    You once made a promise you could not keep.
+    The weight of that failure drives you forward.
+    Redemption calls to you, or perhaps acceptance.
+
+  • HOPEFUL_SPARK
+    Despite the darkness in the world, you carry a light within.
+    You believe in better days ahead.
+    Hope is your strength, and you refuse to let it die.
+
+  • QUIET_MYSTERY
+    You prefer to keep your past to yourself.
+    There are things you know that others do not.
+    Secrets are your currency, and silence your shield.
+
+  • CUSTOM
+    Your story is your own to tell.
+    Write it in your own words.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[PAUSE:1]
 Type your choice (or 'custom' to write your own):"""
 
-ONBOARDING_COMPLETE = """The voice grows distant:
+ONBOARDING_COMPLETE = """[PAUSE:2]
+The transformation is complete.
 
-"Your form is complete. Your story begins. Welcome to Hollowvale, {username}."
+[PAUSE:1.5]
+Your form solidifies. Your essence takes root. You are... whole.
 
-Light floods your vision. The darkness fades away...
+[PAUSE:2]
+The voice grows distant, fading into the void:
 
-You find yourself standing in the Town Square of Hollowvale, a frontier town where adventure awaits."""
+[PAUSE:1]
+"Your vessel is ready. Your story begins anew."
+
+[PAUSE:1.5]
+"Welcome to Hollowvale, {username}."
+
+[PAUSE:2]
+"May this life be different. May you find what you seek."
+
+[PAUSE:1.5]
+The light intensifies, blinding, overwhelming...
+
+[PAUSE:2]
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[PAUSE:1]
+[ELLIPSIS:2]
+
+[PAUSE:1]
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[PAUSE:1.5]
+The world materializes around you.
+
+[PAUSE:1]
+Colors flood your vision. Sounds reach your ears. The scent of earth and wood fills your lungs.
+
+[PAUSE:2]
+You stand in the Town Square of Hollowvale.
+
+[PAUSE:1]
+A frontier town where adventure awaits, where stories are written, where souls find their purpose.
+
+[PAUSE:1.5]
+Your journey begins... now."""
+
+
+def process_onboarding_message(message):
+    """
+    Process onboarding message with pause markers into a list of timed segments.
+    
+    Returns a list of dicts: [{"text": "...", "delay": seconds}, ...]
+    Special markers:
+    - [PAUSE:seconds] - pause before next segment
+    - [ELLIPSIS:seconds] - show loading ellipses for duration
+    """
+    import re
+    
+    # Split by pause markers
+    segments = []
+    parts = re.split(r'\[(PAUSE|ELLIPSIS):([\d.]+)\]', message)
+    
+    current_text = ""
+    for i, part in enumerate(parts):
+        if part in ["PAUSE", "ELLIPSIS"]:
+            # Save current text if any
+            if current_text.strip():
+                segments.append({"text": current_text.strip(), "delay": 0, "type": "text"})
+                current_text = ""
+            
+            # Get duration from next part
+            if i + 1 < len(parts):
+                try:
+                    duration = float(parts[i + 1])
+                    if part == "ELLIPSIS":
+                        segments.append({"text": "...", "delay": duration, "type": "ellipsis"})
+                    else:
+                        segments.append({"text": "", "delay": duration, "type": "pause"})
+                except (ValueError, IndexError):
+                    pass
+        elif not part.isdigit() and not part.replace(".", "").isdigit():
+            # Regular text
+            current_text += part
+    
+    # Add any remaining text
+    if current_text.strip():
+        segments.append({"text": current_text.strip(), "delay": 0, "type": "text"})
+    
+    # If no segments found, return original message
+    if not segments:
+        return [{"text": message, "delay": 0, "type": "text"}]
+    
+    return segments
 
 
 def handle_onboarding_command(command, onboarding_state, username=None, db_conn=None):
@@ -1068,6 +1278,162 @@ BURIED_ITEMS = {}
 #   }
 # }
 QUEST_GLOBAL_STATE = {}
+
+# --- NPC Periodic Actions State (tracks when NPCs last performed actions per room) ---
+# Format: {
+#   room_id: {
+#     "last_action_tick": int,  # Last tick when an NPC action was shown in this room
+#     "last_weather_change_tick": int,  # Last tick when weather changed (for reactions)
+#     "last_weather_state": dict  # Last weather state (to detect changes)
+#   }
+# }
+NPC_ACTIONS_STATE = {}
+
+
+def process_npc_periodic_actions(game, broadcast_fn=None, who_fn=None):
+    """
+    Process NPC periodic actions based on elapsed time.
+    Shows accumulated NPC actions and weather reactions since last update.
+    
+    Args:
+        game: Player's game state dict
+        broadcast_fn: Optional callback(room_id: str, text: str) for broadcasting to room
+        who_fn: Optional callback() -> list[dict] for getting active players
+    """
+    global NPC_ACTIONS_STATE, GAME_TIME, WEATHER_STATE
+    
+    current_tick = GAME_TIME.get("tick", 0)
+    current_room = game.get("location", "town_square")
+    
+    # Initialize room state if needed
+    if current_room not in NPC_ACTIONS_STATE:
+        NPC_ACTIONS_STATE[current_room] = {
+            "last_action_tick": current_tick,
+            "last_weather_change_tick": current_tick,
+            "last_weather_state": WEATHER_STATE.copy()
+        }
+    
+    room_state = NPC_ACTIONS_STATE[current_room]
+    last_action_tick = room_state.get("last_action_tick", current_tick)
+    
+    # Calculate elapsed time (ticks since last action)
+    elapsed_ticks = current_tick - last_action_tick
+    
+    # NPC actions should happen roughly every 5-15 ticks (every 5-15 commands)
+    # More frequent if there are more NPCs in the room
+    npc_ids = get_npcs_in_room(current_room)
+    num_npcs = len(npc_ids)
+    
+    if num_npcs > 0:
+        # Calculate how many actions should have happened
+        # Every 10 ticks on average, but more NPCs = more frequent actions
+        action_interval = max(5, 15 - num_npcs)  # 10-15 ticks depending on NPC count
+        
+        # Show accumulated actions based on elapsed time
+        # But cap at reasonable number to avoid spam
+        max_actions_to_show = min(3, num_npcs)  # Up to 3 actions max
+        
+        actions_to_show = min(max_actions_to_show, elapsed_ticks // action_interval)
+        
+        if actions_to_show > 0:
+            from npc_actions import get_all_npc_actions_for_room
+            npc_actions = get_all_npc_actions_for_room(current_room)
+            
+            if npc_actions:
+                # Show actions (one per NPC if possible, or random selection)
+                shown_count = 0
+                import random
+                action_list = list(npc_actions.items())
+                random.shuffle(action_list)  # Randomize order
+                
+                for npc_id, action in action_list:
+                    if shown_count >= actions_to_show:
+                        break
+                    
+                    # Format with cyan color tag
+                    action_text = f"[CYAN]{action}[/CYAN]"
+                    
+                    # Add to player's log
+                    game.setdefault("log", [])
+                    game["log"].append(action_text)
+                    game["log"] = game["log"][-50:]
+                    
+                    # Broadcast to other players in the room
+                    if broadcast_fn:
+                        broadcast_fn(current_room, action_text)
+                    
+                    shown_count += 1
+                
+                # Update last action tick (space them out)
+                room_state["last_action_tick"] = current_tick - (elapsed_ticks % action_interval)
+    
+    # Check for weather changes and NPC reactions
+    last_weather_state = room_state.get("last_weather_state", {})
+    last_weather_tick = room_state.get("last_weather_change_tick", current_tick)
+    
+    # Check if weather has changed significantly
+    weather_changed = False
+    if last_weather_state.get("type") != WEATHER_STATE.get("type") or \
+       last_weather_state.get("intensity") != WEATHER_STATE.get("intensity"):
+        weather_changed = True
+        room_state["last_weather_change_tick"] = current_tick
+        room_state["last_weather_state"] = WEATHER_STATE.copy()
+    
+    # Show NPC weather reactions when weather changes (for outdoor rooms)
+    room_def = WORLD.get(current_room, {})
+    if room_def.get("outdoor", False) and weather_changed and num_npcs > 0:
+        season = get_season()
+        
+        # Show weather reaction for one NPC (if any have reactions)
+        import random
+        random.shuffle(npc_ids)
+        
+        for npc_id in npc_ids:
+            # Sanity check: only show reaction if NPC actually has weather status effects
+            if has_npc_weather_status(npc_id):
+                reaction = get_npc_weather_reaction(npc_id, WEATHER_STATE, season, check_status=True)
+                if reaction:
+                    # Format with cyan color tag
+                    reaction_text = f"[CYAN]{reaction}[/CYAN]"
+                    
+                    # Add to player's log
+                    game.setdefault("log", [])
+                    game["log"].append(reaction_text)
+                    game["log"] = game["log"][-50:]
+                    
+                    # Broadcast to other players in outdoor rooms
+                    if broadcast_fn:
+                        broadcast_fn(current_room, reaction_text)
+                    
+                    # Only show one weather reaction per change
+                    break
+    
+    # Also check for periodic weather reactions (not just on change)
+    # Show weather reaction occasionally (every ~30 ticks if weather is significant)
+    if room_def.get("outdoor", False) and num_npcs > 0:
+        wtype = WEATHER_STATE.get("type", "clear")
+        intensity = WEATHER_STATE.get("intensity", "none")
+        
+        # Only for significant weather (not just clear)
+        if wtype != "clear" and intensity in ["moderate", "heavy"]:
+            # Show weather reaction every ~30 ticks (30% chance per command)
+            if random.random() < 0.3:
+                season = get_season()
+                random.shuffle(npc_ids)
+                
+                for npc_id in npc_ids:
+                    # Sanity check: only show reaction if NPC actually has weather status effects
+                    if has_npc_weather_status(npc_id):
+                        reaction = get_npc_weather_reaction(npc_id, WEATHER_STATE, season, check_status=True)
+                        if reaction:
+                            reaction_text = f"[CYAN]{reaction}[/CYAN]"
+                            game.setdefault("log", [])
+                            game["log"].append(reaction_text)
+                            game["log"] = game["log"][-50:]
+                            
+                            if broadcast_fn:
+                                broadcast_fn(current_room, reaction_text)
+                            break
 
 # --- World Clock (tracks in-game time) ---
 # In-game time: 1 in-game hour = 1 real-world hour (configurable)
@@ -2390,7 +2756,34 @@ def get_seasonal_room_overlay(room_def, season, weather_state):
     return ""
 
 
-def get_npc_weather_reaction(npc_id, weather_state, season):
+def has_npc_weather_status(npc_id):
+    """
+    Check if an NPC currently has weather status effects (wetness, cold, or heat > 0).
+    This is a sanity check to ensure NPCs only react to weather if they're actually affected.
+    
+    Args:
+        npc_id: NPC identifier
+    
+    Returns:
+        bool: True if NPC has weather status effects, False otherwise
+    """
+    if npc_id not in NPC_STATE:
+        return False
+    
+    npc_state = NPC_STATE[npc_id]
+    if "weather_status" not in npc_state:
+        return False
+    
+    status = npc_state["weather_status"]
+    wetness = status.get("wetness", 0)
+    cold = status.get("cold", 0)
+    heat = status.get("heat", 0)
+    
+    # Check if any weather status is present
+    return max(wetness, cold, heat) > 0
+
+
+def get_npc_weather_reaction(npc_id, weather_state, season, check_status=True):
     """
     Get an NPC's reaction to current weather/season.
     
@@ -2398,10 +2791,15 @@ def get_npc_weather_reaction(npc_id, weather_state, season):
         npc_id: NPC ID
         weather_state: Current weather state dict
         season: Current season string
+        check_status: If True, only return reaction if NPC has weather status effects (default: True)
     
     Returns:
         str or None: Reaction message or None
     """
+    # Sanity check: only react if NPC actually has weather status effects
+    if check_status and not has_npc_weather_status(npc_id):
+        return None
+    
     wtype = weather_state.get("type", "clear")
     intensity = weather_state.get("intensity", "none")
     
@@ -2563,7 +2961,11 @@ def get_player_weather_description(game, pronouns=None):
         return ""
     
     # Use proper verb conjugation based on pronoun
-    if pronoun in ["he", "she", "it"]:
+    if pronoun == "you":
+        verb_look = "look"
+        verb_be = "are"
+        verb_have = "have"
+    elif pronoun in ["he", "she", "it"]:
         verb_look = "looks"
         verb_be = "is"
         verb_have = "has"
@@ -2575,31 +2977,215 @@ def get_player_weather_description(game, pronouns=None):
     # Generate description for dominant condition
     if wetness == max_condition:
         if wetness <= 2:
+            if pronoun == "you":
+                return "You look a bit damp."
             return f"{pronoun.capitalize()} {verb_look} a bit damp."
         elif wetness <= 4:
+            if pronoun == "you":
+                return "You can tell you have been standing in the rain for a while."
             return f"You can tell {pronoun} {verb_have} been standing in the rain for a while."
         elif wetness <= 7:
+            if pronoun == "you":
+                return "You look thoroughly soaked through."
             return f"{pronoun.capitalize()} {verb_look} thoroughly soaked through."
         else:
+            if pronoun == "you":
+                return "You are absolutely drenched from head to toe."
             return f"{pronoun.capitalize()} {verb_be} absolutely drenched from head to toe."
     elif cold == max_condition:
         if cold <= 2:
+            if pronoun == "you":
+                return "You look a little chilled."
             return f"{pronoun.capitalize()} {verb_look} a little chilled."
         elif cold <= 4:
+            if pronoun == "you":
+                return "You are shivering slightly in the cold."
             return f"{pronoun.capitalize()} {verb_be} shivering slightly in the cold."
         elif cold <= 7:
+            if pronoun == "you":
+                return "You look very cold and uncomfortable."
             return f"{pronoun.capitalize()} {verb_look} very cold and uncomfortable."
         else:
+            if pronoun == "you":
+                return "You are shivering violently, lips tinged blue."
             return f"{pronoun.capitalize()} {verb_be} shivering violently, lips tinged blue."
     else:  # heat
         if heat <= 2:
+            if pronoun == "you":
+                return "You look a touch flushed from the heat."
             return f"{pronoun.capitalize()} {verb_look} a touch flushed from the heat."
         elif heat <= 4:
+            if pronoun == "you":
+                return "A sheen of sweat glistens on your skin."
             return f"A sheen of sweat glistens on {pronoun} skin."
         elif heat <= 7:
+            if pronoun == "you":
+                return "You look overheated and unsteady."
             return f"{pronoun.capitalize()} {verb_look} overheated and unsteady."
         else:
-            return f"{pronoun.capitalize()} {verb_be} drenched in sweat and look ready to collapse from the heat."
+            if pronoun == "you":
+                return "You are drenched in sweat and look ready to collapse from the heat."
+            return f"{pronoun.capitalize()} {verb_be} drenched in sweat and {verb_look} ready to collapse from the heat."
+
+
+def get_npc_weather_description(npc_id, npc):
+    """
+    Get weather condition description for an NPC.
+    
+    Args:
+        npc_id: NPC identifier
+        npc: NPC object
+    
+    Returns:
+        str: Weather description or empty string
+    """
+    if npc_id not in NPC_STATE:
+        return ""
+    
+    state = NPC_STATE[npc_id]
+    if "weather_status" not in state:
+        return ""
+    
+    status = state["weather_status"]
+    pronoun = getattr(npc, 'pronoun', 'they') if hasattr(npc, 'pronoun') else 'they'
+    
+    wetness = status.get("wetness", 0)
+    cold = status.get("cold", 0)
+    heat = status.get("heat", 0)
+    
+    # Find dominant condition
+    max_condition = max(wetness, cold, heat)
+    if max_condition == 0:
+        return ""
+    
+    # Use proper verb conjugation based on pronoun
+    if pronoun in ["he", "she", "it"]:
+        verb_look = "looks"
+        verb_be = "is"
+        verb_have = "has"
+    else:  # they
+        verb_look = "look"
+        verb_be = "are"
+        verb_have = "have"
+    
+    # Generate description (same logic as player weather, but third person)
+    if wetness == max_condition:
+        if wetness <= 2:
+            return f"{npc.name} {verb_look} a bit damp."
+        elif wetness <= 4:
+            return f"You can tell {npc.name} {verb_have} been standing in the rain for a while."
+        elif wetness <= 7:
+            return f"{npc.name} {verb_look} thoroughly soaked through."
+        else:
+            return f"{npc.name} {verb_be} absolutely drenched from head to toe."
+    elif cold == max_condition:
+        if cold <= 2:
+            return f"{npc.name} {verb_look} a little chilled."
+        elif cold <= 4:
+            return f"{npc.name} {verb_be} shivering slightly in the cold."
+        elif cold <= 7:
+            return f"{npc.name} {verb_look} very cold and uncomfortable."
+        else:
+            return f"{npc.name} {verb_be} shivering violently, lips tinged blue."
+    else:  # heat
+        if heat <= 2:
+            return f"{npc.name} {verb_look} a touch flushed from the heat."
+        elif heat <= 4:
+            return f"A sheen of sweat glistens on {npc.name}'s skin."
+        elif heat <= 7:
+            return f"{npc.name} {verb_look} overheated and unsteady."
+        else:
+            return f"{npc.name} {verb_be} drenched in sweat and {verb_look} ready to collapse from the heat."
+
+
+def update_npc_weather_statuses():
+    """
+    Update weather exposure status for all NPCs based on their current location and weather.
+    Similar to update_player_weather_status but for NPCs.
+    """
+    global NPC_STATE
+    
+    current_tick = GAME_TIME["tick"]
+    
+    for npc_id, npc_state in NPC_STATE.items():
+        # Initialize weather_status if not present
+        if "weather_status" not in npc_state:
+            npc_state["weather_status"] = {
+                "wetness": 0,
+                "cold": 0,
+                "heat": 0,
+                "last_update_tick": 0,
+            }
+        
+        status = npc_state["weather_status"]
+        last_update = status.get("last_update_tick", 0)
+        
+        # Update every tick
+        if current_tick <= last_update:
+            continue
+        
+        status["last_update_tick"] = current_tick
+        
+        # Get NPC's current room
+        room_id = npc_state.get("room", "town_square")
+        if room_id not in WORLD:
+            continue
+        
+        room_def = WORLD[room_id]
+        is_outdoor = room_def.get("outdoor", False)
+        
+        if not is_outdoor:
+            # Indoor: gradually decay all status
+            if status["wetness"] > 0:
+                status["wetness"] = max(0, status["wetness"] - 1)
+            if status["cold"] > 0:
+                status["cold"] = max(0, status["cold"] - 1)
+            if status["heat"] > 0:
+                status["heat"] = max(0, status["heat"] - 1)
+            continue
+        
+        # Outdoor: apply weather effects (same logic as players)
+        wtype = WEATHER_STATE.get("type", "clear")
+        intensity = WEATHER_STATE.get("intensity", "none")
+        temp = WEATHER_STATE.get("temperature", "mild")
+        season = get_season()
+        
+        # Wetness from rain/snow/sleet
+        if wtype in ["rain", "snow", "sleet"]:
+            if intensity == "light":
+                status["wetness"] = min(10, status["wetness"] + 1)
+            elif intensity == "moderate":
+                status["wetness"] = min(10, status["wetness"] + 2)
+            elif intensity == "heavy":
+                status["wetness"] = min(10, status["wetness"] + 3)
+        else:
+            # Gradually dry off if not in precipitation
+            if status["wetness"] > 0:
+                status["wetness"] = max(0, status["wetness"] - 1)
+        
+        # Cold from winter/snow/sleet/cold temps
+        if season == "winter" or wtype in ["snow", "sleet"] or temp in ["cold", "freezing"]:
+            if intensity in ["moderate", "heavy"] or temp == "freezing":
+                status["cold"] = min(10, status["cold"] + 2)
+            else:
+                status["cold"] = min(10, status["cold"] + 1)
+        else:
+            # Gradually warm up
+            if status["cold"] > 0:
+                status["cold"] = max(0, status["cold"] - 1)
+        
+        # Heat from summer/hot temps
+        if season == "summer" or temp in ["hot", "scorching"]:
+            if temp == "scorching":
+                status["heat"] = min(10, status["heat"] + 3)
+            elif temp == "hot":
+                status["heat"] = min(10, status["heat"] + 2)
+            else:
+                status["heat"] = min(10, status["heat"] + 1)
+        else:
+            # Gradually cool down
+            if status["heat"] > 0:
+                status["heat"] = max(0, status["heat"] - 1)
 
 
 def should_restock_merchant(npc_id):
@@ -2670,7 +3256,13 @@ def init_npc_state():
                     "home_room": home_room,
                     "hp": max_hp,
                     "alive": True,
-                    "status": "idle"
+                    "status": "idle",
+                    "weather_status": {
+                        "wetness": 0,
+                        "cold": 0,
+                        "heat": 0,
+                        "last_update_tick": 0,
+                    }
                 }
                 
                 # Initialize merchant inventory if this NPC is a merchant
@@ -3054,6 +3646,11 @@ def _format_npc_look(npc_id, npc, game):
         status = state.get("status", "idle")
         if status != "idle":
             lines.append(f"{npc.name} appears to be {status}.")
+        
+        # Add weather description for NPCs
+        weather_desc = get_npc_weather_description(npc_id, npc)
+        if weather_desc:
+            lines.append(weather_desc)
     
     # Traits hints (subtle, in-universe)
     if hasattr(npc, 'traits') and npc.traits:
@@ -3115,8 +3712,8 @@ def _format_player_look(game, username, db_conn=None):
     else:
         lines.append("You are an adventurer in Hollowvale.")
     
-    # Add weather description
-    weather_desc = get_player_weather_description(game, pronouns=AVAILABLE_GENDERS.get(character.get("gender", ""), {}))
+    # Add weather description (first person: "You look...")
+    weather_desc = get_player_weather_description(game, pronouns={"pronoun": "you", "pronoun_cap": "You"})
     if weather_desc:
         lines.append(weather_desc)
     
@@ -3501,10 +4098,470 @@ def _format_player_stat(game, username):
     return "\n".join(lines)
 
 
-def move_npc(npc_id, new_room_id):
-    """Move an NPC to a new room."""
-    if npc_id in NPC_STATE:
-        NPC_STATE[npc_id]["room"] = new_room_id
+# --- Exit Accessibility System ---
+# Track dynamic exit states (locked, hidden, etc.)
+# Format: {room_id: {direction: {locked: bool, hidden: bool, reason: str}}}
+EXIT_STATES = {}
+
+
+def is_exit_accessible(room_id, direction, actor_type="player", actor_id=None, game=None):
+    """
+    Check if an exit is accessible to an actor (player or NPC).
+    
+    Args:
+        room_id: Room ID
+        direction: Direction (e.g., "north", "south")
+        actor_type: "player" or "npc"
+        actor_id: Actor identifier (username or npc_id)
+        game: Player's game state (for checking keys, abilities, etc.)
+    
+    Returns:
+        tuple: (is_accessible: bool, reason: str or None)
+    """
+    if room_id not in WORLD:
+        return False, "That room doesn't exist."
+    
+    room_def = WORLD[room_id]
+    exits = room_def.get("exits", {})
+    exit_def = exits.get(direction)
+    
+    if exit_def is None:
+        return False, "You can't go that way."
+    
+    # Handle string exits (backward compatible - always accessible)
+    if isinstance(exit_def, str):
+        return True, None
+    
+    # Handle dict exits
+    if not isinstance(exit_def, dict):
+        return False, "You can't go that way."
+    
+    target = exit_def.get("target")
+    if not target:
+        return False, "You can't go that way."
+    
+    # Check dynamic exit state (locked/hidden by time or other conditions)
+    if room_id in EXIT_STATES and direction in EXIT_STATES[room_id]:
+        exit_state = EXIT_STATES[room_id][direction]
+        if exit_state.get("locked", False):
+            reason = exit_state.get("reason", "The way is locked.")
+            return False, reason
+        if exit_state.get("hidden", False):
+            reason = exit_state.get("reason", "You don't see a way in that direction.")
+            return False, reason
+    
+    # Check static exit properties
+    if exit_def.get("locked", False):
+        # Check if actor has required key or ability
+        key_required = exit_def.get("key_required")
+        if key_required:
+            if actor_type == "player" and game:
+                inventory = game.get("inventory", [])
+                if key_required not in inventory:
+                    return False, f"You need a {key_required} to go that way."
+            elif actor_type == "npc":
+                # NPCs can have keys in their state or be exempt
+                npc_can_unlock = exit_def.get("npc_can_unlock", False)
+                if not npc_can_unlock:
+                    return False, "The way is locked."
+        else:
+            return False, "The way is locked."
+    
+    if exit_def.get("hidden", False):
+        # Check if actor has perception or ability to see hidden exits
+        perception_required = exit_def.get("perception_required", 0)
+        if actor_type == "player" and game:
+            # For now, assume players can't see hidden exits without special ability
+            # This can be extended later with perception stats
+            return False, "You don't see a way in that direction."
+        elif actor_type == "npc":
+            npc_can_see = exit_def.get("npc_can_see_hidden", False)
+            if not npc_can_see:
+                return False, "The way is hidden."
+    
+    return True, None
+
+
+def set_exit_state(room_id, direction, locked=None, hidden=None, reason=None):
+    """
+    Set the dynamic state of an exit (locked/hidden).
+    
+    Args:
+        room_id: Room ID
+        direction: Direction
+        locked: Optional bool to set locked state
+        hidden: Optional bool to set hidden state
+        reason: Optional reason message
+    """
+    if room_id not in EXIT_STATES:
+        EXIT_STATES[room_id] = {}
+    if direction not in EXIT_STATES[room_id]:
+        EXIT_STATES[room_id][direction] = {}
+    
+    if locked is not None:
+        EXIT_STATES[room_id][direction]["locked"] = locked
+    if hidden is not None:
+        EXIT_STATES[room_id][direction]["hidden"] = hidden
+    if reason:
+        EXIT_STATES[room_id][direction]["reason"] = reason
+
+
+def get_accessible_exits(room_id, actor_type="player", actor_id=None, game=None):
+    """
+    Get list of accessible exits for an actor.
+    Ensures at least one exit is always available to prevent getting stuck.
+    
+    Args:
+        room_id: Room ID
+        actor_type: "player" or "npc"
+        actor_id: Actor identifier
+        game: Player's game state
+    
+    Returns:
+        list: List of accessible direction strings
+    """
+    if room_id not in WORLD:
+        return []
+    
+    room_def = WORLD[room_id]
+    exits = room_def.get("exits", {})
+    accessible = []
+    
+    for direction in exits.keys():
+        is_accessible, _ = is_exit_accessible(room_id, direction, actor_type, actor_id, game)
+        if is_accessible:
+            accessible.append(direction)
+    
+    # Safety check: if no exits are accessible, make all exits accessible
+    # This prevents actors from getting stuck
+    if not accessible and exits:
+        # Log this as a safety fallback
+        import logging
+        logging.warning(f"Safety fallback: All exits made accessible in {room_id} for {actor_type} {actor_id}")
+        accessible = list(exits.keys())
+    
+    return accessible
+
+
+# --- NPC Route System ---
+# Define routes for NPCs that should move between rooms
+# Format: {npc_id: [list of room_ids in order, cycling]}
+NPC_ROUTES = {
+    "patrolling_guard": ["town_square", "market_lane", "town_square", "forest_edge", "town_square"],
+    "old_storyteller": ["town_square", "tavern", "town_square"],
+    "darin": ["watchtower", "watchtower_path", "town_square", "watchtower_path", "watchtower"],
+}
+
+# Track NPC route positions (which room in their route they're at)
+NPC_ROUTE_POSITIONS = {}
+
+
+def get_npc_route(npc_id):
+    """Get the route for an NPC, or None if they don't have one."""
+    return NPC_ROUTES.get(npc_id)
+
+
+def get_next_room_in_route(npc_id, current_room_id):
+    """
+    Get the next room in an NPC's route.
+    
+    Args:
+        npc_id: NPC identifier
+        current_room_id: Current room ID
+    
+    Returns:
+        tuple: (next_room_id, direction) or (None, None) if no route or can't find path
+    """
+    route = get_npc_route(npc_id)
+    if not route:
+        return None, None
+    
+    # Find current position in route
+    if npc_id not in NPC_ROUTE_POSITIONS:
+        # Initialize to first room in route
+        if current_room_id in route:
+            NPC_ROUTE_POSITIONS[npc_id] = route.index(current_room_id)
+        else:
+            # Start at beginning
+            NPC_ROUTE_POSITIONS[npc_id] = 0
+    
+    current_index = NPC_ROUTE_POSITIONS[npc_id]
+    
+    # Check if NPC is at expected position
+    if current_room_id != route[current_index]:
+        # NPC is off-route, find nearest route point
+        if current_room_id in route:
+            NPC_ROUTE_POSITIONS[npc_id] = route.index(current_room_id)
+            current_index = NPC_ROUTE_POSITIONS[npc_id]
+        else:
+            # Not on route at all, try to find path to route
+            # For now, just move to next route point
+            pass
+    
+    # Get next room in route (cycle)
+    next_index = (current_index + 1) % len(route)
+    next_room_id = route[next_index]
+    
+    # Find direction from current room to next room
+    if current_room_id not in WORLD or next_room_id not in WORLD:
+        return None, None
+    
+    current_room = WORLD[current_room_id]
+    exits = current_room.get("exits", {})
+    
+    # Find direction that leads to next room
+    for direction, target_room in exits.items():
+        # Check if exit is accessible for NPCs
+        is_accessible, _ = is_exit_accessible(current_room_id, direction, "npc", npc_id, None)
+        if not is_accessible:
+            continue
+        
+        # Handle both string and dict exits
+        if isinstance(target_room, str):
+            if target_room == next_room_id:
+                return next_room_id, direction
+        elif isinstance(target_room, dict):
+            if target_room.get("target") == next_room_id:
+                return next_room_id, direction
+    
+    # If no direct exit, try to find path (for now, return None)
+    return None, None
+
+
+def move_npc_along_route(npc_id, broadcast_fn=None):
+    """
+    Move an NPC along their route if they have one.
+    
+    Args:
+        npc_id: NPC identifier
+        broadcast_fn: Optional callback(room_id: str, text: str) for broadcasting
+    
+    Returns:
+        bool: True if NPC was moved, False otherwise
+    """
+    if npc_id not in NPC_STATE:
+        return False
+    
+    npc_state = NPC_STATE[npc_id]
+    current_room_id = npc_state.get("room")
+    
+    if not current_room_id:
+        return False
+    
+    next_room_id, direction = get_next_room_in_route(npc_id, current_room_id)
+    
+    if not next_room_id or not direction:
+        return False
+    
+    # Move NPC
+    old_room_id = current_room_id
+    npc_state["room"] = next_room_id
+    
+    # Update route position
+    route = get_npc_route(npc_id)
+    if route:
+        NPC_ROUTE_POSITIONS[npc_id] = route.index(next_room_id)
+    
+    # Get NPC name
+    from npc import NPCS
+    npc = NPCS.get(npc_id)
+    npc_name = npc.name if npc else npc_id
+    
+    # Broadcast exit message to old room
+    if broadcast_fn:
+        exit_msg = get_entrance_exit_message(old_room_id, next_room_id, direction, npc_name, is_exit=True, is_npc=True)
+        if exit_msg:
+            broadcast_fn(old_room_id, exit_msg)
+    
+    # Broadcast entrance message to new room
+    if broadcast_fn:
+        opposite_direction = OPPOSITE_DIRECTION.get(direction, "somewhere")
+        entrance_msg = get_entrance_exit_message(next_room_id, old_room_id, opposite_direction, npc_name, is_exit=False, is_npc=True)
+        if entrance_msg:
+            broadcast_fn(next_room_id, entrance_msg)
+    
+    return True
+
+
+def process_npc_movements(broadcast_fn=None):
+    """
+    Process NPC movements along their routes.
+    Moves NPCs periodically based on elapsed time.
+    
+    Args:
+        broadcast_fn: Optional callback(room_id: str, text: str) for broadcasting
+    """
+    global NPC_ROUTE_POSITIONS, GAME_TIME
+    
+    current_tick = GAME_TIME.get("tick", 0)
+    
+    # Initialize last movement tick tracking if needed
+    if not hasattr(process_npc_movements, "last_movement_tick"):
+        process_npc_movements.last_movement_tick = {}
+    
+    last_movement_tick = process_npc_movements.last_movement_tick
+    
+    # NPCs move every 30-60 ticks (30-60 commands)
+    movement_interval = 45
+    
+    for npc_id in NPC_ROUTES.keys():
+        if npc_id not in NPC_STATE:
+            continue
+        
+        last_tick = last_movement_tick.get(npc_id, 0)
+        elapsed = current_tick - last_tick
+        
+        if elapsed >= movement_interval:
+            # Try to move NPC
+            if move_npc_along_route(npc_id, broadcast_fn=broadcast_fn):
+                last_movement_tick[npc_id] = current_tick
+
+
+def process_time_based_exit_states(broadcast_fn=None, who_fn=None):
+    """
+    Process time-based exit state changes (e.g., tavern door locking/unlocking).
+    Handles Mara's closing/opening behavior at 1am and 10am.
+    
+    Args:
+        broadcast_fn: Optional callback(room_id: str, text: str) for broadcasting
+        who_fn: Optional callback() -> list[dict] for getting active players
+    """
+    global EXIT_STATES, GAME_TIME
+    
+    current_tick = GAME_TIME.get("tick", 0)
+    current_hour = get_current_in_game_hour()
+    hour_of_day = int(current_hour % 24)
+    
+    # Track last processed hour to avoid duplicate messages
+    if not hasattr(process_time_based_exit_states, "last_processed_hour"):
+        process_time_based_exit_states.last_processed_hour = {}
+    
+    last_hour = process_time_based_exit_states.last_processed_hour
+    
+    # Tavern door: Lock at 1am, unlock at 10am
+    tavern_room_id = "tavern"
+    tavern_door_direction = "north"  # Door to town square
+    
+    # Check if we need to lock the door (1am)
+    if hour_of_day == 1 and last_hour.get("tavern_locked") != 1:
+        # Lock the door
+        set_exit_state(tavern_room_id, tavern_door_direction, locked=True, 
+                      reason="The heavy wooden door is locked for the night.")
+        last_hour["tavern_locked"] = 1
+        
+        # Mara kicks everyone out and says closing message
+        if broadcast_fn and who_fn:
+            # Get all players in the tavern
+            active_players = who_fn()
+            players_in_tavern = [p for p in active_players if p.get("location") == tavern_room_id]
+            
+            # Mara's closing message
+            closing_message = "[CYAN]Mara calls out: 'Alright, everyone out! The tavern's closed for the night. Come back in the morning!'[/CYAN]"
+            broadcast_fn(tavern_room_id, closing_message)
+            
+            # Move all players to town square (graceful - they can't get stuck)
+            from app import ACTIVE_GAMES
+            for player in players_in_tavern:
+                username = player.get("username")
+                if username and username in ACTIVE_GAMES:
+                    player_game = ACTIVE_GAMES[username]
+                    old_loc = player_game.get("location")
+                    player_game["location"] = "town_square"
+                    
+                    # Broadcast exit message
+                    exit_msg = get_entrance_exit_message(old_loc, "town_square", "north", 
+                                                        username, is_exit=True, is_npc=False)
+                    if exit_msg:
+                        broadcast_fn(old_loc, exit_msg)
+                    
+                    # Broadcast entrance message
+                    entrance_msg = get_entrance_exit_message("town_square", old_loc, "south", 
+                                                            username, is_exit=False, is_npc=False)
+                    if entrance_msg:
+                        broadcast_fn("town_square", entrance_msg)
+                    
+                    # Add message to player's log
+                    player_game.setdefault("log", [])
+                    player_game["log"].append("[CYAN]Mara ushers you out of the tavern, closing the door behind you.[/CYAN]")
+                    player_game["log"] = player_game["log"][-50:]
+            
+            # Move NPCs out of tavern (except Mara, who stays)
+            npc_ids = get_npcs_in_room(tavern_room_id)
+            for npc_id in npc_ids:
+                if npc_id != "innkeeper":  # Mara stays
+                    npc_state = NPC_STATE.get(npc_id, {})
+                    if npc_state.get("room") == tavern_room_id:
+                        # Move NPC to town square
+                        move_npc(npc_id, "town_square", from_room_id=tavern_room_id, 
+                                direction="north", broadcast_fn=broadcast_fn)
+    
+    # Check if we need to unlock the door (10am)
+    elif hour_of_day == 10 and last_hour.get("tavern_unlocked") != 10:
+        # Unlock the door
+        set_exit_state(tavern_room_id, tavern_door_direction, locked=False)
+        last_hour["tavern_unlocked"] = 10
+        
+        # Mara's opening message
+        if broadcast_fn:
+            opening_message = "[CYAN]Mara calls out: 'The tavern's open! Come on in, travelers!'[/CYAN]"
+            broadcast_fn(tavern_room_id, opening_message)
+            # Also broadcast to town square so people know
+            broadcast_fn("town_square", opening_message)
+    
+    # Update last processed hour
+    process_time_based_exit_states.last_processed_hour = last_hour
+
+
+def move_npc(npc_id, new_room_id, from_room_id=None, direction=None, is_teleport=False, broadcast_fn=None):
+    """
+    Move an NPC to a new room, with optional entrance/exit messages.
+    
+    Args:
+        npc_id: NPC identifier
+        new_room_id: Target room ID
+        from_room_id: Source room ID (for exit message)
+        direction: Direction of movement (for messages)
+        is_teleport: If True, this is a teleport (admin) and uses different messages
+        broadcast_fn: Optional callback(room_id: str, text: str) for broadcasting
+    """
+    if npc_id not in NPC_STATE:
+        return
+    
+    npc_state = NPC_STATE[npc_id]
+    old_room_id = npc_state.get("room")
+    
+    # Update NPC location
+    npc_state["room"] = new_room_id
+    
+    # Get NPC name
+    from npc import NPCS
+    npc = NPCS.get(npc_id)
+    npc_name = npc.name if npc else npc_id
+    
+    # Broadcast exit message from old room
+    if broadcast_fn and old_room_id and old_room_id != new_room_id:
+        if is_teleport:
+            exit_msg = f"[CYAN]{npc_name} vanishes.[/CYAN]"
+        elif direction:
+            exit_msg = get_entrance_exit_message(old_room_id, new_room_id, direction, npc_name, is_exit=True, is_npc=True)
+        else:
+            exit_msg = f"[CYAN]{npc_name} leaves.[/CYAN]"
+        
+        if exit_msg:
+            broadcast_fn(old_room_id, exit_msg)
+    
+    # Broadcast entrance message to new room
+    if broadcast_fn and new_room_id:
+        if is_teleport:
+            entrance_msg = f"[CYAN]{npc_name} appears suddenly.[/CYAN]"
+        elif direction:
+            opposite_direction = OPPOSITE_DIRECTION.get(direction, "somewhere")
+            entrance_msg = get_entrance_exit_message(new_room_id, old_room_id, opposite_direction, npc_name, is_exit=False, is_npc=True)
+        else:
+            entrance_msg = f"[CYAN]{npc_name} arrives.[/CYAN]"
+        
+        if entrance_msg:
+            broadcast_fn(new_room_id, entrance_msg)
 
 
 # Initialize NPC state on module import
@@ -3744,9 +4801,77 @@ def handle_emote(verb, args, game, username=None, broadcast_fn=None, who_fn=None
     return "You do not see anyone like that here.", game
 
 
+def get_entrance_exit_message(room_id, from_room_id, direction, actor_name, is_exit=True, is_npc=False, custom_message=None):
+    """
+    Get entrance or exit message for a room.
+    
+    Args:
+        room_id: The room ID
+        from_room_id: The room being left/entered from
+        direction: The direction (e.g., "north", "south")
+        actor_name: Name of the actor (player or NPC)
+        is_exit: If True, this is an exit message; if False, entrance message
+        is_npc: If True, actor is an NPC; if False, player
+        custom_message: Optional custom message override
+    
+    Returns:
+        str: Formatted message (with [CYAN] tags for NPCs, HTML for players)
+    """
+    if custom_message:
+        return custom_message
+    
+    if room_id not in WORLD:
+        # Fallback
+        if is_exit:
+            return f"{actor_name} leaves {direction}." if is_npc else f"[CYAN]{actor_name} leaves {direction}.[/CYAN]"
+        else:
+            return f"{actor_name} arrives from the {direction}." if is_npc else f"[CYAN]{actor_name} arrives from the {direction}.[/CYAN]"
+    
+    room_def = WORLD[room_id]
+    
+    # Check for custom entrance/exit messages
+    if is_exit:
+        exit_messages = room_def.get("exit_messages", {})
+        if direction in exit_messages:
+            msg_template = exit_messages[direction]
+            if callable(msg_template):
+                msg = msg_template(actor_name, direction, is_npc)
+            else:
+                msg = msg_template.format(actor=actor_name, direction=direction)
+        else:
+            # Default exit message
+            msg = f"{actor_name} leaves {direction}."
+    else:
+        entrance_messages = room_def.get("entrance_messages", {})
+        if direction in entrance_messages:
+            msg_template = entrance_messages[direction]
+            if callable(msg_template):
+                msg = msg_template(actor_name, direction, is_npc)
+            else:
+                msg = msg_template.format(actor=actor_name, direction=direction)
+        else:
+            # Default entrance message
+            room_name = room_def.get("name", room_id)
+            # Try to make it contextual
+            if "tavern" in room_id.lower():
+                msg = f"{actor_name} enters the tavern, closing the heavy wooden door behind {'him' if is_npc else 'you'}."
+            elif "smithy" in room_id.lower():
+                msg = f"{actor_name} enters the smithy, the sound of the forge filling the air."
+            elif "watchtower" in room_id.lower():
+                msg = f"{actor_name} climbs up into the watchtower."
+            else:
+                msg = f"{actor_name} arrives from the {direction}."
+    
+    # Format based on actor type
+    if is_npc:
+        return f"[CYAN]{msg}[/CYAN]"
+    else:
+        return f'<span style="color: #006400;">{msg}</span>'
+
+
 def get_movement_message(target_room_id, direction):
     """
-    Get the movement message when entering a room.
+    Get the movement message when entering a room (for player's own movement).
     
     Args:
         target_room_id: The room ID being entered
@@ -3966,12 +5091,15 @@ def describe_location(game):
         seasonal_overlay = get_seasonal_room_overlay(room_def, season, WEATHER_STATE)
         
         # Occasionally add NPC weather reaction (10% chance)
+        # Only show if NPC actually has weather status effects
         if npc_ids and random.random() < 0.1:
             for npc_id in npc_ids:
-                reaction = get_npc_weather_reaction(npc_id, WEATHER_STATE, season)
-                if reaction:
-                    npc_weather_reaction = reaction
-                    break
+                # Sanity check: only show reaction if NPC actually has weather status effects
+                if has_npc_weather_status(npc_id):
+                    reaction = get_npc_weather_reaction(npc_id, WEATHER_STATE, season, check_status=True)
+                    if reaction:
+                        npc_weather_reaction = reaction
+                        break
     
     # Combine all parts
     parts = [
@@ -4776,9 +5904,21 @@ def handle_command(
     advance_time(ticks=1)
     update_weather_if_needed()
     update_player_weather_status(game)
+    # Update NPC weather status for all NPCs
+    update_npc_weather_statuses()
     
     # Clean up old buried items periodically (every command)
     cleanup_buried_items()
+    
+    # Process NPC periodic actions and weather reactions
+    # This shows accumulated NPC actions based on elapsed time since last action
+    process_npc_periodic_actions(game, broadcast_fn=broadcast_fn, who_fn=who_fn)
+    
+    # Process time-based exit states (e.g., tavern door locking)
+    process_time_based_exit_states(broadcast_fn=broadcast_fn, who_fn=who_fn)
+    
+    # Process NPC movements along routes
+    process_npc_movements(broadcast_fn=broadcast_fn)
     
     # Tick quests (check for expired quests)
     import quests
@@ -4872,49 +6012,54 @@ def handle_command(
             exits = room_def.get("exits", {})
             exit_def = exits.get(full_direction)
             
-            # Support both string (backward compatible) and dict exits
-            if exit_def is None:
-                target = None
-            elif isinstance(exit_def, str):
-                target = exit_def
-            elif isinstance(exit_def, dict):
-                target = exit_def.get("target")
-                # For now, ignore locked/key_required flags (will be implemented later)
-            else:
-                target = None
+            # Check exit accessibility
+            is_accessible, reason = is_exit_accessible(loc_id, full_direction, "player", username, game)
             
-            if target:
-                old_loc = loc_id
-                game["location"] = target
-                
-                # Broadcast leave message to old room
-                if broadcast_fn is not None:
-                    actor_name = username or "Someone"
-                    leave_msg = f"{actor_name} leaves {full_direction}."
-                    broadcast_fn(old_loc, leave_msg)
-                
-                # Broadcast arrive message to new room
-                if broadcast_fn is not None:
-                    actor_name = username or "Someone"
-                    opposite = OPPOSITE_DIRECTION.get(full_direction, "somewhere")
-                    arrive_msg = f"{actor_name} arrives from the {opposite}."
-                    broadcast_fn(target, arrive_msg)
-                
-                # Get movement message and room description
-                movement_msg = get_movement_message(target, full_direction)
-                location_desc = describe_location(game)
-                response = f"{movement_msg}\n{location_desc}"
-                
-                # Trigger quest event for entering room
-                import quests
-                event = quests.QuestEvent(
-                    type="enter_room",
-                    room_id=target,
-                    username=username or "adventurer"
-                )
-                quests.handle_quest_event(game, event)
+            if not is_accessible:
+                response = reason or "You can't go that way."
             else:
-                response = "You can't go that way."
+                # Support both string (backward compatible) and dict exits
+                if exit_def is None:
+                    target = None
+                elif isinstance(exit_def, str):
+                    target = exit_def
+                elif isinstance(exit_def, dict):
+                    target = exit_def.get("target")
+                else:
+                    target = None
+                
+                if target:
+                    old_loc = loc_id
+                    game["location"] = target
+                    
+                    # Broadcast leave message to old room
+                    if broadcast_fn is not None:
+                        actor_name = username or "Someone"
+                        leave_msg = get_entrance_exit_message(old_loc, target, full_direction, actor_name, is_exit=True, is_npc=False)
+                        broadcast_fn(old_loc, leave_msg)
+                    
+                    # Broadcast arrive message to new room
+                    if broadcast_fn is not None:
+                        actor_name = username or "Someone"
+                        opposite = OPPOSITE_DIRECTION.get(full_direction, "somewhere")
+                        arrive_msg = get_entrance_exit_message(target, old_loc, opposite, actor_name, is_exit=False, is_npc=False)
+                        broadcast_fn(target, arrive_msg)
+                    
+                    # Get movement message and room description
+                    movement_msg = get_movement_message(target, full_direction)
+                    location_desc = describe_location(game)
+                    response = f"{movement_msg}\n{location_desc}"
+                    
+                    # Trigger quest event for entering room
+                    import quests
+                    event = quests.QuestEvent(
+                        type="enter_room",
+                        room_id=target,
+                        username=username or "adventurer"
+                    )
+                    quests.handle_quest_event(game, event)
+                else:
+                    response = "You can't go that way."
     
     elif tokens[0] in ["n", "north", "s", "south", "e", "east", "w", "west"]:
         # Allow direct direction commands (e.g., "n" or "north")
@@ -4932,49 +6077,54 @@ def handle_command(
             exits = room_def.get("exits", {})
             exit_def = exits.get(full_direction)
             
-            # Support both string (backward compatible) and dict exits
-            if exit_def is None:
-                target = None
-            elif isinstance(exit_def, str):
-                target = exit_def
-            elif isinstance(exit_def, dict):
-                target = exit_def.get("target")
-                # For now, ignore locked/key_required flags (will be implemented later)
-            else:
-                target = None
+            # Check exit accessibility
+            is_accessible, reason = is_exit_accessible(loc_id, full_direction, "player", username, game)
             
-            if target:
-                old_loc = loc_id
-                game["location"] = target
-                
-                # Broadcast leave message to old room
-                if broadcast_fn is not None:
-                    actor_name = username or "Someone"
-                    leave_msg = f"{actor_name} leaves {full_direction}."
-                    broadcast_fn(old_loc, leave_msg)
-                
-                # Broadcast arrive message to new room
-                if broadcast_fn is not None:
-                    actor_name = username or "Someone"
-                    opposite = OPPOSITE_DIRECTION.get(full_direction, "somewhere")
-                    arrive_msg = f"{actor_name} arrives from the {opposite}."
-                    broadcast_fn(target, arrive_msg)
-                
-                # Get movement message and room description
-                movement_msg = get_movement_message(target, full_direction)
-                location_desc = describe_location(game)
-                response = f"{movement_msg}\n{location_desc}"
-                
-                # Trigger quest event for entering room
-                import quests
-                event = quests.QuestEvent(
-                    type="enter_room",
-                    room_id=target,
-                    username=username or "adventurer"
-                )
-                quests.handle_quest_event(game, event)
+            if not is_accessible:
+                response = reason or "You can't go that way."
             else:
-                response = "You can't go that way."
+                # Support both string (backward compatible) and dict exits
+                if exit_def is None:
+                    target = None
+                elif isinstance(exit_def, str):
+                    target = exit_def
+                elif isinstance(exit_def, dict):
+                    target = exit_def.get("target")
+                else:
+                    target = None
+                
+                if target:
+                    old_loc = loc_id
+                    game["location"] = target
+                    
+                    # Broadcast leave message to old room
+                    if broadcast_fn is not None:
+                        actor_name = username or "Someone"
+                        leave_msg = get_entrance_exit_message(old_loc, target, full_direction, actor_name, is_exit=True, is_npc=False)
+                        broadcast_fn(old_loc, leave_msg)
+                    
+                    # Broadcast arrive message to new room
+                    if broadcast_fn is not None:
+                        actor_name = username or "Someone"
+                        opposite = OPPOSITE_DIRECTION.get(full_direction, "somewhere")
+                        arrive_msg = get_entrance_exit_message(target, old_loc, opposite, actor_name, is_exit=False, is_npc=False)
+                        broadcast_fn(target, arrive_msg)
+                    
+                    # Get movement message and room description
+                    movement_msg = get_movement_message(target, full_direction)
+                    location_desc = describe_location(game)
+                    response = f"{movement_msg}\n{location_desc}"
+                    
+                    # Trigger quest event for entering room
+                    import quests
+                    event = quests.QuestEvent(
+                        type="enter_room",
+                        room_id=target,
+                        username=username or "adventurer"
+                    )
+                    quests.handle_quest_event(game, event)
+                else:
+                    response = "You can't go that way."
 
     elif tokens[0] in ["inventory", "inv", "i"]:
         inventory = game.get("inventory", [])
@@ -6979,6 +8129,9 @@ def get_global_state_snapshot():
         "weather_state": WEATHER_STATE,
         "buried_items": BURIED_ITEMS,
         "quest_global_state": QUEST_GLOBAL_STATE,
+        "npc_actions_state": NPC_ACTIONS_STATE,
+        "npc_route_positions": NPC_ROUTE_POSITIONS,
+        "exit_states": EXIT_STATES,
     }
 
 
@@ -6990,7 +8143,7 @@ def load_global_state_snapshot(snapshot):
     Args:
         snapshot: dict with optional "room_state", "npc_state", "world_clock", "game_time", "weather_state", "buried_items", and "quest_global_state" keys
     """
-    global ROOM_STATE, NPC_STATE, WORLD_CLOCK, GAME_TIME, WEATHER_STATE, BURIED_ITEMS, QUEST_GLOBAL_STATE
+    global ROOM_STATE, NPC_STATE, WORLD_CLOCK, GAME_TIME, WEATHER_STATE, BURIED_ITEMS, QUEST_GLOBAL_STATE, NPC_ACTIONS_STATE, EXIT_STATES
     from npc import NPCS
     
     if not isinstance(snapshot, dict):
@@ -7080,6 +8233,23 @@ def load_global_state_snapshot(snapshot):
                 quest_state["completions"] = {}
             if "first_taken_at" not in quest_state:
                 quest_state["first_taken_at"] = None
+    
+    if "npc_actions_state" in snapshot and isinstance(snapshot["npc_actions_state"], dict):
+        NPC_ACTIONS_STATE = snapshot["npc_actions_state"]
+        # Ensure structure is correct for each room
+        for room_id, room_state in NPC_ACTIONS_STATE.items():
+            if "last_action_tick" not in room_state:
+                room_state["last_action_tick"] = GAME_TIME.get("tick", 0)
+            if "last_weather_change_tick" not in room_state:
+                room_state["last_weather_change_tick"] = GAME_TIME.get("tick", 0)
+            if "last_weather_state" not in room_state:
+                room_state["last_weather_state"] = WEATHER_STATE.copy()
+    
+    if "npc_route_positions" in snapshot and isinstance(snapshot["npc_route_positions"], dict):
+        NPC_ROUTE_POSITIONS = snapshot["npc_route_positions"]
+    
+    if "exit_states" in snapshot and isinstance(snapshot["exit_states"], dict):
+        EXIT_STATES = snapshot["exit_states"]
 
 
 def highlight_exits_in_log(log_entries):

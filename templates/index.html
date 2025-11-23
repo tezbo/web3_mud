@@ -280,6 +280,76 @@
       }).join('\n');
     }
 
+    async function appendTextWithPauses(text) {
+      // Process text with pause markers [PAUSE:seconds] and [ELLIPSIS:seconds]
+      const pauseRegex = /\[(PAUSE|ELLIPSIS):([\d.]+)\]/g;
+      const segments = [];
+      let lastIndex = 0;
+      let match;
+      
+      while ((match = pauseRegex.exec(text)) !== null) {
+        // Add text before the marker
+        if (match.index > lastIndex) {
+          const textSegment = text.substring(lastIndex, match.index).trim();
+          if (textSegment) {
+            segments.push({ type: 'text', content: textSegment, delay: 0 });
+          }
+        }
+        
+        // Add pause or ellipsis
+        const delay = parseFloat(match[2]);
+        if (match[1] === 'ELLIPSIS') {
+          segments.push({ type: 'ellipsis', content: '...', duration: delay });
+        } else {
+          segments.push({ type: 'pause', content: '', duration: delay });
+        }
+        
+        lastIndex = match.index + match[0].length;
+      }
+      
+      // Add remaining text
+      if (lastIndex < text.length) {
+        const textSegment = text.substring(lastIndex).trim();
+        if (textSegment) {
+          segments.push({ type: 'text', content: textSegment, delay: 0 });
+        }
+      }
+      
+      // If no segments found, treat as regular text
+      if (segments.length === 0) {
+        segments.push({ type: 'text', content: text, delay: 0 });
+      }
+      
+      // Display segments progressively
+      for (const segment of segments) {
+        if (segment.type === 'pause') {
+          await new Promise(resolve => setTimeout(resolve, segment.duration * 1000));
+        } else if (segment.type === 'ellipsis') {
+          // Show animated ellipsis
+          const ellipsisEl = document.createElement('div');
+          ellipsisEl.className = 'ellipsis-indicator';
+          ellipsisEl.textContent = '...';
+          ellipsisEl.style.fontStyle = 'italic';
+          ellipsisEl.style.opacity = '0.7';
+          outputEl.appendChild(ellipsisEl);
+          scrollToBottom();
+          
+          await new Promise(resolve => setTimeout(resolve, segment.duration * 1000));
+          
+          ellipsisEl.remove();
+        } else {
+          // Regular text
+          const textEl = document.createElement('div');
+          textEl.innerHTML = processLogForDisplay([segment.content]);
+          outputEl.appendChild(textEl);
+          scrollToBottom();
+          
+          // Small delay for readability
+          await new Promise(resolve => setTimeout(resolve, 100));
+        }
+      }
+    }
+
     function appendText(text, showTyping = false) {
       // Show typing indicator if requested
       if (showTyping) {
@@ -288,6 +358,12 @@
         typingEl.textContent = 'Thinking';
         outputEl.appendChild(typingEl);
         scrollToBottom();
+      }
+      
+      // Check if text contains pause markers (onboarding messages)
+      if (typeof text === 'string' && (text.includes('[PAUSE:') || text.includes('[ELLIPSIS:'))) {
+        appendTextWithPauses(text);
+        return;
       }
       
       // If text is a string (from error), process it; if it's an array, process it
