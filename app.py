@@ -801,6 +801,14 @@ def command():
     # Check if user is in onboarding (for new character creation - may not be logged in yet)
     onboarding_step = session.get("onboarding_step")
     
+    # Also check query parameter as fallback if session isn't set yet
+    if onboarding_step is None and request.args.get("onboarding") == "start":
+        session["onboarding_step"] = 0
+        session["onboarding_state"] = {"step": 0, "character": {}}
+        session.permanent = True
+        session.modified = True
+        onboarding_step = 0
+    
     # If in onboarding, handle onboarding commands (user may not be logged in yet)
     # Check explicitly for None - onboarding_step can be 0 (which is falsy but valid)
     if onboarding_step is not None and onboarding_step != "complete" and onboarding_step != "":
@@ -819,6 +827,10 @@ def command():
             cmd, onboarding_state, username=onboarding_username, db_conn=conn
         )
         session["onboarding_state"] = updated_state
+        
+        # Prepare response log - handle pause markers in onboarding messages
+        log = [response] if isinstance(response, str) else response
+        processed_log = highlight_exits_in_log(log)
         
         if is_complete:
             # Account was created during onboarding
