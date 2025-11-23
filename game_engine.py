@@ -101,8 +101,12 @@ OPPOSITE_DIRECTION = {
 }
 
 # --- Emote definitions (static templates) ---
+# Based on Discworld MUD "soul" system pattern
+# Each emote has: self (no target), self_target (with target), room (broadcast no target), 
+# room_target (broadcast with target), target (message for target)
 
 EMOTES = {
+    # === Basic Social Gestures ===
     "nod": {
         "self": "You nod.",
         "self_target": "You nod at {target}.",
@@ -110,12 +114,12 @@ EMOTES = {
         "room_target": "{actor} nods at {target}.",
         "target": "{actor} nods at you.",
     },
-    "smile": {
-        "self": "You smile.",
-        "self_target": "You smile at {target}.",
-        "room": "{actor} smiles.",
-        "room_target": "{actor} smiles at {target}.",
-        "target": "{actor} smiles at you.",
+    "shake": {
+        "self": "You shake your head.",
+        "self_target": "You shake your head at {target}.",
+        "room": "{actor} shakes {actor_possessive} head.",
+        "room_target": "{actor} shakes {actor_possessive} head at {target}.",
+        "target": "{actor} shakes {actor_possessive} head at you.",
     },
     "wave": {
         "self": "You wave.",
@@ -131,26 +135,63 @@ EMOTES = {
         "room_target": "{actor} shrugs at {target}.",
         "target": "{actor} shrugs at you.",
     },
-    "stare": {
-        "self": "You stare into the distance.",
-        "self_target": "You stare at {target}.",
-        "room": "{actor} stares.",
-        "room_target": "{actor} stares at {target}.",
-        "target": "{actor} stares at you.",
+    "bow": {
+        "self": "You bow.",
+        "self_target": "You bow to {target}.",
+        "room": "{actor} bows.",
+        "room_target": "{actor} bows to {target}.",
+        "target": "{actor} bows to you.",
     },
-    "laugh": {
-        "self": "You laugh.",
-        "self_target": "You laugh with {target}.",
-        "room": "{actor} laughs.",
-        "room_target": "{actor} laughs with {target}.",
-        "target": "{actor} laughs with you.",
+    "curtsey": {
+        "self": "You curtsey gracefully.",
+        "self_target": "You curtsey gracefully to {target}.",
+        "room": "{actor} curtseys gracefully.",
+        "room_target": "{actor} curtseys gracefully to {target}.",
+        "target": "{actor} curtseys gracefully to you.",
+    },
+    "salute": {
+        "self": "You salute.",
+        "self_target": "You salute {target}.",
+        "room": "{actor} salutes.",
+        "room_target": "{actor} salutes {target}.",
+        "target": "{actor} salutes you.",
+    },
+    "applaud": {
+        "self": "You applaud.",
+        "self_target": "You applaud {target}.",
+        "room": "{actor} applauds.",
+        "room_target": "{actor} applauds {target}.",
+        "target": "{actor} applauds you.",
+    },
+    "clap": {
+        "self": "You clap your hands.",
+        "self_target": "You clap for {target}.",
+        "room": "{actor} claps {actor_possessive} hands.",
+        "room_target": "{actor} claps for {target}.",
+        "target": "{actor} claps for you.",
+    },
+    
+    # === Facial Expressions ===
+    "smile": {
+        "self": "You smile.",
+        "self_target": "You smile at {target}.",
+        "room": "{actor} smiles.",
+        "room_target": "{actor} smiles at {target}.",
+        "target": "{actor} smiles at you.",
     },
     "grin": {
-        "self": "You grin.",
+        "self": "You grin widely.",
         "self_target": "You grin at {target}.",
-        "room": "{actor} grins.",
+        "room": "{actor} grins widely.",
         "room_target": "{actor} grins at {target}.",
         "target": "{actor} grins at you.",
+    },
+    "smirk": {
+        "self": "You smirk.",
+        "self_target": "You smirk at {target}.",
+        "room": "{actor} smirks.",
+        "room_target": "{actor} smirks at {target}.",
+        "target": "{actor} smirks at you.",
     },
     "frown": {
         "self": "You frown.",
@@ -158,6 +199,99 @@ EMOTES = {
         "room": "{actor} frowns.",
         "room_target": "{actor} frowns at {target}.",
         "target": "{actor} frowns at you.",
+    },
+    "scowl": {
+        "self": "You scowl.",
+        "self_target": "You scowl at {target}.",
+        "room": "{actor} scowls.",
+        "room_target": "{actor} scowls at {target}.",
+        "target": "{actor} scowls at you.",
+    },
+    "glare": {
+        "self": "You glare.",
+        "self_target": "You glare at {target}.",
+        "room": "{actor} glares.",
+        "room_target": "{actor} glares at {target}.",
+        "target": "{actor} glares at you.",
+    },
+    "stare": {
+        "self": "You stare into the distance.",
+        "self_target": "You stare at {target}.",
+        "room": "{actor} stares.",
+        "room_target": "{actor} stares at {target}.",
+        "target": "{actor} stares at you.",
+    },
+    "gaze": {
+        "self": "You gaze thoughtfully.",
+        "self_target": "You gaze at {target}.",
+        "room": "{actor} gazes thoughtfully.",
+        "room_target": "{actor} gazes at {target}.",
+        "target": "{actor} gazes at you.",
+    },
+    "blink": {
+        "self": "You blink.",
+        "self_target": "You blink at {target}.",
+        "room": "{actor} blinks.",
+        "room_target": "{actor} blinks at {target}.",
+        "target": "{actor} blinks at you.",
+    },
+    "wink": {
+        "self": "You wink.",
+        "self_target": "You wink at {target}.",
+        "room": "{actor} winks.",
+        "room_target": "{actor} winks at {target}.",
+        "target": "{actor} winks at you.",
+    },
+    "roll": {
+        "self": "You roll your eyes.",
+        "self_target": "You roll your eyes at {target}.",
+        "room": "{actor} rolls {actor_possessive} eyes.",
+        "room_target": "{actor} rolls {actor_possessive} eyes at {target}.",
+        "target": "{actor} rolls {actor_possessive} eyes at you.",
+    },
+    "pout": {
+        "self": "You pout.",
+        "self_target": "You pout at {target}.",
+        "room": "{actor} pouts.",
+        "room_target": "{actor} pouts at {target}.",
+        "target": "{actor} pouts at you.",
+    },
+    "sneer": {
+        "self": "You sneer.",
+        "self_target": "You sneer at {target}.",
+        "room": "{actor} sneers.",
+        "room_target": "{actor} sneers at {target}.",
+        "target": "{actor} sneers at you.",
+    },
+    "blush": {
+        "self": "You blush.",
+        "self_target": "You blush at {target}.",
+        "room": "{actor} blushes.",
+        "room_target": "{actor} blushes at {target}.",
+        "target": "{actor} blushes at you.",
+    },
+    
+    # === Vocal Expressions ===
+    "laugh": {
+        "self": "You laugh.",
+        "self_target": "You laugh with {target}.",
+        "room": "{actor} laughs.",
+        "room_target": "{actor} laughs with {target}.",
+        "target": "{actor} laughs with you.",
+    },
+    "chuckle": {
+        "self": "You chuckle.",
+        "self_target": "You chuckle at {target}.",
+        "room": "{actor} chuckles.",
+        "room_target": "{actor} chuckles at {target}.",
+        "target": "{actor} chuckles at you.",
+    },
+    "giggle": {
+        "self": "You giggle.",
+        "self_target": "You giggle at {target}.",
+        "room": "{actor} giggles.",
+        "room_target": "{actor} giggles at {target}.",
+        "target": "{actor} giggles at you.",
     },
     "sigh": {
         "self": "You sigh.",
@@ -173,26 +307,801 @@ EMOTES = {
         "room_target": "{actor} yawns at {target}.",
         "target": "{actor} yawns at you.",
     },
-    "clap": {
-        "self": "You clap.",
-        "self_target": "You clap for {target}.",
-        "room": "{actor} claps.",
-        "room_target": "{actor} claps for {target}.",
-        "target": "{actor} claps for you.",
+    "groan": {
+        "self": "You groan.",
+        "self_target": "You groan at {target}.",
+        "room": "{actor} groans.",
+        "room_target": "{actor} groans at {target}.",
+        "target": "{actor} groans at you.",
     },
-    "bow": {
-        "self": "You bow.",
-        "self_target": "You bow to {target}.",
-        "room": "{actor} bows.",
-        "room_target": "{actor} bows to {target}.",
-        "target": "{actor} bows to you.",
+    "moan": {
+        "self": "You moan.",
+        "self_target": "You moan at {target}.",
+        "room": "{actor} moans.",
+        "room_target": "{actor} moans at {target}.",
+        "target": "{actor} moans at you.",
     },
-    "salute": {
-        "self": "You salute.",
-        "self_target": "You salute {target}.",
-        "room": "{actor} salutes.",
-        "room_target": "{actor} salutes {target}.",
-        "target": "{actor} salutes you.",
+    "whine": {
+        "self": "You whine.",
+        "self_target": "You whine to {target}.",
+        "room": "{actor} whines.",
+        "room_target": "{actor} whines to {target}.",
+        "target": "{actor} whines to you.",
+    },
+    "shout": {
+        "self": "You shout!",
+        "self_target": "You shout at {target}!",
+        "room": "{actor} shouts!",
+        "room_target": "{actor} shouts at {target}!",
+        "target": "{actor} shouts at you!",
+    },
+    "yell": {
+        "self": "You yell!",
+        "self_target": "You yell at {target}!",
+        "room": "{actor} yells!",
+        "room_target": "{actor} yells at {target}!",
+        "target": "{actor} yells at you!",
+    },
+    "whisper": {
+        "self": "You whisper.",
+        "self_target": "You whisper to {target}.",
+        "room": "{actor} whispers.",
+        "room_target": "{actor} whispers to {target}.",
+        "target": "{actor} whispers to you.",
+    },
+    "mutter": {
+        "self": "You mutter to yourself.",
+        "self_target": "You mutter to {target}.",
+        "room": "{actor} mutters to {actor_possessive}self.",
+        "room_target": "{actor} mutters to {target}.",
+        "target": "{actor} mutters to you.",
+    },
+    "grumble": {
+        "self": "You grumble.",
+        "self_target": "You grumble at {target}.",
+        "room": "{actor} grumbles.",
+        "room_target": "{actor} grumbles at {target}.",
+        "target": "{actor} grumbles at you.",
+    },
+    "hum": {
+        "self": "You hum a tune.",
+        "self_target": "You hum at {target}.",
+        "room": "{actor} hums a tune.",
+        "room_target": "{actor} hums at {target}.",
+        "target": "{actor} hums at you.",
+    },
+    "whistle": {
+        "self": "You whistle.",
+        "self_target": "You whistle at {target}.",
+        "room": "{actor} whistles.",
+        "room_target": "{actor} whistles at {target}.",
+        "target": "{actor} whistles at you.",
+    },
+    "sing": {
+        "self": "You sing.",
+        "self_target": "You sing to {target}.",
+        "room": "{actor} sings.",
+        "room_target": "{actor} sings to {target}.",
+        "target": "{actor} sings to you.",
+    },
+    "cough": {
+        "self": "You cough.",
+        "self_target": "You cough at {target}.",
+        "room": "{actor} coughs.",
+        "room_target": "{actor} coughs at {target}.",
+        "target": "{actor} coughs at you.",
+    },
+    "sniff": {
+        "self": "You sniff.",
+        "self_target": "You sniff at {target}.",
+        "room": "{actor} sniffs.",
+        "room_target": "{actor} sniffs at {target}.",
+        "target": "{actor} sniffs at you.",
+    },
+    "sniffle": {
+        "self": "You sniffle.",
+        "self_target": "You sniffle at {target}.",
+        "room": "{actor} sniffles.",
+        "room_target": "{actor} sniffles at {target}.",
+        "target": "{actor} sniffles at you.",
+    },
+    "gasp": {
+        "self": "You gasp!",
+        "self_target": "You gasp at {target}!",
+        "room": "{actor} gasps!",
+        "room_target": "{actor} gasps at {target}!",
+        "target": "{actor} gasps at you!",
+    },
+    "scream": {
+        "self": "You scream!",
+        "self_target": "You scream at {target}!",
+        "room": "{actor} screams!",
+        "room_target": "{actor} screams at {target}!",
+        "target": "{actor} screams at you!",
+    },
+    "cry": {
+        "self": "You cry.",
+        "self_target": "You cry to {target}.",
+        "room": "{actor} cries.",
+        "room_target": "{actor} cries to {target}.",
+        "target": "{actor} cries to you.",
+    },
+    "sob": {
+        "self": "You sob.",
+        "self_target": "You sob to {target}.",
+        "room": "{actor} sobs.",
+        "room_target": "{actor} sobs to {target}.",
+        "target": "{actor} sobs to you.",
+    },
+    "hiccup": {
+        "self": "You hiccup.",
+        "self_target": "You hiccup at {target}.",
+        "room": "{actor} hiccups.",
+        "room_target": "{actor} hiccups at {target}.",
+        "target": "{actor} hiccups at you.",
+    },
+    "burp": {
+        "self": "You burp.",
+        "self_target": "You burp at {target}.",
+        "room": "{actor} burps.",
+        "room_target": "{actor} burps at {target}.",
+        "target": "{actor} burps at you.",
+    },
+    "snore": {
+        "self": "You snore.",
+        "self_target": "You snore at {target}.",
+        "room": "{actor} snores.",
+        "room_target": "{actor} snores at {target}.",
+        "target": "{actor} snores at you.",
+    },
+    "snarl": {
+        "self": "You snarl.",
+        "self_target": "You snarl at {target}.",
+        "room": "{actor} snarls.",
+        "room_target": "{actor} snarls at {target}.",
+        "target": "{actor} snarls at you.",
+    },
+    "growl": {
+        "self": "You growl.",
+        "self_target": "You growl at {target}.",
+        "room": "{actor} growls.",
+        "room_target": "{actor} growls at {target}.",
+        "target": "{actor} growls at you.",
+    },
+    "hiss": {
+        "self": "You hiss.",
+        "self_target": "You hiss at {target}.",
+        "room": "{actor} hisses.",
+        "room_target": "{actor} hisses at {target}.",
+        "target": "{actor} hisses at you.",
+    },
+    "cheer": {
+        "self": "You cheer!",
+        "self_target": "You cheer for {target}!",
+        "room": "{actor} cheers!",
+        "room_target": "{actor} cheers for {target}!",
+        "target": "{actor} cheers for you!",
+    },
+    
+    # === Physical Actions ===
+    "sit": {
+        "self": "You sit down.",
+        "self_target": "You sit down near {target}.",
+        "room": "{actor} sits down.",
+        "room_target": "{actor} sits down near {target}.",
+        "target": "{actor} sits down near you.",
+    },
+    "stand": {
+        "self": "You stand up.",
+        "self_target": "You stand up near {target}.",
+        "room": "{actor} stands up.",
+        "room_target": "{actor} stands up near {target}.",
+        "target": "{actor} stands up near you.",
+    },
+    "kneel": {
+        "self": "You kneel down.",
+        "self_target": "You kneel before {target}.",
+        "room": "{actor} kneels down.",
+        "room_target": "{actor} kneels before {target}.",
+        "target": "{actor} kneels before you.",
+    },
+    "lie": {
+        "self": "You lie down.",
+        "self_target": "You lie down near {target}.",
+        "room": "{actor} lies down.",
+        "room_target": "{actor} lies down near {target}.",
+        "target": "{actor} lies down near you.",
+    },
+    "rest": {
+        "self": "You rest.",
+        "self_target": "You rest near {target}.",
+        "room": "{actor} rests.",
+        "room_target": "{actor} rests near {target}.",
+        "target": "{actor} rests near you.",
+    },
+    "sleep": {
+        "self": "You fall asleep.",
+        "self_target": "You fall asleep near {target}.",
+        "room": "{actor} falls asleep.",
+        "room_target": "{actor} falls asleep near {target}.",
+        "target": "{actor} falls asleep near you.",
+    },
+    "wake": {
+        "self": "You wake up.",
+        "self_target": "You wake up near {target}.",
+        "room": "{actor} wakes up.",
+        "room_target": "{actor} wakes up near {target}.",
+        "target": "{actor} wakes up near you.",
+    },
+    "jump": {
+        "self": "You jump.",
+        "self_target": "You jump at {target}.",
+        "room": "{actor} jumps.",
+        "room_target": "{actor} jumps at {target}.",
+        "target": "{actor} jumps at you.",
+    },
+    "hop": {
+        "self": "You hop.",
+        "self_target": "You hop toward {target}.",
+        "room": "{actor} hops.",
+        "room_target": "{actor} hops toward {target}.",
+        "target": "{actor} hops toward you.",
+    },
+    "skip": {
+        "self": "You skip.",
+        "self_target": "You skip toward {target}.",
+        "room": "{actor} skips.",
+        "room_target": "{actor} skips toward {target}.",
+        "target": "{actor} skips toward you.",
+    },
+    "dance": {
+        "self": "You dance.",
+        "self_target": "You dance with {target}.",
+        "room": "{actor} dances.",
+        "room_target": "{actor} dances with {target}.",
+        "target": "{actor} dances with you.",
+    },
+    "stretch": {
+        "self": "You stretch.",
+        "self_target": "You stretch near {target}.",
+        "room": "{actor} stretches.",
+        "room_target": "{actor} stretches near {target}.",
+        "target": "{actor} stretches near you.",
+    },
+    "pace": {
+        "self": "You pace back and forth.",
+        "self_target": "You pace around {target}.",
+        "room": "{actor} paces back and forth.",
+        "room_target": "{actor} paces around {target}.",
+        "target": "{actor} paces around you.",
+    },
+    "fidget": {
+        "self": "You fidget.",
+        "self_target": "You fidget near {target}.",
+        "room": "{actor} fidgets.",
+        "room_target": "{actor} fidgets near {target}.",
+        "target": "{actor} fidgets near you.",
+    },
+    "twirl": {
+        "self": "You twirl.",
+        "self_target": "You twirl around {target}.",
+        "room": "{actor} twirls.",
+        "room_target": "{actor} twirls around {target}.",
+        "target": "{actor} twirls around you.",
+    },
+    "spin": {
+        "self": "You spin around.",
+        "self_target": "You spin around {target}.",
+        "room": "{actor} spins around.",
+        "room_target": "{actor} spins around {target}.",
+        "target": "{actor} spins around you.",
+    },
+    "lean": {
+        "self": "You lean against something.",
+        "self_target": "You lean against {target}.",
+        "room": "{actor} leans against something.",
+        "room_target": "{actor} leans against {target}.",
+        "target": "{actor} leans against you.",
+    },
+    "stomp": {
+        "self": "You stomp your foot.",
+        "self_target": "You stomp your foot at {target}.",
+        "room": "{actor} stomps {actor_possessive} foot.",
+        "room_target": "{actor} stomps {actor_possessive} foot at {target}.",
+        "target": "{actor} stomps {actor_possessive} foot at you.",
+    },
+    "tap": {
+        "self": "You tap your foot.",
+        "self_target": "You tap your foot at {target}.",
+        "room": "{actor} taps {actor_possessive} foot.",
+        "room_target": "{actor} taps {actor_possessive} foot at {target}.",
+        "target": "{actor} taps {actor_possessive} foot at you.",
+    },
+    "shiver": {
+        "self": "You shiver.",
+        "self_target": "You shiver near {target}.",
+        "room": "{actor} shivers.",
+        "room_target": "{actor} shivers near {target}.",
+        "target": "{actor} shivers near you.",
+    },
+    "tremble": {
+        "self": "You tremble.",
+        "self_target": "You tremble near {target}.",
+        "room": "{actor} trembles.",
+        "room_target": "{actor} trembles near {target}.",
+        "target": "{actor} trembles near you.",
+    },
+    "shudder": {
+        "self": "You shudder.",
+        "self_target": "You shudder near {target}.",
+        "room": "{actor} shudders.",
+        "room_target": "{actor} shudders near {target}.",
+        "target": "{actor} shudders near you.",
+    },
+    "collapse": {
+        "self": "You collapse.",
+        "self_target": "You collapse near {target}.",
+        "room": "{actor} collapses.",
+        "room_target": "{actor} collapses near {target}.",
+        "target": "{actor} collapses near you.",
+    },
+    "squat": {
+        "self": "You squat down.",
+        "self_target": "You squat down near {target}.",
+        "room": "{actor} squats down.",
+        "room_target": "{actor} squats down near {target}.",
+        "target": "{actor} squats down near you.",
+    },
+    
+    # === Gestures & Touching ===
+    "point": {
+        "self": "You point.",
+        "self_target": "You point at {target}.",
+        "room": "{actor} points.",
+        "room_target": "{actor} points at {target}.",
+        "target": "{actor} points at you.",
+    },
+    "poke": {
+        "self": "You poke the air.",
+        "self_target": "You poke {target}.",
+        "room": "{actor} pokes the air.",
+        "room_target": "{actor} pokes {target}.",
+        "target": "{actor} pokes you.",
+    },
+    "pat": {
+        "self": "You pat yourself.",
+        "self_target": "You pat {target}.",
+        "room": "{actor} pats {actor_possessive}self.",
+        "room_target": "{actor} pats {target}.",
+        "target": "{actor} pats you.",
+    },
+    "rub": {
+        "self": "You rub your hands together.",
+        "self_target": "You rub {target}.",
+        "room": "{actor} rubs {actor_possessive} hands together.",
+        "room_target": "{actor} rubs {target}.",
+        "target": "{actor} rubs you.",
+    },
+    "scratch": {
+        "self": "You scratch your head.",
+        "self_target": "You scratch {target}.",
+        "room": "{actor} scratches {actor_possessive} head.",
+        "room_target": "{actor} scratches {target}.",
+        "target": "{actor} scratches you.",
+    },
+    "massage": {
+        "self": "You massage your temples.",
+        "self_target": "You massage {target}.",
+        "room": "{actor} massages {actor_possessive} temples.",
+        "room_target": "{actor} massages {target}.",
+        "target": "{actor} massages you.",
+    },
+    "tickle": {
+        "self": "You tickle yourself.",
+        "self_target": "You tickle {target}.",
+        "room": "{actor} tickles {actor_possessive}self.",
+        "room_target": "{actor} tickles {target}.",
+        "target": "{actor} tickles you.",
+    },
+    "tug": {
+        "self": "You tug at your clothes.",
+        "self_target": "You tug at {target}.",
+        "room": "{actor} tugs at {actor_possessive} clothes.",
+        "room_target": "{actor} tugs at {target}.",
+        "target": "{actor} tugs at you.",
+    },
+    "stroke": {
+        "self": "You stroke your chin thoughtfully.",
+        "self_target": "You stroke {target}.",
+        "room": "{actor} strokes {actor_possessive} chin thoughtfully.",
+        "room_target": "{actor} strokes {target}.",
+        "target": "{actor} strokes you.",
+    },
+    "fold": {
+        "self": "You fold your arms.",
+        "self_target": "You fold your arms and look at {target}.",
+        "room": "{actor} folds {actor_possessive} arms.",
+        "room_target": "{actor} folds {actor_possessive} arms and looks at {target}.",
+        "target": "{actor} folds {actor_possessive} arms and looks at you.",
+    },
+    "cross": {
+        "self": "You cross your arms.",
+        "self_target": "You cross your arms and look at {target}.",
+        "room": "{actor} crosses {actor_possessive} arms.",
+        "room_target": "{actor} crosses {actor_possessive} arms and looks at {target}.",
+        "target": "{actor} crosses {actor_possessive} arms and looks at you.",
+    },
+    "place": {
+        "self": "You place your hands on your hips.",
+        "self_target": "You place your hands on your hips and look at {target}.",
+        "room": "{actor} places {actor_possessive} hands on {actor_possessive} hips.",
+        "room_target": "{actor} places {actor_possessive} hands on {actor_possessive} hips and looks at {target}.",
+        "target": "{actor} places {actor_possessive} hands on {actor_possessive} hips and looks at you.",
+    },
+    "facepalm": {
+        "self": "You facepalm.",
+        "self_target": "You facepalm at {target}.",
+        "room": "{actor} facepalms.",
+        "room_target": "{actor} facepalms at {target}.",
+        "target": "{actor} facepalms at you.",
+    },
+    "headscratch": {
+        "self": "You scratch your head.",
+        "self_target": "You scratch your head at {target}.",
+        "room": "{actor} scratches {actor_possessive} head.",
+        "room_target": "{actor} scratches {actor_possessive} head at {target}.",
+        "target": "{actor} scratches {actor_possessive} head at you.",
+    },
+    "chin": {
+        "self": "You stroke your chin thoughtfully.",
+        "self_target": "You stroke your chin while looking at {target}.",
+        "room": "{actor} strokes {actor_possessive} chin thoughtfully.",
+        "room_target": "{actor} strokes {actor_possessive} chin while looking at {target}.",
+        "target": "{actor} strokes {actor_possessive} chin while looking at you.",
+    },
+    
+    # === Affectionate Actions ===
+    "hug": {
+        "self": "You hug yourself.",
+        "self_target": "You hug {target}.",
+        "room": "{actor} hugs {actor_possessive}self.",
+        "room_target": "{actor} hugs {target}.",
+        "target": "{actor} hugs you.",
+    },
+    "embrace": {
+        "self": "You embrace yourself.",
+        "self_target": "You embrace {target}.",
+        "room": "{actor} embraces {actor_possessive}self.",
+        "room_target": "{actor} embraces {target}.",
+        "target": "{actor} embraces you.",
+    },
+    "kiss": {
+        "self": "You blow a kiss.",
+        "self_target": "You kiss {target}.",
+        "room": "{actor} blows a kiss.",
+        "room_target": "{actor} kisses {target}.",
+        "target": "{actor} kisses you.",
+    },
+    "nuzzle": {
+        "self": "You nuzzle yourself.",
+        "self_target": "You nuzzle {target}.",
+        "room": "{actor} nuzzles {actor_possessive}self.",
+        "room_target": "{actor} nuzzles {target}.",
+        "target": "{actor} nuzzles you.",
+    },
+    "cuddle": {
+        "self": "You cuddle yourself.",
+        "self_target": "You cuddle {target}.",
+        "room": "{actor} cuddles {actor_possessive}self.",
+        "room_target": "{actor} cuddles {target}.",
+        "target": "{actor} cuddles you.",
+    },
+    "snuggle": {
+        "self": "You snuggle yourself.",
+        "self_target": "You snuggle {target}.",
+        "room": "{actor} snuggles {actor_possessive}self.",
+        "room_target": "{actor} snuggles {target}.",
+        "target": "{actor} snuggles you.",
+    },
+    "peck": {
+        "self": "You peck the air.",
+        "self_target": "You peck {target}.",
+        "room": "{actor} pecks the air.",
+        "room_target": "{actor} pecks {target}.",
+        "target": "{actor} pecks you.",
+    },
+    "hold": {
+        "self": "You hold your own hand.",
+        "self_target": "You hold {target}'s hand.",
+        "room": "{actor} holds {actor_possessive} own hand.",
+        "room_target": "{actor} holds {target}'s hand.",
+        "target": "{actor} holds your hand.",
+    },
+    
+    # === Aggressive Actions ===
+    "punch": {
+        "self": "You punch the air.",
+        "self_target": "You punch {target}!",
+        "room": "{actor} punches the air.",
+        "room_target": "{actor} punches {target}!",
+        "target": "{actor} punches you!",
+    },
+    "slap": {
+        "self": "You slap your own hand.",
+        "self_target": "You slap {target}!",
+        "room": "{actor} slaps {actor_possessive} own hand.",
+        "room_target": "{actor} slaps {target}!",
+        "target": "{actor} slaps you!",
+    },
+    "kick": {
+        "self": "You kick the air.",
+        "self_target": "You kick {target}!",
+        "room": "{actor} kicks the air.",
+        "room_target": "{actor} kicks {target}!",
+        "target": "{actor} kicks you!",
+    },
+    "hit": {
+        "self": "You hit yourself.",
+        "self_target": "You hit {target}!",
+        "room": "{actor} hits {actor_possessive}self.",
+        "room_target": "{actor} hits {target}!",
+        "target": "{actor} hits you!",
+    },
+    "smack": {
+        "self": "You smack your own hand.",
+        "self_target": "You smack {target}!",
+        "room": "{actor} smacks {actor_possessive} own hand.",
+        "room_target": "{actor} smacks {target}!",
+        "target": "{actor} smacks you!",
+    },
+    "bite": {
+        "self": "You bite the air.",
+        "self_target": "You bite {target}!",
+        "room": "{actor} bites the air.",
+        "room_target": "{actor} bites {target}!",
+        "target": "{actor} bites you!",
+    },
+    "spit": {
+        "self": "You spit.",
+        "self_target": "You spit at {target}!",
+        "room": "{actor} spits.",
+        "room_target": "{actor} spits at {target}!",
+        "target": "{actor} spits at you!",
+    },
+    "push": {
+        "self": "You push the air.",
+        "self_target": "You push {target}!",
+        "room": "{actor} pushes the air.",
+        "room_target": "{actor} pushes {target}!",
+        "target": "{actor} pushes you!",
+    },
+    "shove": {
+        "self": "You shove the air.",
+        "self_target": "You shove {target}!",
+        "room": "{actor} shoves the air.",
+        "room_target": "{actor} shoves {target}!",
+        "target": "{actor} shoves you!",
+    },
+    "threaten": {
+        "self": "You make a threatening gesture.",
+        "self_target": "You threaten {target}!",
+        "room": "{actor} makes a threatening gesture.",
+        "room_target": "{actor} threatens {target}!",
+        "target": "{actor} threatens you!",
+    },
+    
+    # === Thoughtful/Contemplative Actions ===
+    "think": {
+        "self": "You think deeply.",
+        "self_target": "You think about {target}.",
+        "room": "{actor} thinks deeply.",
+        "room_target": "{actor} thinks about {target}.",
+        "target": "{actor} thinks about you.",
+    },
+    "ponder": {
+        "self": "You ponder.",
+        "self_target": "You ponder {target}.",
+        "room": "{actor} ponders.",
+        "room_target": "{actor} ponders {target}.",
+        "target": "{actor} ponders you.",
+    },
+    "consider": {
+        "self": "You consider the situation.",
+        "self_target": "You consider {target}.",
+        "room": "{actor} considers the situation.",
+        "room_target": "{actor} considers {target}.",
+        "target": "{actor} considers you.",
+    },
+    "meditate": {
+        "self": "You meditate.",
+        "self_target": "You meditate near {target}.",
+        "room": "{actor} meditates.",
+        "room_target": "{actor} meditates near {target}.",
+        "target": "{actor} meditates near you.",
+    },
+    "concentrate": {
+        "self": "You concentrate.",
+        "self_target": "You concentrate on {target}.",
+        "room": "{actor} concentrates.",
+        "room_target": "{actor} concentrates on {target}.",
+        "target": "{actor} concentrates on you.",
+    },
+    "examine": {
+        "self": "You examine yourself.",
+        "self_target": "You examine {target}.",
+        "room": "{actor} examines {actor_possessive}self.",
+        "room_target": "{actor} examines {target}.",
+        "target": "{actor} examines you.",
+    },
+    "study": {
+        "self": "You study your hands.",
+        "self_target": "You study {target}.",
+        "room": "{actor} studies {actor_possessive} hands.",
+        "room_target": "{actor} studies {target}.",
+        "target": "{actor} studies you.",
+    },
+    "contemplate": {
+        "self": "You contemplate.",
+        "self_target": "You contemplate {target}.",
+        "room": "{actor} contemplates.",
+        "room_target": "{actor} contemplates {target}.",
+        "target": "{actor} contemplates you.",
+    },
+    
+    # === Other Useful Actions ===
+    "look": {
+        "self": "You look around.",
+        "self_target": "You look at {target}.",
+        "room": "{actor} looks around.",
+        "room_target": "{actor} looks at {target}.",
+        "target": "{actor} looks at you.",
+    },
+    "watch": {
+        "self": "You watch carefully.",
+        "self_target": "You watch {target}.",
+        "room": "{actor} watches carefully.",
+        "room_target": "{actor} watches {target}.",
+        "target": "{actor} watches you.",
+    },
+    "listen": {
+        "self": "You listen carefully.",
+        "self_target": "You listen to {target}.",
+        "room": "{actor} listens carefully.",
+        "room_target": "{actor} listens to {target}.",
+        "target": "{actor} listens to you.",
+    },
+    "smell": {
+        "self": "You smell the air.",
+        "self_target": "You smell {target}.",
+        "room": "{actor} smells the air.",
+        "room_target": "{actor} smells {target}.",
+        "target": "{actor} smells you.",
+    },
+    "taste": {
+        "self": "You taste the air.",
+        "self_target": "You taste {target}.",
+        "room": "{actor} tastes the air.",
+        "room_target": "{actor} tastes {target}.",
+        "target": "{actor} tastes you.",
+    },
+    "feel": {
+        "self": "You feel around.",
+        "self_target": "You feel {target}.",
+        "room": "{actor} feels around.",
+        "room_target": "{actor} feels {target}.",
+        "target": "{actor} feels you.",
+    },
+    "wait": {
+        "self": "You wait patiently.",
+        "self_target": "You wait for {target}.",
+        "room": "{actor} waits patiently.",
+        "room_target": "{actor} waits for {target}.",
+        "target": "{actor} waits for you.",
+    },
+    "hope": {
+        "self": "You hope for the best.",
+        "self_target": "You hope for {target}.",
+        "room": "{actor} hopes for the best.",
+        "room_target": "{actor} hopes for {target}.",
+        "target": "{actor} hopes for you.",
+    },
+    "pray": {
+        "self": "You pray.",
+        "self_target": "You pray for {target}.",
+        "room": "{actor} prays.",
+        "room_target": "{actor} prays for {target}.",
+        "target": "{actor} prays for you.",
+    },
+    "bless": {
+        "self": "You bless yourself.",
+        "self_target": "You bless {target}.",
+        "room": "{actor} blesses {actor_possessive}self.",
+        "room_target": "{actor} blesses {target}.",
+        "target": "{actor} blesses you.",
+    },
+    "curse": {
+        "self": "You curse.",
+        "self_target": "You curse {target}.",
+        "room": "{actor} curses.",
+        "room_target": "{actor} curses {target}.",
+        "target": "{actor} curses you.",
+    },
+    "thank": {
+        "self": "You express gratitude.",
+        "self_target": "You thank {target}.",
+        "room": "{actor} expresses gratitude.",
+        "room_target": "{actor} thanks {target}.",
+        "target": "{actor} thanks you.",
+    },
+    "apologize": {
+        "self": "You apologize.",
+        "self_target": "You apologize to {target}.",
+        "room": "{actor} apologizes.",
+        "room_target": "{actor} apologizes to {target}.",
+        "target": "{actor} apologizes to you.",
+    },
+    "forgive": {
+        "self": "You forgive yourself.",
+        "self_target": "You forgive {target}.",
+        "room": "{actor} forgives {actor_possessive}self.",
+        "room_target": "{actor} forgives {target}.",
+        "target": "{actor} forgives you.",
+    },
+    "agree": {
+        "self": "You nod in agreement.",
+        "self_target": "You agree with {target}.",
+        "room": "{actor} nods in agreement.",
+        "room_target": "{actor} agrees with {target}.",
+        "target": "{actor} agrees with you.",
+    },
+    "disagree": {
+        "self": "You shake your head in disagreement.",
+        "self_target": "You disagree with {target}.",
+        "room": "{actor} shakes {actor_possessive} head in disagreement.",
+        "room_target": "{actor} disagrees with {target}.",
+        "target": "{actor} disagrees with you.",
+    },
+    "approve": {
+        "self": "You nod approvingly.",
+        "self_target": "You approve of {target}.",
+        "room": "{actor} nods approvingly.",
+        "room_target": "{actor} approves of {target}.",
+        "target": "{actor} approves of you.",
+    },
+    "disapprove": {
+        "self": "You shake your head disapprovingly.",
+        "self_target": "You disapprove of {target}.",
+        "room": "{actor} shakes {actor_possessive} head disapprovingly.",
+        "room_target": "{actor} disapproves of {target}.",
+        "target": "{actor} disapproves of you.",
+    },
+    "welcome": {
+        "self": "You welcome the company.",
+        "self_target": "You welcome {target}.",
+        "room": "{actor} welcomes the company.",
+        "room_target": "{actor} welcomes {target}.",
+        "target": "{actor} welcomes you.",
+    },
+    "greet": {
+        "self": "You greet everyone.",
+        "self_target": "You greet {target}.",
+        "room": "{actor} greets everyone.",
+        "room_target": "{actor} greets {target}.",
+        "target": "{actor} greets you.",
+    },
+    "goodbye": {
+        "self": "You say goodbye.",
+        "self_target": "You say goodbye to {target}.",
+        "room": "{actor} says goodbye.",
+        "room_target": "{actor} says goodbye to {target}.",
+        "target": "{actor} says goodbye to you.",
+    },
+    "farewell": {
+        "self": "You bid farewell.",
+        "self_target": "You bid farewell to {target}.",
+        "room": "{actor} bids farewell.",
+        "room_target": "{actor} bids farewell to {target}.",
+        "target": "{actor} bids farewell to you.",
     },
 }
 
@@ -4268,8 +5177,10 @@ def handle_emote(verb, args, game, username=None, broadcast_fn=None, who_fn=None
     if verb not in EMOTES:
         return "You flail about uncertainly.", game
     
-    # Determine actor name
+    # Determine actor name and possessive form
     actor_name = username or "Someone"
+    # Simple possessive: add 's to name (works for most names)
+    actor_possessive = actor_name + "'s" if actor_name != "Someone" else "their"
     loc_id = game.get("location", "town_square")
     
     # No target (e.g. command is just "nod")
@@ -4277,7 +5188,7 @@ def handle_emote(verb, args, game, username=None, broadcast_fn=None, who_fn=None
         response = EMOTES[verb]["self"]
         # Broadcast emote to other players in the room
         if broadcast_fn is not None and loc_id in WORLD:
-            room_message = EMOTES[verb]["room"].format(actor=actor_name)
+            room_message = EMOTES[verb]["room"].format(actor=actor_name, actor_possessive=actor_possessive)
             broadcast_fn(loc_id, room_message)
         return response, game
     
@@ -4302,7 +5213,7 @@ def handle_emote(verb, args, game, username=None, broadcast_fn=None, who_fn=None
         
         # Broadcast player emote to other players in the room
         if broadcast_fn is not None:
-            room_message = EMOTES[verb]["room_target"].format(actor=actor_name, target=target_name)
+            room_message = EMOTES[verb]["room_target"].format(actor=actor_name, actor_possessive=actor_possessive, target=target_name)
             broadcast_fn(loc_id, room_message)
         
         # Get NPC reaction if available
@@ -4333,7 +5244,7 @@ def handle_emote(verb, args, game, username=None, broadcast_fn=None, who_fn=None
                 # Broadcast to other players (including the target)
                 if broadcast_fn is not None:
                     # General room message for everyone (including the target)
-                    room_message = EMOTES[verb]["room_target"].format(actor=actor_name, target=target_name)
+                    room_message = EMOTES[verb]["room_target"].format(actor=actor_name, actor_possessive=actor_possessive, target=target_name)
                     broadcast_fn(loc_id, room_message)
                     # Note: For a personalized "nods at you" message, we'd need to enhance
                     # broadcast_to_room in app.py to handle target-specific messages
