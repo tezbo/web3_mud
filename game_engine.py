@@ -1301,6 +1301,7 @@ def process_npc_periodic_actions(game, broadcast_fn=None, who_fn=None):
         who_fn: Optional callback() -> list[dict] for getting active players
     """
     global NPC_ACTIONS_STATE, GAME_TIME, WEATHER_STATE
+    import random
     
     current_tick = GAME_TIME.get("tick", 0)
     current_room = game.get("location", "town_square")
@@ -1342,7 +1343,6 @@ def process_npc_periodic_actions(game, broadcast_fn=None, who_fn=None):
             if npc_actions:
                 # Show actions (one per NPC if possible, or random selection)
                 shown_count = 0
-                import random
                 action_list = list(npc_actions.items())
                 random.shuffle(action_list)  # Randomize order
                 
