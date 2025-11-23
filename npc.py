@@ -254,6 +254,7 @@ _NPCS_DICT = {
         "description": "An ethereal presence that seems to watch from the shadows of the trees.",
         "personality": "mysterious, ancient, otherworldly",
         "pronoun": "it",
+        "attackable": True,  # Example attackable NPC for testing
         "stats": {
             "max_hp": 30,
             "attack": 3,
@@ -399,6 +400,88 @@ def load_npcs() -> dict:
 
 # Load NPCs on module import
 NPCS = load_npcs()
+
+
+# NPC attack callback system
+# Signature: (game, username, npc_id) -> str (message to show to the player)
+NPC_ON_ATTACK: Dict[str, Callable[[dict, str, str], str]] = {}
+
+
+def get_npc_on_attack_callback(npc_id: str) -> Optional[Callable[[dict, str, str], str]]:
+    """
+    Get the on_attack callback for an NPC, if one exists.
+    
+    Args:
+        npc_id: The NPC ID
+    
+    Returns:
+        Callable or None: The callback function, or None if not found
+    """
+    return NPC_ON_ATTACK.get(npc_id)
+
+
+def register_npc_on_attack_callback(npc_id: str, callback: Callable[[dict, str, str], str]):
+    """
+    Register an on_attack callback for an NPC.
+    
+    Args:
+        npc_id: The NPC ID
+        callback: Function that takes (game, username, npc_id) and returns a message string
+    """
+    NPC_ON_ATTACK[npc_id] = callback
+
+
+def _innkeeper_on_attack(game: dict, username: str, npc_id: str) -> str:
+    """
+    Callback for when player attacks the innkeeper (Mara).
+    Decreases reputation, moves NPC home, and sets talk cooldown.
+    """
+    # Import here to avoid circular imports
+    from game_engine import adjust_reputation, NPC_STATE, set_npc_talk_cooldown
+    
+    # Decrease reputation
+    adjust_reputation(game, npc_id, -10, "attacked")
+    
+    # Move NPC to home room
+    npc = NPCS.get(npc_id)
+    if npc and npc.home:
+        if npc_id not in NPC_STATE:
+            NPC_STATE[npc_id] = {}
+        NPC_STATE[npc_id]["room"] = npc.home
+    
+    # Set talk cooldown for 1 in-game hour (60 minutes)
+    set_npc_talk_cooldown(game, npc_id, 60)
+    
+    return "Mara looks shocked and disappointed that you'd even try that. She turns away and refuses to speak with you."
+
+
+def _old_storyteller_on_attack(game: dict, username: str, npc_id: str) -> str:
+    """
+    Callback for when player attacks the Old Storyteller.
+    Decreases reputation, moves NPC home, and sets talk cooldown.
+    """
+    # Import here to avoid circular imports
+    from game_engine import adjust_reputation, NPC_STATE, set_npc_talk_cooldown
+    
+    # Decrease reputation
+    adjust_reputation(game, npc_id, -15, "attacked")
+    
+    # Move NPC to home room
+    npc = NPCS.get(npc_id)
+    if npc and npc.home:
+        if npc_id not in NPC_STATE:
+            NPC_STATE[npc_id] = {}
+        NPC_STATE[npc_id]["room"] = npc.home
+    
+    # Set talk cooldown for 1 in-game hour (60 minutes)
+    set_npc_talk_cooldown(game, npc_id, 60)
+    
+    return "The Old Storyteller looks at you with deep sadness. 'Violence has no place here, child.' He turns and walks away, refusing to speak with you."
+
+
+# Register the callbacks
+register_npc_on_attack_callback("innkeeper", _innkeeper_on_attack)
+register_npc_on_attack_callback("old_storyteller", _old_storyteller_on_attack)
 
 
 def match_npc_in_room(room_npc_ids: list, target_text: str) -> Tuple[Optional[str], Optional[NPC]]:
