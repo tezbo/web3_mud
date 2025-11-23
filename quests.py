@@ -38,6 +38,13 @@ class QuestTemplate:
     rewards: Dict  # Rewards dict with currency, reputation, items
     offer_sources: List[Dict]  # How quest is offered (NPC dialogue, noticeboard, etc.)
     failure_reputation: Optional[Dict] = None  # Optional reputation penalty on failure
+    # Quest availability settings
+    shared: bool = True  # Can multiple players take this quest? (False = exclusive)
+    max_players: Optional[int] = None  # Max concurrent players (None = unlimited for shared, 1 for exclusive)
+    newbie_priority: bool = False  # Prioritize newer/less experienced players
+    max_per_player: Optional[int] = None  # Max times a player can take this quest (None = unlimited)
+    reputation_requirement: Optional[Dict[str, int]] = None  # {npc_id: min_reputation} - future use
+    level_range: Optional[tuple] = None  # (min_level, max_level) - future use when level system is added
 
 
 # Global quest template registry
@@ -54,6 +61,254 @@ def register_quest_template(template: QuestTemplate):
     QUEST_TEMPLATES[template.id] = template
 
 
+# --- Quest Availability System ---
+
+def get_player_experience_level(game: Dict) -> int:
+    """
+    Calculate player's experience level based on completed quests.
+    This is a simple proxy until a proper leveling system is implemented.
+    
+    Returns:
+        int: Experience level (0 = newbie, increases with completed quests)
+    """
+    completed_quests = game.get("completed_quests", {})
+    completed_count = len([q for q in completed_quests.values() if q.get("status") == "completed"])
+    
+    # Simple level calculation: every 3 completed quests = +1 level
+    # This can be refined later with a proper XP/level system
+    return completed_count // 3
+
+
+def get_active_quest_owners(quest_id: str) -> List[str]:
+    """
+    Get list of usernames who currently have this quest active.
+    
+    Args:
+        quest_id: Quest template ID
+    
+    Returns:
+        List of usernames with active quest
+    """
+    from game_engine import QUEST_GLOBAL_STATE
+    quest_state = QUEST_GLOBAL_STATE.get(quest_id, {})
+    return quest_state.get("active_players", [])
+
+
+def get_quest_completion_count(game: Dict, quest_id: str) -> int:
+    """
+    Get how many times this player has completed this quest.
+    
+    Args:
+        game: Game state dict
+        quest_id: Quest template ID
+    
+    Returns:
+        int: Completion count
+    """
+    from game_engine import QUEST_GLOBAL_STATE
+    quest_state = QUEST_GLOBAL_STATE.get(quest_id, {})
+    completions = quest_state.get("completions", {})
+    username = game.get("username", "unknown")
+    return completions.get(username, 0)
+
+
+def is_quest_available_to_player(game: Dict, username: str, quest_id: str, active_players_fn=None) -> tuple:
+    """
+    Check if a quest is available to a specific player.
+    
+    Args:
+        game: Player's game state dict
+        username: Player username
+        quest_id: Quest template ID
+        active_players_fn: Optional function to get all active players (for cross-player checks)
+    
+    Returns:
+        tuple: (is_available, reason_message)
+        - is_available: True if player can take this quest
+        - reason_message: Explanation if not available (empty if available)
+    """
+    template = get_quest_template(quest_id)
+    if not template:
+        return False, "Quest not found."
+    
+    # Check if player already has this quest active
+    active_quests = get_active_quests(game)
+    for quest in active_quests:
+        if quest["id"] == quest_id and quest.get("status") == "active":
+            return False, f"You are already working on '{template.name}'."
+    
+    # Check per-player limit (max times this player can take the quest)
+    if template.max_per_player is not None:
+        completion_count = get_quest_completion_count(game, quest_id)
+        if completion_count >= template.max_per_player:
+            return False, f"You have already completed '{template.name}' the maximum number of times."
+    
+    # Check reputation requirements
+    if template.reputation_requirement:
+        reputation = game.get("reputation", {})
+        for npc_id, min_rep in template.reputation_requirement.items():
+            player_rep = reputation.get(npc_id, 0)
+            if player_rep < min_rep:
+                from npc import NPCS
+                npc = NPCS.get(npc_id)
+                npc_name = npc.name if npc else npc_id
+                return False, f"You need better reputation with {npc_name} to take this quest."
+    
+    # Check level requirements (future use when level system is added)
+    if template.level_range:
+        min_level, max_level = template.level_range
+        player_level = get_player_experience_level(game)
+        if player_level < min_level:
+            return False, f"This quest requires at least level {min_level}."
+        if max_level is not None and player_level > max_level:
+            return False, f"This quest is only for players up to level {max_level}."
+    
+    # Check global availability (shared vs exclusive)
+    from game_engine import QUEST_GLOBAL_STATE
+    
+    # Initialize quest state if needed
+    if quest_id not in QUEST_GLOBAL_STATE:
+        QUEST_GLOBAL_STATE[quest_id] = {
+            "active_players": [],
+            "completions": {},
+            "first_taken_at": None
+        }
+    
+    quest_state = QUEST_GLOBAL_STATE[quest_id]
+    active_players = quest_state.get("active_players", [])
+    
+    # Clean up stale entries (players who no longer have the quest)
+    if active_players_fn:
+        try:
+            all_active_players = active_players_fn()
+            active_player_usernames = [p.get("username") for p in all_active_players if p.get("username")]
+            
+            verified_active = []
+            for player_username in active_players:
+                try:
+                    from app import ACTIVE_GAMES
+                    player_game = ACTIVE_GAMES.get(player_username)
+                    if player_game:
+                        player_active_quests = player_game.get("quests", {})
+                        if quest_id in player_active_quests:
+                            quest_instance = player_active_quests[quest_id]
+                            if quest_instance.get("status") == "active":
+                                verified_active.append(player_username)
+                except Exception:
+                    pass  # If we can't verify, remove stale entry
+            
+            active_players = verified_active
+            quest_state["active_players"] = active_players
+        except Exception:
+            pass  # If active_players_fn fails, continue with what we have
+    
+    # Check if quest is exclusive (only one player at a time)
+    if not template.shared:
+        if active_players and username not in active_players:
+            return False, f"'{template.name}' has already been taken by someone else."
+    
+    # Check max players limit (for shared quests)
+    max_players = template.max_players
+    if max_players is None:
+        # Default: unlimited for shared quests, 1 for exclusive
+        max_players = float('inf') if template.shared else 1
+    else:
+        max_players = max_players if template.shared else 1
+    
+    # Count active players (excluding current player if they're in the list)
+    current_active_count = len([p for p in active_players if p != username])
+    
+    if current_active_count >= max_players:
+        return False, f"'{template.name}' is already at capacity ({int(max_players)} active player{'s' if max_players != 1 else ''})."
+    
+    # Check newbie priority: if quest has newbie_priority, block experienced players if newbie has it
+    if template.newbie_priority:
+        player_exp = get_player_experience_level(game)
+        
+        # If there are active players, check their experience levels
+        if active_players_fn and active_players:
+            try:
+                all_active_players = active_players_fn()
+                active_player_info = {p.get("username"): p for p in all_active_players if p.get("username")}
+                
+                # Check if any active players are less experienced (newbies)
+                for active_player_username in active_players:
+                    try:
+                        from app import ACTIVE_GAMES
+                        active_player_game = ACTIVE_GAMES.get(active_player_username)
+                        if active_player_game:
+                            active_player_exp = get_player_experience_level(active_player_game)
+                            # If current player is much more experienced than active player, block it
+                            if player_exp > active_player_exp + 2:  # Allow some overlap
+                                return False, f"'{template.name}' is currently being worked on by a newer player. This quest prioritizes those just starting out."
+                    except Exception:
+                        pass  # Can't check, allow it
+            except Exception:
+                pass  # If we can't check, allow it
+    
+    return True, ""
+
+
+def add_quest_owner(quest_id: str, username: str):
+    """Add a player as an active owner of a quest."""
+    from game_engine import QUEST_GLOBAL_STATE, GAME_TIME
+    
+    if quest_id not in QUEST_GLOBAL_STATE:
+        QUEST_GLOBAL_STATE[quest_id] = {
+            "active_players": [],
+            "completions": {},
+            "first_taken_at": None
+        }
+    
+    quest_state = QUEST_GLOBAL_STATE[quest_id]
+    active_players = quest_state.get("active_players", [])
+    
+    if username not in active_players:
+        active_players.append(username)
+        quest_state["active_players"] = active_players
+        
+        # Track when first player took it (for rotation/reset later if needed)
+        if quest_state.get("first_taken_at") is None:
+            quest_state["first_taken_at"] = GAME_TIME.get("tick", 0)
+
+
+def remove_quest_owner(quest_id: str, username: str):
+    """Remove a player from active owners of a quest."""
+    from game_engine import QUEST_GLOBAL_STATE
+    
+    if quest_id in QUEST_GLOBAL_STATE:
+        quest_state = QUEST_GLOBAL_STATE[quest_id]
+        active_players = quest_state.get("active_players", [])
+        
+        if username in active_players:
+            active_players.remove(username)
+            quest_state["active_players"] = active_players
+            
+            # If no more active players, reset first_taken_at for future rotation
+            if not active_players:
+                quest_state["first_taken_at"] = None
+
+
+def record_quest_completion(quest_id: str, username: str):
+    """Record that a player completed a quest."""
+    from game_engine import QUEST_GLOBAL_STATE
+    
+    if quest_id not in QUEST_GLOBAL_STATE:
+        QUEST_GLOBAL_STATE[quest_id] = {
+            "active_players": [],
+            "completions": {},
+            "first_taken_at": None
+        }
+    
+    quest_state = QUEST_GLOBAL_STATE[quest_id]
+    completions = quest_state.get("completions", {})
+    
+    if username not in completions:
+        completions[username] = 0
+    completions[username] += 1
+    quest_state["completions"] = completions
+
+
 # --- Quest Event Model ---
 
 class QuestEvent(TypedDict, total=False):
@@ -68,7 +323,7 @@ class QuestEvent(TypedDict, total=False):
 
 # --- Quest Instance Helpers ---
 
-def start_quest(game: Dict, username: str, quest_id: str, source: str) -> str:
+def start_quest(game: Dict, username: str, quest_id: str, source: str, active_players_fn=None) -> str:
     """
     Start a quest for a player.
     
@@ -77,6 +332,7 @@ def start_quest(game: Dict, username: str, quest_id: str, source: str) -> str:
         username: Player username
         quest_id: Quest template ID
         source: Source of quest offer (e.g., "npc:mara")
+        active_players_fn: Optional function to get all active players (for availability checks)
     
     Returns:
         str: Player-facing message
@@ -85,11 +341,16 @@ def start_quest(game: Dict, username: str, quest_id: str, source: str) -> str:
     if not template:
         return f"Error: Quest '{quest_id}' not found."
     
+    # Check availability before starting
+    is_available, reason = is_quest_available_to_player(game, username, quest_id, active_players_fn)
+    if not is_available:
+        return reason
+    
     # Initialize quests dict if needed
     if "quests" not in game:
         game["quests"] = {}
     
-    # Check if already active
+    # Check if already active (double-check)
     if quest_id in game["quests"]:
         instance = game["quests"][quest_id]
         if instance.get("status") == "active":
@@ -131,6 +392,9 @@ def start_quest(game: Dict, username: str, quest_id: str, source: str) -> str:
         instance["notes"].append(f"Objective: {first_stage.get('description', 'Begin your quest.')}")
     
     game["quests"][quest_id] = instance
+    
+    # Track quest ownership globally
+    add_quest_owner(quest_id, username)
     
     # Clear pending offer
     game["pending_quest_offer"] = None
@@ -198,6 +462,10 @@ def complete_quest(game: Dict, username: str, quest_id: str) -> str:
     
     game["completed_quests"][quest_id] = instance.copy()
     del game["quests"][quest_id]
+    
+    # Remove from global active owners and record completion
+    remove_quest_owner(quest_id, username)
+    record_quest_completion(quest_id, username)
     
     # Apply rewards
     messages = [f"Quest completed: {template.name}!"]
@@ -315,6 +583,9 @@ def fail_quest(game: Dict, username: str, quest_id: str, reason: str) -> str:
     
     game["completed_quests"][quest_id] = instance.copy()
     del game["quests"][quest_id]
+    
+    # Remove from global active owners (but don't record completion for failures)
+    remove_quest_owner(quest_id, username)
     
     # Apply failure reputation penalty if defined
     if template.failure_reputation:
@@ -542,7 +813,7 @@ def offer_quest_to_player(game: Dict, username: str, quest_id: str, source: str)
     return "\n".join(message_parts)
 
 
-def accept_pending_quest(game: Dict, username: str) -> str:
+def accept_pending_quest(game: Dict, username: str, active_players_fn=None) -> str:
     """Accept a pending quest offer."""
     pending = game.get("pending_quest_offer")
     if not pending:
@@ -552,8 +823,8 @@ def accept_pending_quest(game: Dict, username: str) -> str:
     if not quest_id:
         return "Invalid quest offer."
     
-    # Start the quest
-    return start_quest(game, username, quest_id, pending.get("source", ""))
+    # Start the quest (availability check happens inside start_quest)
+    return start_quest(game, username, quest_id, pending.get("source", ""), active_players_fn)
 
 
 def decline_pending_quest(game: Dict, username: str) -> str:
@@ -571,7 +842,7 @@ def decline_pending_quest(game: Dict, username: str) -> str:
     return f"You decline {quest_name}. Perhaps another time."
 
 
-def maybe_offer_npc_quest(game: Dict, username: str, npc_id: str, player_text: str, current_tick: int) -> Optional[str]:
+def maybe_offer_npc_quest(game: Dict, username: str, npc_id: str, player_text: str, current_tick: int, active_players_fn=None) -> Optional[str]:
     """
     Check if NPC should offer a quest based on player dialogue.
     
@@ -581,17 +852,23 @@ def maybe_offer_npc_quest(game: Dict, username: str, npc_id: str, player_text: s
         npc_id: NPC ID
         player_text: Player's spoken text
         current_tick: Current game tick
+        active_players_fn: Optional function to get all active players (for availability checks)
     
     Returns:
         Optional[str]: Extra flavor text if quest is offered, None otherwise
     """
     # Check all quest templates for NPC-based offers
     for quest_id, template in QUEST_TEMPLATES.items():
-        # Skip if player already has this quest (active or completed)
+        # Skip if player already has this quest active
         if quest_id in game.get("quests", {}):
-            continue
-        if quest_id in game.get("completed_quests", {}):
-            continue
+            quest_instance = game["quests"][quest_id]
+            if quest_instance.get("status") == "active":
+                continue
+        
+        # Check availability before offering
+        is_available, reason = is_quest_available_to_player(game, username, quest_id, active_players_fn)
+        if not is_available:
+            continue  # Don't offer unavailable quests
         
         # Check if this quest has an NPC offer source for this NPC
         for offer_source in template.offer_sources:
@@ -798,7 +1075,7 @@ def render_quest_detail(game: Dict, index_or_id: str) -> str:
     return "\n".join(lines)
 
 
-def render_noticeboard(game: Dict, room_id: str, current_tick: int) -> str:
+def render_noticeboard(game: Dict, room_id: str, current_tick: int, username: str = None, active_players_fn=None) -> str:
     """
     Render noticeboard quest postings for a room.
     
@@ -806,11 +1083,13 @@ def render_noticeboard(game: Dict, room_id: str, current_tick: int) -> str:
         game: Game state dict
         room_id: Room ID
         current_tick: Current game tick
+        username: Player username (for availability filtering)
+        active_players_fn: Optional function to get all active players (for cross-player checks)
     
     Returns:
         str: Noticeboard content
     """
-    available_quests = get_noticeboard_quests_for_room(game, room_id, current_tick)
+    available_quests = get_noticeboard_quests_for_room(game, room_id, current_tick, username, active_players_fn)
     
     if not available_quests:
         return "The noticeboard is empty. No quests are posted here right now."
@@ -830,34 +1109,55 @@ def render_noticeboard(game: Dict, room_id: str, current_tick: int) -> str:
     return "\n".join(lines)
 
 
-def get_noticeboard_quests_for_room(game: Dict, room_id: str, current_tick: int) -> List[QuestTemplate]:
+def get_noticeboard_quests_for_room(game: Dict, room_id: str, current_tick: int, username: str = None, active_players_fn=None) -> List[QuestTemplate]:
     """
-    Get quests available via noticeboard in this room.
+    Get quests available via noticeboard in this room, filtered by availability.
     
     Args:
         game: Game state dict
         room_id: Room ID
         current_tick: Current game tick
+        username: Player username (for availability filtering)
+        active_players_fn: Optional function to get all active players (for cross-player checks)
     
     Returns:
-        List of QuestTemplate objects
+        List of QuestTemplate objects available to this player
     """
     available = []
+    username = username or game.get("username", "adventurer")
     
     for quest_id, template in QUEST_TEMPLATES.items():
-        # Skip if player already has this quest
+        # Skip if player already has this quest active (completed quests can be repeatable)
         if quest_id in game.get("quests", {}):
-            continue
-        if quest_id in game.get("completed_quests", {}):
-            continue
+            quest_instance = game["quests"][quest_id]
+            if quest_instance.get("status") == "active":
+                continue
         
         # Check if this quest has a noticeboard offer source for this room
+        has_noticeboard_source = False
         for offer_source in template.offer_sources:
             if offer_source.get("type") == "noticeboard":
                 source_room_id = offer_source.get("room_id", "")
                 if source_room_id == room_id:
-                    # Check post duration (simplified: always available for now)
-                    available.append(template)
+                    has_noticeboard_source = True
+                    break
+        
+        if not has_noticeboard_source:
+            continue
+        
+        # Check availability to this player
+        is_available, reason = is_quest_available_to_player(game, username, quest_id, active_players_fn)
+        if is_available:
+            available.append(template)
+    
+    # Sort by priority: newbie priority quests first, then by difficulty
+    def sort_key(t):
+        priority = 0 if t.newbie_priority else 1
+        difficulty_order = {"Easy": 0, "Moderate": 1, "Hard": 2, "Epic": 3}
+        difficulty = difficulty_order.get(t.difficulty, 99)
+        return (priority, difficulty)
+    
+    available.sort(key=sort_key)
     
     return available
 
@@ -954,7 +1254,11 @@ def initialize_quests():
                 "offer_text": "Mara looks up, clearly relieved. 'Oh, thank goodness. I've lost a small parcel somewhere in the stock room. Could you help me find it?'"
             }
         ],
-        failure_reputation=None  # No penalty for failure (player-friendly)
+        failure_reputation=None,  # No penalty for failure (player-friendly)
+        shared=False,  # Exclusive quest - only one player can take it at a time
+        max_players=1,  # Only one player can have it active
+        newbie_priority=True,  # Prioritize newer players
+        max_per_player=None  # Can be repeated (once per player per completion cycle)
     )
     
     register_quest_template(lost_package_template)

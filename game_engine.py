@@ -1059,6 +1059,16 @@ ROOM_STATE = {
 # Items are permanently deleted after 1 in-game day (1440 minutes)
 BURIED_ITEMS = {}
 
+# --- Quest Global State (tracks active quest ownership across all players) ---
+# Format: {
+#   quest_id: {
+#     "active_players": [username1, username2, ...],  # Who currently has this quest active
+#     "completions": {username: count, ...},  # How many times each player has completed it
+#     "first_taken_at": tick  # When first player took it (for rotation/reset)
+#   }
+# }
+QUEST_GLOBAL_STATE = {}
+
 # --- World Clock (tracks in-game time) ---
 # In-game time: 1 in-game hour = 1 real-world hour (configurable)
 # 1 in-game day = 2 real-world hours (daybreak at hour 0, nightfall at hour 1, repeat)
@@ -2919,7 +2929,11 @@ def _format_detail_look(detail_id, detail, room_id, game=None):
         current_tick = GAME_TIME.get("tick", 0)
         
         if game is not None:
-            available_quests = quests.get_noticeboard_quests_for_room(game, room_id, current_tick)
+            # Get username from game state if available
+            quest_username = game.get("username", "adventurer")
+            # Pass who_fn if available (will need to be passed through function signature)
+            # For now, we'll call without it and availability will work based on QUEST_GLOBAL_STATE
+            available_quests = quests.get_noticeboard_quests_for_room(game, room_id, current_tick, username=quest_username)
             
             if available_quests:
                 description += "\n\nSeveral notices are pinned to the board:"
@@ -4768,6 +4782,8 @@ def handle_command(
     
     # Tick quests (check for expired quests)
     import quests
+    # Access GAME_TIME as a global variable
+    global GAME_TIME
     quests.tick_quests(game, GAME_TIME.get("tick", 0))
     
     text = command.strip()
@@ -6204,7 +6220,7 @@ def handle_command(
                     # Check each NPC in the room to see if they should offer a quest
                     for npc_id in npc_ids:
                         if npc_id in NPCS:
-                            quest_offer_text = quests.maybe_offer_npc_quest(game, username or "adventurer", npc_id, message, current_tick)
+                            quest_offer_text = quests.maybe_offer_npc_quest(game, username or "adventurer", npc_id, message, current_tick, active_players_fn=who_fn)
                             if quest_offer_text:
                                 response += "\n" + quest_offer_text
                                 
@@ -6713,12 +6729,12 @@ def handle_command(
             else:
                 if len(tokens) == 1:
                     # Just "board" - show the noticeboard
-                    response = quests.render_noticeboard(game, loc_id, current_tick)
+                    response = quests.render_noticeboard(game, loc_id, current_tick, username=username or "adventurer", active_players_fn=who_fn)
                 elif len(tokens) >= 2:
                     # "board <number>" - read a specific posting
                     try:
                         posting_num = int(tokens[1])
-                        available_quests = quests.get_noticeboard_quests_for_room(game, loc_id, current_tick)
+                        available_quests = quests.get_noticeboard_quests_for_room(game, loc_id, current_tick, username=username or "adventurer", active_players_fn=who_fn)
                         
                         if 1 <= posting_num <= len(available_quests):
                             template = available_quests[posting_num - 1]
@@ -6747,7 +6763,7 @@ def handle_command(
     elif tokens[0] == "accept" and len(tokens) >= 2 and tokens[1] == "quest":
         # Accept pending quest offer
         import quests
-        response = quests.accept_pending_quest(game, username or "adventurer")
+        response = quests.accept_pending_quest(game, username or "adventurer", active_players_fn=who_fn)
     
     elif tokens[0] == "decline" and len(tokens) >= 2 and tokens[1] == "quest":
         # Decline pending quest offer
@@ -6948,10 +6964,10 @@ def handle_command(
 
 def get_global_state_snapshot():
     """
-    Returns a JSON-serialisable dict containing global state (ROOM_STATE, NPC_STATE, GAME_TIME, WEATHER_STATE, BURIED_ITEMS).
+    Returns a JSON-serialisable dict containing global state (ROOM_STATE, NPC_STATE, GAME_TIME, WEATHER_STATE, BURIED_ITEMS, QUEST_GLOBAL_STATE).
     
     Returns:
-        dict: {"room_state": ROOM_STATE, "npc_state": NPC_STATE, "game_time": GAME_TIME, "weather_state": WEATHER_STATE, "buried_items": BURIED_ITEMS}
+        dict: {"room_state": ROOM_STATE, "npc_state": NPC_STATE, "game_time": GAME_TIME, "weather_state": WEATHER_STATE, "buried_items": BURIED_ITEMS, "quest_global_state": QUEST_GLOBAL_STATE}
     """
     # Clean up old buried items before saving
     cleanup_buried_items()
@@ -6962,18 +6978,19 @@ def get_global_state_snapshot():
         "game_time": GAME_TIME,
         "weather_state": WEATHER_STATE,
         "buried_items": BURIED_ITEMS,
+        "quest_global_state": QUEST_GLOBAL_STATE,
     }
 
 
 def load_global_state_snapshot(snapshot):
     """
-    Updates ROOM_STATE, NPC_STATE, WORLD_CLOCK, GAME_TIME, WEATHER_STATE, and BURIED_ITEMS from a snapshot dict.
+    Updates ROOM_STATE, NPC_STATE, WORLD_CLOCK, GAME_TIME, WEATHER_STATE, BURIED_ITEMS, and QUEST_GLOBAL_STATE from a snapshot dict.
     Backfills missing fields for backward compatibility.
     
     Args:
-        snapshot: dict with optional "room_state", "npc_state", "world_clock", "game_time", "weather_state", and "buried_items" keys
+        snapshot: dict with optional "room_state", "npc_state", "world_clock", "game_time", "weather_state", "buried_items", and "quest_global_state" keys
     """
-    global ROOM_STATE, NPC_STATE, WORLD_CLOCK, GAME_TIME, WEATHER_STATE, BURIED_ITEMS
+    global ROOM_STATE, NPC_STATE, WORLD_CLOCK, GAME_TIME, WEATHER_STATE, BURIED_ITEMS, QUEST_GLOBAL_STATE
     from npc import NPCS
     
     if not isinstance(snapshot, dict):
@@ -7052,6 +7069,17 @@ def load_global_state_snapshot(snapshot):
         BURIED_ITEMS = snapshot["buried_items"]
         # Clean up any items that are too old when loading
         cleanup_buried_items()
+    
+    if "quest_global_state" in snapshot and isinstance(snapshot["quest_global_state"], dict):
+        QUEST_GLOBAL_STATE = snapshot["quest_global_state"]
+        # Ensure structure is correct
+        for quest_id, quest_state in QUEST_GLOBAL_STATE.items():
+            if "active_players" not in quest_state:
+                quest_state["active_players"] = []
+            if "completions" not in quest_state:
+                quest_state["completions"] = {}
+            if "first_taken_at" not in quest_state:
+                quest_state["first_taken_at"] = None
 
 
 def highlight_exits_in_log(log_entries):
