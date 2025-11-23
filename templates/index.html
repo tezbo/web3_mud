@@ -324,7 +324,7 @@
         <a href="{{ url_for('logout') }}">Log out</a>
       </div>
     </div>
-    <div id="output">{{ "\n".join(log) | safe }}</div>
+    <div id="output">{% if log and log|length > 0 and (log[0]|string is containing('[PAUSE:') or log[0]|string is containing('[ELLIPSIS:')) %}{# Pause markers will be processed by JavaScript #}{% else %}{{ "\n".join(log) | safe }}{% endif %}</div>
     <div class="input-row">
       <input id="command" type="text" placeholder="Type a command (try: look, go north, inventory, help)" autocomplete="off">
       <button id="sendBtn">Send</button>
@@ -353,21 +353,31 @@
     // Track initial output text (if any)
     const initialOutput = outputEl.innerHTML;
     if (initialOutput && initialOutput.trim()) {
-      // Parse initial HTML content to extract text
-      const tempDiv = document.createElement('div');
-      tempDiv.innerHTML = initialOutput;
-      const textContent = tempDiv.textContent || tempDiv.innerText || '';
-      const lines = textContent.split('\n').filter(line => line.trim());
-      const initialTimestamp = new Date();
-      lines.forEach(line => {
-        if (line.trim()) {
-          sessionState.sessionText.push({
-            text: line.trim(),
-            timestamp: initialTimestamp,
-            type: 'output'
-          });
-        }
-      });
+      // Check if initial output contains pause markers (onboarding messages)
+      const textContent = outputEl.textContent || outputEl.innerText || '';
+      if (textContent.includes('[PAUSE:') || textContent.includes('[ELLIPSIS:')) {
+        // Clear the output and process with pause markers
+        outputEl.innerHTML = '';
+        // Process the raw text content (which may have pause markers)
+        // Get the original text from the server-rendered content
+        appendTextWithPauses(textContent);
+      } else {
+        // Parse initial HTML content to extract text (normal log entries)
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = initialOutput;
+        const textContent = tempDiv.textContent || tempDiv.innerText || '';
+        const lines = textContent.split('\n').filter(line => line.trim());
+        const initialTimestamp = new Date();
+        lines.forEach(line => {
+          if (line.trim()) {
+            sessionState.sessionText.push({
+              text: line.trim(),
+              timestamp: initialTimestamp,
+              type: 'output'
+            });
+          }
+        });
+      }
     }
 
     // Auto-scroll to bottom on page load
