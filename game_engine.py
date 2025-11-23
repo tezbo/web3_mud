@@ -3953,12 +3953,30 @@ def process_time_based_exit_states(broadcast_fn=None, who_fn=None):
     # Determine if door should be locked (between 1am and 10am, inclusive of 1am, exclusive of 10am)
     should_be_locked = (hour_of_day >= 1 and hour_of_day < 10)
     
-    # Check current door state
+    # Check current door state - both doors should be checked independently
     tavern_exit_state = EXIT_STATES.get(tavern_room_id, {}).get(tavern_door_direction, {})
     town_square_exit_state = EXIT_STATES.get("town_square", {}).get(town_square_to_tavern, {})
-    is_currently_locked = tavern_exit_state.get("locked", False) or town_square_exit_state.get("locked", False)
+    tavern_door_locked = tavern_exit_state.get("locked", False)
+    town_square_door_locked = town_square_exit_state.get("locked", False)
+    both_doors_locked = tavern_door_locked and town_square_door_locked
     
-    # Check if we need to lock the door (1am transition)
+    # Always ensure door state is correct for the current hour
+    if should_be_locked:
+        # Door should be locked - ensure both doors are locked
+        if not tavern_door_locked:
+            set_exit_state(tavern_room_id, tavern_door_direction, locked=True,
+                          reason="The heavy wooden door is locked for the night.")
+        if not town_square_door_locked:
+            set_exit_state("town_square", town_square_to_tavern, locked=True,
+                          reason="The heavy wooden door is locked for the night.")
+    else:
+        # Door should be unlocked - ensure both doors are unlocked
+        if tavern_door_locked:
+            set_exit_state(tavern_room_id, tavern_door_direction, locked=False)
+        if town_square_door_locked:
+            set_exit_state("town_square", town_square_to_tavern, locked=False)
+    
+    # Check if we need to lock the door (1am transition) - for special events
     if hour_of_day == 1 and last_hour.get("tavern_locked") != 1:
         # Lock the door FROM tavern (north exit to town_square)
         set_exit_state(tavern_room_id, tavern_door_direction, locked=True, 
@@ -4031,15 +4049,6 @@ def process_time_based_exit_states(broadcast_fn=None, who_fn=None):
             broadcast_fn(tavern_room_id, opening_message)
             # Also broadcast to town square so people know
             broadcast_fn("town_square", opening_message)
-    
-    # Ensure door stays locked between 1am and 10am (re-apply lock if needed)
-    # This handles edge cases where the door state might have been reset or lost
-    elif should_be_locked and not is_currently_locked:
-        # Door should be locked but isn't - lock it now
-        set_exit_state(tavern_room_id, tavern_door_direction, locked=True,
-                      reason="The heavy wooden door is locked for the night.")
-        set_exit_state("town_square", town_square_to_tavern, locked=True,
-                      reason="The heavy wooden door is locked for the night.")
     
     # Update last processed hour
     process_time_based_exit_states.last_processed_hour = last_hour
