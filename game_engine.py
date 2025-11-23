@@ -5452,6 +5452,241 @@ def handle_command(
         else:
             response = "Usage: stat <target> or stat me"
 
+    elif tokens[0] == "set" and len(tokens) >= 4:
+        # Admin-only set command: set <target> <property> <value>
+        if not is_admin_user(username, game):
+            response = "You don't have permission to do that."
+        else:
+            target_text = tokens[1].lower()
+            property_name = tokens[2].lower()
+            value_text = " ".join(tokens[3:])  # Allow multi-word values
+            
+            # Try to parse value as appropriate type
+            def parse_value(val_str):
+                """Try to parse value as int, float, bool, or keep as string."""
+                val_lower = val_str.lower().strip()
+                
+                # Boolean values
+                if val_lower in ["true", "yes", "on", "1"]:
+                    return True
+                if val_lower in ["false", "no", "off", "0"]:
+                    return False
+                
+                # Try integer
+                try:
+                    return int(val_str)
+                except ValueError:
+                    pass
+                
+                # Try float
+                try:
+                    return float(val_str)
+                except ValueError:
+                    pass
+                
+                # Return as string
+                return val_str
+            
+            value = parse_value(value_text)
+            
+            # Handle "me" or current player
+            if target_text in ["me", "self"] or target_text == (username or "").lower():
+                # Set property on current player's game state
+                if property_name in ["location", "max_carry_weight", "user_description"]:
+                    if property_name == "location":
+                        if value in WORLD:
+                            game["location"] = value
+                            response = f"Set your location to {value}."
+                        else:
+                            response = f"Invalid room: {value}"
+                    elif property_name == "max_carry_weight":
+                        if isinstance(value, (int, float)) and value > 0:
+                            game["max_carry_weight"] = float(value)
+                            response = f"Set your max_carry_weight to {value}."
+                        else:
+                            response = "max_carry_weight must be a positive number."
+                    elif property_name == "user_description":
+                        if len(value_text) <= 500:
+                            game["user_description"] = value_text
+                            response = f"Set your description to: {value_text}"
+                        else:
+                            response = "Description must be 500 characters or less."
+                elif property_name.startswith("character."):
+                    # Set character property: character.stats.str, character.race, etc.
+                    char_prop = property_name.split(".", 1)[1]
+                    if "character" not in game:
+                        game["character"] = {}
+                    
+                    if char_prop == "race":
+                        game["character"]["race"] = value_text
+                        response = f"Set character.race to {value_text}."
+                    elif char_prop == "gender":
+                        game["character"]["gender"] = value_text
+                        response = f"Set character.gender to {value_text}."
+                    elif char_prop.startswith("stats."):
+                        stat_name = char_prop.split(".", 1)[1]
+                        if "stats" not in game["character"]:
+                            game["character"]["stats"] = {}
+                        if isinstance(value, int):
+                            game["character"]["stats"][stat_name] = value
+                            response = f"Set character.stats.{stat_name} to {value}."
+                        else:
+                            response = f"Stat values must be integers."
+                    else:
+                        game["character"][char_prop] = value_text
+                        response = f"Set character.{char_prop} to {value_text}."
+                elif property_name.startswith("reputation."):
+                    # Set reputation with NPC: reputation.innkeeper
+                    npc_id = property_name.split(".", 1)[1]
+                    if "reputation" not in game:
+                        game["reputation"] = {}
+                    if isinstance(value, int):
+                        game["reputation"][npc_id] = value
+                        response = f"Set reputation.{npc_id} to {value}."
+                    else:
+                        response = "Reputation values must be integers."
+                else:
+                    # Generic property set
+                    game[property_name] = value
+                    response = f"Set {property_name} to {value}."
+            
+            # Try to resolve as another player
+            elif who_fn:
+                try:
+                    active_players = who_fn()
+                    target_player = None
+                    target_username = None
+                    
+                    for player_info in active_players:
+                        player_username = player_info.get("username", "")
+                        if player_username.lower() == target_text:
+                            target_username = player_username
+                            from app import ACTIVE_GAMES
+                            if player_username in ACTIVE_GAMES:
+                                target_player = ACTIVE_GAMES[player_username]
+                            break
+                    
+                    if target_player:
+                        # Set property on another player's game state
+                        if property_name in ["location", "max_carry_weight", "user_description"]:
+                            if property_name == "location":
+                                if value in WORLD:
+                                    target_player["location"] = value
+                                    response = f"Set {target_username}'s location to {value}."
+                                else:
+                                    response = f"Invalid room: {value}"
+                            elif property_name == "max_carry_weight":
+                                if isinstance(value, (int, float)) and value > 0:
+                                    target_player["max_carry_weight"] = float(value)
+                                    response = f"Set {target_username}'s max_carry_weight to {value}."
+                                else:
+                                    response = "max_carry_weight must be a positive number."
+                            elif property_name == "user_description":
+                                if len(value_text) <= 500:
+                                    target_player["user_description"] = value_text
+                                    response = f"Set {target_username}'s description to: {value_text}"
+                                else:
+                                    response = "Description must be 500 characters or less."
+                        elif property_name.startswith("character."):
+                            char_prop = property_name.split(".", 1)[1]
+                            if "character" not in target_player:
+                                target_player["character"] = {}
+                            
+                            if char_prop == "race":
+                                target_player["character"]["race"] = value_text
+                                response = f"Set {target_username}'s character.race to {value_text}."
+                            elif char_prop == "gender":
+                                target_player["character"]["gender"] = value_text
+                                response = f"Set {target_username}'s character.gender to {value_text}."
+                            elif char_prop.startswith("stats."):
+                                stat_name = char_prop.split(".", 1)[1]
+                                if "stats" not in target_player["character"]:
+                                    target_player["character"]["stats"] = {}
+                                if isinstance(value, int):
+                                    target_player["character"]["stats"][stat_name] = value
+                                    response = f"Set {target_username}'s character.stats.{stat_name} to {value}."
+                                else:
+                                    response = "Stat values must be integers."
+                            else:
+                                target_player["character"][char_prop] = value_text
+                                response = f"Set {target_username}'s character.{char_prop} to {value_text}."
+                        else:
+                            target_player[property_name] = value
+                            response = f"Set {target_username}'s {property_name} to {value}."
+                    else:
+                        # Not a player, try NPC
+                        npc_id, npc = resolve_npc_target(game, target_text)
+                        if npc_id and npc:
+                            # Set property on NPC state
+                            if npc_id not in NPC_STATE:
+                                NPC_STATE[npc_id] = {}
+                            
+                            npc_state = NPC_STATE[npc_id]
+                            
+                            if property_name == "hp":
+                                if isinstance(value, int) and value >= 0:
+                                    npc_state["hp"] = value
+                                    response = f"Set {npc.name}'s HP to {value}."
+                                else:
+                                    response = "HP must be a non-negative integer."
+                            elif property_name == "alive":
+                                if isinstance(value, bool):
+                                    npc_state["alive"] = value
+                                    response = f"Set {npc.name}'s alive status to {value}."
+                                else:
+                                    response = "alive must be true or false."
+                            elif property_name == "room":
+                                if value in WORLD or value == "":
+                                    npc_state["room"] = value if value else None
+                                    response = f"Set {npc.name}'s room to {value}."
+                                else:
+                                    response = f"Invalid room: {value}"
+                            elif property_name == "home_room":
+                                if value in WORLD or value == "":
+                                    npc_state["home_room"] = value if value else None
+                                    response = f"Set {npc.name}'s home_room to {value}."
+                                else:
+                                    response = f"Invalid room: {value}"
+                            else:
+                                npc_state[property_name] = value
+                                response = f"Set {npc.name}'s {property_name} to {value}."
+                        else:
+                            response = f"Could not find target '{target_text}'. Use: set <player/npc> <property> <value>"
+                except Exception as e:
+                    response = f"Error setting property: {e}"
+            else:
+                # No who_fn, can't resolve players - try NPC
+                npc_id, npc = resolve_npc_target(game, target_text)
+                if npc_id and npc:
+                    if npc_id not in NPC_STATE:
+                        NPC_STATE[npc_id] = {}
+                    
+                    npc_state = NPC_STATE[npc_id]
+                    
+                    if property_name == "hp":
+                        if isinstance(value, int) and value >= 0:
+                            npc_state["hp"] = value
+                            response = f"Set {npc.name}'s HP to {value}."
+                        else:
+                            response = "HP must be a non-negative integer."
+                    elif property_name == "alive":
+                        if isinstance(value, bool):
+                            npc_state["alive"] = value
+                            response = f"Set {npc.name}'s alive status to {value}."
+                        else:
+                            response = "alive must be true or false."
+                    elif property_name == "room":
+                        if value in WORLD or value == "":
+                            npc_state["room"] = value if value else None
+                            response = f"Set {npc.name}'s room to {value}."
+                        else:
+                            response = f"Invalid room: {value}"
+                    else:
+                        npc_state[property_name] = value
+                        response = f"Set {npc.name}'s {property_name} to {value}."
+                else:
+                    response = f"Could not find target '{target_text}'. Use: set <player/npc> <property> <value>"
+
     elif tokens[0] == "describe" and len(tokens) >= 2:
         # Describe command: edit user's own description
         description_text = " ".join(tokens[1:])
