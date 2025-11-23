@@ -1017,7 +1017,6 @@ def poll_updates():
                 broadcast_fn(current_room, action_text)
                 
                 # Update last NPC action time (randomize interval between 15-25 seconds)
-                import random
                 next_interval = random.uniform(15, 25)
                 poll_state["last_npc_action_time"] = current_time - timedelta(seconds=elapsed_npc_seconds - next_interval)
     
