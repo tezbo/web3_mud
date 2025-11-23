@@ -1362,8 +1362,7 @@ def cleanup_buried_items():
     Items are permanently deleted after this period.
     """
     global BURIED_ITEMS
-    current_tick = GAME_TIME.get("tick", 0)
-    current_minutes = GAME_TIME.get("minutes", 0)
+    current_minutes = get_current_game_minutes()
     
     # 1 in-game day = 1440 minutes
     MINUTES_PER_DAY = HOURS_PER_DAY * MINUTES_PER_HOUR
@@ -1718,7 +1717,7 @@ def process_npc_periodic_actions(game, broadcast_fn=None, who_fn=None):
     global NPC_ACTIONS_STATE, GAME_TIME, WEATHER_STATE
     import random
     
-    current_tick = GAME_TIME.get("tick", 0)
+    current_tick = get_current_game_tick()
     current_room = game.get("location", "town_square")
     
     # Initialize room state if needed
@@ -1958,13 +1957,11 @@ MINUTES_PER_HOUR = 60
 HOURS_PER_DAY = 24
 DAYS_PER_YEAR = 120  # Short in-game year for gameplay
 
-# GAME_TIME tracks tick-based progression (continuous based on real-world time)
-# Time advances both from commands and elapsed real-world time
+# GAME_TIME tracks continuous global time progression based purely on real-world time
+# Time is calculated dynamically from a start timestamp, independent of player actions
 GAME_TIME = {
-    "tick": 0,          # Monotonically increasing tick count
-    "minutes": 0,       # Total in-game minutes elapsed
+    "start_timestamp": None,  # Real-world timestamp when game time started (ISO format string)
     "last_season": None,  # Track previous season for transition detection
-    "last_update_timestamp": None,  # Last real-world timestamp when time was updated
 }
 
 # WEATHER_STATE tracks current global weather
@@ -2146,42 +2143,51 @@ SEASONAL_OVERLAYS = {
 }
 
 
-def advance_time(ticks=1):
+def get_current_game_minutes():
     """
-    Advance the game time by the given number of ticks, plus any elapsed real-world time.
+    Calculate current game time in minutes based on elapsed real-world time.
+    Time is purely continuous and global - 1 real-world minute = 1 game minute (1:1 ratio).
     
-    This function ensures time passes continuously even when no commands are being processed.
-    Time conversion: 1 real-world minute = 1 game minute (1:1 ratio).
-    
-    Args:
-        ticks: Number of ticks to advance from command (default: 1)
+    Returns:
+        int: Total in-game minutes elapsed since game start
     """
     global GAME_TIME
     from datetime import datetime
     
-    current_real_time = datetime.now()
+    # Initialize start timestamp if not set
+    if GAME_TIME.get("start_timestamp") is None:
+        GAME_TIME["start_timestamp"] = datetime.now().isoformat()
+        return 0
     
-    # Initialize last_update_timestamp if not set
-    if GAME_TIME.get("last_update_timestamp") is None:
-        GAME_TIME["last_update_timestamp"] = current_real_time
-        GAME_TIME["tick"] += ticks
-        GAME_TIME["minutes"] = GAME_TIME["tick"] // TICKS_PER_MINUTE
-        return
-    
-    # Calculate elapsed real-world time since last update
-    last_update = GAME_TIME["last_update_timestamp"]
-    elapsed_real_seconds = (current_real_time - last_update).total_seconds()
+    # Calculate elapsed real-world time since start
+    start_time = datetime.fromisoformat(GAME_TIME["start_timestamp"])
+    elapsed_real_seconds = (datetime.now() - start_time).total_seconds()
     elapsed_real_minutes = elapsed_real_seconds / 60.0
     
-    # Convert real-world minutes to game ticks (1:1 ratio)
-    # Add the command-based ticks as well
-    elapsed_game_ticks = int(elapsed_real_minutes * TICKS_PER_MINUTE) + ticks
+    # Return as integer (game minutes = real-world minutes, 1:1 ratio)
+    return int(elapsed_real_minutes)
+
+
+def get_current_game_tick():
+    """
+    Calculate current game tick based on elapsed real-world time.
     
-    # Update game time
-    if elapsed_game_ticks > 0:
-        GAME_TIME["tick"] += elapsed_game_ticks
-        GAME_TIME["minutes"] = GAME_TIME["tick"] // TICKS_PER_MINUTE
-        GAME_TIME["last_update_timestamp"] = current_real_time
+    Returns:
+        int: Current game tick count
+    """
+    minutes = get_current_game_minutes()
+    return minutes * TICKS_PER_MINUTE
+
+
+def advance_time(ticks=1):
+    """
+    Legacy function - time is now calculated dynamically and continuously.
+    This function is kept for compatibility but does nothing.
+    Time advances automatically based on real-world time.
+    """
+    # Time is now calculated dynamically from start_timestamp
+    # No incremental advancement needed
+    pass
 
 
 def get_sunrise_sunset_times():
@@ -2215,12 +2221,13 @@ def get_sunrise_sunset_times():
 def get_current_hour_in_minutes():
     """
     Get current hour in minutes from midnight (0-1439).
-    Uses GAME_TIME tick-based system.
+    Uses continuous global time system.
     
     Returns:
         int: Current hour in minutes (0-1439)
     """
-    minutes_in_day = GAME_TIME["minutes"] % (HOURS_PER_DAY * MINUTES_PER_HOUR)
+    total_minutes = get_current_game_minutes()
+    minutes_in_day = total_minutes % (HOURS_PER_DAY * MINUTES_PER_HOUR)
     return int(minutes_in_day)
 
 
@@ -2279,7 +2286,8 @@ def get_current_hour_12h():
     Returns:
         int: Current hour (1-12)
     """
-    minutes_in_day = GAME_TIME["minutes"] % (HOURS_PER_DAY * MINUTES_PER_HOUR)
+    total_minutes = get_current_game_minutes()
+    minutes_in_day = total_minutes % (HOURS_PER_DAY * MINUTES_PER_HOUR)
     hour_24h = int(minutes_in_day // MINUTES_PER_HOUR)
     
     # Convert to 12-hour format
@@ -2298,7 +2306,7 @@ def get_time_of_day():
     Returns:
         str: "night", "dawn", "day", or "dusk"
     """
-    minutes_in_day = GAME_TIME["minutes"] % (HOURS_PER_DAY * MINUTES_PER_HOUR)
+    minutes_in_day = get_current_hour_in_minutes()
     sunrise_min, sunset_min = get_sunrise_sunset_times()
     
     # Dawn: 30 minutes before sunrise to 30 minutes after sunrise
@@ -2326,7 +2334,8 @@ def get_day_of_year():
     Returns:
         int: Day of year (0 to DAYS_PER_YEAR-1)
     """
-    days_elapsed = GAME_TIME["minutes"] // (HOURS_PER_DAY * MINUTES_PER_HOUR)
+    total_minutes = get_current_game_minutes()
+    days_elapsed = total_minutes // (HOURS_PER_DAY * MINUTES_PER_HOUR)
     return days_elapsed % DAYS_PER_YEAR
 
 
@@ -2655,10 +2664,10 @@ def update_weather_if_needed():
     """
     global WEATHER_STATE
     
-    current_tick = GAME_TIME["tick"]
+    current_tick = get_current_game_tick()
     last_update = WEATHER_STATE.get("last_update_tick", 0)
     
-    # Update weather every 10 ticks (roughly every 10 commands)
+    # Update weather every 10 ticks (roughly every 10 game minutes)
     if current_tick - last_update < 10:
         return
     
@@ -3574,7 +3583,7 @@ def update_player_weather_status(game):
         }
     
     status = game["weather_status"]
-    current_tick = GAME_TIME["tick"]
+    current_tick = get_current_game_tick()
     last_update = status.get("last_update_tick", 0)
     
     # Update every tick
@@ -3818,7 +3827,7 @@ def update_npc_weather_statuses():
     """
     global NPC_STATE
     
-    current_tick = GAME_TIME["tick"]
+    current_tick = get_current_game_tick()
     
     for npc_id, npc_state in NPC_STATE.items():
         # Initialize weather_status if not present
@@ -5142,7 +5151,7 @@ def process_time_based_exit_states(broadcast_fn=None, who_fn=None):
     """
     global EXIT_STATES, GAME_TIME
     
-    current_tick = GAME_TIME.get("tick", 0)
+    current_tick = get_current_game_tick()
     # Use the same time system as the time display (GAME_TIME, not WORLD_CLOCK)
     # This ensures door locking matches what players see when they check the time
     current_minutes = get_current_hour_in_minutes()
@@ -6881,9 +6890,7 @@ def _legacy_handle_command_body(
     
     # Tick quests (check for expired quests)
     import quests
-    # Access GAME_TIME as a global variable
-    global GAME_TIME
-    quests.tick_quests(game, GAME_TIME.get("tick", 0))
+    quests.tick_quests(game, get_current_game_tick())
     
     text = command.strip()
     if not text:
@@ -9101,9 +9108,7 @@ def handle_command(
     
     # Tick quests (check for expired quests)
     import quests
-    # Access GAME_TIME as a global variable
-    global GAME_TIME
-    quests.tick_quests(game, GAME_TIME.get("tick", 0))
+    quests.tick_quests(game, get_current_game_tick())
     
     text = command.strip()
     if not text:
@@ -9195,10 +9200,20 @@ def load_global_state_snapshot(snapshot):
     if "game_time" in snapshot and isinstance(snapshot["game_time"], dict):
         GAME_TIME.update(snapshot["game_time"])
         # Ensure required fields exist
-        if "tick" not in GAME_TIME:
-            GAME_TIME["tick"] = 0
-        if "minutes" not in GAME_TIME:
-            GAME_TIME["minutes"] = 0
+        # For backward compatibility, migrate old format to new format
+        if "start_timestamp" not in GAME_TIME:
+            # If we have old format, try to preserve it or initialize new
+            if GAME_TIME.get("last_update_timestamp"):
+                # Migrate from old incremental system
+                GAME_TIME["start_timestamp"] = GAME_TIME.pop("last_update_timestamp", None)
+            if "start_timestamp" not in GAME_TIME or GAME_TIME["start_timestamp"] is None:
+                # Initialize with current time if not present
+                from datetime import datetime
+                GAME_TIME["start_timestamp"] = datetime.now().isoformat()
+        # Remove old fields if they exist
+        GAME_TIME.pop("tick", None)
+        GAME_TIME.pop("minutes", None)
+        GAME_TIME.pop("last_update_timestamp", None)
     
     if "weather_state" in snapshot and isinstance(snapshot["weather_state"], dict):
         WEATHER_STATE.update(snapshot["weather_state"])
