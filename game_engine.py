@@ -3935,8 +3935,10 @@ def process_time_based_exit_states(broadcast_fn=None, who_fn=None):
     global EXIT_STATES, GAME_TIME
     
     current_tick = GAME_TIME.get("tick", 0)
-    current_hour = get_current_in_game_hour()
-    hour_of_day = int(current_hour % 24)
+    # Use the same time system as the time display (GAME_TIME, not WORLD_CLOCK)
+    # This ensures door locking matches what players see when they check the time
+    current_minutes = get_current_hour_in_minutes()
+    hour_of_day = int(current_minutes // MINUTES_PER_HOUR) % 24
     
     # Track last processed hour to avoid duplicate messages
     if not hasattr(process_time_based_exit_states, "last_processed_hour"):
