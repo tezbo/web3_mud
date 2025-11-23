@@ -3886,23 +3886,33 @@ def adjust_reputation(game, npc_id, amount, reason=""):
     game["reputation"][npc_id] = new_reputation
     
     # Generate descriptive message
+    # Get NPC name (handle both NPC objects and dicts for backwards compatibility)
+    npc = NPCS.get(npc_id)
+    if npc:
+        if hasattr(npc, 'name'):
+            npc_name = npc.name
+        else:
+            npc_name = npc.get('name', 'them') if isinstance(npc, dict) else 'them'
+    else:
+        npc_name = 'them'
+    
     message = None
     if amount > 0:
         if amount >= 20:
-            message = f"Your reputation with {NPCS.get(npc_id, {}).get('name', 'them')} has greatly improved!"
+            message = f"Your reputation with {npc_name} has greatly improved!"
         elif amount >= 10:
-            message = f"Your reputation with {NPCS.get(npc_id, {}).get('name', 'them')} has significantly improved."
+            message = f"Your reputation with {npc_name} has significantly improved."
         elif amount >= 5:
-            message = f"Your reputation with {NPCS.get(npc_id, {}).get('name', 'them')} has improved."
+            message = f"Your reputation with {npc_name} has improved."
         else:
             message = None  # Small changes don't need messages to avoid spam
     elif amount < 0:
         if amount <= -20:
-            message = f"Your reputation with {NPCS.get(npc_id, {}).get('name', 'them')} has greatly deteriorated!"
+            message = f"Your reputation with {npc_name} has greatly deteriorated!"
         elif amount <= -10:
-            message = f"Your reputation with {NPCS.get(npc_id, {}).get('name', 'them')} has significantly worsened."
+            message = f"Your reputation with {npc_name} has significantly worsened."
         elif amount <= -5:
-            message = f"Your reputation with {NPCS.get(npc_id, {}).get('name', 'them')} has worsened."
+            message = f"Your reputation with {npc_name} has worsened."
         else:
             message = None  # Small changes don't need messages
     
