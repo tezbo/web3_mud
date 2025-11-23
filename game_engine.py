@@ -5567,7 +5567,7 @@ def handle_emote(verb, args, game, username=None, broadcast_fn=None, who_fn=None
     return "You do not see anyone like that here.", game
 
 
-def get_entrance_exit_message(room_id, from_room_id, direction, actor_name, is_exit=True, is_npc=False, custom_message=None):
+def get_entrance_exit_message(room_id, from_room_id, direction, actor_name, is_exit=True, is_npc=False, custom_message=None, is_teleport=False):
     """
     Get entrance or exit message for a room.
     
@@ -5579,12 +5579,20 @@ def get_entrance_exit_message(room_id, from_room_id, direction, actor_name, is_e
         is_exit: If True, this is an exit message; if False, entrance message
         is_npc: If True, actor is an NPC; if False, player
         custom_message: Optional custom message override
+        is_teleport: If True, this is a teleport (admin goto)
     
     Returns:
         str: Formatted message (with [CYAN] tags for NPCs, HTML for players)
     """
     if custom_message:
         return custom_message
+    
+    # Handle teleport messages
+    if is_teleport:
+        if is_exit:
+            return f"[CYAN]{actor_name} vanishes in a flash of light.[/CYAN]"
+        else:
+            return f"[CYAN]{actor_name} appears suddenly from nowhere.[/CYAN]"
     
     if room_id not in WORLD:
         # Fallback
@@ -5619,7 +5627,10 @@ def get_entrance_exit_message(room_id, from_room_id, direction, actor_name, is_e
             # Default entrance message
             room_name = room_def.get("name", room_id)
             # Try to make it contextual
-            if "tavern" in room_id.lower():
+            if is_teleport:
+                # Teleport entrance message (will be overridden by custom message if set)
+                msg = f"{actor_name} appears suddenly."
+            elif "tavern" in room_id.lower():
                 msg = f"{actor_name} enters the tavern, closing the heavy wooden door behind {'him' if is_npc else 'you'}."
             elif "smithy" in room_id.lower():
                 msg = f"{actor_name} enters the smithy, the sound of the forge filling the air."
@@ -8600,6 +8611,90 @@ def _legacy_handle_command_body(
         else:
             response = "Usage: stat <target> or stat me"
 
+    elif tokens[0] == "goto" and len(tokens) >= 2:
+        # Admin-only goto command: goto <player_name|npc_name>
+        if not is_admin_user(username, game):
+            response = "You don't have permission to do that."
+        else:
+            target_text = " ".join(tokens[1:]).lower()
+            target_room = None
+            target_name = None
+            
+            # Try to find as a player first
+            if who_fn:
+                try:
+                    active_players = who_fn()
+                    for player_info in active_players:
+                        player_username = player_info.get("username", "")
+                        if player_username.lower() == target_text:
+                            target_room = player_info.get("location")
+                            target_name = player_username
+                            break
+                except Exception:
+                    pass
+            
+            # If not found as player, try NPC
+            if not target_room:
+                npc_id, npc = resolve_npc_target(game, target_text)
+                if npc_id and npc:
+                    if npc_id in NPC_STATE:
+                        target_room = NPC_STATE[npc_id].get("room")
+                        target_name = npc.name
+                    else:
+                        response = f"{npc.name} is not currently in the world."
+                else:
+                    response = f"Could not find player or NPC '{target_text}'. Use: goto <player_name|npc_name>"
+            
+            # If we found a target, teleport there
+            if target_room:
+                if target_room not in WORLD:
+                    response = f"{target_name} is in an invalid location: {target_room}"
+                else:
+                    old_loc = game.get("location", "town_square")
+                    game["location"] = target_room
+                    
+                    # Get custom teleport messages from admin stats if set
+                    teleport_exit_msg = game.get("teleport_exit_message")
+                    teleport_entrance_msg = game.get("teleport_entrance_message")
+                    
+                    # Broadcast exit message from old room
+                    if broadcast_fn and old_loc != target_room:
+                        if teleport_exit_msg:
+                            exit_msg = f"[CYAN]{teleport_exit_msg.replace('{name}', username or 'Admin')}[/CYAN]"
+                        else:
+                            exit_msg = get_entrance_exit_message(
+                                old_loc, target_room, "somewhere", username or "Admin",
+                                is_exit=True, is_npc=False, is_teleport=True
+                            )
+                        broadcast_fn(old_loc, exit_msg)
+                    
+                    # Broadcast entrance message to new room
+                    if broadcast_fn:
+                        if teleport_entrance_msg:
+                            entrance_msg = f"[CYAN]{teleport_entrance_msg.replace('{name}', username or 'Admin')}[/CYAN]"
+                        else:
+                            entrance_msg = get_entrance_exit_message(
+                                target_room, old_loc, "somewhere", username or "Admin",
+                                is_exit=False, is_npc=False, is_teleport=True
+                            )
+                        broadcast_fn(target_room, entrance_msg)
+                    
+                    # Get room description for admin
+                    location_desc = describe_location(game)
+                    room_name = WORLD[target_room].get("name", target_room)
+                    response = f"You teleport to {target_name}'s location: {room_name}.\n{location_desc}"
+                    
+                    # Trigger quest event for entering room
+                    import quests
+                    event = quests.QuestEvent(
+                        type="enter_room",
+                        room_id=target_room,
+                        username=username or "adventurer"
+                    )
+                    quests.handle_quest_event(game, event)
+        else:
+            response = "Usage: goto <player_name|npc_name>"
+
     elif tokens[0] == "set" and len(tokens) >= 4:
         # Admin-only set command: set <target> <property> <value>
         if not is_admin_user(username, game):
@@ -8693,6 +8788,10 @@ def _legacy_handle_command_body(
                         response = f"Set reputation.{npc_id} to {value}."
                     else:
                         response = "Reputation values must be integers."
+                elif property_name in ["teleport_exit_message", "teleport_entrance_message"]:
+                    # Custom teleport messages for admin goto command
+                    game[property_name] = value_text  # Keep as string to allow {name} placeholder
+                    response = f"Set {property_name} to: {value_text}"
                 else:
                     # Generic property set
                     game[property_name] = value
