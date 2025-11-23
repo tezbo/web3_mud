@@ -2,8 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Player's Guide - Tiny Web MUD</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Player's Guide - Hollowvale</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes">
+  <meta name="theme-color" content="#0a0a0a">
   <style>
     * {
       margin: 0;
@@ -11,88 +12,118 @@
       box-sizing: border-box;
     }
     body {
-      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
+      background-attachment: fixed;
       color: #e0e0e0;
       font-family: 'Georgia', 'Times New Roman', serif;
-      line-height: 1.6;
-      padding: 20px;
+      line-height: 1.7;
+      padding: 12px;
       min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
     .guide-container {
       max-width: 900px;
       margin: 0 auto;
-      background: rgba(20, 20, 20, 0.95);
+      background: rgba(20, 20, 20, 0.98);
       border: 2px solid #3b82f6;
-      border-radius: 8px;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
-      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(59, 130, 246, 0.1);
+      padding: 24px;
+      backdrop-filter: blur(10px);
     }
     .header {
       text-align: center;
       border-bottom: 3px solid #3b82f6;
       padding-bottom: 20px;
       margin-bottom: 30px;
+      position: relative;
+    }
+    .header::after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, #3b82f6, transparent);
     }
     .header h1 {
-      font-size: 2.5em;
+      font-size: clamp(1.8em, 5vw, 2.5em);
       color: #3b82f6;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.9), 0 0 20px rgba(59, 130, 246, 0.3);
       margin-bottom: 10px;
       font-family: 'Georgia', serif;
+      letter-spacing: 1px;
     }
     .header .subtitle {
       color: #999;
       font-style: italic;
-      font-size: 1.1em;
+      font-size: clamp(0.9em, 2.5vw, 1.1em);
     }
     .nav-links {
       text-align: center;
       margin-bottom: 30px;
-      padding: 15px;
+      padding: 16px;
       background: rgba(59, 130, 246, 0.1);
-      border-radius: 4px;
+      border-radius: 8px;
+      border: 1px solid rgba(59, 130, 246, 0.2);
     }
     .nav-links a {
-      color: #3b82f6;
+      color: #60a5fa;
       text-decoration: none;
-      margin: 0 15px;
-      font-weight: bold;
+      margin: 0 12px;
+      font-weight: 600;
+      padding: 8px 16px;
+      border-radius: 6px;
+      transition: all 0.3s ease;
+      display: inline-block;
     }
     .nav-links a:hover {
-      text-decoration: underline;
-      color: #60a5fa;
+      text-decoration: none;
+      background: rgba(59, 130, 246, 0.2);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
     }
     .section {
-      margin-bottom: 40px;
-      padding: 25px;
-      background: rgba(10, 10, 10, 0.6);
+      margin-bottom: 32px;
+      padding: 20px;
+      background: rgba(10, 10, 10, 0.7);
       border-left: 4px solid #3b82f6;
-      border-radius: 4px;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+    .section:hover {
+      background: rgba(10, 10, 10, 0.85);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
     }
     .section h2 {
       color: #3b82f6;
-      font-size: 1.8em;
+      font-size: clamp(1.4em, 4vw, 1.8em);
       margin-bottom: 15px;
       padding-bottom: 10px;
-      border-bottom: 1px solid #333;
+      border-bottom: 1px solid rgba(59, 130, 246, 0.3);
     }
     .section h3 {
       color: #60a5fa;
-      font-size: 1.3em;
+      font-size: clamp(1.1em, 3vw, 1.3em);
       margin-top: 20px;
       margin-bottom: 10px;
     }
     .command-list {
-      background: rgba(0, 0, 0, 0.4);
-      padding: 15px;
-      border-radius: 4px;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 16px;
+      border-radius: 8px;
       margin: 15px 0;
       font-family: 'Courier New', monospace;
+      border: 1px solid rgba(59, 130, 246, 0.1);
     }
     .command-list dt {
       color: #86efac;
       font-weight: bold;
-      margin-top: 10px;
+      margin-top: 12px;
+      font-size: clamp(0.9em, 2.5vw, 1em);
     }
     .command-list dt:first-child {
       margin-top: 0;
@@ -100,47 +131,60 @@
     .command-list dd {
       color: #ccc;
       margin-left: 20px;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
+      font-size: clamp(0.85em, 2.2vw, 0.95em);
+      line-height: 1.6;
     }
     .example {
-      background: rgba(59, 130, 246, 0.1);
+      background: rgba(59, 130, 246, 0.15);
       border-left: 3px solid #3b82f6;
-      padding: 12px;
+      padding: 14px;
       margin: 15px 0;
-      border-radius: 4px;
+      border-radius: 6px;
       font-family: 'Courier New', monospace;
       color: #86efac;
+      font-size: clamp(0.85em, 2.2vw, 0.95em);
     }
     .tip {
-      background: rgba(255, 193, 7, 0.1);
+      background: rgba(255, 193, 7, 0.12);
       border-left: 3px solid #ffc107;
-      padding: 12px;
+      padding: 14px;
       margin: 15px 0;
-      border-radius: 4px;
+      border-radius: 6px;
+      font-size: clamp(0.85em, 2.2vw, 0.95em);
     }
     .tip strong {
       color: #ffc107;
     }
     .emote-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
       gap: 10px;
       margin: 15px 0;
     }
     .emote-item {
-      background: rgba(0, 0, 0, 0.4);
-      padding: 8px;
-      border-radius: 4px;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 10px;
+      border-radius: 6px;
       text-align: center;
       font-family: 'Courier New', monospace;
       color: #86efac;
+      font-size: clamp(0.8em, 2vw, 0.9em);
+      border: 1px solid rgba(59, 130, 246, 0.2);
+      transition: all 0.2s ease;
+    }
+    .emote-item:hover {
+      background: rgba(0, 0, 0, 0.7);
+      border-color: #3b82f6;
+      transform: translateY(-2px);
     }
     ul, ol {
-      margin-left: 25px;
+      margin-left: 20px;
       margin-top: 10px;
     }
     li {
-      margin-bottom: 8px;
+      margin-bottom: 10px;
+      font-size: clamp(0.85em, 2.2vw, 0.95em);
     }
     .highlight {
       color: #ffc107;
@@ -150,19 +194,70 @@
       text-align: center;
       margin-top: 40px;
       padding-top: 20px;
-      border-top: 1px solid #333;
+      border-top: 1px solid rgba(59, 130, 246, 0.3);
       color: #666;
-      font-size: 0.9em;
+      font-size: clamp(0.8em, 2vw, 0.9em);
     }
+    /* Mobile optimizations */
     @media (max-width: 768px) {
+      body {
+        padding: 8px;
+      }
       .guide-container {
-        padding: 20px;
+        padding: 16px;
+        border-radius: 8px;
+        border-width: 1px;
       }
       .header h1 {
-        font-size: 2em;
+        font-size: 1.8em;
+      }
+      .section {
+        padding: 16px;
+        margin-bottom: 24px;
+      }
+      .nav-links {
+        padding: 12px;
+      }
+      .nav-links a {
+        margin: 4px;
+        padding: 6px 12px;
+        font-size: 0.9em;
+        display: block;
+        margin-bottom: 8px;
       }
       .emote-grid {
-        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+        gap: 8px;
+      }
+      .command-list {
+        padding: 12px;
+      }
+      .command-list dd {
+        margin-left: 12px;
+      }
+    }
+    @media (max-width: 480px) {
+      .guide-container {
+        padding: 12px;
+      }
+      .header {
+        padding-bottom: 16px;
+        margin-bottom: 20px;
+      }
+      .section {
+        padding: 12px;
+      }
+      .emote-grid {
+        grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+      }
+    }
+    /* Touch-friendly improvements */
+    @media (hover: none) and (pointer: coarse) {
+      .nav-links a {
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
     }
   </style>
@@ -184,7 +279,7 @@
 
     <div class="section">
       <h2>🌍 Welcome to Hollowvale</h2>
-      <p>Welcome, traveler, to the world of Tiny Web MUD—a text-based adventure where you explore the frontier town of Hollowvale and its surrounding lands. This is a multiplayer world where your actions matter, NPCs remember your deeds, and every conversation can shape your reputation.</p>
+      <p>Welcome, traveler, to the world of Hollowvale—a text-based adventure where you explore a frontier town and its surrounding lands. This is a multiplayer world where your actions matter, NPCs remember your deeds, and every conversation can shape your reputation.</p>
       <p>This guide will help you navigate the world, understand the commands at your disposal, and make the most of your adventure.</p>
     </div>
 
@@ -233,16 +328,22 @@
       <div class="command-list">
         <dt>take <span class="highlight">&lt;item&gt;</span></dt>
         <dd>Pick up an item from the current room</dd>
+        <dt>take all</dt>
+        <dd>Pick up all items in the room</dd>
         <dt>drop <span class="highlight">&lt;item&gt;</span></dt>
         <dd>Drop an item from your inventory</dd>
         <dt>drop all</dt>
         <dd>Drop all droppable items from your inventory</dd>
+        <dt>bury <span class="highlight">&lt;item&gt;</span></dt>
+        <dd>Permanently dispose of an item (lasts one in-game day before permanent)</dd>
+        <dt>bury all</dt>
+        <dd>Bury all buryable items in the room</dd>
+        <dt>recover <span class="highlight">&lt;item&gt;</span></dt>
+        <dd>Recover a recently buried item (within one in-game day)</dd>
         <dt>inventory</dt>
         <dd>View all items you're carrying</dd>
-        <dt>inv</dt>
-        <dd>Shortcut for 'inventory'</dd>
-        <dt>i</dt>
-        <dd>Shortcut for 'inventory'</dd>
+        <dt>inv, i</dt>
+        <dd>Shortcuts for 'inventory'</dd>
       </div>
       <div class="tip">
         <strong>💡 Tip:</strong> Some items are bound to you and cannot be dropped. These are usually special artifacts or quest items.
@@ -275,7 +376,7 @@
 
     <div class="section">
       <h2>😊 Social Actions & Emotes</h2>
-      <p>Express yourself with emotes! You can use them alone or target specific NPCs.</p>
+      <p>Express yourself with emotes! You can use them alone or target specific NPCs. Over 140 emotes are available!</p>
       <div class="emote-grid">
         <div class="emote-item">nod</div>
         <div class="emote-item">smile</div>
@@ -290,6 +391,11 @@
         <div class="emote-item">clap</div>
         <div class="emote-item">bow</div>
         <div class="emote-item">salute</div>
+        <div class="emote-item">sit</div>
+        <div class="emote-item">rest</div>
+        <div class="emote-item">sleep</div>
+        <div class="emote-item">jump</div>
+        <div class="emote-item">shout</div>
       </div>
       <div class="example">
         Example: nod<br>
@@ -311,6 +417,8 @@
         <dd>Purchase an item from a merchant</dd>
         <dt>buy <span class="highlight">&lt;item&gt;</span> from <span class="highlight">&lt;npc&gt;</span></dt>
         <dd>Buy from a specific merchant</dd>
+        <dt>gold, money, currency</dt>
+        <dd>Check your current wealth</dd>
       </div>
       <div class="example">
         Example: buy stew<br>
@@ -330,6 +438,40 @@
     </div>
 
     <div class="section">
+      <h2>⚔️ Combat</h2>
+      <div class="command-list">
+        <dt>attack <span class="highlight">&lt;npc&gt;</span></dt>
+        <dd>Attack an NPC (only if they are attackable)</dd>
+        <dt>hit, strike</dt>
+        <dd>Alternative attack commands</dd>
+      </div>
+      <div class="tip">
+        <strong>💡 Tip:</strong> Not all NPCs are attackable. Attacking friendly NPCs may damage your reputation and cause them to refuse to talk to you for a time.
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>📋 Quests & Adventures</h2>
+      <div class="command-list">
+        <dt>quests</dt>
+        <dd>View your active quests</dd>
+        <dt>quests detail <span class="highlight">&lt;number&gt;</span></dt>
+        <dd>See detailed information about a specific quest</dd>
+        <dt>accept quest</dt>
+        <dd>Accept a pending quest offer</dd>
+        <dt>decline quest</dt>
+        <dd>Refuse a quest offer</dd>
+        <dt>board, noticeboard</dt>
+        <dd>Check quest postings on the noticeboard</dd>
+        <dt>read quest <span class="highlight">&lt;number&gt;</span></dt>
+        <dd>Read a quest from the noticeboard</dd>
+      </div>
+      <div class="tip">
+        <strong>💡 Tip:</strong> Quests can be found by talking to NPCs or checking noticeboards. Some quests are timed, so complete them quickly for better rewards!
+      </div>
+    </div>
+
+    <div class="section">
       <h2>🔍 Exploration & Discovery</h2>
       <div class="command-list">
         <dt>search</dt>
@@ -338,6 +480,8 @@
         <dd>Alternative to 'search'</dd>
         <dt>loot</dt>
         <dd>Another alternative to 'search'</dd>
+        <dt>touch <span class="highlight">&lt;thing&gt;</span></dt>
+        <dd>Interact with room fixtures, items, or NPCs</dd>
       </div>
       <div class="tip">
         <strong>💡 Tip:</strong> Not all rooms have loot, but searching can reveal hidden treasures! Some locations are more rewarding than others.
@@ -376,9 +520,11 @@
       <div class="command-list">
         <dt>time</dt>
         <dd>Check the current in-game time</dd>
+        <dt>weather</dt>
+        <dd>View weather, season, and time of day information</dd>
       </div>
       <div class="tip">
-        <strong>💡 Tip:</strong> The world has a day/night cycle. Some events and merchant restocking happen based on in-game time!
+        <strong>💡 Tip:</strong> The world has a day/night cycle with lunar phases. Some events and merchant restocking happen based on in-game time! Weather affects your character's appearance and NPCs' reactions.
       </div>
     </div>
 
@@ -398,18 +544,14 @@
     <div class="section">
       <h2>🎮 Game Management</h2>
       <div class="command-list">
-        <dt>help</dt>
+        <dt>help, ?</dt>
         <dd>Show a quick reference of commands</dd>
-        <dt>restart</dt>
+        <dt>describe <span class="highlight">&lt;text&gt;</span></dt>
+        <dd>Set your character description</dd>
+        <dt>restart, reset</dt>
         <dd>Reset your game (starts fresh)</dd>
-        <dt>reset</dt>
-        <dd>Alternative to 'restart'</dd>
-        <dt>quit</dt>
+        <dt>quit, logout, exit</dt>
         <dd>Log out of the game</dd>
-        <dt>logout</dt>
-        <dd>Alternative to 'quit'</dd>
-        <dt>exit</dt>
-        <dd>Alternative to 'quit'</dd>
       </div>
     </div>
 
@@ -438,6 +580,7 @@
         <li>They react to your reputation</li>
         <li>They respond contextually to what you say</li>
         <li>They can understand natural language purchases</li>
+        <li>They move between rooms and react to weather</li>
       </ul>
       <div class="tip">
         <strong>💡 Tip:</strong> Try having real conversations with AI NPCs! Ask them questions, tell them about yourself, or just chat. They'll respond in character based on their personality.
@@ -450,23 +593,26 @@
         <dt>Movement:</dt>
         <dd>go/look, n/s/e/w, move, walk</dd>
         <dt>Items:</dt>
-        <dd>take, drop, inventory, give</dd>
+        <dd>take, drop, bury, recover, inventory, give</dd>
         <dt>Communication:</dt>
         <dd>talk, say, emotes (nod, smile, wave, etc.)</dd>
         <dt>Trading:</dt>
         <dd>list, buy, search</dd>
+        <dt>Combat:</dt>
+        <dd>attack, hit, strike</dd>
+        <dt>Quests:</dt>
+        <dd>quests, accept quest, decline quest, board</dd>
         <dt>Information:</dt>
-        <dd>look, who, time, help</dd>
+        <dd>look, who, time, weather, help</dd>
         <dt>Settings:</dt>
-        <dd>notify, quit, restart</dd>
+        <dd>notify, describe, quit, restart</dd>
       </div>
     </div>
 
     <div class="footer">
-      <p>May your journey through Hollowvale be filled with adventure and discovery!</p>
-      <p style="margin-top: 10px; color: #444;">Tiny Web MUD - A text-based multiplayer adventure</p>
+      <p>May your journey through Hollowvale be filled with adventure and discovery! ⚔️✨</p>
+      <p style="margin-top: 10px; color: #444;">Hollowvale - A text-based multiplayer adventure</p>
     </div>
   </div>
 </body>
 </html>
-

@@ -2,74 +2,115 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Login - Tiny Web MUD</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Login - Hollowvale</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes">
+  <meta name="theme-color" content="#0a0a0a">
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
     body {
-      background: #111;
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
+      background-attachment: fixed;
       color: #eee;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       margin: 0;
-      padding: 0;
+      padding: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
       min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
     .login-container {
-      background: #1a1a1a;
-      border: 1px solid #444;
-      border-radius: 8px;
-      padding: 32px;
+      background: rgba(26, 26, 26, 0.98);
+      border: 2px solid #3b82f6;
+      border-radius: 12px;
+      padding: clamp(24px, 5vw, 32px);
       max-width: 400px;
       width: 100%;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(59, 130, 246, 0.1);
+      backdrop-filter: blur(10px);
     }
     h1 {
       margin: 0 0 24px 0;
       text-align: center;
-      color: #fbbf24;
       color: #3b82f6;
+      font-size: clamp(1.5em, 4vw, 2em);
+      text-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+    }
+    .guide-link {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .guide-link a {
+      color: #60a5fa;
+      text-decoration: none;
+      font-size: clamp(0.9em, 2.5vw, 1em);
+      padding: 8px 16px;
+      border-radius: 6px;
+      transition: all 0.3s ease;
+      display: inline-block;
+    }
+    .guide-link a:hover {
+      background: rgba(59, 130, 246, 0.2);
+      transform: translateY(-2px);
     }
     .form-group {
       margin-bottom: 16px;
     }
     label {
       display: block;
-      margin-bottom: 6px;
-      font-size: 14px;
+      margin-bottom: 8px;
+      font-size: clamp(0.9em, 2.5vw, 1em);
       color: #ccc;
+      font-weight: 500;
     }
     input[type="text"],
     input[type="password"] {
       width: 100%;
-      padding: 10px;
-      border-radius: 4px;
+      padding: 12px 16px;
+      border-radius: 8px;
       border: 1px solid #444;
-      background: #050505;
+      background: #0a0a0a;
       color: #eee;
-      font-size: 14px;
+      font-size: 16px; /* Prevents zoom on iOS */
       box-sizing: border-box;
+      transition: all 0.3s ease;
+      -webkit-appearance: none;
+      appearance: none;
     }
     input[type="text"]:focus,
     input[type="password"]:focus {
       outline: none;
       border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+      background: #0f0f0f;
     }
     button {
       width: 100%;
-      padding: 10px;
-      border-radius: 4px;
+      padding: 14px;
+      border-radius: 8px;
       border: none;
       background: #3b82f6;
       color: #fff;
-      font-size: 16px;
-      font-weight: 500;
+      font-size: clamp(0.95em, 2.5vw, 1em);
+      font-weight: 600;
       cursor: pointer;
       margin-top: 8px;
+      transition: all 0.3s ease;
+      min-height: 44px; /* Touch-friendly */
     }
     button:hover {
       background: #2563eb;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+    }
+    button:active {
+      transform: translateY(0);
     }
     button.secondary {
       background: #444;
@@ -79,38 +120,44 @@
       background: #555;
     }
     .message {
-      padding: 12px;
-      border-radius: 4px;
+      padding: 14px;
+      border-radius: 8px;
       margin-bottom: 16px;
-      font-size: 14px;
+      font-size: clamp(0.85em, 2.2vw, 0.95em);
+      line-height: 1.5;
     }
     .message.error {
-      background: #7f1d1d;
+      background: rgba(127, 29, 29, 0.3);
       border: 1px solid #991b1b;
       color: #fca5a5;
     }
     .message.success {
-      background: #14532d;
+      background: rgba(20, 83, 45, 0.3);
       border: 1px solid #166534;
       color: #86efac;
     }
     .message.info {
-      background: #1e3a5f;
+      background: rgba(30, 58, 95, 0.3);
       border: 1px solid #1e40af;
       color: #93c5fd;
     }
     .toggle-form {
       text-align: center;
       margin-top: 16px;
-      font-size: 14px;
+      font-size: clamp(0.85em, 2.2vw, 0.95em);
       color: #999;
     }
     .toggle-form a {
       color: #3b82f6;
       text-decoration: none;
+      font-weight: 500;
+      padding: 4px 8px;
+      border-radius: 4px;
+      transition: all 0.2s ease;
     }
     .toggle-form a:hover {
-      text-decoration: underline;
+      text-decoration: none;
+      background: rgba(59, 130, 246, 0.2);
     }
     #registerForm {
       display: none;
@@ -121,18 +168,58 @@
     #loginForm.hide {
       display: none;
     }
+    .info-text {
+      text-align: center;
+      margin-top: 16px;
+      color: #888;
+      font-size: clamp(0.8em, 2vw, 0.9em);
+      line-height: 1.5;
+    }
+    .info-text a {
+      color: #3b82f6;
+      text-decoration: none;
+    }
+    .info-text a:hover {
+      text-decoration: underline;
+    }
+    /* Mobile optimizations */
+    @media (max-width: 480px) {
+      body {
+        padding: 8px;
+      }
+      .login-container {
+        padding: 20px;
+        border-width: 1px;
+      }
+      input[type="text"],
+      input[type="password"] {
+        padding: 14px;
+      }
+    }
+    /* Touch-friendly improvements */
+    @media (hover: none) and (pointer: coarse) {
+      button {
+        min-height: 48px;
+      }
+      .toggle-form a {
+        min-height: 44px;
+        display: inline-flex;
+        align-items: center;
+        padding: 8px 12px;
+      }
+    }
   </style>
 </head>
 <body>
   <div class="login-container">
-    <h1>{% if admin_login %}Admin Login{% else %}Tiny Web MUD{% endif %}</h1>
+    <h1>{% if admin_login %}Admin Login{% else %}Hollowvale{% endif %}</h1>
     {% if admin_login %}
-    <p style="text-align: center; color: #888; margin-bottom: 24px;">
+    <p style="text-align: center; color: #888; margin-bottom: 24px; font-size: clamp(0.85em, 2.2vw, 0.95em);">
       Admin access only. Regular users should use the MUD interface.
     </p>
     {% else %}
-    <div style="text-align: center; margin-bottom: 20px;">
-      <a href="{{ url_for('guide') }}" style="color: #3b82f6; text-decoration: none; font-size: 14px;">📜 Player's Guide</a>
+    <div class="guide-link">
+      <a href="{{ url_for('guide') }}">📜 Player's Guide</a>
     </div>
     {% endif %}
     
@@ -147,11 +234,11 @@
     <form id="loginForm" method="POST" action="{% if admin_login %}{{ url_for('admin_login') }}{% else %}{{ url_for('login') }}{% endif %}" {% if show_register and not admin_login %}class="hide"{% endif %}>
       <div class="form-group">
         <label for="username">Username</label>
-        <input type="text" id="username" name="username" value="{{ username or '' }}" required autofocus>
+        <input type="text" id="username" name="username" value="{{ username or '' }}" required autofocus autocomplete="username">
       </div>
       <div class="form-group">
         <label for="password">Password</label>
-        <input type="password" id="password" name="password" required>
+        <input type="password" id="password" name="password" required autocomplete="new-password" data-form-type="other">
       </div>
       <button type="submit">Login</button>
       <div class="toggle-form">
@@ -163,23 +250,23 @@
     <form id="registerForm" method="POST" action="{{ url_for('register') }}" {% if show_register %}class="show"{% endif %} style="display: none;">
       <div class="form-group">
         <label for="reg_username">Username</label>
-        <input type="text" id="reg_username" name="username" required {% if show_register %}autofocus{% endif %}>
+        <input type="text" id="reg_username" name="username" required {% if show_register %}autofocus{% endif %} autocomplete="username">
       </div>
       <div class="form-group">
         <label for="reg_password">Password</label>
-        <input type="password" id="reg_password" name="password" required>
+        <input type="password" id="reg_password" name="password" required autocomplete="new-password" data-form-type="other">
       </div>
       <div class="form-group">
         <label for="confirm_password">Confirm Password</label>
-        <input type="password" id="confirm_password" name="confirm_password" required>
+        <input type="password" id="confirm_password" name="confirm_password" required autocomplete="new-password" data-form-type="other">
       </div>
       <button type="submit">Register</button>
       <div class="toggle-form">
         Already have an account? <a href="#" onclick="showLogin(); return false;">Login</a>
       </div>
     </form>
-    <p style="text-align: center; margin-top: 16px; color: #888; font-size: 14px;">
-      Registration is now done through the MUD interface. <a href="{{ url_for('welcome') }}" style="color: #3b82f6;">Go to MUD</a>
+    <p class="info-text">
+      Registration is now done through the MUD interface. <a href="{{ url_for('welcome') }}">Go to MUD</a>
     </p>
     {% endif %}
   </div>
@@ -196,7 +283,20 @@
       document.getElementById('loginForm').classList.remove('hide');
       document.getElementById('username').focus();
     }
+    
+    // Prevent password autofill
+    document.addEventListener('DOMContentLoaded', function() {
+      const passwordFields = document.querySelectorAll('input[type="password"]');
+      passwordFields.forEach(field => {
+        field.setAttribute('autocomplete', 'off');
+        field.setAttribute('data-lpignore', 'true');
+        field.setAttribute('data-form-type', 'other');
+        // Additional prevention
+        field.addEventListener('focus', function() {
+          this.setAttribute('autocomplete', 'new-password');
+        });
+      });
+    });
   </script>
 </body>
 </html>
-
