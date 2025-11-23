@@ -324,7 +324,7 @@
         <a href="{{ url_for('logout') }}">Log out</a>
       </div>
     </div>
-    <div id="output">{% if log and log|length > 0 and ('[PAUSE:' in (log[0]|string) or '[ELLIPSIS:' in (log[0]|string)) %}{# Pause markers will be processed by JavaScript #}{% else %}{{ "\n".join(log) | safe }}{% endif %}</div>
+    <div id="output">{% if log and log|length > 0 and ('[PAUSE:' in (log[0]|string) or '[ELLIPSIS:' in (log[0]|string)) %}{{ log[0] | safe }}{% else %}{{ "\n".join(log) | safe }}{% endif %}</div>
     <div class="input-row">
       <input id="command" type="text" placeholder="Type a command (try: look, go north, inventory, help)" autocomplete="off">
       <button id="sendBtn">Send</button>
@@ -355,7 +355,7 @@
     if (initialOutput && initialOutput.trim()) {
       // Check if initial output contains pause markers (onboarding messages)
       const textContent = outputEl.textContent || outputEl.innerText || '';
-      if (textContent.includes('[PAUSE:') || textContent.includes('[ELLIPSIS:')) {
+      if (textContent && (textContent.includes('[PAUSE:') || textContent.includes('[ELLIPSIS:'))) {
         // Clear the output and process with pause markers
         outputEl.innerHTML = '';
         // Process the raw text content (which may have pause markers)
