@@ -1858,6 +1858,7 @@ WORLD_CLOCK = {
     "last_restock": {},  # {npc_id: last_restock_in_game_hour}
     "current_period": "day",  # "day" or "night"
     "last_period_change_hour": 0,  # Last in-game hour when period changed
+    "lunar_cycle_start_day": 0,  # Day when current lunar cycle started (for moon phase tracking)
 }
 
 # Configuration: 1 in-game hour = X real-world hours
@@ -2319,6 +2320,168 @@ def get_season():
         return "autumn"
     else:
         return "winter"
+
+
+# --- Lunar Cycle System ---
+# Moon phases cycle over ~30 in-game days (one month)
+
+MOON_CYCLE_DAYS = 30  # Length of a full lunar cycle in in-game days
+
+def get_moon_phase():
+    """
+    Get the current moon phase based on days elapsed.
+    Moon phases: new, waxing_crescent, first_quarter, waxing_gibbous, 
+                 full, waning_gibbous, last_quarter, waning_crescent
+    
+    Returns:
+        str: Current moon phase name
+    """
+    day = get_day_of_year()
+    
+    # Initialize lunar cycle start day if needed
+    if "lunar_cycle_start_day" not in WORLD_CLOCK:
+        WORLD_CLOCK["lunar_cycle_start_day"] = day
+    
+    # Calculate days into current cycle
+    days_in_cycle = (day - WORLD_CLOCK["lunar_cycle_start_day"]) % MOON_CYCLE_DAYS
+    
+    # Divide cycle into 8 phases (approx 3.75 days per phase)
+    phase_length = MOON_CYCLE_DAYS / 8
+    
+    phase_index = int(days_in_cycle / phase_length) % 8
+    
+    phases = [
+        "new",
+        "waxing_crescent",
+        "first_quarter",
+        "waxing_gibbous",
+        "full",
+        "waning_gibbous",
+        "last_quarter",
+        "waning_crescent",
+    ]
+    
+    return phases[phase_index]
+
+
+def get_moon_phase_description():
+    """
+    Get a descriptive text about the current moon phase.
+    
+    Returns:
+        str: Descriptive moon phase text
+    """
+    phase = get_moon_phase()
+    phase_descriptions = {
+        "new": "new moon",
+        "waxing_crescent": "waxing crescent moon",
+        "first_quarter": "waxing half moon",
+        "waxing_gibbous": "waxing gibbous moon",
+        "full": "full moon",
+        "waning_gibbous": "waning gibbous moon",
+        "last_quarter": "waning half moon",
+        "waning_crescent": "waning crescent moon",
+    }
+    return phase_descriptions.get(phase, "moon")
+
+
+def get_time_of_day_moon_description(is_outdoor=True):
+    """
+    Get a contextual time-of-day description that includes moon phase information.
+    This description should complement weather messages and work for both day and night.
+    
+    Args:
+        is_outdoor: Whether the room is outdoor (affects moon visibility descriptions)
+    
+    Returns:
+        str: Descriptive time-of-day/moon text
+    """
+    time_of_day = get_time_of_day()
+    minutes_in_day = GAME_TIME["minutes"] % (HOURS_PER_DAY * MINUTES_PER_HOUR)
+    hour_24h = int(minutes_in_day // MINUTES_PER_HOUR)
+    weather_type = WEATHER_STATE.get("type", "clear")
+    moon_phase = get_moon_phase()
+    moon_desc = get_moon_phase_description()
+    
+    # Daytime descriptions
+    if time_of_day == "day":
+        if is_outdoor:
+            if weather_type in ["overcast", "cloudy"]:
+                return "The sky is overcast, casting everything in muted grey tones."
+            elif weather_type in ["rain", "storm", "sleet"]:
+                return "The day is darkened by heavy clouds and precipitation."
+            elif weather_type == "heatwave":
+                return "The sun beats down mercilessly, baking the land."
+            elif weather_type == "windy":
+                return "The day is bright but restless, with wind whipping through the air."
+            else:
+                return "The sun shines brightly overhead, illuminating the land."
+        else:
+            # Indoor - simpler description
+            return "The day's light filters in from outside."
+    
+    # Dawn descriptions
+    elif time_of_day == "dawn":
+        if is_outdoor:
+            if weather_type in ["overcast", "cloudy"]:
+                return "Dawn breaks muted and grey through the clouds."
+            elif weather_type in ["rain", "storm", "sleet"]:
+                return "Dawn struggles to break through the heavy clouds and rain."
+            elif weather_type == "fog":
+                return "Dawn light filters weakly through the thick fog."
+            else:
+                return "Dawn breaks, painting the sky in shades of pink and gold."
+        else:
+            return "The pale light of dawn filters in through the windows."
+    
+    # Dusk descriptions
+    elif time_of_day == "dusk":
+        if is_outdoor:
+            if weather_type in ["overcast", "cloudy"]:
+                return "Evening settles in, the sky a uniform grey."
+            elif weather_type in ["rain", "storm", "sleet"]:
+                return "Evening falls, darkness deepened by the heavy weather."
+            elif weather_type == "fog":
+                return "Evening mist thickens as daylight fades."
+            else:
+                return "Evening settles in, the sky painted in deep oranges and purples."
+        else:
+            return "Evening light fades as darkness settles outside."
+    
+    # Night descriptions (with moon phases for outdoor, simpler for indoor)
+    else:  # night
+        if is_outdoor:
+            # Check if moon is visible (not new moon and clear/partly cloudy)
+            moon_visible = moon_phase != "new" and weather_type not in ["overcast", "storm", "fog"]
+            
+            if not moon_visible:
+                if weather_type == "overcast":
+                    return "The night is pitch black, clouds obscuring any light from above."
+                elif weather_type == "storm":
+                    return "The night is black as pitch, with no light penetrating the storm clouds."
+                elif weather_type == "fog":
+                    return "The night is lost in impenetrable fog, no light reaching the ground."
+                elif moon_phase == "new":
+                    return "The night is pitch black, the new moon providing no light."
+                else:
+                    return "The night is dark and moonless."
+            else:
+                # Moon is visible - describe it based on phase
+                if moon_phase == "full":
+                    return "The land is bathed in the bright silvery light of the full moon."
+                elif moon_phase in ["waxing_gibbous", "waning_gibbous"]:
+                    return f"The land is lit up by the bright light of the {moon_desc}."
+                elif moon_phase in ["first_quarter", "last_quarter"]:
+                    return f"The land is lit up by the eerie light of the {moon_desc}."
+                elif moon_phase == "waxing_crescent":
+                    return f"The land is dimly lit by the sliver of the {moon_desc}."
+                elif moon_phase == "waning_crescent":
+                    return f"The land is barely lit by the thin crescent of the {moon_desc}."
+                else:
+                    return f"The land is lit up by the light of the {moon_desc}."
+        else:
+            # Indoor at night
+            return "The night is dark outside, little light reaching in."
 
 
 def get_previous_season(current_season):
@@ -5542,6 +5705,10 @@ def describe_location(game):
             all_but_last = ", ".join(present_entities[:-1])
             npcs_text = f"{notice_prefix} {all_but_last} and {present_entities[-1]} are here."
 
+    # Get time-of-day/moon description (replaces room title)
+    is_outdoor = room_def.get("outdoor", False)
+    time_moon_description = get_time_of_day_moon_description(is_outdoor=is_outdoor)
+    
     # Add weather and seasonal overlays for outdoor rooms
     weather_text = ""
     seasonal_overlay = ""
@@ -5551,7 +5718,8 @@ def describe_location(game):
         # Get weather message
         weather_msg = get_weather_message()
         if weather_msg:
-            weather_text = weather_msg
+            # Style weather text in dark yellow (#b8860b)
+            weather_text = f"<span style='color: #b8860b;'>{weather_msg}</span>"
         
         # Get seasonal overlay
         season = get_season()
@@ -5568,9 +5736,25 @@ def describe_location(game):
                         npc_weather_reaction = reaction
                         break
     
-    # Combine all parts
+    # Format exits line properly
+    exit_list = list(room_def["exits"].keys())
+    if len(exit_list) == 0:
+        exits_text = "There are no obvious exits."
+    elif len(exit_list) == 1:
+        exits_text = f"There is one obvious exit: {exit_list[0]}."
+    elif len(exit_list) == 2:
+        exits_text = f"There are two obvious exits: {exit_list[0]} and {exit_list[1]}."
+    else:
+        # Format: "There are X obvious exits: dir1, dir2, dir3 and dir4."
+        all_but_last = ", ".join(exit_list[:-1])
+        exits_text = f"There are {len(exit_list)} obvious exits: {all_but_last} and {exit_list[-1]}."
+    
+    # Style exits text in dark green (#006400)
+    exits_text = f"<span style='color: #006400;'>{exits_text}</span>"
+    
+    # Combine all parts (room title removed, replaced with time-of-day/moon description)
     parts = [
-        room_def['name'],
+        time_moon_description,  # Time-of-day/moon description replaces room title
         desc,
     ]
     
@@ -5578,12 +5762,12 @@ def describe_location(game):
     if seasonal_overlay:
         parts.append(seasonal_overlay)
     
-    # Add weather message
+    # Add weather message (already styled dark yellow)
     if weather_text:
         parts.append(weather_text)
     
-    # Add exits
-    parts.append(f"<span style='color: #ffff00; font-weight: bold;'>Exits:</span> {exits}.")
+    # Add exits (styled dark green)
+    parts.append(exits_text)
     
     # Add items
     parts.append(items_text)
