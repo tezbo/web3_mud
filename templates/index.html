@@ -846,6 +846,14 @@
     let isPollingActive = false;
     
     function startAmbiancePolling() {
+      // Don't start polling during onboarding
+      const isOnboarding = document.body.getAttribute('data-onboarding') === 'true' || 
+                          window.location.search.includes('onboarding=start');
+      if (isOnboarding) {
+        console.log("Onboarding detected, skipping polling");
+        return;
+      }
+      
       if (pollInterval || isPollingActive) {
         console.log("Polling already active, skipping start");
         return; // Already polling

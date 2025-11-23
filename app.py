@@ -802,12 +802,13 @@ def command():
     user_id = session.get("user_id")
     
     # Check if user is in onboarding (for new character creation - may not be logged in yet)
+    # IMPORTANT: Do this BEFORE checking for user_id/login, as users aren't logged in during onboarding
     onboarding_step = session.get("onboarding_step")
     onboarding_state = session.get("onboarding_state")
     
     # Debug: Log session state to help diagnose issues
     import logging
-    logging.debug(f"Command route - onboarding_step: {onboarding_step}, onboarding_state: {onboarding_state}, user_id: {user_id}")
+    logging.info(f"Command route - cmd: '{cmd}', onboarding_step: {onboarding_step}, onboarding_state exists: {onboarding_state is not None}, user_id: {user_id}, session keys: {list(session.keys())}")
     
     # Fallback: if onboarding_state exists but onboarding_step doesn't, infer onboarding_step from state
     if onboarding_step is None and onboarding_state:
@@ -816,7 +817,7 @@ def command():
             onboarding_step = step
             session["onboarding_step"] = step
             session.modified = True
-            logging.debug(f"Inferred onboarding_step from state: {onboarding_step}")
+            logging.info(f"Inferred onboarding_step from state: {onboarding_step}")
     
     # Also check query parameter as fallback if session isn't set yet (for GET requests)
     if onboarding_step is None and request.args.get("onboarding") == "start":
@@ -825,12 +826,12 @@ def command():
         session.permanent = True
         session.modified = True
         onboarding_step = 0
-        logging.debug("Initialized onboarding from query parameter")
+        logging.info("Initialized onboarding from query parameter")
     
     # If in onboarding, handle onboarding commands (user may not be logged in yet)
     # Check explicitly for None - onboarding_step can be 0 (which is falsy but valid)
     if onboarding_step is not None and onboarding_step != "complete" and onboarding_step != "":
-        logging.debug(f"Processing onboarding command at step {onboarding_step}")
+        logging.info(f"Processing onboarding command at step {onboarding_step} for command: '{cmd}'")
         # Handle onboarding commands for new character creation
         from game_engine import handle_onboarding_command
         
