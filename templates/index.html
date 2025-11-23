@@ -6,13 +6,65 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes">
   <meta name="theme-color" content="#0a0a0a">
   <style>
+    /* CSS Variables for theming */
+    :root {
+      --bg-gradient-start: #0a0a0a;
+      --bg-gradient-mid: #1a1a1a;
+      --bg-gradient-end: #0a0a0a;
+      --bg-output: rgba(15, 15, 15, 0.95);
+      --text-primary: #e0e0e0;
+      --text-secondary: #9ca3af;
+      --border-color: #333;
+      --scrollbar-track: #1a1a1a;
+      --scrollbar-thumb: #444;
+      --scrollbar-thumb-hover: #555;
+      --input-bg: #1a1a1a;
+      --input-border: #333;
+      --input-focus-bg: #1f1f1f;
+      --topbar-border: #333;
+      --command-prompt: #60a5fa;
+      --error-message: #f87171;
+      --success-message: #34d399;
+      --npc-message: #fbbf24;
+      --location-name: #a78bfa;
+      --item-name: #60a5fa;
+      --exits-highlight: #fbbf24;
+      --wallet-info: #34d399;
+      --cyan-message: #00ffff;
+    }
+
+    body.light-mode {
+      --bg-gradient-start: #f9fafb;
+      --bg-gradient-mid: #f3f4f6;
+      --bg-gradient-end: #f9fafb;
+      --bg-output: rgba(255, 255, 255, 0.95);
+      --text-primary: #1f2937;
+      --text-secondary: #6b7280;
+      --border-color: #d1d5db;
+      --scrollbar-track: #e5e7eb;
+      --scrollbar-thumb: #9ca3af;
+      --scrollbar-thumb-hover: #6b7280;
+      --input-bg: #ffffff;
+      --input-border: #d1d5db;
+      --input-focus-bg: #f9fafb;
+      --topbar-border: #d1d5db;
+      --command-prompt: #2563eb;
+      --error-message: #dc2626;
+      --success-message: #059669;
+      --npc-message: #d97706;
+      --location-name: #7c3aed;
+      --item-name: #2563eb;
+      --exits-highlight: #d97706;
+      --wallet-info: #059669;
+      --cyan-message: #0891b2;
+    }
     * {
       box-sizing: border-box;
     }
     body {
-      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
+      background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-mid) 50%, var(--bg-gradient-end) 100%);
       background-attachment: fixed;
-      color: #e0e0e0;
+      color: var(--text-primary);
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       margin: 0;
       padding: 0;
@@ -40,7 +92,7 @@
       align-items: center;
       margin-bottom: clamp(12px, 2vw, 16px);
       padding-bottom: clamp(12px, 2vw, 16px);
-      border-bottom: 1px solid #333;
+      border-bottom: 1px solid var(--topbar-border);
       font-size: clamp(12px, 3vw, 14px);
       flex-shrink: 0;
       flex-wrap: wrap;
@@ -66,17 +118,24 @@
       background: rgba(96, 165, 250, 0.1);
     }
     .top-bar strong {
-      color: #f0f0f0;
+      color: var(--text-primary);
       font-weight: 600;
+    }
+    /* Light mode adjustments for specific elements */
+    body.light-mode .top-bar a {
+      color: var(--command-prompt);
+    }
+    body.light-mode .top-bar a:hover {
+      background: rgba(37, 99, 235, 0.1);
     }
     #output {
       flex: 1;
-      border: 1px solid #333;
+      border: 1px solid var(--border-color);
       border-radius: 8px;
       padding: clamp(12px, 3vw, 16px);
       overflow-y: auto;
       white-space: pre-wrap;
-      background: rgba(15, 15, 15, 0.95);
+      background: var(--bg-output);
       font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
       font-size: clamp(12px, 3vw, 14px);
       line-height: 1.7;
@@ -88,55 +147,55 @@
       width: 8px;
     }
     #output::-webkit-scrollbar-track {
-      background: #1a1a1a;
+      background: var(--scrollbar-track);
       border-radius: 4px;
     }
     #output::-webkit-scrollbar-thumb {
-      background: #444;
+      background: var(--scrollbar-thumb);
       border-radius: 4px;
     }
     #output::-webkit-scrollbar-thumb:hover {
-      background: #555;
+      background: var(--scrollbar-thumb-hover);
     }
     /* Text styling classes */
     #output .command-prompt {
-      color: #60a5fa;
+      color: var(--command-prompt);
       font-weight: 600;
     }
     #output .system-message {
-      color: #9ca3af;
+      color: var(--text-secondary);
       font-style: italic;
     }
     #output .error-message {
-      color: #f87171;
+      color: var(--error-message);
       font-weight: 500;
     }
     #output .success-message {
-      color: #34d399;
+      color: var(--success-message);
     }
     #output .npc-message {
-      color: #fbbf24;
+      color: var(--npc-message);
       font-weight: 500;
     }
     #output .location-name {
-      color: #a78bfa;
+      color: var(--location-name);
       font-weight: 600;
       font-size: 15px;
     }
     #output .item-name {
-      color: #60a5fa;
+      color: var(--item-name);
       font-weight: 500;
     }
     #output .exits-highlight {
-      color: #fbbf24;
+      color: var(--exits-highlight);
       font-weight: bold;
     }
     #output .wallet-info {
-      color: #34d399;
+      color: var(--wallet-info);
       font-weight: 500;
     }
     #output .cyan-message {
-      color: #00ffff;
+      color: var(--cyan-message);
       font-weight: 500;
     }
     /* Spacing between messages */
@@ -153,9 +212,9 @@
       flex: 1;
       padding: clamp(12px, 3vw, 14px);
       border-radius: 8px;
-      border: 1px solid #333;
-      background: #1a1a1a;
-      color: #e0e0e0;
+      border: 1px solid var(--input-border);
+      background: var(--input-bg);
+      color: var(--text-primary);
       font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
       font-size: 16px; /* Prevents zoom on iOS */
       transition: all 0.3s ease;
@@ -164,9 +223,9 @@
     }
     #command:focus {
       outline: none;
-      border-color: #60a5fa;
-      box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.1);
-      background: #1f1f1f;
+      border-color: var(--command-prompt);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+      background: var(--input-focus-bg);
     }
     button {
       padding: clamp(12px, 3vw, 14px) clamp(18px, 4vw, 20px);
@@ -231,9 +290,15 @@
     }
     /* Typing indicator */
     .typing-indicator {
-      color: #9ca3af;
+      color: var(--text-secondary);
       font-style: italic;
       opacity: 0.7;
+    }
+    /* Meta command messages */
+    .meta-message {
+      color: var(--text-secondary);
+      font-style: italic;
+      font-size: 0.9em;
     }
     .typing-indicator::after {
       content: '...';
@@ -270,6 +335,33 @@
     const outputEl = document.getElementById("output");
     const commandEl = document.getElementById("command");
     const sendBtn = document.getElementById("sendBtn");
+
+    // Session state tracking
+    const sessionState = {
+      commandHistory: [], // Array of {command: string, timestamp: Date}
+      sessionText: [], // Array of {text: string, timestamp: Date, type: 'output'|'command'}
+      theme: 'dark' // 'dark' or 'light'
+    };
+
+    // Initialize theme from localStorage if available
+    const savedTheme = localStorage.getItem('hollowvale_theme');
+    if (savedTheme === 'light') {
+      document.body.classList.add('light-mode');
+      sessionState.theme = 'light';
+    }
+
+    // Track initial output text
+    const initialOutput = outputEl.innerHTML;
+    if (initialOutput) {
+      const lines = initialOutput.split('\n').filter(line => line.trim());
+      lines.forEach(line => {
+        sessionState.sessionText.push({
+          text: line,
+          timestamp: new Date(),
+          type: 'output'
+        });
+      });
+    }
 
     // Auto-scroll to bottom on page load
     function scrollToBottom() {
@@ -412,7 +504,27 @@
       }
     }
 
-    function appendText(text, showTyping = false) {
+    function appendText(text, showTyping = false, isCommand = false) {
+      // Track text in session state
+      const timestamp = new Date();
+      if (typeof text === 'string') {
+        sessionState.sessionText.push({
+          text: text,
+          timestamp: timestamp,
+          type: isCommand ? 'command' : 'output'
+        });
+      } else if (Array.isArray(text)) {
+        text.forEach(line => {
+          if (line && line.trim()) {
+            sessionState.sessionText.push({
+              text: line,
+              timestamp: timestamp,
+              type: 'output'
+            });
+          }
+        });
+      }
+      
       // Show typing indicator if requested
       if (showTyping) {
         const typingEl = document.createElement('div');
@@ -435,21 +547,165 @@
         if (text.includes('[Error') || text.includes('Error:')) {
           text = `<span class="error-message">${text}</span>`;
         }
-        outputEl.innerHTML = text;
+        const div = document.createElement('div');
+        div.innerHTML = text;
+        outputEl.appendChild(div);
       } else {
         // Process array of log entries
-        outputEl.innerHTML = processLogForDisplay(text);
+        text.forEach(line => {
+          if (line && line.trim()) {
+            const div = document.createElement('div');
+            div.innerHTML = processLogForDisplay([line]);
+            outputEl.appendChild(div);
+          }
+        });
       }
       scrollToBottom();
+    }
+
+    // Meta command handlers
+    function handleMetaCommand(cmd) {
+      const parts = cmd.split(/\s+/);
+      const metaCmd = parts[0].toLowerCase();
+      const timestamp = new Date();
+      
+      // Track command in history
+      sessionState.commandHistory.push({
+        command: cmd,
+        timestamp: timestamp
+      });
+      
+      // Track command in session text
+      sessionState.sessionText.push({
+        text: `> ${cmd}`,
+        timestamp: timestamp,
+        type: 'command'
+      });
+      
+      switch(metaCmd) {
+        case '/clear':
+          outputEl.innerHTML = '';
+          sessionState.sessionText = [];
+          appendText(`<span class="meta-message">[Console cleared]</span>`, false);
+          return true;
+          
+        case '/print':
+          downloadSessionText();
+          return true;
+          
+        case '/history':
+          showCommandHistory();
+          return true;
+          
+        case '/dark-mode':
+          document.body.classList.remove('light-mode');
+          sessionState.theme = 'dark';
+          localStorage.setItem('hollowvale_theme', 'dark');
+          appendText(`<span class="meta-message">[Switched to dark mode]</span>`, false);
+          return true;
+          
+        case '/light-mode':
+          document.body.classList.add('light-mode');
+          sessionState.theme = 'light';
+          localStorage.setItem('hollowvale_theme', 'light');
+          appendText(`<span class="meta-message">[Switched to light mode]</span>`, false);
+          return true;
+          
+        default:
+          return false; // Not a recognized meta command
+      }
+    }
+
+    function downloadSessionText() {
+      if (sessionState.sessionText.length === 0) {
+        appendText(`<span class="meta-message">[No session text to save]</span>`, false);
+        return;
+      }
+      
+      // Format text with timestamps
+      const lines = [];
+      lines.push('=== Hollowvale Game Session Log ===');
+      lines.push(`Session Start: ${sessionState.sessionText[0].timestamp.toLocaleString()}`);
+      lines.push(`Session End: ${new Date().toLocaleString()}`);
+      lines.push('');
+      lines.push('--- Session Content ---');
+      lines.push('');
+      
+      sessionState.sessionText.forEach(entry => {
+        const timeStr = entry.timestamp.toLocaleTimeString();
+        const prefix = entry.type === 'command' ? '> ' : '';
+        // Strip HTML tags for plain text file
+        const text = entry.text.replace(/<[^>]*>/g, '');
+        lines.push(`[${timeStr}] ${prefix}${text}`);
+      });
+      
+      // Create and download file
+      const content = lines.join('\n');
+      const blob = new Blob([content], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      const filename = `hollowvale_session_${new Date().toISOString().split('T')[0]}_${Date.now()}.txt`;
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      
+      appendText(`<span class="meta-message">[Session log saved as ${filename}]</span>`, false);
+    }
+
+    function showCommandHistory() {
+      if (sessionState.commandHistory.length === 0) {
+        appendText(`<span class="meta-message">[No command history]</span>`, false);
+        return;
+      }
+      
+      const lines = [];
+      lines.push('<span class="meta-message">=== Command History ===</span>');
+      sessionState.commandHistory.forEach((entry, index) => {
+        const timeStr = entry.timestamp.toLocaleString();
+        lines.push(`<span class="meta-message">[${timeStr}] ${entry.command}</span>`);
+      });
+      
+      appendText(lines.join('<br>'), false);
     }
 
     async function sendCommand() {
       const cmd = commandEl.value.trim();
       if (!cmd) return;
       
+      // Check if it's a meta command (starts with /)
+      if (cmd.startsWith('/')) {
+        const handled = handleMetaCommand(cmd);
+        if (handled) {
+          commandEl.value = "";
+          commandEl.focus();
+          return;
+        }
+      }
+      
+      // Track command in history (for regular commands too)
+      const timestamp = new Date();
+      sessionState.commandHistory.push({
+        command: cmd,
+        timestamp: timestamp
+      });
+      
       // Show user's command immediately
       const commandLine = `> ${cmd}`;
-      appendText(outputEl.innerHTML + '\n' + `<span class="command-prompt">${commandLine}</span>`, false);
+      const commandDiv = document.createElement('div');
+      commandDiv.innerHTML = `<span class="command-prompt">${commandLine}</span>`;
+      outputEl.appendChild(commandDiv);
+      
+      // Track in session text
+      sessionState.sessionText.push({
+        text: cmd,
+        timestamp: timestamp,
+        type: 'command'
+      });
+      
+      scrollToBottom();
       
       sendBtn.disabled = true;
       
@@ -494,6 +750,18 @@
         }
         
         // Pass the log array directly for proper processing
+        // Track server response in session text
+        if (data.log && Array.isArray(data.log)) {
+          data.log.forEach(line => {
+            if (line && line.trim()) {
+              sessionState.sessionText.push({
+                text: line.replace(/<[^>]*>/g, ''), // Store plain text version
+                timestamp: new Date(),
+                type: 'output'
+              });
+            }
+          });
+        }
         appendText(data.log, false);
       } catch (e) {
         // Remove typing indicator on error
