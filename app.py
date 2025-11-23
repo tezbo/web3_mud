@@ -723,8 +723,10 @@ def command():
         return jsonify({"response": "Please complete character creation first.", "log": processed_log, "onboarding": True})
     
     # Create broadcast function for this user
+    # Capture broadcast_to_room function in local variable to ensure closure works
+    _broadcast_fn = broadcast_to_room
     def broadcast_fn(room_id, text):
-        broadcast_to_room(username, room_id, text)
+        _broadcast_fn(username, room_id, text)
     
     # Get database connection for AI token tracking
     conn = get_db()
