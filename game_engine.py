@@ -1385,7 +1385,6 @@ def process_npc_periodic_actions(game, broadcast_fn=None, who_fn=None):
         season = get_season()
         
         # Show weather reaction for one NPC (if any have reactions)
-        import random
         random.shuffle(npc_ids)
         
         for npc_id in npc_ids:
