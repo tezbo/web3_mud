@@ -2896,7 +2896,7 @@ def invoke_room_detail_callback(action, game, username, room_id, detail_id):
         return "Something unexpected happens, but you're not sure what."
 
 
-def _format_detail_look(detail_id, detail, room_id):
+def _format_detail_look(detail_id, detail, room_id, game=None):
     """
     Format a player-facing description of a room detail/fixture.
     
@@ -2904,11 +2904,32 @@ def _format_detail_look(detail_id, detail, room_id):
         detail_id: The detail ID
         detail: The detail dict from room JSON
         room_id: The room ID (for context)
+        game: Optional game state dict (for noticeboard quest display)
     
     Returns:
         str: Player-facing description
     """
     description = detail.get("description", "You see nothing special about it.")
+    
+    # Special handling for noticeboard - show quest postings
+    detail_name_lower = detail.get("name", "").lower()
+    if detail_id == "notice_board" or "notice board" in detail_name_lower or "noticeboard" in detail_name_lower:
+        import quests
+        from game_engine import GAME_TIME
+        current_tick = GAME_TIME.get("tick", 0)
+        
+        if game is not None:
+            available_quests = quests.get_noticeboard_quests_for_room(game, room_id, current_tick)
+            
+            if available_quests:
+                description += "\n\nSeveral notices are pinned to the board:"
+                for idx, template in enumerate(available_quests, 1):
+                    description += f"\n  {idx}. {template.name} ({template.difficulty})"
+                    if template.timed:
+                        description += f" - Time limit: {template.time_limit_minutes} minutes"
+                description += "\n\n(Type 'read quest <number>' to read a posting, or 'take quest <number>' to accept it.)"
+            else:
+                description += "\n\nThe board is currently empty - no quests are posted right now."
     
     # Optionally add extra hints from stat block if relevant
     stat = detail.get("stat", {})
@@ -4814,7 +4835,7 @@ def handle_command(
                                 if callback_result:
                                     response = callback_result
                                 else:
-                                    response = _format_detail_look(detail_id, detail, room_id)
+                                    response = _format_detail_look(detail_id, detail, room_id, game)
                             else:
                                 response = f"You don't see anything like '{original_target}' here."
         else:
