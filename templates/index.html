@@ -406,6 +406,9 @@
         // Handle cyan color tags [CYAN]...[/CYAN]
         processed = processed.replace(/\[CYAN\](.*?)\[\/CYAN\]/g, '<span class="cyan-message">$1</span>');
         
+        // Handle yellow color tags [YELLOW]...[/YELLOW] (for tell messages)
+        processed = processed.replace(/\[YELLOW\](.*?)\[\/YELLOW\]/g, '<span style="color: #ffff00; font-weight: 500;">$1</span>');
+        
         // Highlight error messages
         if (processed.includes('[Error') || processed.includes('Error:') || processed.includes("can't") || processed.includes("don't")) {
           processed = `<span class="error-message">${processed}</span>`;

@@ -9123,6 +9123,79 @@ def _legacy_handle_command_body(
     elif tokens[0] == "time":
         # Display current in-game time in a creative format
         response = format_time_message(game)
+    
+    elif tokens[0] == "tell" and len(tokens) >= 3:
+        # Private message command: tell <player> <message>
+        # Extract target player and message (preserve original formatting)
+        original_command = command.strip()
+        tell_index = original_command.lower().find("tell ")
+        if tell_index != -1:
+            # Get everything after "tell "
+            after_tell = original_command[tell_index + 5:]  # +5 for "tell "
+            # Find first space to separate player name from message
+            first_space = after_tell.find(" ")
+            if first_space == -1:
+                response = "Usage: tell <player> <message>"
+            else:
+                target_username = after_tell[:first_space].strip()
+                message = after_tell[first_space + 1:].strip()
+        else:
+            # Fallback parsing
+            target_username = tokens[1] if len(tokens) > 1 else ""
+            message = " ".join(tokens[2:]) if len(tokens) > 2 else ""
+        
+        if not target_username or not message:
+            response = "Usage: tell <player> <message>"
+        else:
+            # Check if target player is online
+            target_found = False
+            target_username_lower = target_username.lower()
+            
+            if who_fn:
+                try:
+                    active_players = who_fn()
+                    for player_info in active_players:
+                        player_username = player_info.get("username", "")
+                        if player_username.lower() == target_username_lower:
+                            target_found = True
+                            target_username = player_username  # Use exact case from system
+                            break
+                except Exception:
+                    pass
+            
+            if not target_found:
+                response = f"{target_username} is not currently online."
+            else:
+                # Get target player's game state from ACTIVE_GAMES
+                from app import ACTIVE_GAMES
+                if target_username in ACTIVE_GAMES:
+                    target_game = ACTIVE_GAMES[target_username]
+                    sender_name = username or "Someone"
+                    
+                    # Format messages in bright yellow
+                    # Use [YELLOW] tag which will be converted to HTML by highlight_exits_in_log
+                    to_sender = f"[YELLOW]You tell {target_username}: \"{message}\"[/YELLOW]"
+                    to_target = f"[YELLOW]{sender_name} tells you: \"{message}\"[/YELLOW]"
+                    
+                    # Add message to sender's log
+                    game.setdefault("log", [])
+                    game["log"].append(to_sender)
+                    game["log"] = game["log"][-50:]
+                    
+                    # Add message to target's log
+                    target_game.setdefault("log", [])
+                    target_game["log"].append(to_target)
+                    target_game["log"] = target_game["log"][-50:]
+                    
+                    # Save both game states
+                    from app import save_game, save_state_to_disk
+                    save_game(game)
+                    save_game(target_game)
+                    save_state_to_disk()
+                    
+                    response = to_sender
+                else:
+                    response = f"{target_username} is not currently online."
 
     elif tokens[0] == "notify":
         notify_cfg = game.setdefault("notify", {})
