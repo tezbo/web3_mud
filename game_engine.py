@@ -8692,8 +8692,9 @@ def _legacy_handle_command_body(
                         username=username or "adventurer"
                     )
                     quests.handle_quest_event(game, event)
-        else:
-            response = "Usage: goto <player_name|npc_name>"
+                else:
+                    # Target found but invalid room - already set response above
+                    pass
 
     elif tokens[0] == "set" and len(tokens) >= 4:
         # Admin-only set command: set <target> <property> <value>
