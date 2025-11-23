@@ -399,7 +399,7 @@ def start_quest(game: Dict, username: str, quest_id: str, source: str, active_pl
     # Clear pending offer
     game["pending_quest_offer"] = None
     
-    # Special handling for Lost Package quest - spawn the package in the tavern
+    # Special handling for quest-specific item spawning
     if quest_id == "lost_package":
         from game_engine import ROOM_STATE
         # Add the lost package to the tavern room
@@ -411,6 +411,35 @@ def start_quest(game: Dict, username: str, quest_id: str, source: str, active_pl
         # Only add if it doesn't already exist
         if "lost_package" not in ROOM_STATE[tavern_room_id]["items"]:
             ROOM_STATE[tavern_room_id]["items"].append("lost_package")
+    
+    elif quest_id == "mara_lost_item":
+        # Spawn the kitchen knife in a random accessible room around town
+        from game_engine import QUEST_SPECIFIC_ITEMS, WORLD, GAME_TIME
+        import random
+        
+        # Possible rooms where the knife could be (accessible from town square/tavern)
+        possible_rooms = ["town_square", "market_lane", "smithy"]
+        
+        # Filter to only rooms that exist in the world
+        valid_rooms = [room for room in possible_rooms if room in WORLD]
+        
+        if valid_rooms:
+            # Pick a random room
+            spawn_room = random.choice(valid_rooms)
+            current_tick = GAME_TIME.get("tick", 0)
+            
+            # Store quest-specific item data
+            QUEST_SPECIFIC_ITEMS["mara_kitchen_knife"] = {
+                "quest_id": quest_id,
+                "room_id": spawn_room,
+                "owner_username": username,
+                "spawned_at_tick": current_tick,
+                "clues": [
+                    "A glint of metal catches your eye.",
+                    "You notice something shiny half-hidden among the cobblestones.",
+                    "Something metallic reflects the light nearby.",
+                ]
+            }
     
     return f"You accept the quest: {template.name}.\n{template.description}"
 
@@ -525,18 +554,33 @@ def complete_quest(game: Dict, username: str, quest_id: str) -> str:
                         ITEM_DEFS[item_id]["flags"].append("quest")
                     ITEM_DEFS[item_id]["droppable"] = False
             
-            # Add items to inventory
-            for _ in range(quantity):
-                inventory.append(item_id)
-            
-            from game_engine import render_item_name
-            item_name = render_item_name(item_id)
-            if quantity == 1:
-                messages.append(f"You receive {item_name}.")
+            # Special handling for Mara's lost item quest - player already has the knife
+            if quest_id == "mara_lost_item" and item_id == "mara_kitchen_knife":
+                # Player already has the knife in inventory (they gave it to Mara, but she gives it back)
+                from game_engine import render_item_name
+                item_name = render_item_name(item_id)
+                messages.append(f"Mara smiles warmly. 'Oh, it turns out I already have one of these! You can keep the one you found - consider it a token of my gratitude.'")
+                # Item is already in inventory, no need to add again
             else:
-                messages.append(f"You receive {quantity} {item_name}s.")
+                # Add items to inventory
+                for _ in range(quantity):
+                    inventory.append(item_id)
+                
+                from game_engine import render_item_name
+                item_name = render_item_name(item_id)
+                if quantity == 1:
+                    messages.append(f"You receive {item_name}.")
+                else:
+                    messages.append(f"You receive {quantity} {item_name}s.")
         
         game["inventory"] = inventory
+    
+    # Clean up quest-specific items
+    if quest_id == "mara_lost_item":
+        from game_engine import QUEST_SPECIFIC_ITEMS
+        if "mara_kitchen_knife" in QUEST_SPECIFIC_ITEMS:
+            # Item should already be in player's inventory, but clean up tracking anyway
+            del QUEST_SPECIFIC_ITEMS["mara_kitchen_knife"]
     
     # Add completion note
     instance["notes"].append("Quest completed successfully.")
@@ -706,22 +750,40 @@ def handle_quest_event(game: Dict, event: QuestEvent):
                     required_npc = objective.get("npc_id", None)
                     required_room = objective.get("room_id", None)
                     
-                    # Check if player has item
-                    inventory = game.get("inventory", [])
-                    has_item = required_item in inventory
-                    
-                    # Check NPC requirement
-                    if required_npc:
-                        if event.get("npc_id") != required_npc:
-                            has_item = False
-                    
-                    # Check room requirement
-                    if required_room:
-                        if event.get("room_id") != required_room:
-                            has_item = False
-                    
-                    if has_item and (required_npc or required_room):
-                        satisfied = True
+                    # Check if item was just given
+                    if event.get("type") == "give_item" and event.get("item_id") == required_item:
+                        # Item was given, check NPC and room requirements
+                        item_given = True
+                        npc_match = not required_npc or event.get("npc_id") == required_npc
+                        room_match = not required_room or event.get("room_id") == required_room
+                        
+                        if item_given and npc_match and room_match:
+                            satisfied = True
+                            # Special case: For Mara's lost item quest, add item back to inventory
+                            # (Mara gives it back - "I already have one, you keep it")
+                            if quest_id == "mara_lost_item" and required_item == "mara_kitchen_knife":
+                                # Item was removed by give command, but Mara gives it back
+                                inventory = game.get("inventory", [])
+                                if "mara_kitchen_knife" not in inventory:
+                                    inventory.append("mara_kitchen_knife")
+                                    game["inventory"] = inventory
+                    else:
+                        # Check if player currently has item (for talk_to_npc events or if item wasn't removed)
+                        inventory = game.get("inventory", [])
+                        has_item = required_item in inventory
+                        
+                        # Check NPC requirement
+                        if required_npc:
+                            if event.get("npc_id") != required_npc:
+                                has_item = False
+                        
+                        # Check room requirement
+                        if required_room:
+                            if event.get("room_id") != required_room:
+                                has_item = False
+                        
+                        if has_item and (required_npc or required_room):
+                            satisfied = True
             
             # Mark objective as completed
             if satisfied:
@@ -1262,6 +1324,93 @@ def initialize_quests():
     )
     
     register_quest_template(lost_package_template)
+    
+    # Mara's Lost Item quest
+    mara_lost_item_template = QuestTemplate(
+        id="mara_lost_item",
+        name="Mara's Lost Kitchen Knife",
+        description="Mara the innkeeper has lost her favorite kitchen knife somewhere in town. She needs someone to help her find it because she can't leave the tavern with customers to serve.",
+        giver_id="npc:innkeeper",
+        difficulty="Easy",
+        category="Errand",
+        timed=False,
+        time_limit_minutes=None,
+        actors=["innkeeper"],
+        stages=[
+            {
+                "id": "offer_help",
+                "description": "Ask Mara what's wrong and offer to help find her lost item.",
+                "objectives": [
+                    {
+                        "id": "talk_to_mara",
+                        "type": "talk_to_npc",
+                        "npc_id": "innkeeper"
+                    },
+                    {
+                        "id": "offer_help_obj",
+                        "type": "say_to_npc",
+                        "npc_id": "innkeeper",
+                        "keywords": ["help", "what's wrong", "what have you lost", "how can i help", "can i help", "what happened"]
+                    }
+                ]
+            },
+            {
+                "id": "find_knife",
+                "description": "Search around town to find Mara's lost kitchen knife.",
+                "objectives": [
+                    {
+                        "id": "obtain_knife",
+                        "type": "obtain_item",
+                        "item_id": "mara_kitchen_knife"
+                    }
+                ]
+            },
+            {
+                "id": "return_knife",
+                "description": "Return the kitchen knife to Mara at the tavern.",
+                "objectives": [
+                    {
+                        "id": "deliver_knife",
+                        "type": "deliver_item",
+                        "item_id": "mara_kitchen_knife",
+                        "npc_id": "innkeeper",
+                        "room_id": "tavern"
+                    }
+                ]
+            }
+        ],
+        rewards={
+            "currency": {"amount": 3, "currency_type": "silver"},
+            "reputation": [
+                {"target": "npc:innkeeper", "amount": 8, "reason": "Helped recover her kitchen knife"}
+            ],
+            "items": [
+                {
+                    "item_id": "mara_kitchen_knife",
+                    "quantity": 1,
+                    "quest_item": False  # Player gets to keep the knife
+                }
+            ]
+        },
+        offer_sources=[
+            {
+                "type": "npc_dialogue",
+                "npc_id": "innkeeper",
+                "trigger": {
+                    "kind": "say_contains",
+                    "keywords": ["help", "what's wrong", "what have you lost", "how can i help", "can i help", "what happened", "lost"]
+                },
+                "offer_text": "Mara looks up with relief. 'Oh, thank you! I've lost my favorite kitchen knife somewhere in town. I've been searching everywhere, but I can't leave the tavern with all these customers to tend to. Could you help me find it? I was out doing errands earlier - it could be anywhere around the town square or market lane. Please, I'll make it worth your while!'"
+            }
+        ],
+        failure_reputation=None,
+        shared=False,  # Exclusive quest - only one player at a time
+        max_players=1,
+        newbie_priority=True,  # Perfect for first quest
+        max_per_player=1  # Can only complete once per player (makes it special)
+    )
+    
+    register_quest_template(mara_lost_item_template)
 
 
 def register_quest_template(template: QuestTemplate):

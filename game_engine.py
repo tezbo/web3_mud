@@ -1208,6 +1208,15 @@ ITEM_DEFS = {
         "weight": 5.0,
         "flags": [],
     },
+    "mara_kitchen_knife": {
+        "name": "kitchen knife",
+        "type": "weapon",
+        "description": "A well-balanced kitchen knife, sharp and sturdy. Though meant for cooking, it could serve as a weapon in a pinch. The handle is worn smooth from years of use.",
+        "weight": 0.5,
+        "flags": ["tool", "weapon"],
+        "weapon_type": "melee",
+        "damage": 2,
+    },
     "bowl_of_stew": {
         "name": "bowl of stew",
         "type": "food",
@@ -1692,6 +1701,18 @@ BURIED_ITEMS = {}
 #   }
 # }
 QUEST_GLOBAL_STATE = {}
+
+# --- Quest-Specific Items (items only visible to quest owners) ---
+# Format: {
+#   "item_id": {
+#     "quest_id": str,  # Which quest this item belongs to
+#     "room_id": str,   # Which room the item is in
+#     "owner_username": str,  # Which player can see/take this item
+#     "spawned_at_tick": int,  # When item was spawned
+#     "clues": [str],  # Environmental clues that can be shown
+#   }
+# }
+QUEST_SPECIFIC_ITEMS = {}
 
 # --- NPC Periodic Actions State (tracks when NPCs last performed actions per room) ---
 # Format: {
@@ -5888,8 +5909,20 @@ def describe_location(game):
     player_characters = game.get("other_players", {}).get(loc_id, [])
 
     # Build items text using ITEM_DEFS for human-friendly names
-    if items:
-        item_names = [render_item_name(item_id) for item_id in items]
+    # Filter items to show only those visible to this player (including quest-specific items)
+    username = game.get("username", "")
+    visible_items = list(items)  # Start with regular room items
+    
+    # Add quest-specific items that belong to this player
+    for item_id, quest_item_data in QUEST_SPECIFIC_ITEMS.items():
+        if quest_item_data.get("room_id") == loc_id:
+            owner = quest_item_data.get("owner_username", "")
+            if owner == username:
+                if item_id not in visible_items:
+                    visible_items.append(item_id)
+    
+    if visible_items:
+        item_names = [render_item_name(item_id) for item_id in visible_items]
         items_text = "You can see: " + ", ".join(item_names) + "."
     else:
         items_text = "You don't see anything notable lying around."
@@ -7297,17 +7330,43 @@ def _legacy_handle_command_body(
             room_state = ROOM_STATE.setdefault(loc_id, {"items": []})
             room_items = room_state["items"]
 
+            # Check quest-specific items first (player-specific)
+            username = game.get("username", "")
+            quest_items_in_room = []
+            for item_id, quest_item_data in QUEST_SPECIFIC_ITEMS.items():
+                if quest_item_data.get("room_id") == loc_id and quest_item_data.get("owner_username") == username:
+                    quest_items_in_room.append(item_id)
+            
+            # Combine regular room items and quest-specific items for matching
+            all_items_in_room = room_items + quest_items_in_room
+            
             # Use match_item_name_in_collection for intelligent matching
-            matched_item = match_item_name_in_collection(item_input, room_items)
+            matched_item = match_item_name_in_collection(item_input, all_items_in_room)
             
             if matched_item:
+                # Check if it's a quest-specific item
+                is_quest_item = matched_item in QUEST_SPECIFIC_ITEMS
+                if is_quest_item:
+                    # Verify ownership
+                    quest_item_data = QUEST_SPECIFIC_ITEMS[matched_item]
+                    if quest_item_data.get("owner_username") != username:
+                        matched_item = None  # Not visible to this player
                 item_def = get_item_def(matched_item)
                 item_weight = item_def.get("weight", 0.1)
                 
                 if current_weight + item_weight > max_weight:
                     response = "You can't pick up much more, you'll fall over!"
                 else:
-                    room_items.remove(matched_item)
+                    # Remove from appropriate location (regular room or quest-specific)
+                    is_quest_item = matched_item in QUEST_SPECIFIC_ITEMS
+                    if is_quest_item:
+                        # Remove from quest-specific items tracking
+                        del QUEST_SPECIFIC_ITEMS[matched_item]
+                    else:
+                        # Remove from regular room items
+                        if matched_item in room_items:
+                            room_items.remove(matched_item)
+                    
                     inventory.append(matched_item)
                     game["inventory"] = inventory
                     display_name = render_item_name(matched_item)

@@ -1090,7 +1090,7 @@ def poll_updates():
         
         npc_ids = get_npcs_in_room(current_room)
         if npc_ids:
-            npc_actions = get_all_npc_actions_for_room(current_room)
+            npc_actions = get_all_npc_actions_for_room(current_room, game=game, active_players_fn=list_active_players)
             if npc_actions:
                 # Show one random NPC action
                 npc_id, action = random.choice(list(npc_actions.items()))

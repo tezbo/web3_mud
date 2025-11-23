@@ -6,7 +6,7 @@ Actions are room-appropriate and broadcast to all players in the room.
 """
 
 import random
-from typing import Dict, List, Optional
+from typing import Dict, List, Optional, Any
 from npc import NPCS
 
 # NPC actions by room - each NPC has a list of actions for each room they can be in
@@ -157,13 +157,15 @@ NPC_ACTIONS: Dict[str, Dict[str, List[str]]] = {
 }
 
 
-def get_npc_action(npc_id: str, room_id: str) -> Optional[str]:
+def get_npc_action(npc_id: str, room_id: str, game: Optional[Dict] = None, active_players_fn=None) -> Optional[str]:
     """
     Get a random action for an NPC in a specific room.
     
     Args:
         npc_id: The NPC ID
         room_id: The current room ID
+        game: Optional game state dict (for quest-based conditional actions)
+        active_players_fn: Optional function to get active players (for quest availability checks)
     
     Returns:
         str or None: A random action string, or None if no actions are defined
@@ -171,6 +173,37 @@ def get_npc_action(npc_id: str, room_id: str) -> Optional[str]:
     npc_actions = NPC_ACTIONS.get(npc_id)
     if not npc_actions:
         return None
+    
+    # Check for quest-based conditional actions (e.g., Mara's frantic searching)
+    if npc_id == "innkeeper" and room_id == "tavern" and game:
+        # Check if lost item quest is available to any player in the room
+        import quests
+        from game_engine import QUEST_GLOBAL_STATE
+        quest_id = "mara_lost_item"
+        
+        # Check if quest is available (not taken by anyone yet, or available to this player)
+        if quest_id in quests.QUEST_TEMPLATES:
+            username = game.get("username", "")
+            is_available, _ = quests.is_quest_available_to_player(game, username, quest_id, active_players_fn)
+            
+            # Check if no one has the quest active and player hasn't completed it
+            quest_state = QUEST_GLOBAL_STATE.get(quest_id, {})
+            active_players = quest_state.get("active_players", [])
+            player_quests = game.get("quests", {})
+            quest_instance = player_quests.get(quest_id)
+            has_completed = quest_instance and quest_instance.get("status") == "completed"
+            
+            if is_available and not active_players and not has_completed:
+                # Show frantic searching actions
+                frantic_actions = [
+                    "Mara searches frantically under a table, muttering to herself.",
+                    "Mara looks around the room with a worried expression, checking every corner.",
+                    "Mara sighs heavily, looking distressed. 'Oh, where could it be...'",
+                    "Mara pats down her apron pockets, growing more anxious.",
+                    "Mara peers behind the bar counter, clearly searching for something.",
+                    "Mara pauses mid-task, looking lost in thought. 'I'm sure I had it earlier...'",
+                ]
+                return random.choice(frantic_actions)
     
     # Try room-specific actions first
     actions = npc_actions.get(room_id)
@@ -186,12 +219,14 @@ def get_npc_action(npc_id: str, room_id: str) -> Optional[str]:
     return random.choice(actions)
 
 
-def get_all_npc_actions_for_room(room_id: str) -> Dict[str, str]:
+def get_all_npc_actions_for_room(room_id: str, game: Optional[Dict] = None, active_players_fn=None) -> Dict[str, str]:
     """
     Get actions for all NPCs currently in a room.
     
     Args:
         room_id: The room ID
+        game: Optional game state dict (for quest-based conditional actions)
+        active_players_fn: Optional function to get active players (for quest availability checks)
     
     Returns:
         dict: Mapping of npc_id -> action_string for NPCs that have actions
@@ -201,7 +236,7 @@ def get_all_npc_actions_for_room(room_id: str) -> Dict[str, str]:
     actions = {}
     for npc_id, npc_state in NPC_STATE.items():
         if npc_state.get("room") == room_id and npc_state.get("alive", True):
-            action = get_npc_action(npc_id, room_id)
+            action = get_npc_action(npc_id, room_id, game, active_players_fn)
             if action:
                 actions[npc_id] = action
     
