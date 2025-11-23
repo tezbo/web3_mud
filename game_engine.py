@@ -1245,23 +1245,88 @@ def advance_time(ticks=1):
     GAME_TIME["minutes"] = GAME_TIME["tick"] // TICKS_PER_MINUTE
 
 
+def get_sunrise_sunset_times():
+    """
+    Get sunrise and sunset times in minutes for the current season.
+    
+    Returns:
+        tuple: (sunrise_minutes, sunset_minutes)
+    """
+    season = get_season()
+    
+    # Sunrise times (in minutes from midnight)
+    sunrise_times = {
+        "spring": 6 * 60 + 30,    # 6:30am
+        "summer": 6 * 60,          # 6:00am
+        "autumn": 6 * 60 + 30,    # 6:30am
+        "winter": 7 * 60,          # 7:00am
+    }
+    
+    # Sunset times (in minutes from midnight)
+    sunset_times = {
+        "spring": 19 * 60 + 30,   # 7:30pm
+        "summer": 20 * 60,         # 8:00pm
+        "autumn": 19 * 60 + 30,   # 7:30pm
+        "winter": 19 * 60,         # 7:00pm
+    }
+    
+    return sunrise_times.get(season, 6 * 60), sunset_times.get(season, 20 * 60)
+
+
+def get_current_hour_in_minutes():
+    """
+    Get current hour in minutes from midnight (0-1439).
+    Uses GAME_TIME tick-based system.
+    
+    Returns:
+        int: Current hour in minutes (0-1439)
+    """
+    minutes_in_day = GAME_TIME["minutes"] % (HOURS_PER_DAY * MINUTES_PER_HOUR)
+    return int(minutes_in_day)
+
+
+def get_current_hour_12h():
+    """
+    Get current hour in 12-hour format (1-12).
+    
+    Returns:
+        int: Current hour (1-12)
+    """
+    minutes_in_day = GAME_TIME["minutes"] % (HOURS_PER_DAY * MINUTES_PER_HOUR)
+    hour_24h = int(minutes_in_day // MINUTES_PER_HOUR)
+    
+    # Convert to 12-hour format
+    if hour_24h == 0:
+        return 12
+    elif hour_24h <= 12:
+        return hour_24h
+    else:
+        return hour_24h - 12
+
+
 def get_time_of_day():
     """
-    Get the time of day based on current in-game minutes.
+    Get the time of day based on current in-game minutes and seasonal sunrise/sunset.
     
     Returns:
         str: "night", "dawn", "day", or "dusk"
     """
     minutes_in_day = GAME_TIME["minutes"] % (HOURS_PER_DAY * MINUTES_PER_HOUR)
-    hour = minutes_in_day // MINUTES_PER_HOUR
+    sunrise_min, sunset_min = get_sunrise_sunset_times()
     
-    if 0 <= hour < 6:
-        return "night"
-    elif 6 <= hour < 8:
+    # Dawn: 30 minutes before sunrise to 30 minutes after sunrise
+    dawn_start = max(0, sunrise_min - 30)
+    dawn_end = sunrise_min + 30
+    
+    # Dusk: 30 minutes before sunset to 30 minutes after sunset
+    dusk_start = max(0, sunset_min - 30)
+    dusk_end = min(HOURS_PER_DAY * MINUTES_PER_HOUR, sunset_min + 30)
+    
+    if dawn_start <= minutes_in_day < dawn_end:
         return "dawn"
-    elif 8 <= hour < 18:
+    elif dawn_end <= minutes_in_day < dusk_start:
         return "day"
-    elif 18 <= hour < 20:
+    elif dusk_start <= minutes_in_day < dusk_end:
         return "dusk"
     else:
         return "night"
@@ -1686,6 +1751,208 @@ def apply_weather_to_description(description, time_of_day):
             modified = modified.replace("spreads out", "spreads out under the grey, overcast sky")
     
     return modified
+
+
+def calculate_room_distance(start_room_id, target_room_id, max_distance=10):
+    """
+    Calculate the shortest path distance between two rooms using BFS.
+    
+    Args:
+        start_room_id: Starting room ID
+        target_room_id: Target room ID
+        max_distance: Maximum distance to search (default: 10)
+    
+    Returns:
+        int: Distance in rooms, or None if unreachable within max_distance
+    """
+    if start_room_id == target_room_id:
+        return 0
+    
+    if start_room_id not in WORLD or target_room_id not in WORLD:
+        return None
+    
+    # BFS to find shortest path
+    queue = [(start_room_id, 0)]
+    visited = {start_room_id}
+    
+    while queue:
+        current_room, distance = queue.pop(0)
+        
+        if distance >= max_distance:
+            continue
+        
+        if current_room not in WORLD:
+            continue
+        
+        room_def = WORLD[current_room]
+        exits = room_def.get("exits", {})
+        
+        for direction, next_room_id in exits.items():
+            if next_room_id == target_room_id:
+                return distance + 1
+            
+            if next_room_id not in visited and next_room_id in WORLD:
+                visited.add(next_room_id)
+                queue.append((next_room_id, distance + 1))
+    
+    return None
+
+
+def get_rooms_within_distance(center_room_id, max_distance=5):
+    """
+    Get all rooms within a certain distance from a center room.
+    
+    Args:
+        center_room_id: Center room ID
+        max_distance: Maximum distance (default: 5)
+    
+    Returns:
+        list: List of (room_id, distance) tuples
+    """
+    rooms_within = []
+    
+    for room_id in WORLD.keys():
+        distance = calculate_room_distance(center_room_id, room_id, max_distance + 1)
+        if distance is not None and distance <= max_distance:
+            rooms_within.append((room_id, distance))
+    
+    return rooms_within
+
+
+def check_sunrise_sunset_transitions(broadcast_fn=None, who_fn=None):
+    """
+    Check for sunrise/sunset transitions and broadcast notifications.
+    Only sends to players with notify time on.
+    
+    Args:
+        broadcast_fn: Optional callback(room_id, message) for broadcasting
+        who_fn: Optional callback() -> list[dict] for getting active players
+    
+    Returns:
+        list: List of (room_id, message) tuples for notifications
+    """
+    notifications = []
+    
+    # Track last sunrise/sunset in GAME_TIME
+    if "last_sunrise_minute" not in GAME_TIME:
+        GAME_TIME["last_sunrise_minute"] = -1
+    if "last_sunset_minute" not in GAME_TIME:
+        GAME_TIME["last_sunset_minute"] = -1
+    
+    current_minutes = get_current_hour_in_minutes()
+    sunrise_min, sunset_min = get_sunrise_sunset_times()
+    season = get_season()
+    
+    # Check for sunrise (within 1 minute window)
+    if abs(current_minutes - sunrise_min) <= 1 and GAME_TIME["last_sunrise_minute"] != sunrise_min:
+        GAME_TIME["last_sunrise_minute"] = sunrise_min
+        season_name = season.capitalize()
+        message = f"[CYAN]The sun rises over Hollowvale, marking the start of a new {season_name} day.[/CYAN]"
+        
+        # Broadcast to all outdoor rooms (filtered by notify time in app.py)
+        if broadcast_fn and who_fn:
+            active_players = who_fn()
+            outdoor_rooms = set()
+            
+            for player in active_players:
+                loc_id = player.get("location", "town_square")
+                if loc_id in WORLD and WORLD[loc_id].get("outdoor", False):
+                    outdoor_rooms.add(loc_id)
+            
+            for room_id in outdoor_rooms:
+                broadcast_fn(room_id, message)
+                notifications.append((room_id, message))
+    
+    # Check for sunset (within 1 minute window)
+    if abs(current_minutes - sunset_min) <= 1 and GAME_TIME["last_sunset_minute"] != sunset_min:
+        GAME_TIME["last_sunset_minute"] = sunset_min
+        season_name = season.capitalize()
+        message = f"[CYAN]The sun sets over Hollowvale, bringing {season_name} night.[/CYAN]"
+        
+        # Broadcast to all outdoor rooms (filtered by notify time in app.py)
+        if broadcast_fn and who_fn:
+            active_players = who_fn()
+            outdoor_rooms = set()
+            
+            for player in active_players:
+                loc_id = player.get("location", "town_square")
+                if loc_id in WORLD and WORLD[loc_id].get("outdoor", False):
+                    outdoor_rooms.add(loc_id)
+            
+            for room_id in outdoor_rooms:
+                broadcast_fn(room_id, message)
+                notifications.append((room_id, message))
+    
+    return notifications
+
+
+def check_bell_tolling(broadcast_fn=None, who_fn=None):
+    """
+    Check if it's time for the bell to toll (on the hour) and broadcast messages.
+    
+    Args:
+        broadcast_fn: Optional callback(room_id, message) for broadcasting
+        who_fn: Optional callback() -> list[dict] for getting active players
+    
+    Returns:
+        list: List of notifications sent
+    """
+    notifications = []
+    
+    # Track last bell toll hour
+    if "last_bell_hour" not in GAME_TIME:
+        GAME_TIME["last_bell_hour"] = -1
+    
+    current_minutes = get_current_hour_in_minutes()
+    current_hour_24h = int(current_minutes // MINUTES_PER_HOUR)
+    current_minute = int(current_minutes % MINUTES_PER_HOUR)
+    
+    # Only toll on the hour (minute 0)
+    if current_minute == 0 and GAME_TIME["last_bell_hour"] != current_hour_24h:
+        GAME_TIME["last_bell_hour"] = current_hour_24h
+        hour_12h = get_current_hour_12h()
+        
+        # Get all rooms within 5 steps of town_square
+        belltower_room = "town_square"
+        rooms_within = get_rooms_within_distance(belltower_room, max_distance=5)
+        
+        if broadcast_fn and who_fn:
+            active_players = who_fn()
+            
+            # Group players by room
+            players_by_room = {}
+            for player in active_players:
+                loc_id = player.get("location", "town_square")
+                if loc_id not in players_by_room:
+                    players_by_room[loc_id] = []
+                players_by_room[loc_id].append(player)
+            
+            # Send messages based on distance
+            for room_id, distance in rooms_within:
+                if room_id in players_by_room:
+                    if distance == 0:
+                        # In town square - direct message
+                        message = f"[CYAN]The bell in the tower on the square tolls {hour_12h} time{'s' if hour_12h > 1 else ''}.[/CYAN]"
+                    elif distance == 1:
+                        # Very close
+                        message = f"[CYAN]A bell tolls {hour_12h} time{'s' if hour_12h > 1 else ''} nearby, its sound clear and strong.[/CYAN]"
+                    elif distance == 2:
+                        # Close
+                        message = f"[CYAN]A bell tolls {hour_12h} time{'s' if hour_12h > 1 else ''} in the distance, its sound carrying clearly.[/CYAN]"
+                    elif distance == 3:
+                        # Medium distance
+                        message = f"[CYAN]A bell tolls {hour_12h} time{'s' if hour_12h > 1 else ''} in the distance.[/CYAN]"
+                    elif distance == 4:
+                        # Far
+                        message = f"[CYAN]A faint bell tolls {hour_12h} time{'s' if hour_12h > 1 else ''} in the distance.[/CYAN]"
+                    else:  # distance == 5
+                        # Very far
+                        message = f"[CYAN]A distant bell tolls {hour_12h} time{'s' if hour_12h > 1 else ''}, barely audible.[/CYAN]"
+                    
+                    broadcast_fn(room_id, message)
+                    notifications.append((room_id, message))
+    
+    return notifications
 
 
 def get_seasonal_room_overlay(room_def, season, weather_state):
@@ -3079,6 +3346,7 @@ def get_movement_message(target_room_id, direction):
 def format_time_message(game):
     """
     Format a creative time message based on the player's location and current in-game time.
+    Uses seasonal sunrise/sunset times.
     
     Args:
         game: The game state dictionary
@@ -3118,47 +3386,24 @@ def format_time_message(game):
         else:
             location_name = room_name
     
-    # Get current in-game time (returns fractional hours with full precision)
-    current_hour = get_current_in_game_hour()
-    in_game_hours_per_day = IN_GAME_DAY_DURATION / IN_GAME_HOUR_DURATION
-    
-    # Calculate hour within the day (0-2 hours per day, with full precision)
-    hour_in_day = current_hour % in_game_hours_per_day
-    
-    # Convert to 12-hour format with exact minutes
-    # Each in-game day = 2 in-game hours, mapped to 24 real-world hours
-    # 0-1 in-game hours = day (6:00 AM - 6:00 PM), 1-2 = night (6:00 PM - 6:00 AM)
-    if hour_in_day < 1.0:
-        # Day period: map 0-1 in-game hours to 6:00 AM - 6:00 PM (12 hours)
-        # hour_in_day ranges from 0.0 to 1.0, representing 0 to 12 hours
-        total_minutes_in_period = hour_in_day * 12 * 60  # Total minutes elapsed in day period
-        total_minutes_from_6am = 6 * 60 + total_minutes_in_period  # Minutes since midnight
-    else:
-        # Night period: map 1-2 in-game hours to 6:00 PM - 6:00 AM (12 hours)
-        # hour_in_day ranges from 1.0 to 2.0, representing 12 to 24 hours
-        total_minutes_in_period = (hour_in_day - 1.0) * 12 * 60  # Total minutes elapsed in night period
-        total_minutes_from_6am = 18 * 60 + total_minutes_in_period  # Minutes since midnight
-    
-    # Handle wrap-around for night period (after midnight)
-    if total_minutes_from_6am >= 24 * 60:
-        total_minutes_from_6am -= 24 * 60
-    
-    # Convert to hours and minutes
-    real_hour = int(total_minutes_from_6am // 60)
-    minutes = int(total_minutes_from_6am % 60)
+    # Get current time using GAME_TIME (tick-based system)
+    current_minutes = get_current_hour_in_minutes()
+    hour_24h = int(current_minutes // MINUTES_PER_HOUR)
+    minutes = int(current_minutes % MINUTES_PER_HOUR)
     
     # Determine AM/PM and format hour for 12-hour display
-    period = "AM" if real_hour < 12 else "PM"
-    display_hour = real_hour if real_hour <= 12 else real_hour - 12
+    period = "AM" if hour_24h < 12 else "PM"
+    display_hour = hour_24h if hour_24h <= 12 else hour_24h - 12
     if display_hour == 0:
         display_hour = 12
     
     # Format time string with exact minutes (e.g., "6:05AM", "12:30PM")
     time_str = f"{display_hour}:{minutes:02d}{period}"
     
-    # Get period description
-    current_period = get_current_period()
-    period_desc = "day" if current_period == "day" else "night"
+    # Get time of day and season
+    time_of_day = get_time_of_day()
+    season = get_season()
+    season_name = season.capitalize()
     
     # Create creative messages with variations
     messages = [
@@ -3170,20 +3415,30 @@ def format_time_message(game):
         f"The shadows and light tell you it is {time_str} in {location_name}.",
     ]
     
-    # Add period-specific messages
-    if current_period == "day":
+    # Add time-of-day specific messages
+    if time_of_day == "dawn":
         messages.extend([
-            f"Under the bright {period_desc}light, the time in {location_name} is {time_str}.",
+            f"In the pale light of dawn, the time in {location_name} is {time_str}.",
+            f"As the sun rises, you know it is {time_str} in {location_name}.",
+        ])
+    elif time_of_day == "day":
+        messages.extend([
+            f"Under the bright {season_name} sun, the time in {location_name} is {time_str}.",
             f"The sun's position confirms it is {time_str} in {location_name}.",
         ])
-    else:
+    elif time_of_day == "dusk":
         messages.extend([
-            f"Beneath the {period_desc} sky, the time in {location_name} is {time_str}.",
+            f"As evening approaches, the time in {location_name} is {time_str}.",
+            f"In the fading light, you know it is {time_str} in {location_name}.",
+        ])
+    else:  # night
+        messages.extend([
+            f"Beneath the {season_name} night sky, the time in {location_name} is {time_str}.",
             f"The moon and stars mark the hour as {time_str} in {location_name}.",
         ])
     
     # Use deterministic selection based on hour to avoid randomness
-    message_index = int(current_hour) % len(messages)
+    message_index = hour_24h % len(messages)
     return messages[message_index]
 
 
@@ -3847,7 +4102,12 @@ def handle_command(
                             # Try room details/fixtures
                             detail_id, detail, room_id = resolve_room_detail(game, target_text)
                             if detail_id and detail:
-                                response = _format_detail_look(detail_id, detail, room_id)
+                                # Check if there's a look callback
+                                callback_result = invoke_room_detail_callback("look", game, username or "adventurer", room_id, detail_id)
+                                if callback_result:
+                                    response = callback_result
+                                else:
+                                    response = _format_detail_look(detail_id, detail, room_id)
                             else:
                                 response = f"You don't see anything like '{original_target}' here."
         else:

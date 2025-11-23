@@ -713,6 +713,31 @@ def command():
                 who_fn=list_active_players,
             )
             
+            # Check for sunrise/sunset transitions and bell tolling
+            from game_engine import check_sunrise_sunset_transitions, check_bell_tolling
+            
+            # Filter broadcast function to only notify players with notify time on
+            def filtered_broadcast_fn(room_id, text):
+                for uname, g in ACTIVE_GAMES.items():
+                    if g.get("location") == room_id:
+                        notify_cfg = g.get("notify", {})
+                        if notify_cfg.get("time", False):
+                            g.setdefault("log", [])
+                            g["log"].append(text)
+                            g["log"] = g["log"][-50:]
+            
+            # Check sunrise/sunset (only for players with notify time on)
+            check_sunrise_sunset_transitions(
+                broadcast_fn=filtered_broadcast_fn,
+                who_fn=list_active_players
+            )
+            
+            # Check bell tolling (always broadcasts, no notify filter needed)
+            check_bell_tolling(
+                broadcast_fn=broadcast_fn,
+                who_fn=list_active_players
+            )
+            
             # Trigger NPC periodic actions (random chance on each command)
             import random
             from npc_actions import get_all_npc_actions_for_room

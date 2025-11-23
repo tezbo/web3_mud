@@ -32,6 +32,66 @@ def smithy_touch_hammers(game, username, room_id, detail_id):
     return "You run your hand along the worn handles of the hammers. The wood is smooth from years of use."
 
 
+def belltower_touch(game, username, room_id, detail_id):
+    """
+    Callback for touching the belltower.
+    
+    Args:
+        game: The game state dictionary (can be mutated)
+        username: The username of the player
+        room_id: The room ID where this detail is located
+        detail_id: The detail ID that was interacted with
+    
+    Returns:
+        str: Response message to display to the player
+    """
+    from game_engine import get_current_hour_12h, get_time_of_day
+    
+    hour = get_current_hour_12h()
+    time_of_day = get_time_of_day()
+    
+    messages = [
+        f"You touch the cool stone of the belltower. The bell hangs silently above, last tolling at {hour} o'clock.",
+        f"You run your hand along the weathered stone. The belltower stands solid and ancient, a keeper of time.",
+        f"You feel the rough texture of the stone. The bell above is still, waiting for the next hour to strike.",
+    ]
+    
+    import random
+    return random.choice(messages)
+
+
+def belltower_look(game, username, room_id, detail_id):
+    """
+    Callback for looking at the belltower specifically.
+    
+    Args:
+        game: The game state dictionary (can be mutated)
+        username: The username of the player
+        room_id: The room ID where this detail is located
+        detail_id: The detail ID that was interacted with
+    
+    Returns:
+        str: Response message to display to the player
+    """
+    from game_engine import get_current_hour_12h, get_time_of_day
+    
+    hour = get_current_hour_12h()
+    time_of_day = get_time_of_day()
+    
+    time_desc = {
+        "dawn": "The bell catches the first rays of morning light.",
+        "day": "The bell is clearly visible in the open arches.",
+        "dusk": "The bell is silhouetted against the darkening sky.",
+        "night": "The bell is a dark shape against the night sky.",
+    }
+    
+    return (
+        f"A stone belltower rises from the center of the square, its weathered stone showing the passage of time. "
+        f"The bell hangs within open arches, visible from below. {time_desc.get(time_of_day, '')} "
+        f"It's clearly old, but well-maintained, and serves as both a landmark and timekeeper for Hollowvale."
+    )
+
+
 # Add more callbacks here as needed
 # Example structure:
 # def <room>_<action>_<detail>(game, username, room_id, detail_id):
