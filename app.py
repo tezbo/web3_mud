@@ -196,6 +196,7 @@ def cleanup_stale_sessions():
     """
     Remove stale sessions and clean up ACTIVE_GAMES for players who haven't been active.
     Called periodically to keep the active player list accurate.
+    Broadcasts logout notifications and saves game state before removal.
     """
     from datetime import datetime, timedelta
     global ACTIVE_GAMES, ACTIVE_SESSIONS
@@ -209,10 +210,31 @@ def cleanup_stale_sessions():
         if not last_activity or last_activity < cutoff_time:
             stale_usernames.append(username)
     
-    # Remove stale sessions
+    # Remove stale sessions and notify other players
     for username in stale_usernames:
+        # Save game state before removing
+        if username in ACTIVE_GAMES:
+            game = ACTIVE_GAMES[username]
+            save_game(game)
+            
+            # Broadcast logout notification to all other players (not just same room)
+            logout_msg = f"[{username} has been logged out automatically for being idle too long.]"
+            
+            # Notify all other players
+            for uname, g in ACTIVE_GAMES.items():
+                if uname != username:
+                    g.setdefault("log", [])
+                    g["log"].append(logout_msg)
+                    g["log"] = g["log"][-50:]
+                    # Save notification to other players' logs (if they have active sessions)
+                    try:
+                        if uname in ACTIVE_SESSIONS:
+                            save_game(g)
+                    except Exception:
+                        pass  # Skip if can't save
+        
         ACTIVE_SESSIONS.pop(username, None)
-        # Optionally also remove from ACTIVE_GAMES (or keep for quick reload)
+        # Keep game state in ACTIVE_GAMES for quick reload, but mark as inactive
         # ACTIVE_GAMES.pop(username, None)
 
 
@@ -662,17 +684,24 @@ def logout():
     """Logout handler."""
     username = session.get("username")
     
-    # Broadcast logout notification before clearing session
+    # Save game state before logout
     if username and username in ACTIVE_GAMES:
+        save_game(ACTIVE_GAMES[username])
+        save_state_to_disk()
+        
+        # Broadcast logout notification to all other players (not just those with notify login)
+        logout_msg = f"[{username} has logged out.]"
         for uname, g in ACTIVE_GAMES.items():
-            if uname == username:
-                continue
-            notify_cfg = g.get("notify", {})
-            if notify_cfg.get("login"):
+            if uname != username:
                 g.setdefault("log", [])
-                g["log"].append(f"[{username} has logged out]")
+                g["log"].append(logout_msg)
                 g["log"] = g["log"][-50:]
-                save_game(g)
+                # Save notification to other players' logs (if they have active sessions)
+                try:
+                    if uname in ACTIVE_SESSIONS:
+                        save_game(g)
+                except Exception:
+                    pass  # Skip if can't save
         
         # Remove from active games and sessions
         ACTIVE_GAMES.pop(username, None)
@@ -865,24 +894,27 @@ def command():
     
     # Check if user confirmed logout
     if response == "__LOGOUT__":
-        # Before removing the user, notify others who have login notifications turned on
+        # Save game state before logout
+        save_game(game)
+        save_state_to_disk()
+        
+        # Broadcast logout notification to all other players (not just those with notify login)
+        logout_msg = f"[{username} has logged out.]"
         for uname, g in ACTIVE_GAMES.items():
-            if uname == username:
-                continue
-            notify_cfg = g.get("notify", {})
-            if notify_cfg.get("login"):
+            if uname != username:
                 g.setdefault("log", [])
-                g["log"].append(f"[{username} has logged out]")
+                g["log"].append(logout_msg)
                 g["log"] = g["log"][-50:]
-                save_game(g)
+                # Save notification to other players' logs
+                try:
+                    if uname in ACTIVE_SESSIONS:
+                        save_game(g)
+                except Exception:
+                    pass  # Skip if can't save
         
         # Remove this user from ACTIVE_GAMES and ACTIVE_SESSIONS
         ACTIVE_GAMES.pop(username, None)
         ACTIVE_SESSIONS.pop(username, None)
-        
-        # Save game state before logout
-        save_game(game)
-        save_state_to_disk()
         
         # Return special response to trigger logout on client
         return jsonify({"logout": True, "message": "You have logged out.", "log": []})
@@ -892,6 +924,124 @@ def command():
     # Process log to highlight Exits in yellow
     processed_log = highlight_exits_in_log(game["log"])
     return jsonify({"response": response, "log": processed_log})
+
+
+# Track last poll timestamp per player for ambiance/NPC messages
+LAST_POLL_STATE = {}  # username -> {"last_poll_tick": int, "last_poll_time": datetime}
+
+
+@app.route("/poll", methods=["POST"])
+@require_auth
+def poll_updates():
+    """
+    Poll endpoint for real-time ambiance and NPC action updates.
+    Returns new messages that have accumulated since last poll.
+    """
+    username = session.get("username")
+    user_id = session.get("user_id")
+    
+    if not username or not user_id:
+        return jsonify({"messages": []})
+    
+    game = get_game()
+    if not game:
+        return jsonify({"messages": []})
+    
+    # Update session activity
+    from datetime import datetime
+    ACTIVE_SESSIONS[username] = {
+        "last_activity": datetime.now(),
+        "session_id": session.get("session_id", id(session)),
+    }
+    
+    # Create broadcast function for this user
+    def broadcast_fn(room_id, text):
+        broadcast_to_room(username, room_id, text)
+    
+    # Get current tick
+    from game_engine import get_current_game_tick, advance_time, update_weather_if_needed
+    from game_engine import update_player_weather_status, update_npc_weather_statuses
+    from game_engine import cleanup_buried_items, process_npc_periodic_actions
+    from game_engine import process_time_based_exit_states, process_npc_movements
+    import ambiance
+    
+    # Advance time slightly (but don't accumulate too much - just for ambiance processing)
+    current_tick = get_current_game_tick()
+    
+    # Update weather/player status
+    update_weather_if_needed()
+    update_player_weather_status(game)
+    update_npc_weather_statuses()
+    cleanup_buried_items()
+    
+    # Process time-based exit states
+    process_time_based_exit_states(broadcast_fn=broadcast_fn, who_fn=list_active_players)
+    
+    # Process NPC movements
+    process_npc_movements(broadcast_fn=broadcast_fn)
+    
+    # Collect new messages since last poll
+    new_messages = []
+    log_length_before = len(game.get("log", []))
+    
+    # Process NPC periodic actions (this adds to game["log"] if actions occur)
+    process_npc_periodic_actions(game, broadcast_fn=broadcast_fn, who_fn=list_active_players)
+    
+    # Process room ambiance
+    current_room = game.get("location", "town_square")
+    
+    # Check if enough time has passed for ambiance (15-25 game minutes = 15-25 ticks)
+    last_poll_info = LAST_POLL_STATE.get(username, {})
+    last_poll_tick = last_poll_info.get("last_poll_tick", current_tick)
+    elapsed_ticks = current_tick - last_poll_tick
+    
+    # Only show ambiance if enough time has passed (15+ ticks = 15+ game minutes)
+    if elapsed_ticks >= 15:
+        accumulated_count = ambiance.get_accumulated_ambiance_messages(current_room, current_tick, game)
+        
+        if accumulated_count > 0:
+            # Generate ambiance messages
+            ambiance_messages = []
+            for _ in range(min(accumulated_count, 1)):  # Max 1 message per poll to avoid spam
+                msg = ambiance.process_room_ambiance(game, broadcast_fn=broadcast_fn)
+                if msg:
+                    ambiance_messages.extend(msg)
+            
+            # Remove duplicates
+            seen = set()
+            unique_messages = []
+            for msg in ambiance_messages:
+                if msg not in seen:
+                    seen.add(msg)
+                    unique_messages.append(msg)
+            
+            if unique_messages:
+                game.setdefault("log", [])
+                for msg in unique_messages:
+                    game["log"].append(msg)
+                game["log"] = game["log"][-50:]
+                ambiance.update_ambiance_tick(current_room, current_tick, messages_shown=len(unique_messages))
+    
+    # Get new messages added to log
+    log_after = game.get("log", [])
+    if len(log_after) > log_length_before:
+        new_messages = log_after[log_length_before:]
+    
+    # Update last poll state
+    LAST_POLL_STATE[username] = {
+        "last_poll_tick": current_tick,
+        "last_poll_time": datetime.now(),
+    }
+    
+    # Save game state if new messages were added
+    if new_messages:
+        save_game(game)
+        save_state_to_disk()
+    
+    # Process messages for display
+    processed_messages = highlight_exits_in_log(new_messages) if new_messages else []
+    
+    return jsonify({"messages": processed_messages})
 
 
 def require_admin(f):

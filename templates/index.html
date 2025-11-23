@@ -810,6 +810,68 @@
     
     // Initial scroll
     setTimeout(scrollToBottom, 50);
+    
+    // Real-time ambiance polling - check for new messages every 5 seconds
+    // This makes the world feel alive even when the player is idle
+    let pollInterval = null;
+    let isPollingActive = false;
+    
+    function startAmbiancePolling() {
+      if (pollInterval || isPollingActive) {
+        return; // Already polling
+      }
+      
+      isPollingActive = true;
+      pollInterval = setInterval(async () => {
+        try {
+          const res = await fetch("/poll", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            credentials: "same-origin"
+          });
+          
+          if (!res.ok) {
+            // If unauthorized or error, stop polling
+            if (res.status === 401 || res.status === 403) {
+              stopAmbiancePolling();
+            }
+            return;
+          }
+          
+          const data = await res.json();
+          
+          if (data.messages && Array.isArray(data.messages) && data.messages.length > 0) {
+            // Append new messages to output
+            appendText(data.messages, false);
+          }
+        } catch (e) {
+          console.error("Error polling for ambiance:", e);
+          // Stop polling on error to avoid spam
+          stopAmbiancePolling();
+        }
+      }, 5000); // Poll every 5 seconds
+    }
+    
+    function stopAmbiancePolling() {
+      if (pollInterval) {
+        clearInterval(pollInterval);
+        pollInterval = null;
+      }
+      isPollingActive = false;
+    }
+    
+    // Start polling when page loads (only if user is logged in)
+    window.addEventListener('load', () => {
+      // Small delay to ensure session is ready
+      setTimeout(() => {
+        startAmbiancePolling();
+      }, 2000);
+    });
+    
+    // Stop polling when page unloads
+    window.addEventListener('beforeunload', () => {
+      stopAmbiancePolling();
+    });
   </script>
 </body>
 </html>
