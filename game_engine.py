@@ -3633,7 +3633,18 @@ def is_exit_accessible(room_id, direction, actor_type="player", actor_id=None, g
     if exit_def is None:
         return False, "You can't go that way."
     
-    # Handle string exits (backward compatible - always accessible)
+    # Check dynamic exit state FIRST (locked/hidden by time or other conditions)
+    # This applies to both string and dict exits
+    if room_id in EXIT_STATES and direction in EXIT_STATES[room_id]:
+        exit_state = EXIT_STATES[room_id][direction]
+        if exit_state.get("locked", False):
+            reason = exit_state.get("reason", "The way is locked.")
+            return False, reason
+        if exit_state.get("hidden", False):
+            reason = exit_state.get("reason", "You don't see a way in that direction.")
+            return False, reason
+    
+    # Handle string exits (backward compatible - accessible if not locked/hidden)
     if isinstance(exit_def, str):
         return True, None
     
@@ -3644,16 +3655,6 @@ def is_exit_accessible(room_id, direction, actor_type="player", actor_id=None, g
     target = exit_def.get("target")
     if not target:
         return False, "You can't go that way."
-    
-    # Check dynamic exit state (locked/hidden by time or other conditions)
-    if room_id in EXIT_STATES and direction in EXIT_STATES[room_id]:
-        exit_state = EXIT_STATES[room_id][direction]
-        if exit_state.get("locked", False):
-            reason = exit_state.get("reason", "The way is locked.")
-            return False, reason
-        if exit_state.get("hidden", False):
-            reason = exit_state.get("reason", "You don't see a way in that direction.")
-            return False, reason
     
     # Check static exit properties
     if exit_def.get("locked", False):
