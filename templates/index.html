@@ -783,6 +783,21 @@
         
         const data = await res.json();
         
+        // Check if onboarding has completed - if so, clean up onboarding state and start polling
+        if (data.onboarding === false && (window.location.search.includes('onboarding=start') || document.body.getAttribute('data-onboarding') === 'true')) {
+          console.log("Onboarding completed, cleaning up and starting polling");
+          // Remove onboarding parameter from URL without reload
+          const url = new URL(window.location);
+          url.searchParams.delete('onboarding');
+          window.history.replaceState({}, '', url);
+          // Remove onboarding attribute from body
+          document.body.removeAttribute('data-onboarding');
+          // Start polling now that onboarding is complete
+          setTimeout(() => {
+            startAmbiancePolling();
+          }, 1000);
+        }
+        
         // Check if logout was confirmed
         if (data.logout) {
           // Redirect to logout URL
