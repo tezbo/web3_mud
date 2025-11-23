@@ -1742,15 +1742,16 @@ def process_npc_periodic_actions(game, broadcast_fn=None, who_fn=None):
     
     if num_npcs > 0:
         # Calculate how many actions should have happened
-        # Every 5 in-game minutes (60 ticks) on average, but more NPCs = more frequent actions
-        # At 12x speed: 5 game minutes = ~25 real-world seconds, so NPCs act every ~25 seconds when idle
-        action_interval = max(36, 96 - (num_npcs * 8))  # 36-96 ticks depending on NPC count
+        # Every 3-5 in-game minutes (36-60 ticks) on average, but more NPCs = more frequent actions
+        # At 12x speed: 3 game minutes = ~15 real-world seconds, so NPCs act more frequently
+        action_interval = max(36, 72 - (num_npcs * 6))  # 36-72 ticks depending on NPC count
         
         # Show accumulated actions based on elapsed time
-        # But cap at reasonable number to avoid spam
-        max_actions_to_show = min(3, num_npcs)  # Up to 3 actions max
-        
-        actions_to_show = min(max_actions_to_show, elapsed_ticks // action_interval)
+        # Allow more actions if more time has passed, but cap to avoid spam
+        actions_to_show = elapsed_ticks // action_interval
+        # Cap at reasonable number: allow up to 5-8 actions depending on NPC count
+        max_actions_to_show = min(max(5, num_npcs * 2), 10)  # More NPCs = can show more actions
+        actions_to_show = min(actions_to_show, max_actions_to_show)
         
         if actions_to_show > 0:
             from npc_actions import get_all_npc_actions_for_room

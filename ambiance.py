@@ -441,45 +441,58 @@ def process_room_ambiance(game: Dict, broadcast_fn=None) -> List[str]:
 AMBIANCE_STATE: Dict[str, Dict[str, int]] = {}  # {room_id: {"last_ambiance_tick": int}}
 
 
-def should_show_ambiance(room_id: str, current_tick: int) -> bool:
+def get_accumulated_ambiance_messages(room_id: str, current_tick: int, game: Dict) -> int:
     """
-    Determine if ambiance should be shown now.
-    Ambiance appears roughly every 30-60 in-game minutes (2.5-5 real-world minutes).
+    Calculate how many ambiance messages should have accumulated since last check.
+    Ambiance appears roughly every 15-25 in-game minutes (~1-2 real-world minutes).
     
     Args:
         room_id: The room ID
         current_tick: Current game tick
+        game: Game state dict (for getting room ambiance)
     
     Returns:
-        bool: True if ambiance should be shown
+        int: Number of ambiance messages that should be shown (0 or more)
     """
     if room_id not in AMBIANCE_STATE:
         AMBIANCE_STATE[room_id] = {"last_ambiance_tick": current_tick}
-        return True
+        return 1  # Show first message immediately
     
     last_tick = AMBIANCE_STATE[room_id].get("last_ambiance_tick", current_tick)
     elapsed_ticks = current_tick - last_tick
     
-    # Show ambiance roughly every 30-60 game minutes
-    # At 12x speed, 30 game minutes = 2.5 real-world minutes
-    # 60 game minutes = 5 real-world minutes
-    min_interval = 30  # 30 game minutes
-    max_interval = 60  # 60 game minutes
+    # Show ambiance roughly every 15-25 game minutes
+    # At 12x speed: 15 game minutes = 1.25 real-world minutes, 25 = ~2 minutes
+    # This makes rooms feel more alive
+    min_interval = 15  # 15 game minutes
+    max_interval = 25  # 25 game minutes
     
     if elapsed_ticks >= min_interval:
-        # Random chance to show (increases as time passes)
-        if elapsed_ticks >= max_interval:
-            return True
-        chance = (elapsed_ticks - min_interval) / (max_interval - min_interval)
-        import random
-        return random.random() < chance
+        # Calculate how many messages should have accumulated
+        # Each message appears every 15-25 ticks
+        interval = (min_interval + max_interval) / 2  # Average ~20 ticks
+        accumulated = int(elapsed_ticks / interval)
+        
+        # Cap at reasonable number to avoid spam (max 5 messages at once)
+        return min(accumulated, 5)
     
-    return False
+    return 0
 
 
-def update_ambiance_tick(room_id: str, current_tick: int):
-    """Update the last ambiance tick for a room."""
+def update_ambiance_tick(room_id: str, current_tick: int, messages_shown: int = 1):
+    """
+    Update the last ambiance tick for a room.
+    
+    Args:
+        room_id: The room ID
+        current_tick: Current game tick
+        messages_shown: Number of messages shown (to calculate proper interval)
+    """
     if room_id not in AMBIANCE_STATE:
         AMBIANCE_STATE[room_id] = {}
-    AMBIANCE_STATE[room_id]["last_ambiance_tick"] = current_tick
+    
+    # Update based on how many messages were shown
+    # Each message represents ~20 ticks of elapsed time
+    interval_per_message = 20
+    AMBIANCE_STATE[room_id]["last_ambiance_tick"] = current_tick - (current_tick % interval_per_message)
 
