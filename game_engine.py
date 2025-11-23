@@ -4017,8 +4017,9 @@ def process_time_based_exit_states(broadcast_fn=None, who_fn=None):
             del last_hour["tavern_locked"]
     
     # Ensure door stays locked between 1am and 10am (re-apply lock if needed)
-    elif (hour_of_day > 1 and hour_of_day < 10) or (hour_of_day == 0):
-        # Between 1am and 10am (or after midnight before 1am), door should be locked
+    # This handles edge cases where the door state might have been reset or lost
+    elif (hour_of_day > 1 and hour_of_day < 10):
+        # Between 1am and 10am, door should be locked
         # Check if it's locked, and if not, lock it (handles edge cases)
         tavern_exit_state = EXIT_STATES.get(tavern_room_id, {}).get(tavern_door_direction, {})
         town_square_exit_state = EXIT_STATES.get("town_square", {}).get(town_square_to_tavern, {})
