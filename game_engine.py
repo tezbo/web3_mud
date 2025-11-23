@@ -5798,6 +5798,53 @@ def format_time_message(game):
     return messages[message_index]
 
 
+def number_to_words(n):
+    """
+    Convert a number to its word representation (e.g., 3 -> "three").
+    
+    Args:
+        n: Integer to convert
+    
+    Returns:
+        str: Word representation of the number
+    """
+    if n < 0:
+        return "negative " + number_to_words(-n)
+    
+    words_0_19 = [
+        "zero", "one", "two", "three", "four", "five", "six", "seven", 
+        "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", 
+        "fifteen", "sixteen", "seventeen", "eighteen", "nineteen"
+    ]
+    
+    if n < 20:
+        return words_0_19[n]
+    
+    # For numbers 20 and above, we'll handle them simply
+    # Most rooms won't have more than 10 exits, but we handle higher numbers too
+    tens = ["twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"]
+    
+    if n < 100:
+        tens_digit = n // 10
+        ones_digit = n % 10
+        if ones_digit == 0:
+            return tens[tens_digit - 2]
+        return tens[tens_digit - 2] + "-" + words_0_19[ones_digit]
+    
+    # For 100+, we'll just return the number as words aren't commonly used
+    # But we'll still convert for completeness
+    if n < 1000:
+        hundreds_digit = n // 100
+        remainder = n % 100
+        result = words_0_19[hundreds_digit] + " hundred"
+        if remainder > 0:
+            result += " and " + number_to_words(remainder)
+        return result
+    
+    # For very large numbers, just return the numeric string
+    return str(n)
+
+
 def describe_location(game):
     """
     Generate a description of the player's current location.
@@ -5900,16 +5947,17 @@ def describe_location(game):
     
     # Format exits line properly
     exit_list = list(room_def["exits"].keys())
-    if len(exit_list) == 0:
+    num_exits = len(exit_list)
+    if num_exits == 0:
         exits_text = "There are no obvious exits."
-    elif len(exit_list) == 1:
+    elif num_exits == 1:
         exits_text = f"There is one obvious exit: {exit_list[0]}."
-    elif len(exit_list) == 2:
+    elif num_exits == 2:
         exits_text = f"There are two obvious exits: {exit_list[0]} and {exit_list[1]}."
     else:
         # Format: "There are X obvious exits: dir1, dir2, dir3 and dir4."
         all_but_last = ", ".join(exit_list[:-1])
-        exits_text = f"There are {len(exit_list)} obvious exits: {all_but_last} and {exit_list[-1]}."
+        exits_text = f"There are {number_to_words(num_exits)} obvious exits: {all_but_last} and {exit_list[-1]}."
     
     # Style exits text in dark green (#006400)
     exits_text = f"<span style='color: #006400;'>{exits_text}</span>"
