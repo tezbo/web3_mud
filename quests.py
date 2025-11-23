@@ -919,8 +919,21 @@ def maybe_offer_npc_quest(game: Dict, username: str, npc_id: str, player_text: s
     Returns:
         Optional[str]: Extra flavor text if quest is offered, None otherwise
     """
-    # Check all quest templates for NPC-based offers
+    # Prioritize certain quests by checking them first
+    # mara_lost_item should be checked before lost_package since they have overlapping keywords
+    priority_quest_ids = ["mara_lost_item"]  # Add more priority quests here if needed
+    
+    # Build list of quests to check: priority first, then rest
+    quests_to_check = []
+    for quest_id in priority_quest_ids:
+        if quest_id in QUEST_TEMPLATES:
+            quests_to_check.append((quest_id, QUEST_TEMPLATES[quest_id]))
     for quest_id, template in QUEST_TEMPLATES.items():
+        if quest_id not in priority_quest_ids:
+            quests_to_check.append((quest_id, template))
+    
+    # Check all quest templates for NPC-based offers
+    for quest_id, template in quests_to_check:
         # Skip if player already has this quest active
         if quest_id in game.get("quests", {}):
             quest_instance = game["quests"][quest_id]

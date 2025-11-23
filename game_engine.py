@@ -8456,22 +8456,21 @@ def _legacy_handle_command_body(
                                     if len(game["npc_memory"][npc_id]) > 20:
                                         game["npc_memory"][npc_id] = game["npc_memory"][npc_id][-20:]
                     
-                    # Add AI reactions to response
-                    if ai_reactions:
-                        response += "\n" + "\n".join(ai_reactions)
-                    
-                    # Check for quest offers from NPCs (if player spoke to an NPC)
+                    # Check for quest offers from NPCs BEFORE generating AI reactions
+                    # If a quest is offered, suppress AI chatter to avoid double responses
                     import quests
                     from game_engine import GAME_TIME
                     current_tick = GAME_TIME.get("tick", 0)
                     
+                    quest_offered = False
                     # Check each NPC in the room to see if they should offer a quest
                     for npc_id in npc_ids:
                         if npc_id in NPCS:
                             quest_offer_text = quests.maybe_offer_npc_quest(game, username or "adventurer", npc_id, message, current_tick, active_players_fn=who_fn)
                             if quest_offer_text:
                                 response += "\n" + quest_offer_text
-                                
+                                quest_offered = True
+                            
                             # Trigger quest event for saying to NPC
                             event = quests.QuestEvent(
                                 type="say_to_npc",
@@ -8482,11 +8481,15 @@ def _legacy_handle_command_body(
                             )
                             quests.handle_quest_event(game, event)
                     
+                    # Only add AI reactions if no quest was offered (prevents double responses)
+                    if not quest_offered and ai_reactions:
+                        response += "\n" + "\n".join(ai_reactions)
+                    
                     # Broadcast say message to other players in the room (in cyan)
-                if broadcast_fn is not None:
-                    # Preserve original formatting and capitalize properly
-                    formatted_message = f"[CYAN]{player_message}[/CYAN]"
-                    broadcast_fn(loc_id, formatted_message)
+                    if broadcast_fn is not None:
+                        # Preserve original formatting and capitalize properly
+                        formatted_message = f"[CYAN]{player_message}[/CYAN]"
+                        broadcast_fn(loc_id, formatted_message)
 
     elif tokens[0] in ["talk", "speak", "chat"]:
         if len(tokens) < 2:

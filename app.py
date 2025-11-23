@@ -925,7 +925,10 @@ def command():
             save_game(game)
             
             # Return completion message with pauses as a single string for frontend processing
-            log = [response] + game["log"]
+            # Only include the response and new game log entries, not the entire history
+            # The response already contains the pause markers, which the frontend will process
+            # Don't include game["log"] here as it would duplicate messages and include pause markers
+            log = [response]
             conn.close()
         else:
             # Return onboarding response as a string (with pause markers) for frontend processing
@@ -1064,8 +1067,22 @@ def command():
     
     save_game(game)
     save_state_to_disk()
-    # Process log to highlight Exits in yellow
-    processed_log = highlight_exits_in_log(game["log"])
+    
+    # Only return NEW log messages from this command, not the entire log history
+    # Track the last log index we've sent to this client
+    session.setdefault("last_log_index", -1)
+    last_log_index = session.get("last_log_index", -1)
+    current_log = game.get("log", [])
+    new_log_entries = current_log[last_log_index + 1:] if last_log_index < len(current_log) - 1 else []
+    
+    # Update the last log index we've sent
+    if new_log_entries:
+        session["last_log_index"] = len(current_log) - 1
+        session.modified = True
+    
+    # Process only new log entries to highlight Exits in yellow
+    processed_log = highlight_exits_in_log(new_log_entries) if new_log_entries else []
+    
     return jsonify({"response": response, "log": processed_log})
 
 
