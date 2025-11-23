@@ -9166,53 +9166,37 @@ def _legacy_handle_command_body(
             if not target_found:
                 response = f"{target_username} is not currently online."
             else:
-                # Get target player's game state - we need to access ACTIVE_GAMES
-                # Use a callback function passed from app.py to avoid circular imports
-                # For now, we'll need to pass a function that can get/save target game state
-                # Since we can't import app directly, we'll use a different approach:
-                # The app.py will handle the actual message delivery after we return
-                # But for now, let's try importing at function level (lazy import)
-                try:
-                    import sys
-                    # Get the app module if it's already loaded
-                    if 'app' in sys.modules:
-                        app_module = sys.modules['app']
-                        ACTIVE_GAMES = app_module.ACTIVE_GAMES
-                        save_game_func = app_module.save_game
-                        save_state_to_disk_func = app_module.save_state_to_disk
-                        
-                        if target_username in ACTIVE_GAMES:
-                            target_game = ACTIVE_GAMES[target_username]
-                            sender_name = username or "Someone"
-                            
-                            # Format messages in bright yellow
-                            # Use [YELLOW] tag which will be converted to HTML by highlight_exits_in_log
-                            to_sender = f"[YELLOW]You tell {target_username}: \"{message}\"[/YELLOW]"
-                            to_target = f"[YELLOW]{sender_name} tells you: \"{message}\"[/YELLOW]"
-                            
-                            # Add message to sender's log
-                            game.setdefault("log", [])
-                            game["log"].append(to_sender)
-                            game["log"] = game["log"][-50:]
-                            
-                            # Add message to target's log
-                            target_game.setdefault("log", [])
-                            target_game["log"].append(to_target)
-                            target_game["log"] = target_game["log"][-50:]
-                            
-                            # Save both game states
-                            save_game_func(game)
-                            save_game_func(target_game)
-                            save_state_to_disk_func()
-                            
-                            response = to_sender
-                        else:
-                            response = f"{target_username} is not currently online."
-                    else:
-                        response = f"Unable to send message to {target_username}. Please try again."
-                except Exception as e:
-                    # Fallback if import fails
-                    response = f"Unable to send message to {target_username}. Please try again."
+                # Get target player's game state from ACTIVE_GAMES
+                # This import is safe because app.py imports game_engine, not the other way around
+                from app import ACTIVE_GAMES, save_game, save_state_to_disk
+                
+                if target_username in ACTIVE_GAMES:
+                    target_game = ACTIVE_GAMES[target_username]
+                    sender_name = username or "Someone"
+                    
+                    # Format messages in bright yellow
+                    # Use [YELLOW] tag which will be converted to HTML by highlight_exits_in_log
+                    to_sender = f"[YELLOW]You tell {target_username}: \"{message}\"[/YELLOW]"
+                    to_target = f"[YELLOW]{sender_name} tells you: \"{message}\"[/YELLOW]"
+                    
+                    # Add message to sender's log
+                    game.setdefault("log", [])
+                    game["log"].append(to_sender)
+                    game["log"] = game["log"][-50:]
+                    
+                    # Add message to target's log
+                    target_game.setdefault("log", [])
+                    target_game["log"].append(to_target)
+                    target_game["log"] = target_game["log"][-50:]
+                    
+                    # Save both game states
+                    save_game(game)
+                    save_game(target_game)
+                    save_state_to_disk()
+                    
+                    response = to_sender
+                else:
+                    response = f"{target_username} is not currently online."
 
     elif tokens[0] == "notify":
         notify_cfg = game.setdefault("notify", {})
