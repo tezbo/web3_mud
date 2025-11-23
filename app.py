@@ -805,15 +805,27 @@ def command():
     
     # Check if user is in onboarding (for new character creation - may not be logged in yet)
     # IMPORTANT: Do this BEFORE checking for user_id/login, as users aren't logged in during onboarding
+    # But also IMPORTANT: Skip onboarding check if user is logged in (onboarding should be complete)
     onboarding_step = session.get("onboarding_step")
     onboarding_state = session.get("onboarding_state")
+    
+    # If user is logged in, clear any stale onboarding state (onboarding should be complete)
+    if user_id and (onboarding_step or onboarding_state):
+        if onboarding_step != "complete":
+            logging.info(f"Clearing stale onboarding state for logged-in user {username}")
+            session.pop("onboarding_step", None)
+            session.pop("onboarding_state", None)
+            session.modified = True
+            onboarding_step = None
+            onboarding_state = None
     
     # Debug: Log session state to help diagnose issues
     import logging
     logging.info(f"Command route - cmd: '{cmd}', onboarding_step: {onboarding_step}, onboarding_state exists: {onboarding_state is not None}, user_id: {user_id}, session keys: {list(session.keys())}, referer: {request.headers.get('Referer', '')}")
     
     # Fallback 1: if onboarding_state exists but onboarding_step doesn't, infer onboarding_step from state
-    if onboarding_step is None and onboarding_state:
+    # But only if user is not logged in
+    if onboarding_step is None and onboarding_state and not user_id:
         step = onboarding_state.get("step")
         if step is not None:
             onboarding_step = step
@@ -876,7 +888,10 @@ def command():
                 username = session["username"]
                 user_id = created_user_id
             
-            session["onboarding_step"] = "complete"
+            # Clear onboarding state completely after completion
+            session.pop("onboarding_step", None)
+            session.pop("onboarding_state", None)
+            session.modified = True
             # Create game state with character
             character = updated_state.get("character", {})
             game = new_game_state(username=username, character=character)
