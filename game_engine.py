@@ -4036,6 +4036,296 @@ def _get_purchase_intent_user_message(text):
     return load_prompt("purchase_intent_user.txt", fallback_text=fallback, text=text)
 
 
+def _get_npc_charity_system_prompt(items_text, reputation, personality):
+    """Load and format the NPC charity decision system prompt."""
+    fallback = f"""You are a merchant NPC analyzing a player's message to determine if they are asking for help because they cannot afford something.
+
+Available items for sale:
+{items_text}
+
+Player's current reputation with you: {reputation} (range: -100 to +200)
+- Reputation >= 50: Very strong positive relationship - you trust and like them a great deal
+- Reputation >= 25: Positive relationship - you trust and like them
+- Reputation >= 15: Moderately positive impression - you think well of them
+- Reputation >= 10: Slightly positive impression - they seem decent
+- Reputation > 0: Neutral-to-positive impression
+- Reputation == 0: You don't know them well yet
+- Reputation < 0: Negative impression - you're wary or dislike them
+
+Your task:
+1. Determine if the player is expressing that they CANNOT AFFORD something (not just complaining about price)
+2. If yes, identify which item they're referring to (use the exact 'key' from the list above, or null if not specified)
+3. Based on your reputation with them, decide if you want to help them:
+   - High reputation (>= 50): You might give them the item for free, acknowledging your relationship
+   - Medium reputation (15-49): You might give them a cheaper item or express sympathy but decline
+   - Low reputation (0-14): You express sympathy but explain you have a business to run
+   - Negative reputation (< 0): You dismiss them or tell them to leave
+
+IMPORTANT:
+- Only help if the player is genuinely expressing inability to afford (not just haggling)
+- Examples of "can't afford" pleas: "I can't afford that", "I'm so hungry but I don't have enough", "I really need this but I'm broke"
+- Examples of NOT "can't afford": "That's too expensive", "Can you lower the price?", "I want a discount"
+- If item is not specified, you can choose an appropriate item to give (e.g., cheapest item, most basic food item)
+- You can only give ONE item per request (quantity always 1 for charity)
+- Be in character - your personality is: {personality}
+
+Return your response as JSON only, in this exact format:
+{{"is_plea": true/false, "item_key": "item_key_or_null", "will_help": true/false, "reason": "brief explanation of your decision"}}
+
+If is_plea is false, set item_key to null, will_help to false, and reason to empty string."""
+    
+    return load_prompt("npc_charity_system.txt", fallback_text=fallback, items_text=items_text, reputation=reputation, personality=personality)
+
+
+def _get_npc_charity_user_message(text, reputation):
+    """Load and format the NPC charity user message."""
+    fallback = f"Player message: \"{text}\"\n\nAnalyze this message to determine if the player is asking for help because they cannot afford something. Consider their reputation with you ({reputation}) when deciding whether to help.\n\nReturn JSON with your analysis and decision."
+    return load_prompt("npc_charity_user.txt", fallback_text=fallback, text=text, reputation=reputation)
+
+
+def _parse_charity_plea_ai(text, merchant_items, npc, room_def, game, username, user_id=None, db_conn=None, npc_id=None):
+    """
+    Use AI to detect if player is making a "can't afford" plea and if NPC will help.
+    Also checks if player actually has enough money (scam detection).
+    
+    Returns: (is_plea, item_key, will_help, reason, is_scam) or (False, None, False, "", False)
+    """
+    if not generate_npc_reply:
+        return False, None, False, "", False
+    
+    # Get reputation
+    reputation = game.get("reputation", {}).get(npc_id, 0) if npc_id else 0
+    
+    # Get player's current currency
+    from economy.currency import get_currency, format_currency, currency_to_copper, copper_to_currency
+    from economy.economy_manager import get_item_price
+    
+    player_currency = get_currency(game)
+    player_currency_formatted = format_currency(player_currency)
+    player_total_copper = currency_to_copper(player_currency)
+    
+    # Build list of available items for the AI, including whether player can afford each
+    items_list = []
+    for item_key, item_info in merchant_items.items():
+        display_name = item_info.get("display_name", item_key.replace("_", " "))
+        try:
+            if npc_id:
+                price_copper = get_item_price(item_key, npc_id, game)
+                price_currency = copper_to_currency(price_copper)
+                price_str = format_currency(price_currency)
+                can_afford = player_total_copper >= price_copper
+                affordability = "can afford" if can_afford else "cannot afford"
+            else:
+                price_str = "varies"
+                affordability = "unknown"
+        except Exception:
+            price_str = "varies"
+            affordability = "unknown"
+        items_list.append(f"- {display_name} (key: {item_key}, price: {price_str}, player {affordability})")
+    
+    items_text = "\n".join(items_list)
+    
+    # Get NPC personality
+    personality = npc.personality if hasattr(npc, 'personality') else npc.get('personality', 'friendly')
+    
+    # Create AI prompt for charity decision
+    try:
+        from ai_client import OpenAI, OPENAI_AVAILABLE
+        if not OPENAI_AVAILABLE:
+            return False, None, False, "", False
+        
+        client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
+        
+        system_prompt = _get_npc_charity_system_prompt(items_text, reputation, personality, player_currency_formatted)
+        user_message = _get_npc_charity_user_message(text, reputation, player_currency_formatted)
+        
+        response = client.chat.completions.create(
+            model=os.environ.get("OPENAI_MODEL", "gpt-4o-mini"),
+            messages=[
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_message}
+            ],
+            max_tokens=150,
+            temperature=0.7,  # Slightly higher for more natural decisions
+        )
+        
+        ai_response = response.choices[0].message.content.strip()
+        
+        # Parse JSON response
+        import json
+        import re
+        
+        json_match = re.search(r'\{[^}]+\}', ai_response)
+        if json_match:
+            result = json.loads(json_match.group(0))
+            
+            is_plea = result.get("is_plea", False)
+            item_key = result.get("item_key")
+            will_help = result.get("will_help", False)
+            reason = result.get("reason", "")
+            
+            # Check if this is a scam attempt (player claims can't afford but actually can)
+            is_scam = False
+            if is_plea and item_key and item_key in merchant_items:
+                try:
+                    price_copper = get_item_price(item_key, npc_id, game)
+                    if player_total_copper >= price_copper:
+                        # Player has enough money - this is a scam attempt
+                        is_scam = True
+                        will_help = False  # NPC won't help if it's a scam
+                except Exception:
+                    pass
+            
+            # Validate item_key if provided
+            if item_key and item_key not in merchant_items:
+                # If item not found but will_help is true, let NPC choose (item_key can be null)
+                if will_help:
+                    item_key = None  # NPC will choose
+                else:
+                    return False, None, False, "", False
+            
+            return is_plea, item_key, will_help, reason, is_scam
+        
+        return False, None, False, "", False
+        
+    except Exception as e:
+        print(f"AI charity plea parsing failed: {e}")
+        return False, None, False, "", False
+
+
+def _can_receive_charity(game, npc_id):
+    """
+    Check if player can receive charity from this NPC (cooldown/limit check).
+    
+    Returns: (can_receive, reason_message)
+    """
+    if "npc_charity_tracking" not in game:
+        game["npc_charity_tracking"] = {}
+    
+    tracking = game["npc_charity_tracking"].setdefault(npc_id, {
+        "last_charity_tick": 0,
+        "charity_count_today": 0,
+    })
+    
+    current_tick = GAME_TIME.get("tick", 0)
+    
+    # Cooldown: 1 in-game hour between charity requests (60 minutes = 3600 ticks)
+    ticks_per_hour = 60 * TICKS_PER_MINUTE
+    last_charity_tick = tracking.get("last_charity_tick", 0)
+    
+    if current_tick - last_charity_tick < ticks_per_hour:
+        minutes_remaining = ((ticks_per_hour - (current_tick - last_charity_tick)) // TICKS_PER_MINUTE) + 1
+        return False, f"You've already asked for help recently. Try again in about {minutes_remaining} minutes."
+    
+    # Daily limit: Max 3 charity items per NPC per day
+    # Reset count at start of each day (every 24 hours = 1440 minutes = 86400 ticks)
+    ticks_per_day = HOURS_PER_DAY * MINUTES_PER_HOUR * TICKS_PER_MINUTE
+    days_since_last = (current_tick - tracking.get("last_charity_tick", 0)) // ticks_per_day
+    if days_since_last > 0:
+        tracking["charity_count_today"] = 0  # Reset daily count
+    
+    charity_count_today = tracking.get("charity_count_today", 0)
+    if charity_count_today >= 3:
+        return False, "You've already received enough help today. The merchant can't keep giving things away."
+    
+    return True, None
+
+
+def _record_charity_given(game, npc_id):
+    """Record that charity was given to prevent exploitation."""
+    if "npc_charity_tracking" not in game:
+        game["npc_charity_tracking"] = {}
+    
+    tracking = game["npc_charity_tracking"].setdefault(npc_id, {
+        "last_charity_tick": 0,
+        "charity_count_today": 0,
+    })
+    
+    current_tick = GAME_TIME.get("tick", 0)
+    tracking["last_charity_tick"] = current_tick
+    tracking["charity_count_today"] = tracking.get("charity_count_today", 0) + 1
+
+
+def _choose_charity_item(merchant_items, game, npc_id):
+    """
+    Choose an appropriate item to give for charity (if player didn't specify).
+    Prefers cheaper, basic food items.
+    """
+    from economy.economy_manager import get_item_price
+    
+    # Get prices for all items
+    items_with_prices = []
+    for item_key, item_info in merchant_items.items():
+        try:
+            price_copper = get_item_price(item_key, npc_id, game)
+            items_with_prices.append((item_key, item_info, price_copper))
+        except Exception:
+            continue
+    
+    if not items_with_prices:
+        return None
+    
+    # Sort by price (cheapest first), prefer food items
+    def sort_key(item_tuple):
+        item_key, item_info, price = item_tuple
+        display_name = item_info.get("display_name", "").lower()
+        is_food = any(word in display_name for word in ["bread", "stew", "ale", "food", "meal"])
+        # Food items get priority, then by price
+        return (0 if is_food else 1, price)
+    
+    items_with_prices.sort(key=sort_key)
+    
+    # Return cheapest food item, or cheapest item overall
+    return items_with_prices[0][0]  # Return item_key
+
+
+def _get_npc_charity_system_prompt(items_text, reputation, personality):
+    """Load and format the NPC charity decision system prompt."""
+    fallback = f"""You are a merchant NPC analyzing a player's message to determine if they are asking for help because they cannot afford something.
+
+Available items for sale:
+{items_text}
+
+Player's current reputation with you: {reputation} (range: -100 to +200)
+- Reputation >= 50: Very strong positive relationship - you trust and like them a great deal
+- Reputation >= 25: Positive relationship - you trust and like them
+- Reputation >= 15: Moderately positive impression - you think well of them
+- Reputation >= 10: Slightly positive impression - they seem decent
+- Reputation > 0: Neutral-to-positive impression
+- Reputation == 0: You don't know them well yet
+- Reputation < 0: Negative impression - you're wary or dislike them
+
+Your task:
+1. Determine if the player is expressing that they CANNOT AFFORD something (not just complaining about price)
+2. If yes, identify which item they're referring to (use the exact 'key' from the list above, or null if not specified)
+3. Based on your reputation with them, decide if you want to help them:
+   - High reputation (>= 50): You might give them the item for free, acknowledging your relationship
+   - Medium reputation (15-49): You might give them a cheaper item or express sympathy but decline
+   - Low reputation (0-14): You express sympathy but explain you have a business to run
+   - Negative reputation (< 0): You dismiss them or tell them to leave
+
+IMPORTANT:
+- Only help if the player is genuinely expressing inability to afford (not just haggling)
+- Examples of "can't afford" pleas: "I can't afford that", "I'm so hungry but I don't have enough", "I really need this but I'm broke"
+- Examples of NOT "can't afford": "That's too expensive", "Can you lower the price?", "I want a discount"
+- If item is not specified, you can choose an appropriate item to give (e.g., cheapest item, most basic food item)
+- You can only give ONE item per request (quantity always 1 for charity)
+- Be in character - your personality is: {personality}
+
+Return your response as JSON only, in this exact format:
+{{"is_plea": true/false, "item_key": "item_key_or_null", "will_help": true/false, "reason": "brief explanation of your decision"}}
+
+If is_plea is false, set item_key to null, will_help to false, and reason to empty string."""
+    
+    return load_prompt("npc_charity_system.txt", fallback_text=fallback, items_text=items_text, reputation=reputation, personality=personality)
+
+
+def _get_npc_charity_user_message(text, reputation):
+    """Load and format the NPC charity user message."""
+    fallback = f"Player message: \"{text}\"\n\nAnalyze this message to determine if the player is asking for help because they cannot afford something. Consider their reputation with you ({reputation}) when deciding whether to help.\n\nReturn JSON with your analysis and decision."
+    return load_prompt("npc_charity_user.txt", fallback_text=fallback, text=text, reputation=reputation)
+
+
 def _parse_purchase_intent_ai(text, merchant_items, npc, room_def, game, username, user_id=None, db_conn=None, npc_id=None):
     """
     Use AI to parse purchase intent from natural language.
@@ -5185,64 +5475,266 @@ def handle_command(
                             break
                         elif purchase_response:
                             # Purchase failed (not enough money, etc.)
+                            # Check if this is a "can't afford" plea that might trigger charity
+                            if npc_id in MERCHANT_ITEMS and (npc.use_ai if hasattr(npc, 'use_ai') else npc.get("use_ai", False)):
+                                merchant_items = MERCHANT_ITEMS[npc_id]
+                                is_plea, charity_item_key, will_help, reason, is_scam = _parse_charity_plea_ai(
+                                    message, merchant_items, npc, room_def, game,
+                                    username or "adventurer", user_id, db_conn, npc_id
+                                )
+                                
+                                if is_plea and is_scam:
+                                    # Player tried to scam - call them out and decrease reputation
+                                    game["_current_npc_id"] = npc_id
+                                    npc_dict = npc.to_dict() if hasattr(npc, 'to_dict') else npc
+                                    scam_response, error_message = generate_npc_reply(
+                                        npc_dict, room_def, game, username or "adventurer",
+                                        message, recent_log=game.get("log", [])[-10:],
+                                        user_id=user_id, db_conn=db_conn
+                                    )
+                                    
+                                    # Decrease reputation for scam attempt
+                                    adjust_reputation(game, npc_id, -10, "scam attempt")
+                                    
+                                    # Update memory
+                                    if npc_id not in game.get("npc_memory", {}):
+                                        game.setdefault("npc_memory", {})[npc_id] = []
+                                    game["npc_memory"][npc_id].append({
+                                        "type": "scam_attempt",
+                                        "message": message,
+                                        "response": scam_response or "Your wallet looks pretty full to me... what do you take me for?",
+                                    })
+                                    if len(game["npc_memory"][npc_id]) > 20:
+                                        game["npc_memory"][npc_id] = game["npc_memory"][npc_id][-20:]
+                                    
+                                    response = f"You say: \"{message}\"\n{scam_response or 'Your wallet looks pretty full to me... what do you take me for?'}"
+                                    
+                                    # Broadcast scam response
+                                    if broadcast_fn is not None and scam_response:
+                                        broadcast_fn(loc_id, scam_response)
+                                    
+                                    purchase_processed = True
+                                    break
+                                
+                                if is_plea and will_help:
+                                    # Check cooldown/limits
+                                    can_receive, cooldown_msg = _can_receive_charity(game, npc_id)
+                                    
+                                    if can_receive:
+                                        # NPC will help - give item for free
+                                        # If item not specified, NPC chooses
+                                        if not charity_item_key:
+                                            charity_item_key = _choose_charity_item(merchant_items, game, npc_id)
+                                        
+                                        if charity_item_key and charity_item_key in merchant_items:
+                                            item_info = merchant_items[charity_item_key]
+                                            item_given = item_info["item_given"]
+                                            
+                                            # Add item to inventory
+                                            inventory = game.get("inventory", [])
+                                            inventory.append(item_given)
+                                            game["inventory"] = inventory
+                                            
+                                            # Record charity given
+                                            _record_charity_given(game, npc_id)
+                                            
+                                            # Generate AI response explaining the charity
+                                            game["_current_npc_id"] = npc_id
+                                            npc_dict = npc.to_dict() if hasattr(npc, 'to_dict') else npc
+                                            charity_response, error_message = generate_npc_reply(
+                                                npc_dict, room_def, game, username or "adventurer",
+                                                message, recent_log=game.get("log", [])[-10:],
+                                                user_id=user_id, db_conn=db_conn
+                                            )
+                                            
+                                            # Update memory
+                                            if npc_id not in game.get("npc_memory", {}):
+                                                game.setdefault("npc_memory", {})[npc_id] = []
+                                            game["npc_memory"][npc_id].append({
+                                                "type": "charity",
+                                                "item": charity_item_key,
+                                                "response": charity_response or "Here, take this.",
+                                            })
+                                            if len(game["npc_memory"][npc_id]) > 20:
+                                                game["npc_memory"][npc_id] = game["npc_memory"][npc_id][-20:]
+                                            
+                                            item_display = item_info.get("display_name", charity_item_key.replace("_", " "))
+                                            response = f"You say: \"{message}\"\n{charity_response or f'{npc.name} gives you a {item_display} for free.'}"
+                                            
+                                            # Broadcast charity response
+                                            if broadcast_fn is not None and charity_response:
+                                                broadcast_fn(loc_id, charity_response)
+                                            
+                                            purchase_processed = True
+                                            break
+                                        else:
+                                            # NPC wanted to help but item not available
+                                            response = f"You say: \"{message}\"\n{purchase_response}"
+                                            purchase_processed = True
+                                            break
+                                    else:
+                                        # Cooldown/limit reached - show cooldown message but still process as failed purchase
+                                        response = f"You say: \"{message}\"\n{purchase_response}\n{cooldown_msg}"
+                                        purchase_processed = True
+                                        break
+                            
+                            # Normal failed purchase response
                             response = f"You say: \"{message}\"\n{purchase_response}"
                             purchase_processed = True
                             break
             
             if not purchase_processed:
                 # Normal say command - no purchase detected
-                player_message = f"{actor_name} says: \"{message}\""
-                response = f"You say: \"{message}\""
-                
-                # Check for AI NPC reactions
-                ai_reactions = []
+                # But check for charity pleas even when no purchase intent
+                charity_processed = False
                 for npc_id in npc_ids:
-                    if npc_id in NPCS:
+                    if npc_id in NPCS and npc_id in MERCHANT_ITEMS:
                         npc = NPCS[npc_id]
-                        
-                        # Update reputation for politeness
-                        rep_gain, _ = _update_reputation_for_politeness(game, npc_id, message)
-                        
-                        npc_dict = npc.to_dict() if hasattr(npc, 'to_dict') else npc
-                        if (npc.use_ai if hasattr(npc, 'use_ai') else npc.get("use_ai", False)) and generate_npc_reply is not None:
-                            # Store NPC ID in game for AI client to access
-                            game["_current_npc_id"] = npc_id
-                            
-                            # Call AI to generate reaction (now returns tuple: response, error_message)
-                            ai_response, error_message = generate_npc_reply(
-                                npc_dict, room_def, game, username or "adventurer", 
-                                message, recent_log=game.get("log", [])[-10:],
-                                user_id=user_id, db_conn=db_conn
+                        if (npc.use_ai if hasattr(npc, 'use_ai') else npc.get("use_ai", False)):
+                            merchant_items = MERCHANT_ITEMS[npc_id]
+                            is_plea, charity_item_key, will_help, reason, is_scam = _parse_charity_plea_ai(
+                                message, merchant_items, npc, room_def, game,
+                                username or "adventurer", user_id, db_conn, npc_id
                             )
                             
-                            if ai_response and ai_response.strip():
-                                ai_reactions.append(ai_response)
+                            if is_plea and is_scam:
+                                # Player tried to scam - call them out and decrease reputation
+                                game["_current_npc_id"] = npc_id
+                                npc_dict = npc.to_dict() if hasattr(npc, 'to_dict') else npc
+                                scam_response, error_message = generate_npc_reply(
+                                    npc_dict, room_def, game, username or "adventurer",
+                                    message, recent_log=game.get("log", [])[-10:],
+                                    user_id=user_id, db_conn=db_conn
+                                )
                                 
-                                # Broadcast AI reaction to all players in the room
-                                if broadcast_fn is not None:
-                                    broadcast_fn(loc_id, ai_response)
-                                
-                                # Add error message if present
-                                if error_message:
-                                    ai_reactions.append(f"[Note: {error_message}]")
+                                # Decrease reputation for scam attempt
+                                adjust_reputation(game, npc_id, -10, "scam attempt")
                                 
                                 # Update memory
                                 if npc_id not in game.get("npc_memory", {}):
                                     game.setdefault("npc_memory", {})[npc_id] = []
                                 game["npc_memory"][npc_id].append({
-                                    "type": "said",
+                                    "type": "scam_attempt",
                                     "message": message,
-                                    "response": ai_response,
+                                    "response": scam_response or "Your wallet looks pretty full to me... what do you take me for?",
                                 })
-                                # Keep memory from growing too large
                                 if len(game["npc_memory"][npc_id]) > 20:
                                     game["npc_memory"][npc_id] = game["npc_memory"][npc_id][-20:]
+                                
+                                response = f"You say: \"{message}\"\n{scam_response or 'Your wallet looks pretty full to me... what do you take me for?'}"
+                                
+                                # Broadcast scam response
+                                if broadcast_fn is not None and scam_response:
+                                    broadcast_fn(loc_id, scam_response)
+                                
+                                charity_processed = True
+                                break
+                            
+                            if is_plea and will_help:
+                                # Check cooldown/limits
+                                can_receive, cooldown_msg = _can_receive_charity(game, npc_id)
+                                
+                                if can_receive:
+                                    # NPC will help - give item for free
+                                    if not charity_item_key:
+                                        charity_item_key = _choose_charity_item(merchant_items, game, npc_id)
+                                    
+                                    if charity_item_key and charity_item_key in merchant_items:
+                                        item_info = merchant_items[charity_item_key]
+                                        item_given = item_info["item_given"]
+                                        
+                                        # Add item to inventory
+                                        inventory = game.get("inventory", [])
+                                        inventory.append(item_given)
+                                        game["inventory"] = inventory
+                                        
+                                        # Record charity given
+                                        _record_charity_given(game, npc_id)
+                                        
+                                        # Generate AI response
+                                        game["_current_npc_id"] = npc_id
+                                        npc_dict = npc.to_dict() if hasattr(npc, 'to_dict') else npc
+                                        charity_response, error_message = generate_npc_reply(
+                                            npc_dict, room_def, game, username or "adventurer",
+                                            message, recent_log=game.get("log", [])[-10:],
+                                            user_id=user_id, db_conn=db_conn
+                                        )
+                                        
+                                        # Update memory
+                                        if npc_id not in game.get("npc_memory", {}):
+                                            game.setdefault("npc_memory", {})[npc_id] = []
+                                        game["npc_memory"][npc_id].append({
+                                            "type": "charity",
+                                            "item": charity_item_key,
+                                            "response": charity_response or "Here, take this.",
+                                        })
+                                        if len(game["npc_memory"][npc_id]) > 20:
+                                            game["npc_memory"][npc_id] = game["npc_memory"][npc_id][-20:]
+                                        
+                                        item_display = item_info.get("display_name", charity_item_key.replace("_", " "))
+                                        response = f"You say: \"{message}\"\n{charity_response or f'{npc.name} gives you a {item_display} for free.'}"
+                                        
+                                        # Broadcast charity response
+                                        if broadcast_fn is not None and charity_response:
+                                            broadcast_fn(loc_id, charity_response)
+                                        
+                                        charity_processed = True
+                                        break
                 
-                # Add AI reactions to response
-                if ai_reactions:
-                    response += "\n" + "\n".join(ai_reactions)
-                
-                # Broadcast say message to other players in the room (in cyan)
+                if not charity_processed:
+                    # Normal say command - no purchase detected
+                    player_message = f"{actor_name} says: \"{message}\""
+                    response = f"You say: \"{message}\""
+                    
+                    # Check for AI NPC reactions
+                    ai_reactions = []
+                    for npc_id in npc_ids:
+                        if npc_id in NPCS:
+                            npc = NPCS[npc_id]
+                            
+                            # Update reputation for politeness
+                            rep_gain, _ = _update_reputation_for_politeness(game, npc_id, message)
+                            
+                            npc_dict = npc.to_dict() if hasattr(npc, 'to_dict') else npc
+                            if (npc.use_ai if hasattr(npc, 'use_ai') else npc.get("use_ai", False)) and generate_npc_reply is not None:
+                                # Store NPC ID in game for AI client to access
+                                game["_current_npc_id"] = npc_id
+                                
+                                # Call AI to generate reaction (now returns tuple: response, error_message)
+                                ai_response, error_message = generate_npc_reply(
+                                    npc_dict, room_def, game, username or "adventurer", 
+                                    message, recent_log=game.get("log", [])[-10:],
+                                    user_id=user_id, db_conn=db_conn
+                                )
+                                
+                                if ai_response and ai_response.strip():
+                                    ai_reactions.append(ai_response)
+                                    
+                                    # Broadcast AI reaction to all players in the room
+                                    if broadcast_fn is not None:
+                                        broadcast_fn(loc_id, ai_response)
+                                    
+                                    # Add error message if present
+                                    if error_message:
+                                        ai_reactions.append(f"[Note: {error_message}]")
+                                    
+                                    # Update memory
+                                    if npc_id not in game.get("npc_memory", {}):
+                                        game.setdefault("npc_memory", {})[npc_id] = []
+                                    game["npc_memory"][npc_id].append({
+                                        "type": "said",
+                                        "message": message,
+                                        "response": ai_response,
+                                    })
+                                    # Keep memory from growing too large
+                                    if len(game["npc_memory"][npc_id]) > 20:
+                                        game["npc_memory"][npc_id] = game["npc_memory"][npc_id][-20:]
+                    
+                    # Add AI reactions to response
+                    if ai_reactions:
+                        response += "\n" + "\n".join(ai_reactions)
+                    
+                    # Broadcast say message to other players in the room (in cyan)
                 if broadcast_fn is not None:
                     # Preserve original formatting and capitalize properly
                     formatted_message = f"[CYAN]{player_message}[/CYAN]"

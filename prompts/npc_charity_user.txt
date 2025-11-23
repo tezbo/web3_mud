@@ -1,0 +1,8 @@
+Player message: "{text}"
+
+Player's currency: {player_currency}
+
+Analyze this message to determine if the player is asking for help because they cannot afford something. Check if they actually have enough money. Consider their reputation with you ({reputation}) when deciding whether to help.
+
+Return JSON with your analysis and decision.
+
