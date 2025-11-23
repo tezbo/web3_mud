@@ -941,6 +941,7 @@ def command():
             processed_log = highlight_exits_in_log(log)
         # Ensure session is saved before returning
         session.modified = True
+        # Return onboarding status (False if complete, True if still in progress)
         return jsonify({"response": response, "log": processed_log, "onboarding": not is_complete})
     
     # Normal game command handling - require authentication
