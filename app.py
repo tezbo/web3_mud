@@ -746,6 +746,14 @@ def index():
     if len(game.get("log", [])) == 2 and "Type 'look' to see where you are" in game["log"][-1]:
         game["log"].append(describe_location(game))
         save_game(game)
+    
+    # Initialize last_log_index for new sessions (tracks what we've already sent to client)
+    # This ensures that when the page loads showing all log entries, we track that so
+    # subsequent commands only return new entries
+    if "last_log_index" not in session:
+        session["last_log_index"] = len(game.get("log", [])) - 1
+        session.modified = True
+    
     # Process log to highlight Exits in yellow
     processed_log = highlight_exits_in_log(game["log"])
     return render_template("index.html", log=processed_log, session=session, onboarding=False)
