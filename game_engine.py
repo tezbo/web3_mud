@@ -1052,6 +1052,7 @@ DAYS_PER_YEAR = 120  # Short in-game year for gameplay
 GAME_TIME = {
     "tick": 0,          # Monotonically increasing tick count
     "minutes": 0,       # Total in-game minutes elapsed
+    "last_season": None,  # Track previous season for transition detection
 }
 
 # WEATHER_STATE tracks current global weather
@@ -1361,6 +1362,34 @@ def get_season():
         return "autumn"
     else:
         return "winter"
+
+
+def get_previous_season(current_season):
+    """
+    Get the previous season in the cycle.
+    
+    Args:
+        current_season: Current season string
+    
+    Returns:
+        str: Previous season string
+    """
+    season_order = ["spring", "summer", "autumn", "winter"]
+    current_index = season_order.index(current_season)
+    previous_index = (current_index - 1) % len(season_order)
+    return season_order[previous_index]
+
+
+def is_first_day_of_season():
+    """
+    Check if it's the first day of a new season.
+    
+    Returns:
+        bool: True if it's the first day of a season
+    """
+    day = get_day_of_year()
+    days_per_season = DAYS_PER_YEAR // 4
+    return day % days_per_season == 0
 
 
 def update_weather_if_needed():
@@ -1895,6 +1924,112 @@ def check_sunrise_sunset_transitions(broadcast_fn=None, who_fn=None):
                 message = f"[CYAN]The sun rises cold and clear over Hollowvale, marking the start of a new {season_name} day.[/CYAN]"
             else:
                 message = f"[CYAN]The sun rises over Hollowvale, marking the start of a new {season_name} day.[/CYAN]"
+        
+        # Check if it's the first day of a new season and append transition message
+        if is_first_day_of_season():
+            previous_season = GAME_TIME.get("last_season")
+            current_season = season
+            
+            # Only show transition if season actually changed
+            if previous_season and previous_season != current_season:
+                previous_season_name = previous_season.capitalize()
+                current_season_name = current_season.capitalize()
+                
+                # Generate weather-aware seasonal transition message
+                transition_messages = []
+                
+                if current_season == "spring":
+                    if wtype == "rain":
+                        transition_messages = [
+                            f" The seasons turn from {previous_season_name} to {current_season_name}, and the rain brings new life to the awakening world.",
+                            f" As {previous_season_name} gives way to {current_season_name}, the gentle rain nourishes the earth, and new growth stirs beneath the soil.",
+                            f" The wheel of seasons turns: {previous_season_name} fades, and {current_season_name} arrives with rain-washed promise.",
+                        ]
+                    elif wtype == "snow":
+                        transition_messages = [
+                            f" The seasons turn from {previous_season_name} to {current_season_name}, though winter's last snow still clings to the ground.",
+                            f" As {previous_season_name} gives way to {current_season_name}, the lingering snow reminds us that change comes slowly.",
+                            f" The wheel of seasons turns: {previous_season_name} fades, and {current_season_name} arrives, but winter's touch remains.",
+                        ]
+                    else:
+                        transition_messages = [
+                            f" The seasons turn from {previous_season_name} to {current_season_name}, and the world awakens with new life.",
+                            f" As {previous_season_name} gives way to {current_season_name}, the first buds appear and the air fills with promise.",
+                            f" The wheel of seasons turns: {previous_season_name} fades, and {current_season_name} arrives, bringing renewal to Hollowvale.",
+                        ]
+                elif current_season == "summer":
+                    if wtype == "heatwave":
+                        transition_messages = [
+                            f" The seasons turn from {previous_season_name} to {current_season_name}, and the heat settles over the land like a heavy blanket.",
+                            f" As {previous_season_name} gives way to {current_season_name}, the oppressive heat announces the long days ahead.",
+                            f" The wheel of seasons turns: {previous_season_name} fades, and {current_season_name} arrives with scorching intensity.",
+                        ]
+                    elif wtype == "rain":
+                        transition_messages = [
+                            f" The seasons turn from {previous_season_name} to {current_season_name}, and warm rains promise abundance.",
+                            f" As {previous_season_name} gives way to {current_season_name}, the rain brings life to fields and forests.",
+                            f" The wheel of seasons turns: {previous_season_name} fades, and {current_season_name} arrives with fertile promise.",
+                        ]
+                    else:
+                        transition_messages = [
+                            f" The seasons turn from {previous_season_name} to {current_season_name}, and the days grow long and warm.",
+                            f" As {previous_season_name} gives way to {current_season_name}, the sun's warmth fills the valley with life.",
+                            f" The wheel of seasons turns: {previous_season_name} fades, and {current_season_name} arrives, bringing warmth and growth.",
+                        ]
+                elif current_season == "autumn":
+                    if wtype == "rain":
+                        transition_messages = [
+                            f" The seasons turn from {previous_season_name} to {current_season_name}, and the rain begins to strip the leaves from the trees.",
+                            f" As {previous_season_name} gives way to {current_season_name}, the rain-washed air carries the scent of change.",
+                            f" The wheel of seasons turns: {previous_season_name} fades, and {current_season_name} arrives with rain and falling leaves.",
+                        ]
+                    elif wtype == "windy":
+                        transition_messages = [
+                            f" The seasons turn from {previous_season_name} to {current_season_name}, and the wind carries the first fallen leaves.",
+                            f" As {previous_season_name} gives way to {current_season_name}, the brisk winds herald the coming change.",
+                            f" The wheel of seasons turns: {previous_season_name} fades, and {current_season_name} arrives on a gust of wind.",
+                        ]
+                    else:
+                        transition_messages = [
+                            f" The seasons turn from {previous_season_name} to {current_season_name}, and the first leaves begin to change color.",
+                            f" As {previous_season_name} gives way to {current_season_name}, the air grows crisp and the harvest approaches.",
+                            f" The wheel of seasons turns: {previous_season_name} fades, and {current_season_name} arrives, painting the world in gold and red.",
+                        ]
+                else:  # winter
+                    if wtype == "snow":
+                        transition_messages = [
+                            f" The seasons turn from {previous_season_name} to {current_season_name}, and the first snow settles over Hollowvale.",
+                            f" As {previous_season_name} gives way to {current_season_name}, the falling snow blankets the world in white.",
+                            f" The wheel of seasons turns: {previous_season_name} fades, and {current_season_name} arrives with snow and silence.",
+                        ]
+                    elif wtype == "cold" or temp == "cold":
+                        transition_messages = [
+                            f" The seasons turn from {previous_season_name} to {current_season_name}, and a deep cold settles over the land.",
+                            f" As {previous_season_name} gives way to {current_season_name}, the biting cold announces the long nights ahead.",
+                            f" The wheel of seasons turns: {previous_season_name} fades, and {current_season_name} arrives with frost and stillness.",
+                        ]
+                    else:
+                        transition_messages = [
+                            f" The seasons turn from {previous_season_name} to {current_season_name}, and the world grows quiet and still.",
+                            f" As {previous_season_name} gives way to {current_season_name}, the days shorten and the cold begins to bite.",
+                            f" The wheel of seasons turns: {previous_season_name} fades, and {current_season_name} arrives, bringing rest to the land.",
+                        ]
+                
+                # Select a random transition message
+                import random
+                transition_text = random.choice(transition_messages)
+                message = message.replace("[/CYAN]", transition_text + "[/CYAN]")
+                
+                # Update last_season
+                GAME_TIME["last_season"] = current_season
+            elif not previous_season:
+                # First time tracking - just set it
+                GAME_TIME["last_season"] = current_season
+        else:
+            # Not first day, but update last_season if it changed
+            current_season = season
+            if GAME_TIME.get("last_season") != current_season:
+                GAME_TIME["last_season"] = current_season
         
         # Broadcast to all outdoor rooms (filtered by notify time in app.py)
         if broadcast_fn and who_fn:
