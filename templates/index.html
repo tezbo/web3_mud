@@ -459,15 +459,27 @@
 
     async function appendTextWithPauses(text) {
       // Process text with pause markers [PAUSE:seconds] and [ELLIPSIS:seconds]
+      // First, extract plain text if HTML is present
+      let cleanText = text;
+      if (text.includes('<') || text.includes('&')) {
+        // Text might contain HTML - extract plain text
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = text;
+        cleanText = tempDiv.textContent || tempDiv.innerText || text;
+      }
+      
       const pauseRegex = /\[(PAUSE|ELLIPSIS):([\d.]+)\]/g;
       const segments = [];
       let lastIndex = 0;
       let match;
       
-      while ((match = pauseRegex.exec(text)) !== null) {
+      // Reset regex lastIndex for global regex
+      pauseRegex.lastIndex = 0;
+      
+      while ((match = pauseRegex.exec(cleanText)) !== null) {
         // Add text before the marker
         if (match.index > lastIndex) {
-          const textSegment = text.substring(lastIndex, match.index).trim();
+          const textSegment = cleanText.substring(lastIndex, match.index).trim();
           if (textSegment) {
             segments.push({ type: 'text', content: textSegment, delay: 0 });
           }
@@ -485,8 +497,8 @@
       }
       
       // Add remaining text
-      if (lastIndex < text.length) {
-        const textSegment = text.substring(lastIndex).trim();
+      if (lastIndex < cleanText.length) {
+        const textSegment = cleanText.substring(lastIndex).trim();
         if (textSegment) {
           segments.push({ type: 'text', content: textSegment, delay: 0 });
         }
@@ -494,7 +506,7 @@
       
       // If no segments found, treat as regular text
       if (segments.length === 0) {
-        segments.push({ type: 'text', content: text, delay: 0 });
+        segments.push({ type: 'text', content: cleanText, delay: 0 });
       }
       
       // Display segments progressively
@@ -515,9 +527,9 @@
           
           ellipsisEl.remove();
         } else {
-          // Regular text
+          // Regular text - preserve newlines as <br>
           const textEl = document.createElement('div');
-          textEl.innerHTML = processLogForDisplay([segment.content]);
+          textEl.innerHTML = segment.content.replace(/\n/g, '<br>');
           outputEl.appendChild(textEl);
           scrollToBottom();
           
