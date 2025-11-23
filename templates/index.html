@@ -567,26 +567,16 @@
     function handleMetaCommand(cmd) {
       const parts = cmd.split(/\s+/);
       const metaCmd = parts[0].toLowerCase();
-      const timestamp = new Date();
-      
-      // Track command in history
-      sessionState.commandHistory.push({
-        command: cmd,
-        timestamp: timestamp
-      });
-      
-      // Track command in session text
-      sessionState.sessionText.push({
-        text: `> ${cmd}`,
-        timestamp: timestamp,
-        type: 'command'
-      });
       
       switch(metaCmd) {
         case '/clear':
           outputEl.innerHTML = '';
           sessionState.sessionText = [];
-          appendText(`<span class="meta-message">[Console cleared]</span>`, false);
+          // Add cleared message
+          const clearDiv = document.createElement('div');
+          clearDiv.innerHTML = '<span class="meta-message">[Console cleared]</span>';
+          outputEl.appendChild(clearDiv);
+          scrollToBottom();
           return true;
           
         case '/print':
@@ -601,14 +591,20 @@
           document.body.classList.remove('light-mode');
           sessionState.theme = 'dark';
           localStorage.setItem('hollowvale_theme', 'dark');
-          appendText(`<span class="meta-message">[Switched to dark mode]</span>`, false);
+          const darkDiv = document.createElement('div');
+          darkDiv.innerHTML = '<span class="meta-message">[Switched to dark mode]</span>';
+          outputEl.appendChild(darkDiv);
+          scrollToBottom();
           return true;
           
         case '/light-mode':
           document.body.classList.add('light-mode');
           sessionState.theme = 'light';
           localStorage.setItem('hollowvale_theme', 'light');
-          appendText(`<span class="meta-message">[Switched to light mode]</span>`, false);
+          const lightDiv = document.createElement('div');
+          lightDiv.innerHTML = '<span class="meta-message">[Switched to light mode]</span>';
+          outputEl.appendChild(lightDiv);
+          scrollToBottom();
           return true;
           
         default:
@@ -675,18 +671,9 @@
       const cmd = commandEl.value.trim();
       if (!cmd) return;
       
-      // Check if it's a meta command (starts with /)
-      if (cmd.startsWith('/')) {
-        const handled = handleMetaCommand(cmd);
-        if (handled) {
-          commandEl.value = "";
-          commandEl.focus();
-          return;
-        }
-      }
-      
-      // Track command in history (for regular commands too)
       const timestamp = new Date();
+      
+      // Track command in history (for all commands)
       sessionState.commandHistory.push({
         command: cmd,
         timestamp: timestamp
@@ -698,7 +685,7 @@
       commandDiv.innerHTML = `<span class="command-prompt">${commandLine}</span>`;
       outputEl.appendChild(commandDiv);
       
-      // Track in session text
+      // Track command in session text
       sessionState.sessionText.push({
         text: cmd,
         timestamp: timestamp,
@@ -706,6 +693,24 @@
       });
       
       scrollToBottom();
+      
+      // Check if it's a meta command (starts with /)
+      if (cmd.startsWith('/')) {
+        const handled = handleMetaCommand(cmd);
+        if (handled) {
+          commandEl.value = "";
+          commandEl.focus();
+          return;
+        }
+        // If not handled, it's an unknown meta command - show error
+        const errorDiv = document.createElement('div');
+        errorDiv.innerHTML = `<span class="error-message">[Unknown meta command: ${cmd}. Available: /clear, /print, /history, /dark-mode, /light-mode]</span>`;
+        outputEl.appendChild(errorDiv);
+        scrollToBottom();
+        commandEl.value = "";
+        commandEl.focus();
+        return;
+      }
       
       sendBtn.disabled = true;
       
