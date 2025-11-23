@@ -144,6 +144,54 @@ def get_db():
     return conn
 
 
+# --- Game Settings Management ---
+
+def get_game_setting(key, default=None):
+    """Get a game setting value from the database."""
+    conn = get_db()
+    try:
+        row = conn.execute(
+            "SELECT value FROM game_settings WHERE key = ?",
+            (key,)
+        ).fetchone()
+        if row:
+            return row["value"]
+        return default
+    finally:
+        conn.close()
+
+
+def set_game_setting(key, value, description=None):
+    """Set a game setting value in the database."""
+    conn = get_db()
+    try:
+        conn.execute(
+            """
+            INSERT INTO game_settings (key, value, description, updated_at)
+            VALUES (?, ?, ?, CURRENT_TIMESTAMP)
+            ON CONFLICT(key) DO UPDATE SET 
+                value = excluded.value,
+                updated_at = CURRENT_TIMESTAMP
+            """,
+            (key, str(value), description)
+        )
+        conn.commit()
+    finally:
+        conn.close()
+
+
+def get_all_game_settings():
+    """Get all game settings as a dictionary."""
+    conn = get_db()
+    try:
+        rows = conn.execute(
+            "SELECT key, value, description FROM game_settings ORDER BY key"
+        ).fetchall()
+        return {row["key"]: {"value": row["value"], "description": row["description"]} for row in rows}
+    finally:
+        conn.close()
+
+
 # Active games storage for multiplayer support
 ACTIVE_GAMES = {}  # username -> game state dict
 
