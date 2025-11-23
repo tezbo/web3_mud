@@ -5685,6 +5685,10 @@ def _legacy_handle_command_body(
             exits = room_def.get("exits", {})
             exit_def = exits.get(full_direction)
             
+            # CRITICAL: Ensure door states are correct before checking accessibility
+            # This double-checks in case process_time_based_exit_states wasn't called or state was lost
+            process_time_based_exit_states(broadcast_fn=broadcast_fn, who_fn=who_fn)
+            
             # Check exit accessibility
             is_accessible, reason = is_exit_accessible(loc_id, full_direction, "player", username, game)
             
@@ -5749,6 +5753,10 @@ def _legacy_handle_command_body(
             full_direction = DIRECTION_MAP.get(direction.lower(), direction.lower())
             exits = room_def.get("exits", {})
             exit_def = exits.get(full_direction)
+            
+            # CRITICAL: Ensure door states are correct before checking accessibility
+            # This double-checks in case process_time_based_exit_states wasn't called or state was lost
+            process_time_based_exit_states(broadcast_fn=broadcast_fn, who_fn=who_fn)
             
             # Check exit accessibility
             is_accessible, reason = is_exit_accessible(loc_id, full_direction, "player", username, game)
