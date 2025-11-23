@@ -807,7 +807,10 @@
         
         // Pass the log array directly for proper processing
         // Track server response in session text
-        if (data.log && Array.isArray(data.log)) {
+        console.log("Command response - data.log:", data.log, "type:", typeof data.log, "isArray:", Array.isArray(data.log), "length:", data.log?.length, "data.response:", data.response);
+        
+        // Display log entries if present
+        if (data.log && Array.isArray(data.log) && data.log.length > 0) {
           data.log.forEach(line => {
             if (line && line.trim()) {
               sessionState.sessionText.push({
@@ -817,8 +820,19 @@
               });
             }
           });
+          appendText(data.log, false);
+        } else if (data.response && data.response !== "__LOGOUT__") {
+          // If no log entries but there's a response string, show it
+          console.log("No log entries, showing response:", data.response);
+          sessionState.sessionText.push({
+            text: data.response.replace(/<[^>]*>/g, ''),
+            timestamp: new Date(),
+            type: 'output'
+          });
+          appendText(data.response, false);
+        } else {
+          console.warn("Command returned no log or response:", data);
         }
-        appendText(data.log, false);
       } catch (e) {
         // Remove typing indicator on error
         const typingIndicators = outputEl.querySelectorAll('.typing-indicator');
