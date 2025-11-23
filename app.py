@@ -939,14 +939,21 @@ def poll_updates():
     Returns new messages that have appeared since last poll.
     Messages appear automatically based on elapsed real-world time.
     """
+    import logging
+    logging.info("Poll endpoint called")
+    
     username = session.get("username")
     user_id = session.get("user_id")
     
+    logging.info(f"Poll request from user: {username}, user_id: {user_id}")
+    
     if not username or not user_id:
+        logging.warning("Poll request without username or user_id")
         return jsonify({"messages": []})
     
     game = get_game()
     if not game:
+        logging.warning(f"Poll request but no game state for {username}")
         return jsonify({"messages": []})
     
     # Update session activity
@@ -1050,6 +1057,12 @@ def poll_updates():
     
     # Process messages for display
     processed_messages = highlight_exits_in_log(new_messages) if new_messages else []
+    
+    import logging
+    if processed_messages:
+        logging.info(f"Poll returning {len(processed_messages)} messages to {username}")
+    else:
+        logging.debug(f"Poll returning no messages for {username} (elapsed_npc={elapsed_npc_seconds:.1f}s, elapsed_ambiance={elapsed_ambiance_seconds:.1f}s)")
     
     return jsonify({"messages": processed_messages})
 
