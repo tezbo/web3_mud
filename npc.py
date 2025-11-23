@@ -5,7 +5,7 @@ This module defines the NPC class and provides NPC matching and interaction logi
 """
 
 from collections import defaultdict
-from typing import Optional, Tuple
+from typing import Optional, Tuple, Callable, Dict
 
 # Safe import of AI client (optional)
 try:
