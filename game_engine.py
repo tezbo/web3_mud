@@ -2146,7 +2146,13 @@ SEASONAL_OVERLAYS = {
 def get_current_game_minutes():
     """
     Calculate current game time in minutes based on elapsed real-world time.
-    Time is purely continuous and global - 1 real-world minute = 1 game minute (1:1 ratio).
+    Time is purely continuous and global.
+    
+    Time conversion rate:
+    - 1 in-game day = 2 real-world hours = 120 real-world minutes
+    - 1 in-game day = 24 in-game hours = 1440 in-game minutes
+    - Therefore: 1 in-game minute = 120/1440 = 1/12 real-world minutes = 5 real-world seconds
+    - Or: 1 real-world minute = 12 in-game minutes
     
     Returns:
         int: Total in-game minutes elapsed since game start
@@ -2164,8 +2170,13 @@ def get_current_game_minutes():
     elapsed_real_seconds = (datetime.now() - start_time).total_seconds()
     elapsed_real_minutes = elapsed_real_seconds / 60.0
     
-    # Return as integer (game minutes = real-world minutes, 1:1 ratio)
-    return int(elapsed_real_minutes)
+    # Convert to in-game minutes: 1 real-world minute = 12 in-game minutes
+    # (because 1 in-game day = 1440 in-game minutes = 2 real-world hours = 120 real-world minutes)
+    # So: 1440 game minutes / 120 real minutes = 12 game minutes per real minute
+    elapsed_game_minutes = elapsed_real_minutes * 12.0
+    
+    # Return as integer (in-game minutes)
+    return int(elapsed_game_minutes)
 
 
 def get_current_game_tick():
