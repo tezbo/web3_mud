@@ -2385,103 +2385,167 @@ def get_moon_phase_description():
     return phase_descriptions.get(phase, "moon")
 
 
-def get_time_of_day_moon_description(is_outdoor=True):
+def get_combined_time_weather_description(is_outdoor=True):
     """
-    Get a contextual time-of-day description that includes moon phase information.
-    This description should complement weather messages and work for both day and night.
+    Get a combined time-of-day, moon phase, and weather description in a single coherent line.
+    This replaces both the separate time-of-day/moon description and weather message.
     
     Args:
-        is_outdoor: Whether the room is outdoor (affects moon visibility descriptions)
+        is_outdoor: Whether the room is outdoor (affects descriptions)
     
     Returns:
-        str: Descriptive time-of-day/moon text
+        str: Combined time-of-day/moon/weather description
     """
     time_of_day = get_time_of_day()
-    minutes_in_day = GAME_TIME["minutes"] % (HOURS_PER_DAY * MINUTES_PER_HOUR)
-    hour_24h = int(minutes_in_day // MINUTES_PER_HOUR)
     weather_type = WEATHER_STATE.get("type", "clear")
+    weather_intensity = WEATHER_STATE.get("intensity", "none")
     moon_phase = get_moon_phase()
     moon_desc = get_moon_phase_description()
     
-    # Daytime descriptions
-    if time_of_day == "day":
-        if is_outdoor:
-            if weather_type in ["overcast", "cloudy"]:
-                return "The sky is overcast, casting everything in muted grey tones."
-            elif weather_type in ["rain", "storm", "sleet"]:
-                return "The day is darkened by heavy clouds and precipitation."
-            elif weather_type == "heatwave":
-                return "The sun beats down mercilessly, baking the land."
-            elif weather_type == "windy":
-                return "The day is bright but restless, with wind whipping through the air."
-            else:
-                return "The sun shines brightly overhead, illuminating the land."
-        else:
-            # Indoor - simpler description
+    # For indoor rooms, keep it simple
+    if not is_outdoor:
+        if time_of_day == "day":
             return "The day's light filters in from outside."
-    
-    # Dawn descriptions
-    elif time_of_day == "dawn":
-        if is_outdoor:
-            if weather_type in ["overcast", "cloudy"]:
-                return "Dawn breaks muted and grey through the clouds."
-            elif weather_type in ["rain", "storm", "sleet"]:
-                return "Dawn struggles to break through the heavy clouds and rain."
-            elif weather_type == "fog":
-                return "Dawn light filters weakly through the thick fog."
-            else:
-                return "Dawn breaks, painting the sky in shades of pink and gold."
-        else:
+        elif time_of_day == "dawn":
             return "The pale light of dawn filters in through the windows."
-    
-    # Dusk descriptions
-    elif time_of_day == "dusk":
-        if is_outdoor:
-            if weather_type in ["overcast", "cloudy"]:
-                return "Evening settles in, the sky a uniform grey."
-            elif weather_type in ["rain", "storm", "sleet"]:
-                return "Evening falls, darkness deepened by the heavy weather."
-            elif weather_type == "fog":
-                return "Evening mist thickens as daylight fades."
-            else:
-                return "Evening settles in, the sky painted in deep oranges and purples."
-        else:
+        elif time_of_day == "dusk":
             return "Evening light fades as darkness settles outside."
-    
-    # Night descriptions (with moon phases for outdoor, simpler for indoor)
-    else:  # night
-        if is_outdoor:
-            # Check if moon is visible (not new moon and clear/partly cloudy)
-            moon_visible = moon_phase != "new" and weather_type not in ["overcast", "storm", "fog"]
-            
-            if not moon_visible:
-                if weather_type == "overcast":
-                    return "The night is pitch black, clouds obscuring any light from above."
-                elif weather_type == "storm":
-                    return "The night is black as pitch, with no light penetrating the storm clouds."
-                elif weather_type == "fog":
-                    return "The night is lost in impenetrable fog, no light reaching the ground."
-                elif moon_phase == "new":
-                    return "The night is pitch black, the new moon providing no light."
-                else:
-                    return "The night is dark and moonless."
-            else:
-                # Moon is visible - describe it based on phase
-                if moon_phase == "full":
-                    return "The land is bathed in the bright silvery light of the full moon."
-                elif moon_phase in ["waxing_gibbous", "waning_gibbous"]:
-                    return f"The land is lit up by the bright light of the {moon_desc}."
-                elif moon_phase in ["first_quarter", "last_quarter"]:
-                    return f"The land is lit up by the eerie light of the {moon_desc}."
-                elif moon_phase == "waxing_crescent":
-                    return f"The land is dimly lit by the sliver of the {moon_desc}."
-                elif moon_phase == "waning_crescent":
-                    return f"The land is barely lit by the thin crescent of the {moon_desc}."
-                else:
-                    return f"The land is lit up by the light of the {moon_desc}."
-        else:
-            # Indoor at night
+        else:  # night
             return "The night is dark outside, little light reaching in."
+    
+    # Outdoor room descriptions - combine time, moon, and weather intelligently
+    # Daytime
+    if time_of_day == "day":
+        if weather_type == "clear":
+            return "The sun shines brightly overhead in clear skies, illuminating the land."
+        elif weather_type == "overcast":
+            return "The day is grey and muted under heavy overcast skies."
+        elif weather_type == "rain":
+            if weather_intensity == "heavy":
+                return "The day is darkened by heavy rain and thick clouds that block out the sun."
+            else:
+                return "Rain falls steadily, darkening the day and soaking everything below."
+        elif weather_type == "storm":
+            return "A fierce storm darkens the day, with thunder and lightning crashing overhead."
+        elif weather_type == "snow":
+            if weather_intensity == "heavy":
+                return "Heavy snow blankets the day, reducing visibility and muffling all sound."
+            else:
+                return "Snow drifts down steadily, softening the edges of the day."
+        elif weather_type == "sleet":
+            return "Freezing sleet falls through the day, making everything slick and treacherous."
+        elif weather_type == "heatwave":
+            return "The sun beats down mercilessly in the sweltering heat, baking the land."
+        elif weather_type == "windy":
+            if weather_intensity == "heavy":
+                return "Strong winds howl through the day, making it hard to keep your footing."
+            else:
+                return "A brisk wind tugs at your clothes as the day progresses."
+        elif weather_type == "fog":
+            return "Thick fog obscures the day, reducing visibility to just a few paces."
+        else:
+            return "The day passes under an uncertain sky."
+    
+    # Dawn
+    elif time_of_day == "dawn":
+        if weather_type == "clear":
+            return "Dawn breaks, painting the sky in shades of pink and gold with clear skies above."
+        elif weather_type == "overcast":
+            return "Dawn struggles through heavy grey clouds, casting everything in muted light."
+        elif weather_type == "rain":
+            return "Dawn breaks weakly through heavy clouds and steady rain."
+        elif weather_type == "storm":
+            return "Dawn battles against a raging storm, barely visible through the chaos."
+        elif weather_type == "fog":
+            return "Dawn light filters weakly through thick morning fog."
+        else:
+            return "Dawn breaks, though the weather obscures much of the morning light."
+    
+    # Dusk
+    elif time_of_day == "dusk":
+        if weather_type == "clear":
+            return "Evening settles in with clear skies, the horizon painted in deep oranges and purples."
+        elif weather_type == "overcast":
+            return "Evening falls under heavy grey clouds, darkness coming early."
+        elif weather_type == "rain":
+            return "Evening arrives with steady rain, darkness deepened by the heavy weather."
+        elif weather_type == "storm":
+            return "Evening falls as the storm continues, darkness and chaos merging together."
+        elif weather_type == "fog":
+            return "Evening mist thickens as daylight fades, obscuring the horizon."
+        else:
+            return "Evening settles in, bringing darkness as the day ends."
+    
+    # Night (with moon phases)
+    else:  # night
+        moon_visible = moon_phase != "new" and weather_type not in ["overcast", "storm", "fog"]
+        
+        # Night with clear weather
+        if weather_type == "clear":
+            if moon_phase == "new":
+                return "The night is pitch black under clear skies. The new moon provides no light, leaving only the faintest stars visible."
+            elif moon_phase == "full":
+                return "Clear skies stretch overhead, and the land is bathed in the bright silvery light of the full moon."
+            elif moon_phase in ["waxing_gibbous", "waning_gibbous"]:
+                return f"Clear skies stretch overhead, and the land is lit up by the bright light of the {moon_desc}."
+            elif moon_phase in ["first_quarter", "last_quarter"]:
+                return f"Clear skies stretch overhead, and the land is lit up by the eerie light of the {moon_desc}."
+            elif moon_phase in ["waxing_crescent", "waning_crescent"]:
+                return f"Clear skies stretch overhead. The {moon_desc} provides only dim light, leaving much of the land in shadow."
+            else:
+                return f"Clear skies stretch overhead, the {moon_desc} and stars providing the only light."
+        
+        # Night with overcast
+        elif weather_type == "overcast":
+            return "The night is pitch black, with thick clouds obscuring any light from above."
+        
+        # Night with rain
+        elif weather_type == "rain":
+            if weather_intensity == "heavy":
+                return "The night is black as pitch, with heavy rain and thick clouds blocking out all light."
+            else:
+                return "The night is dark, with steady rain falling and clouds obscuring the sky above."
+        
+        # Night with storm
+        elif weather_type == "storm":
+            return "The night is black as pitch, with no light penetrating the storm clouds overhead."
+        
+        # Night with snow
+        elif weather_type == "snow":
+            if moon_visible:
+                if moon_phase == "full":
+                    return f"Snow falls steadily through the night, the full moon's light reflecting off the white ground."
+                else:
+                    return f"Snow drifts down through the night, the {moon_desc} casting an eerie glow on the falling flakes."
+            else:
+                return "Snow falls steadily through the dark night, reducing visibility to just a few paces."
+        
+        # Night with sleet
+        elif weather_type == "sleet":
+            return "Freezing sleet falls through the pitch black night, making the ground treacherous."
+        
+        # Night with fog
+        elif weather_type == "fog":
+            return "The night is lost in impenetrable fog, no light reaching through the thick mist."
+        
+        # Night with windy
+        elif weather_type == "windy":
+            if moon_visible:
+                if moon_phase == "full":
+                    return "A brisk wind tugs at your clothes as the full moon's light illuminates the restless night."
+                else:
+                    return f"A brisk wind tugs at your clothes under the {moon_desc}'s dim light."
+            else:
+                return "The night is dark and windy, with clouds scudding across the sky."
+        
+        # Default night (shouldn't happen, but fallback)
+        else:
+            if moon_phase == "new":
+                return "The night is pitch black, the new moon providing no light."
+            elif moon_visible:
+                return f"The land is lit up by the light of the {moon_desc}."
+            else:
+                return "The night is dark and moonless."
 
 
 def get_previous_season(current_season):
@@ -5705,22 +5769,18 @@ def describe_location(game):
             all_but_last = ", ".join(present_entities[:-1])
             npcs_text = f"{notice_prefix} {all_but_last} and {present_entities[-1]} are here."
 
-    # Get time-of-day/moon description (replaces room title)
+    # Get combined time-of-day/moon/weather description (replaces room title and weather line)
     is_outdoor = room_def.get("outdoor", False)
-    time_moon_description = get_time_of_day_moon_description(is_outdoor=is_outdoor)
+    combined_time_weather = get_combined_time_weather_description(is_outdoor=is_outdoor)
     
-    # Add weather and seasonal overlays for outdoor rooms
-    weather_text = ""
+    # Style the combined time/weather description in dark yellow (#b8860b)
+    combined_time_weather_text = f"<span style='color: #b8860b;'>{combined_time_weather}</span>"
+    
+    # Get seasonal overlay for outdoor rooms
     seasonal_overlay = ""
     npc_weather_reaction = ""
     
     if room_def.get("outdoor", False):
-        # Get weather message
-        weather_msg = get_weather_message()
-        if weather_msg:
-            # Style weather text in dark yellow (#b8860b)
-            weather_text = f"<span style='color: #b8860b;'>{weather_msg}</span>"
-        
         # Get seasonal overlay
         season = get_season()
         seasonal_overlay = get_seasonal_room_overlay(room_def, season, WEATHER_STATE)
@@ -5752,19 +5812,17 @@ def describe_location(game):
     # Style exits text in dark green (#006400)
     exits_text = f"<span style='color: #006400;'>{exits_text}</span>"
     
-    # Combine all parts (room title removed, replaced with time-of-day/moon description)
+    # Combine all parts (room title removed, replaced with combined time/weather description)
     parts = [
-        time_moon_description,  # Time-of-day/moon description replaces room title
-        desc,
+        desc,  # Room description
     ]
     
     # Add seasonal overlay after main description
     if seasonal_overlay:
         parts.append(seasonal_overlay)
     
-    # Add weather message (already styled dark yellow)
-    if weather_text:
-        parts.append(weather_text)
+    # Add combined time-of-day/weather/moon description (styled dark yellow)
+    parts.append(combined_time_weather_text)
     
     # Add exits (styled dark green)
     parts.append(exits_text)
