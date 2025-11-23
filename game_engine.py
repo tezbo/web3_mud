@@ -1847,7 +1847,54 @@ def check_sunrise_sunset_transitions(broadcast_fn=None, who_fn=None):
     if abs(current_minutes - sunrise_min) <= 1 and GAME_TIME["last_sunrise_minute"] != sunrise_min:
         GAME_TIME["last_sunrise_minute"] = sunrise_min
         season_name = season.capitalize()
-        message = f"[CYAN]The sun rises over Hollowvale, marking the start of a new {season_name} day.[/CYAN]"
+        
+        # Get weather-aware sunrise message
+        wtype = WEATHER_STATE.get("type", "clear")
+        intensity = WEATHER_STATE.get("intensity", "none")
+        temp = WEATHER_STATE.get("temperature", "mild")
+        
+        if wtype == "rain":
+            if intensity == "heavy":
+                message = f"[CYAN]The sun struggles to rise through heavy clouds and driving rain, marking the start of a new {season_name} day.[/CYAN]"
+            elif intensity == "moderate":
+                message = f"[CYAN]The sun rises behind a curtain of rain, its light diffused and grey, marking the start of a new {season_name} day.[/CYAN]"
+            else:
+                message = f"[CYAN]The sun rises through light rain, its rays breaking through the clouds, marking the start of a new {season_name} day.[/CYAN]"
+        elif wtype == "snow":
+            if intensity == "heavy":
+                message = f"[CYAN]The sun rises weakly through heavy snowfall, casting a pale light over the white landscape, marking the start of a new {season_name} day.[/CYAN]"
+            elif intensity == "moderate":
+                message = f"[CYAN]The sun rises through falling snow, its light soft and muted, marking the start of a new {season_name} day.[/CYAN]"
+            else:
+                message = f"[CYAN]The sun rises through light snow, its rays catching the flakes, marking the start of a new {season_name} day.[/CYAN]"
+        elif wtype == "sleet":
+            message = f"[CYAN]The sun rises weakly through freezing sleet, its light barely visible, marking the start of a new {season_name} day.[/CYAN]"
+        elif wtype == "overcast":
+            if intensity == "moderate":
+                message = f"[CYAN]The sun rises behind thick clouds, its light muted and grey, marking the start of a new {season_name} day.[/CYAN]"
+            else:
+                message = f"[CYAN]The sun rises through overcast skies, its light soft and diffused, marking the start of a new {season_name} day.[/CYAN]"
+        elif wtype == "storm":
+            if intensity == "heavy":
+                message = f"[CYAN]The sun struggles to rise through a fierce storm, lightning illuminating the dark clouds, marking the start of a new {season_name} day.[/CYAN]"
+            else:
+                message = f"[CYAN]The sun rises behind storm clouds, its light broken by flashes of lightning, marking the start of a new {season_name} day.[/CYAN]"
+        elif wtype == "windy":
+            if intensity == "heavy":
+                message = f"[CYAN]The sun rises over Hollowvale as strong winds whip through the valley, marking the start of a new {season_name} day.[/CYAN]"
+            elif intensity == "moderate":
+                message = f"[CYAN]The sun rises over Hollowvale, its light carried on a brisk wind, marking the start of a new {season_name} day.[/CYAN]"
+            else:
+                message = f"[CYAN]The sun rises over Hollowvale, a gentle breeze stirring the morning air, marking the start of a new {season_name} day.[/CYAN]"
+        elif wtype == "heatwave":
+            message = f"[CYAN]The sun rises hot and bright over Hollowvale, the air already heavy with heat, marking the start of a new {season_name} day.[/CYAN]"
+        else:  # clear
+            if temp == "hot":
+                message = f"[CYAN]The sun rises bright and warm over Hollowvale, promising a hot {season_name} day.[/CYAN]"
+            elif temp == "cold":
+                message = f"[CYAN]The sun rises cold and clear over Hollowvale, marking the start of a new {season_name} day.[/CYAN]"
+            else:
+                message = f"[CYAN]The sun rises over Hollowvale, marking the start of a new {season_name} day.[/CYAN]"
         
         # Broadcast to all outdoor rooms (filtered by notify time in app.py)
         if broadcast_fn and who_fn:
@@ -1867,7 +1914,54 @@ def check_sunrise_sunset_transitions(broadcast_fn=None, who_fn=None):
     if abs(current_minutes - sunset_min) <= 1 and GAME_TIME["last_sunset_minute"] != sunset_min:
         GAME_TIME["last_sunset_minute"] = sunset_min
         season_name = season.capitalize()
-        message = f"[CYAN]The sun sets over Hollowvale, bringing {season_name} night.[/CYAN]"
+        
+        # Get weather-aware sunset message
+        wtype = WEATHER_STATE.get("type", "clear")
+        intensity = WEATHER_STATE.get("intensity", "none")
+        temp = WEATHER_STATE.get("temperature", "mild")
+        
+        if wtype == "rain":
+            if intensity == "heavy":
+                message = f"[CYAN]The sun sets behind heavy clouds and driving rain, bringing {season_name} night.[/CYAN]"
+            elif intensity == "moderate":
+                message = f"[CYAN]The sun sets behind a curtain of rain, its light fading into grey, bringing {season_name} night.[/CYAN]"
+            else:
+                message = f"[CYAN]The sun sets through light rain, its last rays breaking through the clouds, bringing {season_name} night.[/CYAN]"
+        elif wtype == "snow":
+            if intensity == "heavy":
+                message = f"[CYAN]The sun sets weakly through heavy snowfall, casting a pale glow over the white landscape, bringing {season_name} night.[/CYAN]"
+            elif intensity == "moderate":
+                message = f"[CYAN]The sun sets through falling snow, its light soft and muted, bringing {season_name} night.[/CYAN]"
+            else:
+                message = f"[CYAN]The sun sets through light snow, its rays catching the flakes, bringing {season_name} night.[/CYAN]"
+        elif wtype == "sleet":
+            message = f"[CYAN]The sun sets weakly through freezing sleet, its light barely visible, bringing {season_name} night.[/CYAN]"
+        elif wtype == "overcast":
+            if intensity == "moderate":
+                message = f"[CYAN]The sun sets behind thick clouds, its light muted and grey, bringing {season_name} night.[/CYAN]"
+            else:
+                message = f"[CYAN]The sun sets through overcast skies, its light soft and diffused, bringing {season_name} night.[/CYAN]"
+        elif wtype == "storm":
+            if intensity == "heavy":
+                message = f"[CYAN]The sun sets behind a fierce storm, lightning illuminating the dark clouds, bringing {season_name} night.[/CYAN]"
+            else:
+                message = f"[CYAN]The sun sets behind storm clouds, its light broken by flashes of lightning, bringing {season_name} night.[/CYAN]"
+        elif wtype == "windy":
+            if intensity == "heavy":
+                message = f"[CYAN]The sun sets over Hollowvale as strong winds whip through the valley, bringing {season_name} night.[/CYAN]"
+            elif intensity == "moderate":
+                message = f"[CYAN]The sun sets over Hollowvale, its light carried on a brisk wind, bringing {season_name} night.[/CYAN]"
+            else:
+                message = f"[CYAN]The sun sets over Hollowvale, a gentle breeze stirring the evening air, bringing {season_name} night.[/CYAN]"
+        elif wtype == "heatwave":
+            message = f"[CYAN]The sun sets hot and heavy over Hollowvale, the air still warm from the day, bringing {season_name} night.[/CYAN]"
+        else:  # clear
+            if temp == "hot":
+                message = f"[CYAN]The sun sets warm and bright over Hollowvale, the heat of the day lingering, bringing {season_name} night.[/CYAN]"
+            elif temp == "cold":
+                message = f"[CYAN]The sun sets cold and clear over Hollowvale, bringing {season_name} night.[/CYAN]"
+            else:
+                message = f"[CYAN]The sun sets over Hollowvale, bringing {season_name} night.[/CYAN]"
         
         # Broadcast to all outdoor rooms (filtered by notify time in app.py)
         if broadcast_fn and who_fn:
