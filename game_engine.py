@@ -8692,9 +8692,7 @@ def _legacy_handle_command_body(
                         username=username or "adventurer"
                     )
                     quests.handle_quest_event(game, event)
-                else:
-                    # Target found but invalid room - already set response above
-                    pass
+                # else: target_room not in WORLD - response already set above
 
     elif tokens[0] == "set" and len(tokens) >= 4:
         # Admin-only set command: set <target> <property> <value>
