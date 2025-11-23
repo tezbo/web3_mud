@@ -2322,6 +2322,50 @@ def get_season():
         return "winter"
 
 
+def get_month():
+    """
+    Get the current month name based on day of year.
+    Year has 12 months, each approximately 10 days (120 days / 12 months = 10 days/month).
+    
+    Returns:
+        str: Month name (e.g., "Firstmoon", "Thawtide", etc.)
+    """
+    day = get_day_of_year()
+    days_per_month = DAYS_PER_YEAR // 12
+    month_index = day // days_per_month
+    
+    # Thematic month names for Hollowvale
+    months = [
+        "Firstmoon",    # Month 0 (Spring)
+        "Thawtide",     # Month 1 (Spring)
+        "Bloomtide",    # Month 2 (Spring)
+        "Flameheart",   # Month 3 (Summer)
+        "Suncrown",     # Month 4 (Summer)
+        "Harvestmoon",  # Month 5 (Summer)
+        "Fallowtide",   # Month 6 (Autumn)
+        "Frostfall",    # Month 7 (Autumn)
+        "Leafbare",     # Month 8 (Autumn)
+        "Deepwinter",   # Month 9 (Winter)
+        "Icetide",      # Month 10 (Winter)
+        "Lastfrost",    # Month 11 (Winter)
+    ]
+    
+    return months[month_index]
+
+
+def get_day_of_month():
+    """
+    Get the current day of the month (1-based).
+    
+    Returns:
+        int: Day of month (1 to ~10)
+    """
+    day = get_day_of_year()
+    days_per_month = DAYS_PER_YEAR // 12
+    day_of_month = (day % days_per_month) + 1
+    return day_of_month
+
+
 # --- Lunar Cycle System ---
 # Moon phases cycle over ~30 in-game days (one month)
 
@@ -5642,10 +5686,16 @@ def format_time_message(game):
     # Format time string with exact minutes (e.g., "6:05AM", "12:30PM")
     time_str = f"{display_hour}:{minutes:02d}{period}"
     
-    # Get time of day and season
+    # Get time of day, season, month, and day info
     time_of_day = get_time_of_day()
     season = get_season()
     season_name = season.capitalize()
+    month = get_month()
+    day_of_month = get_day_of_month()
+    day_of_year = get_day_of_year()
+    
+    # Format date string (e.g., "Day 45 of Firstmoon, Spring")
+    date_str = f"Day {day_of_month} of {month}, {season_name}"
     
     # Create creative messages with variations
     # Only include bell-related messages if it's actually on the hour (minute 0)
@@ -5660,35 +5710,35 @@ def format_time_message(game):
             f"You hear the distant tolling of a bell: it is {time_str} in {location_name}.",
         ])
     
-    # Always include non-bell messages
+    # Always include non-bell messages with date info
     messages.extend([
-        f"A voice calls out from somewhere nearby: 'The time in {location_name} is {time_str}.'",
-        f"Glancing at the sky, you estimate it to be {time_str} in {location_name}.",
-        f"The shadows and light tell you it is {time_str} in {location_name}.",
-        f"You check the time: it is {time_str} in {location_name}.",
-        f"The position of the sun tells you it is {time_str} in {location_name}.",
+        f"A voice calls out from somewhere nearby: 'The time in {location_name} is {time_str}. It is {date_str}.'",
+        f"Glancing at the sky, you estimate it to be {time_str} in {location_name}. Today is {date_str}.",
+        f"The shadows and light tell you it is {time_str} in {location_name}. The calendar shows it is {date_str}.",
+        f"You check the time: it is {time_str} in {location_name}. The date is {date_str}.",
+        f"The position of the sun tells you it is {time_str} in {location_name}. It is {date_str}.",
     ])
     
-    # Add time-of-day specific messages
+    # Add time-of-day specific messages with date info
     if time_of_day == "dawn":
         messages.extend([
-            f"In the pale light of dawn, the time in {location_name} is {time_str}.",
-            f"As the sun rises, you know it is {time_str} in {location_name}.",
+            f"In the pale light of dawn, the time in {location_name} is {time_str}. Today is {date_str}.",
+            f"As the sun rises, you know it is {time_str} in {location_name}. It is {date_str}.",
         ])
     elif time_of_day == "day":
         messages.extend([
-            f"Under the bright {season_name} sun, the time in {location_name} is {time_str}.",
-            f"The sun's position confirms it is {time_str} in {location_name}.",
+            f"Under the bright {season_name} sun, the time in {location_name} is {time_str}. Today is {date_str}.",
+            f"The sun's position confirms it is {time_str} in {location_name}. The date is {date_str}.",
         ])
     elif time_of_day == "dusk":
         messages.extend([
-            f"As evening approaches, the time in {location_name} is {time_str}.",
-            f"In the fading light, you know it is {time_str} in {location_name}.",
+            f"As evening approaches, the time in {location_name} is {time_str}. Today is {date_str}.",
+            f"In the fading light, you know it is {time_str} in {location_name}. It is {date_str}.",
         ])
     else:  # night
         messages.extend([
-            f"Beneath the {season_name} night sky, the time in {location_name} is {time_str}.",
-            f"The moon and stars mark the hour as {time_str} in {location_name}.",
+            f"Beneath the {season_name} night sky, the time in {location_name} is {time_str}. Today is {date_str}.",
+            f"The moon and stars mark the hour as {time_str} in {location_name}. The date is {date_str}.",
         ])
     
     # Use deterministic selection based on hour to avoid randomness
