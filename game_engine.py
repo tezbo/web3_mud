@@ -4476,14 +4476,26 @@ def format_time_message(game):
     season_name = season.capitalize()
     
     # Create creative messages with variations
-    messages = [
-        f"At the third stroke, the clock in {location_name} will strike {time_str}.",
-        f"The bells of {location_name} chime, marking the hour of {time_str}.",
-        f"You hear the distant tolling of a bell: it is {time_str} in {location_name}.",
+    # Only include bell-related messages if it's actually on the hour (minute 0)
+    # Otherwise, the actual bell tolling is handled by check_bell_tolling()
+    messages = []
+    
+    if minutes == 0:
+        # On the hour - bell messages are appropriate
+        messages.extend([
+            f"At the third stroke, the clock in {location_name} will strike {time_str}.",
+            f"The bells of {location_name} chime, marking the hour of {time_str}.",
+            f"You hear the distant tolling of a bell: it is {time_str} in {location_name}.",
+        ])
+    
+    # Always include non-bell messages
+    messages.extend([
         f"A voice calls out from somewhere nearby: 'The time in {location_name} is {time_str}.'",
         f"Glancing at the sky, you estimate it to be {time_str} in {location_name}.",
         f"The shadows and light tell you it is {time_str} in {location_name}.",
-    ]
+        f"You check the time: it is {time_str} in {location_name}.",
+        f"The position of the sun tells you it is {time_str} in {location_name}.",
+    ])
     
     # Add time-of-day specific messages
     if time_of_day == "dawn":
