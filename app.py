@@ -911,10 +911,14 @@ def command():
             processed_log = log[0]
         else:
             processed_log = highlight_exits_in_log(log)
+        # Ensure session is saved before returning
+        session.modified = True
         return jsonify({"response": response, "log": processed_log, "onboarding": not is_complete})
     
     # Normal game command handling - require authentication
+    # Log why we're requiring login (for debugging)
     if not user_id:
+        logging.warning(f"Command '{cmd}' rejected - no user_id in session. Session keys: {list(session.keys())}")
         return jsonify({"response": "Please login first.", "log": ["Please login first."], "onboarding": False})
     
     game = get_game()
