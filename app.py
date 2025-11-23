@@ -192,12 +192,40 @@ def broadcast_to_room(sender_username, room_id, text):
             g["log"] = g["log"][-50:]
 
 
+def cleanup_stale_sessions():
+    """
+    Remove stale sessions and clean up ACTIVE_GAMES for players who haven't been active.
+    Called periodically to keep the active player list accurate.
+    """
+    from datetime import datetime, timedelta
+    global ACTIVE_GAMES, ACTIVE_SESSIONS
+    
+    # Remove sessions that haven't been active in 15 minutes
+    cutoff_time = datetime.now() - timedelta(minutes=15)
+    
+    stale_usernames = []
+    for username, session_info in ACTIVE_SESSIONS.items():
+        last_activity = session_info.get("last_activity")
+        if not last_activity or last_activity < cutoff_time:
+            stale_usernames.append(username)
+    
+    # Remove stale sessions
+    for username in stale_usernames:
+        ACTIVE_SESSIONS.pop(username, None)
+        # Optionally also remove from ACTIVE_GAMES (or keep for quick reload)
+        # ACTIVE_GAMES.pop(username, None)
+
+
 def list_active_players():
     """
     Return a list of dicts with active player information.
     Only includes players who have active sessions (logged in and recently active).
     """
     from datetime import datetime, timedelta
+    
+    # Clean up stale sessions first
+    cleanup_stale_sessions()
+    
     data = []
     
     # Only show players who have been active in the last 10 minutes
