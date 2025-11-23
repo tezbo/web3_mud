@@ -1,6 +1,7 @@
 import os
 import json
 import sqlite3
+import random
 from functools import wraps
 from flask import Flask, render_template, request, session, jsonify, redirect, url_for, flash
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -1196,7 +1197,6 @@ def poll_updates():
     if elapsed_npc_seconds >= npc_interval_min:
         from game_engine import get_npcs_in_room
         from npc_actions import get_all_npc_actions_for_room
-        import random
         
         npc_ids = get_npcs_in_room(current_room)
         if npc_ids:
