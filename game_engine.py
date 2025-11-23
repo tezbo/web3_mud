@@ -8987,7 +8987,8 @@ def handle_command(
     # Normalise tokens to lower case where needed, but keep the original text for content
     lower_tokens = [t.lower() for t in tokens]
     
-    return dispatch_command(
+    # Dispatch the command (handles both registry and legacy commands)
+    response, game = dispatch_command(
         verb=lower_tokens[0],
         tokens=lower_tokens,
         raw_command=text,
@@ -8998,6 +8999,17 @@ def handle_command(
         broadcast_fn=broadcast_fn,
         who_fn=who_fn,
     )
+    
+    # Log the interaction (skip logging for logout confirmation)
+    # This ensures ALL commands (both registry and legacy) get logged
+    if response != "__LOGOUT__":
+        game.setdefault("log", [])
+        game["log"].append(f"> {text}")  # Use original command text, not lowercased
+        game["log"].append(response)
+        # Keep log from growing forever
+        game["log"] = game["log"][-50:]
+    
+    return response, game
 
 
 def get_global_state_snapshot():
