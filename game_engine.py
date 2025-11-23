@@ -6667,6 +6667,49 @@ def handle_command(
             game["user_description"] = description_text
             response = f"Your description has been updated: {description_text}"
     
+    elif tokens[0] in ["board", "noticeboard", "read board"]:
+        # Noticeboard interaction command
+        import quests
+        from game_engine import GAME_TIME
+        loc_id = game.get("location", "town_square")
+        current_tick = GAME_TIME.get("tick", 0)
+        
+        if loc_id not in WORLD:
+            response = "You feel disoriented for a moment."
+        else:
+            # Check if this room has a noticeboard
+            room_def = WORLD[loc_id]
+            details = room_def.get("details", {})
+            has_noticeboard = any(
+                detail_id in ["notice_board", "noticeboard", "board"] or 
+                detail.get("name", "").lower() in ["notice board", "noticeboard", "board"]
+                for detail_id, detail in details.items()
+            )
+            
+            if not has_noticeboard and loc_id != "town_square":
+                # Town square always has a noticeboard, but check other rooms
+                response = "There's no noticeboard here."
+            else:
+                if len(tokens) == 1:
+                    # Just "board" - show the noticeboard
+                    response = quests.render_noticeboard(game, loc_id, current_tick)
+                elif len(tokens) >= 2:
+                    # "board <number>" - read a specific posting
+                    try:
+                        posting_num = int(tokens[1])
+                        available_quests = quests.get_noticeboard_quests_for_room(game, loc_id, current_tick)
+                        
+                        if 1 <= posting_num <= len(available_quests):
+                            template = available_quests[posting_num - 1]
+                            # Offer the quest
+                            response = quests.offer_quest_to_player(game, username or "adventurer", template.id, f"noticeboard:{loc_id}")
+                        else:
+                            response = f"There's no posting number {posting_num} on the noticeboard."
+                    except ValueError:
+                        response = "Usage: 'board' to see postings, or 'board <number>' to read a specific posting."
+                else:
+                    response = "Usage: 'board' to see postings, or 'board <number>' to read a specific posting."
+    
     elif tokens[0] in ["quests", "questlog"]:
         # Quest list and detail commands
         import quests
