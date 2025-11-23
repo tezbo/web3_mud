@@ -9172,25 +9172,31 @@ def _legacy_handle_command_body(
         if not target_username or not message:
             response = "Usage: tell <player> <message>"
         else:
-            # Check if target player is online
-            target_found = False
+            # Check if player is trying to tell themselves
+            sender_username_lower = (username or "").lower()
             target_username_lower = target_username.lower()
             
-            if who_fn:
-                try:
-                    active_players = who_fn()
-                    for player_info in active_players:
-                        player_username = player_info.get("username", "")
-                        if player_username.lower() == target_username_lower:
-                            target_found = True
-                            target_username = player_username  # Use exact case from system
-                            break
-                except Exception:
-                    pass
-            
-            if not target_found:
-                response = f"{target_username} is not currently online."
+            if sender_username_lower == target_username_lower or target_username_lower == "me" or target_username_lower == "self":
+                response = "Talking to yourself again? Is everything alright? (You can't send private messages to yourself.)"
             else:
+                # Check if target player is online
+                target_found = False
+                
+                if who_fn:
+                    try:
+                        active_players = who_fn()
+                        for player_info in active_players:
+                            player_username = player_info.get("username", "")
+                            if player_username.lower() == target_username_lower:
+                                target_found = True
+                                target_username = player_username  # Use exact case from system
+                                break
+                    except Exception:
+                        pass
+                
+                if not target_found:
+                    response = f"{target_username} is not currently online."
+                else:
                 # Get target player's game state from ACTIVE_GAMES
                 # This import is safe because app.py imports game_engine, not the other way around
                 from app import ACTIVE_GAMES, save_game, save_state_to_disk
