@@ -1034,7 +1034,6 @@ def poll_updates():
             new_messages.append(ambiance_msg[0])  # process_room_ambiance returns a list
             
             # Update last ambiance time (randomize interval between 75-125 seconds)
-            import random
             next_interval = random.uniform(75, 125)
             poll_state["last_ambiance_time"] = current_time - timedelta(seconds=elapsed_ambiance_seconds - next_interval)
     
