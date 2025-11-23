@@ -701,6 +701,55 @@ def is_item_buryable(item_id: str) -> tuple:
     return True, ""
 
 
+def cleanup_buried_items():
+    """
+    Remove buried items that are older than 1 in-game day (1440 minutes).
+    Items are permanently deleted after this period.
+    """
+    global BURIED_ITEMS
+    current_tick = GAME_TIME.get("tick", 0)
+    current_minutes = GAME_TIME.get("minutes", 0)
+    
+    # 1 in-game day = 1440 minutes
+    MINUTES_PER_DAY = HOURS_PER_DAY * MINUTES_PER_HOUR
+    deletion_threshold_minutes = current_minutes - MINUTES_PER_DAY
+    
+    rooms_to_clean = []
+    for room_id, buried_list in BURIED_ITEMS.items():
+        if not buried_list:
+            continue
+        
+        # Filter out items that are too old (permanently deleted)
+        remaining_items = []
+        for buried_item in buried_list:
+            buried_at_minutes = buried_item.get("buried_at_minutes", 0)
+            if buried_at_minutes > deletion_threshold_minutes:
+                remaining_items.append(buried_item)
+        
+        if remaining_items:
+            BURIED_ITEMS[room_id] = remaining_items
+        else:
+            rooms_to_clean.append(room_id)
+    
+    # Remove rooms with no buried items
+    for room_id in rooms_to_clean:
+        del BURIED_ITEMS[room_id]
+
+
+def get_buried_items_in_room(room_id: str) -> list:
+    """
+    Get list of buried items in a room that can still be recovered.
+    
+    Args:
+        room_id: Room identifier
+    
+    Returns:
+        list: List of buried item dicts with item_id and burial info
+    """
+    cleanup_buried_items()  # Clean up old items first
+    return BURIED_ITEMS.get(room_id, [])
+
+
 # Room capacity constants
 MAX_ROOM_ITEMS = 50  # Maximum number of items a room can hold
 MAX_ROOM_WEIGHT = 100.0  # Maximum total weight (kg) a room can hold
@@ -974,6 +1023,11 @@ ROOM_STATE = {
     }
     for room_id, room_def in WORLD.items()
 }
+
+# --- Buried Items Tracking (for recovery system) ---
+# Format: {room_id: [{"item_id": str, "buried_at_tick": int, "buried_at_minutes": int}, ...]}
+# Items are permanently deleted after 1 in-game day (1440 minutes)
+BURIED_ITEMS = {}
 
 # --- World Clock (tracks in-game time) ---
 # In-game time: 1 in-game hour = 1 real-world hour (configurable)
@@ -4655,6 +4709,9 @@ def handle_command(
     update_weather_if_needed()
     update_player_weather_status(game)
     
+    # Clean up old buried items periodically (every command)
+    cleanup_buried_items()
+    
     text = command.strip()
     if not text:
         return "You say nothing.", game
@@ -5082,51 +5139,229 @@ def handle_command(
         if loc_id not in WORLD:
             response = "You feel disoriented for a moment."
         else:
-            # Try to find item in inventory first, then in room
-            matched_item = None
-            source = None
+            room_state = ROOM_STATE.setdefault(loc_id, {"items": []})
+            room_items = room_state["items"]
             
-            # Check inventory
-            matched_item = match_item_name_in_collection(item_input, inventory)
-            if matched_item:
-                source = "inventory"
-            else:
-                # Check room
-                room_state = ROOM_STATE.setdefault(loc_id, {"items": []})
-                room_items = room_state["items"]
-                matched_item = match_item_name_in_collection(item_input, room_items)
-                if matched_item:
-                    source = "room"
-            
-            if not matched_item:
-                response = f"You don't see a '{item_input}' here to bury."
-            else:
-                # Check if item is buryable
-                can_bury, reason = is_item_buryable(matched_item)
+            if item_input in ["all", "everything"]:
+                # Bury all buryable items in the room
+                buried_items = []
+                non_buryable_items = []
+                current_tick = GAME_TIME.get("tick", 0)
+                current_minutes = GAME_TIME.get("minutes", 0)
                 
-                if not can_bury:
-                    response = reason
-                else:
-                    # Remove item permanently
-                    item_def = get_item_def(matched_item)
-                    display_name = render_item_name(matched_item)
+                # Initialize buried items tracking for this room if needed
+                if loc_id not in BURIED_ITEMS:
+                    BURIED_ITEMS[loc_id] = []
+                
+                # Check each item in the room
+                for item_id in room_items[:]:  # Use slice to iterate over copy
+                    can_bury, reason = is_item_buryable(item_id)
+                    if can_bury:
+                        buried_items.append(item_id)
+                        room_items.remove(item_id)
+                        # Add to buried items with timestamp
+                        BURIED_ITEMS[loc_id].append({
+                            "item_id": item_id,
+                            "buried_at_tick": current_tick,
+                            "buried_at_minutes": current_minutes,
+                        })
+                    else:
+                        non_buryable_items.append(item_id)
+                
+                room_state["items"] = room_items
+                
+                # Build response
+                if buried_items:
+                    item_names = [render_item_name(item_id) for item_id in buried_items]
+                    if len(buried_items) == 1:
+                        response = f"You dig a small hole and bury the {item_names[0]}, covering it with earth. You can recover it within a day."
+                    else:
+                        response = f"You dig a hole and bury {len(buried_items)} items, covering them with earth. You can recover them within a day.\nBuried: {', '.join(item_names)}."
                     
-                    if source == "inventory":
-                        inventory.remove(matched_item)
-                        game["inventory"] = inventory
-                        response = f"You dig a small hole and bury the {display_name}, covering it with earth. It's gone for good."
-                    elif source == "room":
-                        room_state = ROOM_STATE.setdefault(loc_id, {"items": []})
-                        room_items = room_state["items"]
-                        room_items.remove(matched_item)
-                        room_state["items"] = room_items
-                        response = f"You dig a small hole and bury the {display_name}, covering it with earth. It's gone for good."
+                    if non_buryable_items:
+                        non_buryable_names = [render_item_name(item_id) for item_id in non_buryable_items]
+                        response += f"\n(You cannot bury: {', '.join(non_buryable_names)}.)"
                     
                     # Broadcast to room if other players are present
                     if broadcast_fn is not None:
                         actor_name = username or "Someone"
-                        broadcast_message = f"{actor_name} digs a hole and buries something in the ground."
+                        if len(buried_items) == 1:
+                            broadcast_message = f"{actor_name} digs a hole and buries something in the ground."
+                        else:
+                            broadcast_message = f"{actor_name} digs a hole and buries several items in the ground."
                         broadcast_fn(loc_id, broadcast_message)
+                else:
+                    if non_buryable_items:
+                        non_buryable_names = [render_item_name(item_id) for item_id in non_buryable_items]
+                        response = f"There's nothing buryable here. ({', '.join(non_buryable_names)} cannot be buried.)"
+                    else:
+                        response = "There's nothing here to bury."
+            else:
+                # Bury a specific item - try inventory first, then room
+                matched_item = None
+                source = None
+                
+                # Check inventory
+                matched_item = match_item_name_in_collection(item_input, inventory)
+                if matched_item:
+                    source = "inventory"
+                else:
+                    # Check room
+                    matched_item = match_item_name_in_collection(item_input, room_items)
+                    if matched_item:
+                        source = "room"
+                
+                if not matched_item:
+                    response = f"You don't see a '{item_input}' here to bury."
+                else:
+                    # Check if item is buryable
+                    can_bury, reason = is_item_buryable(matched_item)
+                    
+                    if not can_bury:
+                        response = reason
+                    else:
+                        # Bury item (store with timestamp for recovery)
+                        item_def = get_item_def(matched_item)
+                        display_name = render_item_name(matched_item)
+                        current_tick = GAME_TIME.get("tick", 0)
+                        current_minutes = GAME_TIME.get("minutes", 0)
+                        
+                        if source == "inventory":
+                            inventory.remove(matched_item)
+                            game["inventory"] = inventory
+                            # Items buried from inventory go to the room's buried items
+                            if loc_id not in BURIED_ITEMS:
+                                BURIED_ITEMS[loc_id] = []
+                            BURIED_ITEMS[loc_id].append({
+                                "item_id": matched_item,
+                                "buried_at_tick": current_tick,
+                                "buried_at_minutes": current_minutes,
+                            })
+                            response = f"You dig a small hole and bury the {display_name}, covering it with earth. You can recover it within a day."
+                        elif source == "room":
+                            room_items.remove(matched_item)
+                            room_state["items"] = room_items
+                            # Store in buried items tracking
+                            if loc_id not in BURIED_ITEMS:
+                                BURIED_ITEMS[loc_id] = []
+                            BURIED_ITEMS[loc_id].append({
+                                "item_id": matched_item,
+                                "buried_at_tick": current_tick,
+                                "buried_at_minutes": current_minutes,
+                            })
+                            response = f"You dig a small hole and bury the {display_name}, covering it with earth. You can recover it within a day."
+                        
+                        # Broadcast to room if other players are present
+                        if broadcast_fn is not None:
+                            actor_name = username or "Someone"
+                            broadcast_message = f"{actor_name} digs a hole and buries something in the ground."
+                            broadcast_fn(loc_id, broadcast_message)
+
+    elif tokens[0] == "recover" and len(tokens) >= 2:
+        # Recover command: dig up buried items
+        item_input = " ".join(tokens[1:]).lower()
+        loc_id = game.get("location", "town_square")
+        inventory = game.get("inventory", [])
+        
+        if loc_id not in WORLD:
+            response = "You feel disoriented for a moment."
+        else:
+            # Clean up old buried items first
+            cleanup_buried_items()
+            
+            # Get buried items in this room
+            buried_items = get_buried_items_in_room(loc_id)
+            
+            if not buried_items:
+                response = "There's nothing buried here to recover."
+            else:
+                if item_input in ["all", "everything"]:
+                    # Recover all buried items
+                    recovered_items = []
+                    
+                    # Check inventory weight capacity
+                    max_weight = game.get("max_carry_weight", 20.0)
+                    current_weight = calculate_inventory_weight(inventory)
+                    
+                    for buried_item in buried_items[:]:  # Use slice to iterate over copy
+                        item_id = buried_item["item_id"]
+                        item_def = get_item_def(item_id)
+                        item_weight = item_def.get("weight", 0.1)
+                        
+                        if current_weight + item_weight <= max_weight:
+                            # Remove from buried items
+                            BURIED_ITEMS[loc_id].remove(buried_item)
+                            # Add to inventory
+                            inventory.append(item_id)
+                            recovered_items.append(item_id)
+                            current_weight += item_weight
+                        else:
+                            # Not enough capacity
+                            break
+                    
+                    game["inventory"] = inventory
+                    
+                    # Update buried items list (remove empty room)
+                    if loc_id in BURIED_ITEMS and not BURIED_ITEMS[loc_id]:
+                        del BURIED_ITEMS[loc_id]
+                    
+                    if recovered_items:
+                        item_names = [render_item_name(item_id) for item_id in recovered_items]
+                        if len(recovered_items) == 1:
+                            response = f"You dig carefully and recover the {item_names[0]}."
+                        else:
+                            response = f"You dig carefully and recover {len(recovered_items)} items: {', '.join(item_names)}."
+                        
+                        if len(recovered_items) < len(buried_items):
+                            response += "\n(You couldn't carry all the buried items - you're at capacity.)"
+                        
+                        # Broadcast to room if other players are present
+                        if broadcast_fn is not None:
+                            actor_name = username or "Someone"
+                            broadcast_message = f"{actor_name} digs carefully and recovers something from the ground."
+                            broadcast_fn(loc_id, broadcast_message)
+                    else:
+                        response = "You couldn't recover any items - your inventory is too full!"
+                else:
+                    # Recover a specific item
+                    matched_buried_item = None
+                    for buried_item in buried_items:
+                        item_id = buried_item["item_id"]
+                        display_name = render_item_name(item_id).lower()
+                        if item_input in display_name or display_name in item_input:
+                            matched_buried_item = buried_item
+                            break
+                    
+                    if not matched_buried_item:
+                        response = f"You don't see a '{item_input}' buried here."
+                    else:
+                        item_id = matched_buried_item["item_id"]
+                        item_def = get_item_def(item_id)
+                        item_weight = item_def.get("weight", 0.1)
+                        max_weight = game.get("max_carry_weight", 20.0)
+                        current_weight = calculate_inventory_weight(inventory)
+                        
+                        if current_weight + item_weight > max_weight:
+                            response = "You can't carry that - your inventory is too full!"
+                        else:
+                            # Remove from buried items
+                            BURIED_ITEMS[loc_id].remove(matched_buried_item)
+                            # Add to inventory
+                            inventory.append(item_id)
+                            game["inventory"] = inventory
+                            
+                            # Update buried items list (remove empty room)
+                            if loc_id in BURIED_ITEMS and not BURIED_ITEMS[loc_id]:
+                                del BURIED_ITEMS[loc_id]
+                            
+                            display_name = render_item_name(item_id)
+                            response = f"You dig carefully and recover the {display_name}."
+                            
+                            # Broadcast to room if other players are present
+                            if broadcast_fn is not None:
+                                actor_name = username or "Someone"
+                                broadcast_message = f"{actor_name} digs carefully and recovers something from the ground."
+                                broadcast_fn(loc_id, broadcast_message)
 
     elif tokens[0] == "give" and len(tokens) >= 2:
         # Give command: "give <item> to <npc>" or "give <npc> <item>"
@@ -6503,28 +6738,32 @@ def handle_command(
 
 def get_global_state_snapshot():
     """
-    Returns a JSON-serialisable dict containing global state (ROOM_STATE, NPC_STATE, GAME_TIME, WEATHER_STATE).
+    Returns a JSON-serialisable dict containing global state (ROOM_STATE, NPC_STATE, GAME_TIME, WEATHER_STATE, BURIED_ITEMS).
     
     Returns:
-        dict: {"room_state": ROOM_STATE, "npc_state": NPC_STATE, "game_time": GAME_TIME, "weather_state": WEATHER_STATE}
+        dict: {"room_state": ROOM_STATE, "npc_state": NPC_STATE, "game_time": GAME_TIME, "weather_state": WEATHER_STATE, "buried_items": BURIED_ITEMS}
     """
+    # Clean up old buried items before saving
+    cleanup_buried_items()
+    
     return {
         "room_state": ROOM_STATE,
         "npc_state": NPC_STATE,
         "game_time": GAME_TIME,
         "weather_state": WEATHER_STATE,
+        "buried_items": BURIED_ITEMS,
     }
 
 
 def load_global_state_snapshot(snapshot):
     """
-    Updates ROOM_STATE, NPC_STATE, WORLD_CLOCK, GAME_TIME, and WEATHER_STATE from a snapshot dict.
+    Updates ROOM_STATE, NPC_STATE, WORLD_CLOCK, GAME_TIME, WEATHER_STATE, and BURIED_ITEMS from a snapshot dict.
     Backfills missing fields for backward compatibility.
     
     Args:
-        snapshot: dict with optional "room_state", "npc_state", "world_clock", "game_time", and "weather_state" keys
+        snapshot: dict with optional "room_state", "npc_state", "world_clock", "game_time", "weather_state", and "buried_items" keys
     """
-    global ROOM_STATE, NPC_STATE, WORLD_CLOCK, GAME_TIME, WEATHER_STATE
+    global ROOM_STATE, NPC_STATE, WORLD_CLOCK, GAME_TIME, WEATHER_STATE, BURIED_ITEMS
     from npc import NPCS
     
     if not isinstance(snapshot, dict):
@@ -6598,6 +6837,11 @@ def load_global_state_snapshot(snapshot):
                     if item_given:
                         initial_stock = item_info.get("initial_stock", 10)
                         state["merchant_inventory"][item_given] = initial_stock
+    
+    if "buried_items" in snapshot and isinstance(snapshot["buried_items"], dict):
+        BURIED_ITEMS = snapshot["buried_items"]
+        # Clean up any items that are too old when loading
+        cleanup_buried_items()
 
 
 def highlight_exits_in_log(log_entries):
