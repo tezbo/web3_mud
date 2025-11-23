@@ -1958,11 +1958,13 @@ MINUTES_PER_HOUR = 60
 HOURS_PER_DAY = 24
 DAYS_PER_YEAR = 120  # Short in-game year for gameplay
 
-# GAME_TIME tracks tick-based progression (independent of real-world time)
+# GAME_TIME tracks tick-based progression (continuous based on real-world time)
+# Time advances both from commands and elapsed real-world time
 GAME_TIME = {
     "tick": 0,          # Monotonically increasing tick count
     "minutes": 0,       # Total in-game minutes elapsed
     "last_season": None,  # Track previous season for transition detection
+    "last_update_timestamp": None,  # Last real-world timestamp when time was updated
 }
 
 # WEATHER_STATE tracks current global weather
@@ -2146,14 +2148,40 @@ SEASONAL_OVERLAYS = {
 
 def advance_time(ticks=1):
     """
-    Advance the game time by the given number of ticks.
+    Advance the game time by the given number of ticks, plus any elapsed real-world time.
+    
+    This function ensures time passes continuously even when no commands are being processed.
+    Time conversion: 1 real-world minute = 1 game minute (1:1 ratio).
     
     Args:
-        ticks: Number of ticks to advance (default: 1)
+        ticks: Number of ticks to advance from command (default: 1)
     """
     global GAME_TIME
-    GAME_TIME["tick"] += ticks
-    GAME_TIME["minutes"] = GAME_TIME["tick"] // TICKS_PER_MINUTE
+    from datetime import datetime
+    
+    current_real_time = datetime.now()
+    
+    # Initialize last_update_timestamp if not set
+    if GAME_TIME.get("last_update_timestamp") is None:
+        GAME_TIME["last_update_timestamp"] = current_real_time
+        GAME_TIME["tick"] += ticks
+        GAME_TIME["minutes"] = GAME_TIME["tick"] // TICKS_PER_MINUTE
+        return
+    
+    # Calculate elapsed real-world time since last update
+    last_update = GAME_TIME["last_update_timestamp"]
+    elapsed_real_seconds = (current_real_time - last_update).total_seconds()
+    elapsed_real_minutes = elapsed_real_seconds / 60.0
+    
+    # Convert real-world minutes to game ticks (1:1 ratio)
+    # Add the command-based ticks as well
+    elapsed_game_ticks = int(elapsed_real_minutes * TICKS_PER_MINUTE) + ticks
+    
+    # Update game time
+    if elapsed_game_ticks > 0:
+        GAME_TIME["tick"] += elapsed_game_ticks
+        GAME_TIME["minutes"] = GAME_TIME["tick"] // TICKS_PER_MINUTE
+        GAME_TIME["last_update_timestamp"] = current_real_time
 
 
 def get_sunrise_sunset_times():
