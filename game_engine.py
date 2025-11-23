@@ -3949,8 +3949,11 @@ def process_time_based_exit_states(broadcast_fn=None, who_fn=None):
     
     # Check if we need to lock the door (1am)
     if hour_of_day == 1 and last_hour.get("tavern_locked") != 1:
-        # Lock the door
+        # Lock the door FROM tavern (north exit to town_square)
         set_exit_state(tavern_room_id, tavern_door_direction, locked=True, 
+                      reason="The heavy wooden door is locked for the night.")
+        # Also lock the entrance TO tavern from town_square (south exit)
+        set_exit_state("town_square", "south", locked=True,
                       reason="The heavy wooden door is locked for the night.")
         last_hour["tavern_locked"] = 1
         
@@ -4002,8 +4005,10 @@ def process_time_based_exit_states(broadcast_fn=None, who_fn=None):
     
     # Check if we need to unlock the door (10am)
     elif hour_of_day == 10 and last_hour.get("tavern_unlocked") != 10:
-        # Unlock the door
+        # Unlock the door FROM tavern (north exit to town_square)
         set_exit_state(tavern_room_id, tavern_door_direction, locked=False)
+        # Also unlock the entrance TO tavern from town_square (south exit)
+        set_exit_state("town_square", "south", locked=False)
         last_hour["tavern_unlocked"] = 10
         
         # Mara's opening message
