@@ -9063,6 +9063,44 @@ def _legacy_handle_command_body(
         import quests
         response = quests.decline_pending_quest(game, username or "adventurer")
     
+    elif tokens[0] in ["tokens", "budget", "token_budget"]:
+        # Check AI token budget and usage
+        if not user_id or not db_conn:
+            response = "Token budget information is not available."
+        else:
+            try:
+                default_budget = int(os.environ.get("AI_DEFAULT_TOKEN_BUDGET", "10000"))
+                row = db_conn.execute(
+                    """
+                    SELECT token_budget, tokens_used 
+                    FROM ai_usage 
+                    WHERE user_id = ?
+                    """,
+                    (user_id,)
+                ).fetchone()
+                
+                if row:
+                    budget = row["token_budget"]
+                    used = row["tokens_used"]
+                    remaining = budget - used
+                    percentage = (used / budget * 100) if budget > 0 else 0
+                    
+                    response = f"AI Token Budget: {budget:,} tokens\n"
+                    response += f"Tokens Used: {used:,} tokens ({percentage:.1f}%)\n"
+                    response += f"Tokens Remaining: {remaining:,} tokens"
+                    
+                    if remaining <= 0:
+                        response += "\n[Note: Your AI token budget has been exhausted. Please contact an administrator.]"
+                    elif remaining < budget * 0.1:
+                        response += f"\n[Warning: You have less than 10% of your budget remaining ({remaining:,} tokens).]"
+                else:
+                    # No budget set - use default
+                    response = f"AI Token Budget: {default_budget:,} tokens (default)\n"
+                    response += f"Tokens Used: 0 tokens\n"
+                    response += f"Tokens Remaining: {default_budget:,} tokens"
+            except Exception as e:
+                response = f"Error retrieving token budget: {e}"
+    
     # Note: 'help' command is now handled by _handle_help_command via the registry
     
     elif tokens[0] == "who":
