@@ -642,6 +642,9 @@ def index():
                 "character": {}
             }
             session["onboarding_state"] = onboarding_state
+            session["onboarding_step"] = 0
+            session.permanent = True
+            session.modified = True
             log = [ONBOARDING_USERNAME_PROMPT]
         else:
             onboarding_state = session.get("onboarding_state", {"step": 0, "character": {}})
