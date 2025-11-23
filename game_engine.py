@@ -5432,29 +5432,19 @@ def add_session_welcome(game, username):
     # Add one blank line
     game["log"].append("")
     
-    # Get current in-game time - extract just the time string from format_time_message
-    # format_time_message returns a full message, we need to extract the time
-    current_hour = get_current_in_game_hour()
-    in_game_hours_per_day = IN_GAME_DAY_DURATION / IN_GAME_HOUR_DURATION
-    hour_in_day = current_hour % in_game_hours_per_day
+    # Get current in-game time using the same system as format_time_message
+    # Use get_current_hour_in_minutes() for consistency
+    current_minutes = get_current_hour_in_minutes()
+    hour_24h = int(current_minutes // MINUTES_PER_HOUR)
+    minutes = int(current_minutes % MINUTES_PER_HOUR)
     
-    # Convert to 12-hour format with exact minutes
-    if hour_in_day < 1.0:
-        total_minutes_in_period = hour_in_day * 12 * 60
-        total_minutes_from_6am = 6 * 60 + total_minutes_in_period
-    else:
-        total_minutes_in_period = (hour_in_day - 1.0) * 12 * 60
-        total_minutes_from_6am = 18 * 60 + total_minutes_in_period
-    
-    if total_minutes_from_6am >= 24 * 60:
-        total_minutes_from_6am -= 24 * 60
-    
-    real_hour = int(total_minutes_from_6am // 60)
-    minutes = int(total_minutes_from_6am % 60)
-    period = "AM" if real_hour < 12 else "PM"
-    display_hour = real_hour if real_hour <= 12 else real_hour - 12
+    # Determine AM/PM and format hour for 12-hour display
+    period = "AM" if hour_24h < 12 else "PM"
+    display_hour = hour_24h if hour_24h <= 12 else hour_24h - 12
     if display_hour == 0:
         display_hour = 12
+    
+    # Format time string with exact minutes (e.g., "6:05AM", "12:30PM")
     time_str = f"{display_hour}:{minutes:02d}{period}"
     
     # Get location information
