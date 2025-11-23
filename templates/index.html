@@ -324,7 +324,7 @@
         <a href="{{ url_for('logout') }}">Log out</a>
       </div>
     </div>
-    <div id="output">{% if log and log|length > 0 and (log[0]|string is containing('[PAUSE:') or log[0]|string is containing('[ELLIPSIS:')) %}{# Pause markers will be processed by JavaScript #}{% else %}{{ "\n".join(log) | safe }}{% endif %}</div>
+    <div id="output">{% if log and log|length > 0 and ('[PAUSE:' in (log[0]|string) or '[ELLIPSIS:' in (log[0]|string)) %}{# Pause markers will be processed by JavaScript #}{% else %}{{ "\n".join(log) | safe }}{% endif %}</div>
     <div class="input-row">
       <input id="command" type="text" placeholder="Type a command (try: look, go north, inventory, help)" autocomplete="off">
       <button id="sendBtn">Send</button>
