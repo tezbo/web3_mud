@@ -666,6 +666,41 @@ def calculate_room_items_weight(room_items: list) -> float:
     return total_weight
 
 
+def is_item_buryable(item_id: str) -> tuple:
+    """
+    Check if an item can be buried (permanently removed).
+    
+    Args:
+        item_id: Item identifier
+    
+    Returns:
+        tuple: (can_bury, reason_message)
+        - can_bury: True if item can be buried, False otherwise
+        - reason_message: Explanation if cannot be buried (empty string if can bury)
+    """
+    item_def = get_item_def(item_id)
+    
+    # Currency cannot be buried
+    item_type = item_def.get("type", "misc")
+    if item_type == "currency":
+        return False, "You cannot bury money."
+    
+    # Special/quest items cannot be buried (non-droppable items are usually special)
+    if not item_def.get("droppable", True):
+        return False, "That item is too special to bury."
+    
+    # Check for quest flags
+    flags = item_def.get("flags", [])
+    if "quest" in flags or "unique" in flags or "artifact" in flags:
+        return False, "That item is too special to bury."
+    
+    # Artifact type items cannot be buried
+    if item_type == "artifact":
+        return False, "That item is too special to bury."
+    
+    return True, ""
+
+
 # Room capacity constants
 MAX_ROOM_ITEMS = 50  # Maximum number of items a room can hold
 MAX_ROOM_WEIGHT = 100.0  # Maximum total weight (kg) a room can hold
@@ -5038,6 +5073,61 @@ def handle_command(
                                 display_name = render_item_name(matched_item)
                                 response = f"You drop the {display_name}."
 
+    elif tokens[0] == "bury" and len(tokens) >= 2:
+        # Bury command: permanently remove an item from the game
+        item_input = " ".join(tokens[1:]).lower()
+        loc_id = game.get("location", "town_square")
+        inventory = game.get("inventory", [])
+        
+        if loc_id not in WORLD:
+            response = "You feel disoriented for a moment."
+        else:
+            # Try to find item in inventory first, then in room
+            matched_item = None
+            source = None
+            
+            # Check inventory
+            matched_item = match_item_name_in_collection(item_input, inventory)
+            if matched_item:
+                source = "inventory"
+            else:
+                # Check room
+                room_state = ROOM_STATE.setdefault(loc_id, {"items": []})
+                room_items = room_state["items"]
+                matched_item = match_item_name_in_collection(item_input, room_items)
+                if matched_item:
+                    source = "room"
+            
+            if not matched_item:
+                response = f"You don't see a '{item_input}' here to bury."
+            else:
+                # Check if item is buryable
+                can_bury, reason = is_item_buryable(matched_item)
+                
+                if not can_bury:
+                    response = reason
+                else:
+                    # Remove item permanently
+                    item_def = get_item_def(matched_item)
+                    display_name = render_item_name(matched_item)
+                    
+                    if source == "inventory":
+                        inventory.remove(matched_item)
+                        game["inventory"] = inventory
+                        response = f"You dig a small hole and bury the {display_name}, covering it with earth. It's gone for good."
+                    elif source == "room":
+                        room_state = ROOM_STATE.setdefault(loc_id, {"items": []})
+                        room_items = room_state["items"]
+                        room_items.remove(matched_item)
+                        room_state["items"] = room_items
+                        response = f"You dig a small hole and bury the {display_name}, covering it with earth. It's gone for good."
+                    
+                    # Broadcast to room if other players are present
+                    if broadcast_fn is not None:
+                        actor_name = username or "Someone"
+                        broadcast_message = f"{actor_name} digs a hole and buries something in the ground."
+                        broadcast_fn(loc_id, broadcast_message)
+
     elif tokens[0] == "give" and len(tokens) >= 2:
         # Give command: "give <item> to <npc>" or "give <npc> <item>"
         loc_id = game.get("location", "town_square")
@@ -5526,9 +5616,17 @@ def handle_command(
                                         if not charity_item_key:
                                             charity_item_key = _choose_charity_item(merchant_items, game, npc_id)
                                         
+                                        # Ensure we have a valid item key - if not, choose one
+                                        if not charity_item_key or charity_item_key not in merchant_items:
+                                            charity_item_key = _choose_charity_item(merchant_items, game, npc_id)
+                                        
                                         if charity_item_key and charity_item_key in merchant_items:
                                             item_info = merchant_items[charity_item_key]
-                                            item_given = item_info["item_given"]
+                                            item_given = item_info.get("item_given")
+                                            
+                                            if not item_given:
+                                                # Fallback: use the item_key itself if item_given is missing
+                                                item_given = charity_item_key
                                             
                                             # Add item to inventory
                                             inventory = game.get("inventory", [])
@@ -5559,17 +5657,23 @@ def handle_command(
                                                 game["npc_memory"][npc_id] = game["npc_memory"][npc_id][-20:]
                                             
                                             item_display = item_info.get("display_name", charity_item_key.replace("_", " "))
-                                            response = f"You say: \"{message}\"\n{charity_response or f'{npc.name} gives you a {item_display} for free.'}"
+                                            # Add explicit message about receiving the item
+                                            if charity_response:
+                                                response = f"You say: \"{message}\"\n{charity_response}\n{npc.name} hands you a {item_display}."
+                                            else:
+                                                response = f"You say: \"{message}\"\n{npc.name} gives you a {item_display} for free."
                                             
-                                            # Broadcast charity response
-                                            if broadcast_fn is not None and charity_response:
-                                                broadcast_fn(loc_id, charity_response)
+                                            # Broadcast charity response and item handover
+                                            if broadcast_fn is not None:
+                                                if charity_response:
+                                                    broadcast_fn(loc_id, charity_response)
+                                                broadcast_fn(loc_id, f"{npc.name} hands {username or 'someone'} a {item_display}.")
                                             
                                             purchase_processed = True
                                             break
                                         else:
-                                            # NPC wanted to help but item not available
-                                            response = f"You say: \"{message}\"\n{purchase_response}"
+                                            # NPC wanted to help but item not available - this shouldn't happen often
+                                            response = f"You say: \"{message}\"\n{purchase_response}\n{npc.name} looks around but doesn't seem to have anything to give you right now."
                                             purchase_processed = True
                                             break
                                     else:
@@ -5639,9 +5743,17 @@ def handle_command(
                                     if not charity_item_key:
                                         charity_item_key = _choose_charity_item(merchant_items, game, npc_id)
                                     
+                                    # Ensure we have a valid item key - if not, choose one
+                                    if not charity_item_key or charity_item_key not in merchant_items:
+                                        charity_item_key = _choose_charity_item(merchant_items, game, npc_id)
+                                    
                                     if charity_item_key and charity_item_key in merchant_items:
                                         item_info = merchant_items[charity_item_key]
-                                        item_given = item_info["item_given"]
+                                        item_given = item_info.get("item_given")
+                                        
+                                        if not item_given:
+                                            # Fallback: use the item_key itself if item_given is missing
+                                            item_given = charity_item_key
                                         
                                         # Add item to inventory
                                         inventory = game.get("inventory", [])
@@ -5672,11 +5784,17 @@ def handle_command(
                                             game["npc_memory"][npc_id] = game["npc_memory"][npc_id][-20:]
                                         
                                         item_display = item_info.get("display_name", charity_item_key.replace("_", " "))
-                                        response = f"You say: \"{message}\"\n{charity_response or f'{npc.name} gives you a {item_display} for free.'}"
+                                        # Add explicit message about receiving the item
+                                        if charity_response:
+                                            response = f"You say: \"{message}\"\n{charity_response}\n{npc.name} hands you a {item_display}."
+                                        else:
+                                            response = f"You say: \"{message}\"\n{npc.name} gives you a {item_display} for free."
                                         
-                                        # Broadcast charity response
-                                        if broadcast_fn is not None and charity_response:
-                                            broadcast_fn(loc_id, charity_response)
+                                        # Broadcast charity response and item handover
+                                        if broadcast_fn is not None:
+                                            if charity_response:
+                                                broadcast_fn(loc_id, charity_response)
+                                            broadcast_fn(loc_id, f"{npc.name} hands {username or 'someone'} a {item_display}.")
                                         
                                         charity_processed = True
                                         break
