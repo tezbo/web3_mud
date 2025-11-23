@@ -350,16 +350,23 @@
       sessionState.theme = 'light';
     }
 
-    // Track initial output text
+    // Track initial output text (if any)
     const initialOutput = outputEl.innerHTML;
-    if (initialOutput) {
-      const lines = initialOutput.split('\n').filter(line => line.trim());
+    if (initialOutput && initialOutput.trim()) {
+      // Parse initial HTML content to extract text
+      const tempDiv = document.createElement('div');
+      tempDiv.innerHTML = initialOutput;
+      const textContent = tempDiv.textContent || tempDiv.innerText || '';
+      const lines = textContent.split('\n').filter(line => line.trim());
+      const initialTimestamp = new Date();
       lines.forEach(line => {
-        sessionState.sessionText.push({
-          text: line,
-          timestamp: new Date(),
-          type: 'output'
-        });
+        if (line.trim()) {
+          sessionState.sessionText.push({
+            text: line.trim(),
+            timestamp: initialTimestamp,
+            type: 'output'
+          });
+        }
       });
     }
 
