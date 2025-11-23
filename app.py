@@ -120,6 +120,10 @@ def get_db():
 # Active games storage for multiplayer support
 ACTIVE_GAMES = {}  # username -> game state dict
 
+# Track active sessions (users currently logged in)
+# Format: {username: {"last_activity": timestamp, "session_id": str}}
+ACTIVE_SESSIONS = {}  # username -> session info
+
 # State file for persistence (set above if PERSISTENT_DISK_PATH is configured)
 # NOTE: This uses a local mud_state.json file for persistence. This works fine for
 # a single Render instance, but is not suitable for multi-instance scaling where
@@ -189,14 +193,29 @@ def broadcast_to_room(sender_username, room_id, text):
 
 
 def list_active_players():
-    """Return a list of dicts with active player information."""
+    """
+    Return a list of dicts with active player information.
+    Only includes players who have active sessions (logged in and recently active).
+    """
+    from datetime import datetime, timedelta
     data = []
+    
+    # Only show players who have been active in the last 10 minutes
+    # This filters out stale entries from players who logged out or closed their browser
+    cutoff_time = datetime.now() - timedelta(minutes=10)
+    
     for uname, g in ACTIVE_GAMES.items():
-        loc_id = g.get("location", "town_square")
-        data.append({
-            "username": uname,
-            "location": loc_id,
-        })
+        # Check if player has an active session (recently active)
+        session_info = ACTIVE_SESSIONS.get(uname)
+        if session_info:
+            last_activity = session_info.get("last_activity")
+            if last_activity and last_activity >= cutoff_time:
+                loc_id = g.get("location", "town_square")
+                data.append({
+                    "username": uname,
+                    "location": loc_id,
+                })
+    
     return data
 
 
@@ -610,8 +629,9 @@ def logout():
                 g["log"] = g["log"][-50:]
                 save_game(g)
         
-        # Remove from active games
+        # Remove from active games and sessions
         ACTIVE_GAMES.pop(username, None)
+        ACTIVE_SESSIONS.pop(username, None)
     
     # Clear welcome flag on logout so it shows again on next login
     session.pop("welcome_added", None)
@@ -811,8 +831,9 @@ def command():
                 g["log"] = g["log"][-50:]
                 save_game(g)
         
-        # Remove this user from ACTIVE_GAMES
+        # Remove this user from ACTIVE_GAMES and ACTIVE_SESSIONS
         ACTIVE_GAMES.pop(username, None)
+        ACTIVE_SESSIONS.pop(username, None)
         
         # Save game state before logout
         save_game(game)
