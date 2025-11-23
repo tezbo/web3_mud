@@ -1073,12 +1073,21 @@ def command():
     session.setdefault("last_log_index", -1)
     last_log_index = session.get("last_log_index", -1)
     current_log = game.get("log", [])
-    new_log_entries = current_log[last_log_index + 1:] if last_log_index < len(current_log) - 1 else []
+    current_log_length = len(current_log)
     
-    # Update the last log index we've sent
-    if new_log_entries:
-        session["last_log_index"] = len(current_log) - 1
-        session.modified = True
+    # If last_log_index is beyond the current log length (due to log truncation), reset it
+    # Log is truncated to last 50 entries, so we need to account for that
+    if last_log_index >= current_log_length:
+        # Log was truncated - start from beginning of current log
+        last_log_index = -1
+    
+    # Get new log entries (everything after last_log_index)
+    new_log_entries = current_log[last_log_index + 1:] if last_log_index + 1 < current_log_length else []
+    
+    # Always update the last log index to point to the end of current log
+    # This ensures we track what we've sent, even if there were no new entries
+    session["last_log_index"] = current_log_length - 1
+    session.modified = True
     
     # Process only new log entries to highlight Exits in yellow
     processed_log = highlight_exits_in_log(new_log_entries) if new_log_entries else []
