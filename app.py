@@ -999,6 +999,7 @@ def poll_updates():
     elapsed_npc_seconds = (current_time - last_npc_time).total_seconds()
     
     # NPC actions every 15-25 real-world seconds (3-5 game minutes at 12x speed)
+    # Reduced threshold to 15 seconds for more frequent activity
     if elapsed_npc_seconds >= 15:
         from game_engine import get_npcs_in_room
         from npc_actions import get_all_npc_actions_for_room

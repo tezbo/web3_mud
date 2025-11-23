@@ -864,12 +864,20 @@
     }
     
     // Start polling when page loads (only if user is logged in)
-    window.addEventListener('load', () => {
-      // Small delay to ensure session is ready
+    // Also start immediately if DOM is already loaded
+    if (document.readyState === 'loading') {
+      window.addEventListener('load', () => {
+        // Small delay to ensure session is ready
+        setTimeout(() => {
+          startAmbiancePolling();
+        }, 1000);
+      });
+    } else {
+      // DOM already loaded, start polling immediately
       setTimeout(() => {
         startAmbiancePolling();
-      }, 2000);
-    });
+      }, 1000);
+    }
     
     // Stop polling when page unloads
     window.addEventListener('beforeunload', () => {
