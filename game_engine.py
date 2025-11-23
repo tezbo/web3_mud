@@ -540,6 +540,21 @@ ITEM_DEFS = {
         "weight": 0.1,
         "flags": [],
     },
+    "lost_package": {
+        "name": "lost package",
+        "type": "misc",
+        "description": "A small wrapped package, slightly dusty. It looks like it was misplaced.",
+        "weight": 0.3,
+        "flags": [],
+    },
+    "mara_lucky_charm": {
+        "name": "Mara's lucky charm",
+        "type": "trinket",
+        "description": "A small, handcrafted charm given to you by Mara as a token of gratitude. It seems to carry a bit of luck with it.",
+        "weight": 0.05,
+        "flags": ["quest"],
+        "droppable": False,
+    },
     "strange_leaf": {
         "name": "strange leaf",
         "type": "material",
@@ -664,6 +679,21 @@ def calculate_room_items_weight(room_items: list) -> float:
         weight = item_def.get("weight", 0.1)
         total_weight += weight
     return total_weight
+
+
+def is_quest_item(item_id: str) -> bool:
+    """
+    Check if an item is a quest item (non-droppable, non-sellable, non-buryable).
+    
+    Args:
+        item_id: Item identifier
+    
+    Returns:
+        bool: True if item is a quest item
+    """
+    item_def = get_item_def(item_id)
+    flags = item_def.get("flags", [])
+    return "quest" in flags
 
 
 def is_item_buryable(item_id: str) -> tuple:
@@ -3501,6 +3531,9 @@ def new_game_state(username="adventurer", character=None):
             "heat": 0,
             "last_update_tick": 0,
         },
+        "quests": {},  # Active quest instances: {quest_id: instance_dict}
+        "completed_quests": {},  # Completed/failed quests: {quest_id: instance_dict}
+        "pending_quest_offer": None,  # Pending quest offer: {quest_id, source, offered_at_tick}
     }
     initialize_player_currency(game_state)
     return game_state
@@ -4712,6 +4745,10 @@ def handle_command(
     # Clean up old buried items periodically (every command)
     cleanup_buried_items()
     
+    # Tick quests (check for expired quests)
+    import quests
+    quests.tick_quests(game, GAME_TIME.get("tick", 0))
+    
     text = command.strip()
     if not text:
         return "You say nothing.", game
@@ -4830,6 +4867,15 @@ def handle_command(
                 movement_msg = get_movement_message(target, full_direction)
                 location_desc = describe_location(game)
                 response = f"{movement_msg}\n{location_desc}"
+                
+                # Trigger quest event for entering room
+                import quests
+                event = quests.QuestEvent(
+                    type="enter_room",
+                    room_id=target,
+                    username=username or "adventurer"
+                )
+                quests.handle_quest_event(game, event)
             else:
                 response = "You can't go that way."
     
@@ -4881,6 +4927,15 @@ def handle_command(
                 movement_msg = get_movement_message(target, full_direction)
                 location_desc = describe_location(game)
                 response = f"{movement_msg}\n{location_desc}"
+                
+                # Trigger quest event for entering room
+                import quests
+                event = quests.QuestEvent(
+                    type="enter_room",
+                    room_id=target,
+                    username=username or "adventurer"
+                )
+                quests.handle_quest_event(game, event)
             else:
                 response = "You can't go that way."
 
@@ -5031,6 +5086,16 @@ def handle_command(
                     game["inventory"] = inventory
                     display_name = render_item_name(matched_item)
                     response = f"You pick up the {display_name}."
+                    
+                    # Trigger quest event for taking item
+                    import quests
+                    event = quests.QuestEvent(
+                        type="take_item",
+                        room_id=loc_id,
+                        item_id=matched_item,
+                        username=username or "adventurer"
+                    )
+                    quests.handle_quest_event(game, event)
             else:
                 response = f"You don't see a '{item_input}' here."
 
@@ -5115,7 +5180,10 @@ def handle_command(
                     else:
                         item_def = get_item_def(matched_item)
                         
-                        if not item_def.get("droppable", True):
+                        # Check if quest item
+                        if is_quest_item(matched_item):
+                            response = "You cannot get rid of that. It seems bound to your story."
+                        elif not item_def.get("droppable", True):
                             response = "You cannot drop that item."
                         elif len(room_items) >= MAX_ROOM_ITEMS:
                             response = "There just isn't enough space to make such a mess here!"
@@ -5474,6 +5542,26 @@ def handle_command(
                         
                         npc_name = matched_npc.name if hasattr(matched_npc, 'name') else matched_npc.get('name', 'someone')
                         response = f"You give the {item_found.replace('_', ' ')} to {npc_name}." + npc_response
+                        
+                        # Trigger quest event for giving item
+                        import quests
+                        event = quests.QuestEvent(
+                            type="give_item",
+                            room_id=loc_id,
+                            npc_id=matched_npc_id,
+                            item_id=item_found,
+                            username=username or "adventurer"
+                        )
+                        quests.handle_quest_event(game, event)
+                        
+                        # Also trigger talk_to_npc event (giving counts as interaction)
+                        event2 = quests.QuestEvent(
+                            type="talk_to_npc",
+                            room_id=loc_id,
+                            npc_id=matched_npc_id,
+                            username=username or "adventurer"
+                        )
+                        quests.handle_quest_event(game, event2)
 
     elif tokens[0] == "buy" and len(tokens) >= 2:
         # Buy command: "buy <item>" or "buy <item> from <npc>"
@@ -6087,6 +6175,28 @@ def handle_command(
                     if ai_reactions:
                         response += "\n" + "\n".join(ai_reactions)
                     
+                    # Check for quest offers from NPCs (if player spoke to an NPC)
+                    import quests
+                    from game_engine import GAME_TIME
+                    current_tick = GAME_TIME.get("tick", 0)
+                    
+                    # Check each NPC in the room to see if they should offer a quest
+                    for npc_id in npc_ids:
+                        if npc_id in NPCS:
+                            quest_offer_text = quests.maybe_offer_npc_quest(game, username or "adventurer", npc_id, message, current_tick)
+                            if quest_offer_text:
+                                response += "\n" + quest_offer_text
+                                
+                            # Trigger quest event for saying to NPC
+                            event = quests.QuestEvent(
+                                type="say_to_npc",
+                                room_id=loc_id,
+                                npc_id=npc_id,
+                                text=message,
+                                username=username or "adventurer"
+                            )
+                            quests.handle_quest_event(game, event)
+                    
                     # Broadcast say message to other players in the room (in cyan)
                 if broadcast_fn is not None:
                     # Preserve original formatting and capitalize properly
@@ -6156,6 +6266,19 @@ def handle_command(
                         # Normal talk processing
                         # Generate dialogue for the NPC
                         response = generate_npc_line(npc_id, game, username, user_id=user_id, db_conn=db_conn)
+                        
+                        # Trigger quest event for talking to NPC
+                        import quests
+                        from game_engine import GAME_TIME
+                        current_tick = GAME_TIME.get("tick", 0)
+                        
+                        event = quests.QuestEvent(
+                            type="talk_to_npc",
+                            room_id=loc_id,
+                            npc_id=npc_id,
+                            username=username or "adventurer"
+                        )
+                        quests.handle_quest_event(game, event)
                         
                         # Broadcast NPC dialogue to all players in the room
                         if broadcast_fn is not None and response and response.strip():
@@ -6543,6 +6666,29 @@ def handle_command(
             # Store description in game state (will be saved to database via app.py)
             game["user_description"] = description_text
             response = f"Your description has been updated: {description_text}"
+    
+    elif tokens[0] in ["quests", "questlog"]:
+        # Quest list and detail commands
+        import quests
+        if len(tokens) == 1:
+            # List all active quests
+            response = quests.render_quest_list(game)
+        elif len(tokens) >= 3 and tokens[1] in ["detail", "details"]:
+            # Show detailed information about a specific quest
+            index_or_id = tokens[2]
+            response = quests.render_quest_detail(game, index_or_id)
+        else:
+            response = "Usage: 'quests' to list active quests, or 'quests detail <number>' to see details."
+    
+    elif tokens[0] == "accept" and len(tokens) >= 2 and tokens[1] == "quest":
+        # Accept pending quest offer
+        import quests
+        response = quests.accept_pending_quest(game, username or "adventurer")
+    
+    elif tokens[0] == "decline" and len(tokens) >= 2 and tokens[1] == "quest":
+        # Decline pending quest offer
+        import quests
+        response = quests.decline_pending_quest(game, username or "adventurer")
     
     elif tokens[0] in ["help", "?"]:
         emote_list = ", ".join(sorted(EMOTES.keys())[:5])  # Show first 5 emotes
