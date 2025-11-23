@@ -1027,14 +1027,15 @@ def poll_updates():
     new_messages = []
     current_room = game.get("location", "town_square")
     
-    # Check for NPC actions (should happen every 3-5 game minutes = 15-25 real-world seconds)
-    # At 12x speed: 3 game minutes = 15 real seconds, 5 game minutes = 25 real seconds
+    # Check for NPC actions - use configurable interval from settings
+    npc_interval_min = float(get_game_setting("npc_action_interval_min", "30"))
+    npc_interval_max = float(get_game_setting("npc_action_interval_max", "60"))
+    
     last_npc_time = poll_state.get("last_npc_action_time", current_time)
     elapsed_npc_seconds = (current_time - last_npc_time).total_seconds()
     
-    # NPC actions every 15-25 real-world seconds (3-5 game minutes at 12x speed)
-    # Reduced threshold to 15 seconds for more frequent activity
-    if elapsed_npc_seconds >= 15:
+    # NPC actions at configurable interval
+    if elapsed_npc_seconds >= npc_interval_min:
         from game_engine import get_npcs_in_room
         from npc_actions import get_all_npc_actions_for_room
         import random
