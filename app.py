@@ -810,9 +810,9 @@ def command():
     
     # Debug: Log session state to help diagnose issues
     import logging
-    logging.info(f"Command route - cmd: '{cmd}', onboarding_step: {onboarding_step}, onboarding_state exists: {onboarding_state is not None}, user_id: {user_id}, session keys: {list(session.keys())}")
+    logging.info(f"Command route - cmd: '{cmd}', onboarding_step: {onboarding_step}, onboarding_state exists: {onboarding_state is not None}, user_id: {user_id}, session keys: {list(session.keys())}, referer: {request.headers.get('Referer', '')}")
     
-    # Fallback: if onboarding_state exists but onboarding_step doesn't, infer onboarding_step from state
+    # Fallback 1: if onboarding_state exists but onboarding_step doesn't, infer onboarding_step from state
     if onboarding_step is None and onboarding_state:
         step = onboarding_state.get("step")
         if step is not None:
@@ -821,13 +821,26 @@ def command():
             session.modified = True
             logging.info(f"Inferred onboarding_step from state: {onboarding_step}")
     
-    # Also check query parameter as fallback if session isn't set yet (for GET requests)
+    # Fallback 2: Check referer URL for onboarding parameter (if session cookie wasn't sent)
+    if onboarding_step is None and not user_id:
+        referer = request.headers.get("Referer", "")
+        if "onboarding=start" in referer:
+            logging.info("Detected onboarding from Referer header, initializing session")
+            session["onboarding_step"] = 0
+            session["onboarding_state"] = {"step": 0, "character": {}}
+            session.permanent = True
+            session.modified = True
+            onboarding_step = 0
+            onboarding_state = session["onboarding_state"]
+    
+    # Fallback 3: Also check query parameter as fallback if session isn't set yet (for GET requests)
     if onboarding_step is None and request.args.get("onboarding") == "start":
         session["onboarding_step"] = 0
         session["onboarding_state"] = {"step": 0, "character": {}}
         session.permanent = True
         session.modified = True
         onboarding_step = 0
+        onboarding_state = session["onboarding_state"]
         logging.info("Initialized onboarding from query parameter")
     
     # If in onboarding, handle onboarding commands (user may not be logged in yet)
