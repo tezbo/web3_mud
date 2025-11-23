@@ -1107,7 +1107,9 @@ def command():
     
     # Debug logging (can remove later)
     import logging
-    logging.debug(f"Command '{cmd}': last_log_index={last_log_index}, current_log_length={current_log_length}, new_entries={len(new_log_entries)}")
+    logging.info(f"Command '{cmd}': last_log_index={last_log_index}, current_log_length={current_log_length}, new_entries={len(new_log_entries)}, response_length={len(response) if response else 0}")
+    if len(new_log_entries) == 0:
+        logging.warning(f"No new log entries for command '{cmd}'! Log content (last 3): {current_log[-3:] if len(current_log) >= 3 else current_log}")
     
     return jsonify({"response": response, "log": processed_log})
 
