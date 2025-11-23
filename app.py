@@ -542,8 +542,9 @@ def index():
             save_state_to_disk()
             
             # Create cinematic entrance
-            from game_engine import NPCS, AVAILABLE_RACES, AVAILABLE_BACKSTORIES, describe_location, broadcast_to_room
+            from game_engine import NPCS, AVAILABLE_RACES, AVAILABLE_BACKSTORIES, describe_location
             from game_engine import get_npcs_in_room
+            # Note: broadcast_to_room is defined at module level in app.py, not in game_engine
             
             username_final = session.get("username", "adventurer")
             race_name = AVAILABLE_RACES.get(character.get("race", ""), {}).get("name", "traveler")
