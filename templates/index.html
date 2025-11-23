@@ -311,7 +311,7 @@
     }
   </style>
 </head>
-<body>
+<body{% if onboarding %} data-onboarding="true"{% endif %}>
   <div class="container">
     <div class="top-bar">
       <div>
@@ -863,6 +863,14 @@
       isPollingActive = true;
       pollInterval = setInterval(async () => {
         try {
+          // Check if we're in onboarding before polling
+          const urlParams = new URLSearchParams(window.location.search);
+          if (urlParams.get('onboarding') === 'start' || document.body.getAttribute('data-onboarding') === 'true') {
+            console.log("Onboarding detected, stopping polling");
+            stopAmbiancePolling();
+            return;
+          }
+          
           console.log("Polling for updates...");
           const res = await fetch("/poll", {
             method: "POST",
@@ -873,13 +881,21 @@
           console.log("Poll response status:", res.status);
           
           if (!res.ok) {
-            // If unauthorized or error, log but don't stop polling immediately
-            if (res.status === 401 || res.status === 403) {
-              console.error("Polling unauthorized, stopping");
+            // If unauthorized, redirected, or error, stop polling
+            if (res.status === 401 || res.status === 403 || res.status === 302) {
+              console.error("Polling unauthorized/redirected, stopping");
               stopAmbiancePolling();
             } else {
               console.warn("Polling returned non-OK status:", res.status);
             }
+            return;
+          }
+          
+          // Check content type before parsing
+          const contentType = res.headers.get("content-type") || "";
+          if (!contentType.includes("application/json")) {
+            console.error("Poll response is not JSON, stopping polling");
+            stopAmbiancePolling();
             return;
           }
           
