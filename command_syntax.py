@@ -55,6 +55,11 @@ COMMAND_SYNTAX = {
         "usage": "say <message>",
         "examples": ["say Hello everyone!", "say How are you?"],
     },
+    "tell": {
+        "description": "Send a private message to another player",
+        "usage": "tell <player> <message>",
+        "examples": ["tell mara Hello!", "tell tezbo How are you?"],
+    },
     "talk": {
         "description": "Talk to an NPC",
         "usage": "talk <npc_name>",
