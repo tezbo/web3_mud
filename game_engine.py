@@ -3944,8 +3944,10 @@ def process_time_based_exit_states(broadcast_fn=None, who_fn=None):
     last_hour = process_time_based_exit_states.last_processed_hour
     
     # Tavern door: Lock at 1am, unlock at 10am
+    # The door should remain locked between 1am and 10am
     tavern_room_id = "tavern"
     tavern_door_direction = "north"  # Door to town square
+    town_square_to_tavern = "south"  # Entrance from town_square to tavern
     
     # Check if we need to lock the door (1am)
     if hour_of_day == 1 and last_hour.get("tavern_locked") != 1:
@@ -3953,7 +3955,7 @@ def process_time_based_exit_states(broadcast_fn=None, who_fn=None):
         set_exit_state(tavern_room_id, tavern_door_direction, locked=True, 
                       reason="The heavy wooden door is locked for the night.")
         # Also lock the entrance TO tavern from town_square (south exit)
-        set_exit_state("town_square", "south", locked=True,
+        set_exit_state("town_square", town_square_to_tavern, locked=True,
                       reason="The heavy wooden door is locked for the night.")
         last_hour["tavern_locked"] = 1
         
@@ -4008,8 +4010,25 @@ def process_time_based_exit_states(broadcast_fn=None, who_fn=None):
         # Unlock the door FROM tavern (north exit to town_square)
         set_exit_state(tavern_room_id, tavern_door_direction, locked=False)
         # Also unlock the entrance TO tavern from town_square (south exit)
-        set_exit_state("town_square", "south", locked=False)
+        set_exit_state("town_square", town_square_to_tavern, locked=False)
         last_hour["tavern_unlocked"] = 10
+        # Clear the locked flag so it can lock again the next night
+        if "tavern_locked" in last_hour:
+            del last_hour["tavern_locked"]
+    
+    # Ensure door stays locked between 1am and 10am (re-apply lock if needed)
+    elif (hour_of_day > 1 and hour_of_day < 10) or (hour_of_day == 0):
+        # Between 1am and 10am (or after midnight before 1am), door should be locked
+        # Check if it's locked, and if not, lock it (handles edge cases)
+        tavern_exit_state = EXIT_STATES.get(tavern_room_id, {}).get(tavern_door_direction, {})
+        town_square_exit_state = EXIT_STATES.get("town_square", {}).get(town_square_to_tavern, {})
+        
+        if not tavern_exit_state.get("locked", False):
+            set_exit_state(tavern_room_id, tavern_door_direction, locked=True,
+                          reason="The heavy wooden door is locked for the night.")
+        if not town_square_exit_state.get("locked", False):
+            set_exit_state("town_square", town_square_to_tavern, locked=True,
+                          reason="The heavy wooden door is locked for the night.")
         
         # Mara's opening message
         if broadcast_fn:
