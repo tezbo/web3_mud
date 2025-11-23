@@ -8914,13 +8914,8 @@ def _legacy_handle_command_body(
         game.pop("pending_quit", None)
         response = "You mutter some nonsense. (Try 'help' for ideas.)"
 
-    # Log the interaction (skip logging for logout confirmation)
-    if response != "__LOGOUT__":
-        game.setdefault("log", [])
-        game["log"].append(f"> {command}")
-        game["log"].append(response)
-        # Keep log from growing forever
-        game["log"] = game["log"][-50:]
+    # Note: Logging is now handled centrally in handle_command() after dispatch
+    # to avoid duplicate logging for registry vs legacy commands
 
     return response, game
 
