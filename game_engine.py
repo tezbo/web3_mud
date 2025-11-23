@@ -6901,6 +6901,20 @@ def _legacy_handle_command_body(
     # Process NPC movements along routes
     process_npc_movements(broadcast_fn=broadcast_fn)
     
+    # Process room ambiance (contextual environmental messages based on time, weather, room)
+    import ambiance
+    current_tick = get_current_game_tick()
+    current_room = game.get("location", "town_square")
+    if ambiance.should_show_ambiance(current_room, current_tick):
+        ambiance_messages = ambiance.process_room_ambiance(game, broadcast_fn=broadcast_fn)
+        if ambiance_messages:
+            game.setdefault("log", [])
+            for msg in ambiance_messages:
+                game["log"].append(msg)
+            game["log"] = game["log"][-50:]
+            # Update the tick tracker
+            ambiance.update_ambiance_tick(current_room, current_tick)
+    
     # Tick quests (check for expired quests)
     import quests
     quests.tick_quests(game, get_current_game_tick())
@@ -9118,6 +9132,20 @@ def handle_command(
     
     # Process NPC movements along routes
     process_npc_movements(broadcast_fn=broadcast_fn)
+    
+    # Process room ambiance (contextual environmental messages based on time, weather, room)
+    import ambiance
+    current_tick = get_current_game_tick()
+    current_room = game.get("location", "town_square")
+    if ambiance.should_show_ambiance(current_room, current_tick):
+        ambiance_messages = ambiance.process_room_ambiance(game, broadcast_fn=broadcast_fn)
+        if ambiance_messages:
+            game.setdefault("log", [])
+            for msg in ambiance_messages:
+                game["log"].append(msg)
+            game["log"] = game["log"][-50:]
+            # Update the tick tracker
+            ambiance.update_ambiance_tick(current_room, current_tick)
     
     # Tick quests (check for expired quests)
     import quests
