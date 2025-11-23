@@ -716,7 +716,7 @@ def command():
             # Check for sunrise/sunset transitions and bell tolling
             from game_engine import check_sunrise_sunset_transitions, check_bell_tolling
             
-            # Filter broadcast function to only notify players with notify time on
+            # Filter broadcast function to only notify players with notify time on (for sunrise/sunset)
             def filtered_broadcast_fn(room_id, text):
                 for uname, g in ACTIVE_GAMES.items():
                     if g.get("location") == room_id:
@@ -732,7 +732,7 @@ def command():
                 who_fn=list_active_players
             )
             
-            # Check bell tolling (always broadcasts, no notify filter needed)
+            # Check bell tolling (always broadcasts to all players, no notify filter needed)
             check_bell_tolling(
                 broadcast_fn=broadcast_fn,
                 who_fn=list_active_players
