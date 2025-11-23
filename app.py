@@ -1090,7 +1090,11 @@ def command():
         last_log_index = -1
     
     # Get new log entries (everything after last_log_index)
-    new_log_entries = current_log[last_log_index + 1:] if last_log_index + 1 < current_log_length else []
+    # Use >= instead of < to ensure we include entries even when index is exactly at the boundary
+    if last_log_index + 1 <= current_log_length:
+        new_log_entries = current_log[last_log_index + 1:]
+    else:
+        new_log_entries = []
     
     # Always update the last log index to point to the end of current log
     # This ensures we track what we've sent, even if there were no new entries
@@ -1099,6 +1103,10 @@ def command():
     
     # Process only new log entries to highlight Exits in yellow
     processed_log = highlight_exits_in_log(new_log_entries) if new_log_entries else []
+    
+    # Debug logging (can remove later)
+    import logging
+    logging.debug(f"Command '{cmd}': last_log_index={last_log_index}, current_log_length={current_log_length}, new_entries={len(new_log_entries)}")
     
     return jsonify({"response": response, "log": processed_log})
 
