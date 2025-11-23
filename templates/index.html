@@ -821,38 +821,51 @@
     
     function startAmbiancePolling() {
       if (pollInterval || isPollingActive) {
+        console.log("Polling already active, skipping start");
         return; // Already polling
       }
       
+      console.log("Starting ambiance polling...");
       isPollingActive = true;
       pollInterval = setInterval(async () => {
         try {
+          console.log("Polling for updates...");
           const res = await fetch("/poll", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             credentials: "same-origin"
           });
           
+          console.log("Poll response status:", res.status);
+          
           if (!res.ok) {
-            // If unauthorized or error, stop polling
+            // If unauthorized or error, log but don't stop polling immediately
             if (res.status === 401 || res.status === 403) {
+              console.error("Polling unauthorized, stopping");
               stopAmbiancePolling();
+            } else {
+              console.warn("Polling returned non-OK status:", res.status);
             }
             return;
           }
           
           const data = await res.json();
+          console.log("Poll response data:", data);
           
           if (data.messages && Array.isArray(data.messages) && data.messages.length > 0) {
+            console.log("Received", data.messages.length, "new messages from poll");
             // Append new messages to output
             appendText(data.messages, false);
+          } else {
+            console.log("No new messages in poll response");
           }
         } catch (e) {
           console.error("Error polling for ambiance:", e);
-          // Stop polling on error to avoid spam
-          stopAmbiancePolling();
+          // Don't stop polling on transient errors - just log and continue
         }
       }, 3000); // Poll every 3 seconds for more responsive real-time updates
+      
+      console.log("Polling interval set, will poll every 3 seconds");
     }
     
     function stopAmbiancePolling() {
@@ -865,19 +878,39 @@
     
     // Start polling when page loads (only if user is logged in)
     // Also start immediately if DOM is already loaded
-    if (document.readyState === 'loading') {
-      window.addEventListener('load', () => {
-        // Small delay to ensure session is ready
-        setTimeout(() => {
-          startAmbiancePolling();
-        }, 1000);
-      });
-    } else {
-      // DOM already loaded, start polling immediately
+    console.log("Setting up polling, DOM readyState:", document.readyState);
+    
+    function initPolling() {
+      console.log("Initializing polling...");
+      // Small delay to ensure session is ready
       setTimeout(() => {
+        console.log("Starting ambiance polling after delay");
         startAmbiancePolling();
       }, 1000);
     }
+    
+    if (document.readyState === 'loading') {
+      console.log("DOM still loading, waiting for load event");
+      window.addEventListener('load', () => {
+        console.log("Window load event fired");
+        initPolling();
+      });
+    } else {
+      // DOM already loaded, start polling immediately
+      console.log("DOM already loaded, starting polling immediately");
+      initPolling();
+    }
+    
+    // Also try starting when DOMContentLoaded fires (backup)
+    document.addEventListener('DOMContentLoaded', () => {
+      console.log("DOMContentLoaded fired");
+      if (!isPollingActive && !pollInterval) {
+        console.log("Polling not active yet, starting from DOMContentLoaded");
+        setTimeout(() => {
+          startAmbiancePolling();
+        }, 500);
+      }
+    });
     
     // Stop polling when page unloads
     window.addEventListener('beforeunload', () => {
