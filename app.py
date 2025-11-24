@@ -1,9 +1,13 @@
 # CRITICAL: Apply eventlet monkey patching BEFORE any socket-related imports
 # This must be done first to patch the standard library for eventlet compatibility
+# Required when using eventlet workers or SocketIO with async_mode='eventlet'
 import os
-if os.environ.get("GUNICORN_WORKER_CLASS") == "eventlet" or os.environ.get("USE_EVENTLET") == "true":
+try:
     import eventlet
+    # Always monkey patch if eventlet is available (safe and required for SocketIO with eventlet)
     eventlet.monkey_patch()
+except ImportError:
+    pass  # eventlet not available, will use sync mode
 
 import json
 import sqlite3
