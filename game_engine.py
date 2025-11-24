@@ -8008,34 +8008,35 @@ def _legacy_handle_command_body(
                         
                         if completed_quest_ids:
                             # Quest was completed - get completion message from completed_quests
+                            # The message is stored by handle_quest_event -> complete_quest
                             for quest_id in completed_quest_ids:
                                 completed_quest = game.get("completed_quests", {}).get(quest_id)
                                 if completed_quest:
                                     completion_msg = completed_quest.get("completion_message")
                                     if completion_msg:
-                                        quest_response_msg = completion_msg
+                                        quest_response_msg = "\n" + completion_msg
                                         break  # Use first completion message
-                                    
-                                    # Fallback: generate completion message from template
-                                    if not quest_response_msg:
-                                        template = quests.get_quest_template(quest_id)
-                                        if template:
-                                            completion_msg = f"\n[GREEN]Quest completed: {template.name}![/GREEN]"
-                                            # Add rewards info
-                                            if "currency" in template.rewards:
-                                                currency = template.rewards["currency"]
-                                                amount = currency.get("amount", 0)
-                                                currency_type = currency.get("currency_type", "coins")
-                                                completion_msg += f"\nYou receive {amount} {currency_type}."
-                                            if "reputation" in template.rewards:
-                                                for rep in template.rewards["reputation"]:
-                                                    completion_msg += f"\nYour reputation with {rep.get('target', 'NPC')} has improved."
-                                            if "items" in template.rewards:
-                                                for item_reward in template.rewards["items"]:
-                                                    item_name = item_reward.get("item_id", "").replace("_", " ")
-                                                    completion_msg += f"\nYou receive {item_name}."
-                                            quest_response_msg = completion_msg
-                                            break
+                                
+                                # Fallback: generate completion message from template if not stored
+                                if not quest_response_msg:
+                                    template = quests.get_quest_template(quest_id)
+                                    if template:
+                                        completion_msg = f"\n[GREEN]Quest completed: {template.name}![/GREEN]"
+                                        # Add rewards info
+                                        if "currency" in template.rewards:
+                                            currency = template.rewards["currency"]
+                                            amount = currency.get("amount", 0)
+                                            currency_type = currency.get("currency_type", "coins")
+                                            completion_msg += f"\nYou receive {amount} {currency_type}."
+                                        if "reputation" in template.rewards:
+                                            for rep in template.rewards["reputation"]:
+                                                completion_msg += f"\nYour reputation with {rep.get('target', 'NPC')} has improved."
+                                        if "items" in template.rewards:
+                                            for item_reward in template.rewards["items"]:
+                                                item_name = item_reward.get("item_id", "").replace("_", " ")
+                                                completion_msg += f"\nYou receive {item_name}."
+                                        quest_response_msg = completion_msg
+                                        break
                         
                         # Remove item from inventory
                         inventory.remove(item_found)

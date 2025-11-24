@@ -552,7 +552,27 @@
       handleRoomMessage(data) {
         // Display room message (NPC actions, ambiance, etc.)
         if (data.message) {
-          appendText(data.message, false); // Use smart scroll (only if near bottom)
+          // Process color tags (CYAN, NPC, etc.) before displaying
+          let processed = data.message;
+          
+          // Process type-based color tags
+          processed = processed.replace(/\[SAY\](.*?)\[\/SAY\]/g, (match, content) => {
+            return `<span style="color: ${getColorForType('say')}; font-weight: 500;">${content}</span>`;
+          });
+          processed = processed.replace(/\[NPC\](.*?)\[\/NPC\]/g, (match, content) => {
+            return `<span style="color: ${getColorForType('npc')}; font-weight: 500;">${content}</span>`;
+          });
+          processed = processed.replace(/\[CYAN\](.*?)\[\/CYAN\]/g, (match, content) => {
+            return `<span style="color: ${getColorForType('say')}; font-weight: 500;">${content}</span>`;
+          });
+          processed = processed.replace(/\[YELLOW\](.*?)\[\/YELLOW\]/g, (match, content) => {
+            return `<span style="color: ${getColorForType('tell')}; font-weight: 500;">${content}</span>`;
+          });
+          processed = processed.replace(/\[GREEN\](.*?)\[\/GREEN\]/g, (match, content) => {
+            return `<span style="color: ${getColorForType('success')}; font-weight: 500;">${content}</span>`;
+          });
+          
+          appendText(processed, false); // Use smart scroll (only if near bottom)
         }
       }
       
