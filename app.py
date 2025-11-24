@@ -1135,20 +1135,27 @@ def command():
     else:
         new_log_entries = []
     
-    # Fallback: if tracking is off but we have a response, return the last few log entries
-    # This ensures the user always sees the command response
+    # Fallback: if tracking is off but we have a response, check if response is in the log
+    # Only return log entries if the response string appears in them (meaning they're actually new)
     if len(new_log_entries) == 0 and response and response != "__LOGOUT__":
-        # Return the last few entries as a fallback to ensure user sees their command result
+        # Check if the response appears in recent log entries (last 3)
+        # If it does, those entries are likely the command response
         if current_log_length > 0:
-            # Get last 3-5 entries that might contain the command response
-            new_log_entries = current_log[-5:] if current_log_length >= 5 else current_log
-            # Adjust last_log_index to account for what we're returning
-            last_log_index = current_log_length - len(new_log_entries) - 1
+            recent_entries = current_log[-3:] if current_log_length >= 3 else current_log
+            # Check if response text appears in any recent entry
+            response_in_log = any(response[:50] in str(entry) for entry in recent_entries if entry)
+            if response_in_log:
+                # Response is in log, return just those recent entries
+                new_log_entries = recent_entries
+                last_log_index = current_log_length - len(new_log_entries) - 1
+            # If response not in log, we'll just return the response string (handled below)
     
     # Always update the last log index to point to the end of current log
     # This ensures we track what we've sent, even if there were no new entries
-    session["last_log_index"] = current_log_length - 1
-    session.modified = True
+    # Only update if we actually found new entries (to prevent tracking getting out of sync)
+    if len(new_log_entries) > 0:
+        session["last_log_index"] = current_log_length - 1
+        session.modified = True
     
     # Process only new log entries to highlight Exits in yellow
     processed_log = highlight_exits_in_log(new_log_entries) if new_log_entries else []

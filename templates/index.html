@@ -960,7 +960,8 @@
         typingIndicators.forEach(el => el.remove());
         
         console.error("Error sending command:", e);
-        appendText(outputEl.innerHTML + `\n<span class="error-message">[Error sending command. Please check your connection and try again.]</span>`, false);
+        // Only show error message, don't append the entire outputEl.innerHTML (that causes duplication)
+        appendText(`<span class="error-message">[Error sending command. Please check your connection and try again.]</span>`, false, false, false);
       } finally {
         commandEl.value = "";
         commandEl.focus();
