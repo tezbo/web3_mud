@@ -173,9 +173,14 @@ def register_socketio_handlers(socketio, get_game_fn, handle_command_fn, save_ga
                         leave_room(f"room:{old_room_id}")
                     join_room(f"room:{new_room_id}")
                     
+                    # Check if user wants system notifications
+                    notify_settings = game.get("notify", {})
+                    show_notification = notify_settings.get("system", False)
+                    
                     emit('room_changed', {
                         'old_room': old_room_id,
-                        'new_room': new_room_id
+                        'new_room': new_room_id,
+                        'show_notification': show_notification
                     })
                 
             finally:

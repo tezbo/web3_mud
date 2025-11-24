@@ -5412,6 +5412,7 @@ def new_game_state(username="adventurer", character=None):
         "notify": {
             "login": False,  # player can enable with 'notify login'
             "time": False,  # player can enable with 'notify time'
+            "system": False,  # player can enable with 'notify system' (for system events like room changes)
         },
         "weather_status": {
             "wetness": 0,
@@ -9559,14 +9560,17 @@ def _legacy_handle_command_body(
         notify_cfg = game.setdefault("notify", {})
         notify_cfg.setdefault("login", False)
         notify_cfg.setdefault("time", False)
+        notify_cfg.setdefault("system", False)
         
         if len(tokens) == 1:
             status_login = "on" if notify_cfg.get("login") else "off"
             status_time = "on" if notify_cfg.get("time") else "off"
+            status_system = "on" if notify_cfg.get("system") else "off"
             response = (
                 "Notification settings:\n"
                 f"  login - {status_login}\n"
                 f"  time - {status_time}\n"
+                f"  system - {status_system}\n"
                 "Use 'notify <setting>', 'notify <setting> on', or 'notify <setting> off' to change."
             )
         else:
@@ -9589,10 +9593,19 @@ def _legacy_handle_command_body(
                 
                 status = "on" if notify_cfg["time"] else "off"
                 response = f"Day/night notifications are now {status}."
+            elif what in ["system", "systems"]:
+                if explicit in ["on", "off"]:
+                    notify_cfg["system"] = (explicit == "on")
+                else:
+                    notify_cfg["system"] = not notify_cfg.get("system", False)
+                
+                status = "on" if notify_cfg["system"] else "off"
+                response = f"System notifications (room changes, etc.) are now {status}."
             else:
                 response = (
                     "Unknown notify setting. Supported: 'notify', 'notify login', "
-                    "'notify login on/off', 'notify time', 'notify time on/off'."
+                    "'notify login on/off', 'notify time', 'notify time on/off', "
+                    "'notify system', 'notify system on/off'."
                 )
 
     elif tokens[0] == "touch" and len(tokens) >= 2:

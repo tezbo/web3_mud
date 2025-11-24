@@ -554,7 +554,8 @@
       
       handleRoomChanged(data) {
         // Player moved to new room
-        if (data.new_room) {
+        // Only show notification if user has enabled system notifications
+        if (data.new_room && data.show_notification) {
           appendText(`[System] Moved to ${data.new_room}`, false);
         }
       }
