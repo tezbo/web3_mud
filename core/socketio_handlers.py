@@ -17,8 +17,12 @@ from core.state_manager import get_state_manager
 logger = logging.getLogger(__name__)
 
 # Track connection state and last activity for idle timeout
-# Format: {username: {"last_activity": datetime, "is_connected": bool, "was_connected": bool}}
+# Format: {username: {"last_activity": datetime, "is_connected": bool, "was_connected": bool, "room_id": str}}
 CONNECTION_STATE = {}
+
+# Track disconnected players (statues) - players who disconnected unexpectedly
+# Format: {username: room_id} - players who are disconnected but still in a room as statues
+DISCONNECTED_PLAYERS = {}
 
 
 def register_socketio_handlers(socketio, get_game_fn, handle_command_fn, save_game_fn):
@@ -81,8 +85,13 @@ def register_socketio_handlers(socketio, get_game_fn, handle_command_fn, save_ga
                 join_room(f"room:{room_id}")
                 logger.info(f"{username} joined room: {room_id}")
         
-        # If reconnect, broadcast to room
+        # If reconnect, remove statue status and broadcast to room
         if is_reconnect and room_id:
+            # Remove from disconnected players (statue) if present
+            if username in DISCONNECTED_PLAYERS:
+                old_room = DISCONNECTED_PLAYERS.pop(username)
+                logger.info(f"Removed {username} from disconnected players (was in {old_room})")
+            
             reconnect_msg = f"{username} springs to life."
             socketio.emit('room_message', {
                 'room_id': room_id,
@@ -102,7 +111,7 @@ def register_socketio_handlers(socketio, get_game_fn, handle_command_fn, save_ga
     
     @socketio.on('disconnect')
     def handle_disconnect():
-        """Handle WebSocket disconnection."""
+        """Handle WebSocket disconnection (unexpected disconnect, not deliberate logout)."""
         username = session.get('username')
         if username:
             logger.info(f"WebSocket disconnected: {username}")
@@ -113,8 +122,13 @@ def register_socketio_handlers(socketio, get_game_fn, handle_command_fn, save_ga
             if game:
                 room_id = game.get('location')
             
-            # Broadcast disconnect message to room
+            # Only show "turns to stone" for unexpected disconnects (not deliberate logout)
+            # Deliberate logout is handled in the command handler
             if room_id:
+                # Mark player as disconnected (statue)
+                DISCONNECTED_PLAYERS[username] = room_id
+                
+                # Broadcast disconnect message to room
                 disconnect_msg = f"{username} slowly turns to stone."
                 socketio.emit('room_message', {
                     'room_id': room_id,
@@ -272,12 +286,12 @@ def register_socketio_handlers(socketio, get_game_fn, handle_command_fn, save_ga
                                 'message_type': 'system'
                             }, room=f"user:{uname}")
                     
-                    # Broadcast disconnect message to room
+                    # Broadcast logout message to room (deliberate logout, not disconnect)
                     if room_id:
-                        disconnect_msg = f"{username} slowly turns to stone."
+                        logout_msg = f"{username} logs out."
                         socketio.emit('room_message', {
                             'room_id': room_id,
-                            'message': disconnect_msg,
+                            'message': logout_msg,
                             'message_type': 'system'
                         }, room=f"room:{room_id}")
                     
