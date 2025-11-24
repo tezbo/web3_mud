@@ -399,6 +399,222 @@
       sessionState.theme = 'light';
     }
 
+    // WebSocket Client for real-time communication
+    class MUDWebSocketClient {
+      constructor() {
+        this.socket = null;
+        this.connected = false;
+        this.reconnectAttempts = 0;
+        this.maxReconnectAttempts = 10;
+        this.useWebSocket = true; // Feature flag: can disable to fall back to HTTP
+      }
+      
+      connect() {
+        if (!this.useWebSocket || typeof io === 'undefined') {
+          console.log('WebSocket disabled or Socket.IO not available, using HTTP fallback');
+          return;
+        }
+        
+        try {
+          // Connect to Socket.IO server
+          this.socket = io({
+            transports: ['websocket', 'polling'], // Fallback to polling if WebSocket fails
+            reconnection: true,
+            reconnectionDelay: 1000,
+            reconnectionDelayMax: 5000,
+            reconnectionAttempts: this.maxReconnectAttempts,
+            autoConnect: true
+          });
+          
+          // Connection events
+          this.socket.on('connect', () => {
+            console.log('WebSocket connected');
+            this.connected = true;
+            this.reconnectAttempts = 0;
+            this.onConnected();
+          });
+          
+          this.socket.on('disconnect', (reason) => {
+            console.log('WebSocket disconnected:', reason);
+            this.connected = false;
+            this.onDisconnected(reason);
+          });
+          
+          this.socket.on('connect_error', (error) => {
+            console.error('WebSocket connection error:', error);
+            this.reconnectAttempts++;
+            this.onConnectionError(error);
+            
+            // Fall back to HTTP if WebSocket fails repeatedly
+            if (this.reconnectAttempts >= this.maxReconnectAttempts) {
+              console.warn('WebSocket failed repeatedly, falling back to HTTP');
+              this.useWebSocket = false;
+              this.disconnect();
+            }
+          });
+          
+          // Game events
+          this.socket.on('connected', (data) => {
+            console.log('Server confirmed connection:', data);
+            if (data.username) {
+              appendText(`[System] Connected as ${data.username}`, false);
+            }
+          });
+          
+          this.socket.on('command_response', (data) => {
+            this.handleCommandResponse(data);
+          });
+          
+          this.socket.on('room_message', (data) => {
+            this.handleRoomMessage(data);
+          });
+          
+          this.socket.on('room_changed', (data) => {
+            this.handleRoomChanged(data);
+          });
+          
+          this.socket.on('error', (data) => {
+            appendText(`[Error] ${data.message || 'Unknown error'}`, false);
+          });
+          
+          this.socket.on('pong', (data) => {
+            // Keep-alive response (no action needed)
+            console.debug('Pong received');
+          });
+          
+        } catch (error) {
+          console.error('Error initializing WebSocket:', error);
+          this.useWebSocket = false;
+        }
+      }
+      
+      sendCommand(command, requestId) {
+        if (!this.useWebSocket || !this.connected) {
+          // Fall back to HTTP
+          return false;
+        }
+        
+        try {
+          this.socket.emit('command', {
+            command: command,
+            id: requestId || Date.now()
+          });
+          return true;
+        } catch (error) {
+          console.error('Error sending command via WebSocket:', error);
+          return false;
+        }
+      }
+      
+      handleCommandResponse(data) {
+        // Update color settings if provided
+        if (data.color_settings && typeof data.color_settings === 'object') {
+          updateColorSettings(data.color_settings);
+        }
+        
+        // Display response
+        if (data.response) {
+          // Filter out duplicate command line (already shown)
+          const responseLines = data.response.split('\n').filter(line => {
+            const trimmed = line.trim();
+            return !(trimmed.startsWith('> ') && trimmed.substring(2).trim().toLowerCase() === data.command?.trim());
+          });
+          
+          if (responseLines.length > 0) {
+            responseLines.forEach(line => {
+              if (line && line.trim()) {
+                sessionState.sessionText.push({
+                  text: line.replace(/<[^>]*>/g, ''),
+                  timestamp: new Date(),
+                  type: 'output'
+                });
+              }
+            });
+            appendText(responseLines.join('\n'), false, false, true); // forceScroll = true
+          }
+        }
+        
+        // Handle any events that came with the response
+        if (data.events && Array.isArray(data.events)) {
+          data.events.forEach(event => this.handleEvent(event));
+        }
+        
+        // Re-enable input
+        sendBtn.disabled = false;
+        commandEl.value = "";
+        commandEl.focus();
+      }
+      
+      handleRoomMessage(data) {
+        // Display room message (NPC actions, ambiance, etc.)
+        if (data.message) {
+          appendText(data.message, false); // Use smart scroll (only if near bottom)
+        }
+      }
+      
+      handleRoomChanged(data) {
+        // Player moved to new room
+        if (data.new_room) {
+          appendText(`[System] Moved to ${data.new_room}`, false);
+        }
+      }
+      
+      handleEvent(event) {
+        // Handle various event types (for future use)
+        if (!event || !event.type) return;
+        
+        switch(event.type) {
+          case 'npc_action':
+          case 'ambiance':
+          case 'weather_change':
+            if (event.data && event.data.message) {
+              appendText(event.data.message, false);
+            }
+            break;
+          default:
+            console.debug('Unknown event type:', event.type);
+        }
+      }
+      
+      onConnected() {
+        // Called when WebSocket connects
+        console.log('WebSocket client connected');
+      }
+      
+      onDisconnected(reason) {
+        // Called when WebSocket disconnects
+        console.log('WebSocket client disconnected:', reason);
+        
+        // Show message to user if unexpected disconnect
+        if (reason !== 'io client disconnect') {
+          appendText('[System] Connection lost. Attempting to reconnect...', false);
+        }
+      }
+      
+      onConnectionError(error) {
+        // Called on connection error
+        console.error('WebSocket connection error:', error);
+      }
+      
+      disconnect() {
+        if (this.socket) {
+          this.socket.disconnect();
+          this.socket = null;
+          this.connected = false;
+        }
+      }
+      
+      ping() {
+        // Send keep-alive ping
+        if (this.socket && this.connected) {
+          this.socket.emit('ping', { timestamp: Date.now() });
+        }
+      }
+    }
+    
+    // Global WebSocket client instance
+    const mudClient = new MUDWebSocketClient();
+
     // Track initial output text (if any)
     const initialOutput = outputEl.innerHTML;
     if (initialOutput && initialOutput.trim()) {
@@ -866,9 +1082,23 @@
       
       sendBtn.disabled = true;
       
-      // Add slight delay for natural feel (200-400ms)
-      const delay = Math.random() * 200 + 200;
+      // Try WebSocket first, fall back to HTTP
+      const requestId = Date.now();
+      const sentViaWebSocket = mudClient.sendCommand(cmd, requestId);
       
+      if (sentViaWebSocket) {
+        // Command sent via WebSocket - response will come via 'command_response' event
+        // Remove typing indicator after a brief delay (WebSocket is fast)
+        setTimeout(() => {
+          const typingIndicators = outputEl.querySelectorAll('.typing-indicator');
+          typingIndicators.forEach(el => el.remove());
+        }, 100);
+        // Don't return - let it continue to show typing indicator briefly
+        // The WebSocket response handler will re-enable the input
+        return;
+      }
+      
+      // Fall back to HTTP (if WebSocket not available)
       try {
         // Show typing indicator
         const typingEl = document.createElement('div');
@@ -877,6 +1107,8 @@
         outputEl.appendChild(typingEl);
         scrollToBottom(true); // Always scroll when command is entered
         
+        // Add slight delay for natural feel (200-400ms)
+        const delay = Math.random() * 200 + 200;
         await new Promise(resolve => setTimeout(resolve, delay));
         
         const res = await fetch("/command", {
