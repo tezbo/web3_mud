@@ -311,7 +311,7 @@
     }
   </style>
 </head>
-<body{% if onboarding %} data-onboarding="true"{% endif %}>
+<body{% if onboarding %} data-onboarding="true"{% endif %}{% if color_settings %} data-color-settings="{{ color_settings | tojson }}"{% endif %}>
   <div class="container">
     <div class="top-bar">
       <div>
@@ -335,6 +335,53 @@
     const outputEl = document.getElementById("output");
     const commandEl = document.getElementById("command");
     const sendBtn = document.getElementById("sendBtn");
+
+    // Load user color preferences from data attribute or update from command responses
+    let userColorSettings = {};
+    function updateColorSettings(settings) {
+      if (settings && typeof settings === 'object') {
+        userColorSettings = settings;
+        // Update data attribute
+        document.body.setAttribute('data-color-settings', JSON.stringify(settings));
+      }
+    }
+    
+    // Initialize from page load
+    try {
+      const colorSettingsAttr = document.body.getAttribute('data-color-settings');
+      if (colorSettingsAttr) {
+        updateColorSettings(JSON.parse(colorSettingsAttr));
+      }
+    } catch (e) {
+      console.warn('Failed to parse color settings:', e);
+    }
+
+    // Color hex mapping
+    const COLOR_HEX_MAP = {
+      "black": "#000000", "white": "#ffffff", "gray": "#808080", "grey": "#808080",
+      "lightgray": "#d3d3d3", "lightgrey": "#d3d3d3", "darkgray": "#a9a9a9", "darkgrey": "#a9a9a9",
+      "red": "#ff0000", "darkred": "#8b0000", "lightred": "#ff6b6b", "pink": "#ffc0cb", "darkpink": "#c71585",
+      "green": "#00ff00", "darkgreen": "#006400", "lightgreen": "#90ee90", "lime": "#00ff00",
+      "blue": "#0000ff", "darkblue": "#00008b", "lightblue": "#add8e6", "cyan": "#00ffff",
+      "yellow": "#ffff00", "darkyellow": "#b8860b", "lightyellow": "#ffffe0", "gold": "#ffd700",
+      "orange": "#ffa500", "darkorange": "#ff8c00", "lightorange": "#ffd4a3",
+      "purple": "#800080", "darkpurple": "#4b0082", "lightpurple": "#d8bfd8", "magenta": "#ff00ff",
+      "brown": "#a52a2a", "tan": "#d2b48c", "beige": "#f5f5dc",
+    };
+
+    // Default colors if user hasn't set preferences
+    const DEFAULT_COLORS = {
+      "say": "cyan", "emote": "white", "tell": "yellow", "exits": "darkgreen",
+      "weather": "darkyellow", "room_descriptions": "white", "command": "blue",
+      "error": "red", "success": "green", "npc": "orange", "system": "gray",
+      "wallet": "lightgreen", "quest": "lightblue", "ambiance": "lightgray"
+    };
+
+    // Get color for a message type
+    function getColorForType(type) {
+      const colorName = userColorSettings[type] || DEFAULT_COLORS[type] || "white";
+      return COLOR_HEX_MAP[colorName.toLowerCase()] || "#ffffff";
+    }
 
     // Session state tracking
     const sessionState = {
@@ -413,14 +460,52 @@
         // Highlight Exits:
         processed = processed.replace(/Exits:/g, '<span class="exits-highlight">Exits:</span>');
         
-        // Handle cyan color tags [CYAN]...[/CYAN]
-        processed = processed.replace(/\[CYAN\](.*?)\[\/CYAN\]/g, '<span class="cyan-message">$1</span>');
+        // Handle type-based color tags (user customizable)
+        // Say messages [SAY]...[/SAY] - default cyan
+        processed = processed.replace(/\[SAY\](.*?)\[\/SAY\]/g, (match, content) => {
+          return `<span style="color: ${getColorForType('say')}; font-weight: 500;">${content}</span>`;
+        });
         
-        // Handle yellow color tags [YELLOW]...[/YELLOW] (for tell messages)
-        processed = processed.replace(/\[YELLOW\](.*?)\[\/YELLOW\]/g, '<span style="color: #ffff00; font-weight: 500;">$1</span>');
+        // Emote messages [EMOTE]...[/EMOTE] - default white
+        processed = processed.replace(/\[EMOTE\](.*?)\[\/EMOTE\]/g, (match, content) => {
+          return `<span style="color: ${getColorForType('emote')}; font-weight: 500;">${content}</span>`;
+        });
         
-        // Handle green color tags [GREEN]...[/GREEN] (for success messages)
-        processed = processed.replace(/\[GREEN\](.*?)\[\/GREEN\]/g, '<span style="color: #00ff00; font-weight: 500;">$1</span>');
+        // Tell messages [TELL]...[/TELL] - default yellow
+        processed = processed.replace(/\[TELL\](.*?)\[\/TELL\]/g, (match, content) => {
+          return `<span style="color: ${getColorForType('tell')}; font-weight: 500;">${content}</span>`;
+        });
+        
+        // Exit messages [EXITS]...[/EXITS] - default darkgreen
+        processed = processed.replace(/\[EXITS\](.*?)\[\/EXITS\]/g, (match, content) => {
+          return `<span style="color: ${getColorForType('exits')}; font-weight: bold;">${content}</span>`;
+        });
+        
+        // Weather messages [WEATHER]...[/WEATHER] - default darkyellow
+        processed = processed.replace(/\[WEATHER\](.*?)\[\/WEATHER\]/g, (match, content) => {
+          return `<span style="color: ${getColorForType('weather')}; font-weight: 500;">${content}</span>`;
+        });
+        
+        // Legacy color tags for backward compatibility
+        // Handle cyan color tags [CYAN]...[/CYAN] (maps to 'say' color)
+        processed = processed.replace(/\[CYAN\](.*?)\[\/CYAN\]/g, (match, content) => {
+          return `<span style="color: ${getColorForType('say')}; font-weight: 500;">${content}</span>`;
+        });
+        
+        // Handle yellow color tags [YELLOW]...[/YELLOW] (maps to 'tell' color)
+        processed = processed.replace(/\[YELLOW\](.*?)\[\/YELLOW\]/g, (match, content) => {
+          return `<span style="color: ${getColorForType('tell')}; font-weight: 500;">${content}</span>`;
+        });
+        
+        // Handle green color tags [GREEN]...[/GREEN] (maps to 'success' color)
+        processed = processed.replace(/\[GREEN\](.*?)\[\/GREEN\]/g, (match, content) => {
+          return `<span style="color: ${getColorForType('success')}; font-weight: 500;">${content}</span>`;
+        });
+        
+        // Handle dark green tags [DARK_GREEN]...[/DARK_GREEN] (maps to 'exits' color)
+        processed = processed.replace(/\[DARK_GREEN\](.*?)\[\/DARK_GREEN\]/g, (match, content) => {
+          return `<span style="color: ${getColorForType('exits')}; font-weight: 500;">${content}</span>`;
+        });
         
         // Highlight error messages
         if (processed.includes('[Error') || processed.includes('Error:') || processed.includes("can't") || processed.includes("don't")) {

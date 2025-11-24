@@ -118,6 +118,12 @@ COMMAND_SYNTAX = {
         "examples": ["help", "?"],
         "aliases": ["?"],
     },
+    "colour": {
+        "description": "Customize message colors",
+        "usage": "colour [set <type> <color>|reset|help]",
+        "examples": ["colour", "colour set say cyan", "colour set emote white", "colour reset"],
+        "aliases": ["color", "colors", "colours"],
+    },
 }
 
 

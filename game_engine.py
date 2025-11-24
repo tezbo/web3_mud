@@ -5422,6 +5422,21 @@ def new_game_state(username="adventurer", character=None):
         "quests": {},  # Active quest instances: {quest_id: instance_dict}
         "completed_quests": {},  # Completed/failed quests: {quest_id: instance_dict}
         "pending_quest_offer": None,  # Pending quest offer: {quest_id, source, offered_at_tick}
+        "color_settings": {  # User color preferences
+            # Default colors
+            "say": "cyan",           # Player/NPC speech
+            "emote": "white",        # Social gestures
+            "tell": "yellow",        # Private messages
+            "exits": "darkgreen",    # Exit descriptions
+            "weather": "darkyellow", # Weather messages
+            "room_descriptions": "white",  # Location descriptions
+            "command": "blue",       # Command prompts ("> ")
+            "error": "red",          # Error messages
+            "success": "green",      # Success messages
+            "npc": "orange",         # NPC messages
+            "system": "gray",        # System messages
+            "wallet": "lightgreen",  # Wallet info
+        }
     }
     initialize_player_currency(game_state)
     return game_state
@@ -9825,10 +9840,90 @@ def load_global_state_snapshot(snapshot):
         EXIT_STATES = snapshot["exit_states"]
 
 
+def _handle_colour_command(
+    verb,
+    tokens,
+    game,
+    username=None,
+    user_id=None,
+    db_conn=None,
+    broadcast_fn=None,
+    who_fn=None,
+):
+    """
+    Handle the 'colour' command for customizing message colors.
+    
+    Usage:
+        colour                    - Show current color settings
+        colour set <type> <color> - Set color for a message type
+        colour reset              - Reset all colors to defaults
+        colour help               - Show help
+    """
+    from color_system import (
+        get_color_settings, set_color_for_type, reset_colors,
+        DEFAULT_COLORS, VALID_COLORS
+    )
+    
+    if len(tokens) == 1:
+        # Show current settings
+        settings = get_color_settings(game)
+        lines = ["Your current color settings:"]
+        for color_type in sorted(DEFAULT_COLORS.keys()):
+            current_color = settings.get(color_type, DEFAULT_COLORS[color_type])
+            default_marker = " (default)" if current_color == DEFAULT_COLORS[color_type] else ""
+            lines.append(f"  {color_type}: {current_color}{default_marker}")
+        return "\n".join(lines), game
+    
+    elif len(tokens) >= 2 and tokens[1] == "set":
+        if len(tokens) < 4:
+            return "Usage: colour set <type> <color>\nExample: colour set say cyan", game
+        
+        color_type = tokens[2]
+        color = tokens[3]
+        success, message = set_color_for_type(game, color_type, color)
+        return message, game
+    
+    elif len(tokens) >= 2 and tokens[1] == "reset":
+        message = reset_colors(game)
+        return message, game
+    
+    elif len(tokens) >= 2 and tokens[1] in ["help", "?"]:
+        lines = [
+            "Color customization system:",
+            "",
+            "Usage:",
+            "  colour                    - Show your current color settings",
+            "  colour set <type> <color> - Set color for a message type",
+            "  colour reset              - Reset all colors to defaults",
+            "",
+            "Message types:",
+        ]
+        for color_type in sorted(DEFAULT_COLORS.keys()):
+            default_color = DEFAULT_COLORS[color_type]
+            lines.append(f"  {color_type:20} (default: {default_color})")
+        lines.append("")
+        lines.append("Available colors:")
+        colors_list = sorted(VALID_COLORS)
+        # Split into columns for better display
+        for i in range(0, len(colors_list), 4):
+            line_colors = colors_list[i:i+4]
+            lines.append("  " + ", ".join(f"{c:12}" for c in line_colors))
+        lines.append("")
+        lines.append("Examples:")
+        lines.append("  colour set say cyan")
+        lines.append("  colour set emote white")
+        lines.append("  colour set tell yellow")
+        return "\n".join(lines), game
+    
+    else:
+        return "Usage: colour [set <type> <color>|reset|help]", game
+
+
 # Register command handlers
 # This is done at module level after all handler functions are defined
 register_command("help", _handle_help_command, aliases=["?"])
 register_command("quests", _handle_quests_command, aliases=["questlog"])
+register_command("colour", _handle_colour_command, aliases=["color", "colors", "colours"])
 
 
 def highlight_exits_in_log(log_entries):

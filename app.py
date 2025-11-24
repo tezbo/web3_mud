@@ -788,7 +788,11 @@ def index():
     
     # Process log to highlight Exits in yellow
     processed_log = highlight_exits_in_log(game["log"])
-    return render_template("index.html", log=processed_log, session=session, onboarding=False)
+    # Get color settings for user
+    from color_system import get_color_settings
+    color_settings = get_color_settings(game) if game else {}
+    
+    return render_template("index.html", log=processed_log, session=session, onboarding=False, color_settings=color_settings)
 
 
 # /login route removed - login is now text-based via /welcome screen
@@ -984,8 +988,14 @@ def command():
             processed_log = highlight_exits_in_log(log)
         # Ensure session is saved before returning
         session.modified = True
+        # Get color settings for user (if logged in)
+        color_settings = {}
+        if user_id and game:
+            from color_system import get_color_settings
+            color_settings = get_color_settings(game)
+        
         # Return onboarding status (False if complete, True if still in progress)
-        return jsonify({"response": response, "log": processed_log, "onboarding": not is_complete})
+        return jsonify({"response": response, "log": processed_log, "onboarding": not is_complete, "color_settings": color_settings})
     
     # Normal game command handling - require authentication
     # Log why we're requiring login (for debugging)
