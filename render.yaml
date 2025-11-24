@@ -1,0 +1,8 @@
+services:
+  # Key Value (Redis-compatible) instance for caching and WebSocket message queue
+  - type: keyvalue  # 'redis' is also an equivalent value
+    name: web3-mud-redis
+    ipAllowList: []  # Optional: restrict access to only internal connections
+    plan: free  # Optional: specify the instance plan
+    maxmemoryPolicy: allkeys-lfu  # Optional: set a memory policy
+
