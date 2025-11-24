@@ -327,21 +327,34 @@ def register_socketio_handlers(socketio, get_game_fn, handle_command_fn, save_ga
                             'message_type': 'system'
                         }, room=f"room:{room_id}")
                     
-                    # Remove from active games and sessions
-                    # Also clean up Redis room tracking
-                    try:
-                        from core.redis_manager import CacheKeys, get_cache_connection
-                        cache = get_cache_connection()
-                        if cache and room_id:
-                            # Remove from room players set in Redis
-                            room_players_key = CacheKeys.room_players(room_id)
-                            cache.srem(room_players_key, username)
-                            logger.info(f"Removed {username} from room {room_id} players set in Redis")
-                    except Exception as e:
-                        logger.debug(f"Error cleaning up Redis room tracking for {username}: {e}")
-                    
+                    # Remove from active games and sessions FIRST
                     ACTIVE_GAMES.pop(username, None)
                     ACTIVE_SESSIONS.pop(username, None)
+                    
+                    # Clean up Redis room tracking in background to avoid blocking
+                    def cleanup_on_logout():
+                        try:
+                            from core.redis_manager import CacheKeys, get_cache_connection
+                            cache = get_cache_connection()
+                            if cache:
+                                if room_id:
+                                    # Remove from specific room
+                                    room_players_key = CacheKeys.room_players(room_id)
+                                    cache.srem(room_players_key, username)
+                                
+                                # Also scan and remove from any other rooms (defensive)
+                                pattern = "room:*:players"
+                                for room_key in cache.scan_iter(match=pattern):
+                                    cache.srem(room_key, username)
+                                logger.info(f"Cleaned up Redis room tracking for {username}")
+                        except Exception as e:
+                            logger.debug(f"Error cleaning up Redis room tracking (non-critical): {e}")
+                    
+                    # Run cleanup in background to avoid blocking event loop
+                    try:
+                        socketio.start_background_task(cleanup_on_logout)
+                    except Exception:
+                        pass  # Ignore if background task can't be started
                     
                     # Clear Flask session to force re-login on refresh
                     session.clear()
