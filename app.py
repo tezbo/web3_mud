@@ -1115,17 +1115,10 @@ def command():
         # Return special response to trigger logout on client
         return jsonify({"logout": True, "message": "You have logged out.", "log": []})
     
-    save_game(game)
-    save_state_to_disk()
-    
-    # Only return NEW log messages from this command, not the entire log history
-    # Track the last log index we've sent to this client
-    # IMPORTANT: Get log length AFTER save_game() to ensure we have the latest log state
+    # Check log entries BEFORE saving to capture what handle_command just added
+    # handle_command adds both the command ("> cmd") and response to game["log"]
     session.setdefault("last_log_index", -1)
     last_log_index = session.get("last_log_index", -1)
-    
-    # Get current log BEFORE saving (to capture what was just added by handle_command)
-    # Note: game state is already updated with new log entries from handle_command
     current_log = game.get("log", [])
     current_log_length = len(current_log)
     
