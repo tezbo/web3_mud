@@ -908,6 +908,73 @@ def decline_pending_quest(game: Dict, username: str) -> str:
     return f"You decline {quest_name}. Perhaps another time."
 
 
+def reset_quest_for_player(game: Dict, username: str, quest_id: str) -> str:
+    """
+    Completely reset a quest for a player (admin function).
+    
+    This removes the quest from active/completed quests, cleans up quest-specific items,
+    removes from global state, resets completion count, and clears pending offers.
+    
+    Args:
+        game: Player's game state dict
+        username: Player username
+        quest_id: Quest ID to reset
+    
+    Returns:
+        str: Message describing what was reset
+    """
+    messages = []
+    
+    # Remove from active quests
+    if "quests" in game and quest_id in game["quests"]:
+        quest_instance = game["quests"][quest_id]
+        quest_name = quest_instance.get("name", quest_id)
+        del game["quests"][quest_id]
+        messages.append(f"Removed from active quests: {quest_name}")
+    
+    # Remove from completed quests
+    if "completed_quests" in game and quest_id in game["completed_quests"]:
+        quest_instance = game["completed_quests"][quest_id]
+        quest_name = quest_instance.get("name", quest_id)
+        del game["completed_quests"][quest_id]
+        messages.append(f"Removed from completed quests: {quest_name}")
+    
+    # Remove from global quest state (active players)
+    remove_quest_owner(quest_id, username)
+    
+    # Reset completion count
+    from game_engine import QUEST_GLOBAL_STATE
+    if quest_id in QUEST_GLOBAL_STATE:
+        quest_state = QUEST_GLOBAL_STATE[quest_id]
+        completions = quest_state.get("completions", {})
+        if username in completions:
+            old_count = completions[username]
+            del completions[username]
+            quest_state["completions"] = completions
+            messages.append(f"Reset completion count (was {old_count})")
+    
+    # Clean up quest-specific items
+    from game_engine import QUEST_SPECIFIC_ITEMS
+    items_to_remove = []
+    for item_id, item_data in QUEST_SPECIFIC_ITEMS.items():
+        if item_data.get("quest_id") == quest_id and item_data.get("owner_username") == username:
+            items_to_remove.append(item_id)
+    for item_id in items_to_remove:
+        del QUEST_SPECIFIC_ITEMS[item_id]
+        messages.append(f"Removed quest-specific item: {item_id}")
+    
+    # Clear pending quest offer if it's for this quest
+    pending = game.get("pending_quest_offer")
+    if pending and pending.get("quest_id") == quest_id:
+        game["pending_quest_offer"] = None
+        messages.append("Cleared pending quest offer")
+    
+    if not messages:
+        return f"No quest data found for '{quest_id}' - it may have already been reset or never existed."
+    
+    return "Reset complete:\n  " + "\n  ".join(messages)
+
+
 def maybe_offer_npc_quest(game: Dict, username: str, npc_id: str, player_text: str, current_tick: int, active_players_fn=None) -> Optional[str]:
     """
     Check if NPC should offer a quest based on player dialogue.

@@ -6883,16 +6883,111 @@ def _handle_quests_command(
     who_fn=None,
 ):
     """
-    Extracted from the 'quests' branch.
+    Handle the 'quests' command.
+    
+    Usage:
+        quests                           - List active quests
+        quests detail <number>           - Show quest details
+        quests <player> reset <number>   - Admin: Reset a quest for a player
     """
     import quests
+    from game_engine import is_admin_user
+    from app import ACTIVE_GAMES, save_game, save_state_to_disk
+    
+    # Admin command: quests <player> reset <quest_number>
+    if len(tokens) >= 4 and tokens[-2] == "reset":
+        # Check if user is admin
+        if not is_admin_user(username, game):
+            return "Only administrators can reset quests for players.", game
+        
+        # Parse command: quests <player> reset <number>
+        target_username = tokens[1]
+        try:
+            quest_number = int(tokens[-1]) - 1  # Convert to 0-based index
+        except ValueError:
+            return f"Invalid quest number: {tokens[-1]}. Please provide a valid number.", game
+        
+        # Get target player's game state
+        if target_username not in ACTIVE_GAMES:
+            # Try loading from database
+            from app import get_db
+            conn = get_db()
+            try:
+                target_user_row = conn.execute(
+                    "SELECT id, username FROM users WHERE username = ?",
+                    (target_username,)
+                ).fetchone()
+                if not target_user_row:
+                    conn.close()
+                    return f"Player '{target_username}' not found.", game
+                
+                target_user_id = target_user_row["id"]
+                target_game_row = conn.execute(
+                    "SELECT game_state FROM games WHERE user_id = ?",
+                    (target_user_id,)
+                ).fetchone()
+                
+                if target_game_row:
+                    import json
+                    target_game = json.loads(target_game_row["game_state"])
+                    ACTIVE_GAMES[target_username] = target_game
+                else:
+                    conn.close()
+                    return f"Player '{target_username}' has no game state.", game
+            finally:
+                conn.close()
+        else:
+            target_game = ACTIVE_GAMES[target_username]
+        
+        # Get quests in the same order as render_quest_list shows them
+        # Active quests are numbered 1-N, completed quests are not numbered but can still be reset
+        active_quests_list = list(target_game.get("quests", {}).values())
+        completed_quests_list = list(target_game.get("completed_quests", {}).values())
+        
+        # Find quest by number (matches active quest list numbering, which starts at 1)
+        quest_instance = None
+        quest_id = None
+        
+        if quest_number < len(active_quests_list):
+            # It's an active quest
+            quest_instance = active_quests_list[quest_number]
+            quest_id = quest_instance.get("id")
+        else:
+            # Check if it's a completed quest (numbering continues after active quests)
+            completed_index = quest_number - len(active_quests_list)
+            if 0 <= completed_index < len(completed_quests_list):
+                quest_instance = completed_quests_list[completed_index]
+                quest_id = quest_instance.get("id")
+        
+        if not quest_instance or not quest_id:
+            total_active = len(active_quests_list)
+            total_completed = len(completed_quests_list)
+            total_quests = total_active + total_completed
+            return f"Quest number {quest_number + 1} not found. Player has {total_active} active quest(s) and {total_completed} completed quest(s).", game
+        
+        if not quest_id:
+            return f"Invalid quest instance (missing ID).", game
+        
+        # Reset the quest
+        reset_result = quests.reset_quest_for_player(target_game, target_username, quest_id)
+        
+        # Save the target player's game state
+        ACTIVE_GAMES[target_username] = target_game
+        save_game(target_game)
+        save_state_to_disk()
+        
+        quest_name = quest_instance.get("name") or quest_id
+        response = f"Quest '{quest_name}' has been reset for {target_username}.\n{reset_result}"
+        return response, game
+    
+    # Normal quest commands
     if len(tokens) == 1:
         response = quests.render_quest_list(game)
     elif len(tokens) >= 3 and tokens[1] in ["detail", "details"]:
         index_or_id = tokens[2]
         response = quests.render_quest_detail(game, index_or_id)
     else:
-        response = "Usage: 'quests' to list active quests, or 'quests detail <number>' to see details."
+        response = "Usage: 'quests' to list active quests, or 'quests detail <number>' to see details.\nAdmin: 'quests <player> reset <number>' to reset a quest for a player."
     return response, game
 
 
