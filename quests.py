@@ -808,7 +808,11 @@ def handle_quest_event(game: Dict, event: QuestEvent):
                 instance["notes"].append(f"New objective: {next_stage.get('description', 'Continue your quest.')}")
             else:
                 # All stages complete - complete the quest
-                complete_quest(game, event.get("username", "adventurer"), quest_id)
+                # Store completion message before quest is moved to completed_quests
+                completion_msg = complete_quest(game, event.get("username", "adventurer"), quest_id)
+                # Store message in completed_quests entry so it can be retrieved
+                if completion_msg and quest_id in game.get("completed_quests", {}):
+                    game["completed_quests"][quest_id]["completion_message"] = completion_msg
 
 
 def tick_quests(game: Dict, current_tick: int):

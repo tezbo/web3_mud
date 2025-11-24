@@ -7857,26 +7857,31 @@ def _legacy_handle_command_body(
                         completed_quest_ids = set(active_quest_ids_before) - set(active_quest_ids_after)
                         
                         for quest_id in completed_quest_ids:
-                            # Quest was completed - get completion message
+                            # Quest was completed - get completion message from completed_quests
                             completed_quest = game.get("completed_quests", {}).get(quest_id)
                             if completed_quest:
-                                # Generate completion message (quest was already marked as completed in handle_quest_event)
-                                template = quests.get_quest_template(quest_id)
-                                if template:
-                                    completion_msg = f"\n[GREEN]Quest completed: {template.name}![/GREEN]"
-                                    # Add rewards info
-                                    if "currency" in template.rewards:
-                                        currency = template.rewards["currency"]
-                                        amount = currency.get("amount", 0)
-                                        currency_type = currency.get("currency_type", "coins")
-                                        completion_msg += f"\nYou receive {amount} {currency_type}."
-                                    if "reputation" in template.rewards:
-                                        for rep in template.rewards["reputation"]:
-                                            completion_msg += f"\nYour reputation with {rep.get('target', 'NPC')} has improved."
-                                    if "items" in template.rewards:
-                                        for item_reward in template.rewards["items"]:
-                                            item_name = item_reward.get("item_id", "").replace("_", " ")
-                                            completion_msg += f"\nYou receive {item_name}."
+                                # Try to get stored completion message, or generate one
+                                completion_msg = completed_quest.get("completion_message")
+                                if not completion_msg:
+                                    # Fallback: generate completion message from template
+                                    template = quests.get_quest_template(quest_id)
+                                    if template:
+                                        completion_msg = f"\n[GREEN]Quest completed: {template.name}![/GREEN]"
+                                        # Add rewards info
+                                        if "currency" in template.rewards:
+                                            currency = template.rewards["currency"]
+                                            amount = currency.get("amount", 0)
+                                            currency_type = currency.get("currency_type", "coins")
+                                            completion_msg += f"\nYou receive {amount} {currency_type}."
+                                        if "reputation" in template.rewards:
+                                            for rep in template.rewards["reputation"]:
+                                                completion_msg += f"\nYour reputation with {rep.get('target', 'NPC')} has improved."
+                                        if "items" in template.rewards:
+                                            for item_reward in template.rewards["items"]:
+                                                item_name = item_reward.get("item_id", "").replace("_", " ")
+                                                completion_msg += f"\nYou receive {item_name}."
+                                
+                                if completion_msg:
                                     response += completion_msg
                         
                         # Also trigger talk_to_npc event (giving counts as interaction)
