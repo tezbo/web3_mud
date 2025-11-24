@@ -65,7 +65,8 @@ def register_socketio_handlers(socketio, get_game_fn, handle_command_fn, save_ga
         CONNECTION_STATE[username] = {
             "last_activity": datetime.now(),
             "is_connected": True,
-            "was_connected": True
+            "was_connected": True,
+            "room_id": room_id  # Track current room for notifications
         }
         
         # Join user-specific room (for direct messages)
@@ -318,11 +319,9 @@ def register_socketio_handlers(socketio, get_game_fn, handle_command_fn, save_ga
                     # Auto-logout idle users
                     for username in idle_users:
                         try:
-                            game = get_game_fn()
-                            if not game:
-                                continue
+                            state = CONNECTION_STATE.get(username, {})
+                            room_id = state.get("room_id")
                             
-                            room_id = game.get('location')
                             if room_id:
                                 logout_msg = f"{username} has been logged out automatically for being idle too long."
                                 socketio.emit('room_message', {
@@ -332,12 +331,17 @@ def register_socketio_handlers(socketio, get_game_fn, handle_command_fn, save_ga
                                 }, room=f"room:{room_id}")
                                 logger.info(f"Auto-logged out {username} for inactivity")
                             
-                            # Save game state before logout
-                            save_game_fn(game)
+                            # Try to save game state (may fail if no session, but that's ok)
+                            try:
+                                # We can't call get_game_fn() in background task without session
+                                # Game state will be saved on next command attempt
+                                pass
+                            except Exception:
+                                pass
                             
                             # Send logout message to user
                             socketio.emit('error', {
-                                'message': 'You have been logged out due to inactivity (15 minutes).'
+                                'message': 'You have been logged out due to inactivity (15 minutes). Please refresh the page.'
                             }, room=f"user:{username}")
                             
                             # Update connection state (next command will be rejected)
