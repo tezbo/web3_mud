@@ -595,9 +595,10 @@ def save_game(game):
             cache = state_manager._cache
             old_location_key = f"player:{username}:location"
             old_room_id = cache.get(old_location_key)
-            if old_room_id and old_room_id.decode('utf-8') != room_id:
+            # old_room_id is already a string (decode_responses=True in Redis config)
+            if old_room_id and old_room_id != room_id:
                 # Remove from old room
-                old_room_players_key = CacheKeys.room_players(old_room_id.decode('utf-8'))
+                old_room_players_key = CacheKeys.room_players(old_room_id)
                 cache.srem(old_room_players_key, username)
             # Add to new room
             room_players_key = CacheKeys.room_players(room_id)
