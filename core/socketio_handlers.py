@@ -402,6 +402,11 @@ def register_socketio_handlers(socketio, get_game_fn, handle_command_fn, save_ga
                             state = CONNECTION_STATE.get(username, {})
                             room_id = state.get("room_id")
                             
+                            # Remove from disconnected players (statue) if present
+                            # Idle logout is deliberate, not an unexpected disconnect
+                            if username in DISCONNECTED_PLAYERS:
+                                DISCONNECTED_PLAYERS.pop(username)
+                            
                             if room_id:
                                 logout_msg = f"{username} has been logged out automatically for being idle too long."
                                 socketio.emit('room_message', {
