@@ -286,6 +286,10 @@ def register_socketio_handlers(socketio, get_game_fn, handle_command_fn, save_ga
                                 'message_type': 'system'
                             }, room=f"user:{uname}")
                     
+                    # Remove from disconnected players (statue) if present (deliberate logout, not disconnect)
+                    if username in DISCONNECTED_PLAYERS:
+                        DISCONNECTED_PLAYERS.pop(username)
+                    
                     # Broadcast logout message to room (deliberate logout, not disconnect)
                     if room_id:
                         logout_msg = f"{username} logs out."
