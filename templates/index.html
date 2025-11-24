@@ -892,7 +892,8 @@
         if (!res.ok) {
           const errorText = await res.text();
           console.error("Server error:", res.status, errorText);
-          appendText(outputEl.innerHTML + `\n<span class="error-message">[Error: Server returned ${res.status}. Please try again.]</span>`, false);
+          // Only show error message, don't duplicate existing content
+          appendText(`<span class="error-message">[Error: Server returned ${res.status}. Please try again.]</span>`, false, false, false);
           return;
         }
         
