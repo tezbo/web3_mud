@@ -482,6 +482,10 @@
             console.debug('Pong received');
           });
           
+          this.socket.on('logout', (data) => {
+            this.handleLogout(data);
+          });
+          
         } catch (error) {
           console.error('Error initializing WebSocket:', error);
           this.useWebSocket = false;
@@ -595,6 +599,77 @@
       onConnectionError(error) {
         // Called on connection error
         console.error('WebSocket connection error:', error);
+      }
+      
+      handleLogout(data) {
+        // Handle logout event from server
+        const message = data.message || 'You have logged out. Thank you for playing!';
+        
+        // Show disconnect message
+        appendText(`\n\n${'='.repeat(60)}`, false);
+        appendText(`[System] ${message}`, false);
+        appendText(`[System] You have been disconnected from the game.`, false);
+        appendText(`${'='.repeat(60)}\n`, false);
+        
+        // Disconnect WebSocket
+        this.disconnect();
+        
+        // Clear output after a brief delay to show the message
+        setTimeout(() => {
+          // Clear output console
+          outputEl.innerHTML = '';
+          
+          // Show welcome screen
+          const welcomeText = `╔═══════════════════════════════════════════════════════════════╗
+║                                                               ║
+║                    ⚔️  HOLLOWVALE  ⚔️                        ║
+║                                                               ║
+║                  /|      |\\                                 ║
+║                 / |      | \\                                ║
+║                |  |  🛡️  |  |                               ║
+║                |  |      |  |                               ║
+║                 \\ |      | /                                ║
+║                  \\|______|/                                 ║
+║                                                               ║
+║        Where dragons soar and knights stand guard            ║
+║        A frontier town where legends are forged               ║
+║                                                               ║
+╚═══════════════════════════════════════════════════════════════╝
+
+Welcome, traveler, to the world of Hollowvale—a frontier town where adventure awaits at every turn.
+
+Here, dragons soar through ancient skies, and knights guard the paths between realms.
+
+Your journey begins now. Choose your path wisely.
+
+Commands:
+  N - New character - Create your adventurer
+  L - Login - Enter your existing character's name
+  G - Guide - Read the Player's Guide
+  Q - Quit - Leave this realm
+
+Or type your username to login.
+
+Your choice:`;
+          
+          outputEl.textContent = welcomeText;
+          
+          // Change Send button to Login button
+          sendBtn.textContent = 'Login';
+          sendBtn.onclick = function() {
+            window.location.href = '/welcome';
+          };
+          
+          // Disable input
+          commandEl.disabled = true;
+          commandEl.placeholder = 'Please visit the welcome screen to login';
+          
+          // Clear session state
+          sessionState = {
+            sessionText: [],
+            lastCommand: null
+          };
+        }, 2000); // 2 second delay to show logout message
       }
       
       disconnect() {

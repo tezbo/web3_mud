@@ -242,6 +242,60 @@ def register_socketio_handlers(socketio, get_game_fn, handle_command_fn, save_ga
                     who_fn=list_active_players,
                 )
                 
+                # Check if this is a logout command
+                if response == "__LOGOUT__":
+                    # Handle logout
+                    room_id = game.get('location')
+                    
+                    # Save game state before logout
+                    save_game_fn(game)
+                    
+                    # Broadcast logout notification only to players with notify login enabled
+                    from app import ACTIVE_GAMES
+                    for uname, g in ACTIVE_GAMES.items():
+                        if uname == username:
+                            continue
+                        
+                        # Check if this player has notify login enabled
+                        notify_settings = g.get("notify", {})
+                        if notify_settings.get("login", False):
+                            logout_msg = f"{username} has logged out."
+                            g.setdefault("log", [])
+                            g["log"].append(logout_msg)
+                            g["log"] = g["log"][-50:]
+                            save_game_fn(g)
+                            
+                            # Also send via SocketIO if they're connected
+                            socketio.emit('room_message', {
+                                'room_id': g.get('location'),
+                                'message': logout_msg,
+                                'message_type': 'system'
+                            }, room=f"user:{uname}")
+                    
+                    # Broadcast disconnect message to room
+                    if room_id:
+                        disconnect_msg = f"{username} slowly turns to stone."
+                        socketio.emit('room_message', {
+                            'room_id': room_id,
+                            'message': disconnect_msg,
+                            'message_type': 'system'
+                        }, room=f"room:{room_id}")
+                    
+                    # Send logout event to client
+                    emit('logout', {
+                        'message': 'You have logged out. Thank you for playing!'
+                    })
+                    
+                    # Update connection state
+                    if username in CONNECTION_STATE:
+                        CONNECTION_STATE[username]["is_connected"] = False
+                    
+                    # Disconnect the WebSocket
+                    from flask_socketio import disconnect
+                    disconnect()
+                    
+                    return
+                
                 # Save game state
                 save_game_fn(game)
                 
