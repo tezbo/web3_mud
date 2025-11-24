@@ -624,7 +624,7 @@
           ellipsisEl.style.fontStyle = 'italic';
           ellipsisEl.style.opacity = '0.7';
           outputEl.appendChild(ellipsisEl);
-          scrollToBottom();
+          scrollToBottom(forceScroll);
           
           await new Promise(resolve => setTimeout(resolve, segment.duration * 1000));
           
@@ -634,7 +634,7 @@
           const textEl = document.createElement('div');
           textEl.innerHTML = segment.content.replace(/\n/g, '<br>');
           outputEl.appendChild(textEl);
-          scrollToBottom();
+          scrollToBottom(forceScroll);
           
           // Small delay for readability
           await new Promise(resolve => setTimeout(resolve, 100));
@@ -642,7 +642,7 @@
       }
     }
 
-    function appendText(text, showTyping = false, isCommand = false) {
+    function appendText(text, showTyping = false, isCommand = false, forceScroll = false) {
       // Track text in session state
       const timestamp = new Date();
       if (typeof text === 'string') {
@@ -669,7 +669,7 @@
         typingEl.className = 'typing-indicator';
         typingEl.textContent = 'Thinking';
         outputEl.appendChild(typingEl);
-        scrollToBottom();
+        scrollToBottom(forceScroll);
       }
       
       // Check if text contains pause markers (onboarding messages)
@@ -698,7 +698,7 @@
           }
         });
       }
-      scrollToBottom();
+      scrollToBottom(forceScroll);
     }
 
     // Meta command handlers
@@ -714,7 +714,7 @@
           const clearDiv = document.createElement('div');
           clearDiv.innerHTML = '<span class="meta-message">[Console cleared]</span>';
           outputEl.appendChild(clearDiv);
-          scrollToBottom();
+          scrollToBottom(forceScroll);
           return true;
           
         case '/print':
@@ -732,7 +732,7 @@
           const darkDiv = document.createElement('div');
           darkDiv.innerHTML = '<span class="meta-message">[Switched to dark mode]</span>';
           outputEl.appendChild(darkDiv);
-          scrollToBottom();
+          scrollToBottom(forceScroll);
           return true;
           
         case '/light-mode':
@@ -742,7 +742,7 @@
           const lightDiv = document.createElement('div');
           lightDiv.innerHTML = '<span class="meta-message">[Switched to light mode]</span>';
           outputEl.appendChild(lightDiv);
-          scrollToBottom();
+          scrollToBottom(forceScroll);
           return true;
           
         default:
@@ -830,7 +830,7 @@
         type: 'command'
       });
       
-      scrollToBottom();
+      scrollToBottom(forceScroll);
       
       // Check if it's a meta command (starts with /)
       if (cmd.startsWith('/')) {
@@ -844,7 +844,7 @@
         const errorDiv = document.createElement('div');
         errorDiv.innerHTML = `<span class="error-message">[Unknown meta command: ${cmd}. Available: /clear, /print, /history, /dark-mode, /light-mode]</span>`;
         outputEl.appendChild(errorDiv);
-        scrollToBottom();
+        scrollToBottom(true); // Always scroll for command errors
         commandEl.value = "";
         commandEl.focus();
         return;
@@ -861,7 +861,7 @@
         typingEl.className = 'typing-indicator';
         typingEl.textContent = 'Thinking';
         outputEl.appendChild(typingEl);
-        scrollToBottom();
+        scrollToBottom(forceScroll);
         
         await new Promise(resolve => setTimeout(resolve, delay));
         
@@ -918,6 +918,7 @@
         console.log("Command response - data.log:", data.log, "type:", typeof data.log, "isArray:", Array.isArray(data.log), "length:", data.log?.length, "data.response:", data.response);
         
         // Display log entries if present
+        // Force scroll for command responses so user sees full output
         if (data.log && Array.isArray(data.log) && data.log.length > 0) {
           data.log.forEach(line => {
             if (line && line.trim()) {
@@ -928,7 +929,7 @@
               });
             }
           });
-          appendText(data.log, false);
+          appendText(data.log, false, false, true); // forceScroll = true for command responses
         } else if (data.response && data.response !== "__LOGOUT__") {
           // If no log entries but there's a response string, show it
           console.log("No log entries, showing response:", data.response);
@@ -937,7 +938,7 @@
             timestamp: new Date(),
             type: 'output'
           });
-          appendText(data.response, false);
+          appendText(data.response, false, false, true); // forceScroll = true for command responses
         } else {
           console.warn("Command returned no log or response:", data);
         }
