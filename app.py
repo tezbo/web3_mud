@@ -643,16 +643,24 @@ def save_game(game):
 @app.route("/welcome")
 def welcome():
     """Welcome screen with ASCII art and character creation/login menu."""
-    # If already logged in, redirect to game
-    if "user_id" in session:
-        return redirect(url_for("index"))
-    
     # Clear any stale onboarding state when showing welcome screen
     # This ensures users see the welcome screen, not onboarding
     if "onboarding_step" in session:
         session.pop("onboarding_step", None)
         session.pop("onboarding_state", None)
         session.modified = True
+    
+    # If already logged in, redirect to game
+    # BUT also check if user is in ACTIVE_SESSIONS - if not, they've been logged out
+    if "user_id" in session and "username" in session:
+        username = session.get("username")
+        # Check if session is still active (user wasn't logged out)
+        if username in ACTIVE_SESSIONS:
+            return redirect(url_for("index"))
+        else:
+            # Session exists but user was logged out - clear session and show welcome
+            session.clear()
+            session.modified = True
     
     return render_template("welcome.html")
 
