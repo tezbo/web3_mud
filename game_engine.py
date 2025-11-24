@@ -9671,6 +9671,39 @@ def _legacy_handle_command_body(
                 else:
                     response = f"You don't see anything like '{target_text}' to touch here."
 
+    elif tokens[0] == "read" and len(tokens) >= 2:
+        # Read command for reading signs, notices, books, etc.
+        target_text = " ".join(tokens[1:]).lower()
+        
+        # Try to resolve as room detail first (signs, notices, etc.)
+        detail_id, detail, room_id = resolve_room_detail(game, target_text)
+        if detail_id and detail:
+            # Check if there's a read callback
+            callback_result = invoke_room_detail_callback("read", game, username or "adventurer", room_id, detail_id)
+            if callback_result:
+                response = callback_result
+            else:
+                # Default response - check if it's readable
+                detail_name = detail.get("name", detail_id)
+                stat = detail.get("stat", {})
+                
+                # Check if it has readable text in description
+                description = detail.get("description", "")
+                if "readable" in description.lower() or "read" in description.lower():
+                    response = f"You read the {detail_name}, but the text is too faded or unclear to make out."
+                else:
+                    response = f"You try to read the {detail_name}, but there's nothing written on it."
+        else:
+            # Try to resolve as item (books, scrolls, etc.)
+            item_id, source, container = resolve_item_target(game, target_text)
+            if item_id:
+                item_def = get_item_def(item_id)
+                item_name = item_def.get("name", item_id.replace("_", " "))
+                # For now, items aren't readable unless they have special handling
+                response = f"You examine the {item_name}, but there's nothing to read on it."
+            else:
+                response = f"You don't see anything like '{target_text}' here to read."
+
     elif text.lower() in ["restart", "reset"]:
         # Create a new game state with the provided username
         game = new_game_state(username or "adventurer")
