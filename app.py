@@ -561,6 +561,8 @@ def get_game():
             conn.close()
             if user_row and user_row["description"]:
                 game["user_description"] = user_row["description"]
+            # Ensure username is stored in game state (for filtering self from room descriptions)
+            game["username"] = username
             # Ensure gold and notify are initialized
             from economy import initialize_player_gold
             initialize_player_gold(game)

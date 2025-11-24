@@ -5409,6 +5409,7 @@ def new_game_state(username="adventurer", character=None):
         }
     
     game_state = {
+        "username": username,  # Store username in game state for filtering self from room descriptions
         "location": "town_square",
         "inventory": [],
         "max_carry_weight": 20.0,  # Default max carry weight in kg
