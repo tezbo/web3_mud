@@ -208,8 +208,10 @@ def get_all_game_settings():
         conn.close()
 
 
-# Active games storage for multiplayer support
-ACTIVE_GAMES = {}  # username -> game state dict
+# Active games storage - now using Redis via StateManager
+# ACTIVE_GAMES is kept as a fallback for backwards compatibility
+# TODO: Remove ACTIVE_GAMES once fully migrated to Redis
+ACTIVE_GAMES = {}  # username -> game state dict (legacy, being phased out)
 
 # Track active sessions (users currently logged in)
 # Format: {username: {"last_activity": timestamp, "session_id": str}}
@@ -382,7 +384,19 @@ def get_game():
         # Fallback: if not logged in, return new game state (shouldn't happen with @require_auth)
         return new_game_state(username)
     
-    # Check in-memory cache first
+    # Try StateManager (Redis cache) first
+    try:
+        state_manager = get_state_manager()
+        cached_game = state_manager.get_player_state(username, use_cache=True)
+        if cached_game:
+            # Also update legacy ACTIVE_GAMES for backwards compatibility
+            ACTIVE_GAMES[username] = cached_game
+            return cached_game
+    except Exception as e:
+        logger.warning(f"Error getting game state from StateManager for {username}: {e}")
+        # Fall back to old method
+    
+    # Check legacy in-memory cache (fallback)
     if username in ACTIVE_GAMES:
         return ACTIVE_GAMES[username]
     
@@ -435,9 +449,14 @@ def get_game():
             # Don't auto-create character object - allow backward compatibility
             # Character object will be created during onboarding for new users
             # Existing users without character objects can play normally
-            # Store in memory
-            ACTIVE_GAMES[username] = game
-            save_state_to_disk()
+            # Store in StateManager (Redis) and legacy cache
+            try:
+                state_manager = get_state_manager()
+                state_manager.save_player_state(username, game, sync_to_db=False, use_cache=True)
+            except Exception as e:
+                logger.warning(f"Error saving game state to StateManager for {username}: {e}")
+            ACTIVE_GAMES[username] = game  # Legacy cache
+            save_state_to_disk()  # Legacy disk save (can be removed later)
             return game
         except (json.JSONDecodeError, TypeError):
             # If JSON is corrupted, check if we need onboarding
@@ -453,36 +472,66 @@ def get_game():
 
 
 def save_game(game):
-    """Save the game state to database for the current user and update in-memory cache."""
+    """Save the game state to database for the current user and update cache."""
     user_id = session.get("user_id")
     username = session.get("username", "adventurer")
     if not user_id:
         # Shouldn't happen with @require_auth, but handle gracefully
         return
     
-    # Update in-memory cache
+    # Save to StateManager (Redis cache + database)
+    try:
+        state_manager = get_state_manager()
+        state_manager.save_player_state(username, game, sync_to_db=True, use_cache=True)
+        
+        # Update player location in Redis for room tracking
+        if "location" in game:
+            from core.redis_manager import CacheKeys, set_cached_state
+            room_id = game["location"]
+            set_cached_state(CacheKeys.player_location(username), room_id, ttl=900)
+            
+            # Update room players set
+            cache = state_manager._cache
+            old_location_key = f"player:{username}:location"
+            old_room_id = cache.get(old_location_key)
+            if old_room_id and old_room_id.decode('utf-8') != room_id:
+                # Remove from old room
+                old_room_players_key = CacheKeys.room_players(old_room_id.decode('utf-8'))
+                cache.srem(old_room_players_key, username)
+            # Add to new room
+            room_players_key = CacheKeys.room_players(room_id)
+            cache.sadd(room_players_key, username)
+            
+    except Exception as e:
+        logger.warning(f"Error saving game state via StateManager for {username}: {e}, falling back to direct DB save")
+        # Fall back to direct database save
+        game_json = json.dumps(game)
+        conn = get_db()
+        conn.execute(
+            """
+            INSERT INTO games (user_id, game_state, updated_at)
+            VALUES (?, ?, CURRENT_TIMESTAMP)
+            ON CONFLICT(user_id) DO UPDATE SET
+                game_state = excluded.game_state,
+                updated_at = CURRENT_TIMESTAMP
+            """,
+            (user_id, game_json)
+        )
+        conn.commit()
+        conn.close()
+    
+    # Update legacy in-memory cache
     ACTIVE_GAMES[username] = game
     
-    game_json = json.dumps(game)
-    conn = get_db()
-    conn.execute(
-        """
-        INSERT INTO games (user_id, game_state, updated_at)
-        VALUES (?, ?, CURRENT_TIMESTAMP)
-        ON CONFLICT(user_id) DO UPDATE SET
-            game_state = excluded.game_state,
-            updated_at = CURRENT_TIMESTAMP
-        """,
-        (user_id, game_json)
-    )
     # Also save user description if it was updated
     if "user_description" in game:
+        conn = get_db()
         conn.execute(
             "UPDATE users SET description = ? WHERE id = ?",
             (game["user_description"], user_id)
         )
-    conn.commit()
-    conn.close()
+        conn.commit()
+        conn.close()
 
 
 # --- Routes ---
