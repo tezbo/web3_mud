@@ -251,8 +251,8 @@ def register_socketio_handlers(socketio, get_game_fn, handle_command_fn, save_ga
                     save_game_fn(game)
                     
                     # Broadcast logout notification only to players with notify login enabled
-                    from app import ACTIVE_GAMES
-                    for uname, g in ACTIVE_GAMES.items():
+                    from app import ACTIVE_GAMES, ACTIVE_SESSIONS
+                    for uname, g in list(ACTIVE_GAMES.items()):
                         if uname == username:
                             continue
                         
@@ -280,6 +280,10 @@ def register_socketio_handlers(socketio, get_game_fn, handle_command_fn, save_ga
                             'message': disconnect_msg,
                             'message_type': 'system'
                         }, room=f"room:{room_id}")
+                    
+                    # Remove from active games and sessions
+                    ACTIVE_GAMES.pop(username, None)
+                    ACTIVE_SESSIONS.pop(username, None)
                     
                     # Send logout event to client
                     emit('logout', {
