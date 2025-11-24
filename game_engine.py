@@ -5423,6 +5423,7 @@ def new_game_state(username="adventurer", character=None):
         "quests": {},  # Active quest instances: {quest_id: instance_dict}
         "completed_quests": {},  # Completed/failed quests: {quest_id: instance_dict}
         "pending_quest_offer": None,  # Pending quest offer: {quest_id, source, offered_at_tick}
+        "searched_rooms": {},  # Track when rooms were last searched: {room_id: last_searched_minutes}
         "color_settings": {  # User color preferences
             # Default colors
             "say": "cyan",           # Player/NPC speech

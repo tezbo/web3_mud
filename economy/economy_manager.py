@@ -126,12 +126,35 @@ def handle_search_command(game: dict, room_id: str) -> str:
     Returns:
         str: Response message
     """
+    # Import game time functions
+    from game_engine import get_current_game_minutes
+    
+    # Track searched rooms: {room_id: last_searched_minutes}
+    searched_rooms = game.setdefault("searched_rooms", {})
+    current_minutes = get_current_game_minutes()
+    
+    # Check if room was searched recently (within last in-game day = 1440 minutes)
+    last_searched = searched_rooms.get(room_id)
+    if last_searched is not None:
+        minutes_since_search = current_minutes - last_searched
+        if minutes_since_search < 1440:  # 1 in-game day
+            hours_remaining = (1440 - minutes_since_search) / 60
+            if hours_remaining >= 1:
+                return f"You've already searched this area recently. It will take about {int(hours_remaining)} more hours before anything new appears here."
+            else:
+                minutes_remaining = int((1440 - minutes_since_search) / 12)  # Convert to real-world minutes
+                return f"You've already searched this area recently. Check back in about {minutes_remaining} minutes."
+    
     # Get highest reputation in area (for bonus)
     reputation = game.get("reputation", {})
     max_rep = max(reputation.values()) if reputation else 0
     
     # Search room
     found = search_room(room_id, max_rep)
+    
+    # Mark room as searched
+    searched_rooms[room_id] = current_minutes
+    game["searched_rooms"] = searched_rooms
     
     if not found:
         return "You search carefully but find nothing of value."
