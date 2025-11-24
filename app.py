@@ -1135,17 +1135,9 @@ def command():
     else:
         new_log_entries = []
     
-    # If no new entries detected but log length increased, something is wrong with tracking
-    # In this case, return the last 2 entries (command + response) as a safety measure
-    if len(new_log_entries) == 0 and current_log_length > last_log_index + 1:
-        # Log length increased but we didn't detect new entries - likely tracking issue
-        # Return just the last 2 entries (should be command and response)
-        if current_log_length >= 2:
-            new_log_entries = current_log[-2:]
-            last_log_index = current_log_length - 3  # Point before the 2 entries we're returning
-        elif current_log_length == 1:
-            new_log_entries = current_log[-1:]
-            last_log_index = -1
+    # If no new entries detected, don't return old entries - just return empty log
+    # The response string will be displayed by the frontend if log is empty
+    # This prevents duplication of old log entries
     
     # Always update the last log index to point to the end of current log
     # This ensures we track what we've sent, even if there were no new entries
