@@ -5941,11 +5941,16 @@ def describe_location(game):
         except ImportError:
             DISCONNECTED_PLAYERS = {}
         
+        # Also check if current player is in DISCONNECTED_PLAYERS and remove them
+        # (shouldn't happen, but defensive programming)
+        if current_username in DISCONNECTED_PLAYERS:
+            DISCONNECTED_PLAYERS.pop(current_username)
+        
         for player_info in active_players:
             player_username = player_info.get("username", "")
             player_location = player_info.get("location", "")
             
-            # Skip self
+            # Skip self (should never see own statue)
             if player_username == current_username:
                 continue
             

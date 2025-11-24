@@ -726,6 +726,16 @@ def welcome_command():
                 session.pop("login_step", None)
                 session.pop("login_username", None)
                 
+                # Remove from disconnected players (statue) on login
+                # This ensures players don't see their own statue when logging in
+                try:
+                    from core.socketio_handlers import DISCONNECTED_PLAYERS
+                    if username in DISCONNECTED_PLAYERS:
+                        DISCONNECTED_PLAYERS.pop(username)
+                        logger.info(f"Removed {username} from disconnected players on login")
+                except Exception as e:
+                    logger.debug(f"Could not remove from disconnected players: {e}")
+                
                 # Track active session on login
                 from datetime import datetime
                 ACTIVE_SESSIONS[username] = {

@@ -59,6 +59,28 @@ def register_socketio_handlers(socketio, get_game_fn, handle_command_fn, save_ga
         
         logger.info(f"WebSocket connected: {username}")
         
+        # Get player's current room first (needed for statue removal)
+        game = get_game_fn()
+        room_id = None
+        if game:
+            room_id = game.get('location')
+        
+        # ALWAYS remove from disconnected players (statue) when connecting
+        # This handles both reconnects and fresh logins after disconnect
+        if username in DISCONNECTED_PLAYERS:
+            old_room = DISCONNECTED_PLAYERS.pop(username)
+            logger.info(f"Removed {username} from disconnected players (was in {old_room})")
+            
+            # If player was a statue and is reconnecting, broadcast to room
+            if room_id:
+                reconnect_msg = f"{username} springs to life."
+                socketio.emit('room_message', {
+                    'room_id': room_id,
+                    'message': reconnect_msg,
+                    'message_type': 'system'
+                }, room=f"room:{room_id}")
+                logger.info(f"Broadcasted reconnect message for {username} in {room_id}")
+        
         # Check if this is a reconnect (was previously connected)
         is_reconnect = False
         if username in CONNECTION_STATE:
@@ -76,29 +98,10 @@ def register_socketio_handlers(socketio, get_game_fn, handle_command_fn, save_ga
         # Join user-specific room (for direct messages)
         join_room(f"user:{username}")
         
-        # Get player's current room and join it
-        game = get_game_fn()
-        room_id = None
-        if game:
-            room_id = game.get('location')
-            if room_id:
-                join_room(f"room:{room_id}")
-                logger.info(f"{username} joined room: {room_id}")
-        
-        # If reconnect, remove statue status and broadcast to room
-        if is_reconnect and room_id:
-            # Remove from disconnected players (statue) if present
-            if username in DISCONNECTED_PLAYERS:
-                old_room = DISCONNECTED_PLAYERS.pop(username)
-                logger.info(f"Removed {username} from disconnected players (was in {old_room})")
-            
-            reconnect_msg = f"{username} springs to life."
-            socketio.emit('room_message', {
-                'room_id': room_id,
-                'message': reconnect_msg,
-                'message_type': 'system'
-            }, room=f"room:{room_id}")
-            logger.info(f"Broadcasted reconnect message for {username} in {room_id}")
+        # Join player's current room
+        if room_id:
+            join_room(f"room:{room_id}")
+            logger.info(f"{username} joined room: {room_id}")
         
         # Send welcome message
         emit('connected', {
