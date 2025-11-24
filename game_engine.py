@@ -5549,8 +5549,13 @@ def handle_emote(verb, args, game, username=None, broadcast_fn=None, who_fn=None
             room_message = EMOTES[verb]["room_target"].format(actor=actor_name, actor_possessive=actor_possessive, target=target_name)
             broadcast_fn(loc_id, room_message)
         
-        # Get NPC reaction if available
-        reaction = get_npc_reaction(matched_npc_id, verb)
+        # Get NPC reaction - try universal reaction first, then fallback to specific
+        from npc import get_universal_npc_emote_reaction
+        reaction = get_universal_npc_emote_reaction(matched_npc_id, verb, game, username)
+        
+        # If no universal reaction, try specific NPC reaction
+        if not reaction:
+            reaction = get_npc_reaction(matched_npc_id, verb)
         
         if reaction:
             response = player_view + "\n" + reaction
