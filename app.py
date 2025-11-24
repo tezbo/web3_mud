@@ -37,14 +37,27 @@ app.config["PERMANENT_SESSION_LIFETIME"] = 86400  # 24 hours
 # Initialize Flask-SocketIO with Redis adapter for multi-instance scaling
 # message_queue uses Redis for cross-instance event distribution
 REDIS_URL = os.environ.get("REDIS_URL", "redis://localhost:6379/0")
-socketio = SocketIO(
-    app,
-    cors_allowed_origins="*",
-    message_queue=REDIS_URL,  # Redis adapter for multi-instance support
-    async_mode='eventlet',  # Use eventlet for better concurrency
-    logger=True,
-    engineio_logger=False,  # Set to True for debugging
-)
+
+# SocketIO configuration - handle Redis connection gracefully
+try:
+    socketio = SocketIO(
+        app,
+        cors_allowed_origins="*",
+        message_queue=REDIS_URL if REDIS_URL else None,  # Only use Redis if available
+        async_mode='eventlet',  # Use eventlet for better concurrency
+        logger=True,
+        engineio_logger=False,  # Set to True for debugging
+    )
+except Exception as e:
+    logger.warning(f"Error initializing SocketIO with Redis: {e}. Continuing without Redis adapter.")
+    # Fallback: initialize without Redis (single instance only)
+    socketio = SocketIO(
+        app,
+        cors_allowed_origins="*",
+        async_mode='eventlet',
+        logger=True,
+        engineio_logger=False,
+    )
 
 # Database setup
 # Use persistent disk path if available (for Render deployments)
