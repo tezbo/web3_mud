@@ -145,20 +145,28 @@ def _generate_events_once(socketio, get_game_setting_fn, get_all_rooms_fn,
                     set_cached_state(room_key, room_events, ttl=3600)
             
             # Check for ambiance
-            last_ambiance_time_str = room_events.get("last_ambiance_time", current_time.isoformat())
-            try:
-                last_ambiance_time = datetime.fromisoformat(last_ambiance_time_str)
-            except (ValueError, TypeError):
+            last_ambiance_time_str = room_events.get("last_ambiance_time")
+            if last_ambiance_time_str:
+                try:
+                    last_ambiance_time = datetime.fromisoformat(last_ambiance_time_str)
+                except (ValueError, TypeError):
+                    last_ambiance_time = None
+            else:
+                last_ambiance_time = None
+            
+            # If no last time recorded, initialize to now (don't trigger immediately)
+            if last_ambiance_time is None:
+                room_events["last_ambiance_time"] = current_time.isoformat()
+                set_cached_state(room_key, room_events, ttl=3600)
                 last_ambiance_time = current_time
                 
             elapsed_ambiance_seconds = (current_time - last_ambiance_time).total_seconds()
             
-            # Only trigger if elapsed time is >= minimum interval
-            # Use random threshold between min and max for variety
-            if elapsed_ambiance_seconds >= ambiance_interval_min and process_ambiance_fn:
-                # Randomize interval for this specific event (between min and max)
-                # But only trigger if we've passed the minimum
-                if elapsed_ambiance_seconds >= random.uniform(ambiance_interval_min, ambiance_interval_max):
+            # Only trigger if enough time has passed (using random interval between min and max)
+            # This ensures events happen at varied intervals, not exactly at min interval
+            trigger_interval = random.uniform(ambiance_interval_min, ambiance_interval_max)
+            
+            if elapsed_ambiance_seconds >= trigger_interval and process_ambiance_fn:
                 # Create a minimal game state for ambiance processing
                 sample_game = {"location": room_id}
                 
@@ -180,10 +188,9 @@ def _generate_events_once(socketio, get_game_setting_fn, get_all_rooms_fn,
                         'message_type': 'ambiance'
                     }, room=f"room:{room_id}")
                     
-                    logger.debug(f"Emitted ambiance to room {room_id}: {ambiance_msg[:50]}...")
+                    logger.debug(f"Emitted ambiance to room {room_id} after {elapsed_ambiance_seconds:.1f}s (interval: {trigger_interval:.1f}s): {ambiance_msg[:50]}...")
                     
                     # Update last ambiance time to NOW (not future time)
-                    # The interval check above ensures we wait at least ambiance_interval_min seconds
                     room_events["last_ambiance_time"] = current_time.isoformat()
                     set_cached_state(room_key, room_events, ttl=3600)
                 
