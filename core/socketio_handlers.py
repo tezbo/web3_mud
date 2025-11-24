@@ -59,27 +59,52 @@ def register_socketio_handlers(socketio, get_game_fn, handle_command_fn, save_ga
         
         logger.info(f"WebSocket connected: {username}")
         
+        # CRITICAL: Clean up any stale entries FIRST before doing anything else
+        # This ensures we don't have duplicate entries from previous sessions
+        from app import ACTIVE_GAMES, ACTIVE_SESSIONS
+        
+        # Remove player from disconnected players (statue) immediately
+        if username in DISCONNECTED_PLAYERS:
+            old_room = DISCONNECTED_PLAYERS.pop(username)
+            logger.info(f"Removed {username} from disconnected players (was in {old_room})")
+        
+        # Clean up Redis room tracking - remove from all possible rooms
+        # Use background task to avoid blocking the event loop
+        def cleanup_redis_rooms():
+            try:
+                from core.redis_manager import CacheKeys, get_cache_connection
+                cache = get_cache_connection()
+                if cache:
+                    # Scan for all room player keys and remove this player
+                    pattern = "room:*:players"
+                    for room_key in cache.scan_iter(match=pattern):
+                        cache.srem(room_key, username)
+                    logger.debug(f"Cleaned up Redis room tracking for {username}")
+            except Exception as e:
+                logger.debug(f"Error cleaning Redis room tracking (non-critical): {e}")
+        
+        # Run cleanup in background to avoid blocking
+        try:
+            socketio.start_background_task(cleanup_redis_rooms)
+        except Exception as e:
+            logger.debug(f"Could not start background cleanup task: {e}")
+        
         # Get player's current room first (needed for statue removal)
         game = get_game_fn()
         room_id = None
         if game:
             room_id = game.get('location')
         
-        # ALWAYS remove from disconnected players (statue) when connecting
-        # This handles both reconnects and fresh logins after disconnect
-        if username in DISCONNECTED_PLAYERS:
-            old_room = DISCONNECTED_PLAYERS.pop(username)
-            logger.info(f"Removed {username} from disconnected players (was in {old_room})")
-            
-            # If player was a statue and is reconnecting, broadcast to room
-            if room_id:
-                reconnect_msg = f"{username} springs to life."
-                socketio.emit('room_message', {
-                    'room_id': room_id,
-                    'message': reconnect_msg,
-                    'message_type': 'system'
-                }, room=f"room:{room_id}")
-                logger.info(f"Broadcasted reconnect message for {username} in {room_id}")
+        # If player was a statue and is reconnecting, broadcast to room
+        # (Only if they were previously disconnected, which we already handled above)
+        if room_id and username in CONNECTION_STATE and CONNECTION_STATE[username].get("was_connected", False):
+            reconnect_msg = f"{username} springs to life."
+            socketio.emit('room_message', {
+                'room_id': room_id,
+                'message': reconnect_msg,
+                'message_type': 'system'
+            }, room=f"room:{room_id}")
+            logger.info(f"Broadcasted reconnect message for {username} in {room_id}")
         
         # Check if this is a reconnect (was previously connected)
         is_reconnect = False

@@ -46,29 +46,35 @@ def get_redis_url(service: str = "cache") -> str:
     return url
 
 
-def get_cache_connection() -> redis.Redis:
+def get_cache_connection() -> Optional[redis.Redis]:
     """
     Get Redis connection for caching (hot data).
     
     Returns:
-        Redis client instance
+        Redis client instance, or None if Redis is unavailable
     """
     global _cache_pool
     
-    if _cache_pool is None:
-        url = get_redis_url("cache")
-        _cache_pool = redis.ConnectionPool.from_url(
-            url,
-            max_connections=50,
-            decode_responses=True,
-            socket_connect_timeout=5,
-            socket_timeout=5,
-            retry_on_timeout=True,
-            health_check_interval=30,
-        )
-        logger.info(f"Created Redis cache pool: {url}")
-    
-    return redis.Redis(connection_pool=_cache_pool)
+    try:
+        if _cache_pool is None:
+            url = get_redis_url("cache")
+            _cache_pool = redis.ConnectionPool.from_url(
+                url,
+                max_connections=50,
+                decode_responses=True,
+                socket_connect_timeout=2,  # Shorter timeout for non-blocking
+                socket_timeout=2,  # Shorter timeout for non-blocking
+                retry_on_timeout=False,  # Don't retry to avoid blocking
+                health_check_interval=30,
+            )
+            logger.info(f"Created Redis cache pool: {url}")
+        
+        client = redis.Redis(connection_pool=_cache_pool)
+        # Don't ping here - let operations fail gracefully if connection is down
+        return client
+    except Exception as e:
+        logger.debug(f"Redis cache connection unavailable: {e}")
+        return None
 
 
 def get_pubsub_connection() -> redis.Redis:
