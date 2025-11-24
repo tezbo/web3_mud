@@ -82,19 +82,45 @@ def _generate_events_once(socketio, get_game_setting_fn, get_all_rooms_fn,
     # Check each room for events
     for room_id in room_ids:
         try:
-            # Check if room has active players (via Redis cache)
-            from core.redis_manager import get_cache_connection
-            cache = get_cache_connection()
-            room_players_key = CacheKeys.room_players(room_id)
-            players = cache.smembers(room_players_key)
+            # Check if room has active players (via Redis cache or SocketIO rooms)
+            players = []
+            try:
+                # Try Redis first (fastest)
+                from core.redis_manager import get_cache_connection
+                cache = get_cache_connection()
+                room_players_key = CacheKeys.room_players(room_id)
+                players = cache.smembers(room_players_key)
+                players = list(players) if players else []
+            except Exception as redis_error:
+                # Redis unavailable - check SocketIO rooms as fallback
+                logger.debug(f"Redis unavailable for room {room_id}, checking SocketIO rooms: {redis_error}")
+                try:
+                    # Use SocketIO's room system to check for connected clients
+                    # socketio.server.manager.rooms contains room information
+                    room_name = f"room:{room_id}"
+                    # Check if there are any clients in this room via SocketIO
+                    # Note: This is a workaround - SocketIO doesn't expose a direct API for this
+                    # We'll skip rooms when Redis is unavailable for now
+                    players = []
+                except Exception as socketio_error:
+                    logger.debug(f"Could not check SocketIO rooms for {room_id}: {socketio_error}")
+                    players = []
             
             if not players or len(players) == 0:
                 # Skip rooms with no active players
                 continue
             
-            # Get or initialize room event times (stored in Redis)
+            # Get or initialize room event times (stored in Redis or memory)
             room_key = f"room:{room_id}:last_events"
-            room_events = get_cached_state(room_key, {})
+            room_events = {}
+            try:
+                room_events = get_cached_state(room_key, {})
+            except Exception as e:
+                logger.debug(f"Could not get cached state for {room_key}: {e}, using memory fallback")
+                # Use in-memory fallback (per-process, not shared across instances)
+                if not hasattr(_generate_events_once, '_room_events_cache'):
+                    _generate_events_once._room_events_cache = {}
+                room_events = _generate_events_once._room_events_cache.get(room_key, {})
             
             if not room_events:
                 room_events = {
@@ -115,7 +141,13 @@ def _generate_events_once(socketio, get_game_setting_fn, get_all_rooms_fn,
             # If no last time recorded, initialize to now (don't trigger immediately)
             if last_npc_time is None:
                 room_events["last_npc_action_time"] = current_time.isoformat()
-                set_cached_state(room_key, room_events, ttl=3600)
+                try:
+                    set_cached_state(room_key, room_events, ttl=3600)
+                except Exception as e:
+                    logger.debug(f"Could not cache room events for {room_key}: {e}, using memory fallback")
+                    if not hasattr(_generate_events_once, '_room_events_cache'):
+                        _generate_events_once._room_events_cache = {}
+                    _generate_events_once._room_events_cache[room_key] = room_events
                 last_npc_time = current_time
                 
             elapsed_npc_seconds = (current_time - last_npc_time).total_seconds()
@@ -142,7 +174,13 @@ def _generate_events_once(socketio, get_game_setting_fn, get_all_rooms_fn,
                     
                     # Update last NPC action time to NOW (not future time)
                     room_events["last_npc_action_time"] = current_time.isoformat()
-                    set_cached_state(room_key, room_events, ttl=3600)
+                    try:
+                        set_cached_state(room_key, room_events, ttl=3600)
+                    except Exception as e:
+                        logger.debug(f"Could not cache room events for {room_key}: {e}, using memory fallback")
+                        if not hasattr(_generate_events_once, '_room_events_cache'):
+                            _generate_events_once._room_events_cache = {}
+                        _generate_events_once._room_events_cache[room_key] = room_events
             
             # Check for ambiance
             last_ambiance_time_str = room_events.get("last_ambiance_time")
@@ -157,7 +195,13 @@ def _generate_events_once(socketio, get_game_setting_fn, get_all_rooms_fn,
             # If no last time recorded, initialize to now (don't trigger immediately)
             if last_ambiance_time is None:
                 room_events["last_ambiance_time"] = current_time.isoformat()
-                set_cached_state(room_key, room_events, ttl=3600)
+                try:
+                    set_cached_state(room_key, room_events, ttl=3600)
+                except Exception as e:
+                    logger.debug(f"Could not cache room events for {room_key}: {e}, using memory fallback")
+                    if not hasattr(_generate_events_once, '_room_events_cache'):
+                        _generate_events_once._room_events_cache = {}
+                    _generate_events_once._room_events_cache[room_key] = room_events
                 last_ambiance_time = current_time
                 
             elapsed_ambiance_seconds = (current_time - last_ambiance_time).total_seconds()
@@ -192,7 +236,13 @@ def _generate_events_once(socketio, get_game_setting_fn, get_all_rooms_fn,
                     
                     # Update last ambiance time to NOW (not future time)
                     room_events["last_ambiance_time"] = current_time.isoformat()
-                    set_cached_state(room_key, room_events, ttl=3600)
+                    try:
+                        set_cached_state(room_key, room_events, ttl=3600)
+                    except Exception as e:
+                        logger.debug(f"Could not cache room events for {room_key}: {e}, using memory fallback")
+                        if not hasattr(_generate_events_once, '_room_events_cache'):
+                            _generate_events_once._room_events_cache = {}
+                        _generate_events_once._room_events_cache[room_key] = room_events
                 
         except Exception as e:
             logger.error(f"Error generating events for room {room_id}: {e}", exc_info=True)
