@@ -189,17 +189,7 @@ def register_socketio_handlers(socketio, get_game_fn, handle_command_fn, save_ga
             conn = get_db()
             
             try:
-                # Update last activity time
-                if username in CONNECTION_STATE:
-                    CONNECTION_STATE[username]["last_activity"] = datetime.now()
-                else:
-                    CONNECTION_STATE[username] = {
-                        "last_activity": datetime.now(),
-                        "is_connected": True,
-                        "was_connected": True
-                    }
-                
-                # Check for idle timeout (15 minutes)
+                # Check for idle timeout BEFORE updating (check previous activity)
                 if username in CONNECTION_STATE:
                     last_activity = CONNECTION_STATE[username].get("last_activity")
                     if last_activity:
@@ -228,6 +218,16 @@ def register_socketio_handlers(socketio, get_game_fn, handle_command_fn, save_ga
                             CONNECTION_STATE[username]["is_connected"] = False
                             
                             return
+                
+                # Update last activity time (after checking, so next check uses this time)
+                if username in CONNECTION_STATE:
+                    CONNECTION_STATE[username]["last_activity"] = datetime.now()
+                else:
+                    CONNECTION_STATE[username] = {
+                        "last_activity": datetime.now(),
+                        "is_connected": True,
+                        "was_connected": True
+                    }
                 
                 # Process command via game engine
                 from app import list_active_players
