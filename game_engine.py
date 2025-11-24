@@ -4420,6 +4420,21 @@ def _format_npc_look(npc_id, npc, game):
         if traits.get("authority", 0) >= 0.7:
             lines.append(f"{npc.name} carries an air of authority.")
     
+    # Inventory (if NPC has items they're carrying)
+    if npc_id in NPC_STATE:
+        state = NPC_STATE[npc_id]
+        npc_inventory = state.get("inventory", [])
+        if npc_inventory:
+            grouped_items = group_inventory_items(npc_inventory)
+            if len(grouped_items) == 1:
+                lines.append(f"{npc.name} is carrying {grouped_items[0]}.")
+            elif len(grouped_items) == 2:
+                lines.append(f"{npc.name} is carrying {grouped_items[0]} and {grouped_items[1]}.")
+            else:
+                lines.append(f"{npc.name} is carrying: " + ", ".join(grouped_items[:-1]) + f", and {grouped_items[-1]}.")
+        # Note: merchant_inventory is for items they sell, not items they carry
+        # We don't show that here as it's not "carrying" inventory
+    
     return "\n".join(lines)
 
 
@@ -5994,42 +6009,17 @@ def describe_location(game):
     else:
         items_text = "You don't see anything notable lying around."
 
-    # Build NPCs and player characters text with inventory information
+    # Build NPCs and player characters text
     present_entities = []
-    entity_details = []  # Store detailed info for entities with visible inventory
     
-    # Add NPCs (NPCs don't currently have visible inventory, but structure allows for it)
+    # Add NPCs
     for npc_id in npc_ids:
         if npc_id in NPCS:
-            npc = NPCS[npc_id]
-            npc_name = npc.name
-            present_entities.append(npc_name)
-            # Check if NPC has visible inventory (future feature)
-            npc_state = NPC_STATE.get(npc_id, {})
-            npc_inventory = npc_state.get("inventory", [])
-            if npc_inventory:
-                from game_engine import group_inventory_items
-                grouped_items = group_inventory_items(npc_inventory)
-                items_text = ", ".join(grouped_items)
-                entity_details.append(f"{npc_name} is carrying {items_text}.")
+            present_entities.append(NPCS[npc_id].name)
     
-    # Add player characters with inventory information
-    from app import ACTIVE_GAMES
+    # Add player characters (when implemented)
     for pc_name in player_characters:
         present_entities.append(pc_name)
-        
-        # Get player's inventory if visible
-        if pc_name in ACTIVE_GAMES:
-            player_game = ACTIVE_GAMES[pc_name]
-            player_inventory = player_game.get("inventory", [])
-            if player_inventory:
-                grouped_items = group_inventory_items(player_inventory)
-                if len(grouped_items) == 1:
-                    entity_details.append(f"{pc_name} is carrying {grouped_items[0]}.")
-                elif len(grouped_items) == 2:
-                    entity_details.append(f"{pc_name} is carrying {grouped_items[0]} and {grouped_items[1]}.")
-                else:
-                    entity_details.append(f"{pc_name} is carrying: " + ", ".join(grouped_items[:-1]) + f", and {grouped_items[-1]}.")
     
     npcs_text = ""
     if present_entities:
@@ -6042,10 +6032,6 @@ def describe_location(game):
             # Format: "name1, name2 and name3 are here"
             all_but_last = ", ".join(present_entities[:-1])
             npcs_text = f"{notice_prefix} {all_but_last} and {present_entities[-1]} are here."
-        
-        # Add inventory information for entities carrying items
-        if entity_details:
-            npcs_text += "\n" + "\n".join(entity_details)
 
     # Get combined time-of-day/moon/weather description (replaces room title and weather line)
     is_outdoor = room_def.get("outdoor", False)
