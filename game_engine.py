@@ -7329,6 +7329,11 @@ def _legacy_handle_command_body(
             exits = room_def.get("exits", {})
             exit_def = exits.get(full_direction)
             
+            # DEBUG: Log exit resolution for troubleshooting movement issues
+            import logging
+            logger = logging.getLogger(__name__)
+            logger.warning(f"MOVEMENT: {username} from '{loc_id}' going '{full_direction}' -> exit_def={exit_def}, all_exits={exits}")
+            
             # CRITICAL: Ensure door states are correct before checking accessibility
             # This double-checks in case process_time_based_exit_states wasn't called or state was lost
             process_time_based_exit_states(broadcast_fn=broadcast_fn, who_fn=who_fn)
@@ -7348,6 +7353,8 @@ def _legacy_handle_command_body(
                     target = exit_def.get("target")
                 else:
                     target = None
+                
+                logger.warning(f"MOVEMENT: {username} resolved target='{target}' from '{loc_id}' going '{full_direction}'")
                 
                 if target:
                     old_loc = loc_id
