@@ -699,10 +699,11 @@
         });
       }
       
-      // Use requestAnimationFrame to ensure DOM is updated before scrolling
-      requestAnimationFrame(() => {
+      // Scroll after DOM is updated
+      // Use setTimeout to ensure DOM updates are complete before scrolling
+      setTimeout(() => {
         scrollToBottom(forceScroll);
-      });
+      }, 10); // Small delay to ensure DOM is fully updated
     }
 
     // Meta command handlers
