@@ -303,6 +303,18 @@ def register_socketio_handlers(socketio, get_game_fn, handle_command_fn, save_ga
                         }, room=f"room:{room_id}")
                     
                     # Remove from active games and sessions
+                    # Also clean up Redis room tracking
+                    try:
+                        from core.redis_manager import CacheKeys, get_cache_connection
+                        cache = get_cache_connection()
+                        if cache and room_id:
+                            # Remove from room players set in Redis
+                            room_players_key = CacheKeys.room_players(room_id)
+                            cache.srem(room_players_key, username)
+                            logger.info(f"Removed {username} from room {room_id} players set in Redis")
+                    except Exception as e:
+                        logger.debug(f"Error cleaning up Redis room tracking for {username}: {e}")
+                    
                     ACTIVE_GAMES.pop(username, None)
                     ACTIVE_SESSIONS.pop(username, None)
                     

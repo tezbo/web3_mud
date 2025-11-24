@@ -370,12 +370,18 @@ def list_active_players():
     cleanup_stale_sessions()
     
     data = []
+    seen_usernames = set()  # Track to avoid duplicates
     
     # Only show players who have been active in the last 10 minutes
     # This filters out stale entries from players who logged out or closed their browser
     cutoff_time = datetime.now() - timedelta(minutes=10)
     
     for uname, g in ACTIVE_GAMES.items():
+        # Skip if we've already seen this username (avoid duplicates)
+        if uname in seen_usernames:
+            continue
+        seen_usernames.add(uname)
+        
         # Check if player has an active session (recently active)
         session_info = ACTIVE_SESSIONS.get(uname)
         if session_info:
