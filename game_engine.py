@@ -7989,7 +7989,7 @@ def _legacy_handle_command_body(
                         completed_quest_ids = set(active_quest_ids_before) - set(active_quest_ids_after)
                         
                         # Check if this is a quest item - if a quest was completed, use quest response instead of AI
-                        is_quest_item = len(completed_quest_ids) > 0
+                        quest_was_completed = len(completed_quest_ids) > 0
                         quest_response_msg = ""
                         
                         if completed_quest_ids:
@@ -8032,7 +8032,7 @@ def _legacy_handle_command_body(
                         response = f"You give the {item_found.replace('_', ' ')} to {npc_name}."
                         
                         # If this is a quest item, use quest response instead of AI response
-                        if is_quest_item and quest_response_msg:
+                        if quest_was_completed and quest_response_msg:
                             response += quest_response_msg
                         else:
                             # Not a quest item or no quest response - generate normal NPC response
