@@ -1524,7 +1524,23 @@ def set_default_budget():
     return jsonify({"success": True, "message": f"Default budget of {budget} tokens applied to all users without budgets"})
 
 
+# Register SocketIO handlers after all functions are defined
+# This must happen after get_game, save_game, and handle_command are defined
+def register_socketio_handlers_late():
+    """Register SocketIO handlers - called after all app setup."""
+    from core.socketio_handlers import register_socketio_handlers
+    register_socketio_handlers(
+        socketio,
+        get_game_fn=get_game,
+        handle_command_fn=handle_command,
+        save_game_fn=save_game
+    )
+
+# Register handlers immediately (functions are already defined at this point)
+register_socketio_handlers_late()
+
 if __name__ == "__main__":
     # For local development
     port = int(os.environ.get("PORT", 5000))
-    app.run(host="0.0.0.0", port=port, debug=True)
+    # Use socketio.run() instead of app.run() for WebSocket support
+    socketio.run(app, host="0.0.0.0", port=port, debug=True)
