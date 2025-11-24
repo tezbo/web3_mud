@@ -8,12 +8,17 @@ Clean, maintainable WebSocket handlers that integrate with:
 """
 
 import logging
+from datetime import datetime, timedelta
 from flask import session
 from flask_socketio import emit, join_room, leave_room
 from core.event_bus import get_event_bus, EventTypes
 from core.state_manager import get_state_manager
 
 logger = logging.getLogger(__name__)
+
+# Track connection state and last activity for idle timeout
+# Format: {username: {"last_activity": datetime, "is_connected": bool, "was_connected": bool}}
+CONNECTION_STATE = {}
 
 
 def register_socketio_handlers(socketio, get_game_fn, handle_command_fn, save_game_fn):
@@ -38,7 +43,8 @@ def register_socketio_handlers(socketio, get_game_fn, handle_command_fn, save_ga
         1. Verify authentication
         2. Join user-specific room
         3. Join player's current room
-        4. Send welcome message
+        4. Check if reconnect and broadcast to room
+        5. Send welcome message
         """
         username = session.get('username')
         user_id = session.get('user_id')
@@ -49,21 +55,46 @@ def register_socketio_handlers(socketio, get_game_fn, handle_command_fn, save_ga
         
         logger.info(f"WebSocket connected: {username}")
         
+        # Check if this is a reconnect (was previously connected)
+        is_reconnect = False
+        if username in CONNECTION_STATE:
+            was_connected = CONNECTION_STATE[username].get("was_connected", False)
+            is_reconnect = was_connected
+        
+        # Update connection state
+        CONNECTION_STATE[username] = {
+            "last_activity": datetime.now(),
+            "is_connected": True,
+            "was_connected": True
+        }
+        
         # Join user-specific room (for direct messages)
         join_room(f"user:{username}")
         
         # Get player's current room and join it
         game = get_game_fn()
+        room_id = None
         if game:
             room_id = game.get('location')
             if room_id:
                 join_room(f"room:{room_id}")
                 logger.info(f"{username} joined room: {room_id}")
         
+        # If reconnect, broadcast to room
+        if is_reconnect and room_id:
+            reconnect_msg = f"{username} springs to life."
+            socketio.emit('room_message', {
+                'room_id': room_id,
+                'message': reconnect_msg,
+                'message_type': 'system'
+            }, room=f"room:{room_id}")
+            logger.info(f"Broadcasted reconnect message for {username} in {room_id}")
+        
         # Send welcome message
         emit('connected', {
             'message': 'WebSocket connected',
-            'username': username
+            'username': username,
+            'is_reconnect': is_reconnect
         })
         
         return True
@@ -75,15 +106,32 @@ def register_socketio_handlers(socketio, get_game_fn, handle_command_fn, save_ga
         if username:
             logger.info(f"WebSocket disconnected: {username}")
             
+            # Get room from state before leaving
+            game = get_game_fn()
+            room_id = None
+            if game:
+                room_id = game.get('location')
+            
+            # Broadcast disconnect message to room
+            if room_id:
+                disconnect_msg = f"{username} slowly turns to stone."
+                socketio.emit('room_message', {
+                    'room_id': room_id,
+                    'message': disconnect_msg,
+                    'message_type': 'system'
+                }, room=f"room:{room_id}")
+                logger.info(f"Broadcasted disconnect message for {username} in {room_id}")
+            
+            # Update connection state
+            if username in CONNECTION_STATE:
+                CONNECTION_STATE[username]["is_connected"] = False
+                # Keep was_connected=True so we know it's a reconnect next time
+            
             # Leave all rooms (automatic, but explicit for clarity)
             leave_room(f"user:{username}")
             
-            # Get room from state and leave it
-            game = get_game_fn()
-            if game:
-                room_id = game.get('location')
-                if room_id:
-                    leave_room(f"room:{room_id}")
+            if room_id:
+                leave_room(f"room:{room_id}")
     
     @socketio.on('command')
     def handle_command(data):
@@ -141,6 +189,46 @@ def register_socketio_handlers(socketio, get_game_fn, handle_command_fn, save_ga
             conn = get_db()
             
             try:
+                # Update last activity time
+                if username in CONNECTION_STATE:
+                    CONNECTION_STATE[username]["last_activity"] = datetime.now()
+                else:
+                    CONNECTION_STATE[username] = {
+                        "last_activity": datetime.now(),
+                        "is_connected": True,
+                        "was_connected": True
+                    }
+                
+                # Check for idle timeout (15 minutes)
+                if username in CONNECTION_STATE:
+                    last_activity = CONNECTION_STATE[username].get("last_activity")
+                    if last_activity:
+                        idle_time = datetime.now() - last_activity
+                        if idle_time > timedelta(minutes=15):
+                            # Auto-logout due to idle timeout
+                            room_id = game.get('location')
+                            if room_id:
+                                logout_msg = f"{username} has been logged out automatically for being idle too long."
+                                socketio.emit('room_message', {
+                                    'room_id': room_id,
+                                    'message': logout_msg,
+                                    'message_type': 'system'
+                                }, room=f"room:{room_id}")
+                            
+                            # Save game state before logout
+                            save_game_fn(game)
+                            
+                            # Disconnect the user
+                            emit('error', {
+                                'message': 'You have been logged out due to inactivity (15 minutes).',
+                                'id': request_id
+                            })
+                            
+                            # Update connection state
+                            CONNECTION_STATE[username]["is_connected"] = False
+                            
+                            return
+                
                 # Process command via game engine
                 from app import list_active_players
                 response, game = handle_command_fn(
