@@ -5926,9 +5926,41 @@ def describe_location(game):
     
     # Get NPCs from NPC_STATE and any player characters in this location
     npc_ids = get_npcs_in_room(loc_id)
-    # TODO: Add player characters from other users in same location
-    # For now, we'll get this from game state when multiplayer is implemented
-    player_characters = game.get("other_players", {}).get(loc_id, [])
+    
+    # Get other players in the same room (from active sessions)
+    # Import here to avoid circular dependency
+    try:
+        from app import list_active_players
+        active_players = list_active_players()
+        player_characters = []
+        current_username = game.get("username", "")
+        
+        # Track disconnected players (statues) - import from socketio_handlers
+        try:
+            from core.socketio_handlers import DISCONNECTED_PLAYERS
+        except ImportError:
+            DISCONNECTED_PLAYERS = {}
+        
+        for player_info in active_players:
+            player_username = player_info.get("username", "")
+            player_location = player_info.get("location", "")
+            
+            # Skip self
+            if player_username == current_username:
+                continue
+            
+            # Only include players in the same room
+            if player_location == loc_id:
+                # Check if this player is disconnected (statue)
+                if player_username in DISCONNECTED_PLAYERS:
+                    # Show as statue
+                    player_characters.append(f"The statue of {player_username}")
+                else:
+                    # Show as normal player
+                    player_characters.append(player_username)
+    except Exception:
+        # Fallback to old method if list_active_players fails
+        player_characters = game.get("other_players", {}).get(loc_id, [])
 
     # Build items text using ITEM_DEFS for human-friendly names
     # Filter items to show only those visible to this player (including quest-specific items)
