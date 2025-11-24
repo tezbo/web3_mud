@@ -286,5 +286,77 @@ def register_socketio_handlers(socketio, get_game_fn, handle_command_fn, save_ga
         """Handle ping (keep-alive)."""
         emit('pong', {'timestamp': data.get('timestamp')})
     
+    def start_idle_timeout_checker(socketio, get_game_fn, save_game_fn):
+        """
+        Start background task to check for idle users and auto-logout.
+        
+        Args:
+            socketio: Flask-SocketIO instance
+            get_game_fn: Function to get game state
+            save_game_fn: Function to save game state
+        """
+        def idle_check_task():
+            """Background task to check for idle users."""
+            logger.info("Idle timeout checker started")
+            
+            while True:
+                try:
+                    current_time = datetime.now()
+                    idle_users = []
+                    
+                    # Check all users in CONNECTION_STATE
+                    for username, state in list(CONNECTION_STATE.items()):
+                        if not state.get("is_connected", False):
+                            continue  # Skip users who are already disconnected
+                        
+                        last_activity = state.get("last_activity")
+                        if last_activity:
+                            idle_time = current_time - last_activity
+                            if idle_time > timedelta(minutes=15):
+                                idle_users.append(username)
+                    
+                    # Auto-logout idle users
+                    for username in idle_users:
+                        try:
+                            game = get_game_fn()
+                            if not game:
+                                continue
+                            
+                            room_id = game.get('location')
+                            if room_id:
+                                logout_msg = f"{username} has been logged out automatically for being idle too long."
+                                socketio.emit('room_message', {
+                                    'room_id': room_id,
+                                    'message': logout_msg,
+                                    'message_type': 'system'
+                                }, room=f"room:{room_id}")
+                                logger.info(f"Auto-logged out {username} for inactivity")
+                            
+                            # Save game state before logout
+                            save_game_fn(game)
+                            
+                            # Disconnect the user
+                            socketio.server.disconnect(username, namespace='/')
+                            
+                            # Update connection state
+                            CONNECTION_STATE[username]["is_connected"] = False
+                            
+                        except Exception as e:
+                            logger.error(f"Error auto-logging out {username}: {e}", exc_info=True)
+                    
+                    # Sleep for 1 minute before next check
+                    socketio.sleep(60)
+                    
+                except Exception as e:
+                    logger.error(f"Error in idle timeout checker: {e}", exc_info=True)
+                    socketio.sleep(60)  # Wait 1 minute on error
+        
+        # Start the background task
+        socketio.start_background_task(idle_check_task)
+        logger.info("Idle timeout checker started")
+    
+    # Start idle timeout checker
+    start_idle_timeout_checker(socketio, get_game_fn, save_game_fn)
+    
     logger.info("SocketIO handlers registered")
 
