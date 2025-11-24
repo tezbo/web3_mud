@@ -119,7 +119,8 @@ class GameStateManager:
         # Sync to database
         if sync_to_db and self._db_save:
             try:
-                self._db_save(state)
+                # Pass username and state to db_save function
+                self._db_save(username, state)
             except Exception as e:
                 logger.error(f"Error saving player state to DB for {username}: {e}")
                 # Don't fail entirely if DB save fails (cache is still updated)

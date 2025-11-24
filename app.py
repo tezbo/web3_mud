@@ -474,7 +474,12 @@ def get_game():
         # Fallback: if not logged in, return new game state (shouldn't happen with @require_auth)
         return new_game_state(username)
     
-    # Try StateManager (Redis cache) first
+    # Check legacy in-memory cache FIRST (most up-to-date)
+    # This ensures we use the most recent state before checking Redis/database
+    if username in ACTIVE_GAMES:
+        return ACTIVE_GAMES[username]
+    
+    # Try StateManager (Redis cache) second
     try:
         state_manager = get_state_manager_instance()
         cached_game = state_manager.get_player_state(username, use_cache=True)
@@ -485,10 +490,6 @@ def get_game():
     except Exception as e:
         logger.warning(f"Error getting game state from StateManager for {username}: {e}")
         # Fall back to old method
-    
-    # Check legacy in-memory cache (fallback)
-    if username in ACTIVE_GAMES:
-        return ACTIVE_GAMES[username]
     
     conn = get_db()
     row = conn.execute(
@@ -610,7 +611,8 @@ def save_game(game):
         conn.commit()
         conn.close()
     
-    # Update legacy in-memory cache
+    # Update legacy in-memory cache FIRST (most up-to-date state)
+    # This ensures subsequent get_game() calls return the latest state
     ACTIVE_GAMES[username] = game
     
     # Also save user description if it was updated
