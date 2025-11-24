@@ -8466,20 +8466,39 @@ def _legacy_handle_command_body(
                     # Check each NPC in the room to see if they should offer a quest
                     for npc_id in npc_ids:
                         if npc_id in NPCS:
-                            quest_offer_text = quests.maybe_offer_npc_quest(game, username or "adventurer", npc_id, message, current_tick, active_players_fn=who_fn)
-                            if quest_offer_text:
-                                response += "\n" + quest_offer_text
-                                quest_offered = True
+                            # Check if player is asking Mara to unlock the door
+                            if npc_id == "innkeeper" and loc_id == "tavern":
+                                unlock_keywords = ["unlock", "open", "let me out", "let me leave", "unlock the door", "open the door", "stuck"]
+                                message_lower = message.lower()
+                                if any(keyword in message_lower for keyword in unlock_keywords):
+                                    # Check if the door is locked
+                                    from game_engine import EXIT_STATES
+                                    door_state = EXIT_STATES.get("tavern", {}).get("north", {})
+                                    if door_state.get("locked", False):
+                                        # Unlock both doors (tavern north exit and town_square south exit)
+                                        set_exit_state("tavern", "north", locked=False)
+                                        set_exit_state("town_square", "south", locked=False)
+                                        response += "\n" + "[CYAN]Mara nods understandingly and walks over to the door. 'Of course, let me get that for you.' She turns the heavy key in the lock and swings the door open. 'There you go! Don't stay out too late now.'[/CYAN]"
+                                        quest_offered = True  # Prevent AI reactions and quest offers
+                                    else:
+                                        response += "\n" + "[CYAN]Mara looks confused. 'The door's already unlocked, dear. You can come and go as you please.'[/CYAN]"
+                                        quest_offered = True  # Prevent AI reactions and quest offers
                             
-                            # Trigger quest event for saying to NPC
-                            event = quests.QuestEvent(
-                                type="say_to_npc",
-                                room_id=loc_id,
-                                npc_id=npc_id,
-                                text=message,
-                                username=username or "adventurer"
-                            )
-                            quests.handle_quest_event(game, event)
+                            if not quest_offered:
+                                quest_offer_text = quests.maybe_offer_npc_quest(game, username or "adventurer", npc_id, message, current_tick, active_players_fn=who_fn)
+                                if quest_offer_text:
+                                    response += "\n" + quest_offer_text
+                                    quest_offered = True
+                                
+                                # Trigger quest event for saying to NPC
+                                event = quests.QuestEvent(
+                                    type="say_to_npc",
+                                    room_id=loc_id,
+                                    npc_id=npc_id,
+                                    text=message,
+                                    username=username or "adventurer"
+                                )
+                                quests.handle_quest_event(game, event)
                     
                     # Only add AI reactions if no quest was offered (prevents double responses)
                     if not quest_offered and ai_reactions:
