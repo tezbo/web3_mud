@@ -262,6 +262,10 @@ def register_socketio_handlers(socketio, get_game_fn, handle_command_fn, save_ga
                         leave_room(f"room:{old_room_id}")
                     join_room(f"room:{new_room_id}")
                     
+                    # Update room_id in connection state
+                    if username in CONNECTION_STATE:
+                        CONNECTION_STATE[username]["room_id"] = new_room_id
+                    
                     # Check if user wants system notifications
                     notify_settings = game.get("notify", {})
                     show_notification = notify_settings.get("system", False)
