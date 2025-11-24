@@ -41,10 +41,18 @@ class GameStateManager:
             db_get_fn: Function to get game state from database (username) -> dict
             db_save_fn: Function to save game state to database (game_state) -> None
         """
-        self._cache = get_cache_connection()
+        try:
+            self._cache = get_cache_connection()
+        except Exception as e:
+            logger.warning(f"Could not connect to Redis cache: {e}. StateManager will use database only.")
+            self._cache = None
         self._db_get = db_get_fn
         self._db_save = db_save_fn
-        self._event_bus = get_event_bus()
+        try:
+            self._event_bus = get_event_bus()
+        except Exception as e:
+            logger.warning(f"Could not initialize event bus: {e}. Events will be disabled.")
+            self._event_bus = None
     
     def get_player_state(self, username: str, use_cache: bool = True) -> Optional[Dict[str, Any]]:
         """
@@ -96,7 +104,7 @@ class GameStateManager:
         success = True
         
         # Update cache
-        if use_cache:
+        if use_cache and self._cache:
             try:
                 set_cached_state(CacheKeys.player_state(username), state, ttl=900)
                 # Also cache location separately for quick room queries
@@ -118,14 +126,15 @@ class GameStateManager:
                 # This allows graceful degradation
         
         # Emit state changed event
-        try:
-            self._event_bus.publish_user(
-                username,
-                EventTypes.SYSTEM_MESSAGE,
-                {"message_type": "state_update"}
-            )
-        except Exception as e:
-            logger.debug(f"Error emitting state update event: {e}")
+        if self._event_bus:
+            try:
+                self._event_bus.publish_user(
+                    username,
+                    EventTypes.SYSTEM_MESSAGE,
+                    {"message_type": "state_update"}
+                )
+            except Exception as e:
+                logger.debug(f"Error emitting state update event: {e}")
         
         return success
     
@@ -181,6 +190,8 @@ class GameStateManager:
         Returns:
             List of usernames
         """
+        if not self._cache:
+            return []
         try:
             players = self._cache.smembers(CacheKeys.room_players(room_id))
             return list(players) if players else []

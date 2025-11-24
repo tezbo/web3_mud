@@ -1622,11 +1622,30 @@ def start_background_services():
         logger.error(f"Error starting background services: {e}", exc_info=True)
         # Continue even if background services fail (graceful degradation)
 
-# Start background services after app is fully initialized
-start_background_services()
+# Start background services - use lazy initialization for production
+_background_services_started = False
 
+def ensure_background_services():
+    """Ensure background services are started (lazy initialization)."""
+    global _background_services_started
+    if not _background_services_started:
+        try:
+            start_background_services()
+            _background_services_started = True
+        except Exception as e:
+            logger.warning(f"Could not start background services: {e}")
+
+# For local development, start immediately
 if __name__ == "__main__":
     # For local development
     port = int(os.environ.get("PORT", 5000))
+    # Start background services before running
+    ensure_background_services()
     # Use socketio.run() instead of app.run() for WebSocket support
     socketio.run(app, host="0.0.0.0", port=port, debug=True)
+else:
+    # Running under gunicorn/WSGI server - start on first request
+    @app.before_request
+    def start_background_if_needed():
+        """Start background services on first request (for production deployments)."""
+        ensure_background_services()
