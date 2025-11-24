@@ -684,6 +684,37 @@ def index():
     # Ensure game exists (this loads from DB or creates new)
     game = get_game()
     
+    # Check if non-admin player is in tavern during locked hours (1am-10am) and eject them
+    if game and "user_id" in session:
+        from game_engine import is_admin_user, get_current_hour_in_minutes, MINUTES_PER_HOUR, EXIT_STATES
+        username = session.get("username", "adventurer")
+        
+        # Check if player is in tavern
+        if game.get("location") == "tavern":
+            # Check if door is locked (1am-10am)
+            door_state = EXIT_STATES.get("tavern", {}).get("north", {})
+            current_minutes = get_current_hour_in_minutes()
+            hour_of_day = int(current_minutes // MINUTES_PER_HOUR) % 24
+            should_be_locked = (hour_of_day >= 1 and hour_of_day < 10)
+            
+            # If door should be locked and player is not admin, eject them
+            if should_be_locked and not is_admin_user(username, game):
+                # Move player to town square
+                game["location"] = "town_square"
+                
+                # Add ejection message from Mara
+                ejection_msg = "[CYAN]Mara notices you in the locked tavern and shakes her head. 'Sorry, but the tavern's closed right now! Out you go!' She ushers you out the door to the town square.[/CYAN]"
+                game.setdefault("log", [])
+                game["log"].append(ejection_msg)
+                game["log"] = game["log"][-50:]  # Keep log from growing too large
+                
+                # Save game state
+                save_game(game)
+                save_state_to_disk()
+                
+                # Broadcast to other players in town square
+                broadcast_to_room(username, "town_square", f"{username} appears in the town square, looking slightly bewildered after being ejected from the locked tavern.")
+    
     # If game exists and user just logged in, add session welcome
     # Check if this is a returning user (game exists but no recent welcome message)
     # Use a session flag to track if we've already added the welcome for this login
