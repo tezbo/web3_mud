@@ -5946,13 +5946,21 @@ def describe_location(game):
         if current_username in DISCONNECTED_PLAYERS:
             DISCONNECTED_PLAYERS.pop(current_username)
         
+        # Track seen usernames to prevent duplicates
+        seen_player_usernames = set()
+        
         for player_info in active_players:
             player_username = player_info.get("username", "")
             player_location = player_info.get("location", "")
             
-            # Skip self (should never see own statue)
+            # Skip self (should never see own statue or duplicate)
             if player_username == current_username:
                 continue
+            
+            # Skip if we've already added this player (prevent duplicates)
+            if player_username in seen_player_usernames:
+                continue
+            seen_player_usernames.add(player_username)
             
             # Only include players in the same room
             if player_location == loc_id:
