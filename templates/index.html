@@ -560,7 +560,7 @@
       }).join('\n');
     }
 
-    async function appendTextWithPauses(text) {
+    async function appendTextWithPauses(text, forceScroll = false) {
       // Process text with pause markers [PAUSE:seconds] and [ELLIPSIS:seconds]
       // First, extract plain text if HTML is present
       let cleanText = text;
@@ -663,14 +663,14 @@
         });
       }
       
-      // Show typing indicator if requested
-      if (showTyping) {
-        const typingEl = document.createElement('div');
-        typingEl.className = 'typing-indicator';
-        typingEl.textContent = 'Thinking';
-        outputEl.appendChild(typingEl);
-        scrollToBottom(forceScroll);
-      }
+        // Show typing indicator if requested
+        if (showTyping) {
+          const typingEl = document.createElement('div');
+          typingEl.className = 'typing-indicator';
+          typingEl.textContent = 'Thinking';
+          outputEl.appendChild(typingEl);
+          scrollToBottom(forceScroll || false);
+        }
       
       // Check if text contains pause markers (onboarding messages)
       if (typeof text === 'string' && (text.includes('[PAUSE:') || text.includes('[ELLIPSIS:'))) {
@@ -726,7 +726,7 @@
           const clearDiv = document.createElement('div');
           clearDiv.innerHTML = '<span class="meta-message">[Console cleared]</span>';
           outputEl.appendChild(clearDiv);
-          scrollToBottom(forceScroll);
+          scrollToBottom(true);
           return true;
           
         case '/print':
@@ -744,7 +744,7 @@
           const darkDiv = document.createElement('div');
           darkDiv.innerHTML = '<span class="meta-message">[Switched to dark mode]</span>';
           outputEl.appendChild(darkDiv);
-          scrollToBottom(forceScroll);
+          scrollToBottom(true);
           return true;
           
         case '/light-mode':
@@ -754,7 +754,7 @@
           const lightDiv = document.createElement('div');
           lightDiv.innerHTML = '<span class="meta-message">[Switched to light mode]</span>';
           outputEl.appendChild(lightDiv);
-          scrollToBottom(forceScroll);
+          scrollToBottom(true);
           return true;
           
         default:
@@ -873,7 +873,7 @@
         typingEl.className = 'typing-indicator';
         typingEl.textContent = 'Thinking';
         outputEl.appendChild(typingEl);
-        scrollToBottom(forceScroll);
+        scrollToBottom(true); // Always scroll when command is entered
         
         await new Promise(resolve => setTimeout(resolve, delay));
         
