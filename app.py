@@ -1152,7 +1152,11 @@ def command():
     if len(new_log_entries) == 0:
         logging.warning(f"No new log entries for command '{cmd}'! Log content (last 3): {current_log[-3:] if len(current_log) >= 3 else current_log}")
     
-    return jsonify({"response": response, "log": processed_log})
+    # Get color settings for user
+    from color_system import get_color_settings
+    color_settings = get_color_settings(game)
+    
+    return jsonify({"response": response, "log": processed_log, "color_settings": color_settings})
 
 
 # Track last poll timestamp per player for ambiance/NPC messages
