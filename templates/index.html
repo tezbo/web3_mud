@@ -868,6 +868,11 @@
         
         const data = await res.json();
         
+        // Update color settings if provided (user may have changed them)
+        if (data.color_settings && typeof data.color_settings === 'object') {
+          updateColorSettings(data.color_settings);
+        }
+        
         // Check if onboarding has completed - if so, clean up onboarding state and start polling
         if (data.onboarding === false && (window.location.search.includes('onboarding=start') || document.body.getAttribute('data-onboarding') === 'true')) {
           console.log("Onboarding completed, cleaning up and starting polling");
