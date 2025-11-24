@@ -7833,8 +7833,13 @@ def _legacy_handle_command_body(
                         npc_name = matched_npc.name if hasattr(matched_npc, 'name') else matched_npc.get('name', 'someone')
                         response = f"You give the {item_found.replace('_', ' ')} to {npc_name}." + npc_response
                         
-                        # Trigger quest event for giving item
+                        # Trigger quest event for giving item - check for quest completion
                         import quests
+                        
+                        # Check active quests before giving item
+                        active_quests_before = quests.get_active_quests(game)
+                        active_quest_ids_before = [q.get("id") for q in active_quests_before]
+                        
                         event = quests.QuestEvent(
                             type="give_item",
                             room_id=loc_id,
@@ -7843,6 +7848,36 @@ def _legacy_handle_command_body(
                             username=username or "adventurer"
                         )
                         quests.handle_quest_event(game, event)
+                        
+                        # Check if any quest was completed by this event
+                        active_quests_after = quests.get_active_quests(game)
+                        active_quest_ids_after = [q.get("id") for q in active_quests_after]
+                        
+                        # Find quests that were active before but not after (completed)
+                        completed_quest_ids = set(active_quest_ids_before) - set(active_quest_ids_after)
+                        
+                        for quest_id in completed_quest_ids:
+                            # Quest was completed - get completion message
+                            completed_quest = game.get("completed_quests", {}).get(quest_id)
+                            if completed_quest:
+                                # Generate completion message (quest was already marked as completed in handle_quest_event)
+                                template = quests.get_quest_template(quest_id)
+                                if template:
+                                    completion_msg = f"\n[GREEN]Quest completed: {template.name}![/GREEN]"
+                                    # Add rewards info
+                                    if "currency" in template.rewards:
+                                        currency = template.rewards["currency"]
+                                        amount = currency.get("amount", 0)
+                                        currency_type = currency.get("currency_type", "coins")
+                                        completion_msg += f"\nYou receive {amount} {currency_type}."
+                                    if "reputation" in template.rewards:
+                                        for rep in template.rewards["reputation"]:
+                                            completion_msg += f"\nYour reputation with {rep.get('target', 'NPC')} has improved."
+                                    if "items" in template.rewards:
+                                        for item_reward in template.rewards["items"]:
+                                            item_name = item_reward.get("item_id", "").replace("_", " ")
+                                            completion_msg += f"\nYou receive {item_name}."
+                                    response += completion_msg
                         
                         # Also trigger talk_to_npc event (giving counts as interaction)
                         event2 = quests.QuestEvent(
