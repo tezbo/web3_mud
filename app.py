@@ -1,4 +1,10 @@
+# CRITICAL: Apply eventlet monkey patching BEFORE any socket-related imports
+# This must be done first to patch the standard library for eventlet compatibility
 import os
+if os.environ.get("GUNICORN_WORKER_CLASS") == "eventlet" or os.environ.get("USE_EVENTLET") == "true":
+    import eventlet
+    eventlet.monkey_patch()
+
 import json
 import sqlite3
 import random
