@@ -9,9 +9,8 @@ Clean, maintainable WebSocket handlers that integrate with:
 
 import logging
 from datetime import datetime, timedelta
-from flask import session
+from flask import session, request
 from flask_socketio import emit, join_room, leave_room
-from flask_socketio import request as socketio_request
 from core.event_bus import get_event_bus, EventTypes
 from core.state_manager import get_state_manager
 
@@ -221,15 +220,29 @@ def register_socketio_handlers(socketio, get_game_fn, handle_command_fn, save_ga
             
             # Create broadcast function for room messages
             # CRITICAL: Exclude sender from broadcasts so they don't see their own movement/action messages
-            current_sid = socketio_request.sid  # Get current socket session ID
+            # Flask's request object is available in SocketIO handlers and contains request.sid
+            try:
+                current_sid = request.sid  # Get current socket session ID from Flask request
+            except AttributeError:
+                # Fallback if request.sid is not available (shouldn't happen in SocketIO context)
+                current_sid = None
+                logger.warning("Could not get request.sid, broadcasts will include sender")
             
             def broadcast_fn(room_id, text):
                 """Broadcast message to room via SocketIO, excluding the sender."""
-                socketio.emit('room_message', {
-                    'room_id': room_id,
-                    'message': text,
-                    'message_type': 'system'
-                }, room=f"room:{room_id}", skip_sid=current_sid)
+                if current_sid:
+                    socketio.emit('room_message', {
+                        'room_id': room_id,
+                        'message': text,
+                        'message_type': 'system'
+                    }, room=f"room:{room_id}", skip_sid=current_sid)
+                else:
+                    # Fallback: broadcast to all (if we couldn't get sid)
+                    socketio.emit('room_message', {
+                        'room_id': room_id,
+                        'message': text,
+                        'message_type': 'system'
+                    }, room=f"room:{room_id}")
             
             # Get database connection for AI token tracking
             from app import get_db

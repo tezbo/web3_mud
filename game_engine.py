@@ -7528,9 +7528,9 @@ def _legacy_handle_command_body(
             matched_item = match_item_name_in_collection(item_input, all_items_in_room)
             
             if matched_item:
-                # Check if it's a quest-specific item
-                is_quest_item = matched_item in QUEST_SPECIFIC_ITEMS
-                if is_quest_item:
+                # Check if it's a quest-specific item (local variable, not the function)
+                is_quest_specific_item = matched_item in QUEST_SPECIFIC_ITEMS
+                if is_quest_specific_item:
                     # Verify ownership
                     quest_item_data = QUEST_SPECIFIC_ITEMS[matched_item]
                     if quest_item_data.get("owner_username") != username:
@@ -7542,8 +7542,8 @@ def _legacy_handle_command_body(
                     response = "You can't pick up much more, you'll fall over!"
                 else:
                     # Remove from appropriate location (regular room or quest-specific)
-                    is_quest_item = matched_item in QUEST_SPECIFIC_ITEMS
-                    if is_quest_item:
+                    is_quest_specific_item = matched_item in QUEST_SPECIFIC_ITEMS
+                    if is_quest_specific_item:
                         # Remove from quest-specific items tracking
                         del QUEST_SPECIFIC_ITEMS[matched_item]
                     else:
