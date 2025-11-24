@@ -830,7 +830,7 @@
         type: 'command'
       });
       
-      scrollToBottom(forceScroll);
+      scrollToBottom(true); // Always scroll when command is entered
       
       // Check if it's a meta command (starts with /)
       if (cmd.startsWith('/')) {
