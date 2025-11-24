@@ -698,3 +698,348 @@ def generate_npc_line(npc_id: str, game: dict, username: Optional[str] = None,
             return f"{npc.name} looks at you. 'Hello, {username}. How can I help you?'"
         return f"{npc.name} looks at you. 'Hello. How can I help you?'"
 
+
+def get_time_of_day_greeting():
+    """
+    Get appropriate greeting based on time of day.
+    
+    Returns:
+        str: Greeting phrase like "good morning", "good afternoon", etc.
+    """
+    from game_engine import get_current_hour_in_minutes, MINUTES_PER_HOUR
+    
+    current_minutes = get_current_hour_in_minutes()
+    hour_of_day = int(current_minutes // MINUTES_PER_HOUR) % 24
+    
+    if hour_of_day >= 5 and hour_of_day < 12:
+        return "good morning"
+    elif hour_of_day >= 12 and hour_of_day < 17:
+        return "good afternoon"
+    elif hour_of_day >= 17 and hour_of_day < 21:
+        return "good evening"
+    else:
+        return "good night"
+
+
+def detect_greeting(message: str) -> Tuple[Optional[str], bool]:
+    """
+    Detect if a message contains a greeting and return appropriate response type.
+    
+    Args:
+        message: Player's message text
+    
+    Returns:
+        tuple: (greeting_type: str or None, is_time_based: bool)
+        greeting_type can be: "hello", "good_morning", "good_afternoon", "good_evening", "good_night", "greeting"
+    """
+    message_lower = message.lower().strip()
+    
+    # Check for time-based greetings first
+    if "good morning" in message_lower or "morning" in message_lower and ("good" in message_lower or message_lower.startswith("morning")):
+        return "good_morning", True
+    elif "good afternoon" in message_lower or ("afternoon" in message_lower and "good" in message_lower):
+        return "good_afternoon", True
+    elif "good evening" in message_lower or ("evening" in message_lower and "good" in message_lower):
+        return "good_evening", True
+    elif "good night" in message_lower or "night" in message_lower and ("good" in message_lower or message_lower.startswith("night")):
+        return "good_night", True
+    
+    # Check for general greetings
+    greetings = ["hello", "hi", "hey", "greetings", "salutations", "howdy", "ahoy"]
+    for greeting in greetings:
+        if greeting in message_lower:
+            return "greeting", False
+    
+    return None, False
+
+
+def get_universal_npc_greeting_response(npc_id: str, greeting_type: str, game: Dict, username: str = None) -> Optional[str]:
+    """
+    Generate a universal greeting response for any NPC based on reputation and greeting type.
+    Works for both AI-enhanced and regular NPCs.
+    
+    Args:
+        npc_id: NPC ID
+        greeting_type: Type of greeting ("greeting", "good_morning", "good_afternoon", "good_evening", "good_night")
+        game: Game state dictionary
+        username: Player username
+    
+    Returns:
+        str or None: NPC greeting response, or None if no response
+    """
+    if npc_id not in NPCS:
+        return None
+    
+    npc = NPCS[npc_id]
+    npc_name = npc.name
+    
+    # Get reputation
+    reputation = game.get("reputation", {}).get(npc_id, 0)
+    
+    # Determine reputation level
+    if reputation >= 20:
+        rep_level = "beloved"
+    elif reputation >= 10:
+        rep_level = "friendly"
+    elif reputation >= 0:
+        rep_level = "neutral"
+    elif reputation >= -10:
+        rep_level = "unfriendly"
+    else:
+        rep_level = "hostile"
+    
+    # Get personality traits
+    personality = npc.personality.lower()
+    is_gruff = "gruff" in personality or "grumpy" in personality
+    is_kind = "kind" in personality or "warm" in personality or "friendly" in personality
+    is_formal = "formal" in personality or "stuffy" in personality
+    
+    # Generate greeting response based on type and reputation
+    responses = []
+    
+    # Add emote based on reputation and personality
+    if rep_level == "beloved":
+        if is_kind:
+            responses.append(f"{npc_name} beams at you warmly, eyes lighting up.")
+        elif is_gruff:
+            responses.append(f"{npc_name} gives you a rare, genuine smile, {npc.pronoun if hasattr(npc, 'pronoun') else 'their'} gruff demeanor softening.")
+        else:
+            responses.append(f"{npc_name} smiles broadly, clearly happy to see you.")
+    elif rep_level == "friendly":
+        if is_kind:
+            responses.append(f"{npc_name} smiles warmly and waves.")
+        elif is_gruff:
+            responses.append(f"{npc_name} gives you a gruff nod, but {npc.pronoun if hasattr(npc, 'pronoun') else 'their'} eyes show genuine warmth.")
+        else:
+            responses.append(f"{npc_name} nods and smiles.")
+    elif rep_level == "neutral":
+        if is_kind:
+            responses.append(f"{npc_name} gives you a polite smile.")
+        elif is_gruff:
+            responses.append(f"{npc_name} looks at you briefly and gives a curt nod.")
+        elif is_formal:
+            responses.append(f"{npc_name} inclines {npc.pronoun if hasattr(npc, 'pronoun') else 'their'} head in a formal greeting.")
+        else:
+            responses.append(f"{npc_name} acknowledges you with a nod.")
+    elif rep_level == "unfriendly":
+        if is_gruff:
+            responses.append(f"{npc_name} gives you a sidelong glance, {npc.pronoun if hasattr(npc, 'pronoun') else 'their'} expression wary.")
+        else:
+            responses.append(f"{npc_name} looks at you cautiously, not quite trusting.")
+    else:  # hostile
+        if is_gruff:
+            responses.append(f"{npc_name} glares at you, {npc.pronoun if hasattr(npc, 'pronoun') else 'their'} expression darkening.")
+        else:
+            responses.append(f"{npc_name} eyes you warily, clearly not pleased to see you.")
+    
+    # Add verbal response
+    if greeting_type == "good_morning":
+        if rep_level == "beloved":
+            friend_or_name = username if username else "friend"
+            responses.append(f"'Good morning, {friend_or_name}! A fine day to you!'")
+        elif rep_level == "friendly":
+            name_or_there = username if username else "there"
+            responses.append(f"'Good morning, {name_or_there}.'")
+        elif rep_level == "neutral":
+            responses.append(f"'Morning.'")
+        elif rep_level == "unfriendly":
+            responses.append(f"'Morning...'")
+        else:
+            responses.append(f"'What do you want?'")
+    elif greeting_type == "good_afternoon":
+        if rep_level == "beloved":
+            friend_or_name = username if username else "friend"
+            responses.append(f"'Good afternoon, {friend_or_name}! How goes your day?'")
+        elif rep_level == "friendly":
+            name_or_there = username if username else "there"
+            responses.append(f"'Good afternoon, {name_or_there}.'")
+        elif rep_level == "neutral":
+            responses.append(f"'Afternoon.'")
+        elif rep_level == "unfriendly":
+            responses.append(f"'Afternoon...'")
+        else:
+            responses.append(f"'What do you want?'")
+    elif greeting_type == "good_evening":
+        if rep_level == "beloved":
+            friend_or_name = username if username else "friend"
+            responses.append(f"'Good evening, {friend_or_name}! A pleasant night to you.'")
+        elif rep_level == "friendly":
+            name_or_there = username if username else "there"
+            responses.append(f"'Good evening, {name_or_there}.'")
+        elif rep_level == "neutral":
+            responses.append(f"'Evening.'")
+        elif rep_level == "unfriendly":
+            responses.append(f"'Evening...'")
+        else:
+            responses.append(f"'What do you want?'")
+    elif greeting_type == "good_night":
+        if rep_level == "beloved":
+            friend_or_name = username if username else "friend"
+            responses.append(f"'Good night, {friend_or_name}! Sleep well.'")
+        elif rep_level == "friendly":
+            name_or_there = username if username else "there"
+            responses.append(f"'Good night, {name_or_there}.'")
+        elif rep_level == "neutral":
+            responses.append(f"'Night.'")
+        elif rep_level == "unfriendly":
+            responses.append(f"'Night...'")
+        else:
+            responses.append(f"'What do you want?'")
+    else:  # general greeting
+        if rep_level == "beloved":
+            if is_kind:
+                friend_or_name = username if username else "my friend"
+                responses.append(f"'Hello, {friend_or_name}! How wonderful to see you again!'")
+            elif is_gruff:
+                look_who = username if username else "look who it is"
+                responses.append(f"'Well, well, {look_who}. Good to see you, friend.'")
+            else:
+                friend_or_name = username if username else "friend"
+                responses.append(f"'Hello there, {friend_or_name}! What can I do for you?'")
+        elif rep_level == "friendly":
+            if is_kind:
+                name_or_there = username if username else "there"
+                responses.append(f"'Hello, {name_or_there}! How can I help you today?'")
+            elif is_gruff:
+                name_or_you = username if username else "you"
+                responses.append(f"'Hello, {name_or_you}. What do you need?'")
+            else:
+                name_or_there = username if username else "there"
+                responses.append(f"'Hello, {name_or_there}.'")
+        elif rep_level == "neutral":
+            if is_kind:
+                name_or_there = username if username else "there"
+                responses.append(f"'Hello, {name_or_there}. How can I help you?'")
+            elif is_gruff:
+                responses.append(f"'Yeah, what do you want?'")
+            elif is_formal:
+                name_or_traveler = username if username else "traveler"
+                responses.append(f"'Greetings, {name_or_traveler}. How may I assist you?'")
+            else:
+                responses.append(f"'Hello.'")
+        elif rep_level == "unfriendly":
+            if is_gruff:
+                responses.append(f"'What do you want?'")
+            else:
+                responses.append(f"'Hello...'")
+        else:  # hostile
+            if is_gruff:
+                responses.append(f"'What do you want? I don't have time for you.'")
+            else:
+                responses.append(f"'Can I help you with something?'")
+    
+    return "[CYAN]" + " ".join(responses) + "[/CYAN]"
+
+
+def get_universal_npc_emote_reaction(npc_id: str, emote_verb: str, game: Dict, username: str = None) -> Optional[str]:
+    """
+    Generate a universal emote reaction for any NPC based on reputation and emote type.
+    Works for both AI-enhanced and regular NPCs.
+    
+    Args:
+        npc_id: NPC ID
+        emote_verb: Emote verb (e.g., "wave", "nod", "smile")
+        game: Game state dictionary
+        username: Player username
+    
+    Returns:
+        str or None: NPC emote reaction, or None if no reaction
+    """
+    if npc_id not in NPCS:
+        return None
+    
+    npc = NPCS[npc_id]
+    npc_name = npc.name
+    
+    # Get reputation
+    reputation = game.get("reputation", {}).get(npc_id, 0)
+    
+    # Determine reputation level
+    if reputation >= 20:
+        rep_level = "beloved"
+    elif reputation >= 10:
+        rep_level = "friendly"
+    elif reputation >= 0:
+        rep_level = "neutral"
+    elif reputation >= -10:
+        rep_level = "unfriendly"
+    else:
+        rep_level = "hostile"
+    
+    # Get personality traits
+    personality = npc.personality.lower()
+    is_gruff = "gruff" in personality or "grumpy" in personality
+    is_kind = "kind" in personality or "warm" in personality
+    
+    # Generate reaction based on emote and reputation
+    if emote_verb == "wave":
+        if rep_level == "beloved":
+            friend_or_name = username if username else "friend"
+            pronoun = npc.pronoun if hasattr(npc, 'pronoun') else 'their'
+            if is_kind:
+                return f"[CYAN]{npc_name} waves back enthusiastically, a wide smile on {pronoun} face. 'Hello, {friend_or_name}!'[/CYAN]"
+            else:
+                return f"[CYAN]{npc_name} waves back warmly. 'Good to see you, {friend_or_name}!'[/CYAN]"
+        elif rep_level == "friendly":
+            return f"[CYAN]{npc_name} waves back with a smile.[/CYAN]"
+        elif rep_level == "neutral":
+            return f"[CYAN]{npc_name} gives you a brief wave in return.[/CYAN]"
+        elif rep_level == "unfriendly":
+            return f"[CYAN]{npc_name} gives you a half-hearted wave, looking slightly uncomfortable.[/CYAN]"
+        else:
+            return f"[CYAN]{npc_name} ignores your wave, looking away.[/CYAN]"
+    
+    elif emote_verb == "nod":
+        if rep_level == "beloved":
+            return f"[CYAN]{npc_name} nods back warmly, {npc.pronoun if hasattr(npc, 'pronoun') else 'their'} eyes showing genuine respect.[/CYAN]"
+        elif rep_level == "friendly":
+            return f"[CYAN]{npc_name} nods back with a smile.[/CYAN]"
+        elif rep_level == "neutral":
+            if is_gruff:
+                return f"[CYAN]{npc_name} gives you a gruff nod in return.[/CYAN]"
+            else:
+                return f"[CYAN]{npc_name} nods back politely.[/CYAN]"
+        elif rep_level == "unfriendly":
+            return f"[CYAN]{npc_name} gives you a curt, reluctant nod.[/CYAN]"
+        else:
+            return f"[CYAN]{npc_name} barely acknowledges your nod, {npc.pronoun if hasattr(npc, 'pronoun') else 'their'} expression remaining cold.[/CYAN]"
+    
+    elif emote_verb == "smile":
+        if rep_level == "beloved":
+            friend_or_name = username if username else "friend"
+            pronoun = npc.pronoun if hasattr(npc, 'pronoun') else 'their'
+            return f"[CYAN]{npc_name} smiles back warmly, {pronoun} whole face lighting up. 'Always good to see you, {friend_or_name}!'[/CYAN]"
+        elif rep_level == "friendly":
+            return f"[CYAN]{npc_name} smiles back cheerfully.[/CYAN]"
+        elif rep_level == "neutral":
+            return f"[CYAN]{npc_name} returns your smile with a polite one of {npc.pronoun if hasattr(npc, 'pronoun') else 'their'} own.[/CYAN]"
+        elif rep_level == "unfriendly":
+            return f"[CYAN]{npc_name} gives you a strained smile, clearly forcing it.[/CYAN]"
+        else:
+            return f"[CYAN]{npc_name} doesn't return your smile, {npc.pronoun if hasattr(npc, 'pronoun') else 'their'} expression remaining neutral.[/CYAN]"
+    
+    elif emote_verb == "bow":
+        if rep_level == "beloved":
+            return f"[CYAN]{npc_name} returns your bow with a deep, respectful one, showing great respect for you.[/CYAN]"
+        elif rep_level == "friendly":
+            return f"[CYAN]{npc_name} bows back gracefully.[/CYAN]"
+        elif rep_level == "neutral":
+            return f"[CYAN]{npc_name} gives you a polite bow in return.[/CYAN]"
+        elif rep_level == "unfriendly":
+            return f"[CYAN]{npc_name} gives you a perfunctory, shallow bow.[/CYAN]"
+        else:
+            return f"[CYAN]{npc_name} barely acknowledges your bow, giving you only the slightest nod.[/CYAN]"
+    
+    else:
+        # Generic reaction for other emotes
+        if rep_level == "beloved":
+            return f"[CYAN]{npc_name} responds in kind, clearly pleased to interact with you.[/CYAN]"
+        elif rep_level == "friendly":
+            return f"[CYAN]{npc_name} responds positively to your gesture.[/CYAN]"
+        elif rep_level == "neutral":
+            return f"[CYAN]{npc_name} acknowledges your gesture.[/CYAN]"
+        elif rep_level == "unfriendly":
+            return f"[CYAN]{npc_name} gives a minimal response to your gesture.[/CYAN]"
+        else:
+            return f"[CYAN]{npc_name} barely reacts to your gesture.[/CYAN]"
+

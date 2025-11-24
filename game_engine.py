@@ -8456,6 +8456,41 @@ def _legacy_handle_command_body(
                                     if len(game["npc_memory"][npc_id]) > 20:
                                         game["npc_memory"][npc_id] = game["npc_memory"][npc_id][-20:]
                     
+                    # Check for greetings and common emotes BEFORE quest offers and AI reactions
+                    # This provides universal responses for all NPCs based on reputation
+                    from npc import detect_greeting, get_universal_npc_greeting_response
+                    greeting_type, is_time_based = detect_greeting(message)
+                    greeting_handled = False
+                    
+                    if greeting_type:
+                        # Player said a greeting - respond from all NPCs in the room
+                        greeting_responses = []
+                        for npc_id in npc_ids:
+                            if npc_id in NPCS:
+                                # Handle time-based greetings specially
+                                if is_time_based:
+                                    # Use actual time of day for the greeting
+                                    from npc import get_time_of_day_greeting
+                                    actual_greeting = get_time_of_day_greeting()
+                                    if actual_greeting == "good morning":
+                                        greeting_type = "good_morning"
+                                    elif actual_greeting == "good afternoon":
+                                        greeting_type = "good_afternoon"
+                                    elif actual_greeting == "good evening":
+                                        greeting_type = "good_evening"
+                                    else:
+                                        greeting_type = "good_night"
+                                
+                                greeting_response = get_universal_npc_greeting_response(
+                                    npc_id, greeting_type, game, username
+                                )
+                                if greeting_response:
+                                    greeting_responses.append(greeting_response)
+                        
+                        if greeting_responses:
+                            response += "\n" + "\n".join(greeting_responses)
+                            greeting_handled = True
+                    
                     # Check for quest offers from NPCs BEFORE generating AI reactions
                     # If a quest is offered, suppress AI chatter to avoid double responses
                     import quests
@@ -8500,8 +8535,8 @@ def _legacy_handle_command_body(
                                 )
                                 quests.handle_quest_event(game, event)
                     
-                    # Only add AI reactions if no quest was offered (prevents double responses)
-                    if not quest_offered and ai_reactions:
+                    # Only add AI reactions if no greeting was handled and no quest was offered (prevents double responses)
+                    if not greeting_handled and not quest_offered and ai_reactions:
                         response += "\n" + "\n".join(ai_reactions)
                     
                     # Broadcast say message to other players in the room (in cyan)
