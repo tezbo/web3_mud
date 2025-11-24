@@ -1788,8 +1788,8 @@ def process_npc_periodic_actions(game, broadcast_fn=None, who_fn=None):
                     if shown_count >= actions_to_show:
                         break
                     
-                    # Format with cyan color tag
-                    action_text = f"[CYAN]{action}[/CYAN]"
+                    # Format with NPC color tag (will be mapped to 'npc' color)
+                    action_text = f"[NPC]{action}[/NPC]"
                     
                     # Add to player's log
                     game.setdefault("log", [])
@@ -1831,7 +1831,7 @@ def process_npc_periodic_actions(game, broadcast_fn=None, who_fn=None):
                 reaction = get_npc_weather_reaction(npc_id, WEATHER_STATE, season, check_status=True)
                 if reaction:
                     # Format with cyan color tag
-                    reaction_text = f"[CYAN]{reaction}[/CYAN]"
+                    reaction_text = f"[NPC]{reaction}[/NPC]"
                     
                     # Add to player's log
                     game.setdefault("log", [])
@@ -1863,7 +1863,7 @@ def process_npc_periodic_actions(game, broadcast_fn=None, who_fn=None):
                     if has_npc_weather_status(npc_id):
                         reaction = get_npc_weather_reaction(npc_id, WEATHER_STATE, season, check_status=True)
                         if reaction:
-                            reaction_text = f"[CYAN]{reaction}[/CYAN]"
+                            reaction_text = f"[NPC]{reaction}[/NPC]"
                             game.setdefault("log", [])
                             game["log"].append(reaction_text)
                             game["log"] = game["log"][-50:]

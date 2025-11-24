@@ -1251,7 +1251,7 @@ def poll_updates():
             if npc_actions:
                 # Show one random NPC action
                 npc_id, action = random.choice(list(npc_actions.items()))
-                action_text = f"[CYAN]{action}[/CYAN]"
+                action_text = f"[NPC]{action}[/NPC]"
                 new_messages.append(action_text)
                 
                 # Broadcast to other players in the room

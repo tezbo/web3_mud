@@ -486,6 +486,11 @@
           return `<span style="color: ${getColorForType('weather')}; font-weight: 500;">${content}</span>`;
         });
         
+        // NPC messages [NPC]...[/NPC] - default orange
+        processed = processed.replace(/\[NPC\](.*?)\[\/NPC\]/g, (match, content) => {
+          return `<span style="color: ${getColorForType('npc')}; font-weight: 500;">${content}</span>`;
+        });
+        
         // Legacy color tags for backward compatibility
         // Handle cyan color tags [CYAN]...[/CYAN] (maps to 'say' color)
         processed = processed.replace(/\[CYAN\](.*?)\[\/CYAN\]/g, (match, content) => {
