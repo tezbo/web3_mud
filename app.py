@@ -1135,13 +1135,23 @@ def command():
     else:
         new_log_entries = []
     
-    # If no new entries detected, don't return old entries - just return empty log
-    # The response string will be displayed by the frontend if log is empty
-    # This prevents duplication of old log entries
+    # If no new entries detected, check if log length actually increased
+    # This handles the case where last_log_index is out of sync
+    if len(new_log_entries) == 0 and current_log_length > 0:
+        # If last_log_index is at or beyond current length, reset it
+        # This happens when log is truncated or tracking gets out of sync
+        if last_log_index >= current_log_length - 1:
+            # Reset tracking - next command will return all entries
+            session["last_log_index"] = -1
+            session.modified = True
+            # Return the last 2 entries (command + response) for this command
+            if current_log_length >= 2:
+                new_log_entries = current_log[-2:]
+            elif current_log_length == 1:
+                new_log_entries = current_log[-1:]
     
-    # Always update the last log index to point to the end of current log
-    # This ensures we track what we've sent, even if there were no new entries
-    # Only update if we actually found new entries (to prevent tracking getting out of sync)
+    # Update the last log index to point to the end of current log
+    # This ensures we track what we've sent
     if len(new_log_entries) > 0:
         session["last_log_index"] = current_log_length - 1
         session.modified = True
