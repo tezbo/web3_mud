@@ -2,10 +2,15 @@ import os
 import json
 import sqlite3
 import random
+import logging
 from functools import wraps
 from flask import Flask, render_template, request, session, jsonify, redirect, url_for, flash
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_socketio import SocketIO, emit, join_room, leave_room, disconnect
+
+# Set up logging
+logger = logging.getLogger(__name__)
+logging.basicConfig(level=logging.INFO)
 
 # Try to load .env file if python-dotenv is available
 try:
@@ -387,6 +392,78 @@ def require_auth(f):
 
 # --- Game state persistence (database layer) ---
 
+# Initialize StateManager for Redis-backed state management
+from core.state_manager import get_state_manager
+
+# StateManager helper functions
+def _db_get_game_state(username):
+    """Database get function for StateManager."""
+    conn = get_db()
+    try:
+        # Get user_id from username
+        user_row = conn.execute(
+            "SELECT id FROM users WHERE username = ?",
+            (username,)
+        ).fetchone()
+        if not user_row:
+            return None
+        
+        user_id = user_row["id"]
+        
+        # Get game state
+        game_row = conn.execute(
+            "SELECT game_state FROM games WHERE user_id = ?",
+            (user_id,)
+        ).fetchone()
+        
+        if game_row:
+            return json.loads(game_row["game_state"])
+        return None
+    finally:
+        conn.close()
+
+def _db_save_game_state(username, game_state):
+    """Database save function for StateManager."""
+    conn = get_db()
+    try:
+        # Get user_id from username
+        user_row = conn.execute(
+            "SELECT id FROM users WHERE username = ?",
+            (username,)
+        ).fetchone()
+        if not user_row:
+            return
+        
+        user_id = user_row["id"]
+        game_json = json.dumps(game_state)
+        
+        conn.execute(
+            """
+            INSERT INTO games (user_id, game_state, updated_at)
+            VALUES (?, ?, CURRENT_TIMESTAMP)
+            ON CONFLICT(user_id) DO UPDATE SET
+                game_state = excluded.game_state,
+                updated_at = CURRENT_TIMESTAMP
+            """,
+            (user_id, game_json)
+        )
+        conn.commit()
+    finally:
+        conn.close()
+
+# Initialize StateManager with database functions
+_state_manager_instance = None
+
+def get_state_manager_instance():
+    """Get or create StateManager instance."""
+    global _state_manager_instance
+    if _state_manager_instance is None:
+        _state_manager_instance = get_state_manager(
+            db_get_fn=_db_get_game_state,
+            db_save_fn=_db_save_game_state
+        )
+    return _state_manager_instance
+
 
 def get_game():
     """Get or create the game state for the current user from database."""
@@ -399,7 +476,7 @@ def get_game():
     
     # Try StateManager (Redis cache) first
     try:
-        state_manager = get_state_manager()
+        state_manager = get_state_manager_instance()
         cached_game = state_manager.get_player_state(username, use_cache=True)
         if cached_game:
             # Also update legacy ACTIVE_GAMES for backwards compatibility
@@ -464,7 +541,7 @@ def get_game():
             # Existing users without character objects can play normally
             # Store in StateManager (Redis) and legacy cache
             try:
-                state_manager = get_state_manager()
+                state_manager = get_state_manager_instance()
                 state_manager.save_player_state(username, game, sync_to_db=False, use_cache=True)
             except Exception as e:
                 logger.warning(f"Error saving game state to StateManager for {username}: {e}")
@@ -494,7 +571,7 @@ def save_game(game):
     
     # Save to StateManager (Redis cache + database)
     try:
-        state_manager = get_state_manager()
+        state_manager = get_state_manager_instance()
         state_manager.save_player_state(username, game, sync_to_db=True, use_cache=True)
         
         # Update player location in Redis for room tracking
