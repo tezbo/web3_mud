@@ -1135,20 +1135,9 @@ def command():
     else:
         new_log_entries = []
     
-    # Fallback: if tracking is off but we have a response, check if response is in the log
-    # Only return log entries if the response string appears in them (meaning they're actually new)
-    if len(new_log_entries) == 0 and response and response != "__LOGOUT__":
-        # Check if the response appears in recent log entries (last 3)
-        # If it does, those entries are likely the command response
-        if current_log_length > 0:
-            recent_entries = current_log[-3:] if current_log_length >= 3 else current_log
-            # Check if response text appears in any recent entry
-            response_in_log = any(response[:50] in str(entry) for entry in recent_entries if entry)
-            if response_in_log:
-                # Response is in log, return just those recent entries
-                new_log_entries = recent_entries
-                last_log_index = current_log_length - len(new_log_entries) - 1
-            # If response not in log, we'll just return the response string (handled below)
+    # If no new log entries but we have a response, the response string will be returned
+    # The frontend will display it if log is empty
+    # Don't return old log entries as fallback - that causes duplication
     
     # Always update the last log index to point to the end of current log
     # This ensures we track what we've sent, even if there were no new entries
