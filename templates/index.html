@@ -656,13 +656,20 @@ Your choice:`;
           
           // Change Send button to Login button
           sendBtn.textContent = 'Login';
+          sendBtn.disabled = false; // Ensure button is enabled
           sendBtn.onclick = function() {
             window.location.href = '/welcome';
           };
           
-          // Disable input
+          // Disable input (but button should be enabled for Login)
           commandEl.disabled = true;
           commandEl.placeholder = 'Please visit the welcome screen to login';
+          
+          // Clear Flask session by redirecting to welcome (which will clear session)
+          // This ensures refresh requires login
+          setTimeout(() => {
+            window.location.href = '/welcome';
+          }, 3000); // 3 second delay to show logout message
           
           // Clear session state
           sessionState = {

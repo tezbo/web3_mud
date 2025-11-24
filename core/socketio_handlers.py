@@ -306,6 +306,11 @@ def register_socketio_handlers(socketio, get_game_fn, handle_command_fn, save_ga
                     ACTIVE_GAMES.pop(username, None)
                     ACTIVE_SESSIONS.pop(username, None)
                     
+                    # Clear Flask session to force re-login on refresh
+                    session.clear()
+                    session.modified = True
+                    logger.info(f"Cleared Flask session for {username} on logout")
+                    
                     # Send logout event to client
                     emit('logout', {
                         'message': 'You have logged out. Thank you for playing!'
