@@ -1120,8 +1120,12 @@ def command():
     
     # Only return NEW log messages from this command, not the entire log history
     # Track the last log index we've sent to this client
+    # IMPORTANT: Get log length AFTER save_game() to ensure we have the latest log state
     session.setdefault("last_log_index", -1)
     last_log_index = session.get("last_log_index", -1)
+    
+    # Reload game state to ensure we have the latest log after save
+    game = get_game()
     current_log = game.get("log", [])
     current_log_length = len(current_log)
     
@@ -1137,6 +1141,15 @@ def command():
         new_log_entries = current_log[last_log_index + 1:]
     else:
         new_log_entries = []
+    
+    # If no new entries but there are log entries, check if we need to reset the index
+    # This handles the case where the log was truncated or reloaded
+    if len(new_log_entries) == 0 and current_log_length > 0:
+        # If last_log_index points beyond current log, reset it
+        if last_log_index >= current_log_length:
+            # Return the last few entries as a fallback
+            new_log_entries = current_log[-3:] if current_log_length >= 3 else current_log
+            last_log_index = current_log_length - len(new_log_entries) - 1
     
     # Always update the last log index to point to the end of current log
     # This ensures we track what we've sent, even if there were no new entries
