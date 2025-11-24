@@ -492,17 +492,29 @@ def get_game():
     
     # Check legacy in-memory cache FIRST (most up-to-date)
     # This ensures we use the most recent state before checking Redis/database
+    # IMPORTANT: Only return from ACTIVE_GAMES if user has an active session
+    # This prevents showing stale/duplicate player entries
     if username in ACTIVE_GAMES:
-        return ACTIVE_GAMES[username]
+        # Verify user has active session before returning cached game
+        if username in ACTIVE_SESSIONS:
+            return ACTIVE_GAMES[username]
+        else:
+            # User logged out - remove stale entry
+            logger.debug(f"Removing stale ACTIVE_GAMES entry for {username} (no active session)")
+            ACTIVE_GAMES.pop(username, None)
     
     # Try StateManager (Redis cache) second
     try:
         state_manager = get_state_manager_instance()
         cached_game = state_manager.get_player_state(username, use_cache=True)
         if cached_game:
-            # Also update legacy ACTIVE_GAMES for backwards compatibility
-            ACTIVE_GAMES[username] = cached_game
-            return cached_game
+            # Only add to ACTIVE_GAMES if user has active session
+            if username in ACTIVE_SESSIONS:
+                # Also update legacy ACTIVE_GAMES for backwards compatibility
+                ACTIVE_GAMES[username] = cached_game
+                return cached_game
+            else:
+                logger.debug(f"Not adding {username} to ACTIVE_GAMES (no active session)")
     except Exception as e:
         logger.warning(f"Error getting game state from StateManager for {username}: {e}")
         # Fall back to old method
