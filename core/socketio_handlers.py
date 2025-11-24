@@ -335,10 +335,12 @@ def register_socketio_handlers(socketio, get_game_fn, handle_command_fn, save_ga
                             # Save game state before logout
                             save_game_fn(game)
                             
-                            # Disconnect the user
-                            socketio.server.disconnect(username, namespace='/')
+                            # Send logout message to user
+                            socketio.emit('error', {
+                                'message': 'You have been logged out due to inactivity (15 minutes).'
+                            }, room=f"user:{username}")
                             
-                            # Update connection state
+                            # Update connection state (next command will be rejected)
                             CONNECTION_STATE[username]["is_connected"] = False
                             
                         except Exception as e:
