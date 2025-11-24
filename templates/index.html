@@ -614,6 +614,35 @@
     
     // Global WebSocket client instance
     const mudClient = new MUDWebSocketClient();
+    
+    // Connect WebSocket when page loads (after onboarding completes)
+    function connectWebSocket() {
+      // Don't connect during onboarding
+      const isOnboarding = document.body.getAttribute('data-onboarding') === 'true' || 
+                          window.location.search.includes('onboarding=start');
+      if (isOnboarding) {
+        console.log("Onboarding detected, WebSocket will connect after onboarding");
+        return;
+      }
+      
+      console.log("Connecting WebSocket client...");
+      mudClient.connect();
+      
+      // If WebSocket connects successfully, stop polling
+      setTimeout(() => {
+        if (mudClient.connected) {
+          console.log("WebSocket connected, stopping polling");
+          stopAmbiancePolling();
+        }
+      }, 2000);
+    }
+    
+    // Connect WebSocket on page load
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', connectWebSocket);
+    } else {
+      connectWebSocket();
+    }
 
     // Track initial output text (if any)
     const initialOutput = outputEl.innerHTML;
@@ -1240,6 +1269,12 @@
     let isPollingActive = false;
     
     function startAmbiancePolling() {
+      // Don't start polling if WebSocket is connected
+      if (mudClient && mudClient.connected) {
+        console.log("WebSocket connected, skipping polling");
+        return;
+      }
+      
       // Don't start polling during onboarding
       const isOnboarding = document.body.getAttribute('data-onboarding') === 'true' || 
                           window.location.search.includes('onboarding=start');

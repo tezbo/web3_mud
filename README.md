@@ -88,7 +88,7 @@ git push -u origin main
    - **Name**: `web3-mud` (or your preferred name)
    - **Runtime**: `Python 3`
    - **Build Command**: `pip install -r requirements.txt`
-   - **Start Command**: `gunicorn app:app`
+   - **Start Command**: `gunicorn --worker-class eventlet -w 1 --bind 0.0.0.0:$PORT app:app`
 5. Add environment variables:
    - `FLASK_SECRET_KEY`: Generate a secure random string (e.g., use `openssl rand -hex 32`)
    - `OPENAI_API_KEY`: Your OpenAI API key
