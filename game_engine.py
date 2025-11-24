@@ -5994,17 +5994,42 @@ def describe_location(game):
     else:
         items_text = "You don't see anything notable lying around."
 
-    # Build NPCs and player characters text
+    # Build NPCs and player characters text with inventory information
     present_entities = []
+    entity_details = []  # Store detailed info for entities with visible inventory
     
-    # Add NPCs
+    # Add NPCs (NPCs don't currently have visible inventory, but structure allows for it)
     for npc_id in npc_ids:
         if npc_id in NPCS:
-            present_entities.append(NPCS[npc_id].name)
+            npc = NPCS[npc_id]
+            npc_name = npc.name
+            present_entities.append(npc_name)
+            # Check if NPC has visible inventory (future feature)
+            npc_state = NPC_STATE.get(npc_id, {})
+            npc_inventory = npc_state.get("inventory", [])
+            if npc_inventory:
+                from game_engine import group_inventory_items
+                grouped_items = group_inventory_items(npc_inventory)
+                items_text = ", ".join(grouped_items)
+                entity_details.append(f"{npc_name} is carrying {items_text}.")
     
-    # Add player characters (when implemented)
+    # Add player characters with inventory information
+    from app import ACTIVE_GAMES
     for pc_name in player_characters:
         present_entities.append(pc_name)
+        
+        # Get player's inventory if visible
+        if pc_name in ACTIVE_GAMES:
+            player_game = ACTIVE_GAMES[pc_name]
+            player_inventory = player_game.get("inventory", [])
+            if player_inventory:
+                grouped_items = group_inventory_items(player_inventory)
+                if len(grouped_items) == 1:
+                    entity_details.append(f"{pc_name} is carrying {grouped_items[0]}.")
+                elif len(grouped_items) == 2:
+                    entity_details.append(f"{pc_name} is carrying {grouped_items[0]} and {grouped_items[1]}.")
+                else:
+                    entity_details.append(f"{pc_name} is carrying: " + ", ".join(grouped_items[:-1]) + f", and {grouped_items[-1]}.")
     
     npcs_text = ""
     if present_entities:
@@ -6017,6 +6042,10 @@ def describe_location(game):
             # Format: "name1, name2 and name3 are here"
             all_but_last = ", ".join(present_entities[:-1])
             npcs_text = f"{notice_prefix} {all_but_last} and {present_entities[-1]} are here."
+        
+        # Add inventory information for entities carrying items
+        if entity_details:
+            npcs_text += "\n" + "\n".join(entity_details)
 
     # Get combined time-of-day/moon/weather description (replaces room title and weather line)
     is_outdoor = room_def.get("outdoor", False)
@@ -7944,60 +7973,14 @@ def _legacy_handle_command_body(
                     npc_name = matched_npc.name if hasattr(matched_npc, 'name') else matched_npc.get('name', 'someone')
                     response = f"What do you want to give to {npc_name}?"
                 else:
-                    # Check if player has the item (try exact match and variations)
-                    item_found = None
-                    for inv_item in inventory:
-                        if inv_item.lower() == item_name.lower() or inv_item.lower().replace("_", " ") == item_name.lower():
-                            item_found = inv_item
-                            break
+                    # Use improved item matching function for better name resolution
+                    item_found = match_item_name_in_collection(item_name, inventory)
                     
                     if not item_found:
                         response = f"You don't have a '{item_name}' to give."
                     else:
-                        # Remove item from inventory
-                        inventory.remove(item_found)
-                        game["inventory"] = inventory
-                        
-                        # Update reputation for politeness (check original command text)
-                        # Reconstruct the command to check for polite words
-                        original_command_lower = command.lower()
-                        _update_reputation_for_politeness(game, matched_npc_id, original_command_lower)
-                        
-                        # Generate AI response if NPC uses AI
-                        npc_response = ""
-                        npc_dict = matched_npc.to_dict() if hasattr(matched_npc, 'to_dict') else matched_npc
-                        if (matched_npc.use_ai if hasattr(matched_npc, 'use_ai') else matched_npc.get("use_ai", False)) and generate_npc_reply is not None:
-                            game["_current_npc_id"] = matched_npc_id
-                            ai_response, error_message = generate_npc_reply(
-                                npc_dict, room_def, game, username or "adventurer",
-                                f"give {item_found}",
-                                recent_log=game.get("log", [])[-10:],
-                                user_id=user_id, db_conn=db_conn
-                            )
-                            if ai_response and ai_response.strip():
-                                npc_response = "\n" + ai_response
-                                if error_message:
-                                    npc_response += f"\n[Note: {error_message}]"
-                            
-                            # Update memory
-                            if matched_npc_id not in game.get("npc_memory", {}):
-                                game.setdefault("npc_memory", {})[matched_npc_id] = []
-                            game["npc_memory"][matched_npc_id].append({
-                                "type": "gave",
-                                "item": item_found,
-                                "response": ai_response or "Thank you.",
-                            })
-                            if len(game["npc_memory"][matched_npc_id]) > 20:
-                                game["npc_memory"][matched_npc_id] = game["npc_memory"][matched_npc_id][-20:]
-                        else:
-                            # Default response
-                            npc_name = matched_npc.name if hasattr(matched_npc, 'name') else matched_npc.get('name', 'someone')
-                            npc_response = f"\n{npc_name} accepts the {item_found.replace('_', ' ')} with a nod."
-                        
-                        npc_name = matched_npc.name if hasattr(matched_npc, 'name') else matched_npc.get('name', 'someone')
-                        response = f"You give the {item_found.replace('_', ' ')} to {npc_name}." + npc_response
-                        
-                        # Trigger quest event for giving item - check for quest completion
+                        # CRITICAL: Check quest events BEFORE removing item or generating AI response
+                        # This ensures quest completion messages take precedence over AI chatter
                         import quests
                         
                         # Check active quests before giving item
@@ -8011,42 +7994,96 @@ def _legacy_handle_command_body(
                             item_id=item_found,
                             username=username or "adventurer"
                         )
+                        # Process quest event (may complete a quest)
                         quests.handle_quest_event(game, event)
                         
                         # Check if any quest was completed by this event
                         active_quests_after = quests.get_active_quests(game)
                         active_quest_ids_after = [q.get("id") for q in active_quests_after]
-                        
-                        # Find quests that were active before but not after (completed)
                         completed_quest_ids = set(active_quest_ids_before) - set(active_quest_ids_after)
                         
-                        for quest_id in completed_quest_ids:
+                        # Check if this is a quest item - if a quest was completed, use quest response instead of AI
+                        is_quest_item = len(completed_quest_ids) > 0
+                        quest_response_msg = ""
+                        
+                        if completed_quest_ids:
                             # Quest was completed - get completion message from completed_quests
-                            completed_quest = game.get("completed_quests", {}).get(quest_id)
-                            if completed_quest:
-                                # Try to get stored completion message, or generate one
-                                completion_msg = completed_quest.get("completion_message")
-                                if not completion_msg:
+                            for quest_id in completed_quest_ids:
+                                completed_quest = game.get("completed_quests", {}).get(quest_id)
+                                if completed_quest:
+                                    completion_msg = completed_quest.get("completion_message")
+                                    if completion_msg:
+                                        quest_response_msg = completion_msg
+                                        break  # Use first completion message
+                                    
                                     # Fallback: generate completion message from template
-                                    template = quests.get_quest_template(quest_id)
-                                    if template:
-                                        completion_msg = f"\n[GREEN]Quest completed: {template.name}![/GREEN]"
-                                        # Add rewards info
-                                        if "currency" in template.rewards:
-                                            currency = template.rewards["currency"]
-                                            amount = currency.get("amount", 0)
-                                            currency_type = currency.get("currency_type", "coins")
-                                            completion_msg += f"\nYou receive {amount} {currency_type}."
-                                        if "reputation" in template.rewards:
-                                            for rep in template.rewards["reputation"]:
-                                                completion_msg += f"\nYour reputation with {rep.get('target', 'NPC')} has improved."
-                                        if "items" in template.rewards:
-                                            for item_reward in template.rewards["items"]:
-                                                item_name = item_reward.get("item_id", "").replace("_", " ")
-                                                completion_msg += f"\nYou receive {item_name}."
+                                    if not quest_response_msg:
+                                        template = quests.get_quest_template(quest_id)
+                                        if template:
+                                            completion_msg = f"\n[GREEN]Quest completed: {template.name}![/GREEN]"
+                                            # Add rewards info
+                                            if "currency" in template.rewards:
+                                                currency = template.rewards["currency"]
+                                                amount = currency.get("amount", 0)
+                                                currency_type = currency.get("currency_type", "coins")
+                                                completion_msg += f"\nYou receive {amount} {currency_type}."
+                                            if "reputation" in template.rewards:
+                                                for rep in template.rewards["reputation"]:
+                                                    completion_msg += f"\nYour reputation with {rep.get('target', 'NPC')} has improved."
+                                            if "items" in template.rewards:
+                                                for item_reward in template.rewards["items"]:
+                                                    item_name = item_reward.get("item_id", "").replace("_", " ")
+                                                    completion_msg += f"\nYou receive {item_name}."
+                                            quest_response_msg = completion_msg
+                                            break
+                        
+                        # Remove item from inventory
+                        inventory.remove(item_found)
+                        game["inventory"] = inventory
+                        
+                        npc_name = matched_npc.name if hasattr(matched_npc, 'name') else matched_npc.get('name', 'someone')
+                        response = f"You give the {item_found.replace('_', ' ')} to {npc_name}."
+                        
+                        # If this is a quest item, use quest response instead of AI response
+                        if is_quest_item and quest_response_msg:
+                            response += quest_response_msg
+                        else:
+                            # Not a quest item or no quest response - generate normal NPC response
+                            # Update reputation for politeness (check original command text)
+                            original_command_lower = command.lower()
+                            _update_reputation_for_politeness(game, matched_npc_id, original_command_lower)
+                            
+                            # Generate AI response if NPC uses AI
+                            npc_response = ""
+                            npc_dict = matched_npc.to_dict() if hasattr(matched_npc, 'to_dict') else matched_npc
+                            if (matched_npc.use_ai if hasattr(matched_npc, 'use_ai') else matched_npc.get("use_ai", False)) and generate_npc_reply is not None:
+                                game["_current_npc_id"] = matched_npc_id
+                                ai_response, error_message = generate_npc_reply(
+                                    npc_dict, room_def, game, username or "adventurer",
+                                    f"give {item_found}",
+                                    recent_log=game.get("log", [])[-10:],
+                                    user_id=user_id, db_conn=db_conn
+                                )
+                                if ai_response and ai_response.strip():
+                                    npc_response = "\n" + ai_response
+                                    if error_message:
+                                        npc_response += f"\n[Note: {error_message}]"
                                 
-                                if completion_msg:
-                                    response += completion_msg
+                                # Update memory
+                                if matched_npc_id not in game.get("npc_memory", {}):
+                                    game.setdefault("npc_memory", {})[matched_npc_id] = []
+                                game["npc_memory"][matched_npc_id].append({
+                                    "type": "gave",
+                                    "item": item_found,
+                                    "response": ai_response or "Thank you.",
+                                })
+                                if len(game["npc_memory"][matched_npc_id]) > 20:
+                                    game["npc_memory"][matched_npc_id] = game["npc_memory"][matched_npc_id][-20:]
+                            else:
+                                # Default response
+                                npc_response = f"\n{npc_name} accepts the {item_found.replace('_', ' ')} with a nod."
+                            
+                            response += npc_response
                         
                         # Also trigger talk_to_npc event (giving counts as interaction)
                         event2 = quests.QuestEvent(
@@ -8621,51 +8658,7 @@ def _legacy_handle_command_body(
                     player_message = f"{actor_name} says: \"{message}\""
                     response = f"You say: \"{message}\""
                     
-                    # Check for AI NPC reactions
-                    ai_reactions = []
-                    for npc_id in npc_ids:
-                        if npc_id in NPCS:
-                            npc = NPCS[npc_id]
-                            
-                            # Update reputation for politeness
-                            rep_gain, _ = _update_reputation_for_politeness(game, npc_id, message)
-                            
-                            npc_dict = npc.to_dict() if hasattr(npc, 'to_dict') else npc
-                            if (npc.use_ai if hasattr(npc, 'use_ai') else npc.get("use_ai", False)) and generate_npc_reply is not None:
-                                # Store NPC ID in game for AI client to access
-                                game["_current_npc_id"] = npc_id
-                                
-                                # Call AI to generate reaction (now returns tuple: response, error_message)
-                                ai_response, error_message = generate_npc_reply(
-                                    npc_dict, room_def, game, username or "adventurer", 
-                                    message, recent_log=game.get("log", [])[-10:],
-                                    user_id=user_id, db_conn=db_conn
-                                )
-                                
-                                if ai_response and ai_response.strip():
-                                    ai_reactions.append(ai_response)
-                                    
-                                    # Broadcast AI reaction to all players in the room
-                                    if broadcast_fn is not None:
-                                        broadcast_fn(loc_id, ai_response)
-                                    
-                                    # Add error message if present
-                                    if error_message:
-                                        ai_reactions.append(f"[Note: {error_message}]")
-                                    
-                                    # Update memory
-                                    if npc_id not in game.get("npc_memory", {}):
-                                        game.setdefault("npc_memory", {})[npc_id] = []
-                                    game["npc_memory"][npc_id].append({
-                                        "type": "said",
-                                        "message": message,
-                                        "response": ai_response,
-                                    })
-                                    # Keep memory from growing too large
-                                    if len(game["npc_memory"][npc_id]) > 20:
-                                        game["npc_memory"][npc_id] = game["npc_memory"][npc_id][-20:]
-                    
-                    # Check for greetings and common emotes BEFORE quest offers and AI reactions
+                    # Check for greetings and common emotes FIRST
                     # This provides universal responses for all NPCs based on reputation
                     from npc import detect_greeting, get_universal_npc_greeting_response
                     greeting_type, is_time_based = detect_greeting(message)
@@ -8744,8 +8737,54 @@ def _legacy_handle_command_body(
                                 )
                                 quests.handle_quest_event(game, event)
                     
-                    # Only add AI reactions if no greeting was handled and no quest was offered (prevents double responses)
-                    if not greeting_handled and not quest_offered and ai_reactions:
+                    # Only generate AI reactions if no greeting was handled and no quest was offered
+                    # This prevents double responses and ensures quest offers take precedence
+                    ai_reactions = []
+                    if not greeting_handled and not quest_offered:
+                        for npc_id in npc_ids:
+                            if npc_id in NPCS:
+                                npc = NPCS[npc_id]
+                                
+                                # Update reputation for politeness
+                                rep_gain, _ = _update_reputation_for_politeness(game, npc_id, message)
+                                
+                                npc_dict = npc.to_dict() if hasattr(npc, 'to_dict') else npc
+                                if (npc.use_ai if hasattr(npc, 'use_ai') else npc.get("use_ai", False)) and generate_npc_reply is not None:
+                                    # Store NPC ID in game for AI client to access
+                                    game["_current_npc_id"] = npc_id
+                                    
+                                    # Call AI to generate reaction (now returns tuple: response, error_message)
+                                    ai_response, error_message = generate_npc_reply(
+                                        npc_dict, room_def, game, username or "adventurer", 
+                                        message, recent_log=game.get("log", [])[-10:],
+                                        user_id=user_id, db_conn=db_conn
+                                    )
+                                    
+                                    if ai_response and ai_response.strip():
+                                        ai_reactions.append(ai_response)
+                                        
+                                        # Broadcast AI reaction to all players in the room
+                                        if broadcast_fn is not None:
+                                            broadcast_fn(loc_id, ai_response)
+                                        
+                                        # Add error message if present
+                                        if error_message:
+                                            ai_reactions.append(f"[Note: {error_message}]")
+                                        
+                                        # Update memory
+                                        if npc_id not in game.get("npc_memory", {}):
+                                            game.setdefault("npc_memory", {})[npc_id] = []
+                                        game["npc_memory"][npc_id].append({
+                                            "type": "said",
+                                            "message": message,
+                                            "response": ai_response,
+                                        })
+                                        # Keep memory from growing too large
+                                        if len(game["npc_memory"][npc_id]) > 20:
+                                            game["npc_memory"][npc_id] = game["npc_memory"][npc_id][-20:]
+                    
+                    # Add AI reactions to response if any were generated
+                    if ai_reactions:
                         response += "\n" + "\n".join(ai_reactions)
                     
                     # Broadcast say message to other players in the room (in cyan)
