@@ -700,10 +700,17 @@
       }
       
       // Scroll after DOM is updated
-      // Use setTimeout to ensure DOM updates are complete before scrolling
+      // Use setTimeout with a small delay to ensure DOM updates are complete before scrolling
+      // This is especially important for command responses that may be long
       setTimeout(() => {
         scrollToBottom(forceScroll);
-      }, 10); // Small delay to ensure DOM is fully updated
+        // Double-check scroll after a brief delay for very long content
+        if (forceScroll) {
+          setTimeout(() => {
+            scrollToBottom(true);
+          }, 50);
+        }
+      }, 10);
     }
 
     // Meta command handlers
