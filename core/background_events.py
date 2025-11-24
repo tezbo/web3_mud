@@ -103,15 +103,28 @@ def _generate_events_once(socketio, get_game_setting_fn, get_all_rooms_fn,
                 }
             
             # Check for NPC actions
-            last_npc_time_str = room_events.get("last_npc_action_time", current_time.isoformat())
-            try:
-                last_npc_time = datetime.fromisoformat(last_npc_time_str)
-            except (ValueError, TypeError):
+            last_npc_time_str = room_events.get("last_npc_action_time")
+            if last_npc_time_str:
+                try:
+                    last_npc_time = datetime.fromisoformat(last_npc_time_str)
+                except (ValueError, TypeError):
+                    last_npc_time = None
+            else:
+                last_npc_time = None
+            
+            # If no last time recorded, initialize to now (don't trigger immediately)
+            if last_npc_time is None:
+                room_events["last_npc_action_time"] = current_time.isoformat()
+                set_cached_state(room_key, room_events, ttl=3600)
                 last_npc_time = current_time
                 
             elapsed_npc_seconds = (current_time - last_npc_time).total_seconds()
             
-            if elapsed_npc_seconds >= npc_interval_min and get_all_npc_actions_fn:
+            # Only trigger if enough time has passed (using random interval between min and max)
+            # This ensures events happen at varied intervals, not exactly at min interval
+            trigger_interval = random.uniform(npc_interval_min, npc_interval_max)
+            
+            if elapsed_npc_seconds >= trigger_interval and get_all_npc_actions_fn:
                 npc_actions = get_all_npc_actions_fn(room_id)
                 if npc_actions:
                     # Choose one random NPC action
@@ -125,11 +138,10 @@ def _generate_events_once(socketio, get_game_setting_fn, get_all_rooms_fn,
                         'message_type': 'npc'
                     }, room=f"room:{room_id}")
                     
-                    logger.debug(f"Emitted NPC action to room {room_id}: {action[:50]}...")
+                    logger.debug(f"Emitted NPC action to room {room_id} after {elapsed_npc_seconds:.1f}s (interval: {trigger_interval:.1f}s): {action[:50]}...")
                     
-                    # Update last NPC action time
-                    next_interval = random.uniform(npc_interval_min, npc_interval_max)
-                    room_events["last_npc_action_time"] = (current_time + timedelta(seconds=next_interval)).isoformat()
+                    # Update last NPC action time to NOW (not future time)
+                    room_events["last_npc_action_time"] = current_time.isoformat()
                     set_cached_state(room_key, room_events, ttl=3600)
             
             # Check for ambiance
@@ -141,7 +153,12 @@ def _generate_events_once(socketio, get_game_setting_fn, get_all_rooms_fn,
                 
             elapsed_ambiance_seconds = (current_time - last_ambiance_time).total_seconds()
             
+            # Only trigger if elapsed time is >= minimum interval
+            # Use random threshold between min and max for variety
             if elapsed_ambiance_seconds >= ambiance_interval_min and process_ambiance_fn:
+                # Randomize interval for this specific event (between min and max)
+                # But only trigger if we've passed the minimum
+                if elapsed_ambiance_seconds >= random.uniform(ambiance_interval_min, ambiance_interval_max):
                 # Create a minimal game state for ambiance processing
                 sample_game = {"location": room_id}
                 
@@ -165,9 +182,9 @@ def _generate_events_once(socketio, get_game_setting_fn, get_all_rooms_fn,
                     
                     logger.debug(f"Emitted ambiance to room {room_id}: {ambiance_msg[:50]}...")
                     
-                    # Update last ambiance time
-                    next_interval = random.uniform(ambiance_interval_min, ambiance_interval_max)
-                    room_events["last_ambiance_time"] = (current_time + timedelta(seconds=next_interval)).isoformat()
+                    # Update last ambiance time to NOW (not future time)
+                    # The interval check above ensures we wait at least ambiance_interval_min seconds
+                    room_events["last_ambiance_time"] = current_time.isoformat()
                     set_cached_state(room_key, room_events, ttl=3600)
                 
         except Exception as e:
