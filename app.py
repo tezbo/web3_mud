@@ -598,6 +598,10 @@ def save_game(game):
         # Shouldn't happen with @require_auth, but handle gracefully
         return
     
+    # CRITICAL: Update ACTIVE_GAMES immediately before saving to Redis/DB
+    # This ensures the in-memory cache has the latest state for the next command
+    ACTIVE_GAMES[username] = game
+    
     # Save to StateManager (Redis cache + database)
     try:
         state_manager = get_state_manager_instance()
