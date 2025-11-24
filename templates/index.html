@@ -933,7 +933,15 @@
         // Display log entries if present
         // Force scroll for command responses so user sees full output
         if (data.log && Array.isArray(data.log) && data.log.length > 0) {
-          data.log.forEach(line => {
+          // Filter out the command line ("> cmd") since we already displayed it immediately
+          const filteredLog = data.log.filter(line => {
+            if (!line || !line.trim()) return false;
+            // Check if this line is the command we just sent (starts with "> " and matches our command)
+            const lineText = line.replace(/<[^>]*>/g, '').trim();
+            return !(lineText.startsWith('> ') && lineText.substring(2).trim().toLowerCase() === cmd.toLowerCase());
+          });
+          
+          filteredLog.forEach(line => {
             if (line && line.trim()) {
               sessionState.sessionText.push({
                 text: line.replace(/<[^>]*>/g, ''), // Store plain text version
@@ -942,7 +950,7 @@
               });
             }
           });
-          appendText(data.log, false, false, true); // forceScroll = true for command responses
+          appendText(filteredLog, false, false, true); // forceScroll = true for command responses
         } else if (data.response && data.response !== "__LOGOUT__") {
           // If no log entries but there's a response string, show it
           console.log("No log entries, showing response:", data.response);
