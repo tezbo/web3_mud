@@ -762,6 +762,24 @@ def welcome_command():
                 except Exception as e:
                     logger.debug(f"Could not remove from disconnected players: {e}")
                 
+                # CRITICAL: Clean up any stale ACTIVE_GAMES entries before adding new one
+                # This prevents duplicate player entries when logging back in
+                if username in ACTIVE_GAMES:
+                    old_game = ACTIVE_GAMES[username]
+                    old_location = old_game.get("location")
+                    logger.debug(f"Cleaning up stale ACTIVE_GAMES entry for {username} from room {old_location}")
+                    
+                    # Remove from Redis room tracking if available
+                    try:
+                        from core.redis_manager import CacheKeys, get_cache_connection
+                        cache = get_cache_connection()
+                        if cache and old_location:
+                            room_players_key = CacheKeys.room_players(old_location)
+                            cache.srem(room_players_key, username)
+                            logger.debug(f"Removed {username} from old room {old_location} in Redis")
+                    except Exception:
+                        pass  # Non-critical cleanup
+                
                 # Track active session on login
                 from datetime import datetime
                 ACTIVE_SESSIONS[username] = {
