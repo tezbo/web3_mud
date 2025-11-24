@@ -6940,7 +6940,8 @@ def _handle_quests_command(
             target_game = ACTIVE_GAMES[target_username]
         
         # Get quests in the same order as render_quest_list shows them
-        # Active quests are numbered 1-N, completed quests are not numbered but can still be reset
+        # Active quests are numbered 1-N (matches quest list display)
+        # Completed quests are not shown in quest list but can be reset by number too
         active_quests_list = list(target_game.get("quests", {}).values())
         completed_quests_list = list(target_game.get("completed_quests", {}).values())
         
@@ -6949,21 +6950,27 @@ def _handle_quests_command(
         quest_id = None
         
         if quest_number < len(active_quests_list):
-            # It's an active quest
+            # It's an active quest (matches quest list numbering)
             quest_instance = active_quests_list[quest_number]
             quest_id = quest_instance.get("id")
         else:
-            # Check if it's a completed quest (numbering continues after active quests)
+            # Check if it's a completed quest (allow resetting by continuing the numbering)
             completed_index = quest_number - len(active_quests_list)
             if 0 <= completed_index < len(completed_quests_list):
                 quest_instance = completed_quests_list[completed_index]
                 quest_id = quest_instance.get("id")
+            else:
+                total_active = len(active_quests_list)
+                total_completed = len(completed_quests_list)
+                if total_active == 0 and total_completed == 0:
+                    return f"Player '{target_username}' has no quests (active or completed).", game
+                elif quest_number < 0:
+                    return f"Invalid quest number. Quest numbers start at 1.", game
+                else:
+                    return f"Quest number {quest_number + 1} not found. Player has {total_active} active quest(s) (numbered 1-{total_active}) and {total_completed} completed quest(s) (numbered {total_active + 1}-{total_active + total_completed}).", game
         
         if not quest_instance or not quest_id:
-            total_active = len(active_quests_list)
-            total_completed = len(completed_quests_list)
-            total_quests = total_active + total_completed
-            return f"Quest number {quest_number + 1} not found. Player has {total_active} active quest(s) and {total_completed} completed quest(s).", game
+            return f"Quest number {quest_number + 1} not found or invalid.", game
         
         if not quest_id:
             return f"Invalid quest instance (missing ID).", game
