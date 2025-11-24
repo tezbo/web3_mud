@@ -917,8 +917,12 @@ def maybe_offer_npc_quest(game: Dict, username: str, npc_id: str, player_text: s
         active_players_fn: Optional function to get all active players (for availability checks)
     
     Returns:
-        Optional[str]: Extra flavor text if quest is offered, None otherwise
+        Optional[str]: Full quest offer message if quest is offered, None otherwise
     """
+    # Skip if there's already a pending quest offer (don't re-offer)
+    if game.get("pending_quest_offer"):
+        return None
+    
     # Prioritize certain quests by checking them first
     # mara_lost_item should be checked before lost_package since they have overlapping keywords
     priority_quest_ids = ["mara_lost_item"]  # Add more priority quests here if needed
@@ -960,9 +964,17 @@ def maybe_offer_npc_quest(game: Dict, username: str, npc_id: str, player_text: s
                         
                         # Check if player text contains any keyword
                         if keywords and any(keyword.lower() in text_lower for keyword in keywords):
-                            # Offer the quest
-                            offer_quest_to_player(game, username, quest_id, f"npc:{npc_id}")
-                            return offer_source.get("offer_text", "")
+                            # Get the NPC's dialogue text
+                            npc_dialogue = offer_source.get("offer_text", "")
+                            
+                            # Offer the quest (this stores it as pending and returns full message)
+                            quest_message = offer_quest_to_player(game, username, quest_id, f"npc:{npc_id}")
+                            
+                            # Combine NPC dialogue with quest offer message
+                            if npc_dialogue:
+                                return f"{npc_dialogue}\n\n{quest_message}"
+                            else:
+                                return quest_message
     
     return None
 
