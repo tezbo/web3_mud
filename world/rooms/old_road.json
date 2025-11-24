@@ -11,10 +11,10 @@
   "exits": {
     "west": "market_lane"
   },
-  "items": ["weathered_signpost"],
+  "items": [],
   "npcs": ["wandering_trader"],
   "outdoor": true,
-  "features": ["road", "fields"],
+  "features": ["road", "fields", "signpost"],
   "details": {
     "road": {
       "name": "road",
@@ -34,6 +34,20 @@
         "type": "fixture",
         "material": "landscape",
         "condition": "distant, unknown"
+      }
+    },
+    "signpost": {
+      "name": "weathered signpost",
+      "aliases": ["signpost", "sign", "weathered signpost"],
+      "description": "An old, weathered signpost stands at the side of the road. Its wooden surface is worn by years of exposure to the elements, but the markings are still readable despite the fading paint.",
+      "stat": {
+        "type": "fixture",
+        "material": "wood",
+        "condition": "weathered, faded but readable"
+      },
+      "callbacks": {
+        "look": "old_road_signpost_look",
+        "read": "old_road_signpost_read"
       }
     }
   }

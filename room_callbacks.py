@@ -92,6 +92,50 @@ def belltower_look(game, username, room_id, detail_id):
     )
 
 
+def old_road_signpost_look(game, username, room_id, detail_id):
+    """
+    Callback for looking at the signpost on the old road.
+    
+    Args:
+        game: The game state dictionary (can be mutated)
+        username: The username of the player
+        room_id: The room ID where this detail is located
+        detail_id: The detail ID that was interacted with
+    
+    Returns:
+        str: Response message to display to the player
+    """
+    return (
+        "An old, weathered signpost stands at the side of the road. Its wooden surface is worn by years of exposure "
+        "to the elements, but the markings are still readable despite the fading paint. "
+        "(Type 'read signpost' to read what it says.)"
+    )
+
+
+def old_road_signpost_read(game, username, room_id, detail_id):
+    """
+    Callback for reading the signpost on the old road.
+    
+    Args:
+        game: The game state dictionary (can be mutated)
+        username: The username of the player
+        room_id: The room ID where this detail is located
+        detail_id: The detail ID that was interacted with
+    
+    Returns:
+        str: Response message to display to the player
+    """
+    return (
+        "You step closer to the weathered signpost and squint at the faded markings. "
+        "The paint has worn away in places, but you can still make out the words:\n\n"
+        "  'EASTWARD ROAD'\n"
+        "  'To the Kingdoms Beyond'\n"
+        "  'Travelers Beware'\n\n"
+        "Below that, someone has carved a small warning: 'The road grows dangerous past the horizon. "
+        "Only the brave or foolish venture further.'"
+    )
+
+
 # Add more callbacks here as needed
 # Example structure:
 # def <room>_<action>_<detail>(game, username, room_id, detail_id):

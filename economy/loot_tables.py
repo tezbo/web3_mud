@@ -45,7 +45,6 @@ ROOM_LOOT_TABLES = {
     ],
     "old_road": [
         ("gold", 0.15, 1, 5),
-        ("weathered_signpost", 0.03, 1, 1),
     ],
 }
 
