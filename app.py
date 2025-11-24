@@ -2,6 +2,7 @@
 # This must be done first to patch the standard library for eventlet compatibility
 # Required when using eventlet workers or SocketIO with async_mode='eventlet'
 import os
+# Trigger deployment
 try:
     import eventlet
     # Always monkey patch if eventlet is available (safe and required for SocketIO with eventlet)
