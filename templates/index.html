@@ -427,18 +427,31 @@
       }
     }
 
-    // Auto-scroll to bottom on page load
-    function scrollToBottom() {
-      outputEl.scrollTop = outputEl.scrollHeight;
+    // Smart scroll to bottom - only scrolls if user is already near the bottom
+    // This prevents interrupting users who are scrolling up to read old messages
+    function scrollToBottom(force = false) {
+      if (force) {
+        // Force scroll (used on page load)
+        outputEl.scrollTop = outputEl.scrollHeight;
+        return;
+      }
+      
+      // Check if user is near the bottom (within 100px)
+      const isNearBottom = (outputEl.scrollHeight - outputEl.scrollTop - outputEl.clientHeight) < 100;
+      
+      // Only scroll if user is already at or near the bottom
+      if (isNearBottom) {
+        outputEl.scrollTop = outputEl.scrollHeight;
+      }
     }
     
-    // Scroll to bottom when page loads
+    // Scroll to bottom when page loads (force scroll on initial load)
     window.addEventListener('load', () => {
-      setTimeout(scrollToBottom, 100);
+      setTimeout(() => scrollToBottom(true), 100);
     });
     
-    // Also scroll on initial render
-    setTimeout(scrollToBottom, 50);
+    // Also scroll on initial render (force scroll)
+    setTimeout(() => scrollToBottom(true), 50);
 
     function processLogForDisplay(logArray) {
       // Process each log entry to add styling and formatting
@@ -950,19 +963,19 @@
       }
     });
 
-    // Focus input on load and scroll to bottom
+    // Focus input on load and scroll to bottom (force scroll on initial load)
     window.addEventListener('load', () => {
       commandEl.focus();
-      setTimeout(scrollToBottom, 100);
+      setTimeout(() => scrollToBottom(true), 100);
     });
     
-    // Also scroll on DOMContentLoaded
+    // Also scroll on DOMContentLoaded (force scroll)
     document.addEventListener('DOMContentLoaded', () => {
-      setTimeout(scrollToBottom, 50);
+      setTimeout(() => scrollToBottom(true), 50);
     });
     
-    // Initial scroll
-    setTimeout(scrollToBottom, 50);
+    // Initial scroll (force scroll)
+    setTimeout(() => scrollToBottom(true), 50);
     
     // Real-time ambiance polling - check for new messages every 5 seconds
     // This makes the world feel alive even when the player is idle
