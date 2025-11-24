@@ -1539,6 +1539,43 @@ def register_socketio_handlers_late():
 # Register handlers immediately (functions are already defined at this point)
 register_socketio_handlers_late()
 
+# Start background event generator for NPC actions and ambiance
+def start_background_services():
+    """Start background services for event generation."""
+    try:
+        from core.background_events import start_background_event_generator
+        from game_engine import WORLD
+        from npc_actions import get_all_npc_actions_for_room
+        import ambiance
+        
+        def get_all_rooms():
+            """Get all room IDs."""
+            return list(WORLD.keys())
+        
+        def get_all_npc_actions(room_id):
+            """Get all NPC actions for a room."""
+            return get_all_npc_actions_for_room(room_id, active_players_fn=list_active_players)
+        
+        def process_ambiance(game, broadcast_fn=None):
+            """Process ambiance for a room."""
+            return ambiance.process_room_ambiance(game, broadcast_fn=broadcast_fn)
+        
+        start_background_event_generator(
+            socketio,
+            get_game_setting_fn=get_game_setting,
+            get_all_rooms_fn=get_all_rooms,
+            get_all_npc_actions_fn=get_all_npc_actions,
+            process_ambiance_fn=process_ambiance
+        )
+        logger.info("Background event generator started")
+        
+    except Exception as e:
+        logger.error(f"Error starting background services: {e}", exc_info=True)
+        # Continue even if background services fail (graceful degradation)
+
+# Start background services after app is fully initialized
+start_background_services()
+
 if __name__ == "__main__":
     # For local development
     port = int(os.environ.get("PORT", 5000))
