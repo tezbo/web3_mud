@@ -1,8 +1,12 @@
 """
 Player Model
 """
-from typing import Dict, Any, List, Tuple, Optional
+from typing import Dict, List, Optional, Any, Tuple, TYPE_CHECKING
 from game.models.entity import Entity
+
+if TYPE_CHECKING:
+    from game.models.room import Room
+    from game.models.npc import NPC
 
 class Player(Entity):
     def __init__(self, username: str):

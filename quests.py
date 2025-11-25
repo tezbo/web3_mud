@@ -337,111 +337,45 @@ def start_quest(game: Dict, username: str, quest_id: str, source: str, active_pl
     Returns:
         str: Player-facing message
     """
-    template = get_quest_template(quest_id)
-    if not template:
-        return f"Error: Quest '{quest_id}' not found."
+    # Bridge to OO QuestManager
+    from game.models.player import Player
+    from game.systems.quest_manager import QuestManager
     
-    # Check availability before starting
-    is_available, reason = is_quest_available_to_player(game, username, quest_id, active_players_fn)
-    if not is_available:
-        return reason
+    # Create temp player and load state
+    player = Player(username)
+    player.load_from_state(game)
     
-    # Initialize quests dict if needed
-    if "quests" not in game:
-        game["quests"] = {}
+    # Start quest via QuestManager
+    qm = QuestManager.get_instance()
+    success, message = qm.start_quest(player, quest_id)
     
-    # Check if already active (double-check)
-    if quest_id in game["quests"]:
-        instance = game["quests"][quest_id]
-        if instance.get("status") == "active":
-            return f"You are already working on '{template.name}'."
-    
-    # Get current game time
-    from game_engine import GAME_TIME
-    current_tick = GAME_TIME.get("tick", 0)
-    current_minutes = GAME_TIME.get("minutes", 0)
-    
-    # Calculate expiration time if timed
-    expires_at_tick = None
-    expires_at_minutes = None
-    if template.timed and template.time_limit_minutes:
-        expires_at_minutes = current_minutes + template.time_limit_minutes
-        # Convert minutes to ticks (assuming 1 tick = 1 minute)
-        expires_at_tick = current_tick + template.time_limit_minutes
-    
-    # Create quest instance
-    instance = {
-        "id": quest_id,
-        "template_id": quest_id,
-        "status": "active",
-        "giver_id": template.giver_id,
-        "started_at_tick": current_tick,
-        "started_at_minutes": current_minutes,
-        "expires_at_tick": expires_at_tick,
-        "expires_at_minutes": expires_at_minutes,
-        "completed_at_tick": None,
-        "current_stage_index": 0,
-        "objectives_state": {},  # Track progress per objective
-        "notes": [f"Quest started: {template.name}"],
-        "difficulty": template.difficulty,
-    }
-    
-    # Add initial note about first objective
-    if template.stages:
-        first_stage = template.stages[0]
-        instance["notes"].append(f"Objective: {first_stage.get('description', 'Begin your quest.')}")
-    
-    game["quests"][quest_id] = instance
-    
-    # Track quest ownership globally
-    add_quest_owner(quest_id, username)
-    
-    # Clear pending offer
-    game["pending_quest_offer"] = None
-    
-    # Special handling for quest-specific item spawning
-    if quest_id == "lost_package":
-        from game_engine import ROOM_STATE
-        # Add the lost package to the tavern room
-        tavern_room_id = "tavern"
-        if tavern_room_id not in ROOM_STATE:
-            ROOM_STATE[tavern_room_id] = {"items": []}
-        if "items" not in ROOM_STATE[tavern_room_id]:
-            ROOM_STATE[tavern_room_id]["items"] = []
-        # Only add if it doesn't already exist
-        if "lost_package" not in ROOM_STATE[tavern_room_id]["items"]:
-            ROOM_STATE[tavern_room_id]["items"].append("lost_package")
-    
-    elif quest_id == "mara_lost_item":
-        # Spawn the kitchen knife in a random accessible room around town
-        from game_engine import QUEST_SPECIFIC_ITEMS, WORLD, GAME_TIME
-        import random
-        
-        # Possible rooms where the knife could be (accessible from town square/tavern)
-        possible_rooms = ["town_square", "market_lane", "smithy"]
-        
-        # Filter to only rooms that exist in the world
-        valid_rooms = [room for room in possible_rooms if room in WORLD]
-        
-        if valid_rooms:
-            # Pick a random room
-            spawn_room = random.choice(valid_rooms)
-            current_tick = GAME_TIME.get("tick", 0)
+    if success:
+        # Sync state back to game dict
+        updated_state = player.to_state()
+        if "quests" in updated_state:
+            game["quests"] = updated_state["quests"]
             
-            # Store quest-specific item data
-            QUEST_SPECIFIC_ITEMS["mara_kitchen_knife"] = {
-                "quest_id": quest_id,
-                "room_id": spawn_room,
-                "owner_username": username,
-                "spawned_at_tick": current_tick,
-                "clues": [
-                    "A glint of metal catches your eye.",
-                    "You notice something shiny half-hidden among the cobblestones.",
-                    "Something metallic reflects the light nearby.",
-                ]
-            }
+        # Track quest ownership globally (legacy requirement)
+        add_quest_owner(quest_id, username)
+        
+        # Clear pending offer
+        game["pending_quest_offer"] = None
+        
+        # Special handling for quest-specific item spawning (legacy logic)
+        # Ideally this should be moved to QuestManager._on_quest_start or similar
+        if quest_id == "lost_package":
+            from game_engine import ROOM_STATE
+            tavern_room_id = "tavern"
+            if tavern_room_id not in ROOM_STATE:
+                ROOM_STATE[tavern_room_id] = {"items": []}
+            if "items" not in ROOM_STATE[tavern_room_id]:
+                ROOM_STATE[tavern_room_id]["items"] = []
+            if "lost_package" not in ROOM_STATE[tavern_room_id]["items"]:
+                ROOM_STATE[tavern_room_id]["items"].append("lost_package")
     
-    return f"You accept the quest: {template.name}.\n{template.description}"
+    return message
+    
+
 
 
 def complete_quest(game: Dict, username: str, quest_id: str) -> str:
@@ -667,11 +601,33 @@ def handle_quest_event(game: Dict, event: QuestEvent):
     
     Called from game_engine whenever something notable happens.
     Updates active quests based on event type and objectives.
-    
-    Args:
-        game: Game state dict
-        event: QuestEvent dict with type and relevant data
     """
+    # Bridge to OO QuestManager
+    from game.models.player import Player
+    from game.systems.quest_manager import QuestManager
+    
+    # Create temp player and load state
+    # We use a dummy username if not present, but it should be there
+    username = game.get("username", "unknown")
+    player = Player(username)
+    player.load_from_state(game)
+    
+    # Dispatch event via QuestManager
+    qm = QuestManager.get_instance()
+    qm.handle_event(player, event, game)
+    
+    # Sync state back to game dict
+    # This ensures any updates to quests are persisted in the legacy dict
+    updated_state = player.to_state()
+    if "quests" in updated_state:
+        game["quests"] = updated_state["quests"]
+    if "completed_quests" in updated_state:
+        game["completed_quests"] = updated_state["completed_quests"]
+        
+    # Legacy logic below is now bypassed/replaced by the above
+    return
+
+    # Legacy implementation (kept for reference but unreachable)
     active_quests = get_active_quests(game)
     if not active_quests:
         return
