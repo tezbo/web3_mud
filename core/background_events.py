@@ -16,19 +16,10 @@ logger = logging.getLogger(__name__)
 def start_background_event_generator(socketio, get_game_setting_fn=None, 
                                      get_all_rooms_fn=None,
                                      get_all_npc_actions_fn=None,
-                                     process_ambiance_fn=None):
+                                     process_ambiance_fn=None,
+                                     process_decay_fn=None):
     """
     Start background task that generates NPC actions and ambiance events.
-    
-    Uses Flask-SocketIO's background task system to periodically check
-    rooms and emit events to connected players.
-    
-    Args:
-        socketio: Flask-SocketIO instance
-        get_game_setting_fn: Function to get game settings
-        get_all_rooms_fn: Function to get all room IDs
-        get_all_npc_actions_fn: Function to get NPC actions for a room
-        process_ambiance_fn: Function to process ambiance for a room
     """
     if not socketio:
         logger.warning("SocketIO not available, background events disabled")
@@ -45,7 +36,8 @@ def start_background_event_generator(socketio, get_game_setting_fn=None,
                     get_game_setting_fn,
                     get_all_rooms_fn,
                     get_all_npc_actions_fn,
-                    process_ambiance_fn
+                    process_ambiance_fn,
+                    process_decay_fn
                 )
                 
                 # Sleep for 5 seconds before next check
@@ -61,7 +53,7 @@ def start_background_event_generator(socketio, get_game_setting_fn=None,
 
 
 def _generate_events_once(socketio, get_game_setting_fn, get_all_rooms_fn,
-                          get_all_npc_actions_fn, process_ambiance_fn):
+                          get_all_npc_actions_fn, process_ambiance_fn, process_decay_fn=None):
     """Generate events for all active rooms (called periodically)."""
     if not get_all_rooms_fn:
         return
@@ -73,15 +65,28 @@ def _generate_events_once(socketio, get_game_setting_fn, get_all_rooms_fn,
     
     current_time = datetime.now()
     
-    # Get intervals from settings
-    npc_interval_min = float((get_game_setting_fn("npc_action_interval_min", "30") or "30"))
-    npc_interval_max = float((get_game_setting_fn("npc_action_interval_max", "60") or "60"))
-    ambiance_interval_min = float((get_game_setting_fn("ambiance_interval_min", "120") or "120"))
-    ambiance_interval_max = float((get_game_setting_fn("ambiance_interval_max", "240") or "240"))
+    # Get configuration settings
+    npc_interval_min = 30.0
+    npc_interval_max = 60.0
+    ambiance_interval_min = 120.0
+    ambiance_interval_max = 240.0
+    
+    if get_game_setting_fn:
+        try:
+            npc_interval_min = float(get_game_setting_fn("npc_action_interval_min", "30"))
+            npc_interval_max = float(get_game_setting_fn("npc_action_interval_max", "60"))
+            ambiance_interval_min = float(get_game_setting_fn("ambiance_interval_min", "120"))
+            ambiance_interval_max = float(get_game_setting_fn("ambiance_interval_max", "240"))
+        except (ValueError, TypeError):
+            pass
     
     # Check each room for events
     for room_id in room_ids:
         try:
+            # Process Decay (Always runs if function provided)
+            if process_decay_fn:
+                process_decay_fn(room_id)
+                
             # Check if room has active players (via Redis cache or SocketIO rooms)
             players = []
             try:
@@ -93,7 +98,7 @@ def _generate_events_once(socketio, get_game_setting_fn, get_all_rooms_fn,
                 players = list(players) if players else []
             except Exception as redis_error:
                 # Redis unavailable - check SocketIO rooms as fallback
-                logger.debug(f"Redis unavailable for room {room_id}, checking SocketIO rooms: {redis_error}")
+                # logger.debug(f"Redis unavailable for room {room_id}, checking SocketIO rooms: {redis_error}")
                 try:
                     # Use SocketIO's room system to check for connected clients
                     # socketio.server.manager.rooms contains room information
@@ -103,12 +108,14 @@ def _generate_events_once(socketio, get_game_setting_fn, get_all_rooms_fn,
                     # We'll skip rooms when Redis is unavailable for now
                     players = []
                 except Exception as socketio_error:
-                    logger.debug(f"Could not check SocketIO rooms for {room_id}: {socketio_error}")
+                    # logger.debug(f"Could not check SocketIO rooms for {room_id}: {socketio_error}")
                     players = []
             
             if not players or len(players) == 0:
                 # Skip rooms with no active players
                 continue
+            
+            # ... (rest of event generation logic)
             
             # Get or initialize room event times (stored in Redis or memory)
             room_key = f"room:{room_id}:last_events"
