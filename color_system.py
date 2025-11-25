@@ -159,24 +159,11 @@ def wrap_with_color_tag(text: str, color_type: str, game: Dict) -> str:
     """
     color = get_color_for_type(game, color_type)
     
-    # Map color names to tag names (for backward compatibility with existing tags)
-    color_tag_map = {
-        "cyan": "CYAN",
-        "yellow": "YELLOW",
-        "green": "GREEN",
-        "darkgreen": "DARK_GREEN",
-        "red": "RED",
-        "blue": "BLUE",
-        "orange": "ORANGE",
-        "gray": "GRAY",
-        "grey": "GRAY",
-        "white": "WHITE",
-    }
+    # Use the semantic type as the tag name (e.g., [SAY], [TELL])
+    # This allows the frontend to apply the correct user-configured color
+    tag_name = color_type.upper()
     
-    # Get tag name (default to uppercase color name if not in map)
-    tag_name = color_tag_map.get(color, color.upper())
-    
-    # Wrap text with color tag
+    # Wrap text with semantic tag
     return f"[{tag_name}]{text}[/{tag_name}]"
 
 

@@ -889,6 +889,11 @@
           return `<span style="color: ${getColorForType('npc')}; font-weight: 500;">${content}</span>`;
         });
 
+        // Combat messages [COMBAT]...[/COMBAT]
+        processed = processed.replace(/\[COMBAT\](.*?)\[\/COMBAT\]/g, (match, content) => {
+          return `<span style="color: ${getColorForType('error')}; font-weight: bold;">${content}</span>`; // Default to error/red for combat
+        });
+
         // Legacy color tags for backward compatibility
         // Handle cyan color tags [CYAN]...[/CYAN] (maps to 'say' color)
         processed = processed.replace(/\[CYAN\](.*?)\[\/CYAN\]/g, (match, content) => {
