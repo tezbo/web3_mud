@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aethermoor Agent Command</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0a0a0c;
+            --card-bg: #111116;
+            --text-primary: #e0e0e0;
+            --text-secondary: #888899;
+            --accent-cyan: #00f0ff;
+            --accent-purple: #bd00ff;
+            --accent-green: #00ff9d;
+            --accent-orange: #ff9d00;
+            --border-color: #2a2a35;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            font-family: 'Space Mono', monospace;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(189, 0, 255, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(0, 240, 255, 0.05) 0%, transparent 20%);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 2.5rem;
+            margin: 0;
+            background: linear-gradient(45deg, var(--text-primary), var(--text-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 2px;
+        }
+
+        .status-badge {
+            background: rgba(0, 255, 157, 0.1);
+            color: var(--accent-green);
+            padding: 5px 12px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            border: 1px solid rgba(0, 255, 157, 0.2);
+            animation: pulse 2s infinite;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .agent-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .agent-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            border-color: var(--accent-cyan);
+        }
+
+        .agent-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .agent-name {
+            font-family: 'Cinzel', serif;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--accent-cyan);
+        }
+
+        .agent-role {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .agent-status {
+            font-size: 0.8rem;
+            padding: 2px 8px;
+            border-radius: 3px;
+        }
+
+        .status-working { color: var(--accent-orange); border: 1px solid var(--accent-orange); }
+        .status-idle { color: var(--text-secondary); border: 1px solid var(--text-secondary); }
+        .status-done { color: var(--accent-green); border: 1px solid var(--accent-green); }
+        .status-error { color: #ff4444; border: 1px solid #ff4444; }
+
+        .task-info {
+            margin-top: 15px;
+            min-height: 60px;
+        }
+
+        .task-label {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            margin-bottom: 5px;
+        }
+
+        .current-task {
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .progress-bar {
+            height: 2px;
+            background: var(--border-color);
+            margin-top: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--accent-cyan);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        .working .progress-fill {
+            animation: loading 1.5s infinite;
+        }
+
+        .log-console {
+            margin-top: 40px;
+            background: #000;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 15px;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.8rem;
+            height: 200px;
+            overflow-y: auto;
+            color: var(--text-secondary);
+        }
+
+        .log-entry { margin-bottom: 5px; }
+        .log-time { color: var(--accent-purple); margin-right: 10px; }
+
+        @keyframes pulse {
+            0% { opacity: 0.7; }
+            50% { opacity: 1; }
+            100% { opacity: 0.7; }
+        }
+
+        @keyframes loading {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            border: 1px solid var(--border-color);
+            padding: 8px 16px;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+        
+        .back-link:hover {
+            border-color: var(--accent-cyan);
+            color: var(--accent-cyan);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div>
+                <h1>AGENT COMMAND</h1>
+                <div style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 5px;">AETHERMOOR NEURAL INTERFACE</div>
+            </div>
+            <div class="status-badge">SYSTEM ONLINE</div>
+        </header>
+
+        <div class="grid" id="agent-grid">
+            <!-- Agents will be populated here -->
+        </div>
+
+        <div class="log-console" id="system-log">
+            <div class="log-entry"><span class="log-time">SYSTEM</span> Initializing neural link...</div>
+        </div>
+        
+        <a href="/" class="back-link">← Return to Game</a>
+    </div>
+
+    <script>
+        const agents = {
+            "Lore Keeper": { role: "World Consistency", color: "purple" },
+            "Wordsmith": { role: "Narrative Generation", color: "cyan" },
+            "Personality Designer": { role: "NPC Psychology", color: "orange" },
+            "Quest Architect": { role: "Narrative Design", color: "green" },
+            "Mapmaker": { role: "Spatial Design", color: "blue" }
+        };
+
+        function updateDashboard() {
+            fetch('/api/agent_status')
+                .then(response => response.json())
+                .then(data => {
+                    const grid = document.getElementById('agent-grid');
+                    grid.innerHTML = ''; // Clear current
+
+                    // If no data, show placeholders
+                    const displayData = Object.keys(data).length > 0 ? data : {};
+                    
+                    // Merge with static definitions to always show all agents
+                    Object.keys(agents).forEach(name => {
+                        const info = displayData[name] || { status: 'IDLE', task: 'Waiting for assignment...', timestamp: Date.now() };
+                        const meta = agents[name];
+                        
+                        const card = document.createElement('div');
+                        card.className = `agent-card ${info.status === 'WORKING' ? 'working' : ''}`;
+                        
+                        let statusClass = 'status-idle';
+                        if (info.status === 'WORKING') statusClass = 'status-working';
+                        if (info.status === 'DONE') statusClass = 'status-done';
+                        if (info.status === 'ERROR') statusClass = 'status-error';
+
+                        card.innerHTML = `
+                            <div class="agent-header">
+                                <div>
+                                    <div class="agent-name" style="color: var(--accent-${meta.color})">${name}</div>
+                                    <div class="agent-role">${meta.role}</div>
+                                </div>
+                                <div class="agent-status ${statusClass}">${info.status}</div>
+                            </div>
+                            <div class="task-info">
+                                <div class="task-label">CURRENT OPERATION</div>
+                                <div class="current-task">${info.task}</div>
+                                ${info.progress ? `<div style="font-size: 0.7rem; color: var(--text-secondary); margin-top: 5px;">Progress: ${info.progress}</div>` : ''}
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: ${info.status === 'WORKING' ? '100%' : '0%'}"></div>
+                            </div>
+                        `;
+                        grid.appendChild(card);
+                    });
+
+                    // Update log if there are changes
+                    // (In a real app we'd diff, here we just simulate)
+                });
+        }
+
+        // Update every 2 seconds
+        setInterval(updateDashboard, 2000);
+        updateDashboard();
+    </script>
+</body>
+</html>

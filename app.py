@@ -664,6 +664,25 @@ def save_game(game):
 # --- Routes ---
 
 
+# --- Dashboard Routes ---
+
+@app.route("/dashboard")
+def dashboard():
+    """Render the live agent dashboard."""
+    return render_template("dashboard.html")
+
+@app.route("/api/agent_status")
+def api_agent_status():
+    """Return current agent status JSON."""
+    status_file = os.path.join("agents", "agent_status.json")
+    if os.path.exists(status_file):
+        try:
+            with open(status_file, "r") as f:
+                return jsonify(json.load(f))
+        except Exception as e:
+            return jsonify({"error": str(e)})
+    return jsonify({})
+
 @app.route("/welcome")
 def welcome():
     """Welcome screen with ASCII art and character creation/login menu."""
@@ -1771,13 +1790,19 @@ def start_background_services():
         def process_ambiance(game, broadcast_fn=None):
             """Process ambiance for a room."""
             return ambiance.process_room_ambiance(game, broadcast_fn=broadcast_fn)
+            
+        def process_decay(room_id):
+            """Process item decay for a room."""
+            from game.world.manager import WorldManager
+            WorldManager.get_instance().tick_room(room_id)
         
         start_background_event_generator(
             socketio,
             get_game_setting_fn=get_game_setting,
             get_all_rooms_fn=get_all_rooms,
             get_all_npc_actions_fn=get_all_npc_actions,
-            process_ambiance_fn=process_ambiance
+            process_ambiance_fn=process_ambiance,
+            process_decay_fn=process_decay
         )
         logger.info("Background event generator started")
         
@@ -1793,6 +1818,10 @@ def ensure_background_services():
     global _background_services_started
     if not _background_services_started:
         try:
+            # Initialize QuestManager
+            from game.systems.quest_manager import QuestManager
+            QuestManager.get_instance().initialize_quests()
+            
             start_background_services()
             _background_services_started = True
         except Exception as e:
