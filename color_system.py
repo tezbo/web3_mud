@@ -191,4 +191,3 @@ def get_color_hex(color_name: str) -> str:
         str: Hex color code (defaults to white if not found)
     """
     return COLOR_HEX_MAP.get(color_name.lower(), "#ffffff")
-

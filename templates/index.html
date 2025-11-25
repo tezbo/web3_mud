@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <title>Tiny Web MUD</title>
@@ -60,9 +61,11 @@
       --wallet-info: #059669;
       --cyan-message: #0891b2;
     }
+
     * {
       box-sizing: border-box;
     }
+
     body {
       background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-mid) 50%, var(--bg-gradient-end) 100%);
       background-attachment: fixed;
@@ -77,6 +80,7 @@
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
     }
+
     .container {
       display: flex;
       flex-direction: column;
@@ -88,6 +92,7 @@
       min-height: 0;
       overflow: hidden;
     }
+
     .top-bar {
       display: flex;
       justify-content: space-between;
@@ -100,12 +105,14 @@
       flex-wrap: wrap;
       gap: 8px;
     }
-    .top-bar > div {
+
+    .top-bar>div {
       display: flex;
       align-items: center;
       gap: 12px;
       flex-wrap: wrap;
     }
+
     .top-bar a {
       color: #60a5fa;
       text-decoration: none;
@@ -114,22 +121,27 @@
       border-radius: 6px;
       font-weight: 500;
     }
+
     .top-bar a:hover {
       color: #93c5fd;
       text-decoration: none;
       background: rgba(96, 165, 250, 0.1);
     }
+
     .top-bar strong {
       color: var(--text-primary);
       font-weight: 600;
     }
+
     /* Light mode adjustments for specific elements */
     body.light-mode .top-bar a {
       color: var(--command-prompt);
     }
+
     body.light-mode .top-bar a:hover {
       background: rgba(37, 99, 235, 0.1);
     }
+
     #output {
       flex: 1;
       border: 1px solid var(--border-color);
@@ -144,72 +156,89 @@
       word-wrap: break-word;
       -webkit-overflow-scrolling: touch;
     }
+
     /* Scrollbar styling */
     #output::-webkit-scrollbar {
       width: 8px;
     }
+
     #output::-webkit-scrollbar-track {
       background: var(--scrollbar-track);
       border-radius: 4px;
     }
+
     #output::-webkit-scrollbar-thumb {
       background: var(--scrollbar-thumb);
       border-radius: 4px;
     }
+
     #output::-webkit-scrollbar-thumb:hover {
       background: var(--scrollbar-thumb-hover);
     }
+
     /* Text styling classes */
     #output .command-prompt {
       color: var(--command-prompt);
       font-weight: 600;
     }
+
     #output .system-message {
       color: var(--text-secondary);
       font-style: italic;
     }
+
     #output .error-message {
       color: var(--error-message);
       font-weight: 500;
     }
+
     #output .success-message {
       color: var(--success-message);
     }
+
     #output .npc-message {
       color: var(--npc-message);
       font-weight: 500;
     }
+
     #output .location-name {
       color: var(--location-name);
       font-weight: 600;
       font-size: 15px;
     }
+
     #output .item-name {
       color: var(--item-name);
       font-weight: 500;
     }
+
     #output .exits-highlight {
       color: var(--exits-highlight);
       font-weight: bold;
     }
+
     #output .wallet-info {
       color: var(--wallet-info);
       font-weight: 500;
     }
+
     #output .cyan-message {
       color: var(--cyan-message);
       font-weight: 500;
     }
+
     /* Spacing between messages */
-    #output > * {
+    #output>* {
       margin-bottom: 8px;
     }
+
     .input-row {
       display: flex;
       margin-top: 12px;
       gap: 10px;
       flex-shrink: 0;
     }
+
     #command {
       flex: 1;
       padding: clamp(12px, 3vw, 14px);
@@ -218,17 +247,20 @@
       background: var(--input-bg);
       color: var(--text-primary);
       font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
-      font-size: 16px; /* Prevents zoom on iOS */
+      font-size: 16px;
+      /* Prevents zoom on iOS */
       transition: all 0.3s ease;
       -webkit-appearance: none;
       appearance: none;
     }
+
     #command:focus {
       outline: none;
       border-color: var(--command-prompt);
       box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
       background: var(--input-focus-bg);
     }
+
     button {
       padding: clamp(12px, 3vw, 14px) clamp(18px, 4vw, 20px);
       border-radius: 8px;
@@ -239,86 +271,114 @@
       font-weight: 600;
       cursor: pointer;
       transition: all 0.3s ease;
-      min-height: 44px; /* Touch-friendly */
+      min-height: 44px;
+      /* Touch-friendly */
       white-space: nowrap;
     }
+
     button:hover:not(:disabled) {
       background: #2563eb;
       transform: translateY(-2px);
       box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
     }
+
     button:active:not(:disabled) {
       transform: translateY(0);
     }
+
     button:disabled {
       opacity: 0.6;
       cursor: default;
     }
+
     /* Mobile optimizations */
     @media (max-width: 480px) {
       .container {
         padding: 8px;
       }
+
       .top-bar {
         flex-direction: column;
         align-items: flex-start;
       }
-      .top-bar > div {
+
+      .top-bar>div {
         width: 100%;
         justify-content: space-between;
       }
+
       #output {
         padding: 12px;
         font-size: 12px;
       }
+
       #command {
         padding: 14px;
       }
+
       button {
         padding: 14px 16px;
         min-width: 70px;
       }
     }
+
     /* Touch-friendly improvements */
     @media (hover: none) and (pointer: coarse) {
       button {
         min-height: 48px;
       }
+
       .top-bar a {
         min-height: 44px;
         display: inline-flex;
         align-items: center;
       }
     }
+
     /* Typing indicator */
     .typing-indicator {
       color: var(--text-secondary);
       font-style: italic;
       opacity: 0.7;
     }
+
     /* Meta command messages */
     .meta-message {
       color: var(--text-secondary);
       font-style: italic;
       font-size: 0.9em;
     }
+
     .typing-indicator::after {
       content: '...';
       animation: dots 1.5s steps(4, end) infinite;
     }
+
     @keyframes dots {
-      0%, 20% { content: '.'; }
-      40% { content: '..'; }
-      60%, 100% { content: '...'; }
+
+      0%,
+      20% {
+        content: '.';
+      }
+
+      40% {
+        content: '..';
+      }
+
+      60%,
+      100% {
+        content: '...';
+      }
     }
   </style>
 </head>
-<body{% if onboarding %} data-onboarding="true"{% endif %}{% if color_settings %} data-color-settings="{{ color_settings | tojson }}"{% endif %}>
+<body{% if onboarding %} data-onboarding="true" {% endif %}{% if color_settings %}
+  data-color-settings="{{ color_settings | tojson }}" {% endif %}>
   <div class="container">
     <div class="top-bar">
       <div>
         {% if session.username %}
-          Logged in as <strong>{{ session.username }}</strong>
+        Logged in as <strong>{{ session.username }}</strong>
         {% endif %}
       </div>
       <div>
@@ -326,9 +386,12 @@
         <a href="{{ url_for('logout') }}">Log out</a>
       </div>
     </div>
-    <div id="output">{% if log and log|length > 0 and ('[PAUSE:' in (log[0]|string) or '[ELLIPSIS:' in (log[0]|string)) %}{{ log[0] | safe }}{% else %}{{ "\n".join(log) | safe }}{% endif %}</div>
+    <div id="output">{% if log and log|length > 0 and ('[PAUSE:' in (log[0]|string) or '[ELLIPSIS:' in (log[0]|string))
+      %}{{ log[0] | safe }}{% else %}{{ "\n".join(log) | safe }}{% endif %}</div>
     <div class="input-row">
-      <input id="command" type="text" placeholder="Type a command (try: look, go north, inventory, help)" autocomplete="off" name="command-input" data-lpignore="true" data-form-type="other" readonly onfocus="this.removeAttribute('readonly')">
+      <input id="command" type="text" placeholder="Type a command (try: look, go north, inventory, help)"
+        autocomplete="off" name="command-input" data-lpignore="true" data-form-type="other" readonly
+        onfocus="this.removeAttribute('readonly')">
       <button id="sendBtn">Send</button>
     </div>
   </div>
@@ -347,7 +410,7 @@
         document.body.setAttribute('data-color-settings', JSON.stringify(settings));
       }
     }
-    
+
     // Initialize from page load
     try {
       const colorSettingsAttr = document.body.getAttribute('data-color-settings');
@@ -408,13 +471,13 @@
         this.maxReconnectAttempts = 10;
         this.useWebSocket = true; // Feature flag: can disable to fall back to HTTP
       }
-      
+
       connect() {
         if (!this.useWebSocket || typeof io === 'undefined') {
           console.log('WebSocket disabled or Socket.IO not available, using HTTP fallback');
           return;
         }
-        
+
         try {
           // Connect to Socket.IO server
           this.socket = io({
@@ -425,7 +488,7 @@
             reconnectionAttempts: this.maxReconnectAttempts,
             autoConnect: true
           });
-          
+
           // Connection events
           this.socket.on('connect', () => {
             console.log('WebSocket connected');
@@ -433,18 +496,18 @@
             this.reconnectAttempts = 0;
             this.onConnected();
           });
-          
+
           this.socket.on('disconnect', (reason) => {
             console.log('WebSocket disconnected:', reason);
             this.connected = false;
             this.onDisconnected(reason);
           });
-          
+
           this.socket.on('connect_error', (error) => {
             console.error('WebSocket connection error:', error);
             this.reconnectAttempts++;
             this.onConnectionError(error);
-            
+
             // Fall back to HTTP if WebSocket fails repeatedly
             if (this.reconnectAttempts >= this.maxReconnectAttempts) {
               console.warn('WebSocket failed repeatedly, falling back to HTTP');
@@ -452,7 +515,7 @@
               this.disconnect();
             }
           });
-          
+
           // Game events
           this.socket.on('connected', (data) => {
             console.log('Server confirmed connection:', data);
@@ -460,44 +523,44 @@
               appendText(`[System] Connected as ${data.username}`, false);
             }
           });
-          
+
           this.socket.on('command_response', (data) => {
             this.handleCommandResponse(data);
           });
-          
+
           this.socket.on('room_message', (data) => {
             this.handleRoomMessage(data);
           });
-          
+
           this.socket.on('room_changed', (data) => {
             this.handleRoomChanged(data);
           });
-          
+
           this.socket.on('error', (data) => {
             appendText(`[Error] ${data.message || 'Unknown error'}`, false);
           });
-          
+
           this.socket.on('pong', (data) => {
             // Keep-alive response (no action needed)
             console.debug('Pong received');
           });
-          
+
           this.socket.on('logout', (data) => {
             this.handleLogout(data);
           });
-          
+
         } catch (error) {
           console.error('Error initializing WebSocket:', error);
           this.useWebSocket = false;
         }
       }
-      
+
       sendCommand(command, requestId) {
         if (!this.useWebSocket || !this.connected) {
           // Fall back to HTTP
           return false;
         }
-        
+
         try {
           this.socket.emit('command', {
             command: command,
@@ -509,13 +572,13 @@
           return false;
         }
       }
-      
+
       handleCommandResponse(data) {
         // Update color settings if provided
         if (data.color_settings && typeof data.color_settings === 'object') {
           updateColorSettings(data.color_settings);
         }
-        
+
         // Display response
         if (data.response) {
           // Filter out duplicate command line (already shown)
@@ -523,7 +586,7 @@
             const trimmed = line.trim();
             return !(trimmed.startsWith('> ') && trimmed.substring(2).trim().toLowerCase() === data.command?.trim());
           });
-          
+
           if (responseLines.length > 0) {
             responseLines.forEach(line => {
               if (line && line.trim()) {
@@ -537,24 +600,24 @@
             appendText(responseLines.join('\n'), false, false, true); // forceScroll = true
           }
         }
-        
+
         // Handle any events that came with the response
         if (data.events && Array.isArray(data.events)) {
           data.events.forEach(event => this.handleEvent(event));
         }
-        
+
         // Re-enable input
         sendBtn.disabled = false;
         commandEl.value = "";
         commandEl.focus();
       }
-      
+
       handleRoomMessage(data) {
         // Display room message (NPC actions, ambiance, etc.)
         if (data.message) {
           // Process color tags (CYAN, NPC, etc.) before displaying
           let processed = data.message;
-          
+
           // Process type-based color tags
           processed = processed.replace(/\[SAY\](.*?)\[\/SAY\]/g, (match, content) => {
             return `<span style="color: ${getColorForType('say')}; font-weight: 500;">${content}</span>`;
@@ -571,11 +634,11 @@
           processed = processed.replace(/\[GREEN\](.*?)\[\/GREEN\]/g, (match, content) => {
             return `<span style="color: ${getColorForType('success')}; font-weight: 500;">${content}</span>`;
           });
-          
+
           appendText(processed, false); // Use smart scroll (only if near bottom)
         }
       }
-      
+
       handleRoomChanged(data) {
         // Player moved to new room
         // Only show notification if user has enabled system notifications
@@ -583,12 +646,12 @@
           appendText(`[System] Moved to ${data.new_room}`, false);
         }
       }
-      
+
       handleEvent(event) {
         // Handle various event types (for future use)
         if (!event || !event.type) return;
-        
-        switch(event.type) {
+
+        switch (event.type) {
           case 'npc_action':
           case 'ambiance':
           case 'weather_change':
@@ -600,52 +663,52 @@
             console.debug('Unknown event type:', event.type);
         }
       }
-      
+
       onConnected() {
         // Called when WebSocket connects
         console.log('WebSocket client connected');
       }
-      
+
       onDisconnected(reason) {
         // Called when WebSocket disconnects
         console.log('WebSocket client disconnected:', reason);
-        
+
         // Show message to user if unexpected disconnect
         if (reason !== 'io client disconnect') {
           appendText('[System] Connection lost. Attempting to reconnect...', false);
         }
       }
-      
+
       onConnectionError(error) {
         // Called on connection error
         console.error('WebSocket connection error:', error);
       }
-      
+
       handleLogout(data) {
         // Handle logout event from server
         const message = data.message || 'You have logged out. Thank you for playing!';
-        
+
         // Show disconnect message
         appendText(`\n\n${'='.repeat(60)}`, false);
         appendText(`[System] ${message}`, false);
         appendText(`[System] You have been disconnected from the game.`, false);
         appendText(`[System] Redirecting to welcome screen...`, false);
         appendText(`${'='.repeat(60)}\n`, false);
-        
+
         // Disconnect WebSocket
         this.disconnect();
-        
+
         // Disable input and button immediately
         commandEl.disabled = true;
         sendBtn.disabled = true;
-        
+
         // Redirect to welcome screen after brief delay to show logout message
         // Session is already cleared server-side, redirect ensures clean state
         setTimeout(() => {
           window.location.href = '/welcome';
         }, 2000); // 2 second delay to show logout message
       }
-      
+
       disconnect() {
         if (this.socket) {
           this.socket.disconnect();
@@ -653,7 +716,7 @@
           this.connected = false;
         }
       }
-      
+
       ping() {
         // Send keep-alive ping
         if (this.socket && this.connected) {
@@ -661,23 +724,23 @@
         }
       }
     }
-    
+
     // Global WebSocket client instance
     const mudClient = new MUDWebSocketClient();
-    
+
     // Connect WebSocket when page loads (after onboarding completes)
     function connectWebSocket() {
       // Don't connect during onboarding
-      const isOnboarding = document.body.getAttribute('data-onboarding') === 'true' || 
-                          window.location.search.includes('onboarding=start');
+      const isOnboarding = document.body.getAttribute('data-onboarding') === 'true' ||
+        window.location.search.includes('onboarding=start');
       if (isOnboarding) {
         console.log("Onboarding detected, WebSocket will connect after onboarding");
         return;
       }
-      
+
       console.log("Connecting WebSocket client...");
       mudClient.connect();
-      
+
       // If WebSocket connects successfully, stop polling
       setTimeout(() => {
         if (mudClient.connected) {
@@ -686,7 +749,7 @@
         }
       }, 2000);
     }
-    
+
     // Connect WebSocket on page load
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', connectWebSocket);
@@ -732,21 +795,21 @@
         outputEl.scrollTop = outputEl.scrollHeight;
         return;
       }
-      
+
       // Check if user is near the bottom (within 100px)
       const isNearBottom = (outputEl.scrollHeight - outputEl.scrollTop - outputEl.clientHeight) < 100;
-      
+
       // Only scroll if user is already at or near the bottom
       if (isNearBottom) {
         outputEl.scrollTop = outputEl.scrollHeight;
       }
     }
-    
+
     // Scroll to bottom when page loads (force scroll on initial load)
     window.addEventListener('load', () => {
       setTimeout(() => scrollToBottom(true), 100);
     });
-    
+
     // Also scroll on initial render (force scroll)
     setTimeout(() => scrollToBottom(true), 50);
 
@@ -754,105 +817,130 @@
       // Process each log entry to add styling and formatting
       return logArray.map(entry => {
         if (!entry || typeof entry !== 'string') return entry;
-        
+
         let processed = entry;
-        
-        // Skip if already HTML
-        if (processed.includes('<span') || processed.includes('<div')) {
-          return processed;
-        }
-        
+
+        // Skip if already HTML check removed to allow mixed content processing
+        // if (processed.includes('<span') || processed.includes('<div')) {
+        //   return processed;
+        // }
+
         // Highlight command prompts (lines starting with >)
         if (processed.startsWith('> ')) {
           processed = `<span class="command-prompt">${processed}</span>`;
         }
-        
+
         // Highlight Exits:
         processed = processed.replace(/Exits:/g, '<span class="exits-highlight">Exits:</span>');
-        
+
         // Handle type-based color tags (user customizable)
+        // Room names [ROOM]...[/ROOM]
+        processed = processed.replace(/\[ROOM\](.*?)\[\/ROOM\]/g, (match, content) => {
+          return `<span class="location-name">${content}</span>`;
+        });
+
+        // Item names [ITEM]...[/ITEM]
+        processed = processed.replace(/\[ITEM\](.*?)\[\/ITEM\]/g, (match, content) => {
+          return `<span class="item-name">${content}</span>`;
+        });
+
+        // Error messages [ERROR]...[/ERROR]
+        processed = processed.replace(/\[ERROR\](.*?)\[\/ERROR\]/g, (match, content) => {
+          return `<span class="error-message">${content}</span>`;
+        });
+
+        // System messages [SYSTEM]...[/SYSTEM]
+        processed = processed.replace(/\[SYSTEM\](.*?)\[\/SYSTEM\]/g, (match, content) => {
+          return `<span class="system-message">${content}</span>`;
+        });
+
+        // Player messages [PLAYER]...[/PLAYER]
+        processed = processed.replace(/\[PLAYER\](.*?)\[\/PLAYER\]/g, (match, content) => {
+          return `<span style="color: var(--text-primary); font-weight: bold;">${content}</span>`;
+        });
+
         // Say messages [SAY]...[/SAY] - default cyan
         processed = processed.replace(/\[SAY\](.*?)\[\/SAY\]/g, (match, content) => {
           return `<span style="color: ${getColorForType('say')}; font-weight: 500;">${content}</span>`;
         });
-        
+
         // Emote messages [EMOTE]...[/EMOTE] - default white
         processed = processed.replace(/\[EMOTE\](.*?)\[\/EMOTE\]/g, (match, content) => {
           return `<span style="color: ${getColorForType('emote')}; font-weight: 500;">${content}</span>`;
         });
-        
+
         // Tell messages [TELL]...[/TELL] - default yellow
         processed = processed.replace(/\[TELL\](.*?)\[\/TELL\]/g, (match, content) => {
           return `<span style="color: ${getColorForType('tell')}; font-weight: 500;">${content}</span>`;
         });
-        
+
         // Exit messages [EXITS]...[/EXITS] - default darkgreen
         processed = processed.replace(/\[EXITS\](.*?)\[\/EXITS\]/g, (match, content) => {
           return `<span style="color: ${getColorForType('exits')}; font-weight: bold;">${content}</span>`;
         });
-        
+
         // Weather messages [WEATHER]...[/WEATHER] - default darkyellow
         processed = processed.replace(/\[WEATHER\](.*?)\[\/WEATHER\]/g, (match, content) => {
           return `<span style="color: ${getColorForType('weather')}; font-weight: 500;">${content}</span>`;
         });
-        
+
         // NPC messages [NPC]...[/NPC] - default orange
         processed = processed.replace(/\[NPC\](.*?)\[\/NPC\]/g, (match, content) => {
           return `<span style="color: ${getColorForType('npc')}; font-weight: 500;">${content}</span>`;
         });
-        
+
         // Legacy color tags for backward compatibility
         // Handle cyan color tags [CYAN]...[/CYAN] (maps to 'say' color)
         processed = processed.replace(/\[CYAN\](.*?)\[\/CYAN\]/g, (match, content) => {
           return `<span style="color: ${getColorForType('say')}; font-weight: 500;">${content}</span>`;
         });
-        
+
         // Handle yellow color tags [YELLOW]...[/YELLOW] (maps to 'tell' color)
         processed = processed.replace(/\[YELLOW\](.*?)\[\/YELLOW\]/g, (match, content) => {
           return `<span style="color: ${getColorForType('tell')}; font-weight: 500;">${content}</span>`;
         });
-        
+
         // Handle green color tags [GREEN]...[/GREEN] (maps to 'success' color)
         processed = processed.replace(/\[GREEN\](.*?)\[\/GREEN\]/g, (match, content) => {
           return `<span style="color: ${getColorForType('success')}; font-weight: 500;">${content}</span>`;
         });
-        
+
         // Handle dark green tags [DARK_GREEN]...[/DARK_GREEN] (maps to 'exits' color)
         processed = processed.replace(/\[DARK_GREEN\](.*?)\[\/DARK_GREEN\]/g, (match, content) => {
           return `<span style="color: ${getColorForType('exits')}; font-weight: 500;">${content}</span>`;
         });
-        
+
         // Highlight error messages
         if (processed.includes('[Error') || processed.includes('Error:') || processed.includes("can't") || processed.includes("don't")) {
           processed = `<span class="error-message">${processed}</span>`;
         }
-        
+
         // Highlight success messages (You pick up, You drop, etc.)
         if (processed.match(/^You (pick up|drop|take|give|buy|sell)/i)) {
           processed = `<span class="success-message">${processed}</span>`;
         }
-        
+
         // Highlight NPC messages (NPC says, NPC name:)
         if (processed.match(/^[A-Z][a-z]+ (says|says:|replies|replies:)/) || processed.match(/^[A-Z][a-z]+:/)) {
           processed = `<span class="npc-message">${processed}</span>`;
         }
-        
+
         // Highlight wallet info
         if (processed.includes('Wallet:') || processed.includes('You have') && processed.includes('coin')) {
           processed = processed.replace(/Wallet:.*/g, (match) => `<span class="wallet-info">${match}</span>`);
         }
-        
+
         // Highlight location names (in descriptions)
         if (processed.match(/^(You are in|You stand in|Welcome to) [A-Z]/)) {
-          processed = processed.replace(/([A-Z][a-z]+ [A-Z]?[a-z]+ (Town Square|Tavern|Smithy|Lane|Path|Shrine|Watchtower|Forest|Edge))/g, 
+          processed = processed.replace(/([A-Z][a-z]+ [A-Z]?[a-z]+ (Town Square|Tavern|Smithy|Lane|Path|Shrine|Watchtower|Forest|Edge))/g,
             '<span class="location-name">$1</span>');
         }
-        
+
         // Add spacing after certain message types
         if (processed.match(/^(You are carrying|Inventory:|Wallet:)/)) {
           processed = processed + '<br>';
         }
-        
+
         return processed;
       }).join('\n');
     }
@@ -867,15 +955,15 @@
         tempDiv.innerHTML = text;
         cleanText = tempDiv.textContent || tempDiv.innerText || text;
       }
-      
+
       const pauseRegex = /\[(PAUSE|ELLIPSIS):([\d.]+)\]/g;
       const segments = [];
       let lastIndex = 0;
       let match;
-      
+
       // Reset regex lastIndex for global regex
       pauseRegex.lastIndex = 0;
-      
+
       while ((match = pauseRegex.exec(cleanText)) !== null) {
         // Add text before the marker
         if (match.index > lastIndex) {
@@ -884,7 +972,7 @@
             segments.push({ type: 'text', content: textSegment, delay: 0 });
           }
         }
-        
+
         // Add pause or ellipsis
         const delay = parseFloat(match[2]);
         if (match[1] === 'ELLIPSIS') {
@@ -892,10 +980,10 @@
         } else {
           segments.push({ type: 'pause', content: '', duration: delay });
         }
-        
+
         lastIndex = match.index + match[0].length;
       }
-      
+
       // Add remaining text
       if (lastIndex < cleanText.length) {
         const textSegment = cleanText.substring(lastIndex).trim();
@@ -903,12 +991,12 @@
           segments.push({ type: 'text', content: textSegment, delay: 0 });
         }
       }
-      
+
       // If no segments found, treat as regular text
       if (segments.length === 0) {
         segments.push({ type: 'text', content: cleanText, delay: 0 });
       }
-      
+
       // Display segments progressively
       for (const segment of segments) {
         if (segment.type === 'pause') {
@@ -922,9 +1010,9 @@
           ellipsisEl.style.opacity = '0.7';
           outputEl.appendChild(ellipsisEl);
           scrollToBottom(forceScroll);
-          
+
           await new Promise(resolve => setTimeout(resolve, segment.duration * 1000));
-          
+
           ellipsisEl.remove();
         } else {
           // Regular text - preserve newlines as <br>
@@ -932,7 +1020,7 @@
           textEl.innerHTML = segment.content.replace(/\n/g, '<br>');
           outputEl.appendChild(textEl);
           scrollToBottom(forceScroll);
-          
+
           // Small delay for readability
           await new Promise(resolve => setTimeout(resolve, 100));
         }
@@ -959,22 +1047,22 @@
           }
         });
       }
-      
-        // Show typing indicator if requested
-        if (showTyping) {
-          const typingEl = document.createElement('div');
-          typingEl.className = 'typing-indicator';
-          typingEl.textContent = 'Thinking';
-          outputEl.appendChild(typingEl);
-          scrollToBottom(forceScroll || false);
-        }
-      
+
+      // Show typing indicator if requested
+      if (showTyping) {
+        const typingEl = document.createElement('div');
+        typingEl.className = 'typing-indicator';
+        typingEl.textContent = 'Thinking';
+        outputEl.appendChild(typingEl);
+        scrollToBottom(forceScroll || false);
+      }
+
       // Check if text contains pause markers (onboarding messages)
       if (typeof text === 'string' && (text.includes('[PAUSE:') || text.includes('[ELLIPSIS:'))) {
         appendTextWithPauses(text);
         return;
       }
-      
+
       // If text is a string (from error), process it; if it's an array, process it
       if (typeof text === 'string') {
         // Process string to highlight various elements
@@ -995,7 +1083,7 @@
           }
         });
       }
-      
+
       // Scroll after DOM is updated
       // Use setTimeout with a small delay to ensure DOM updates are complete before scrolling
       // This is especially important for command responses that may be long
@@ -1014,8 +1102,8 @@
     function handleMetaCommand(cmd) {
       const parts = cmd.split(/\s+/);
       const metaCmd = parts[0].toLowerCase();
-      
-      switch(metaCmd) {
+
+      switch (metaCmd) {
         case '/clear':
           outputEl.innerHTML = '';
           sessionState.sessionText = [];
@@ -1025,15 +1113,15 @@
           outputEl.appendChild(clearDiv);
           scrollToBottom(true);
           return true;
-          
+
         case '/print':
           downloadSessionText();
           return true;
-          
+
         case '/history':
           showCommandHistory();
           return true;
-          
+
         case '/dark-mode':
           document.body.classList.remove('light-mode');
           sessionState.theme = 'dark';
@@ -1043,7 +1131,7 @@
           outputEl.appendChild(darkDiv);
           scrollToBottom(true);
           return true;
-          
+
         case '/light-mode':
           document.body.classList.add('light-mode');
           sessionState.theme = 'light';
@@ -1053,7 +1141,7 @@
           outputEl.appendChild(lightDiv);
           scrollToBottom(true);
           return true;
-          
+
         default:
           return false; // Not a recognized meta command
       }
@@ -1064,7 +1152,7 @@
         appendText(`<span class="meta-message">[No session text to save]</span>`, false);
         return;
       }
-      
+
       // Format text with timestamps
       const lines = [];
       lines.push('=== Hollowvale Game Session Log ===');
@@ -1073,7 +1161,7 @@
       lines.push('');
       lines.push('--- Session Content ---');
       lines.push('');
-      
+
       sessionState.sessionText.forEach(entry => {
         const timeStr = entry.timestamp.toLocaleTimeString();
         const prefix = entry.type === 'command' ? '> ' : '';
@@ -1081,7 +1169,7 @@
         const text = entry.text.replace(/<[^>]*>/g, '');
         lines.push(`[${timeStr}] ${prefix}${text}`);
       });
-      
+
       // Create and download file
       const content = lines.join('\n');
       const blob = new Blob([content], { type: 'text/plain' });
@@ -1094,7 +1182,7 @@
       a.click();
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
-      
+
       appendText(`<span class="meta-message">[Session log saved as ${filename}]</span>`, false);
     }
 
@@ -1103,44 +1191,44 @@
         appendText(`<span class="meta-message">[No command history]</span>`, false);
         return;
       }
-      
+
       const lines = [];
       lines.push('<span class="meta-message">=== Command History ===</span>');
       sessionState.commandHistory.forEach((entry, index) => {
         const timeStr = entry.timestamp.toLocaleString();
         lines.push(`<span class="meta-message">[${timeStr}] ${entry.command}</span>`);
       });
-      
+
       appendText(lines.join('<br>'), false);
     }
 
     async function sendCommand() {
       const cmd = commandEl.value.trim();
       if (!cmd) return;
-      
+
       const timestamp = new Date();
-      
+
       // Track command in history (for all commands)
       sessionState.commandHistory.push({
         command: cmd,
         timestamp: timestamp
       });
-      
+
       // Show user's command immediately
       const commandLine = `> ${cmd}`;
       const commandDiv = document.createElement('div');
       commandDiv.innerHTML = `<span class="command-prompt">${commandLine}</span>`;
       outputEl.appendChild(commandDiv);
-      
+
       // Track command in session text
       sessionState.sessionText.push({
         text: cmd,
         timestamp: timestamp,
         type: 'command'
       });
-      
+
       scrollToBottom(true); // Always scroll when command is entered
-      
+
       // Check if it's a meta command (starts with /)
       if (cmd.startsWith('/')) {
         const handled = handleMetaCommand(cmd);
@@ -1158,13 +1246,13 @@
         commandEl.focus();
         return;
       }
-      
+
       sendBtn.disabled = true;
-      
+
       // Try WebSocket first, fall back to HTTP
       const requestId = Date.now();
       const sentViaWebSocket = mudClient.sendCommand(cmd, requestId);
-      
+
       if (sentViaWebSocket) {
         // Command sent via WebSocket - response will come via 'command_response' event
         // Remove typing indicator after a brief delay (WebSocket is fast)
@@ -1176,7 +1264,7 @@
         // The WebSocket response handler will re-enable the input
         return;
       }
-      
+
       // Fall back to HTTP (if WebSocket not available)
       try {
         // Show typing indicator
@@ -1185,22 +1273,22 @@
         typingEl.textContent = 'Thinking';
         outputEl.appendChild(typingEl);
         scrollToBottom(true); // Always scroll when command is entered
-        
+
         // Add slight delay for natural feel (200-400ms)
         const delay = Math.random() * 200 + 200;
         await new Promise(resolve => setTimeout(resolve, delay));
-        
+
         const res = await fetch("/command", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           credentials: "same-origin",  // Include session cookies
           body: JSON.stringify({ command: cmd }),
         });
-        
+
         // Remove typing indicator
         const typingIndicators = outputEl.querySelectorAll('.typing-indicator');
         typingIndicators.forEach(el => el.remove());
-        
+
         // Check if response is OK
         if (!res.ok) {
           const errorText = await res.text();
@@ -1209,14 +1297,14 @@
           appendText(`<span class="error-message">[Error: Server returned ${res.status}. Please try again.]</span>`, false, false, false);
           return;
         }
-        
+
         const data = await res.json();
-        
+
         // Update color settings if provided (user may have changed them)
         if (data.color_settings && typeof data.color_settings === 'object') {
           updateColorSettings(data.color_settings);
         }
-        
+
         // Check if onboarding has completed - if so, clean up onboarding state and start polling
         if (data.onboarding === false && (window.location.search.includes('onboarding=start') || document.body.getAttribute('data-onboarding') === 'true')) {
           console.log("Onboarding completed, cleaning up and starting polling");
@@ -1231,18 +1319,18 @@
             startAmbiancePolling();
           }, 1000);
         }
-        
+
         // Check if logout was confirmed
         if (data.logout) {
           // Redirect to logout URL
           window.location.href = "{{ url_for('logout') }}";
           return;
         }
-        
+
         // Pass the log array directly for proper processing
         // Track server response in session text
         console.log("Command response - data.log:", data.log, "type:", typeof data.log, "isArray:", Array.isArray(data.log), "length:", data.log?.length, "data.response:", data.response);
-        
+
         // Display log entries if present
         // Force scroll for command responses so user sees full output
         if (data.log && Array.isArray(data.log) && data.log.length > 0) {
@@ -1253,7 +1341,7 @@
             const lineText = line.replace(/<[^>]*>/g, '').trim();
             return !(lineText.startsWith('> ') && lineText.substring(2).trim().toLowerCase() === cmd.toLowerCase());
           });
-          
+
           filteredLog.forEach(line => {
             if (line && line.trim()) {
               sessionState.sessionText.push({
@@ -1280,7 +1368,7 @@
         // Remove typing indicator on error
         const typingIndicators = outputEl.querySelectorAll('.typing-indicator');
         typingIndicators.forEach(el => el.remove());
-        
+
         console.error("Error sending command:", e);
         // Only show error message, don't append the entire outputEl.innerHTML (that causes duplication)
         appendText(`<span class="error-message">[Error sending command. Please check your connection and try again.]</span>`, false, false, false);
@@ -1304,40 +1392,40 @@
       commandEl.focus();
       setTimeout(() => scrollToBottom(true), 100);
     });
-    
+
     // Also scroll on DOMContentLoaded (force scroll)
     document.addEventListener('DOMContentLoaded', () => {
       setTimeout(() => scrollToBottom(true), 50);
     });
-    
+
     // Initial scroll (force scroll)
     setTimeout(() => scrollToBottom(true), 50);
-    
+
     // Real-time ambiance polling - check for new messages every 5 seconds
     // This makes the world feel alive even when the player is idle
     let pollInterval = null;
     let isPollingActive = false;
-    
+
     function startAmbiancePolling() {
       // Don't start polling if WebSocket is connected
       if (mudClient && mudClient.connected) {
         console.log("WebSocket connected, skipping polling");
         return;
       }
-      
+
       // Don't start polling during onboarding
-      const isOnboarding = document.body.getAttribute('data-onboarding') === 'true' || 
-                          window.location.search.includes('onboarding=start');
+      const isOnboarding = document.body.getAttribute('data-onboarding') === 'true' ||
+        window.location.search.includes('onboarding=start');
       if (isOnboarding) {
         console.log("Onboarding detected, skipping polling");
         return;
       }
-      
+
       if (pollInterval || isPollingActive) {
         console.log("Polling already active, skipping start");
         return; // Already polling
       }
-      
+
       console.log("Starting ambiance polling...");
       isPollingActive = true;
       pollInterval = setInterval(async () => {
@@ -1349,16 +1437,16 @@
             stopAmbiancePolling();
             return;
           }
-          
+
           console.log("Polling for updates...");
           const res = await fetch("/poll", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             credentials: "same-origin"
           });
-          
+
           console.log("Poll response status:", res.status);
-          
+
           if (!res.ok) {
             // If unauthorized, redirected, or error, stop polling
             if (res.status === 401 || res.status === 403 || res.status === 302) {
@@ -1369,7 +1457,7 @@
             }
             return;
           }
-          
+
           // Check content type before parsing
           const contentType = res.headers.get("content-type") || "";
           if (!contentType.includes("application/json")) {
@@ -1377,10 +1465,10 @@
             stopAmbiancePolling();
             return;
           }
-          
+
           const data = await res.json();
           console.log("Poll response data:", data);
-          
+
           if (data.messages && Array.isArray(data.messages) && data.messages.length > 0) {
             console.log("Received", data.messages.length, "new messages from poll");
             // Append new messages to output
@@ -1393,10 +1481,10 @@
           // Don't stop polling on transient errors - just log and continue
         }
       }, 3000); // Poll every 3 seconds for more responsive real-time updates
-      
+
       console.log("Polling interval set, will poll every 3 seconds");
     }
-    
+
     function stopAmbiancePolling() {
       if (pollInterval) {
         clearInterval(pollInterval);
@@ -1404,11 +1492,11 @@
       }
       isPollingActive = false;
     }
-    
+
     // Start polling when page loads (only if user is logged in)
     // Also start immediately if DOM is already loaded
     console.log("Setting up polling, DOM readyState:", document.readyState);
-    
+
     function initPolling() {
       console.log("Initializing polling...");
       // Small delay to ensure session is ready
@@ -1417,7 +1505,7 @@
         startAmbiancePolling();
       }, 1000);
     }
-    
+
     if (document.readyState === 'loading') {
       console.log("DOM still loading, waiting for load event");
       window.addEventListener('load', () => {
@@ -1429,7 +1517,7 @@
       console.log("DOM already loaded, starting polling immediately");
       initPolling();
     }
-    
+
     // Also try starting when DOMContentLoaded fires (backup)
     document.addEventListener('DOMContentLoaded', () => {
       console.log("DOMContentLoaded fired");
@@ -1440,11 +1528,12 @@
         }, 500);
       }
     });
-    
+
     // Stop polling when page unloads
     window.addEventListener('beforeunload', () => {
       stopAmbiancePolling();
     });
   </script>
-</body>
+  </body>
+
 </html>

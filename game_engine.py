@@ -50,6 +50,7 @@ from game.state import (
     NPC_ROUTE_POSITIONS, EXIT_STATES, IN_GAME_HOUR_DURATION, IN_GAME_DAY_DURATION
 )
 from game.systems.ambient import AmbientSystem
+from game.utils import colors
 
 # Initialize Systems
 AMBIENT_SYSTEM = AmbientSystem()
@@ -5520,7 +5521,7 @@ def add_session_welcome(game, username):
     game["log"].append(f"You blink and wake up. Welcome back to Hollowvale, {username}! It's currently {time_str}.")
     
     # Add room name in dark green (using HTML like movement messages)
-    game["log"].append(f'<span style="color: #006400;">You\'re standing in the {room_name}</span>')
+    game["log"].append(f'You\'re standing in the {colors.room(room_name)}')
     
     # Add room description
     # describe_location returns a formatted string with room name, description, exits, items, NPCs
@@ -5711,7 +5712,7 @@ def get_entrance_exit_message(room_id, from_room_id, direction, actor_name, is_e
     if is_npc:
         return f"[CYAN]{msg}[/CYAN]"
     else:
-        return f'<span style="color: #006400;">{msg}</span>'
+        return colors.room(msg)
 
 
 def get_movement_message(target_room_id, direction):
@@ -5737,15 +5738,15 @@ def get_movement_message(target_room_id, direction):
         if movement_message:
             # Support both string templates and callable functions
             if callable(movement_message):
-                return f'<span style="color: #006400;">{movement_message(direction, location_name)}</span>'
+                return colors.room(movement_message(direction, location_name))
             else:
                 # Format string template with {direction} and {location} placeholders
                 formatted = movement_message.format(direction=direction, location=location_name)
-                return f'<span style="color: #006400;">{formatted}</span>'
+                return colors.room(formatted)
     
     # Default message
     default_message = f"You go {direction}, and find yourself in the {location_name}."
-    return f'<span style="color: #006400;">{default_message}</span>'
+    return colors.room(default_message)
 
 
 def format_time_message(game):
@@ -9602,30 +9603,19 @@ def load_global_state_snapshot(snapshot):
         EXIT_STATES = snapshot["exit_states"]
 
 
-def _handle_colour_command(
-    verb,
-    tokens,
-    game,
-    username=None,
-    user_id=None,
-    db_conn=None,
-    broadcast_fn=None,
-    who_fn=None,
-):
+def _handle_colour_command(game, tokens):
     """
     Handle the 'colour' command for customizing message colors.
-    
     Usage:
         colour                    - Show current color settings
         colour set <type> <color> - Set color for a message type
         colour reset              - Reset all colors to defaults
-        colour help               - Show help
     """
     from color_system import (
         get_color_settings, set_color_for_type, reset_colors,
         DEFAULT_COLORS, VALID_COLORS
     )
-    
+
     if len(tokens) == 1:
         # Show current settings
         settings = get_color_settings(game)
@@ -9634,49 +9624,52 @@ def _handle_colour_command(
             current_color = settings.get(color_type, DEFAULT_COLORS[color_type])
             default_marker = " (default)" if current_color == DEFAULT_COLORS[color_type] else ""
             lines.append(f"  {color_type}: {current_color}{default_marker}")
+        
+        lines.append("")
+        lines.append("To change a color: colour set <type> <color>")
+        lines.append("Example: colour set say cyan")
         return "\n".join(lines), game
+
+    subcommand = tokens[1].lower()
     
-    elif len(tokens) >= 2 and tokens[1] == "set":
+    if subcommand == "set":
         if len(tokens) < 4:
             return "Usage: colour set <type> <color>\nExample: colour set say cyan", game
         
         color_type = tokens[2]
         color = tokens[3]
+        
         success, message = set_color_for_type(game, color_type, color)
         return message, game
-    
-    elif len(tokens) >= 2 and tokens[1] == "reset":
+
+    elif subcommand == "reset":
         message = reset_colors(game)
         return message, game
-    
-    elif len(tokens) >= 2 and tokens[1] in ["help", "?"]:
+        
+    elif subcommand == "help" or subcommand == "list":
         lines = [
             "Color customization system:",
-            "",
-            "Usage:",
             "  colour                    - Show your current color settings",
             "  colour set <type> <color> - Set color for a message type",
             "  colour reset              - Reset all colors to defaults",
             "",
-            "Message types:",
+            "Available types:",
         ]
+        
         for color_type in sorted(DEFAULT_COLORS.keys()):
             default_color = DEFAULT_COLORS[color_type]
             lines.append(f"  {color_type:20} (default: {default_color})")
+            
         lines.append("")
         lines.append("Available colors:")
         colors_list = sorted(VALID_COLORS)
-        # Split into columns for better display
+        # Group colors in rows of 4
         for i in range(0, len(colors_list), 4):
             line_colors = colors_list[i:i+4]
             lines.append("  " + ", ".join(f"{c:12}" for c in line_colors))
-        lines.append("")
-        lines.append("Examples:")
-        lines.append("  colour set say cyan")
-        lines.append("  colour set emote white")
-        lines.append("  colour set tell yellow")
+            
         return "\n".join(lines), game
-    
+
     else:
         return "Usage: colour [set <type> <color>|reset|help]", game
 
@@ -9703,32 +9696,11 @@ def highlight_exits_in_log(log_entries):
     """
     processed = []
     for entry in log_entries:
-        # If entry doesn't already contain HTML span for Exits, add it
-        if "Exits:" in entry and "<span" not in entry:
+        # If entry doesn't already contain Exits tag, add it
+        if "Exits:" in entry and "[EXITS]" not in entry:
             entry = re.sub(
                 r'Exits:',
-                r'<span style="color: #ffff00; font-weight: bold;">Exits:</span>',
-                entry
-            )
-        # Handle [DARK_GREEN]...[/DARK_GREEN] tags if present (convert to HTML)
-        if "[DARK_GREEN]" in entry and "[/DARK_GREEN]" in entry:
-            entry = re.sub(
-                r'\[DARK_GREEN\](.*?)\[/DARK_GREEN\]',
-                r'<span style="color: #006400;">\1</span>',
-                entry
-            )
-        # Handle [CYAN]...[/CYAN] tags if present (convert to HTML)
-        if "[CYAN]" in entry and "[/CYAN]" in entry:
-            entry = re.sub(
-                r'\[CYAN\](.*?)\[\/CYAN\]',
-                r'<span style="color: #00ffff; font-weight: 500;">\1</span>',
-                entry
-            )
-        # Handle [YELLOW]...[/YELLOW] tags if present (convert to HTML for tell messages)
-        if "[YELLOW]" in entry and "[/YELLOW]" in entry:
-            entry = re.sub(
-                r'\[YELLOW\](.*?)\[\/YELLOW\]',
-                r'<span style="color: #ffff00; font-weight: 500;">\1</span>',
+                r'[EXITS]Exits:[/EXITS]',
                 entry
             )
         processed.append(entry)

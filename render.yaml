@@ -1,8 +1,26 @@
 services:
-  # Key Value (Redis-compatible) instance for caching and WebSocket message queue
-  - type: keyvalue  # 'redis' is also an equivalent value
-    name: web3-mud-redis
-    ipAllowList: []  # Optional: restrict access to only internal connections
-    plan: free  # Optional: specify the instance plan
-    maxmemoryPolicy: allkeys-lfu  # Optional: set a memory policy
+  - type: web
+    name: web3-mud
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn --worker-class eventlet -w 1 app:app
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: REDIS_URL
+        fromService:
+          type: redis
+          name: web3-mud-redis
+          property: connectionString
+      - key: FLASK_SECRET_KEY
+        generateValue: true
+      - key: OPENAI_API_KEY
+        sync: false
+    plan: free
 
+  - type: redis
+    name: web3-mud-redis
+    region: oregon
+    plan: free
+    ipAllowList: [] # only allow internal connections
+    maxmemoryPolicy: allkeys-lfu  # Optional: set a memory policy
