@@ -17,6 +17,7 @@ load_dotenv()
 
 from agents.personality_designer import PersonalityDesignerAgent
 from agents.lore_keeper import LoreKeeperAgent
+from agents.utils import clean_json_output
 
 OUTPUT_DIR = Path('world/npcs/retrofitted')
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
@@ -42,15 +43,6 @@ def update_agent_status(agent_name, task, status, progress=None):
             json.dump(data, f, indent=2)
     except Exception:
         pass # Don't crash on status update
-
-def clean_json_output(text):
-    """Extract JSON from potential markdown code blocks."""
-    text = text.strip()
-    if "```json" in text:
-        text = text.split("```json")[1].split("```")[0].strip()
-    elif "```" in text:
-        text = text.split("```")[1].split("```")[0].strip()
-    return text
 
 async def enrich_npc(npc_path: Path, total_count: int, index: int):
     # Load base NPC data
@@ -86,6 +78,12 @@ async def enrich_npc(npc_path: Path, total_count: int, index: int):
     
     try:
         traits = json.loads(clean_json_output(personality_raw))
+        if not isinstance(traits, dict):
+            raise ValueError("Output is not a JSON object")
+        required_keys = ["goal", "fear", "secret", "speech_pattern", "relationships"]
+        missing = [k for k in required_keys if k not in traits]
+        if missing:
+            raise ValueError(f"Missing keys: {missing}")
     except Exception as e:
         print(f"⚠️ Failed to parse Personality output for {name}: {e}")
         update_agent_status("Personality Designer", f"Failed {name}", "ERROR")

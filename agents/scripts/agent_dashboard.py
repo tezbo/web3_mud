@@ -23,7 +23,9 @@ def load_status():
     try:
         with open(STATUS_FILE, 'r') as f:
             return json.load(f)
-    except:
+    except Exception as e:
+        # Log error to stderr for debugging but don't crash dashboard
+        print(f"Error loading status: {e}", file=sys.stderr)
         return {}
 
 def print_dashboard():
