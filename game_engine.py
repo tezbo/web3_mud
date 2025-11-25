@@ -42,6 +42,44 @@ from onboarding import (
 # Import command registry
 from command_registry import register_command, get_handler
 
+# --- Game Package Imports ---
+from game.world.data import WORLD
+from game.state import (
+    ROOM_STATE, BURIED_ITEMS, QUEST_GLOBAL_STATE, QUEST_SPECIFIC_ITEMS,
+    NPC_ACTIONS_STATE, NPC_STATE, WORLD_CLOCK, GAME_TIME, WEATHER_STATE,
+    NPC_ROUTE_POSITIONS, EXIT_STATES, IN_GAME_HOUR_DURATION, IN_GAME_DAY_DURATION
+)
+from game.systems.ambient import AmbientSystem
+
+# Initialize Systems
+AMBIENT_SYSTEM = AmbientSystem()
+
+# Global registry for the broadcast function
+_GLOBAL_BROADCAST_FN = None
+
+def register_broadcast_fn(fn):
+    """Register the global broadcast function."""
+    global _GLOBAL_BROADCAST_FN
+    _GLOBAL_BROADCAST_FN = fn
+
+def broadcast_to_room(room_id, message, exclude_user_id=None):
+    """
+    Global helper to broadcast a message to a room.
+    This is a bridge between OO models and the Flask-SocketIO layer.
+    """
+    if _GLOBAL_BROADCAST_FN:
+        # Handle exclusion logic if the registered fn supports it
+        # The simple broadcast_fn usually just takes (room_id, message)
+        # We might need to enhance it or handle exclusion here if possible
+        try:
+            _GLOBAL_BROADCAST_FN(room_id, message)
+        except TypeError:
+            # Fallback if signature doesn't match
+            _GLOBAL_BROADCAST_FN(room_id, message)
+    else:
+        # Fallback logging if no broadcaster registered
+        print(f"[BROADCAST] Room {room_id}: {message}")
+
 # --- NPC definitions moved to npc.py ---
 # NPCs are now loaded via the NPC class system from npc.py
 
@@ -949,13 +987,7 @@ EMOTES = {
     },
     
     # === Other Useful Actions ===
-    "look": {
-        "self": "You look around.",
-        "self_target": "You look at {target}.",
-        "room": "{actor} looks around.",
-        "room_target": "{actor} looks at {target}.",
-        "target": "{actor} looks at you.",
-    },
+
     "watch": {
         "self": "You watch carefully.",
         "self_target": "You watch {target}.",
@@ -1665,32 +1697,19 @@ MERCHANT_ITEMS = {
 # WORLD is now loaded from JSON files via world_loader.py
 
 # Import world loader
-try:
-    from world_loader import load_world_from_json
-    WORLD = load_world_from_json()
-except (FileNotFoundError, ValueError, json.JSONDecodeError) as e:
-    # Fallback: if JSON loading fails, use empty dict and log error
-    # This will cause issues, but at least the module will import
-    print(f"ERROR: Failed to load world from JSON: {e}", file=sys.stderr)
-    print("The game will not function correctly until world data is available.", file=sys.stderr)
-    WORLD = {}
+# WORLD is now loaded from game.world.data
 
 # Legacy hardcoded WORLD dict removed - now loaded from JSON
 # If you need to see the old structure, check git history
 
 # --- Global shared room state (shared across all players) ---
 
-ROOM_STATE = {
-    room_id: {
-        "items": list(room_def.get("items", []))
-    }
-    for room_id, room_def in WORLD.items()
-}
+# ROOM_STATE imported from game.state
 
 # --- Buried Items Tracking (for recovery system) ---
 # Format: {room_id: [{"item_id": str, "buried_at_tick": int, "buried_at_minutes": int}, ...]}
 # Items are permanently deleted after 1 in-game day (1440 minutes)
-BURIED_ITEMS = {}
+# BURIED_ITEMS imported from game.state
 
 # --- Quest Global State (tracks active quest ownership across all players) ---
 # Format: {
@@ -1700,7 +1719,7 @@ BURIED_ITEMS = {}
 #     "first_taken_at": tick  # When first player took it (for rotation/reset)
 #   }
 # }
-QUEST_GLOBAL_STATE = {}
+# QUEST_GLOBAL_STATE imported from game.state
 
 # --- Quest-Specific Items (items only visible to quest owners) ---
 # Format: {
@@ -1712,7 +1731,7 @@ QUEST_GLOBAL_STATE = {}
 #     "clues": [str],  # Environmental clues that can be shown
 #   }
 # }
-QUEST_SPECIFIC_ITEMS = {}
+# QUEST_SPECIFIC_ITEMS imported from game.state
 
 # --- NPC Periodic Actions State (tracks when NPCs last performed actions per room) ---
 # Format: {
@@ -1722,7 +1741,7 @@ QUEST_SPECIFIC_ITEMS = {}
 #     "last_weather_state": dict  # Last weather state (to detect changes)
 #   }
 # }
-NPC_ACTIONS_STATE = {}
+# NPC_ACTIONS_STATE imported from game.state
 
 
 def process_npc_periodic_actions(game, broadcast_fn=None, who_fn=None):
@@ -1875,22 +1894,7 @@ def process_npc_periodic_actions(game, broadcast_fn=None, who_fn=None):
 # --- World Clock (tracks in-game time) ---
 # In-game time: 1 in-game hour = 1 real-world hour (configurable)
 # 1 in-game day = 2 real-world hours (daybreak at hour 0, nightfall at hour 1, repeat)
-WORLD_CLOCK = {
-    "start_time": datetime.now().isoformat(),  # When the world clock started
-    "in_game_hours": 0,  # Total in-game hours elapsed
-    "last_restock": {},  # {npc_id: last_restock_in_game_hour}
-    "current_period": "day",  # "day" or "night"
-    "last_period_change_hour": 0,  # Last in-game hour when period changed
-    "lunar_cycle_start_day": 0,  # Day when current lunar cycle started (for moon phase tracking)
-}
-
-# Configuration: 1 in-game hour = X real-world hours
-# Default: 1 in-game hour = 1 real-world hour
-IN_GAME_HOUR_DURATION = float(os.environ.get("IN_GAME_HOUR_DURATION", "1.0"))
-
-# Configuration: 1 in-game day = X real-world hours
-# Default: 1 in-game day = 2 real-world hours
-IN_GAME_DAY_DURATION = float(os.environ.get("IN_GAME_DAY_DURATION", "2.0"))
+# WORLD_CLOCK and durations imported from game.state
 
 
 def get_current_in_game_hour():
@@ -2707,6 +2711,11 @@ def update_weather_if_needed():
         return
     
     WEATHER_STATE["last_update_tick"] = current_tick
+    
+    # Tick Ambient System
+    # We pass the global game state (though currently unused by simple ambient system)
+    # and the current tick.
+    AMBIENT_SYSTEM.tick({}, current_tick)
     season = get_season()
     
     # Weather transition probabilities by season
@@ -3972,7 +3981,7 @@ def mark_merchant_restocked(npc_id):
 
 # --- Global NPC state (tracks NPC locations and dynamic state) ---
 
-NPC_STATE = {}
+# NPC_STATE imported from game.state
 
 
 def init_npc_state():
@@ -4873,7 +4882,7 @@ def _format_player_stat(game, username):
 # --- Exit Accessibility System ---
 # Track dynamic exit states (locked, hidden, etc.)
 # Format: {room_id: {direction: {locked: bool, hidden: bool, reason: str}}}
-EXIT_STATES = {}
+# EXIT_STATES imported from game.state
 
 
 def is_exit_accessible(room_id, direction, actor_type="player", actor_id=None, game=None):
@@ -5026,7 +5035,7 @@ NPC_ROUTES = {
 }
 
 # Track NPC route positions (which room in their route they're at)
-NPC_ROUTE_POSITIONS = {}
+# NPC_ROUTE_POSITIONS imported from game.state
 
 
 def get_npc_route(npc_id):
@@ -5527,63 +5536,65 @@ def add_session_welcome(game, username):
 def handle_emote(verb, args, game, username=None, broadcast_fn=None, who_fn=None):
     """
     Handle social/emote verbs like 'nod' or 'smile'.
-    
-    Args:
-        verb: The command word, e.g. 'nod'
-        args: List of remaining tokens, e.g. ['guard']
-        game: The game state dictionary
-        username: Optional username of the player
-        broadcast_fn: Optional callback(room_id: str, text: str) for broadcasting to room
-        who_fn: Optional callback() -> list[dict] for getting active players
-    
-    Returns:
-        tuple: (response_string, updated_game_state)
+    Refactored to use OO models.
     """
     # Look up verb in EMOTES
     if verb not in EMOTES:
         return "You flail about uncertainly.", game
     
-    # Determine actor name and possessive form
-    actor_name = username or "Someone"
-    # Simple possessive: add 's to name (works for most names)
+    # OO Refactor: Use Player and Room
+    from game.models.player import Player
+    from game.world.manager import WorldManager
+    
+    player = Player(username or "adventurer")
+    player.load_from_state(game)
+    
+    if not player.location:
+        return "You feel disoriented for a moment.", game
+        
+    room = player.location
+    actor_name = player.name
     actor_possessive = actor_name + "'s" if actor_name != "Someone" else "their"
-    loc_id = game.get("location", "town_square")
     
     # No target (e.g. command is just "nod")
     if not args:
         response = EMOTES[verb]["self"]
         # Broadcast emote to other players in the room
-        if broadcast_fn is not None and loc_id in WORLD:
-            room_message = EMOTES[verb]["room"].format(actor=actor_name, actor_possessive=actor_possessive)
-            broadcast_fn(loc_id, room_message)
+        room_message = EMOTES[verb]["room"].format(actor=actor_name, actor_possessive=actor_possessive)
+        room.broadcast(room_message, exclude_oid=player.oid)
         return response, game
     
     # With target (e.g. "nod guard" or "nod watch guard")
     target_text = " ".join(args).lower()
     
-    if loc_id not in WORLD:
-        return "You feel disoriented for a moment.", game
+    # Check for NPCs in the room (using OO)
+    wm = WorldManager.get_instance()
+    matched_npc = None
+    matched_npc_id = None
     
-    room_def = WORLD[loc_id]
-    npc_ids = get_npcs_in_room(loc_id)
-    
-    # Use centralized NPC matching
-    matched_npc_id, matched_npc = match_npc_in_room(npc_ids, target_text)
+    # Iterate through NPCs in the room
+    for npc_id in room.npcs:
+        npc = wm.get_npc(npc_id)
+        if npc:
+            # Simple matching logic (can be improved)
+            if target_text in npc.name.lower() or (npc.title and target_text in npc.title.lower()):
+                matched_npc = npc
+                matched_npc_id = npc_id
+                break
     
     if matched_npc:
         # Targeting an NPC
-        target_name = matched_npc.name or matched_npc.title or "someone"
+        target_name = matched_npc.name or "someone"
         
         # Generate player view using self_target template
         player_view = EMOTES[verb]["self_target"].format(target=target_name)
         
         # Broadcast player emote to other players in the room
-        if broadcast_fn is not None:
-            room_message = EMOTES[verb]["room_target"].format(actor=actor_name, actor_possessive=actor_possessive, target=target_name)
-            broadcast_fn(loc_id, room_message)
+        room_message = EMOTES[verb]["room_target"].format(actor=actor_name, actor_possessive=actor_possessive, target=target_name)
+        room.broadcast(room_message, exclude_oid=player.oid)
         
         # Get NPC reaction - try universal reaction first, then fallback to specific
-        from npc import get_universal_npc_emote_reaction
+        from npc import get_universal_npc_emote_reaction, get_npc_reaction
         reaction = get_universal_npc_emote_reaction(matched_npc_id, verb, game, username)
         
         # If no universal reaction, try specific NPC reaction
@@ -5592,9 +5603,8 @@ def handle_emote(verb, args, game, username=None, broadcast_fn=None, who_fn=None
         
         if reaction:
             response = player_view + "\n" + reaction
-            # Broadcast NPC reaction to all players in the room
-            if broadcast_fn is not None:
-                broadcast_fn(loc_id, reaction)
+            # Broadcast NPC reaction to all players in the room (including player)
+            room.broadcast(reaction)
         else:
             response = player_view
         
@@ -5605,7 +5615,7 @@ def handle_emote(verb, args, game, username=None, broadcast_fn=None, who_fn=None
         active_players = who_fn()
         for player_info in active_players:
             player_username = player_info.get("username", "")
-            if player_username.lower() == target_text and player_info.get("location") == loc_id and player_username != username:
+            if player_username.lower() == target_text and player_info.get("location") == room.oid and player_username != username:
                 # Found another player in the same room
                 target_name = player_username
                 
@@ -5613,12 +5623,10 @@ def handle_emote(verb, args, game, username=None, broadcast_fn=None, who_fn=None
                 player_view = EMOTES[verb]["self_target"].format(target=target_name)
                 
                 # Broadcast to other players (including the target)
-                if broadcast_fn is not None:
-                    # General room message for everyone (including the target)
-                    room_message = EMOTES[verb]["room_target"].format(actor=actor_name, actor_possessive=actor_possessive, target=target_name)
-                    broadcast_fn(loc_id, room_message)
-                    # Note: For a personalized "nods at you" message, we'd need to enhance
-                    # broadcast_to_room in app.py to handle target-specific messages
+                room_message = EMOTES[verb]["room_target"].format(actor=actor_name, actor_possessive=actor_possessive, target=target_name)
+                room.broadcast(room_message, exclude_oid=player.oid)
+                # Note: For a personalized "nods at you" message, we'd need to enhance
+                # broadcast to handle target-specific messages
                 
                 response = player_view
                 return response, game
@@ -5907,204 +5915,29 @@ def number_to_words(n):
 def describe_location(game):
     """
     Generate a description of the player's current location.
-
-    Args:
-        game: The game state dictionary
-
-    Returns:
-        str: A formatted description of the current location with HTML markup
+    
+    Now uses the OO WorldManager system.
     """
     loc_id = game.get("location", "town_square")
-
-    # Fallback if something weird happens
-    if loc_id not in WORLD:
-        loc_id = "town_square"
-        game["location"] = loc_id
-
-    room_def = WORLD[loc_id]
-    room_state = ROOM_STATE.get(loc_id, {"items": []})
-
-    # Get time-appropriate description
-    time_of_day = get_time_of_day()
-    descriptions_by_time = room_def.get("descriptions_by_time", {})
     
-    # Use time-specific description if available, otherwise fall back to base description
-    if descriptions_by_time and time_of_day in descriptions_by_time:
-        desc = descriptions_by_time[time_of_day]
-    else:
-        desc = room_def["description"]
+    # Use the WorldManager to get the room object
+    from game.world.manager import WorldManager
+    from game.models.player import Player
     
-    # Apply weather-aware modifications to the description (for outdoor rooms)
-    if room_def.get("outdoor", False):
-        desc = apply_weather_to_description(desc, time_of_day)
-    exits = ", ".join(room_def["exits"].keys()) or "none"
-    items = room_state.get("items", [])
+    wm = WorldManager.get_instance()
+    room = wm.get_room(loc_id)
     
-    # Get NPCs from NPC_STATE and any player characters in this location
-    npc_ids = get_npcs_in_room(loc_id)
-    
-    # Get other players in the same room (from active sessions)
-    # Import here to avoid circular dependency
-    try:
-        from app import list_active_players
-        active_players = list_active_players()
-        player_characters = []
-        current_username = game.get("username", "")
+    if not room:
+        # Fallback for broken state
+        return "You are floating in a void. (Error: Room not found)"
         
-        # Track disconnected players (statues) - import from socketio_handlers
-        try:
-            from core.socketio_handlers import DISCONNECTED_PLAYERS
-        except ImportError:
-            DISCONNECTED_PLAYERS = {}
-        
-        # Also check if current player is in DISCONNECTED_PLAYERS and remove them
-        # (shouldn't happen, but defensive programming)
-        if current_username in DISCONNECTED_PLAYERS:
-            DISCONNECTED_PLAYERS.pop(current_username)
-        
-        # Track seen usernames to prevent duplicates
-        seen_player_usernames = set()
-        
-        for player_info in active_players:
-            player_username = player_info.get("username", "")
-            player_location = player_info.get("location", "")
-            
-            # Skip self (should never see own statue or duplicate)
-            if player_username == current_username:
-                continue
-            
-            # Skip if we've already added this player (prevent duplicates)
-            if player_username in seen_player_usernames:
-                continue
-            seen_player_usernames.add(player_username)
-            
-            # Only include players in the same room
-            if player_location == loc_id:
-                # Check if this player is disconnected (statue)
-                if player_username in DISCONNECTED_PLAYERS:
-                    # Show as statue
-                    player_characters.append(f"The statue of {player_username}")
-                else:
-                    # Show as normal player
-                    player_characters.append(player_username)
-    except Exception:
-        # Fallback to old method if list_active_players fails
-        player_characters = game.get("other_players", {}).get(loc_id, [])
-
-    # Build items text using ITEM_DEFS for human-friendly names
-    # Filter items to show only those visible to this player (including quest-specific items)
-    username = game.get("username", "")
-    visible_items = list(items)  # Start with regular room items
+    # Create a temporary Player wrapper for the viewer
+    # In the future, 'game' will be a Player object already
+    viewer = Player(game.get("username", "adventurer"))
     
-    # Add quest-specific items that belong to this player
-    for item_id, quest_item_data in QUEST_SPECIFIC_ITEMS.items():
-        if quest_item_data.get("room_id") == loc_id:
-            owner = quest_item_data.get("owner_username", "")
-            if owner == username:
-                if item_id not in visible_items:
-                    visible_items.append(item_id)
+    # Return the description from the Room object
+    return room.look(viewer)
     
-    if visible_items:
-        item_names = [render_item_name(item_id) for item_id in visible_items]
-        items_text = "You can see: " + ", ".join(item_names) + "."
-    else:
-        items_text = "You don't see anything notable lying around."
-
-    # Build NPCs and player characters text
-    present_entities = []
-    
-    # Add NPCs
-    for npc_id in npc_ids:
-        if npc_id in NPCS:
-            present_entities.append(NPCS[npc_id].name)
-    
-    # Add player characters (when implemented)
-    for pc_name in player_characters:
-        present_entities.append(pc_name)
-    
-    npcs_text = ""
-    if present_entities:
-        notice_prefix = "<span style='color: #00ffff; font-weight: bold;'>You notice:</span>"
-        if len(present_entities) == 1:
-            npcs_text = f"{notice_prefix} {present_entities[0]} is here."
-        elif len(present_entities) == 2:
-            npcs_text = f"{notice_prefix} {present_entities[0]} and {present_entities[1]} are here."
-        else:
-            # Format: "name1, name2 and name3 are here"
-            all_but_last = ", ".join(present_entities[:-1])
-            npcs_text = f"{notice_prefix} {all_but_last} and {present_entities[-1]} are here."
-
-    # Get combined time-of-day/moon/weather description (replaces room title and weather line)
-    is_outdoor = room_def.get("outdoor", False)
-    combined_time_weather = get_combined_time_weather_description(is_outdoor=is_outdoor)
-    
-    # Style the combined time/weather description in dark yellow (#b8860b)
-    combined_time_weather_text = f"<span style='color: #b8860b;'>{combined_time_weather}</span>"
-    
-    # Get seasonal overlay for outdoor rooms
-    seasonal_overlay = ""
-    npc_weather_reaction = ""
-    
-    if room_def.get("outdoor", False):
-        # Get seasonal overlay
-        season = get_season()
-        seasonal_overlay = get_seasonal_room_overlay(room_def, season, WEATHER_STATE)
-        
-        # Occasionally add NPC weather reaction (10% chance)
-        # Only show if NPC actually has weather status effects
-        if npc_ids and random.random() < 0.1:
-            for npc_id in npc_ids:
-                # Sanity check: only show reaction if NPC actually has weather status effects
-                if has_npc_weather_status(npc_id):
-                    reaction = get_npc_weather_reaction(npc_id, WEATHER_STATE, season, check_status=True)
-                    if reaction:
-                        npc_weather_reaction = reaction
-                        break
-    
-    # Format exits line properly
-    exit_list = list(room_def["exits"].keys())
-    num_exits = len(exit_list)
-    if num_exits == 0:
-        exits_text = "There are no obvious exits."
-    elif num_exits == 1:
-        exits_text = f"There is one obvious exit: {exit_list[0]}."
-    elif num_exits == 2:
-        exits_text = f"There are two obvious exits: {exit_list[0]} and {exit_list[1]}."
-    else:
-        # Format: "There are X obvious exits: dir1, dir2, dir3 and dir4."
-        all_but_last = ", ".join(exit_list[:-1])
-        exits_text = f"There are {number_to_words(num_exits)} obvious exits: {all_but_last} and {exit_list[-1]}."
-    
-    # Style exits text in dark green (#006400)
-    exits_text = f"<span style='color: #006400;'>{exits_text}</span>"
-    
-    # Combine all parts (room title removed, replaced with combined time/weather description)
-    parts = [
-        desc,  # Room description
-    ]
-    
-    # Add seasonal overlay after main description
-    if seasonal_overlay:
-        parts.append(seasonal_overlay)
-    
-    # Add combined time-of-day/weather/moon description (styled dark yellow)
-    parts.append(combined_time_weather_text)
-    
-    # Add exits (styled dark green)
-    parts.append(exits_text)
-    
-    # Add items
-    parts.append(items_text)
-    
-    # Add NPCs
-    if npcs_text:
-        parts.append(npcs_text)
-    
-    # Add NPC weather reaction if present
-    if npc_weather_reaction:
-        parts.append(npc_weather_reaction)
-    
-    return "\n".join(parts)
 
 
 def adjust_reputation(game, npc_id, amount, reason=""):
@@ -7189,62 +7022,22 @@ def _legacy_handle_command_body(
 
     # Core commands
     elif verb in ["look", "l", "examine"]:
+        # Bridge to OO System
+        from game.models.player import Player
+        player = Player(username or "adventurer")
+        player.load_from_state(game)
+        
         if len(tokens) == 1 or (len(tokens) == 2 and tokens[1] in ["here", "room", "around"]):
-            # No target or "here" - show room description
-            response = describe_location(game)
-        elif len(tokens) >= 2:
-            target_text = " ".join(tokens[1:]).lower()
-            original_target = " ".join(tokens[1:])  # Preserve original case for username matching
-            
-            # Handle "me" or username
-            if target_text in ["me", "self"] or target_text == (username or "").lower():
-                # Look at self
-                response = _format_player_look(game, username or "adventurer", db_conn)
+            if player.location:
+                response = player.location.look(player)
             else:
-                # Check if target is another player in the same room
-                other_player_found = False
-                if who_fn:
-                    try:
-                        active_players = who_fn()
-                        loc_id = game.get("location", "town_square")
-                        
-                        for player_info in active_players:
-                            player_username = player_info.get("username", "")
-                            # Match by username (case-insensitive)
-                            if player_username.lower() == target_text and player_info.get("location") == loc_id:
-                                # Found another player in the same room
-                                from app import ACTIVE_GAMES
-                                if player_username in ACTIVE_GAMES:
-                                    target_game = ACTIVE_GAMES[player_username]
-                                    response = _format_other_player_look(player_username, target_game, db_conn)
-                                    other_player_found = True
-                                    break
-                    except Exception:
-                        pass  # If who_fn fails, continue to item/NPC resolution
-                
-                if not other_player_found:
-                    # Try to resolve in order: item, NPC, room detail
-                    item_id, source, container = resolve_item_target(game, target_text)
-                    if item_id:
-                        response = _format_item_look(item_id, source)
-                    else:
-                        npc_id, npc = resolve_npc_target(game, target_text)
-                        if npc_id and npc:
-                            response = _format_npc_look(npc_id, npc, game)
-                        else:
-                            # Try room details/fixtures
-                            detail_id, detail, room_id = resolve_room_detail(game, target_text)
-                            if detail_id and detail:
-                                # Check if there's a look callback
-                                callback_result = invoke_room_detail_callback("look", game, username or "adventurer", room_id, detail_id)
-                                if callback_result:
-                                    response = callback_result
-                                else:
-                                    response = _format_detail_look(detail_id, detail, room_id, game)
-                            else:
-                                response = f"You don't see anything like '{original_target}' here."
+                response = "You are floating in void."
         else:
-            response = describe_location(game)
+            target_text = " ".join(tokens[1:])
+            response = player.look_at(target_text)
+            
+        # Sync state back (in case look triggered anything, though unlikely)
+        # game.update(player.to_state()) # Not strictly needed for look but good practice
 
     elif tokens[0] in ["go", "move", "walk"] and len(tokens) >= 2:
         direction = tokens[-1]
@@ -7345,58 +7138,45 @@ def _legacy_handle_command_body(
             if not is_accessible:
                 response = reason or "You can't go that way."
             else:
-                # Support both string (backward compatible) and dict exits
-                if exit_def is None:
-                    target = None
-                elif isinstance(exit_def, str):
-                    target = exit_def
-                elif isinstance(exit_def, dict):
-                    target = exit_def.get("target")
-                else:
-                    target = None
+                # OO Refactor: Use Player.move()
+                from game.models.player import Player
                 
-                logger.warning(f"MOVEMENT: {username} resolved target='{target}' from '{loc_id}' going '{full_direction}'")
+                # Create player wrapper (hydrated from current state)
+                player = Player(username or "adventurer")
+                player.load_from_state(game)
                 
-                if target:
-                    old_loc = loc_id
-                    game["location"] = target
-                    
-                    # Broadcast leave message to old room
-                    if broadcast_fn is not None:
-                        actor_name = username or "Someone"
-                        leave_msg = get_entrance_exit_message(old_loc, target, full_direction, actor_name, is_exit=True, is_npc=False)
-                        broadcast_fn(old_loc, leave_msg)
-                    
-                    # Broadcast arrive message to new room
-                    if broadcast_fn is not None:
-                        actor_name = username or "Someone"
-                        opposite = OPPOSITE_DIRECTION.get(full_direction, "somewhere")
-                        arrive_msg = get_entrance_exit_message(target, old_loc, opposite, actor_name, is_exit=False, is_npc=False)
-                        broadcast_fn(target, arrive_msg)
-                    
-                    # Get movement message and room description
-                    movement_msg = get_movement_message(target, full_direction)
-                    location_desc = describe_location(game)
-                    response = f"{movement_msg}\n{location_desc}"
-                    
-                    # Trigger quest event for entering room
-                    import quests
-                    event = quests.QuestEvent(
-                        type="enter_room",
-                        room_id=target,
-                        username=username or "adventurer"
-                    )
-                    quests.handle_quest_event(game, event)
+                # Execute move
+                success, result_msg = player.move(full_direction, broadcast_fn, game_state_for_quests=game)
+                
+                if success:
+                    # Sync state back to legacy dict
+                    # We only need to sync location for now as that's what changed
+                    game["location"] = player.location.oid
+                    response = result_msg
                 else:
-                    response = "You can't go that way."
+                    response = result_msg
 
     elif tokens[0] in ["inventory", "inv", "i"]:
-        inventory = game.get("inventory", [])
+        # Bridge to OO System
+        from game.models.player import Player
+        player = Player(username or "adventurer")
+        player.load_from_state(game)
+        
         response_parts = []
         
         # Show items
-        if inventory:
-            grouped_items = group_inventory_items(inventory)
+        if player.inventory:
+            # Group items by name
+            from collections import Counter
+            item_names = [item.get_display_name() for item in player.inventory]
+            counts = Counter(item_names)
+            grouped_items = []
+            for name, count in counts.items():
+                if count > 1:
+                    grouped_items.append(f"{count}x {name}")
+                else:
+                    grouped_items.append(name)
+            
             if len(grouped_items) == 1:
                 response_parts.append(f"You are carrying {grouped_items[0]}.")
             elif len(grouped_items) == 2:
@@ -7474,206 +7254,131 @@ def _legacy_handle_command_body(
     elif tokens[0] == "take" and len(tokens) >= 2:
         item_input = " ".join(tokens[1:]).lower()
         loc_id = game.get("location", "town_square")
-        inventory = game.get("inventory", [])
-        max_weight = game.get("max_carry_weight", 20.0)
-        current_weight = calculate_inventory_weight(inventory)
-
-        if loc_id not in WORLD:
+        
+        # OO Refactor: Use Player.take_item()
+        from game.models.player import Player
+        from game.world.manager import WorldManager
+        from game_engine import QUEST_SPECIFIC_ITEMS
+        
+        wm = WorldManager.get_instance()
+        room = wm.get_room(loc_id)
+        player = Player(game.get("username", "adventurer"))
+        player.load_from_state(game)
+        
+        if not room:
             response = "You reach for something that isn't really there."
         elif item_input in ["all", "everything"]:
-            # Take all items from room (respecting weight limits)
-            room_state = ROOM_STATE.setdefault(loc_id, {"items": []})
-            room_items = room_state["items"]
+            # Take all items
+            items_to_take = list(room.items) # Copy list as we'll modify it
+            taken_names = []
+            full = False
             
-            if not room_items:
-                response = "There's nothing here to pick up."
-            else:
-                taken_items = []
-                skipped_items = []
-                
-                for item_id in list(room_items):  # Copy list to avoid modification during iteration
-                    item_def = get_item_def(item_id)
-                    item_weight = item_def.get("weight", 0.1)
-                    
-                    if current_weight + item_weight > max_weight:
-                        skipped_items.append(item_id)
-                    else:
-                        room_items.remove(item_id)
-                        inventory.append(item_id)
-                        current_weight += item_weight
-                        taken_items.append(item_id)
-                
-                game["inventory"] = inventory
-                
-                if taken_items:
-                    if len(taken_items) == 1:
-                        display_name = render_item_name(taken_items[0])
-                        response = f"You pick up the {display_name}."
-                    else:
-                        item_names = [render_item_name(item) for item in taken_items]
-                        response = f"You pick up: {', '.join(item_names)}."
-                    
-                    if skipped_items:
-                        response += f"\nYou can't carry any more - you'll fall over!"
+            for item in items_to_take:
+                success, msg = player.take_item(item.oid, room, game_state_for_quests=game)
+                if success:
+                    taken_names.append(item.get_display_name())
+                elif "fall over" in msg: # Weight limit
+                    full = True
+                    break
+            
+            if taken_names:
+                if len(taken_names) == 1:
+                    response = f"You pick up the {taken_names[0]}."
                 else:
-                    response = "You can't pick up much more, you'll fall over!"
+                    response = f"You pick up: {', '.join(taken_names)}."
+                
+                if full:
+                    response += "\nYou can't carry any more."
+            else:
+                if full:
+                    response = "You can't carry any more."
+                else:
+                    response = "There's nothing here to pick up."
         else:
-            # Take a specific item
-            room_state = ROOM_STATE.setdefault(loc_id, {"items": []})
-            room_items = room_state["items"]
-
-            # Check quest-specific items first (player-specific)
-            username = game.get("username", "")
-            quest_items_in_room = []
-            for item_id, quest_item_data in QUEST_SPECIFIC_ITEMS.items():
-                if quest_item_data.get("room_id") == loc_id and quest_item_data.get("owner_username") == username:
-                    quest_items_in_room.append(item_id)
+            # Take specific item
+            target_oid = None
             
-            # Combine regular room items and quest-specific items for matching
-            all_items_in_room = room_items + quest_items_in_room
+            # 1. Check standard items in room
+            for item in room.items:
+                # Exact match or partial match
+                if item_input == item.name.lower() or item_input in [adj.lower() for adj in item.adjectives] or item_input in item.name.lower().split():
+                    target_oid = item.oid
+                    break
             
-            # Use match_item_name_in_collection for intelligent matching
-            matched_item = match_item_name_in_collection(item_input, all_items_in_room)
+            # 2. Check quest items (legacy)
+            if not target_oid:
+                username = game.get("username", "")
+                for item_id, quest_item_data in QUEST_SPECIFIC_ITEMS.items():
+                    if quest_item_data.get("room_id") == loc_id and quest_item_data.get("owner_username") == username:
+                        # Check name match (need item def)
+                        from game_engine import get_item_def
+                        item_def = get_item_def(item_id)
+                        name = item_def.get("name", "").lower()
+                        if item_input in name:
+                            target_oid = item_id
+                            break
             
-            if matched_item:
-                # Check if it's a quest-specific item (local variable, not the function)
-                is_quest_specific_item = matched_item in QUEST_SPECIFIC_ITEMS
-                if is_quest_specific_item:
-                    # Verify ownership
-                    quest_item_data = QUEST_SPECIFIC_ITEMS[matched_item]
-                    if quest_item_data.get("owner_username") != username:
-                        matched_item = None  # Not visible to this player
-                item_def = get_item_def(matched_item)
-                item_weight = item_def.get("weight", 0.1)
-                
-                if current_weight + item_weight > max_weight:
-                    response = "You can't pick up much more, you'll fall over!"
-                else:
-                    # Remove from appropriate location (regular room or quest-specific)
-                    is_quest_specific_item = matched_item in QUEST_SPECIFIC_ITEMS
-                    if is_quest_specific_item:
-                        # Remove from quest-specific items tracking
-                        del QUEST_SPECIFIC_ITEMS[matched_item]
-                    else:
-                        # Remove from regular room items
-                        if matched_item in room_items:
-                            room_items.remove(matched_item)
-                    
-                    inventory.append(matched_item)
-                    game["inventory"] = inventory
-                    display_name = render_item_name(matched_item)
-                    response = f"You pick up the {display_name}."
-                    
-                    # Trigger quest event for taking item
-                    import quests
-                    event = quests.QuestEvent(
-                        type="take_item",
-                        room_id=loc_id,
-                        item_id=matched_item,
-                        username=username or "adventurer"
-                    )
-                    quests.handle_quest_event(game, event)
+            if target_oid:
+                success, msg = player.take_item(target_oid, room, game_state_for_quests=game)
+                response = msg
             else:
-                response = f"You don't see a '{item_input}' here."
+                response = f"You don't see '{item_input}' here."
+        
+        # Sync inventory back
+        game["inventory"] = [i.oid for i in player.inventory]
+
 
     elif tokens[0] == "drop" and len(tokens) >= 2:
         item_input = " ".join(tokens[1:]).lower()
         loc_id = game.get("location", "town_square")
-        inventory = game.get("inventory", [])
-
-        if loc_id not in WORLD:
+        
+        # OO Refactor: Use Player.drop_item()
+        from game.models.player import Player
+        from game.world.manager import WorldManager
+        
+        wm = WorldManager.get_instance()
+        room = wm.get_room(loc_id)
+        player = Player(game.get("username", "adventurer"))
+        player.load_from_state(game)
+        
+        if not room:
             response = "You feel disoriented for a moment."
-        elif not inventory:
+        elif not player.inventory:
             response = "You're not carrying anything."
+        elif item_input in ["all", "everything"]:
+             # Drop all
+             items_to_drop = list(player.inventory)
+             dropped_names = []
+             for item in items_to_drop:
+                 success, msg = player.drop_item(item.oid, room)
+                 if success:
+                     dropped_names.append(item.get_display_name())
+             
+             if dropped_names:
+                 if len(dropped_names) == 1:
+                     response = f"You drop the {dropped_names[0]}."
+                 else:
+                     response = f"You drop: {', '.join(dropped_names)}."
+             else:
+                 response = "You couldn't drop anything."
         else:
-            room_state = ROOM_STATE.setdefault(loc_id, {"items": []})
-            room_items = room_state["items"]
+            # Find item in inventory
+            target_oid = None
+            for item in player.inventory:
+                 # Exact match or partial match
+                 if item_input == item.name.lower() or item_input in [adj.lower() for adj in item.adjectives] or item_input in item.name.lower().split():
+                    target_oid = item.oid
+                    break
             
-            # Check room capacity
-            if len(room_items) >= MAX_ROOM_ITEMS:
-                response = "There just isn't enough space to make such a mess here!"
+            if target_oid:
+                success, msg = player.drop_item(target_oid, room)
+                response = msg
             else:
-                room_weight = calculate_room_items_weight(room_items)
+                response = f"You don't have a '{item_input}'."
                 
-                if item_input in ["all", "everything"]:
-                    # Drop all droppable items (checking room capacity)
-                    dropped_items = []
-                    non_droppable_items = []
-                    
-                    # Work backwards through inventory to avoid index issues when removing
-                    items_to_drop = []
-                    for item_id in inventory:
-                        item_def = get_item_def(item_id)
-                        if item_def.get("droppable", True):
-                            items_to_drop.append(item_id)
-                        else:
-                            non_droppable_items.append(item_id)
-                    
-                    # Check if dropping all items would exceed room capacity
-                    total_items_after = len(room_items) + len(items_to_drop)
-                    if total_items_after > MAX_ROOM_ITEMS:
-                        response = "There just isn't enough space to make such a mess here!"
-                    else:
-                        # Check weight capacity (though weight is less restrictive than item count)
-                        for item_id in items_to_drop:
-                            item_def = get_item_def(item_id)
-                            item_weight = item_def.get("weight", 0.1)
-                            if room_weight + item_weight > MAX_ROOM_WEIGHT:
-                                response = "There just isn't enough space to make such a mess here!"
-                                break
-                        else:
-                            # All items can fit, drop them
-                            for item_id in items_to_drop:
-                                if item_id in inventory:
-                                    inventory.remove(item_id)
-                                    room_items.append(item_id)
-                                    dropped_items.append(item_id)
-                            
-                            game["inventory"] = inventory
-                            
-                            # Build response
-                            if dropped_items:
-                                item_names = [render_item_name(item_id) for item_id in dropped_items]
-                                if len(dropped_items) == 1:
-                                    response = f"You drop the {item_names[0]}."
-                                else:
-                                    response = f"You drop: {', '.join(item_names)}."
-                                
-                                if non_droppable_items:
-                                    non_droppable_names = [render_item_name(item_id) for item_id in non_droppable_items]
-                                    response += f"\n(You cannot drop: {', '.join(non_droppable_names)}.)"
-                            else:
-                                if non_droppable_items:
-                                    non_droppable_names = [render_item_name(item_id) for item_id in non_droppable_items]
-                                    response = f"You cannot drop any of your items. ({', '.join(non_droppable_names)} cannot be dropped.)"
-                                else:
-                                    response = "You have nothing to drop."
-                else:
-                    # Drop a specific item
-                    matched_item = match_item_name_in_collection(item_input, inventory)
-                    
-                    if not matched_item:
-                        response = f"You're not carrying a '{item_input}'."
-                    else:
-                        item_def = get_item_def(matched_item)
-                        
-                        # Check if quest item
-                        if is_quest_item(matched_item):
-                            response = "You cannot get rid of that. It seems bound to your story."
-                        elif not item_def.get("droppable", True):
-                            response = "You cannot drop that item."
-                        elif len(room_items) >= MAX_ROOM_ITEMS:
-                            response = "There just isn't enough space to make such a mess here!"
-                        else:
-                            item_weight = item_def.get("weight", 0.1)
-                            if room_weight + item_weight > MAX_ROOM_WEIGHT:
-                                response = "There just isn't enough space to make such a mess here!"
-                            else:
-                                inventory.remove(matched_item)
-                                game["inventory"] = inventory
-                                room_items.append(matched_item)
-                                display_name = render_item_name(matched_item)
-                                response = f"You drop the {display_name}."
+        # Sync inventory back
+        game["inventory"] = [i.oid for i in player.inventory]
+
 
     elif tokens[0] == "bury" and len(tokens) >= 2:
         # Bury command: permanently remove an item from the game
@@ -7919,175 +7624,98 @@ def _legacy_handle_command_body(
             room_def = WORLD[loc_id]
             npc_ids = room_def.get("npcs", [])
             
-            # Parse the command - handle both "give item to npc" and "give npc item"
-            args_str = " ".join(tokens[1:]).lower()
+            # OO Refactor: Use Player.give_item()
+            from game.models.player import Player
+            from game.world.manager import WorldManager
             
-            # Initialize variables
-            matched_npc_id = None
-            matched_npc = None
-            npc_target = None
-            item_name = None
+            player = Player(username or "adventurer")
+            player.load_from_state(game)
             
-            # Try to find "to" separator
-            if " to " in args_str:
-                parts = args_str.split(" to ", 1)
-                item_name = parts[0].strip()
-                npc_target = parts[1].strip()
+            if not player.location:
+                response = "You feel disoriented for a moment."
             else:
-                # Try to match NPC first, then item
-                # Look for known NPC names/IDs in the args
+                # Parse arguments
+                args_str = " ".join(tokens[1:]).lower()
+                item_name = None
+                target_name = None
                 
-                # Try to match NPC using centralized matching
-                matched_npc_id, matched_npc = match_npc_in_room(npc_ids, args_str)
-                if matched_npc:
-                    npc_name_lower = matched_npc.name.lower()
-                    npc_id_lower = matched_npc_id.lower()
-                    # Remove NPC name from args to get item
-                    item_name = args_str.replace(npc_name_lower, "").replace(npc_id_lower, "").strip()
-                    npc_target = npc_name_lower
-                
-                # If no NPC found, assume first word is item and rest is NPC
-                if not npc_target:
+                # Handle "give <item> to <target>"
+                if " to " in args_str:
+                    parts = args_str.split(" to ", 1)
+                    item_name = parts[0].strip()
+                    target_name = parts[1].strip()
+                else:
+                    # Handle "give <target> <item>" or "give <item>" (ambiguous)
+                    # We'll try to match target first
                     words = args_str.split()
                     if len(words) >= 2:
-                        item_name = words[0]
-                        npc_target = " ".join(words[1:])
-                    else:
-                        response = "Syntax: give <item> to <npc> or give <npc> <item>"
-                        npc_target = None  # Prevent further processing
-            
-            if npc_target:
-                # Find matching NPC using centralized matching
-                if not matched_npc:
-                    matched_npc_id, matched_npc = match_npc_in_room(npc_ids, npc_target)
+                        # Try first word as target
+                        possible_target = words[0]
+                        wm = WorldManager.get_instance()
+                        
+                        # Check if first word matches an NPC
+                        matched_npc = None
+                        for npc_id in player.location.npcs:
+                            npc = wm.get_npc(npc_id)
+                            if npc and (possible_target in npc.name.lower() or (npc.title and possible_target in npc.title.lower())):
+                                matched_npc = npc
+                                break
+                        
+                        if matched_npc:
+                            target_name = possible_target
+                            item_name = " ".join(words[1:])
+                        else:
+                            # Assume first word is item? Or try last word as target?
+                            # Legacy logic tried to match NPC in string.
+                            # Let's stick to "give item to target" as primary, and simple "give target item"
+                            # If no target found, assume "give item" implies... wait, give needs a target.
+                            pass
                 
-                if not matched_npc:
-                    response = "There's no one like that here to give things to."
-                elif not item_name:
-                    npc_name = matched_npc.name if hasattr(matched_npc, 'name') else matched_npc.get('name', 'someone')
-                    response = f"What do you want to give to {npc_name}?"
+                if not item_name or not target_name:
+                    # Fallback to legacy parsing for robustness if simple parse failed
+                    # Or just return syntax error
+                    if not target_name:
+                        # Try to find any NPC in the room that matches any part of the string
+                        wm = WorldManager.get_instance()
+                        for npc_id in player.location.npcs:
+                            npc = wm.get_npc(npc_id)
+                            if npc:
+                                name_lower = npc.name.lower()
+                                if name_lower in args_str:
+                                    target_name = name_lower
+                                    item_name = args_str.replace(name_lower, "").strip()
+                                    break
+                
+                if not item_name or not target_name:
+                     response = "Syntax: give <item> to <npc> or give <npc> <item>"
                 else:
-                    # Use improved item matching function for better name resolution
-                    item_found = match_item_name_in_collection(item_name, inventory)
+                    # Resolve Item ID from name
+                    # We need to find the item in player's inventory
+                    item_id = match_item_name_in_collection(item_name, player.inventory)
                     
-                    if not item_found:
+                    if not item_id:
                         response = f"You don't have a '{item_name}' to give."
                     else:
-                        # CRITICAL: Check quest events BEFORE removing item or generating AI response
-                        # This ensures quest completion messages take precedence over AI chatter
-                        import quests
+                        # Resolve Target
+                        wm = WorldManager.get_instance()
+                        target = None
                         
-                        # Check active quests before giving item
-                        active_quests_before = quests.get_active_quests(game)
-                        active_quest_ids_before = [q.get("id") for q in active_quests_before]
+                        # Check NPCs
+                        for npc_id in player.location.npcs:
+                            npc = wm.get_npc(npc_id)
+                            if npc and (target_name in npc.name.lower() or (npc.title and target_name in npc.title.lower())):
+                                target = npc
+                                break
                         
-                        event = quests.QuestEvent(
-                            type="give_item",
-                            room_id=loc_id,
-                            npc_id=matched_npc_id,
-                            item_id=item_found,
-                            username=username or "adventurer"
-                        )
-                        # Process quest event (may complete a quest)
-                        quests.handle_quest_event(game, event)
-                        
-                        # Check if any quest was completed by this event
-                        active_quests_after = quests.get_active_quests(game)
-                        active_quest_ids_after = [q.get("id") for q in active_quests_after]
-                        completed_quest_ids = set(active_quest_ids_before) - set(active_quest_ids_after)
-                        
-                        # Check if this is a quest item - if a quest was completed, use quest response instead of AI
-                        quest_was_completed = len(completed_quest_ids) > 0
-                        quest_response_msg = ""
-                        
-                        if completed_quest_ids:
-                            # Quest was completed - get completion message from completed_quests
-                            # The message is stored by handle_quest_event -> complete_quest
-                            for quest_id in completed_quest_ids:
-                                completed_quest = game.get("completed_quests", {}).get(quest_id)
-                                if completed_quest:
-                                    completion_msg = completed_quest.get("completion_message")
-                                    if completion_msg:
-                                        quest_response_msg = "\n" + completion_msg
-                                        break  # Use first completion message
-                                
-                                # Fallback: generate completion message from template if not stored
-                                if not quest_response_msg:
-                                    template = quests.get_quest_template(quest_id)
-                                    if template:
-                                        completion_msg = f"\n[GREEN]Quest completed: {template.name}![/GREEN]"
-                                        # Add rewards info
-                                        if "currency" in template.rewards:
-                                            currency = template.rewards["currency"]
-                                            amount = currency.get("amount", 0)
-                                            currency_type = currency.get("currency_type", "coins")
-                                            completion_msg += f"\nYou receive {amount} {currency_type}."
-                                        if "reputation" in template.rewards:
-                                            for rep in template.rewards["reputation"]:
-                                                completion_msg += f"\nYour reputation with {rep.get('target', 'NPC')} has improved."
-                                        if "items" in template.rewards:
-                                            for item_reward in template.rewards["items"]:
-                                                item_name = item_reward.get("item_id", "").replace("_", " ")
-                                                completion_msg += f"\nYou receive {item_name}."
-                                        quest_response_msg = completion_msg
-                                        break
-                        
-                        # Remove item from inventory
-                        inventory.remove(item_found)
-                        game["inventory"] = inventory
-                        
-                        npc_name = matched_npc.name if hasattr(matched_npc, 'name') else matched_npc.get('name', 'someone')
-                        response = f"You give the {item_found.replace('_', ' ')} to {npc_name}."
-                        
-                        # If this is a quest item, use quest response instead of AI response
-                        if quest_was_completed and quest_response_msg:
-                            response += quest_response_msg
+                        if not target:
+                            # Check Players (if we want to support giving to players)
+                            pass
+                            
+                        if target:
+                            success, msg = player.give_item(item_id, target, game)
+                            response = msg
                         else:
-                            # Not a quest item or no quest response - generate normal NPC response
-                            # Update reputation for politeness (check original command text)
-                            original_command_lower = command.lower()
-                            _update_reputation_for_politeness(game, matched_npc_id, original_command_lower)
-                            
-                            # Generate AI response if NPC uses AI
-                            npc_response = ""
-                            npc_dict = matched_npc.to_dict() if hasattr(matched_npc, 'to_dict') else matched_npc
-                            if (matched_npc.use_ai if hasattr(matched_npc, 'use_ai') else matched_npc.get("use_ai", False)) and generate_npc_reply is not None:
-                                game["_current_npc_id"] = matched_npc_id
-                                ai_response, error_message = generate_npc_reply(
-                                    npc_dict, room_def, game, username or "adventurer",
-                                    f"give {item_found}",
-                                    recent_log=game.get("log", [])[-10:],
-                                    user_id=user_id, db_conn=db_conn
-                                )
-                                if ai_response and ai_response.strip():
-                                    npc_response = "\n" + ai_response
-                                    if error_message:
-                                        npc_response += f"\n[Note: {error_message}]"
-                                
-                                # Update memory
-                                if matched_npc_id not in game.get("npc_memory", {}):
-                                    game.setdefault("npc_memory", {})[matched_npc_id] = []
-                                game["npc_memory"][matched_npc_id].append({
-                                    "type": "gave",
-                                    "item": item_found,
-                                    "response": ai_response or "Thank you.",
-                                })
-                                if len(game["npc_memory"][matched_npc_id]) > 20:
-                                    game["npc_memory"][matched_npc_id] = game["npc_memory"][matched_npc_id][-20:]
-                            else:
-                                # Default response
-                                npc_response = f"\n{npc_name} accepts the {item_found.replace('_', ' ')} with a nod."
-                            
-                            response += npc_response
-                        
-                        # Also trigger talk_to_npc event (giving counts as interaction)
-                        event2 = quests.QuestEvent(
-                            type="talk_to_npc",
-                            room_id=loc_id,
-                            npc_id=matched_npc_id,
-                            username=username or "adventurer"
-                        )
-                        quests.handle_quest_event(game, event2)
+                            response = f"You don't see '{target_name}' here."
 
     elif tokens[0] == "buy" and len(tokens) >= 2:
         # Buy command: "buy <item>" or "buy <item> from <npc>"
@@ -8342,13 +7970,19 @@ def _legacy_handle_command_body(
             message = original_command[say_index + 4:]  # +4 for "say "
         else:
             message = " ".join(tokens[1:])
-        loc_id = game.get("location", "town_square")
-        actor_name = username or "Someone"
         
-        if loc_id not in WORLD:
+        # OO Refactor: Use Player.say()
+        from game.models.player import Player
+        player = Player(username or "adventurer")
+        player.load_from_state(game)
+        
+        if not player.location:
             response = "You feel disoriented for a moment."
         else:
-            room_def = WORLD[loc_id]
+            # Legacy: Keep variables for merchant logic below
+            loc_id = player.location.oid
+            actor_name = player.name
+            room_def = WORLD.get(loc_id, {})
             npc_ids = room_def.get("npcs", [])
             
             # Check for purchase intent in natural language
@@ -8783,198 +8417,98 @@ def _legacy_handle_command_body(
                         response += "\n" + "\n".join(ai_reactions)
                     
                     # Broadcast say message to other players in the room (in cyan)
-                    if broadcast_fn is not None:
-                        # Preserve original formatting and capitalize properly
-                        formatted_message = f"[CYAN]{player_message}[/CYAN]"
-                        broadcast_fn(loc_id, formatted_message)
+                    # OO Refactor: Use Player.say()
+                    player.say(message)
 
     elif tokens[0] in ["talk", "speak", "chat"]:
-        if len(tokens) < 2:
-            # No NPC specified - provide syntax help
-            loc_id = game.get("location", "town_square")
-            if loc_id in WORLD:
-                room_def = WORLD[loc_id]
-                npc_ids = room_def.get("npcs", [])
-                if npc_ids:
-                    # List available NPCs
-                    npc_names = [NPCS[nid].name if hasattr(NPCS[nid], 'name') else NPCS[nid].get("name", "NPC") for nid in npc_ids if nid in NPCS]
-                    if npc_names:
-                        npc_list = ", ".join(npc_names)
-                        response = f"Talk to whom? You can talk to: {npc_list}.\nSyntax: talk <npc name or id>"
-                    else:
-                        response = "Syntax: talk <npc name or id>\n(No NPCs are present here.)"
-                else:
-                    response = "Syntax: talk <npc name or id>\n(No NPCs are present here.)"
-            else:
-                response = "Syntax: talk <npc name or id>"
-        else:
-            # Talk to an NPC
-            # Handle "talk to <npc>" syntax by skipping "to" if present
-            target_tokens = tokens[1:]
-            if target_tokens and target_tokens[0] == "to":
-                target_tokens = target_tokens[1:]
+        # OO Refactor: Use Player.talk_to()
+        from game.models.player import Player
+        from game.world.manager import WorldManager
+        
+        player = Player(username or "adventurer")
+        player.load_from_state(game)
+        
+        target_tokens = tokens[1:]
+        if target_tokens and target_tokens[0] == "to":
+            target_tokens = target_tokens[1:]
             
-            if not target_tokens:
-                # No NPC specified after "to" - provide syntax help
-                loc_id = game.get("location", "town_square")
-                if loc_id in WORLD:
-                    room_def = WORLD[loc_id]
-                    npc_ids = room_def.get("npcs", [])
-                    if npc_ids:
-                        npc_names = [NPCS[nid].name if hasattr(NPCS[nid], 'name') else NPCS[nid].get("name", "NPC") for nid in npc_ids if nid in NPCS]
-                        if npc_names:
-                            npc_list = ", ".join(npc_names)
-                            response = f"Talk to whom? You can talk to: {npc_list}.\nSyntax: talk <npc name or id>"
-                        else:
-                            response = "Syntax: talk <npc name or id>\n(No NPCs are present here.)"
-                    else:
-                        response = "Syntax: talk <npc name or id>\n(No NPCs are present here.)"
-                else:
-                    response = "Syntax: talk <npc name or id>"
+        if not target_tokens:
+             # List NPCs in room
+             if player.location and player.location.npcs:
+                 wm = WorldManager.get_instance()
+                 npc_names = []
+                 for nid in player.location.npcs:
+                     npc = wm.get_npc(nid)
+                     if npc:
+                         npc_names.append(npc.name)
+                 if npc_names:
+                     response = f"Talk to whom? You can talk to: {', '.join(npc_names)}."
+                 else:
+                     response = "There is no one here to talk to."
+             else:
+                 response = "There is no one here to talk to."
+        else:
+            npc_target = " ".join(target_tokens).lower()
+            
+            # Find NPC in room
+            target_npc = None
+            if player.location:
+                wm = WorldManager.get_instance()
+                for nid in player.location.npcs:
+                    npc = wm.get_npc(nid)
+                    if npc:
+                         # Exact match or partial match
+                         if npc_target == npc.name.lower() or npc_target in npc.name.lower().split():
+                            target_npc = npc
+                            break
+            
+            if target_npc:
+                response = player.talk_to(target_npc, game, db_conn)
             else:
-                npc_target = " ".join(target_tokens).lower()
-                loc_id = game.get("location", "town_square")
-                
-                if loc_id not in WORLD:
-                    response = "You feel disoriented for a moment."
-                else:
-                    # Resolve NPC target
-                    npc_id, npc = resolve_npc_target(game, npc_target)
-                    
-                    if not npc_id or not npc:
-                        response = f"You don't see anyone like '{npc_target}' here to talk to."
-                    elif is_npc_refusing_to_talk(game, npc_id):
-                        # NPC is refusing to talk due to cooldown
-                        npc_name = npc.name if hasattr(npc, 'name') else npc_id
-                        response = f"{npc_name} pointedly ignores you and refuses to talk."
-                    else:
-                        # Normal talk processing
-                        # Generate dialogue for the NPC
-                        response = generate_npc_line(npc_id, game, username, user_id=user_id, db_conn=db_conn)
-                        
-                        # Trigger quest event for talking to NPC
-                        import quests
-                        from game_engine import GAME_TIME
-                        current_tick = GAME_TIME.get("tick", 0)
-                        
-                        event = quests.QuestEvent(
-                            type="talk_to_npc",
-                            room_id=loc_id,
-                            npc_id=npc_id,
-                            username=username or "adventurer"
-                        )
-                        quests.handle_quest_event(game, event)
-                        
-                        # Broadcast NPC dialogue to all players in the room
-                        if broadcast_fn is not None and response and response.strip():
-                            # Only broadcast if it's actual dialogue (not error messages)
-                            if not response.startswith("There's no one") and not response.startswith("You can't"):
-                                broadcast_fn(loc_id, response)
+                response = f"You don't see '{npc_target}' here."
 
     elif tokens[0] in ["attack", "hit", "strike"] and len(tokens) >= 2:
         # Attack command
         target_text = " ".join(tokens[1:]).lower()
-        loc_id = game.get("location", "town_square")
         
-        # Default message constant
-        DEFAULT_CANT_ATTACK_MESSAGE = "You can't attack {name}."
+        # OO Refactor: Use Player.attack()
+        from game.models.player import Player
+        from game.world.manager import WorldManager
         
-        # Resolve NPC target
-        npc_id, npc = resolve_npc_target(game, target_text)
+        player = Player(username or "adventurer")
+        player.load_from_state(game)
         
-        if not npc_id or not npc:
-            # Check if it's a player (for now, disallow)
-            if who_fn:
-                active_players = who_fn()
-                for player_info in active_players:
-                    player_username = player_info.get("username", "")
-                    if player_username.lower() == target_text and player_info.get("location") == loc_id:
-                        response = "You can't attack other players yet."
-                        return response, game
-            
-            response = "You don't see anyone like that here to attack."
+        if not player.location:
+            response = "You feel disoriented for a moment."
         else:
-            # Check if NPC is attackable
-            attackable = getattr(npc, "attackable", False)
+            # Resolve NPC target using WorldManager/Room
+            wm = WorldManager.get_instance()
+            matched_npc = None
             
-            if not attackable:
-                # Non-attackable NPC - check for on_attack callback
-                from npc import get_npc_on_attack_callback
-                callback = get_npc_on_attack_callback(npc_id)
-                
-                if callback:
-                    # Call the callback
-                    callback_message = callback(game, username or "adventurer", npc_id)
-                    response = callback_message
-                    
-                    # Note: The callback handles reputation, movement, and cooldown internally
-                    # via imports from game_engine, so we don't need to do it here
-                else:
-                    # Default message
-                    npc_name = npc.name if hasattr(npc, 'name') else npc_id
-                    response = DEFAULT_CANT_ATTACK_MESSAGE.format(name=npc_name)
+            # Iterate through NPCs in the room
+            for npc_id in player.location.npcs:
+                npc = wm.get_npc(npc_id)
+                if npc:
+                    # Simple matching logic
+                    if target_text in npc.name.lower() or (npc.title and target_text in npc.title.lower()):
+                        matched_npc = npc
+                        break
+            
+            if matched_npc:
+                response = player.attack(matched_npc, game)
             else:
-                # Attackable NPC - implement combat
-                # Initialize or get NPC state
-                if npc_id not in NPC_STATE:
-                    # Initialize NPC state
-                    npc_home = getattr(npc, "home", None) or loc_id
-                    max_hp = npc.stats.get("max_hp", 10) if hasattr(npc, "stats") and npc.stats else 10
-                    NPC_STATE[npc_id] = {
-                        "room": loc_id,
-                        "home_room": npc_home,
-                        "hp": max_hp,
-                        "alive": True,
-                    }
+                # Check for other players (legacy check)
+                if who_fn:
+                    active_players = who_fn()
+                    for player_info in active_players:
+                        player_username = player_info.get("username", "")
+                        if player_username.lower() == target_text and player_info.get("location") == player.location.oid:
+                            response = "You can't attack other players yet."
+                            return response, game
                 
-                npc_state = NPC_STATE[npc_id]
-                
-                # Check if NPC is already dead
-                if not npc_state.get("alive", True):
-                    npc_name = npc.name if hasattr(npc, 'name') else npc_id
-                    response = f"{npc_name} is already dead."
-                else:
-                    # Calculate damage
-                    player_stats = game.get("character", {}).get("stats", {})
-                    player_str = player_stats.get("str", 1)
-                    base_damage = max(1, player_str)
-                    
-                    npc_defense = npc.stats.get("defense", 0) if hasattr(npc, "stats") and npc.stats else 0
-                    damage = max(1, base_damage - npc_defense)
-                    
-                    # Apply damage
-                    current_hp = npc_state.get("hp", npc.stats.get("max_hp", 10) if hasattr(npc, "stats") and npc.stats else 10)
-                    new_hp = max(0, current_hp - damage)
-                    npc_state["hp"] = new_hp
-                    
-                    npc_name = npc.name if hasattr(npc, 'name') else npc_id
-                    
-                    if new_hp <= 0:
-                        # NPC dies
-                        npc_state["alive"] = False
-                        response = f"You strike {npc_name} a final blow. {npc_name} collapses and dies."
-                        
-                        # Remove NPC from room (move to a "dead" state or remove from room)
-                        # For now, just mark as dead - they'll still appear but won't be interactive
-                        # TODO: Could move to a special "corpse" room or remove from room entirely
-                        
-                        # Broadcast death to room
-                        if broadcast_fn:
-                            broadcast_fn(loc_id, f"{npc_name} collapses and dies.")
-                    else:
-                        # NPC still alive
-                        response = f"You strike {npc_name} for {damage} damage. {npc_name} has {new_hp} HP remaining."
-                        
-                        # Broadcast attack to room
-                        if broadcast_fn:
-                            broadcast_fn(loc_id, f"{username or 'Someone'} attacks {npc_name}!")
-                    
-                    # Check for on_attack callback (for attackable NPCs, this runs after combat)
-                    from npc import get_npc_on_attack_callback
-                    callback = get_npc_on_attack_callback(npc_id)
-                    if callback:
-                        callback_message = callback(game, username or "adventurer", npc_id)
-                        response += " " + callback_message
+                response = "You don't see anyone like that here to attack."
+
+
 
     elif tokens[0] == "stat":
         # Admin-only stat command
