@@ -1,1 +1,8 @@
 In the heart of Shadowfen, the shop stands cloaked in perpetual twilight, its rust-covered sign creaking softly as it sways in the damp breeze. Inside, the air is thick with the earthy aroma of moss and the faint, acrid tang of aged parchment. Shelves groan under the weight of peculiar artifacts: tarnished trinkets and glass jars filled with swirling mists that whisper secrets when disturbed. A cool, pervasive mist licks at your skin, leaving a trace of moisture that chills the bones, while the muted glow of lanterns casts flickering shadows that dance like ghostly apparitions across the stone floor.
+
+Ambient Messages:
+1. The air is thick with the sweet, earthy scent of dried herbs hanging from the rafters, while the soft chime of wind bells mingles with the distant murmur of haggling voices.  
+
+2. A tapestry of colors unfolds before you, as glimmering glass vials catch the light, their contents swirling like liquid rainbows, beckoning you closer with whispered promises of enchantment.  
+
+3. The floorboards creak underfoot, releasing a faint whiff of aged wood and leather, while the flickering candlelight dances across the shelves, revealing hidden curiosities draped in dust and mystery.  
