@@ -1,0 +1,25 @@
+**Quest Title: The False Fortune of Shadowfen**
+
+**Stage 1: Discovery of Deception**
+- The player arrives in the murky town of Shadowfen, where rumors of counterfeit coins have begun to circulate. The local blacksmith, Elara, is unable to purchase materials due to counterfeit coins being passed in the market.
+
+**Stage 2: Unveiling the Source**
+- Elara suspects the coins originate from the swamp-dwelling alchemist, Thalric, who has a reputation for mischief. The player must investigate Thalric's operations, gaining clues either by stealthily searching his workshop or confronting him directly.
+
+**Stage 3: Resolving the Ruse**
+- The player discovers Thalric is indeed crafting the counterfeit coins but for a surprising reason: he claims the local lord, Lord Berwin, is hoarding true gold, crippling the town's economy. Thalric believes his actions could redistribute wealth and force Berwin's hand.
+
+**Solution 1: Justice for All**
+- The player chooses to expose Thalric to the authorities. Thalric is arrested, and the counterfeit operation is shut down.
+
+*Consequences:* Security in Shadowfen tightens, trade becomes more cautious, and Elara is able to resume her business. However, the town remains under Berwin's economic grip, leading to increased resentment among the townsfolk.
+
+**Solution 2: A Thief's Redemption**
+- The player sides with Thalric, helping him perfect the coins to pass an inspection and distribute them discreetly to the townsfolk.
+
+*Consequences:* The initial economic hardship eases, earning the player the townsfolk's gratitude. However, this eventually leads to an investigation by Berwin, who imposes harsher taxes and penalties, increasing tensions in Shadowfen.
+
+**Solution 3: Brokered Balance**
+- The player mediates, convincing Thalric to cease his operation in exchange for Elara and other guild members confronting Berwin about fairer economic practices.
+
+*Consequences:* The guild's collective action forces Berwin to agree to a more balanced trade policy, alleviating some economic pressure. Thalric becomes a valued advisor on alchemical matters to the guild, and Shadowfen thrives as a hub of trade innovation, but the player's actions leave lingering distrust between the lord and the townsfolk.
