@@ -13,3 +13,10 @@ Ambient Messages:
 2. "A gentle chime of wind bells accompanies the soft rustle of silken fabrics, each vibrant hue catching the light and casting playful shadows on the polished wooden floor."  
 
 3. "The earthy scent of aged parchment mingles with the metallic tang of enchanted trinkets, as the faint crackle of arcane energy dances in the air like a long-forgotten melody."
+
+Ambient Messages:
+1. The air buzzes with the soft chime of glass trinkets swaying, as the scent of aged parchment and crushed herbs wraps around you like a familiar embrace.  
+
+2. Flickering candles cast playful shadows on the walls, where the rich aroma of exotic spices dances with the musty sweetness of old tomes, inviting you deeper into the mysteries of the shop.  
+
+3. The cool touch of polished stone beneath your fingertips contrasts with the warmth of vibrant silks hanging from the ceiling, their colors whispering secrets of far-off lands.

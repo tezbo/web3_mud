@@ -1,1 +1,8 @@
 In the heart of the Shadowfen, the dungeon yawns open like a forgotten maw, its stone walls slick with a sheen of perpetual dampness. The air is thick with the acrid stench of mildew and rust, a testament to the years of neglect and decay. Water drips incessantly from the ceiling, each droplet echoing through the labyrinthine corridors like a whispered secret. The ground underfoot is uneven, the stones shifting slightly with each step, their chill seeping into your bones as your fingers brush against the rough, moss-covered walls. A distant, hollow clang resounds periodically, a haunting reminder of unseen depths and the secrets they might conceal.
+
+Ambient Messages:
+1. The damp air clings to your skin like a shroud, whispering secrets of lost souls as the distant drip of water echoes through the shadowy passageways.  
+
+2. Faint, flickering torchlight dances on rough-hewn stone walls, casting ghostly silhouettes that seem to writhe and shift with every breath of the still, musty air.  
+
+3. A chill creeps along the back of your neck as the metallic tang of rust and decay mingles with the sweet, cloying scent of ancient, untouched treasures hidden within the gloom.  
