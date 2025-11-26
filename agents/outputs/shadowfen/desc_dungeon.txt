@@ -6,3 +6,10 @@ Ambient Messages:
 2. Flickering torchlight dances across crumbling walls, casting grotesque shadows that seem to writhe and pulse with the heartbeat of the darkness.  
 
 3. A chill slithers through the passage, carrying the faint taste of rust and decay, as unseen creatures skitter just beyond the realm of light.
+
+Ambient Messages:
+1. The damp air clings to your skin like a shroud, while the distant drip of water echoes through the stone corridors, mingling with the faint whisper of unseen creatures skittering in the shadows. 
+
+2. Flickering torchlight dances across ancient runes etched into the rough-hewn walls, their faint glow revealing the dust motes swirling in the stagnant air, heavy with the scent of mold and forgotten memories. 
+
+3. A chill seeps into your bones as you tread cautiously over the uneven ground, the metallic tang of old blood lingering in the silence, punctuated only by the soft rustle of a tattered banner that sways in a draft from the depths below.
