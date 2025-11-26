@@ -1,53 +1,56 @@
-### ASCII Map for 'Merchant District'
+### ASCII Map of the Merchant District
 
 ```
-           [Bank]
-             |
-          ┌─────┐
-          |     |
-      [Market Square]--[General Store]
-          |     |
-          └─────┘
-             |
-         [Clothier]--[Blacksmith]
-             |
-        [Hidden Alley]
+        +-----------+        +-----------+
+        |  Armorer  |<------>|  Tailor   |
+        |           |        |           |
+        |   (2)     |        |   (3)     |
+        +----+------+        +----+------+
+             |                    |
+             v                    v
+        +-----------+        +-----------+
+        |  Market   |<------>|  Alchemist|
+        |  Square   |        |   Shop    |
+        |   (1)     |        |   (4)     |
+        +----+------+        +----+------+
+             |                    |
+             v                    v
+        +-----------+        +-----------+
+        |  Pawnshop |<------>|  Warehouse|
+        |           |        |           |
+        |   (5)     |        |   (6)     |
+        +-----------+        +-----------+
 ```
 
 ### Room List with Exits
 
 1. **Market Square**
-   - Exits: North to [Bank], East to [General Store], South to [Clothier]
-   - Notes: The central hub of the Merchant District, bustling with activity and serving as the primary navigation point.
+   - **Exits**: North to Armorer, East to Alchemist Shop, South to Pawnshop
+   - **Purpose**: Central hub of the district; a bustling area with vendors and traders. It encourages exploration by leading to specialized shops.
 
-2. **Bank**
-   - Exits: South to [Market Square]
-   - Notes: A secure and well-guarded building where players can store and manage their wealth. Situated north of the Market Square for easy access.
+2. **Armorer**
+   - **Exits**: South to Market Square, East to Tailor
+   - **Purpose**: Sells armor and protective gear. Positioned to be easily accessible from the market for adventurers looking to gear up.
 
-3. **General Store**
-   - Exits: West to [Market Square]
-   - Notes: Offers a variety of essential goods. It's the first stop for newcomers, strategically placed directly east of the Market Square.
+3. **Tailor**
+   - **Exits**: West to Armorer, South to Alchemist Shop
+   - **Purpose**: Provides clothing and light armor. Its proximity to the Armorer fosters a logical flow for players upgrading their gear.
 
-4. **Clothier**
-   - Exits: North to [Market Square], East to [Blacksmith], South to [Hidden Alley]
-   - Notes: Specializes in clothing and tailor-made items. Located south of the Market Square, it connects to both the Blacksmith and a hidden alley.
+4. **Alchemist Shop**
+   - **Exits**: West to Market Square, North to Tailor, South to Warehouse
+   - **Purpose**: Offers potions and arcane supplies. Placed strategically between the Market and Tailor to attract a variety of foot traffic.
 
-5. **Blacksmith**
-   - Exits: West to [Clothier]
-   - Notes: Provides weapons and armor. Placed adjacent to the Clothier to create a seamless shopping experience for equipment and clothing.
+5. **Pawnshop**
+   - **Exits**: North to Market Square, East to Warehouse
+   - **Purpose**: Buys and sells miscellaneous items. It's a place for players to offload loot or find unique items. Its location near the Market makes for convenient trading.
 
-6. **Hidden Alley**
-   - Exits: North to [Clothier]
-   - Notes: A secretive side path that offers rare finds and potential quests. It's tucked away to encourage exploration.
+6. **Warehouse**
+   - **Exits**: North to Alchemist Shop, West to Pawnshop
+   - **Purpose**: Storage for goods and potential quest-related activities. Positioned at the district's edge, it serves as a logical end-point for deliveries and smuggling operations.
 
 ### Design Notes
 
-- **Flow and Purpose**: The Market Square serves as the primary hub, with shops clustered around it for easy access. The placement of the Bank, General Store, and Clothier creates a logical flow for players to navigate through the district.
-  
-- **Exploration and Discovery**: The Hidden Alley is designed to reward players who explore beyond the obvious paths, offering unique items or quests unavailable elsewhere.
-
-- **Realism and Storytelling**: The layout reflects a typical medieval market town, where essential services are centralized, and specialty shops are within walking distance, promoting a vibrant economic center.
-
-- **Vertical Space and Complexity**: While this district is primarily on a single plane, the Hidden Alley introduces an element of layered complexity. Future expansion could consider vertical elements like an upstairs room in the Bank or a cellar in the General Store.
-
-This design balances accessibility with the intrigue of discovery, utilizing logical spatial organization to create a believable and engaging district.
+- **Flow**: The Market Square serves as the central hub, ensuring players naturally pass through it to reach other locations. This design encourages players to explore each shop, creating a sense of bustling activity and commerce.
+- **Discovery**: The district provides a straightforward exploration path with interconnected shops. Each shop leads logically to the next, simulating the experience of wandering through a real market district.
+- **Pacing**: The spatial arrangement allows for a balance between exploration and convenience, with short distances between key locations, while maintaining a sense of district scale.
+- **Realism**: The layout mirrors a traditional urban market setup, with related businesses clustered together, making the district feel both functional and lively.
