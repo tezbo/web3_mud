@@ -1,1 +1,8 @@
 Beneath a canopy of twisted trees, the room exudes a damp, earthy chill, with mist swirling lazily at ankle height. The walls, mottled with rust and age, bear the faint echo of dripping water, a rhythmic patter that merges with distant croaks and rustles from the fen outside. The air is thick with the scent of wet leaves and the faint, metallic bite of decaying iron. As your fingers brush against the textured bark of a wooden table, you feel the cool, slippery touch of moss, leaving a faint residue on your skin, a reminder of the room's ancient, forgotten stories.
+
+Ambient Messages:
+1. "The air hums with the soft clatter of jade tiles beneath footfalls, while the faint scent of incense and polished wood lingers, wrapping the space in an embrace of serene elegance."  
+
+2. "Glistening steel fixtures reflect the warm glow of flickering lanterns, their light dancing across the cool stone walls, where the faint echo of a distant blacksmith's hammer punctuates the reverent silence."  
+
+3. "A thick, swirling mist drapes over the earthen floor like a shroud, carrying whispers of rust and damp earth, while the occasional drip of water from the gnarled roots above adds an unsettling rhythm to the gloom."
