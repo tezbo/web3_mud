@@ -1,38 +1,32 @@
-**Quest Title: The Rot Within**
+**Quest Title: The Blight of Shadowfen**
 
 **Stage Breakdown:**
 
-**Stage 1: The Plague's Genesis**  
-- The player arrives in Shadowfen, where a mysterious plague is slowly corrupting the land and its people.
-- A local healer, Edda, reveals that the source of the plague is the High Priest of Rot, who resides deep within the fetid marshes.
-- Edda implores the player to stop the High Priest, offering guidance on how to reach his sanctuary.
+1. **Stage 1: The Plague Unveiled**
+   - The player arrives in Shadowfen, a once-thriving marshland now plagued by a mysterious blight. Villagers speak in hushed tones of the High Priest of Rot, a mysterious figure believed to be behind the spreading corruption. The player learns that the priest resides in the ancient Temple of Decay, deep within the swamp.
 
-**Stage 2: The Path of Decay**  
-- As the player navigates through Shadowfen, they encounter villagers struggling with the effects of the plague.
-- The player learns that the High Priest has followers who believe the plague is a divine gift, purging the weak and ushering in a new era.
+2. **Stage 2: Gathering Allies or Secrets**
+   - The player must decide how to approach the High Priest. They can:
+     - **Option A:** Align with the local herbalist, Lira, who believes that a ritual using rare herbs can weaken the priest. The player must gather these herbs, but the quest is time-consuming and dangerous.
+     - **Option B:** Befriend the disgraced former acolyte, Merek, who offers to reveal a secret passage into the temple in exchange for a favor: retrieving a family heirloom from a band of swamp marauders.
+     - **Option C:** Confront the priest directly, gathering what information and equipment they can from the villagers to face him head-on.
 
-**Stage 3: Confrontation in the Rot Sanctum**  
-- Deep within the marshes, the player finds the Rot Sanctum, where the High Priest of Rot conducts his dark rituals.
-- The area's decay challenges the player's resolve as they prepare to confront the High Priest.
+3. **Stage 3: Confrontation in the Temple of Decay**
+   - The player confronts the High Priest of Rot, each approach yielding a different encounter:
+     - **Solution A:** Using the herbalist's ritual, the player weakens the priest, making the battle easier. However, the ritual causes the swamp’s ecosystem to change, leading to new, strange flora and fauna appearing in the region.
+     - **Solution B:** The secret passage allows the player to bypass many of the temple's defenses, leading to a surprise attack on the priest. Merek's knowledge reveals the priest's true identity: a former healer of the swamp, driven mad by the same blight. This revelation leads to the priest's followers disbanding, but Merek claims the temple for his own purposes, which may be questionable.
+     - **Solution C:** Direct confrontation results in a challenging battle. Defeating the priest reveals his plan: to merge with the blight and become immortal. Without allies, the player gains the respect and fear of the villagers, but the underlying cause of the blight remains unsolved, leaving Shadowfen vulnerable to future threats.
 
-**Solutions and Consequences:**
+**Consequences for Each Choice:**
 
-**Solution 1: The Path of Purity**  
-- The player decides to confront and defeat the High Priest of Rot in direct combat, determined to cleanse the land of his influence.  
-- **Consequences:**  
-  - With the High Priest defeated, the plague begins to dissipate. Edda and the villagers celebrate the player's heroism.
-  - However, the High Priest's followers vow revenge, becoming a new threat that occasionally harasses the player in future interactions.
+- **Solution A Consequences:**
+  - The new flora/fauna can offer unique alchemical ingredients for potions and poisons, but also attract dangerous creatures to Shadowfen.
+  - Lira becomes a prominent figure in the village, offering discounts and aid to the player in future quests.
 
-**Solution 2: The Path of Diplomacy**  
-- Instead of fighting, the player seeks to understand the High Priest's motivations and persuades him to abandon his dark path by appealing to his past humanity.  
-- **Consequences:**  
-  - The High Priest agrees to halt the plague, and his followers disperse, leaving Shadowfen to slowly recover.
-  - Edda is grateful but wary, knowing the High Priest might return to his old ways. The player's reputation as a skillful mediator spreads.
+- **Solution B Consequences:**
+  - Merek’s takeover of the temple may lead to new quests involving his plans, which could either benefit or harm Shadowfen based on player choices.
+  - The revelation of the priest's past spreads, causing a rift in the village between those who pitied him and those who feared him, affecting future social dynamics.
 
-**Solution 3: The Path of Corruption**  
-- The player chooses to ally with the High Priest, seeing potential in the power of the plague or perhaps fearing what his followers may become without leadership.  
-- **Consequences:**  
-  - The player gains access to unique dark abilities and resources from the High Priest, aiding them in future quests.
-  - Shadowfen remains plagued, and Edda, along with other villagers, turns against the player, causing tension and hostility in subsequent encounters.
-
-Each choice shapes the player's journey and the world of Shadowfen, ensuring that their actions have lasting impacts that ripple throughout their adventure.
+- **Solution C Consequences:**
+  - The player is seen as a formidable hero, gaining renown across the region but also drawing the attention of those who might seek to test their strength.
+  - The unresolved blight means future quests may involve dealing with its resurgence or finding a true cure.
