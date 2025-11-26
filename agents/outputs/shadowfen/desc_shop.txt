@@ -1,1 +1,8 @@
 The shop huddles beneath a canopy of twisting branches, their gnarled silhouettes casting flickering shadows across cracked, moss-laden stones. Inside, the air is thick with the earthy scent of damp wood and the faint, acrid bite of old rust. The soft rustle of leaves brushing against the roof mingles with the distant drip of water, creating a muted symphony that seems to pulse with the heartbeat of the swamp. Shelves sag under the weight of peculiar artifacts, their surfaces slick with a thin film of moisture, cold and slightly tacky to the touch.
+
+Ambient Messages:
+1. The air thrums with the soft chime of delicate wind bells, their notes dancing above the rich aroma of aged leather and polished wood that fills the cozy shop.  
+
+2. Shelves groan under the weight of dusty tomes and shimmering potions, the faint rustle of parchment whispering secrets of forgotten lore in the dim candlelight.  
+
+3. A gentle breeze wafts through the open door, carrying the sweet scent of dried herbs and spices, while the subtle crackle of a nearby hearth beckons customers to linger longer.
