@@ -1,47 +1,42 @@
-### Merchant District Map
-
 ```
-     [Tannery]         [Blacksmith]
-        |                  |
-      [Alley]--[Market Square]--[Inn]
-        |                  |
-     [Apothecary]      [Tailor Shop]
+  [Market Square]
+       / | \
+[Armory] | [Blacksmith]
+       \ | /
+    [Tavern]
+       / \
+[Potion Shop] [Tailor's]
 ```
 
-### Room List with Exits
+### Room List and Exits
 
 1. **Market Square**
-   - Exits: North to Alley, East to Inn, South to Tailor Shop, West to Blacksmith
-   - Purpose: Central hub of the Merchant District where various vendors set up stalls. High traffic, encourages exploration in all directions.
+   - Exits: North to Armory, East to Blacksmith, South to Tavern
+   - Design Notes: The bustling heart of the Merchant District, where traders and adventurers converge. It serves as the central hub, providing access to specialized shops. The open space allows for public gatherings and events.
 
-2. **Blacksmith**
-   - Exits: East to Market Square
-   - Purpose: Offers weapons and armor; logical placement near central market for adventurers seeking gear. The forge sounds draw players in.
+2. **Armory**
+   - Exits: South to Market Square
+   - Design Notes: Positioned to the north for easy access by city guards and adventurers. Stocks a wide range of weapons and armor. Its proximity to the Market Square encourages impulse buys from passing travelers.
 
-3. **Inn**
+3. **Blacksmith**
    - Exits: West to Market Square
-   - Purpose: Provides rest and social interactions; connecting point for travelers. Offers rumors and quests.
+   - Design Notes: Located close to both the Market Square and Armory, ensuring a steady flow of customers. Provides custom weapon and armor crafting, with the sound of hammering metal audible from the square.
 
-4. **Tailor Shop**
-   - Exits: North to Market Square
-   - Purpose: Sells clothing and light armor; caters to those looking to blend in or stand out. Encourages revisits for new outfits.
+4. **Tavern**
+   - Exits: North to Market Square, South to Potion Shop, East to Tailor's
+   - Design Notes: A social hub connecting the shops, where patrons can rest and share news. Positioned centrally to facilitate easy access from all corners of the district. The tavern serves as a waypoint for players to gather and strategize.
 
-5. **Alley**
-   - Exits: South to Market Square, North to Tannery
-   - Purpose: Hidden path connecting otherwise distant locations. Contains minor NPCs and possible side quests.
+5. **Potion Shop**
+   - Exits: North to Tavern
+   - Design Notes: Nestled south of the Tavern, offering alchemical supplies and healing potions. Its secluded position creates a sense of discovery, rewarding those who explore beyond the main thoroughfare.
 
-6. **Tannery**
-   - Exits: South to Alley
-   - Purpose: Produces leather goods; its location away from the main hub reduces the olfactory impact on the Market Square.
+6. **Tailor's**
+   - Exits: West to Tavern
+   - Design Notes: Conveniently located for adventurers seeking repairs or custom clothing. Positioned to the east of the Tavern to balance the district's layout, providing a quiet retreat from the bustling Market Square.
 
 ### Design Notes
 
-- **Flow:** The Market Square serves as the primary hub with multiple exits, ensuring players naturally explore all areas. The Blacksmith and Tailor Shop are placed logically near the Market Square to draw players interested in gear and attire.
-
-- **Exploration & Discovery:** The Alley provides a shortcut and an opportunity for players to discover hidden quests or NPCs. This adds depth and rewards those who stray from the main path.
-
-- **Pacing & Clustering:** Shops are clustered around the Market Square to simulate a bustling merchant environment. The Inn is slightly offset to provide a sense of progression from the central hub.
-
-- **Realism:** The Tannery is placed further from the market to realistically separate its smell from the bustling center. This reflects a realistic town layout where more unpleasant industries are located on the outskirts.
-
-- **Vertical Space:** Not utilized in this design, maintaining a focus on horizontal exploration typical of an outdoor district. Future expansions could include basements for some shops or a rooftop garden for the Inn.
+- **Flow and Convenience**: The Market Square anchors the district, ensuring that players naturally pass through it. The strategic placement of shops encourages exploration while keeping essential services within easy reach.
+- **Exploration and Discovery**: While the main paths are straightforward, the positioning of the Potion Shop rewards players who explore away from the central hub.
+- **Realism and Storytelling**: Each shop's location reflects logical city planning, with the Armory and Blacksmith placed for practical access by adventurers and city guards. The Tavern's central position enhances its role as a gathering point.
+- **Pacing and Balance**: The layout clusters related services while maintaining a sense of distance and space, encouraging players to traverse the district for specific needs.
