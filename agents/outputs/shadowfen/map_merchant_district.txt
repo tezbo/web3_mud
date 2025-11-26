@@ -1,51 +1,49 @@
-Welcome to the "Merchant District," a bustling trade hub in the heart of Shadowfen. This district is designed to offer a blend of commerce, exploration, and storytelling. The layout encourages players to explore diverse shops while maintaining a logical flow.
+Certainly! Below is an ASCII map of the "Merchant District" in the Shadowfen style, along with a room list, exits, and design notes.
 
 ### ASCII Map
-
 ```
-       [Alchemist's Nook]       
-             |                     
-[Jeweler's Den] -- [Market Square] -- [Armorer's Forge]
-             |                     
-        [Silk Emporium]            
-             |                     
-       [Dockside Warehouse]        
+  [Market Square]
+        |
+  [General Store] -- [Blacksmith]
+        |
+  [Tailor Shop]
+        |
+ [Residential Alley]
+        |
+   [Storage Yard] 
 ```
 
 ### Room List with Exits
 
-1. **Market Square (Central Hub)**
-   - Exits: North (Alchemist's Nook), East (Armorer's Forge), West (Jeweler's Den), South (Silk Emporium)
-   - Purpose: A central hub bustling with activity. Merchants hawk their wares, and adventurers gather to trade stories and goods.
+1. **Market Square**
+   - Exits: North to General Store, South to Tailor Shop
+   - Purpose: Central hub of the district where players can gather and trade. It serves as the main access point to other locations.
 
-2. **Alchemist's Nook**
-   - Exits: South (Market Square)
-   - Purpose: A mysterious shop filled with potions and ingredients. The scent of herbs and chemicals fills the air, enticing curious adventurers.
+2. **General Store**
+   - Exits: South to Market Square, East to Blacksmith
+   - Purpose: Offers a variety of general goods. It's strategically positioned as the first stop from the Market Square to ensure players are well-equipped before visiting other shops.
 
-3. **Jeweler's Den**
-   - Exits: East (Market Square)
-   - Purpose: A small, opulent shop where precious gems and artifacts are traded. The jeweler is known for crafting unique items for discerning customers.
+3. **Blacksmith**
+   - Exits: West to General Store
+   - Purpose: Provides weapons and armor. Placed adjacent to the General Store for convenience, catering to adventurers looking to upgrade their gear.
 
-4. **Armorer's Forge**
-   - Exits: West (Market Square)
-   - Purpose: The clanging of hammers echoes as skilled smiths forge weapons and armor. Adventurers frequent this shop to prepare for upcoming battles.
+4. **Tailor Shop**
+   - Exits: North to Market Square, South to Residential Alley
+   - Purpose: Offers clothing and fabric goods. Positioned between Market Square and the Residential Alley to attract both visiting adventurers and local residents.
 
-5. **Silk Emporium**
-   - Exits: North (Market Square), South (Dockside Warehouse)
-   - Purpose: A luxurious shop displaying exotic silks and fabrics. Traders from distant lands bring their finest wares for the discerning clientele.
+5. **Residential Alley**
+   - Exits: North to Tailor Shop, South to Storage Yard
+   - Purpose: A quieter area where local residents live. It provides a natural transition from the bustling commercial zone to a more serene environment.
 
-6. **Dockside Warehouse**
-   - Exits: North (Silk Emporium)
-   - Purpose: A large storage area near the water's edge. Goods are unloaded from ships, creating a dynamic environment of commerce and intrigue.
+6. **Storage Yard**
+   - Exits: North to Residential Alley
+   - Purpose: Used by merchants for storage and inventory management. It's the southernmost area, providing a sense of distance and serving as a hidden spot for potential side quests or encounters.
 
 ### Design Notes
 
-- **Flow and Purpose**: The Market Square serves as the central hub, ensuring all shops are within easy reach while maintaining a sense of distance and discovery. The layout encourages players to pass through the Market Square repeatedly, reinforcing its role as the district's focal point.
+- **Flow and Purpose**: The Market Square acts as the primary hub, with direct connections to essential shops (General Store and Tailor Shop) to maintain a logical shopping flow. The Blacksmith is connected to the General Store to encourage players to prepare for adventures.
+- **Exploration and Discovery**: The layout encourages players to explore beyond the main square. The Residential Alley and Storage Yard provide a sense of discovery and potential for hidden quests or secrets.
+- **Realism**: The district layout follows a logical progression from a busy commercial center to quieter residential areas, with appropriate transitions between shops and living spaces.
+- **Pacing**: The rooms are clustered to create a sense of community while spreading out to give a realistic sense of distance, especially towards the Residential Alley and Storage Yard.
 
-- **Exploration and Discovery**: Hidden interactions within shops, such as secret recipes in the Alchemist's Nook or rare gems in the Jeweler's Den, reward players who take time to explore.
-
-- **Pacing and Realism**: The district's layout reflects a logical commercial area, with the Dockside Warehouse positioned near the water for realistic goods transport. The clustering of shops around the Market Square simulates real-world market dynamics.
-
-- **Storytelling Through Space**: Each shop tells its own story through detailed descriptions and unique NPCs, providing a rich narrative layer to the district.
-
-- **Vertical Space**: Although not explicitly designed in this layout, potential expansions could introduce vertical elements such as rooftop gardens or underground smuggling routes connected to the Dockside Warehouse.
+This design ensures a balanced mix of accessibility, exploration, and storytelling within the Merchant District, capturing the unique Shadowfen atmosphere.
