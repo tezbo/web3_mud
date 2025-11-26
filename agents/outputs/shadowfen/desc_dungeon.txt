@@ -1,1 +1,8 @@
 The dungeon looms beneath the earth, where the air hangs thick with the musty tang of mildew and the acrid bite of rusting chains. Flickering torchlight paints the stone walls in trembling shadows, each dark corner whispering secrets long forgotten. The distant drip of water echoes through the corridors, a somber rhythm that hums against the skin like a cold, persistent shiver. The floor, slick with a thin film of moisture, sends a chill through the soles of your boots, while the taste of damp earth lingers hauntingly on your tongue.
+
+Ambient Messages:
+1. The air hangs thick with the scent of damp earth and decaying stone, while distant echoes of dripping water punctuate the oppressive silence, as if the very walls are whispering secrets long forgotten.  
+
+2. A shiver runs down your spine as the chill of the shadowy corridor wraps around you, the faint rustle of unseen creatures skittering just beyond the flickering torchlight.  
+
+3. The ground beneath your feet is slick with a cold, viscous slime, and the metallic tang of iron lingers in the air, a reminder of battles fought in this forgotten realm.  
