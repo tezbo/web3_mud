@@ -1,61 +1,43 @@
-### ASCII Map of Merchant District
-
 ```
-        +------------------+
-        |    Town Square   |
-        |  Exits: N, S, E  |
-        +--------+---------+
-                 |
-        +--------+---------+
-        |  Blacksmith's    |
-        |    Forge         |
-        |  Exits: N, S     |
-        +--------+---------+
-                 |
-        +--------+---------+   +-----------------+
-        |  General Goods   |---|  Alchemist's    |
-        |     Store        |   |     Shop        |
-        |  Exits: N, E     |   |  Exits: W       |
-        +--------+---------+   +-----------------+
-                 |
-        +--------+---------+
-        |  Shadowfen        |
-        |   Tavern          |
-        |  Exits: N, E, D   |
-        +--------+---------+
-                 |
-        +--------+---------+
-        |   Secret Cellar   |
-        |  Exits: U         |
-        +-------------------+
+   [Marketplace]
+       |
+[Blacksmith] - [General Store]
+       |
+[Tavern] - [Alchemist] - [Warehouse]
 ```
 
-### Room List with Exits and Design Notes
+### Room List with Exits:
 
-1. **Town Square**
-   - **Exits:** North to General Goods Store, South to Shadowfen Tavern, East to Residential Area (not mapped)
-   - **Design Notes:** Central hub of the Merchant District. A bustling area with street vendors and performers, serving as the primary navigation point. Encourages exploration by providing multiple pathways.
+1. **Marketplace**
+   - Exits: North to Blacksmith, East to General Store, South to Tavern
+   - Notes: Central hub of the Merchant District. Bustling with vendors and traders. Acts as the main connection point for the district. Designed for high traffic and easy navigation to adjacent shops.
 
-2. **Blacksmith's Forge**
-   - **Exits:** North to General Goods Store, South to Town Square
-   - **Design Notes:** Conveniently located close to the Town Square. The rhythmic clanging of metal attracts players. Provides essential services and equipment for adventurers.
+2. **Blacksmith**
+   - Exits: South to Marketplace
+   - Notes: Positioned north of the Marketplace to reduce noise pollution for other shops. Logical placement for easy access to crafted goods and repairs. Features a forge and display area.
 
-3. **General Goods Store**
-   - **Exits:** South to Blacksmith's Forge, East to Alchemist's Shop
-   - **Design Notes:** Offers a wide variety of items for purchase. Positioned between the Blacksmith and the Alchemist, forming a corridor of commerce. Encourages players to explore the full range of available goods.
+3. **General Store**
+   - Exits: West to Marketplace
+   - Notes: A common stop for adventurers and locals alike. Stocks a wide variety of goods. Strategically placed to catch foot traffic coming from the Marketplace. Provides easy access to basic supplies.
 
-4. **Alchemist's Shop**
-   - **Exits:** West to General Goods Store
-   - **Design Notes:** A mysterious shop filled with potions and rare ingredients. Located off the main path, encouraging curious players to delve deeper. Adds an element of discovery with unique items.
+4. **Tavern**
+   - Exits: North to Marketplace, East to Alchemist
+   - Notes: A social and resting hub, encouraging players to linger and interact. Positioned for easy access from the Marketplace, but away from the noisy Blacksmith. The connection to the Alchemist hints at potential storylines or quests.
 
-5. **Shadowfen Tavern**
-   - **Exits:** North to Town Square, East to Secret Cellar
-   - **Design Notes:** A social gathering spot for adventurers and locals. Offers rest, rumors, and quests. The tavern's lively atmosphere contrasts with the secretive nature of the cellar below.
+5. **Alchemist**
+   - Exits: West to Tavern, East to Warehouse
+   - Notes: Offers potions and magical items, conveniently located near the Tavern for adventurers needing supplies. Transition point to the Warehouse, indicating a less-traveled route for those looking for hidden or special items.
 
-6. **Secret Cellar**
-   - **Exits:** Up to Shadowfen Tavern
-   - **Design Notes:** Hidden beneath the tavern, accessed via a trapdoor. A perfect spot for clandestine meetings or hidden treasures. Adds vertical complexity and an element of mystery to the district.
+6. **Warehouse**
+   - Exits: West to Alchemist
+   - Notes: Quiet, secluded location ideal for storage and secret dealings. Acts as a hidden area for quests or special items, rewarding those who explore beyond the main traffic areas.
 
-### Design Summary
+### Design Notes:
 
-The Merchant District is designed to balance exploration with convenience, encouraging players to navigate through a network of shops and services. The Town Square acts as the central hub, ensuring smooth flow while promoting discovery. Vertical space in the form of the Secret Cellar enhances the district's complexity, rewarding players who seek out hidden paths. This layout maintains realism and logical organization, creating an immersive and engaging experience in the Shadowfen style.
+- **Flow**: The Marketplace serves as the primary hub, ensuring players naturally pass through and discover important locations. The Blacksmith and General Store are easily accessible, while the Tavern encourages social interaction and quest-gathering.
+  
+- **Exploration**: The Alchemist and Warehouse create opportunities for discovery, with the latter providing a reward for players who explore beyond the obvious paths.
+
+- **Realism**: The layout reflects a logical organization, with noisy and social areas placed thoughtfully in relation to each other. The Blacksmith is kept separate from the Tavern to maintain a pleasant atmosphere.
+
+- **Pacing**: High-traffic areas are clustered around the Marketplace, with quieter, optional exploration paths leading to the Alchemist and Warehouse, balancing convenience and discovery.
