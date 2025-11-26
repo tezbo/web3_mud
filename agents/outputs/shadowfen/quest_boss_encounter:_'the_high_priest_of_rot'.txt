@@ -1,25 +1,29 @@
-**Quest Title: Shadows of Decay**
+**Quest Title: Veil of Decay**
 
 **Stage Breakdown:**
 
-1. **The Miasma's Call:** 
-   - The player arrives in Shadowfen, a swampy region shrouded in decay and dark magic. Locals speak of a growing blight emanating from the ancient ruins of Gorthak. The villagers are falling ill, and strange creatures now roam the outskirts. The village elder, Elda, pleads for aid, fearing the High Priest of Rot has returned to reclaim his dominion over decay.
+1. **The Corruption Unveiled:**
+   - The player arrives in Shadowfen, where the once-thriving marshland is now overrun with a creeping blight. Local inhabitants speak of the High Priest of Rot, a mysterious figure believed to be behind the corruption. The player is approached by Elder Calen, a druid who seeks to restore balance to the land.
 
-2. **Into the Rot's Den:**
-   - The player ventures into the heart of the swamp, navigating through treacherous terrain and confronting twisted creatures. They discover a hidden entrance to the catacombs beneath Gorthak, where the High Priest conducts his dark rituals. The air is thick with rot, and the whispers of the damned echo through the halls.
+2. **The Heart of the Rot:**
+   - The player must infiltrate the Temple of Decay, where the High Priest of Rot resides. Along the way, they encounter various corrupted creatures and traps set by the priest's followers. They discover that the priest is using a powerful artifact, the Rotstone, to spread the blight.
 
-3. **Confronting the High Priest:**
-   - In the heart of the catacombs, the player encounters the High Priest of Rot, a figure both terrifying and tragic, seeking to merge his essence with the swamp to achieve eternal life. Here, the player must decide how to handle the confrontation.
+3. **Confrontation and Choice:**
+   - The player confronts the High Priest of Rot in the temple's inner sanctum. The priest reveals his motives: to create a world where only the strong survive, believing the blight purges weakness. The player must decide how to handle the situation.
 
-**Solutions & Consequences:**
+**Solutions:**
 
-1. **Purification by Force:**
-   - The player chooses to confront the High Priest directly, battling him in a climactic showdown. Upon his defeat, the blight on the land begins to recede, and the swamp slowly returns to its natural state. The villagers praise the player as a hero, but remnants of the priest's curse linger, occasionally spawning minor threats in the future.
+1. **Direct Confrontation:**
+   - The player chooses to fight the High Priest of Rot, destroying the Rotstone in the process. 
+   - **Consequences:** The blight recedes, and Shadowfen begins to heal. Elder Calen and the locals view the player as a hero. However, the power vacuum left by the priest's defeat leads to infighting among his former followers, causing instability in the region.
 
-2. **The Bargained Rot:**
-   - The player learns of an ancient relic hidden within the catacombs that can bind the High Priest's spirit, preventing his full resurgence without destroying him. By negotiating with the priest, the player offers him a chance to exist in a dormant state, preserving his knowledge and power without harming the land. The swamp remains haunted, but stable, and the player gains access to unique alchemical recipes and dark lore, at the cost of suspicion from the villagers.
+2. **Alliance with the Priest:**
+   - The player sides with the High Priest, seeing the potential in his vision of a stronger world. They help him solidify his control over Shadowfen by quelling dissent among his followers.
+   - **Consequences:** The blight continues to spread, but the player's influence grants them a high status within the priest's inner circle. Elder Calen and any remaining resistance factions become hostile, and Shadowfen becomes a perilous region feared by outsiders.
 
-3. **A New Path for Decay:**
-   - The player uncovers the High Priest's true motives: a desperation to preserve his people's legacy through decay's renewal. By offering to help the priest understand how to channel this power constructively, the player can transform him into a protector of the swamp. This choice heals the land and creates a powerful ally for future quests, but the player must occasionally return to aid in maintaining the balance, fostering a fragile peace between the village and the swamp.
+3. **Diplomatic Resolution:**
+   - The player persuades the High Priest to see the error in his ways, convincing him to use the Rotstone to reverse the blight and restore balance.
+   - **Consequences:** Shadowfen is gradually healed, and the High Priest becomes a reluctant ally, eventually aiding the player in future quests. The act of redemption strengthens the bond between the player and Elder Calen, leading to new opportunities for collaboration and an era of cautious peace within the region.
 
-Each choice impacts the player's reputation in Shadowfen, shaping future interactions with its inhabitants and influencing the region's fate. The legend of the player's deeds will echo through tales of Shadowfen, altering how the world views their legacy.
+**Tie to World Lore:**
+- The Rotstone is a remnant of The Sundering, a time when powerful artifacts were scattered across the realms. The High Priest's Threadsinging abilities allowed him to harness its power, but his vision was clouded by ambition and pride. The quest's outcome affects the balance of power and the perception of Threadsinging in the world.
