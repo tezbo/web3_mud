@@ -1,42 +1,43 @@
-Below is the design for the 'Merchant District' in Shadowfen style. This district is envisioned as a bustling hub of trade and commerce, with a mix of open-air stalls, permanent shops, and residential areas for merchants and their families. The layout encourages exploration and interaction, while maintaining a logical flow.
+Certainly! Below is the ASCII map and design for the 'Merchant District' in a Shadowfen style.
+
+### ASCII Map
 
 ```
-        [Alchemist's Nook]
-                |
-[Residential Alley] -- [Market Square] -- [Silk Street]
-                |                   |
-          [Stone Bridge] -- [Riverbank Path]
+  [1]--[2]--[3]
+   |    |    |
+  [4]  [5]  [6]
 ```
 
-### Room List and Exits:
+### Room List with Exits and Purpose
 
 1. **Market Square**
-   - **Exits**: North to Residential Alley, East to Silk Street, South to Riverbank Path
-   - **Purpose and Connections**: This is the central hub of the Merchant District, where traders and customers converge. It's surrounded by a variety of shops and stalls, making it the liveliest area. The main path to other rooms originates here.
+   - **Exits:** East to [2], South to [4]
+   - **Purpose:** Central hub of the Merchant District. This bustling square is filled with stalls and vendors, offering a variety of goods. It acts as a gathering place and the main point of entry for visitors.
 
-2. **Residential Alley**
-   - **Exits**: South to Market Square, North to Alchemist's Nook
-   - **Purpose and Connections**: A quieter street lined with modest homes for the district's merchants. It provides a direct path to the Alchemist's Nook, facilitating the flow of both residents and those seeking specialized goods.
+2. **Potion Shop**
+   - **Exits:** West to [1], East to [3], South to [5]
+   - **Purpose:** A small, dimly lit shop filled with shelves of colorful potions. The shopkeeper is knowledgeable about remedies and poisons alike. This shop stands as a vital resource for adventurers.
 
-3. **Alchemist's Nook**
-   - **Exits**: South to Residential Alley
-   - **Purpose and Connections**: A secluded shop offering potions and rare ingredients. The location makes it a bit of a secret treasure for those in the know, encouraging exploration beyond the bustling market.
+3. **Armorer's Forge**
+   - **Exits:** West to [2], South to [6]
+   - **Purpose:** The clang of metal rings from this forge. The armorer specializes in crafting and repairing weapons and armor. It is a critical stop for those preparing for battles.
 
-4. **Silk Street**
-   - **Exits**: West to Market Square
-   - **Purpose and Connections**: Known for its high-end textiles and clothing shops, Silk Street attracts affluent customers. It provides a contrast to the more diverse offerings in the Market Square, creating a natural flow from common goods to luxury items.
+4. **Tavern**
+   - **Exits:** North to [1], East to [5]
+   - **Purpose:** A lively place where locals and travelers alike share stories and rest. The tavern offers a warm meal and a place to gather information or hire a guide. It's directly accessible from the Market Square to encourage social interaction.
 
-5. **Stone Bridge**
-   - **Exits**: East to Residential Alley, South to Riverbank Path
-   - **Purpose and Connections**: A sturdy stone bridge connecting the residential area with the scenic Riverbank Path. It's a more relaxed route, offering a picturesque view and a transition from the bustling district to the calm riverside.
+5. **General Store**
+   - **Exits:** North to [2], West to [4], East to [6]
+   - **Purpose:** This store sells a bit of everything, from travel supplies to everyday items. It bridges the gap between the potion shop and armorer's forge, making it a convenient stop for a variety of needs.
 
-6. **Riverbank Path**
-   - **Exits**: North to Market Square, West to Stone Bridge
-   - **Purpose and Connections**: A tranquil path along the river, ideal for a peaceful stroll away from the market's chaos. It serves as a scenic escape and a practical route for those heading to or from the Stone Bridge.
+6. **Black Market**
+   - **Exits:** North to [3], West to [5]
+   - **Purpose:** Hidden from casual eyes, this clandestine market deals in rare and illicit goods. It's a place for those in the know, requiring exploration to discover its location.
 
-### Design Notes:
+### Design Notes
 
-- **Flow**: The Market Square acts as the focal point, with easy access to all other rooms, encouraging movement and interaction.
-- **Exploration and Discovery**: The Alchemist's Nook is slightly off the beaten path, rewarding those who venture beyond main thoroughfares.
-- **Realism and Structure**: The layout is logical for a trade district; commercial areas are centralized, with residential and scenic paths on the periphery.
-- **Pacing and Experience**: The district offers a blend of lively commerce and quiet retreats, catering to different player moods and activities.
+- **Flow:** The central Market Square [1] serves as the primary hub, allowing players to naturally flow into specialized shops [2, 3] and community spaces like the Tavern [4].
+- **Discovery:** The Black Market [6] requires exploration, rewarding players who venture through the district.
+- **Pacing:** Shops are clustered around the central square, with related establishments (e.g., Potion Shop and Armorer's Forge) nearby.
+- **Realism:** The layout mimics a logical merchant district, where related businesses are clustered for convenience, while secretive operations like the Black Market are tucked away.
+- **Vertical Space:** Although not used here, opportunities for vertical exploration could include hidden basements or upper shop levels for future expansion.
