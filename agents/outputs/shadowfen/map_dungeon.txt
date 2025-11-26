@@ -1,47 +1,49 @@
-### Shadowfen Dungeon ASCII Map
+### Shadowfen Dungeon District Map
 
 ```
-        [Entrance Hall]
+       [Torture Chamber]
              |
-         [Armory]
+         [Great Hall] -- [Armory]
              |
-         [Main Chamber] -- [Hidden Alcove]
+       [Guard Barracks]
              |
-         [Prison Cells]
+          [Prison]
              |
-         [Treasure Vault]
+         [Secret Exit]
 ```
 
 ### Room List with Exits
 
-1. **Entrance Hall**
-   - Exits: South to Armory
-   - Purpose: Entry point into the dungeon. Dimly lit with moss-covered stones, setting the tone for the Shadowfen theme.
+1. **Great Hall**
+   - Exits: North to Torture Chamber, East to Armory, South to Guard Barracks
+   - Notes: The central hub of the dungeon, where captives are processed. High-traffic area with multiple paths leading to key locations.
 
-2. **Armory**
-   - Exits: North to Entrance Hall, South to Main Chamber
-   - Purpose: Contains old, rusting weapons and armor. Serves as a buffer zone before reaching the main areas, hinting at the dungeon's previous occupants.
+2. **Torture Chamber**
+   - Exits: South to Great Hall
+   - Notes: Intimidating room designed to break prisoners' spirits. Serves as the north-most point, adding to the dungeon's menacing reputation.
 
-3. **Main Chamber**
-   - Exits: North to Armory, East to Hidden Alcove, South to Prison Cells
-   - Purpose: Central hub of the dungeon. High-ceiling room with a large, stone table. Used for planning by the dungeon's inhabitants.
+3. **Armory**
+   - Exits: West to Great Hall
+   - Notes: Storage for weapons and armor, crucial for the dungeon's defense. Positioned away from the prisoner areas to prevent theft and uprisings.
 
-4. **Hidden Alcove**
-   - Exits: West to Main Chamber
-   - Purpose: Secret room accessible via a concealed lever in the Main Chamber. Contains lore-related items and a minor treasure, rewarding exploration.
+4. **Guard Barracks**
+   - Exits: North to Great Hall, South to Prison
+   - Notes: Living quarters for the dungeon guards, strategically placed between the Great Hall and the Prison for quick response times in case of an escape attempt.
 
-5. **Prison Cells**
-   - Exits: North to Main Chamber, South to Treasure Vault
-   - Purpose: Dark and damp, with several locked cells. Provides context to the dungeon's sinister past. Contains clues or keys needed for further exploration.
+5. **Prison**
+   - Exits: North to Guard Barracks, South to Secret Exit
+   - Notes: The heart of the dungeon's operations, where prisoners are kept. Positioned for maximum security with guards constantly nearby.
 
-6. **Treasure Vault**
-   - Exits: North to Prison Cells
-   - Purpose: Final destination with a treasure chest. Heavily guarded by traps or a guardian creature. The ultimate reward for navigating through the dungeon.
+6. **Secret Exit**
+   - Exits: North to Prison
+   - Notes: A hidden passage offering a potential escape route for those who discover it. Adds an element of mystery and reward for thorough exploration.
 
 ### Design Notes
 
-- **Flow and Purpose**: The dungeon features a linear progression with a key central hub (Main Chamber) encouraging exploration and discovery. The Hidden Alcove provides an optional path for players who enjoy searching for secrets.
-- **Exploration and Convenience**: While the main path is straightforward, the secret room adds an additional layer of depth. The Treasure Vault at the end offers a satisfying payoff for exploring the entire dungeon.
-- **Natural Storytelling**: Each room tells a part of the dungeon's story: the Entrance Hall sets the atmosphere, the Armory hints at its past defenders, the Main Chamber serves as a strategic hub, the Prison Cells reveal its darker aspects, and the Treasure Vault offers a rewarding climax.
-- **Vertical Space**: While this design primarily uses horizontal space, vertical elements like the high ceiling in the Main Chamber and the damp, sunken nature of the Prison Cells add depth.
-- **Realism**: The layout reflects a logical progression from entry to treasure, with rooms serving distinct purposes that make sense within the context of a Shadowfen-style dungeon.
+- **Flow and Purpose:** The Great Hall serves as the central hub, ensuring logical flow between high-importance rooms like the Armory and the Torture Chamber. The Guard Barracks is appropriately placed to serve as both a living area and quick access point for guard deployment.
+  
+- **Exploration vs. Convenience:** The Secret Exit rewards players who take the time to explore beyond the obvious paths, creating an opportunity for intrigue and storytelling through environmental design.
+
+- **Realism and Storytelling:** The layout reflects a functional yet oppressive environment, emphasizing security and control. The gradual progression from public areas to more secretive locations aligns with traditional dungeon narratives.
+
+- **Vertical Space Usage:** The design is flat but maintains complexity through layered access, emphasizing horizontal exploration with a hidden vertical element in the Secret Exit.
