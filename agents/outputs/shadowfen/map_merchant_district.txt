@@ -1,47 +1,51 @@
-### Merchant District - Shadowfen Style
+### ASCII Map of the Merchant District
 
 ```
-        [Herbalist Shop]
-          /       \
-[General Store]   [Potion Shop]
-    |              |
- [Market Square]--[Armor Smith]
-    |              |
- [Street Alley]--[Weapon Smith]
+        [Market Square]
+             / | \
+            /  |  \
+   [Armory] [General Store] [Tailor]
+            \  |  /
+             \ | /
+          [Potion Shop]
+             |
+         [Warehouse]
 ```
 
-#### Room List and Exits:
+### Room List with Exits
 
 1. **Market Square**
-   - Exits: North to General Store, Northeast to Herbalist Shop, East to Armor Smith, South to Street Alley
-   - Notes: Central hub of the Merchant District. Bustling with vendors and customers, it's the main gathering place. Players naturally pass through here to reach other shops.
+   - Exits: North to Armory, East to General Store, West to Tailor, South to Potion Shop
+   - Notes: Central hub of the district. Bustling with activity, featuring various merchant stalls and performers. Players naturally gravitate here for social interactions and trade.
 
-2. **General Store**
-   - Exits: South to Market Square, East to Herbalist Shop
-   - Notes: Offers a variety of basic goods. Positioned to catch players entering from the main road. Connects to Herbalist Shop for convenience.
+2. **Armory**
+   - Exits: South to Market Square
+   - Notes: Offers weapons and armor. Positioned near the heart of the district for easy access by adventurers preparing for quests. The blacksmith's forge can be heard from the square, drawing in customers.
 
-3. **Herbalist Shop**
-   - Exits: South to Market Square, West to General Store
-   - Notes: Specializes in herbs and potions. Its location at the north end draws players looking for specific alchemical ingredients. Serves as a quieter corner of the district.
+3. **General Store**
+   - Exits: West to Market Square, South to Potion Shop
+   - Notes: Sells a variety of goods, from food supplies to adventuring gear. Its dual exits provide convenient access between the Market Square and the Potion Shop, encouraging exploration.
 
-4. **Potion Shop**
-   - Exits: West to Armor Smith
-   - Notes: Sells magical elixirs and potions. Positioned adjacent to the Armor Smith, ensuring that adventurers can gear up both defensively and offensively without backtracking.
+4. **Tailor**
+   - Exits: East to Market Square
+   - Notes: Provides clothing and light armor. Placed opposite the Armory to balance the district with different types of crafting professions.
 
-5. **Armor Smith**
-   - Exits: West to Market Square, East to Potion Shop
-   - Notes: Provides armor and protective gear. Acts as a barrier between the bustling Market Square and the quieter Potion Shop, creating a transitional space.
+5. **Potion Shop**
+   - Exits: North to Market Square, South to Warehouse
+   - Notes: Sells potions and alchemical ingredients. Positioned strategically between the General Store and the Warehouse to suggest a supply chain.
 
-6. **Weapon Smith**
-   - Exits: West to Street Alley
-   - Notes: Offers a selection of weapons. Located at the south end of the district, connected to the Street Alley, providing a convenient exit for adventurers heading out of the district.
+6. **Warehouse**
+   - Exits: North to Potion Shop
+   - Notes: Houses bulk goods and serves as the storage for merchants. Offers room for hidden paths or secret storage areas, rewarding players who explore further.
 
-#### Design Notes:
+### Design Notes
 
-- **Flow and Purpose**: The Market Square serves as the central hub, ensuring that players naturally pass through it to reach other locations. The positioning of shops around the square encourages exploration, with each shop serving a specific adventuring need.
+- **Flow**: The Market Square serves as the central hub, naturally guiding players to key locations. The Armory, General Store, and Tailor are directly accessible, ensuring players can easily find essential services.
   
-- **Exploration and Discovery**: The Street Alley offers a less-traveled path to the Weapon Smith, rewarding players who explore beyond the main thoroughfares. This layout also hints at the existence of potential hidden or side paths leading to other districts or special locations.
+- **Discovery**: The Warehouse, slightly removed from the main hub, hints at hidden paths and secrets, encouraging players to delve deeper into the district.
 
-- **Realism and Storytelling**: The clustering of related shops (e.g., Armor Smith and Potion Shop) reflects logical commercial zoning, enhancing realism. The layout tells a story of a thriving merchant community designed to cater to adventurers and townsfolk alike.
+- **Pacing**: Related services are clustered around the Market Square, while the Warehouse is further away, creating a sense of distance for bulk goods management.
 
-- **Pacing and Balance**: Shops are clustered around the Market Square for convenience, while the Street Alley and Weapon Smith are placed to create a sense of distance and journey, adding depth to the district's exploration.
+- **Realism**: The layout reflects a logical organization typical of a merchant district, with the Market Square as the focal point and surrounding specialized shops.
+
+- **Verticality**: While this map is primarily horizontal, the Warehouse offers potential for vertical exploration through hidden paths or upper storage levels.
