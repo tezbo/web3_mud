@@ -1,8 +1,1 @@
-In the heart of the Shadowfen, the dungeon looms like a forgotten relic, its walls slick with moisture and encrusted with creeping moss. The air is thick with the pungent odor of decaying leaves and rusting iron, mingling with a distant, acrid note of something more sinister. Every footstep echoes ominously, the sound swallowed by the perpetual mist that clings to your skin like a damp shroud. Flickering torches cast wavering shadows, their feeble light revealing the glint of chains and the cold, unyielding stone underfoot.
-
-Ambient Messages:
-1. The damp, earthy scent of moss clings to the cold stone walls, while the faint whisper of dripping water echoes through the cavernous gloom, creating an unsettling symphony of solitude.  
-
-2. Flickering torchlight casts long shadows that dance across jagged rock formations, and the distant sound of skittering claws sends a chill racing down your spine.  
-
-3. A metallic tang hangs in the stale air, mingling with the musty aroma of decay, as the ground beneath your feet shifts subtly, hinting at the ancient secrets buried in the darkness.
+The dungeon lies shrouded in a perpetual haze, where tendrils of mist coil around rusted iron bars, whispering secrets to the shadows. A damp chill seeps through the stone walls, slick with moss and the weight of countless years, pressing like a cold hand against your skin. The air carries a fetid stench of decay, mingling with the acrid scent of ancient iron, as distant echoes of dripping water punctuate the oppressive silence. Each step on the uneven, grit-covered floor sends a shiver through your bones, as if the ground itself remembers the sorrows of those long vanished.

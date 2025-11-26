@@ -1,73 +1,55 @@
-**Merchant District - Shadowfen Style**
+### Merchant District in Shadowfen Style
 
 ```
-          +--------+
-          |  Tower |  
-          |   Top  |
-          |  (Up)  |
-          +---+----+
-              |
-          +---+----+
-          | Watch  |
-          |  Tower |
-          +---+----+
-              |
-          +---+----+
-          | Market |
-          | Square |
-       /--+---+----+--\
-     /      |     |     \
-+---+---+   |  +--+---+  +---+---+
-|  Black |  |  |  General|   Alch-|
-| smith  |  |  |  Store  |  emist  |
-+---+---+  +--+---+---+  +---+---+
-              |     |
-          +---+---+  +---+---+
-          |   Inn  |  | Fish  |
-          |        |  | Market|
-          +--------+  +-------+
+          [Alchemist's Shop]
+                 |
+                 N
+                 |
+[Marketplace] - W + E - [Bank]
+                 |
+                 S
+                 |
+ [Blacksmith] - W + E - [Tailor's Shop]
+                 |
+                 S
+                 |
+             [Docks]
 ```
 
-**Room List & Exits:**
+### Room List with Exits
 
-1. **Watch Tower (Top)**
-   - **Exits**: Down to Watch Tower
-   - **Purpose**: Observation point providing a view over the district. Acts as a high vantage point for guards and a strategic location for players seeking an overview.
+1. **Marketplace**
+   - Exits: North (N) to Alchemist's Shop, East (E) to Bank, South (S) to Blacksmith
+   - Purpose: Central hub for the district where players start their exploration. It's a bustling area filled with stalls and NPC vendors. 
 
-2. **Watch Tower**
-   - **Exits**: Up to Watch Tower (Top), Down to Market Square
-   - **Purpose**: Central hub for patrols, providing security and oversight for the district. Encourages players to visit for quests related to district safety.
+2. **Alchemist's Shop**
+   - Exits: South (S) to Marketplace
+   - Purpose: A specialized shop selling potions and magical reagents. It's slightly isolated to enhance the mysterious feel of the shop.
 
-3. **Market Square**
-   - **Exits**: Up to Watch Tower, East to General Store, South to Inn, West to Blacksmith, Southwest to Alchemist, Southeast to Fish Market
-   - **Purpose**: The bustling heart of the Merchant District, where various traders and vendors gather. Designed to be a central hub with easy access to all major commercial locations.
+3. **Bank**
+   - Exits: West (W) to Marketplace
+   - Purpose: Secure storage for player valuables. Positioned to be easily accessible from the Marketplace for convenience.
 
 4. **Blacksmith**
-   - **Exits**: East to Market Square
-   - **Purpose**: Provides crafting and repair services. Positioned close to the market for convenience but separated to prevent noise from disturbing other merchants.
+   - Exits: North (N) to Marketplace, East (E) to Tailor's Shop
+   - Purpose: Essential for players to upgrade and repair their equipment. Close enough to the Marketplace for ease of access, with a side street leading to the Tailor.
 
-5. **General Store**
-   - **Exits**: West to Market Square
-   - **Purpose**: Supplies adventurers with essential goods. Centrally located to be directly accessible from the Market Square, facilitating easy trade.
+5. **Tailor's Shop**
+   - Exits: West (W) to Blacksmith, South (S) to Docks
+   - Purpose: Offers clothing and armor customization. Positioned to create a natural flow between trades with the Blacksmith. 
 
-6. **Alchemist**
-   - **Exits**: Northeast to Market Square
-   - **Purpose**: Offers potions and unique items. Located slightly off the main path to create a sense of discovery for players seeking special goods.
+6. **Docks**
+   - Exits: North (N) to Tailor's Shop
+   - Purpose: Farthest point from the Marketplace, serving as a transition to potential water-based adventures or quests. It provides a scenic exit from the district.
 
-7. **Inn**
-   - **Exits**: North to Market Square
-   - **Purpose**: Provides lodging and a place for social interaction. Positioned near the Market Square to serve weary travelers and those needing rest.
+### Design Notes
 
-8. **Fish Market**
-   - **Exits**: Northwest to Market Square
-   - **Purpose**: Sells fresh seafood, highlighting the district's proximity to water. Placed at the edge of the Market Square to manage the distinct smell from affecting other merchants.
+- **Flow and Exploration**: The Marketplace serves as the central hub, naturally leading players to explore the essential services like the Blacksmith and Bank. The Alchemist’s Shop is slightly off the main path to encourage discovery.
 
-**Design Notes:**
+- **Convenience vs. Exploration**: Key services (Bank, Blacksmith) are close to the Marketplace for convenience, while more specialized services (Alchemist, Docks) require additional exploration.
 
-- **Flow & Centrality**: The Market Square acts as the primary hub, ensuring that all key locations are easily accessible while maintaining a realistic sense of a bustling district.
-  
-- **Exploration & Discovery**: The Alchemist and Fish Market are slightly off the beaten path, rewarding players who take the time to explore beyond the obvious routes.
+- **Storytelling Through Space**: The placement of the Docks at the district's edge suggests potential for further adventures and trade with distant lands, enhancing the narrative of commerce and travel in Shadowfen.
 
-- **Vertical Space**: The Watch Tower provides a vertical element, utilizing the up/down dimensions to add depth and complexity to the district's navigation.
+- **Realism and Logical Organization**: The district layout reflects a logical organization of services, with related trades (Blacksmith and Tailor) positioned near each other, while the Marketplace acts as the commercial heart.
 
-- **Realism & Storytelling**: The layout reflects a logical organization where shops and services are arranged for both convenience and thematic coherence, with the Watch Tower symbolizing authority and oversight characteristic of a Shadowfen style.
+- **Layered Complexity**: Vertical space is not used here, focusing instead on horizontal exploration with potential for future underground or above-ground expansions (e.g., a cellar in the Alchemist's Shop or an upstairs office in the Bank).
