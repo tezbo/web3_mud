@@ -6,3 +6,10 @@ Ambient Messages:
 2. "The rich aroma of aged parchment and ink fills the room, punctuated by the gentle rustle of turning pages, as whispers of forgotten knowledge beckon from shadowed corners."  
 
 3. "A chill breeze wafts in from the open window, carrying the earthy scent of rain-soaked earth and the faint sound of thunder rumbling like a distant heartbeat."
+
+Ambient Messages:
+1. "The faint crackle of parchment being unfurled dances through the air, mingling with the ink’s earthy musk as shadows flit across the walls, whispering secrets of forgotten lore."  
+
+2. "A chorus of distant whispers echoes like the rustle of silk, carrying the sweet scent of blooming nightshade and the cool caress of twilight mist enveloping you."  
+
+3. "The rhythmic pulse of deep drums reverberates through the stone halls, vibrating underfoot as the bitter aroma of charred herbs lingers, igniting an instinctual thrill of ancient ritual."
