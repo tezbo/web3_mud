@@ -1,0 +1,84 @@
+{
+  "id": "forest_edge",
+  "type": "OutdoorRoom",
+  "name": "Edge of the Whispering Wood",
+  "description": "The Edge of the Whispering Wood teeters on creaking stilts above the fetid mire, where the air hangs thick with the scent of damp earth and rotting leaves. Faded banners of salvaged silk flutter weakly in the mist, their colors dimmed by the encroaching decay, while the soft murmur of lost souls intertwines with the raucous shouts of vendors hawking wares\u2014twisted charms and fragrant herbs that promise both healing and peril. Wooden walkways, slick with moisture, lead to haphazard stalls where the glint of rusted relics catches the eye, each item a testament to survival in this chaotic marketplace. The chill of the fog brushes against your skin, a reminder that every transaction here dances on the knife's edge between opportunity and danger, as the forest's secrets whisper just beyond the gloom.",
+  "descriptions_by_time": {
+    "dawn": "The forest edge is shrouded in morning mist. The cottages are barely visible, their shapes emerging from the grey. The trees loom dark and silent, their branches still. The familiar sounds of village life are muted, replaced by the quiet of early morning. The path into the trees seems to disappear into the fog, mysterious and uncertain.",
+    "day": "The last cottages of Hollowvale give way to the forest here. The trees begin to crowd closer, and the familiar sounds of village life\u2014birdsong, voices, the clang of the smithy\u2014begin to fade. There's a slight unease in the air, as if the wood itself is watching. The path into the trees looks inviting yet somehow foreboding. This is where the known world meets the unknown, where stories of the deeper forest begin.",
+    "dusk": "As daylight fades, the forest edge takes on a more ominous feel. The cottages are dark shapes against the dimming sky, and the trees seem to press closer. The sounds of the village grow distant, replaced by the rustling of leaves and the calls of evening birds. The path into the trees looks darker now, more foreboding than inviting.",
+    "night": "In the pitch dark of night, the forest edge feels truly menacing. The cottages are barely visible, just dark shapes against the blackness. The trees loom like giants, their branches creating a wall of shadow. The familiar sounds of village life are gone, replaced by the unsettling silence of the forest. The path into the trees is lost in darkness, and you can't shake the feeling that something is watching from the shadows."
+  },
+  "exits": {
+    "east": "town_square",
+    "north": "whispering_trees"
+  },
+  "items": [
+    "bundle_of_herbs"
+  ],
+  "npcs": [
+    "nervous_farmer"
+  ],
+  "outdoor": true,
+  "features": [
+    "trees",
+    "leaves",
+    "forest",
+    "village"
+  ],
+  "details": {
+    "cottages": {
+      "name": "cottages",
+      "aliases": [
+        "cottage",
+        "cottages",
+        "last cottages"
+      ],
+      "description": "The last cottages of Hollowvale stand here, marking the boundary between the village and the wild. They're simple structures, built to last, with gardens that show signs of careful tending. Beyond them, the forest begins.",
+      "stat": {
+        "type": "fixture",
+        "material": "wood, stone",
+        "condition": "well-maintained"
+      }
+    },
+    "trees": {
+      "name": "trees",
+      "aliases": [
+        "tree",
+        "trees",
+        "forest"
+      ],
+      "description": "The trees begin to crowd closer here, their branches creating a canopy that filters the light. They seem to watch, their presence both inviting and foreboding. The path into the trees looks inviting yet somehow mysterious.",
+      "stat": {
+        "type": "fixture",
+        "material": "wood",
+        "condition": "ancient"
+      }
+    },
+    "path": {
+      "name": "path",
+      "aliases": [
+        "path",
+        "forest path"
+      ],
+      "description": "A path leads into the trees, winding its way deeper into the forest. It looks well-traveled, suggesting others have ventured this way before, but there's something about it that makes you pause.",
+      "stat": {
+        "type": "fixture",
+        "material": "earth",
+        "condition": "well-worn"
+      }
+    }
+  },
+  "ambient_messages": [
+    "A dense fog clings to the twisted, gnarled roots of ancient trees, muffling footsteps and wrapping secrets in a cold embrace.",
+    "The sharp scent of damp earth mingles with the sweet decay of fallen leaves, creating a heady perfume that hangs thick in the air.",
+    "Faint whispers flit through the mist, as if the very shadows are exchanging hushed secrets, drawing the curious deeper into the wood\u2019s embrace.",
+    "Flickering lanterns of faded glass cast ghostly silhouettes, their soft glow revealing the glint of hidden wares, draped in layers of rusted silk and tarnished metal.",
+    "The low croak of unseen creatures punctuates the silence, their voices tangled in the heavy atmosphere, while the taste of brackish water lingers on the tongue like a forgotten memory."
+  ],
+  "metadata": {
+    "realm": "Shadowfen",
+    "location": "Greymarket",
+    "retrofitted": true
+  }
+}

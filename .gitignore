@@ -49,3 +49,5 @@ users.db
 # Logs
 *.log
 
+discworld_example/
+

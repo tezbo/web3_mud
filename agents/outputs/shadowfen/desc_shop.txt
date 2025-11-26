@@ -1,8 +1,8 @@
-The shop crouches low beneath a tangle of ancient willow branches, their long fingers weaving through the damp air like spectral guardians. Inside, the air carries a musty blend of decaying parchment and moss, whispering secrets with every creak of the warped wooden floor. Flickering lanterns cast erratic shadows across shelves cluttered with peculiar artifacts, each coated in a fine layer of dust that clings to the fingers like a ghostly residue. The distant drip of water echoes through the dim space, a rhythmic pulse that speaks of unseen depths below.
+The shop in Shadowfen is a dim-lit cavern where wisps of mist coil languidly around rusted lanterns, their flickering flames casting eerie shadows on the damp stone walls. Shelves sag under the weight of peculiar trinkets, each exuding a faint, musty aroma mingled with the sharp tang of aged iron. The floorboards creak softly underfoot, their surfaces slick with condensation, while the distant drip of water echoes like a forgotten melody. As you touch the worn, leather-bound volumes stacked precariously on a table, their surfaces feel cold and slightly tacky, as if the swamp itself clings to every object within.
 
 Ambient Messages:
-1. The shop’s wooden door creaks open, releasing a burst of fragrant herbs and spices that cling to the air like a warm embrace, beckoning you deeper into its shadowy corners. 
-
-2. Glass jars glimmer on the shelves, each filled with vibrant powders and shimmering liquids, while the faint clink of metal tools echoes softly, a symphony of craftsmanship and alchemy. 
-
-3. The rich scent of aged parchment and leather wraps around you as the shopkeeper's quiet murmur blends with the gentle rustle of scrolls, whispering secrets of forgotten lore and ancient magic.
+1. "The air is thick with the rich aroma of dried herbs and spices, while wooden shelves creak under the weight of shimmering trinkets that catch the flickering candlelight."  
+   
+2. "A gentle chime of wind bells greets you as you step inside, mingling with the scent of polished mahogany and the faint trace of exotic incense lingering from the last customer."  
+   
+3. "Soft whispers of silk rustle through the shop, where vibrant fabrics drape like waterfalls, each hue infused with the essence of far-off lands and sun-kissed adventures."  

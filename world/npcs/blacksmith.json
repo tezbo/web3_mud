@@ -1,0 +1,29 @@
+{
+  "name": "Blacksmith",
+  "title": "Blacksmith",
+  "description": "A burly figure with soot-stained hands, master of the forge.",
+  "personality": "practical, straightforward, takes pride in work",
+  "pronoun": "they",
+  "stats": {
+    "max_hp": 25,
+    "attack": 4,
+    "defense": 3,
+    "speed": 2,
+    "faction": "villagers"
+  },
+  "traits": {
+    "authority": 0.4,
+    "kindness": 0.5,
+    "aggression": 0.3,
+    "curiosity": 0.3
+  },
+  "reactions": {
+    "nod": [
+      "The Blacksmith gives you a brief nod without pausing their work."
+    ],
+    "wave": [
+      "The Blacksmith raises a soot-stained hand in greeting."
+    ]
+  },
+  "id": "blacksmith"
+}

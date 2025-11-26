@@ -1,0 +1,43 @@
+{
+  "name": "Patrolling Guard",
+  "title": "Patrolling Guard",
+  "description": "A watchful figure keeping an eye on the path to the watchtower.",
+  "personality": {
+    "goal": "To navigate the complexities of life in Shadowfen while accumulating enough resources to secure a more stable existence beyond the swamp.",
+    "fear": "The constant threat of betrayal from former allies and the danger of being outsmarted by the criminals he once pursued.",
+    "secret": "He once participated in a dangerous trade, fearing the repercussions of his actions as whispers of his involvement circulate.",
+    "speech_pattern": "Speaks in a low, gravelly tone, often using pragmatic expressions and street slang. Tends to mumble when anxious, reflecting a cautious demeanor.",
+    "relationships": [
+      "Owes a favor to Talia, the local informant, who has valuable information that could either help or harm him.",
+      "Respects Captain Hargan but feels a mix of admiration and pressure due to the captain's authoritative presence.",
+      "Maintains a wary alliance with Rook, a former thief whose resourcefulness is both a blessing and a reminder of past choices."
+    ]
+  },
+  "pronoun": "they",
+  "stats": {
+    "max_hp": 20,
+    "attack": 3,
+    "defense": 2,
+    "speed": 2,
+    "faction": "guards"
+  },
+  "traits": {
+    "authority": 0.7,
+    "kindness": 0.4,
+    "aggression": 0.3,
+    "curiosity": 0.3
+  },
+  "reactions": {
+    "nod": [
+      "The Patrolling Guard gives you a brief, professional nod while continuing to scan the area."
+    ],
+    "wave": [
+      "The Patrolling Guard acknowledges your wave with a curt nod."
+    ]
+  },
+  "id": "patrolling_guard",
+  "metadata": {
+    "retrofitted": true,
+    "realm": "Shadowfen"
+  }
+}

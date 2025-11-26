@@ -1,0 +1,35 @@
+{
+  "name": "Mara",
+  "title": "Innkeeper of the Rusty Tankard",
+  "description": "A friendly, bustling figure who keeps the tavern running smoothly.",
+  "personality": "gruff but kind, keeps a sharp eye on trouble",
+  "home": "tavern",
+  "use_ai": true,
+  "pronoun": "she",
+  "stats": {
+    "max_hp": 18,
+    "attack": 2,
+    "defense": 2,
+    "speed": 2,
+    "faction": "villagers"
+  },
+  "traits": {
+    "authority": 0.5,
+    "kindness": 0.6,
+    "aggression": 0.2,
+    "curiosity": 0.4
+  },
+  "reactions": {
+    "nod": [
+      "Mara gives you a short, approving nod.",
+      "Mara tilts her head in acknowledgment."
+    ],
+    "smile": [
+      "Mara's stern face softens for a moment before she looks away."
+    ],
+    "wave": [
+      "Mara waves back while continuing to wipe down a table."
+    ]
+  },
+  "id": "innkeeper"
+}

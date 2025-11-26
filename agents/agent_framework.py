@@ -4,8 +4,11 @@ import json
 import subprocess
 import random
 from pathlib import Path
-from datetime import datetime
+from datetime import datetime, timezone, timedelta
 from dotenv import load_dotenv
+
+# Melbourne timezone (UTC+11)
+MELBOURNE_TZ = timezone(timedelta(hours=11))
 
 load_dotenv()
 
@@ -20,7 +23,7 @@ class AutonomousAgent:
         
     def log(self, message):
         """Log a message to the dashboard."""
-        timestamp = datetime.utcnow().strftime('%H:%M:%S')
+        timestamp = datetime.now(MELBOURNE_TZ).strftime('%H:%M:%S')
         full_msg = f"[{timestamp}] {message}"
         print(f"[{self.name}] {message}")
         
@@ -28,51 +31,138 @@ class AutonomousAgent:
         self._update_json(log_message=full_msg)
 
     def _update_json(self, status=None, task_id=None, log_message=None):
-        """Update the shared agent_tasks.json file."""
+        """Update the shared agent_tasks.json file with proper locking."""
+        import fcntl  # For file locking
+        
         try:
-            if STATUS_FILE.exists():
-                with open(STATUS_FILE, 'r') as f:
+            # Open file with exclusive lock to prevent race conditions
+            with open(STATUS_FILE, 'r+') as f:
+                # Acquire exclusive lock
+                fcntl.flock(f.fileno(), fcntl.LOCK_EX)
+                
+                try:
                     data = json.load(f)
-            else:
-                data = {"agents": {}, "tasks": []}
+                    
+                    # CRITICAL: Validate and restore if corruption detected
+                    corruption_detected = False
+                    if 'epics' not in data or len(data.get('epics', [])) == 0:
+                        corruption_detected = True
+                        print(f"[{self.name}] ⚠️ CORRUPTION: Empty epics detected, restoring from template")
+                    if 'tasks' not in data or len(data.get('tasks', [])) == 0:
+                        corruption_detected = True
+                        print(f"[{self.name}] ⚠️ CORRUPTION: Empty tasks detected, restoring from template")
+                    
+                    if corruption_detected:
+                        # Load template and restore epics/tasks
+                        template_file = Path('agent_tasks.template.json')
+                        if template_file.exists():
+                            with open(template_file, 'r') as tf:
+                                template = json.load(tf)
+                                if 'epics' not in data or len(data.get('epics', [])) == 0:
+                                    data['epics'] = template.get('epics', [])
+                                    print(f"[{self.name}] ✓ Restored {len(data['epics'])} epics from template")
+                                if 'tasks' not in data or len(data.get('tasks', [])) == 0:
+                                    data['tasks'] = template.get('tasks', [])
+                                    print(f"[{self.name}] ✓ Restored {len(data['tasks'])} tasks from template")
+                        else:
+                            print(f"[{self.name}] ❌ Template file not found, cannot restore!")
+                    
+                    # Ensure all required top-level keys exist
+                    if 'metadata' not in data:
+                        data['metadata'] = {
+                            "vision": "A fully immersive, text-based MUD featuring a rich color system, autonomous NPC agents, and the first major content expansion 'Shadowfen'.",
+                            "goals": [],
+                            "workforce_status": "active",
+                            "messages": []
+                        }
+                    if 'epics' not in data:
+                        data['epics'] = []
+                    if 'tasks' not in data:
+                        data['tasks'] = []
+                    if 'agents' not in data:
+                        data['agents'] = {}
+                        
+                except json.JSONDecodeError:
+                    # File is corrupted, restore minimal structure
+                    print(f"[{self.name}] WARNING: agent_tasks.json corrupted, restoring structure")
+                    data = {
+                        "metadata": {
+                            "vision": "A fully immersive, text-based MUD featuring a rich color system, autonomous NPC agents, and the first major content expansion 'Shadowfen'.",
+                            "goals": [],
+                            "workforce_status": "active",
+                            "messages": []
+                        },
+                        "epics": [],
+                        "tasks": [],
+                        "agents": {}
+                    }
                 
-            if self.name not in data['agents']:
-                data['agents'][self.name] = {}
+                # Update agent data
+                if self.name not in data['agents']:
+                    data['agents'][self.name] = {}
+                    
+                agent_data = data['agents'][self.name]
                 
-            agent_data = data['agents'][self.name]
-            
-            if status:
-                agent_data['status'] = status
-            if task_id is not None: # Allow setting to None
-                agent_data['current_task_id'] = task_id
+                if status:
+                    agent_data['status'] = status
+                if task_id is not None:  # Allow setting to None
+                    agent_data['current_task_id'] = task_id
+                    
+                agent_data['last_active'] = datetime.now(MELBOURNE_TZ).isoformat()
                 
-            agent_data['last_active'] = datetime.utcnow().isoformat() + "Z"
-            
-            if log_message:
-                if 'logs' not in agent_data:
-                    agent_data['logs'] = []
-                agent_data['logs'].append(log_message)
-                agent_data['logs'] = agent_data['logs'][-50:]
+                if log_message:
+                    if 'logs' not in agent_data:
+                        agent_data['logs'] = []
+                    agent_data['logs'].append(log_message)
+                    agent_data['logs'] = agent_data['logs'][-50:]  # Keep last 50
+                    
+                # Update task status if we have a current task
+                if self.current_task and status:
+                    for task in data.get('tasks', []):
+                        if task['id'] == self.current_task['id']:
+                            if status == 'working':
+                                task['status'] = 'in_progress'
+                                task['assigned_to'] = self.name
+                            elif status == 'review_ready':
+                                task['status'] = 'review_ready'
+                            elif status == 'done':
+                                task['status'] = 'done'
+                            task['updated_at'] = datetime.now(MELBOURNE_TZ).isoformat()
+                            break
                 
-            # Also update task status if we have a current task
-            if self.current_task and status:
-                for task in data.get('tasks', []):
-                    if task['id'] == self.current_task['id']:
-                        if status == 'working':
-                            task['status'] = 'in_progress'
-                            task['assigned_to'] = self.name
-                        elif status == 'review_ready':
-                            task['status'] = 'review_ready'
-                        elif status == 'done':
-                            task['status'] = 'done'
-                        task['updated_at'] = datetime.utcnow().isoformat() + "Z"
-                        break
-            
+                # Write back to file
+                f.seek(0)
+                f.truncate()
+                json.dump(data, f, indent=2)
+                
+                # Release lock (happens automatically when exiting context)
+                
+        except FileNotFoundError:
+            # File doesn't exist, create it with full structure
+            print(f"[{self.name}] WARNING: agent_tasks.json not found, creating new file")
+            data = {
+                "metadata": {
+                    "vision": "A fully immersive, text-based MUD featuring a rich color system, autonomous NPC agents, and the first major content expansion 'Shadowfen'.",
+                    "goals": [],
+                    "workforce_status": "active",
+                    "messages": []
+                },
+                "epics": [],
+                "tasks": [],
+                "agents": {
+                    self.name: {
+                        "status": status or "idle",
+                        "current_task_id": task_id,
+                        "last_active": datetime.now(MELBOURNE_TZ).isoformat(),
+                        "logs": [log_message] if log_message else []
+                    }
+                }
+            }
             with open(STATUS_FILE, 'w') as f:
                 json.dump(data, f, indent=2)
                 
         except Exception as e:
-            print(f"Error updating status: {e}")
+            print(f"[{self.name}] Error updating status: {e}")
 
     def find_task(self):
         """Find a TODO task suitable for this agent."""
@@ -96,7 +186,11 @@ class AutonomousAgent:
             return None
 
     def create_branch(self, task_id):
-        """Create a git branch for the task."""
+        """Create a git branch for the task (if enabled)."""
+        if not getattr(self, 'manage_git', False):
+            self.log(f"ℹ️ Git management disabled. Skipping branch creation for {task_id}")
+            return f"feature/{task_id}"
+
         branch_name = f"feature/{task_id}"
         self.log(f"🌿 Creating branch {branch_name}...")
         try:
@@ -122,7 +216,11 @@ class AutonomousAgent:
         return branch_name
 
     def commit_work(self, task_id, message):
-        """Commit changes."""
+        """Commit changes (if enabled)."""
+        if not getattr(self, 'manage_git', False):
+            self.log(f"ℹ️ Git management disabled. Skipping commit for {task_id}")
+            return
+
         self.log(f"💾 Committing changes: {message}")
         try:
             # Add only agent output files (not logs, temp files, etc.)
@@ -156,30 +254,160 @@ class AutonomousAgent:
         except:
             return 'active'
 
-    def broadcast_message(self, message):
-        """Broadcast a message to the workforce chat."""
+    def broadcast_message(self, message, msg_type="announcement", reply_to=None, mentions=None):
+        """
+        Broadcast a message to the workforce chat with enhanced features.
+        
+        Args:
+            message: The message text
+            msg_type: Type of message (announcement, question, response, request, alert, status)
+            reply_to: ID of message this is replying to
+            mentions: List of agent names mentioned (auto-extracted if None)
+        """
+        import fcntl
+        import uuid
+        import re
+        
+        try:
+            with open(STATUS_FILE, 'r+') as f:
+                fcntl.flock(f.fileno(), fcntl.LOCK_EX)
+                
+                data = json.load(f)
+                
+                if 'metadata' not in data:
+                    data['metadata'] = {}
+                if 'messages' not in data['metadata']:
+                    data['metadata']['messages'] = []
+                
+                # Extract mentions from message text if not provided
+                if mentions is None:
+                    mentions = re.findall(r'@(\w+(?:\s+\w+)*)', message)
+                
+                # Create message object
+                msg_obj = {
+                    "id": str(uuid.uuid4())[:8],
+                    "agent": self.name,
+                    "type": msg_type,
+                    "message": message,
+                    "mentions": mentions,
+                    "reply_to": reply_to,
+                    "timestamp": datetime.now(MELBOURNE_TZ).strftime('%H:%M:%S'),
+                    "read_by": []
+                }
+                
+                data['metadata']['messages'].append(msg_obj)
+                
+                # Keep last 100 messages
+                data['metadata']['messages'] = data['metadata']['messages'][-100:]
+                
+                f.seek(0)
+                f.truncate()
+                json.dump(data, f, indent=2)
+                
+        except Exception as e:
+            print(f"[{self.name}] Error broadcasting: {e}")
+    
+    def read_messages(self, limit=20):
+        """
+        Read recent messages from the workforce chat.
+        
+        Args:
+            limit: Maximum number of recent messages to return
+            
+        Returns:
+            List of message objects
+        """
         try:
             with open(STATUS_FILE, 'r') as f:
                 data = json.load(f)
             
-            if 'metadata' not in data:
-                data['metadata'] = {}
-            if 'messages' not in data['metadata']:
-                data['metadata']['messages'] = []
-                
-            msg_entry = {
-                "agent": self.name,
-                "message": message,
-                "timestamp": datetime.utcnow().strftime('%H:%M:%S')
-            }
-            data['metadata']['messages'].append(msg_entry)
-            # Keep last 50 messages
-            data['metadata']['messages'] = data['metadata']['messages'][-50:]
+            messages = data.get('metadata', {}).get('messages', [])
             
-            with open(STATUS_FILE, 'w') as f:
-                json.dump(data, f, indent=2)
+            # Get last N messages, excluding our own
+            recent_messages = messages[-limit:]
+            other_messages = [m for m in recent_messages if m.get('agent') != self.name]
+            
+            return other_messages
         except Exception as e:
-            print(f"Error broadcasting message: {e}")
+            print(f"[{self.name}] Error reading messages: {e}")
+            return []
+    
+    def check_mentions(self, messages):
+        """
+        Check if any messages mention this agent.
+        
+        Args:
+            messages: List of message objects
+            
+        Returns:
+            List of messages that mention this agent
+        """
+        mentions = []
+        for msg in messages:
+            # Check mentions list
+            if self.name in msg.get('mentions', []):
+                mentions.append(msg)
+            # Also check message text for @AgentName
+            elif f"@{self.name}" in msg.get('message', ''):
+                mentions.append(msg)
+        return mentions
+    
+    def can_answer(self, message):
+        """
+        Check if this agent can answer a question.
+        Override in subclasses to provide domain-specific responses.
+        
+        Args:
+            message: Message object
+            
+        Returns:
+            bool: True if agent can answer
+        """
+        return False
+    
+    def generate_response(self, message):
+        """
+        Generate a response to a message.
+        Override in subclasses to provide domain-specific responses.
+        
+        Args:
+            message: Message object
+            
+        Returns:
+            str: Response message, or None if no response
+        """
+        return None
+    
+    def handle_messages(self, messages):
+        """
+        Process incoming messages and respond as appropriate.
+        
+        Args:
+            messages: List of message objects
+        """
+        # Check for mentions first (high priority)
+        mentions = self.check_mentions(messages)
+        for msg in mentions:
+            self.log(f"📬 Mentioned by {msg['agent']}: {msg['message'][:50]}...")
+            response = self.generate_response(msg)
+            if response:
+                self.broadcast_message(
+                    response,
+                    msg_type="response",
+                    reply_to=msg.get('id')
+                )
+        
+        # Check for questions we can answer
+        questions = [m for m in messages if m.get('type') == 'question']
+        for q in questions:
+            if self.can_answer(q) and q not in mentions:  # Don't double-respond
+                response = self.generate_response(q)
+                if response:
+                    self.broadcast_message(
+                        response,
+                        msg_type="response",
+                        reply_to=q.get('id')
+                    )
 
     def run_loop(self):
         """Main autonomous loop."""
@@ -201,6 +429,14 @@ class AutonomousAgent:
             if last_status == 'paused':
                 self.log("▶️ Workforce resumed!")
                 last_status = 'active'
+            
+            # 0.5. Check Messages (new!)
+            try:
+                messages = self.read_messages(limit=10)
+                if messages:
+                    self.handle_messages(messages)
+            except Exception as e:
+                print(f"[{self.name}] Error handling messages: {e}")
 
             # 1. Find Task
             if not self.current_task:

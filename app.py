@@ -666,14 +666,17 @@ def save_game(game):
 
 # --- Dashboard Routes ---
 
-@app.route("/dashboard")
-def dashboard():
-    """Render the live agent dashboard."""
-    return render_template("dashboard.html")
 
-@app.route("/api/agent_status")
+
+# Legacy dashboard route removed to avoid conflict
+# @app.route("/dashboard")
+# def dashboard():
+#     """Render the live agent dashboard."""
+#     return render_template("dashboard.html")
+
+@app.route("/api/agent_status_legacy")
 def api_agent_status():
-    """Return current agent status JSON."""
+    """Return current agent status JSON (Legacy)."""
     status_file = os.path.join("agents", "agent_status.json")
     if os.path.exists(status_file):
         try:
@@ -1458,7 +1461,7 @@ def poll_updates():
         broadcast_to_room(username, room_id, text)
     
     # Get current game time
-    from game_engine import get_current_game_tick, update_weather_if_needed
+    from game_engine import get_current_game_tick, update_weather_if_needed, process_world_clock_events
     from game_engine import update_player_weather_status, update_npc_weather_statuses
     from game_engine import cleanup_buried_items, process_time_based_exit_states
     from game_engine import process_npc_movements
@@ -1469,6 +1472,7 @@ def poll_updates():
     
     # Update weather/player status (but don't accumulate messages)
     update_weather_if_needed()
+    process_world_clock_events()
     update_player_weather_status(game)
     update_npc_weather_statuses()
     cleanup_buried_items()
@@ -1754,6 +1758,69 @@ def set_default_budget():
     
     return jsonify({"success": True, "message": f"Default budget of {budget} tokens applied to all users without budgets"})
 
+
+# ============================================================================
+# AGENT DASHBOARD API
+# ============================================================================
+
+@app.route("/api/dashboard", methods=["GET"])
+def api_dashboard():
+    """Return agent dashboard data from agent_tasks.json."""
+    try:
+        tasks_file = os.path.join(os.getcwd(), "agent_tasks.json")
+        if os.path.exists(tasks_file):
+            with open(tasks_file, "r") as f:
+                data = json.load(f)
+                return jsonify(data)
+        else:
+            return jsonify({"error": "agent_tasks.json not found"}), 404
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route("/api/workforce/control", methods=["POST"])
+def workforce_control():
+    """Control the workforce status (active/paused)."""
+    data = request.get_json() or {}
+    status = data.get("status")
+    
+    if status not in ["active", "paused"]:
+        return jsonify({"error": "Invalid status. Must be 'active' or 'paused'"}), 400
+        
+    try:
+        status_file = "agent_tasks.json"
+        if os.path.exists(status_file):
+            with open(status_file, "r") as f:
+                task_data = json.load(f)
+            
+            if "metadata" not in task_data:
+                task_data["metadata"] = {}
+                
+            task_data["metadata"]["workforce_status"] = status
+            
+            with open(status_file, "w") as f:
+                json.dump(task_data, f, indent=2)
+                
+            return jsonify({"success": True, "status": status})
+        return jsonify({"error": "agent_tasks.json not found"}), 404
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route("/api/workforce/chat", methods=["GET"])
+def workforce_chat():
+    """Get workforce chat messages."""
+    try:
+        status_file = "agent_tasks.json"
+        if os.path.exists(status_file):
+            with open(status_file, "r") as f:
+                task_data = json.load(f)
+            return jsonify({"messages": task_data.get("metadata", {}).get("messages", [])})
+        return jsonify({"messages": []})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+from agent_dashboard import dashboard_bp
+
+app.register_blueprint(dashboard_bp)
 
 # Register SocketIO handlers after all functions are defined
 # This must happen after get_game, save_game, and handle_command are defined

@@ -1,0 +1,64 @@
+{
+  "id": "tavern",
+  "name": "The Rusty Tankard Tavern",
+  "description": "The Rusty Tankard sways gently on its stilts above the murky depths of the Shimmering Marsh, its walls a patchwork of weathered wood and rusting metal that gleam dully in the flickering lantern light. The air is thick with the rich scent of spiced stew simmering in iron cauldrons, mingling with the earthy aroma of mire-leather and damp wood. Muffled laughter and the clinking of tankards create a symphony of survival, as patrons huddle over rough-hewn tables, their faces flickering in and out of shadow. Outside, the mist curls like a living thing, wrapping around the tavern and whispering secrets of the marsh to those daring enough to listen. Here, amidst the warmth and decay, every shared tale is a gamble, a dance between fate and fortune.",
+  "descriptions_by_time": {
+    "dawn": "The Rusty Tankard is quiet in the early morning light. A few early risers sit at tables, nursing mugs of something warm. The hearth glows with banked embers, and the air still carries the lingering scents of last night's revelry. The place feels peaceful, a moment of calm before the day begins.",
+    "day": "The Rusty Tankard welcomes you with warmth and noise. The air is thick with the smell of stew and wood smoke. Rough-hewn tables fill the space, and adventurers and locals share stories over tankards of ale. A fire crackles in the hearth, casting dancing shadows on the walls. This is the kind of place where news travels and friendships are forged.",
+    "dusk": "As evening settles, The Rusty Tankard comes alive. Lanterns cast warm pools of light across the tables, and the hearth fire burns brighter. The noise level rises as more people gather, their voices mixing with the clink of tankards. The atmosphere is convivial, a place to unwind after the day's work.",
+    "night": "The Rusty Tankard is at its busiest now. The fire in the hearth roars, casting flickering shadows that dance across the walls. The air is thick with laughter, stories, and the rich smell of ale and food. Lanterns hang from the beams, creating pockets of warm light in the dim interior. This is where the night's stories are born."
+  },
+  "exits": {
+    "north": "town_square",
+    "south": "smithy"
+  },
+  "items": [
+    "wooden_tankard"
+  ],
+  "npcs": [
+    "innkeeper"
+  ],
+  "outdoor": false,
+  "features": [],
+  "details": {
+    "tables": {
+      "name": "tables",
+      "aliases": [
+        "table",
+        "tables"
+      ],
+      "description": "Rough-hewn tables fill the space, each one showing the marks of countless meals and conversations. They're sturdy and well-used, the kind of furniture that has seen many stories unfold around it.",
+      "stat": {
+        "type": "fixture",
+        "material": "wood",
+        "condition": "well-used"
+      }
+    },
+    "hearth": {
+      "name": "hearth",
+      "aliases": [
+        "hearth",
+        "fire",
+        "fireplace"
+      ],
+      "description": "A fire crackles in the hearth, casting dancing shadows on the walls. The warmth is welcoming, and the flames seem to have a life of their own, creating an atmosphere of comfort and camaraderie.",
+      "stat": {
+        "type": "fixture",
+        "material": "stone",
+        "temperature": "warm"
+      }
+    }
+  },
+  "ambient_messages": [
+    "The air is thick with the scent of damp earth and overripe fruit, mingling with the sharp tang of spilt ale that clings to the weathered wooden bar.",
+    "Flickering shadows dance across the walls as the faint crackle of a fire struggles against the encroaching mist, while low murmurs of hushed deals and clinking coins echo in the dim corners.",
+    "A heavy, iron chandelier sways gently overhead, its rusted chains creaking softly like the whispers of ghosts long forgotten in the twilight gloom.",
+    "The taste of brackish stew lingers on the tongue, its flavors deep and rich, drawing weary travelers to huddle closer as the chill of the swamp seeps in through the cracks.",
+    "Outside, the mournful call of a distant foghorn pierces the air, a reminder of the lurking dangers beyond, while inside, the warmth of bodies and laughter offers a fleeting refuge from the encroaching shadows."
+  ],
+  "metadata": {
+    "realm": "Shadowfen",
+    "location": "Greymarket",
+    "retrofitted": true
+  }
+}

@@ -40,21 +40,53 @@ class Room(GameObject):
         # 1. Base Description (Time/Weather aware)
         desc = self._get_base_description()
         
-        # 2. Exits
-        exits_str = ", ".join(self.exits.keys()) or "none"
+        # 2. Weather (if outdoor)
+        weather_text = ""
+        if self.outdoor:
+            from game_engine import get_current_weather_description
+            weather_desc = get_current_weather_description()
+            if weather_desc:
+                weather_text = f"[WEATHER]{weather_desc}[/WEATHER]"
         
-        # 3. Items
+        # 3. Exits
+        exits_list = list(self.exits.keys())
+        if exits_list:
+            num_exits = len(exits_list)
+            if num_exits == 1:
+                exits_str = f"There is one obvious exit: {exits_list[0]}"
+            else:
+                # Format: "north, south, east and west" (with 'and' before last)
+                if num_exits == 2:
+                    exits_formatted = f"{exits_list[0]} and {exits_list[1]}"
+                else:
+                    exits_formatted = ", ".join(exits_list[:-1]) + f" and {exits_list[-1]}"
+                exits_str = f"There are {num_exits} obvious exits: {exits_formatted}"
+        else:
+            exits_str = "There are no obvious exits"
+        
+        # 4. Items
         items_text = self._get_items_description(viewer)
         
-        # 4. Entities (NPCs + Players)
+        # 5. Entities (NPCs + Players)
         entities_text = self._get_entities_description(viewer)
         
         # Format Output
-        output = f"""<div class='room-title'>{self.name}</div>
-<div class='room-description'>{desc}</div>
-<div class='room-exits'>[Exits: {exits_str}]</div>
-<div class='room-contents'>{items_text}</div>
-<div class='room-entities'>{entities_text}</div>"""
+        parts = [
+            f"<div class='room-title'>{self.name}</div>",
+            f"<div class='room-description'>{desc}</div>"
+        ]
+        
+        if weather_text:
+            parts.append(f"<div class='room-weather'>{weather_text}</div>")
+        
+        parts.append(f"<div class='room-exits'>[EXITS]{exits_str}[/EXITS]</div>")
+        
+        if items_text:
+            parts.append(f"<div class='room-contents'>{items_text}</div>")
+        if entities_text:
+            parts.append(f"<div class='room-entities'>{entities_text}</div>")
+        
+        output = "\n".join(parts)
         return output
 
     def _get_base_description(self) -> str:

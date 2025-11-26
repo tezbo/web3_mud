@@ -1,0 +1,67 @@
+{
+  "id": "watchtower",
+  "name": "Old Watchtower",
+  "description": "The Old Watchtower teeters on rickety stilts, its weathered timbers and mire-leather patches soaked in the heady scent of damp earth and decay. A thick veil of mist clings to the crooked structure, muffling the distant croaks of frogs and the rustle of unseen creatures lurking below. As you peer out over Hollowvale, the landscape unfurls like a faded tapestry, the silhouettes of trees and rooftops softened by the fog, while the taste of brackish air lingers on your tongue. Creaking walls whisper forgotten tales of survival, their surfaces adorned with scavenged trinkets that shimmer dully like stars caught in the murk, a testament to the resilience of those who call this place home.",
+  "descriptions_by_time": {
+    "dawn": "You stand at the top of the watchtower as dawn breaks over the valley. The wind is sharp and cold, and the stone beneath your feet is damp with dew. The valley below is still shrouded in mist, with Hollowvale emerging like a ghost town. The horizon is just visible in the pale light, promising a new day. The tower feels ancient and watchful, a sentinel greeting the morning.",
+    "day": "You stand at the top of the watchtower, where the wind whips freely and the valley spreads out below. The stone is crumbling in places, but the structure still serves its purpose. From here, you can see Hollowvale spread out like a map\u2014the square, the lanes, the forest edge, and beyond that, the unknown lands that stretch to the horizon. There's something slightly eerie about this place, as if the tower has seen things it cannot forget. Yet it also offers a sense of perspective, a reminder that this village is part of a much larger world.",
+    "dusk": "You stand at the top of the watchtower as evening approaches. The wind is cooler now, and the valley below is bathed in golden light. Hollowvale spreads out like a map, its buildings casting long shadows. The horizon is darkening, and the unknown lands beyond seem more mysterious. The tower feels like a bridge between day and night, holding secrets in its ancient stones.",
+    "night": "You stand at the top of the watchtower in the pitch dark of night. The wind howls around you, and the stone is cold beneath your feet. The valley below is a sea of darkness, with only the faintest lights from Hollowvale visible. The horizon is lost in blackness, and the unknown lands beyond are invisible. The tower feels truly eerie now, as if it's seen things in the darkness that cannot be forgotten. You can't shake the feeling that you're being watched from the shadows below."
+  },
+  "exits": {
+    "south": "watchtower_path"
+  },
+  "items": [
+    "cracked_spyglass"
+  ],
+  "npcs": [
+    "watch_guard"
+  ],
+  "outdoor": true,
+  "features": [
+    "tower",
+    "stone"
+  ],
+  "details": {
+    "stone": {
+      "name": "stone",
+      "aliases": [
+        "stone",
+        "stones",
+        "tower stone"
+      ],
+      "description": "The stone of the watchtower is crumbling in places, but the structure still serves its purpose. It's weathered by time and the elements, yet remains strong enough to stand sentinel over the valley.",
+      "stat": {
+        "type": "fixture",
+        "material": "stone",
+        "condition": "weathered, crumbling in places"
+      }
+    },
+    "valley": {
+      "name": "valley",
+      "aliases": [
+        "valley",
+        "view",
+        "horizon"
+      ],
+      "description": "From here, you can see Hollowvale spread out like a map\u2014the square, the lanes, the forest edge, and beyond that, the unknown lands that stretch to the horizon. The view offers a sense of perspective, a reminder that this village is part of a much larger world.",
+      "stat": {
+        "type": "fixture",
+        "material": "landscape",
+        "condition": "vast"
+      }
+    }
+  },
+  "ambient_messages": [
+    "Wisps of fog curl through the crumbling stone archways, carrying the damp scent of moss and the distant echo of hushed whispers from shadowy figures haggling in secret.",
+    "The air is thick with the mingling aroma of wet earth and smoke, as ghostly lanterns flicker to life, casting eerie shadows that dance like specters along the uneven cobblestones.",
+    "A chill breeze rustles through the broken battlements, the sound of creaking wood blending with the low, rhythmic drip of water seeping from the watchtower's ancient walls.",
+    "The taste of brackish water lingers in the air, a salty kiss from the nearby marsh, mingling with the metallic tang of iron trinkets traded under the watchful gaze of the tower's crumbling silhouette.",
+    "A soft rustle in the underbrush signals the approach of unseen patrons, their laughter muffled by the thick veil of mist that swirls around the market, wrapping it in an aura of secrecy and intrigue."
+  ],
+  "metadata": {
+    "realm": "Shadowfen",
+    "location": "Greymarket",
+    "retrofitted": true
+  }
+}

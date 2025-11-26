@@ -1,0 +1,43 @@
+{
+  "name": "Quiet Acolyte",
+  "title": "Quiet Acolyte",
+  "description": "A robed figure who tends the shrine with quiet devotion.",
+  "personality": {
+    "goal": "To navigate the shifting alliances of Shadowfen and use cunning to secure a better future for themselves and their community.",
+    "fear": "Being caught in the web of deceit that surrounds them, leading to a loss of independence or being manipulated by more powerful factions.",
+    "secret": "Once exploited a vulnerable situation to gain favor with a powerful figure, which now haunts their conscience as they navigate the morally grey landscape.",
+    "speech_pattern": "Speaks in a guarded manner, often choosing words carefully to avoid drawing attention, and maintains a calculating demeanor.",
+    "relationships": [
+      "Owes a debt to Vex, a local dealer, for information that helped them survive in the treacherous environment.",
+      "Respects Zara, a skilled survivor, for her resourcefulness but keeps a cautious distance due to her unpredictable alliances.",
+      "Has a wary relationship with the Order's Enforcer, who remains a constant reminder of their past choices."
+    ]
+  },
+  "pronoun": "they",
+  "stats": {
+    "max_hp": 15,
+    "attack": 1,
+    "defense": 2,
+    "speed": 1,
+    "faction": "villagers"
+  },
+  "traits": {
+    "authority": 0.3,
+    "kindness": 0.7,
+    "aggression": 0.1,
+    "curiosity": 0.5
+  },
+  "reactions": {
+    "nod": [
+      "The Quiet Acolyte inclines their head slightly in acknowledgment."
+    ],
+    "smile": [
+      "The Quiet Acolyte's expression softens with a peaceful smile."
+    ]
+  },
+  "id": "quiet_acolyte",
+  "metadata": {
+    "retrofitted": true,
+    "realm": "Shadowfen"
+  }
+}

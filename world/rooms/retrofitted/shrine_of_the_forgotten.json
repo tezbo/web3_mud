@@ -1,0 +1,68 @@
+{
+  "id": "shrine_of_the_forgotten",
+  "name": "Shrine of the Forgotten Path",
+  "description": "Perched on creaking stilts and shrouded in a swirling embrace of mist, the Shrine of the Forgotten Path stands resilient against the decay of time. Its patchwork walls, a blend of salvaged wood and rusted metal, bear faded symbols that murmur of lost traditions, their meanings slipping like shadows through the fog. The air is thick with the scent of damp earth and the faint tang of rust, while flickering lanterns, encased in scavenged glass, cast ghostly patterns that dance across the worn mire-leather flooring. Here, the whispers of the past intertwine with the gritty resolve of the present, a sanctuary where the echoes of forgotten knowledge hang heavy and waiting.",
+  "descriptions_by_time": {
+    "dawn": "The shrine stands in the pale morning light, its carvings barely visible in the dimness. The patterns etched into the stone seem to shift in the early light, their meaning still lost. The air feels different here, as if the boundary between the mundane and something more is thinner at dawn. This is a place of quiet power, waiting to be understood.",
+    "day": "A small stone shrine stands here, its carvings worn smooth by time and weather. The patterns etched into the stone are ancient, their meaning lost to most, but they seem to hum with a subtle energy. There's something mysterious about this place\u2014a sense of deep history and forgotten knowledge. The air feels different here, as if the boundary between the mundane and something more is thinner. This is a place of quiet power, waiting to be understood.",
+    "dusk": "As evening approaches, the shrine takes on a golden glow. The carvings seem to catch the last rays of sunlight, their patterns more visible now. The air feels different here, as if the boundary between the mundane and something more is thinner at dusk. This is a place of quiet power, waiting to be understood.",
+    "night": "In the darkness, the shrine is truly mysterious. The carvings are barely visible, just dark patterns against the stone. The air feels different here, as if the boundary between the mundane and something more is thinnest at night. The shrine seems to hum with a subtle energy, and you can't shake the feeling that something ancient is watching. This is a place of quiet power, waiting to be understood."
+  },
+  "exits": {
+    "north": "market_lane"
+  },
+  "items": [
+    "smooth_rune_stone"
+  ],
+  "npcs": [
+    "quiet_acolyte"
+  ],
+  "outdoor": true,
+  "features": [
+    "shrine",
+    "stone"
+  ],
+  "details": {
+    "shrine": {
+      "name": "shrine",
+      "aliases": [
+        "shrine",
+        "stone shrine",
+        "altar"
+      ],
+      "description": "A small stone shrine stands here, its carvings worn smooth by time and weather. The patterns etched into the stone are ancient, their meaning lost to most, but they seem to hum with a subtle energy. There's something mysterious about this place\u2014a sense of deep history and forgotten knowledge.",
+      "stat": {
+        "type": "fixture",
+        "material": "stone",
+        "condition": "ancient, weathered"
+      }
+    },
+    "carvings": {
+      "name": "carvings",
+      "aliases": [
+        "carving",
+        "carvings",
+        "runes",
+        "patterns"
+      ],
+      "description": "Ancient patterns are etched into the stone, worn smooth by time and weather. They seem to shift when you look away, as if holding secrets that refuse to be fully understood. The carvings hum with a subtle energy.",
+      "stat": {
+        "type": "fixture",
+        "material": "stone",
+        "condition": "ancient, mysterious"
+      }
+    }
+  },
+  "ambient_messages": [
+    "A thick fog clings to the ground, muffling footsteps and weaving shadows between the crooked stalls, where whispers of long-lost secrets hang heavy in the air.",
+    "The pungent aroma of damp earth and decaying leaves intertwines with the sweet, heady scent of rare herbs, creating a fragrant haze that beckons curious souls deeper into the market's embrace.",
+    "Flickering lanterns cast a ghostly glow on the worn stone altars, their surfaces slick with moisture and etched with the faded markings of those who once sought guidance from the forgotten.",
+    "The distant sound of a mournful flute drifts through the mist, mingling with the soft rustle of silk garments as cloaked figures barter in hushed tones, their intentions obscured like the shadows that envelop them.",
+    "A chill breeze carries the taste of brine and ash, brushing against the skin like a lover\u2019s caress, reminding all who enter that the secrets of the Shrine are both alluring and perilous."
+  ],
+  "metadata": {
+    "realm": "Shadowfen",
+    "location": "Greymarket",
+    "retrofitted": true
+  }
+}

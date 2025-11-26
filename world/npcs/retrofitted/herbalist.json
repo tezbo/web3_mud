@@ -1,0 +1,43 @@
+{
+  "name": "Herbalist",
+  "title": "Herbalist",
+  "description": "A quiet person with knowledge of plants and their uses.",
+  "personality": {
+    "goal": "To discover a rare, mythical plant said to cure any ailment, which she believes will elevate her status among the Shadowfen herbalists.",
+    "fear": "She fears being found out as a fraud, believing that her knowledge of plants is shallow compared to the ancients.",
+    "secret": "She once sold a potent poison disguised as a healing tincture, resulting in the death of a prominent local figure, which she has kept hidden to avoid retribution.",
+    "speech_pattern": "Speaks in a cautious, pragmatic tone, often pausing to choose her words carefully, reflecting her mixed background and the need for survival in a morally grey environment.",
+    "relationships": [
+      "Owes a favor to the local thugs for protection after the poisoning incident.",
+      "Has a rivalry with an elderly herbalist who claims to know the secret of the mythical plant.",
+      "Treats a sickly child of a local fisherman, hoping to atone for her past mistakes."
+    ]
+  },
+  "pronoun": "they",
+  "stats": {
+    "max_hp": 12,
+    "attack": 1,
+    "defense": 1,
+    "speed": 2,
+    "faction": "villagers"
+  },
+  "traits": {
+    "authority": 0.2,
+    "kindness": 0.7,
+    "aggression": 0.1,
+    "curiosity": 0.6
+  },
+  "reactions": {
+    "nod": [
+      "The Herbalist gives you a quiet, gentle nod."
+    ],
+    "smile": [
+      "The Herbalist offers a small, shy smile."
+    ]
+  },
+  "id": "herbalist",
+  "metadata": {
+    "retrofitted": true,
+    "realm": "Shadowfen"
+  }
+}

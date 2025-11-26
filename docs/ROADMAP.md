@@ -399,12 +399,10 @@ Track these to measure progress:
 
 ---
 
-## Questions for You
+Note: I want all of this, but also want to learn about web3 and AI integrate both things - I want to see if this game - or a portion of this game - could exist as a contract on ethereum, and if so, what that would look like - maybe theres a store we create that sells specific collectable things, or a richly asian-themed smoky but high class gambling den somewhere in the world only opened at night and you can gamble using real ETH for example. I dont want to implement any of that right now, i just want to understand what might be possible - and what other things we could do in the AI and web3 space to help with my own learning whilst implementing it.
 
-1. What's your vision for this game? Classic MUD nostalgia, or modernized MUD experience?
-2. What's the core gameplay loop you want? (Explore → Fight → Loot → Level → Repeat?)
-3. What's most important to you right now: **Fun gameplay** or **Technical perfection**?
-4. Are you planning to open it to public players soon, or still in closed testing?
+Also, I want this whole thing to eventually be also playable via an iOS and Android app, so a framework that lets us create both at once would be cool. Again, not until we have a lot more of the work on this roadmap completed though.
 
-Based on your answers, we can adjust priorities!
+And finally, I think we need to develop a rich and cohesive theme, i.e. lore - and be consistent throughout. I'm thinking a world that richly blends the best of Jordan's Wheel of Time, Tolkien's Lord of the Rings and Magician by Raymond E Feist. The world, including guilds, clothing, weapons, equipment, descriptions etc etc should echo this theme once we have it down pat.
+
 

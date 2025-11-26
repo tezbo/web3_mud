@@ -2798,6 +2798,121 @@ def update_weather_if_needed():
         else:
             WEATHER_STATE["intensity"] = "none"
     
+
+def process_world_clock_events():
+    """
+    Check for and broadcast world clock events (sunrise, sunset, hourly bells).
+    Called periodically from the main loop/poll.
+    """
+    global WORLD_CLOCK
+    
+    # Import inside function to avoid circular dependency
+    # We use a local import for the broadcast function
+    try:
+        from app import broadcast_to_all
+    except ImportError:
+        # Fallback for testing or if app not available
+        def broadcast_to_all(msg):
+            print(f"[BROADCAST] {msg}")
+
+    current_minutes = get_current_game_minutes()
+    current_hour_24 = int((current_minutes % 1440) / 60)
+    current_period = get_time_of_day()
+    
+    # 1. Period Change (Sunrise/Sunset)
+    last_period = WORLD_CLOCK.get("current_period")
+    
+    # Initialize if missing
+    if last_period is None:
+        WORLD_CLOCK["current_period"] = current_period
+        last_period = current_period
+
+    if current_period != last_period:
+        WORLD_CLOCK["current_period"] = current_period
+        
+        msg = None
+        if current_period == "dawn":
+            msg = "[YELLOW]The sun begins to rise, casting a warm glow across the land.[/YELLOW]"
+        elif current_period == "day":
+            msg = "[YELLOW]The sun climbs higher, marking the start of the day.[/YELLOW]"
+        elif current_period == "dusk":
+            msg = "[ORANGE]The sun begins to set, painting the sky in shades of orange and purple.[/ORANGE]"
+        elif current_period == "night":
+            msg = "[BLUE]Darkness falls across the land as night takes hold.[/BLUE]"
+            
+        if msg:
+            broadcast_to_all(msg)
+
+    # 2. Hourly Bell
+    last_hour = WORLD_CLOCK.get("last_hour_check")
+    if last_hour is None:
+        WORLD_CLOCK["last_hour_check"] = current_hour_24
+        last_hour = current_hour_24
+        
+    if current_hour_24 != last_hour:
+        WORLD_CLOCK["last_hour_check"] = current_hour_24
+        
+        # Calculate 12-hour format for bell count
+        bell_count = current_hour_24 % 12
+        if bell_count == 0:
+            bell_count = 12
+            
+        # Broadcast bells from sources
+        # Define bell sources (could be moved to config/world data later)
+        # Format: room_id: {name, sound, range}
+        bell_sources = {
+            "town_square": {"name": "Town Clock", "sound": "tolls", "range": 30},
+            "temple_courtyard": {"name": "Temple Bell", "sound": "chimes", "range": 20},
+        }
+        
+        from game.world.data import WORLD
+        from game_engine import broadcast_to_room
+        
+        # Helper to broadcast distance-based bell messages
+        def broadcast_bell_toll(source_id, config, count):
+            if source_id not in WORLD:
+                return
+                
+            # BFS to find rooms within range
+            queue = [(source_id, 0)]
+            visited = {source_id: 0}
+            
+            while queue:
+                current_room_id, dist = queue.pop(0)
+                
+                if dist > config["range"]:
+                    continue
+                
+                # Construct message based on distance
+                times_str = f"{count} time{'s' if count > 1 else ''}"
+                msg = ""
+                
+                if dist == 0:
+                    msg = f"[CYAN]High above, the {config['name']} {config['sound']} {times_str}.[/CYAN]"
+                elif dist <= 5:
+                    msg = f"[CYAN]Nearby, the {config['name']} {config['sound']} {times_str}.[/CYAN]"
+                elif dist <= 15:
+                    msg = f"[CYAN]In the distance, a bell {config['sound']} {times_str}.[/CYAN]"
+                else:
+                    msg = f"[CYAN]Far off, a faint bell {config['sound']} {times_str}.[/CYAN]"
+                
+                # Broadcast to this room
+                broadcast_to_room(current_room_id, msg)
+                
+                # Add neighbors
+                room_data = WORLD.get(current_room_id, {})
+                exits = room_data.get("exits", {})
+                
+                for direction, target_id in exits.items():
+                    if target_id not in visited:
+                        visited[target_id] = dist + 1
+                        queue.append((target_id, dist + 1))
+
+        # Trigger bells
+        for source_id, config in bell_sources.items():
+            broadcast_bell_toll(source_id, config, bell_count)
+
+
     # Update temperature based on season and weather
     temp_options = season_temp.get(season, ["mild"])
     if WEATHER_STATE["type"] in ["snow", "sleet"]:
@@ -4461,6 +4576,20 @@ def _format_player_look(game, username, db_conn=None):
         str: Player-facing self-description
     """
     lines = ["You look at yourself."]
+    # Weather impact – add graduated description if outdoors
+    if game.get('weather_status') and game.get('outdoor'):
+        ws = game['weather_status']
+        wet = ws.get('wetness', 0)
+        if wet >= 5:
+            lines.append('He looks positively drenched!')
+
+    # Weather impact – add graduated description if outdoors
+    if game.get('weather_status') and game.get('outdoor'):
+        ws = game['weather_status']
+        wet = ws.get('wetness', 0)
+        if wet >= 5:
+            lines.append('He looks positively drenched!')
+
     
     # Character info (race, gender, stats, backstory)
     character = game.get("character", {})
@@ -4564,6 +4693,20 @@ def _format_other_player_look(target_username, target_game, db_conn=None):
         str: Player-facing description of other player
     """
     lines = [f"You look at {target_username}."]
+    # Weather impact for other players
+    if target_game.get('weather_status') and target_game.get('outdoor'):
+        ws = target_game['weather_status']
+        wet = ws.get('wetness', 0)
+        if wet >= 5:
+            lines.append(f"{pronoun_cap} looks positively drenched!")
+
+    # Weather impact for other players
+    if target_game.get('weather_status') and target_game.get('outdoor'):
+        ws = target_game['weather_status']
+        wet = ws.get('wetness', 0)
+        if wet >= 5:
+            lines.append(f"{pronoun_cap} looks positively drenched!")
+
     
     # Character info (race, gender, stats, backstory)
     character = target_game.get("character", {})
@@ -9705,4 +9848,3 @@ def highlight_exits_in_log(log_entries):
             )
         processed.append(entry)
     return processed
-

@@ -1,0 +1,29 @@
+{
+  "name": "Herbalist",
+  "title": "Herbalist",
+  "description": "A quiet person with knowledge of plants and their uses.",
+  "personality": "quiet, observant, gentle",
+  "pronoun": "they",
+  "stats": {
+    "max_hp": 12,
+    "attack": 1,
+    "defense": 1,
+    "speed": 2,
+    "faction": "villagers"
+  },
+  "traits": {
+    "authority": 0.2,
+    "kindness": 0.7,
+    "aggression": 0.1,
+    "curiosity": 0.6
+  },
+  "reactions": {
+    "nod": [
+      "The Herbalist gives you a quiet, gentle nod."
+    ],
+    "smile": [
+      "The Herbalist offers a small, shy smile."
+    ]
+  },
+  "id": "herbalist"
+}

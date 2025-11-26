@@ -1,0 +1,71 @@
+{
+  "id": "market_lane",
+  "name": "Market Lane",
+  "description": "Market Lane stretches between sagging buildings, its weathered wooden planks creaking beneath the weight of memory and mist. Stalls crafted from rusted metal and rotting timber lean precariously, their surfaces cluttered with salvaged trinkets and essential supplies, each item steeped in the stories of the Sundering. The humid air is thick with the scent of damp earth and decaying leaves, mingling with the sharp tang of mire-leather, while the distant clatter of bartering voices fades into the shrouded shadows. As you navigate the narrow paths, the chill of the mist clings to your skin, a reminder of the delicate balance between survival and chaos in this forgotten corner of the world.",
+  "descriptions_by_time": {
+    "dawn": "Market Lane is quiet in the early morning. The empty stalls stand like silent sentinels, their canvas covers still. The worn stones underfoot are damp with dew, and the air carries only the faintest hint of yesterday's spices. A few early vendors might be setting up, but for now, the lane belongs to the morning light.",
+    "day": "A narrow lane runs between buildings, where market stalls would normally crowd the space. Today it's quiet, but you can see where vendors set up their wares\u2014bread, herbs, trinkets, and simple goods. The lane feels lived-in, with worn stones underfoot and the lingering scents of spices and fresh bread. On market days, this place would be bustling, but now it holds a peaceful, almost contemplative air.",
+    "dusk": "As evening approaches, Market Lane takes on a golden glow. The empty stalls cast long shadows across the worn stones. The lingering scents of spices and bread are fainter now, mixed with the cool evening air. The lane feels peaceful, a quiet moment between the day's activity and the night's rest.",
+    "night": "In the darkness, Market Lane is transformed. The empty stalls are dark shapes against the night sky, their canvas covers rustling in the breeze. The worn stones are barely visible, and the scents of the day are gone, replaced by the cool night air. The lane feels mysterious and quiet, holding secrets in the shadows."
+  },
+  "exits": {
+    "west": "town_square",
+    "east": "old_road",
+    "south": "shrine_of_the_forgotten"
+  },
+  "items": [
+    "fresh_bread",
+    "simple_amulet"
+  ],
+  "npcs": [
+    "herbalist"
+  ],
+  "outdoor": true,
+  "features": [
+    "market",
+    "village"
+  ],
+  "details": {
+    "stalls": {
+      "name": "market stalls",
+      "aliases": [
+        "stall",
+        "stalls",
+        "market stall",
+        "market stalls"
+      ],
+      "description": "Market stalls would normally crowd this space, but today it's quiet. You can see where vendors set up their wares\u2014spaces marked by worn stones and the lingering scents of spices and fresh bread. On market days, this place would be bustling with activity.",
+      "stat": {
+        "type": "fixture",
+        "material": "wood, stone",
+        "condition": "empty but ready"
+      }
+    },
+    "stones": {
+      "name": "stones",
+      "aliases": [
+        "stone",
+        "stones",
+        "worn stones"
+      ],
+      "description": "Worn stones lie underfoot, polished smooth by the passage of countless feet. They mark the spaces where vendors set up their stalls, creating a pattern that speaks of regular use and community gathering.",
+      "stat": {
+        "type": "fixture",
+        "material": "stone",
+        "condition": "worn smooth"
+      }
+    }
+  },
+  "ambient_messages": [
+    "The air hangs thick with the scent of damp earth and rotting leaves, while furtive whispers slither between the stalls, cloaked in the shadows of flickering lanterns.",
+    "A low, rhythmic thrum of distant drums pulses through the mist, mingling with the soft rustle of cloaks as hooded figures exchange glances and glimmers of forbidden wares.",
+    "The chill of twilight wraps around you like a second skin, prickling with the electric anticipation of secrets waiting to be uncovered in the gloom.",
+    "A sharp tang of brine from hidden potions mingles with the sweet decay of overripe fruit, creating an intoxicating aroma that promises both danger and delight.",
+    "The cobblestones, slick with moisture, squelch beneath your boots as you navigate narrow paths where shadows twist and dance like phantoms in the fog."
+  ],
+  "metadata": {
+    "realm": "Shadowfen",
+    "location": "Greymarket",
+    "retrofitted": true
+  }
+}

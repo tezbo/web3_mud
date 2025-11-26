@@ -1,0 +1,28 @@
+**Quest Title: Shadows of the Past**
+
+**Stage Breakdown:**
+
+1. **The Mysterious Disappearance:**
+   - The village of Shadowfen is plagued by mysterious disappearances. The local historian, Elda, suspects it's linked to the ancient enemy archetypes that once roamed the region. She requests the player's help in uncovering the truth.
+
+2. **Unveiling the Shadows:**
+   - Elda provides the player with a map leading to three significant sites tied to the ancient archetypes: The Ruined Temple, The Whispering Bog, and The Forgotten Watchtower. Each site holds clues to understanding the resurgence of these archetypes.
+
+3. **Confronting the Archetypes:**
+   - The player gathers evidence suggesting that the archetypes are not simply mindless enemies but remnants of a protective order corrupted by a mysterious force. The player must decide how to handle this revelation.
+
+**Solutions and Consequences:**
+
+1. **Solution 1: Purification Ritual**
+   - The player chooses to perform an ancient purification ritual to cleanse the archetypes of the corruption.
+   - **Consequences:** This decision restores balance to Shadowfen, and the archetypes become allies in the region's defense. Elda becomes a powerful ally, offering unique lore-based rewards. However, the player inadvertently awakens another hidden threat tied to the realm's dark history, setting up a future questline.
+
+2. **Solution 2: Extermination**
+   - The player opts to eliminate the archetypes, perceiving them as a lingering threat.
+   - **Consequences:** With the archetypes destroyed, the disappearances cease, and the village is safe. However, this action causes unrest among the remaining magical creatures of Shadowfen, leading to increased hostility and future skirmishes. Elda becomes distant, mourning the loss of historical knowledge.
+
+3. **Solution 3: Diplomatic Resolution**
+   - The player discovers a way to communicate with the archetypes and negotiates a fragile truce.
+   - **Consequences:** The archetypes agree to guard Shadowfen against other threats in exchange for protection. This choice strengthens the player's reputation as a mediator. Elda is grateful and shares rare historical artifacts. However, the truce is delicate, and any future disruption could lead to a renewed conflict, opening up new narrative possibilities.
+
+Each solution offers a unique narrative path that influences the player's relationship with Shadowfen and its inhabitants, ensuring their choices have lasting impacts on the world.

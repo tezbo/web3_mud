@@ -9,10 +9,11 @@ import json
 import time
 import asyncio
 from pathlib import Path
+from datetime import datetime
 from dotenv import load_dotenv
 
 # Add project root to import path
-sys.path.insert(0, '/Users/terryroberts/Documents/code/web3_mud')
+sys.path.insert(0, os.getcwd())
 load_dotenv()
 
 from agents.personality_designer import PersonalityDesignerAgent
@@ -21,28 +22,41 @@ from agents.utils import clean_json_output
 
 OUTPUT_DIR = Path('world/npcs/retrofitted')
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-STATUS_FILE = Path('agents/agent_status.json')
+STATUS_FILE = Path('agent_tasks.json')
 
-def update_agent_status(agent_name, task, status, progress=None):
+def update_agent_status(agent_name, task, status, log_message=None):
     """Update the shared status file for the dashboard."""
     try:
         if STATUS_FILE.exists():
             with open(STATUS_FILE, 'r') as f:
                 data = json.load(f)
         else:
-            data = {}
+            return # Should exist
         
-        data[agent_name] = {
-            "task": task,
-            "status": status,
-            "timestamp": time.time(),
-            "progress": progress
-        }
+        if agent_name not in data['agents']:
+            data['agents'][agent_name] = {}
+            
+        agent = data['agents'][agent_name]
+        agent['status'] = status.lower()
+        agent['last_active'] = datetime.utcnow().isoformat() + "Z"
+        
+        if task:
+             # Find task ID if possible, or just describe it
+             pass 
+
+        if log_message:
+            if 'logs' not in agent:
+                agent['logs'] = []
+            timestamp = datetime.utcnow().strftime('%H:%M:%S')
+            agent['logs'].append(f"[{timestamp}] {log_message}")
+            # Keep last 20 logs
+            if len(agent['logs']) > 20:
+                agent['logs'] = agent['logs'][-20:]
         
         with open(STATUS_FILE, 'w') as f:
             json.dump(data, f, indent=2)
-    except Exception:
-        pass # Don't crash on status update
+    except Exception as e:
+        print(f"Status update failed: {e}")
 
 async def enrich_npc(npc_path: Path, total_count: int, index: int):
     # Load base NPC data
@@ -52,13 +66,15 @@ async def enrich_npc(npc_path: Path, total_count: int, index: int):
     realm = npc.get('realm', 'Shadowfen')
     
     # Update Status
-    update_agent_status("Personality Designer", f"Designing {name}", "WORKING", f"{index}/{total_count}")
+    update_agent_status("Personality Designer", None, "working", f"Starting analysis of {name} from {realm}...")
     
     # Initialize agents
     personality = PersonalityDesignerAgent()
     lore = LoreKeeperAgent()
 
     # 1. Generate personality traits
+    update_agent_status("Personality Designer", None, "working", f"Generating personality profile for {name}...")
+    
     prompt = (
         f"Create a detailed personality profile for an NPC named '{name}' in the {realm} realm. "
         "Provide the following fields exactly as JSON (no extra text):\n"
@@ -84,13 +100,14 @@ async def enrich_npc(npc_path: Path, total_count: int, index: int):
         missing = [k for k in required_keys if k not in traits]
         if missing:
             raise ValueError(f"Missing keys: {missing}")
+        update_agent_status("Personality Designer", None, "working", f"Generated traits: Goal='{traits.get('goal')}'")
     except Exception as e:
         print(f"⚠️ Failed to parse Personality output for {name}: {e}")
-        update_agent_status("Personality Designer", f"Failed {name}", "ERROR")
+        update_agent_status("Personality Designer", None, "working", f"Error parsing output for {name}: {e}")
         traits = {}
 
     # 2. Validate with Lore Keeper
-    update_agent_status("Lore Keeper", f"Validating {name}", "WORKING")
+    update_agent_status("Lore Keeper", None, "working", f"Validating {name} against {realm} lore...")
     
     validation_prompt = (
         f"Check the following personality traits for consistency with {realm} culture. "
@@ -104,8 +121,10 @@ async def enrich_npc(npc_path: Path, total_count: int, index: int):
     
     try:
         validated_traits = json.loads(clean_json_output(validated_raw))
+        update_agent_status("Lore Keeper", None, "working", f"Validation complete for {name}.")
     except Exception as e:
         print(f"⚠️ Lore validation parse error for {name}: {e}")
+        update_agent_status("Lore Keeper", None, "working", f"Validation error for {name}: {e}")
         validated_traits = traits
 
     # 3. Merge into NPC data

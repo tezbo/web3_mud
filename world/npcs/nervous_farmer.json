@@ -1,0 +1,29 @@
+{
+  "name": "Nervous Farmer",
+  "title": "Nervous Farmer",
+  "description": "A local farmer who seems uneasy near the forest edge.",
+  "personality": "anxious, cautious, superstitious",
+  "pronoun": "they",
+  "stats": {
+    "max_hp": 14,
+    "attack": 2,
+    "defense": 1,
+    "speed": 2,
+    "faction": "villagers"
+  },
+  "traits": {
+    "authority": 0.2,
+    "kindness": 0.5,
+    "aggression": 0.2,
+    "curiosity": 0.4
+  },
+  "reactions": {
+    "nod": [
+      "The Nervous Farmer gives you a quick, nervous nod while glancing toward the forest."
+    ],
+    "wave": [
+      "The Nervous Farmer hesitantly raises a hand, looking around uneasily."
+    ]
+  },
+  "id": "nervous_farmer"
+}

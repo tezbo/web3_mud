@@ -1,0 +1,120 @@
+{
+  "id": "town_square",
+  "type": "CityRoom",
+  "name": "Hollowvale Town Square",
+  "description": "A perpetual mist drapes over Hollowvale Town Square, softening the jagged edges of weather-beaten stalls crafted from salvaged wood and rusted metal. The air is thick with the scent of damp earth and the sharp tang of mire-leather, as traders haggle with fervor, their voices rising and falling like the distant croak of frogs in the muck below. Underfoot, the cracked cobblestones creak on their stilts, swaying slightly as the weight of stories past lingers, whispering of survival and resilience. Above it all, a stone belltower looms, its bell hanging silent yet heavy with memories, while the mist swirls, obscuring the rugged watchtower path leading into the dark embrace of the valley.",
+  "descriptions_by_time": {
+    "dawn": "The town square is quiet in the pale light of dawn. The fountain's water glistens in the early morning, and the notice board stands silent. The belltower at the center of the square catches the first rays of sunlight, its stone warm to the touch. A few early risers move about their business, their footsteps echoing softly on the cobblestones. The watchtower to the north is just visible against the lightening sky. The square feels peaceful, holding its breath before the day begins.",
+    "day": "You stand in the heart of Hollowvale, a cozy frontier square where cracked cobblestones circle an old fountain. The water still flows, though the basin is weathered with age. A notice board stands to one side, its parchment fluttering in the breeze. At the center of the square, a stone belltower rises above the surrounding buildings, its bell visible through the open arches. To the north, a rocky path leads up toward the watchtower that overlooks the valley. The square feels familiar and safe, yet there's a sense that this place has seen many stories.",
+    "dusk": "As evening approaches, the town square takes on a golden hue. The fountain catches the last rays of sunlight, and shadows lengthen across the cobblestones. The belltower stands silhouetted against the darkening sky, its bell catching the fading light. The notice board's parchment rustles in the cooling breeze. The watchtower to the north stands silhouetted against the darkening sky. The square feels calm, a moment of transition between day and night.",
+    "night": "The town square is bathed in moonlight and shadow. The fountain's water reflects the stars above, and the notice board is barely visible in the dim light. The belltower looms dark against the night sky, its bell a shadowy shape in the darkness. The cobblestones gleam with dew, and the watchtower to the north is a dark silhouette against the night sky. The square feels quiet and mysterious, holding secrets in the darkness."
+  },
+  "exits": {
+    "north": "watchtower_path",
+    "south": "tavern",
+    "east": "market_lane",
+    "west": "forest_edge"
+  },
+  "items": [
+    "copper_coin"
+  ],
+  "npcs": [
+    "old_storyteller"
+  ],
+  "outdoor": true,
+  "features": [
+    "village",
+    "fountain",
+    "cobblestones"
+  ],
+  "details": {
+    "cobblestones": {
+      "name": "cobblestones",
+      "aliases": [
+        "cobblestone",
+        "cobblestones",
+        "stones",
+        "stone"
+      ],
+      "description": "The cobblestones beneath your feet are cracked and weathered, worn smooth by countless footsteps over the years. They circle the old fountain, forming a rough pattern that speaks of the square's long history.",
+      "stat": {
+        "type": "fixture",
+        "material": "stone",
+        "condition": "weathered"
+      }
+    },
+    "fountain": {
+      "name": "fountain",
+      "aliases": [
+        "fountain",
+        "old fountain"
+      ],
+      "description": "An old fountain stands at the center of the square, its basin weathered with age. Despite its years, water still flows from it, clear and fresh. The stonework shows signs of careful maintenance, suggesting the villagers still value this landmark.",
+      "stat": {
+        "type": "fixture",
+        "material": "stone",
+        "condition": "weathered but functional"
+      }
+    },
+    "notice_board": {
+      "name": "notice board",
+      "aliases": [
+        "notice board",
+        "board",
+        "noticeboard",
+        "bulletin board"
+      ],
+      "description": "A weathered notice board stands to one side of the square, its surface covered with parchment that flutters in the breeze. Various notices and announcements are pinned to it, some fresh, others yellowed with age.",
+      "stat": {
+        "type": "fixture",
+        "material": "wood",
+        "condition": "weathered"
+      }
+    },
+    "watchtower": {
+      "name": "watchtower",
+      "aliases": [
+        "watchtower",
+        "tower"
+      ],
+      "description": "To the north, a watchtower overlooks the valley. It stands as a sentinel, watching over Hollowvale and the lands beyond. The path leading up to it is rocky but well-traveled.",
+      "stat": {
+        "type": "fixture",
+        "material": "stone",
+        "condition": "maintained"
+      }
+    },
+    "belltower": {
+      "name": "belltower",
+      "aliases": [
+        "belltower",
+        "bell tower",
+        "tower",
+        "bell"
+      ],
+      "description": "A stone belltower rises from the center of the square, its weathered stone showing the passage of time. The bell hangs within open arches, visible from below. It's clearly old, but well-maintained, and serves as both a landmark and timekeeper for Hollowvale.",
+      "stat": {
+        "type": "fixture",
+        "material": "stone, bronze",
+        "condition": "weathered but functional",
+        "purpose": "timekeeping"
+      },
+      "callbacks": {
+        "touch": "belltower_touch",
+        "look": "belltower_look"
+      }
+    }
+  },
+  "ambient_messages": [
+    "A thick, cloying fog weaves through the square, muffling the sharp clinks of rusted coins as shadowy figures barter for wares draped in tattered silks and glinting jade.",
+    "The air is heavy with the scent of damp earth and rotting foliage, punctuated by the faint whisper of a distant lute, its haunting melody lingering like a ghost's sigh.",
+    "Flickering lanterns cast ghostly shadows against the crumbling stone walls, their dim light revealing the glint of eyes watching from the darkness, hungry for secrets and opportunity.",
+    "The rough texture of damp cobblestones cools beneath your fingertips as you navigate the thrumming heart of the market, where the taste of spiced tea dances on your tongue, sweet yet unsettling.",
+    "A shiver runs down your spine as the cool breeze carries the metallic tang of rusted iron, mingling with the musty aroma of forgotten relics, each one a tale waiting to be unearthed."
+  ],
+  "metadata": {
+    "realm": "Shadowfen",
+    "location": "Greymarket",
+    "retrofitted": true
+  }
+}

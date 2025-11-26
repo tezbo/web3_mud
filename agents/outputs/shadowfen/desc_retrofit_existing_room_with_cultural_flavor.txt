@@ -1,8 +1,8 @@
-The air hangs heavy with the scent of damp earth and decaying leaves, a testament to the encroaching marshlands outside. Shadows skitter across the rust-streaked walls, cast by the flickering flame of an oil lamp that struggles against the persistent gloom. The floor, slick with moisture, whispers beneath your feet, an unsettling symphony of creaks and groans. A threadbare tapestry, its once-vibrant hues now muted and mottled, drapes from the ceiling, brushing against your fingertips with a texture like brittle parchment.
+The room is cloaked in a perpetual shroud of mist, its tendrils curling like ghostly fingers around the iron-wrought furniture, their surfaces mottled with rust. A chorus of distant croaks and the soft patter of unseen droplets lend an eerie rhythm to the gloom. The air is thick with the earthy aroma of damp moss and decaying leaves, mingling with a faint, metallic tang that clings to the back of your throat. As you tread across the uneven stone floor, slick with moisture, the chill seeps through your boots, grounding you in the murky embrace of the Shadowfen's ancient depths.
 
 Ambient Messages:
-1. The walls pulse with an ancient energy, adorned with intricate carvings of silver vines that shimmer under the flickering light of bronze lanterns, casting dancing shadows that whisper of long-forgotten tales.  
+1. **Sunward:** "Sunlight filters through tall, arched windows, illuminating polished stone walls adorned with intricate carvings, while the air hums with the rhythmic clanging of hammers shaping molten steel."
 
-2. A gentle breeze carries the intoxicating aroma of spiced tea, mingling with the soft rustle of silk curtains that sway like ghosts in the twilight, inviting secrets to linger in the dimly lit corners.  
+2. **Twilight:** "Soft silks drape from the ceiling like whispers, as the gentle rustle of fabric mingles with the sweet scent of blooming night-bloom flowers, casting an enchanting glow in hues of jade and lavender."
 
-3. The chill of damp stone beneath bare feet is accompanied by the distant echo of water dripping from moss-covered ledges, while the faintest trace of decay hangs in the air, wrapping the room in a shroud of mystery and melancholy.  
+3. **Shadowfen:** "A thick fog clings to the damp earth, muffling footsteps and wrapping the room in a cool embrace, while the earthy aroma of moss and decaying leaves lingers, hinting at secrets concealed within the shadows."

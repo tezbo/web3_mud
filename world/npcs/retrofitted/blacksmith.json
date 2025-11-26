@@ -1,0 +1,43 @@
+{
+  "name": "Blacksmith",
+  "title": "Blacksmith",
+  "description": "A burly figure with soot-stained hands, master of the forge.",
+  "personality": {
+    "goal": "To forge the perfect weapon that will earn him the respect of the Shadowfen community and allow him to navigate the complex power dynamics of his surroundings.",
+    "fear": "The fear of being forgotten, of his skills being deemed obsolete in a world that prizes cunning and survival over all else.",
+    "secret": "He secretly sabotaged a rival's forge years ago, leading to a devastating fire that ruined the competitor's reputation, though he has never been caught.",
+    "speech_pattern": "Speaks in a low, gravelly tone, often punctuating his sentences with sharp, clipped remarks. He tends to use metaphors related to metal and fire, reflecting his trade and the harsh realities of life in Shadowfen.",
+    "relationships": [
+      "Owes a debt to Jora, the local crime boss, for a failed business venture.",
+      "Respects Thalia, the herbalist, for her knowledge of rare materials.",
+      "Harbors resentment towards Rurik, the wealthy merchant who belittles his work, viewing him as a symbol of everything that is wrong with the values of the elite."
+    ]
+  },
+  "pronoun": "they",
+  "stats": {
+    "max_hp": 25,
+    "attack": 4,
+    "defense": 3,
+    "speed": 2,
+    "faction": "villagers"
+  },
+  "traits": {
+    "authority": 0.4,
+    "kindness": 0.5,
+    "aggression": 0.3,
+    "curiosity": 0.3
+  },
+  "reactions": {
+    "nod": [
+      "The Blacksmith gives you a brief nod without pausing their work."
+    ],
+    "wave": [
+      "The Blacksmith raises a soot-stained hand in greeting."
+    ]
+  },
+  "id": "blacksmith",
+  "metadata": {
+    "retrofitted": true,
+    "realm": "Shadowfen"
+  }
+}

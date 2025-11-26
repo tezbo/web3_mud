@@ -1,0 +1,69 @@
+{
+  "id": "whispering_trees",
+  "name": "The Whispering Trees",
+  "description": "The gnarled trunks of ancient trees loom overhead, their twisted branches weaving a canopy that shrouds the marketplace in a thick, lingering mist. The air is saturated with the earthy scent of damp soil and decaying wood, while the faint rustle of leaves sounds like whispers of forgotten tales, urging you to listen closer. Vendors, perched atop stilted platforms of salvaged wood and rusted metal, hawk their makeshift wares\u2014frayed mire-leather goods and odd trinkets salvaged from the mire's depths\u2014each item a testament to resilience. Beneath the trees, a chill seeps into your bones, a reminder of the forest's watchful presence, where survival and memory intertwine like the roots below.",
+  "descriptions_by_time": {
+    "dawn": "The grove is shrouded in morning mist, the trees emerging like dark giants from the grey. The canopy filters the pale dawn light into strange patterns on the forest floor. The air is still and heavy, and the trees' whispers are muted, as if they're still waking. This place feels ancient and watchful in the early light.",
+    "day": "You've entered a dense grove where the trees seem to lean in, their branches creating a canopy that filters the light. The air is still, and there's a sense that you're not entirely alone. The trees themselves seem to hold conversations in rustling leaves, though you can't quite make out the words. This place feels alive in a way that goes beyond the ordinary, as if the forest has its own voice, its own awareness. A good place to listen, if you know how.",
+    "dusk": "As daylight fades, the grove becomes more mysterious. The trees lean closer, their branches creating deeper shadows. The canopy filters the fading light into dim patterns, and the air grows still. The trees' whispers seem louder now, more urgent, as if they're sharing secrets in the twilight. This place feels more alive, more aware, as darkness approaches.",
+    "night": "In the pitch dark of night, the grove is truly otherworldly. The trees are black shapes against the starless sky, their branches creating a canopy so thick that no light penetrates. The air is deathly still, and the trees' whispers are the only sound\u2014urgent, mysterious, and impossible to understand. This place feels alive in a way that defies explanation, as if the forest itself is watching, waiting. You can't shake the feeling that you're not alone."
+  },
+  "exits": {
+    "south": "forest_edge",
+    "east": "ancient_door"
+  },
+  "items": [
+    "strange_leaf"
+  ],
+  "npcs": [
+    "forest_spirit"
+  ],
+  "outdoor": true,
+  "features": [
+    "trees",
+    "leaves",
+    "forest"
+  ],
+  "details": {
+    "trees": {
+      "name": "trees",
+      "aliases": [
+        "tree",
+        "trees",
+        "whispering trees"
+      ],
+      "description": "The trees here seem to lean in, their branches creating a dense canopy that filters the light. They hold conversations in rustling leaves, though you can't quite make out the words. This place feels alive in a way that goes beyond the ordinary.",
+      "stat": {
+        "type": "fixture",
+        "material": "wood",
+        "condition": "ancient, alive"
+      }
+    },
+    "canopy": {
+      "name": "canopy",
+      "aliases": [
+        "canopy",
+        "branches",
+        "leaves"
+      ],
+      "description": "The branches create a canopy overhead, filtering the light into dappled patterns on the forest floor. The leaves rustle with a language all their own, whispering secrets to those who know how to listen.",
+      "stat": {
+        "type": "fixture",
+        "material": "wood, leaves",
+        "condition": "dense"
+      }
+    }
+  },
+  "ambient_messages": [
+    "A shroud of mist clings to the gnarled roots of ancient trees, their twisted branches creaking softly like the whispers of long-forgotten secrets.",
+    "The air is thick with the earthy scent of damp moss and decay, punctuated by the sweet, cloying aroma of night-blooming flowers that lure the unwary deeper into the shadows.",
+    "Faint echoes of hushed conversations drift through the fog, punctuated by the occasional crackle of twigs underfoot, as figures glide between the towering trunks, cloaked in the darkness.",
+    "The chill of the night seeps into your bones as tendrils of fog brush against your skin, each touch a reminder of the unseen eyes watching from the depths of the undergrowth.",
+    "The distant sound of water trickling over stones mingles with the haunting calls of night creatures, a symphony of life that dances just beyond the reach of your vision."
+  ],
+  "metadata": {
+    "realm": "Shadowfen",
+    "location": "Greymarket",
+    "retrofitted": true
+  }
+}

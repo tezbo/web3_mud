@@ -1,0 +1,32 @@
+{
+  "name": "Wandering Trader",
+  "title": "Wandering Trader",
+  "description": "A traveler with goods from distant lands, always ready to trade stories.",
+  "personality": "friendly, talkative, always looking for business",
+  "pronoun": "they",
+  "stats": {
+    "max_hp": 16,
+    "attack": 2,
+    "defense": 2,
+    "speed": 3,
+    "faction": "neutral"
+  },
+  "traits": {
+    "authority": 0.3,
+    "kindness": 0.6,
+    "aggression": 0.2,
+    "curiosity": 0.8
+  },
+  "reactions": {
+    "nod": [
+      "The Wandering Trader nods enthusiastically. 'Good to see a friendly face!'"
+    ],
+    "smile": [
+      "The Wandering Trader grins broadly. 'Ah, a smile! That's what I like to see.'"
+    ],
+    "wave": [
+      "The Wandering Trader waves back with enthusiasm. 'Greetings, traveler!'"
+    ]
+  },
+  "id": "wandering_trader"
+}

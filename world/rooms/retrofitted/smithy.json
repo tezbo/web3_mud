@@ -1,0 +1,92 @@
+{
+  "id": "smithy",
+  "name": "Old Stoneforge Smithy",
+  "description": "The Old Stoneforge Smithy teeters on stilts above the murky depths of the Shadowfen, its weathered stone and salvaged wood clinging to life like the villagers below. The air hums with the metallic clang of hammer on steel, resonating through the thick mist that wraps around the building, while the faint aroma of rust and damp earth mingles with the sharp, acrid scent of molten metal. Lanterns sputter above, their flickering flames casting ghostly shadows that dance across the walls, illuminating the mire-leather aprons and tools caked with the residue of a thousand labors. Here, the forger's hands move with purpose, shaping metal into lifelines for those braving the treacherous waters of both fate and survival.",
+  "descriptions_by_time": {
+    "dawn": "The smithy is quiet in the early morning. The forge holds only banked embers, their glow dim in the pale light. Tools hang silent on the walls, and the anvils stand empty. The air still carries the scent of coal and metal from yesterday's work. This is a moment of calm before the day's hammering begins.",
+    "day": "The smithy is a low building of stone and timber, its walls hung with tools and half-finished work. The forge glows with banked embers, and the air carries the scent of coal and hot metal. Anvils stand ready, and the walls are lined with hammers, tongs, and other implements of the trade. This is where the village's metalwork is born, practical and honest.",
+    "dusk": "As evening settles, the smithy takes on a warm glow. The forge's embers burn brighter, casting flickering light across the tools and anvils. The air is still thick with the scent of coal and hot metal, but the work has slowed. The smithy feels like a place of rest after a day's labor.",
+    "night": "In the darkness, the smithy is transformed. The forge glows like a beacon, its embers casting deep shadows across the walls. Tools hang like dark shapes, and the anvils are barely visible in the dim light. The air is still warm, carrying the lingering scent of metal and coal. The smithy feels mysterious and powerful in the night."
+  },
+  "exits": {
+    "north": "tavern"
+  },
+  "items": [
+    "iron_hammer",
+    "lump_of_ore"
+  ],
+  "npcs": [
+    "blacksmith"
+  ],
+  "outdoor": false,
+  "features": [],
+  "details": {
+    "hammers": {
+      "name": "hammers",
+      "aliases": [
+        "hammer",
+        "hammers",
+        "smith's hammers"
+      ],
+      "description": "The walls are lined with hammers of all shapes and sizes, used by the town blacksmith to create some of the finest weapons found in Hollowvale. Each hammer shows signs of careful use\u2014worn handles polished smooth by countless hours of work, and heads that have been shaped and reshaped over time.",
+      "stat": {
+        "type": "fixture",
+        "material": "iron",
+        "quality": "well-used"
+      },
+      "callbacks": {
+        "touch": "smithy_touch_hammers"
+      }
+    },
+    "tongs": {
+      "name": "tongs",
+      "aliases": [
+        "tongs",
+        "iron tongs"
+      ],
+      "description": "Heavy iron tongs hang neatly on hooks, each pair perfectly balanced for gripping hot metal. The handles are wrapped in leather to protect against heat, and the jaws are shaped to hold various sizes of workpieces.",
+      "stat": {
+        "type": "fixture",
+        "material": "iron"
+      }
+    },
+    "anvils": {
+      "name": "anvils",
+      "aliases": [
+        "anvil",
+        "anvils"
+      ],
+      "description": "Several anvils stand ready around the forge, their surfaces scarred and polished from years of metalwork. Each anvil is positioned for optimal use, with tools and workpieces arranged nearby.",
+      "stat": {
+        "type": "fixture",
+        "material": "steel",
+        "condition": "well-maintained"
+      }
+    },
+    "forge": {
+      "name": "forge",
+      "aliases": [
+        "forge",
+        "furnace"
+      ],
+      "description": "The forge glows with banked embers, radiating a steady heat. The coals are carefully tended, ready to be stoked when the blacksmith needs to heat metal for shaping. The air around it shimmers with warmth.",
+      "stat": {
+        "type": "fixture",
+        "material": "stone and iron",
+        "temperature": "hot"
+      }
+    }
+  },
+  "ambient_messages": [
+    "The air thrums with the rhythmic clang of hammer striking iron, each blow echoing like a heartbeat through the dim, smoky chamber.",
+    "Shadows dance across the walls as flickering candles struggle against the curling tendrils of mist that seep in from the fog-laden streets outside.",
+    "The rich, acrid scent of heated metal mingles with the earthy aroma of damp stone, creating a heady perfume that clings to the back of the throat.",
+    "A chill lingers in the air, making the hairs on your neck prickle as whispers of forgotten secrets swirl around the corners of the cluttered workshop.",
+    "Dust motes waver in the slanted light, catching glimmers of jade and obsidian, as the faint crackle of a nearby fire breathes warmth into the cold, oppressive gloom."
+  ],
+  "metadata": {
+    "realm": "Shadowfen",
+    "location": "Greymarket",
+    "retrofitted": true
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "name": "Quiet Acolyte",
+  "title": "Quiet Acolyte",
+  "description": "A robed figure who tends the shrine with quiet devotion.",
+  "personality": "serene, contemplative, speaks rarely",
+  "pronoun": "they",
+  "stats": {
+    "max_hp": 15,
+    "attack": 1,
+    "defense": 2,
+    "speed": 1,
+    "faction": "villagers"
+  },
+  "traits": {
+    "authority": 0.3,
+    "kindness": 0.7,
+    "aggression": 0.1,
+    "curiosity": 0.5
+  },
+  "reactions": {
+    "nod": [
+      "The Quiet Acolyte inclines their head slightly in acknowledgment."
+    ],
+    "smile": [
+      "The Quiet Acolyte's expression softens with a peaceful smile."
+    ]
+  },
+  "id": "quiet_acolyte"
+}

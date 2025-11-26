@@ -1,0 +1,47 @@
+{
+  "name": "Old Storyteller",
+  "title": "Old Storyteller",
+  "description": "An elderly figure with kind eyes, known for sharing tales of the past.",
+  "personality": {
+    "goal": "To pass on the ancient tales of the Shadowfen, preserving the history and wisdom of his people while adapting to the present.",
+    "fear": "Being forgotten and having his stories die with him, leaving the next generation without their heritage, and failing to adapt to the changing times.",
+    "secret": "He once made a pact with a dark spirit for knowledge, and sometimes hears whispers in his dreams urging him to share darker tales, which he must balance with practicality.",
+    "speech_pattern": "His voice is gravelly and slow, often punctuated by long, thoughtful pauses. He favors pragmatic storytelling, using metaphors and riddles that reflect the harsh realities of life in Shadowfen.",
+    "relationships": [
+      "Knows the local hunters and their secrets, providing him with valuable insights for survival.",
+      "Owes a favor to a mysterious figure who provided him with forbidden lore, navigating the fine line between danger and necessity.",
+      "Has a pragmatic and sometimes strained friendship with the village chief, who sees him as a relic of the past yet values his knowledge."
+    ]
+  },
+  "pronoun": "he",
+  "stats": {
+    "max_hp": 15,
+    "attack": 1,
+    "defense": 1,
+    "speed": 1,
+    "faction": "villagers"
+  },
+  "traits": {
+    "authority": 0.3,
+    "kindness": 0.8,
+    "aggression": 0.1,
+    "curiosity": 0.7
+  },
+  "reactions": {
+    "nod": [
+      "The Old Storyteller returns your nod with a knowing smile.",
+      "The Old Storyteller nods slowly, as if acknowledging something deeper."
+    ],
+    "smile": [
+      "The Old Storyteller's eyes crinkle with warmth as they smile back."
+    ],
+    "wave": [
+      "The Old Storyteller raises a weathered hand in greeting."
+    ]
+  },
+  "id": "old_storyteller",
+  "metadata": {
+    "retrofitted": true,
+    "realm": "Shadowfen"
+  }
+}

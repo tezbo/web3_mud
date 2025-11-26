@@ -1,0 +1,45 @@
+{
+  "name": "Forest Spirit",
+  "title": "Forest Spirit",
+  "description": "An ethereal presence that seems to watch from the shadows of the trees.",
+  "personality": {
+    "goal": "To navigate the precarious balance between survival and the preservation of what remains of the natural world, often prioritizing immediate needs over idealistic restoration.",
+    "fear": "The loss of their home and the potential for betrayal from those within the Shadowfen community, as alliances can shift rapidly.",
+    "secret": "Once a human druid, the Forest Spirit made a pact with the shadows to save the forest, but now struggles with the duality of their existence, fearing rejection from both humans and spirits.",
+    "speech_pattern": "Speaks in a low, pragmatic tone, often using direct language; metaphors are less common, favoring straightforward expressions of intent and consequence.",
+    "relationships": [
+      "Eldra the herbalist - a respected figure who provides valuable resources, but trust is built on mutual benefit rather than affection.",
+      "Brom the hunter - a cautious ally; their relationship is transactional, with both parties wary of exploitation.",
+      "The Shadowfen Council - maintains a critical distance, often questioning their motives but recognizes the necessity of cooperation for survival."
+    ]
+  },
+  "pronoun": "it",
+  "attackable": true,
+  "stats": {
+    "max_hp": 30,
+    "attack": 3,
+    "defense": 4,
+    "speed": 3,
+    "faction": "neutral"
+  },
+  "traits": {
+    "authority": 0.4,
+    "kindness": 0.6,
+    "aggression": 0.2,
+    "curiosity": 0.7,
+    "patience": 0.9
+  },
+  "reactions": {
+    "nod": [
+      "The Forest Spirit seems to acknowledge you, though you're not sure how."
+    ],
+    "smile": [
+      "There's a sense of warmth from the Forest Spirit, like sunlight through leaves."
+    ]
+  },
+  "id": "forest_spirit",
+  "metadata": {
+    "retrofitted": true,
+    "realm": "Shadowfen"
+  }
+}

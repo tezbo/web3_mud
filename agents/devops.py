@@ -1,8 +1,15 @@
+"""
+DevOps Agent - Monitors deployments and merges approved branches
+"""
+
 import os
 import time
 import json
 import logging
 import requests
+import subprocess
+from datetime import datetime
+from pathlib import Path
 from dotenv import load_dotenv
 from agents.base_agent import BaseAgent
 

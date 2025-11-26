@@ -1,0 +1,46 @@
+{
+  "name": "Wandering Trader",
+  "title": "Wandering Trader",
+  "description": "A traveler with goods from distant lands, always ready to trade stories.",
+  "personality": {
+    "goal": "To acquire rare artifacts for his personal collection and trade them for a hefty profit, while ensuring survival in the morally grey landscape of Shadowfen.",
+    "fear": "Being caught in a trap set by the local authorities for smuggling stolen goods, jeopardizing his fragile existence.",
+    "secret": "He once betrayed a fellow trader over a valuable relic, leading to that trader's disappearance, a secret he guards closely to avoid drawing attention.",
+    "speech_pattern": "Speaks in a low, gravelly tone, often using slang and dropping the ends of words for a more laid-back feel. Frequently peppers his speech with cryptic references to 'the shadows' and 'the unseen' to fit in with the pragmatic culture.",
+    "relationships": [
+      "Owes a favor to a shadowy figure known only as 'The Broker', a common practice in Shadowfen for survival.",
+      "Has a tense rivalry with a fellow trader named Lysia, who suspects him of theft and is a reminder of the fine line between allies and enemies.",
+      "Is on good terms with the local thieves' guild, providing them with information in exchange for protection, reflecting the mixed morals of Shadowfen."
+    ]
+  },
+  "pronoun": "they",
+  "stats": {
+    "max_hp": 16,
+    "attack": 2,
+    "defense": 2,
+    "speed": 3,
+    "faction": "neutral"
+  },
+  "traits": {
+    "authority": 0.3,
+    "kindness": 0.6,
+    "aggression": 0.2,
+    "curiosity": 0.8
+  },
+  "reactions": {
+    "nod": [
+      "The Wandering Trader nods enthusiastically. 'Good to see a friendly face!'"
+    ],
+    "smile": [
+      "The Wandering Trader grins broadly. 'Ah, a smile! That's what I like to see.'"
+    ],
+    "wave": [
+      "The Wandering Trader waves back with enthusiasm. 'Greetings, traveler!'"
+    ]
+  },
+  "id": "wandering_trader",
+  "metadata": {
+    "retrofitted": true,
+    "realm": "Shadowfen"
+  }
+}

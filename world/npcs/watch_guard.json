@@ -1,0 +1,30 @@
+{
+  "name": "Darin",
+  "title": "Watch Guard",
+  "description": "A vigilant guard stationed at the watchtower, scanning the horizon.",
+  "personality": "dutiful, dry sense of humour, a bit tired",
+  "pronoun": "he",
+  "stats": {
+    "max_hp": 22,
+    "attack": 3,
+    "defense": 3,
+    "speed": 2,
+    "faction": "guards"
+  },
+  "traits": {
+    "authority": 0.7,
+    "kindness": 0.4,
+    "aggression": 0.3,
+    "curiosity": 0.5
+  },
+  "reactions": {
+    "nod": [
+      "The Watch Guard raises an eyebrow, then nods back slightly.",
+      "The Watch Guard gives you a brief, professional nod."
+    ],
+    "smile": [
+      "Darin cracks a small smile. 'Not much to smile about up here, but I appreciate the gesture.'"
+    ]
+  },
+  "id": "watch_guard"
+}

@@ -1,1 +1,8 @@
-The air in the Update Room is thick with the earthy musk of moss clinging to the stone walls, their surfaces slick with the perpetual damp of the Shadowfen. A faint, persistent drip echoes from the ceiling, punctuating the murmur of distant croaks and rustling leaves outside. Flickering lanterns cast ghostly shadows that dance across the room, their light catching on the rusted gears and ancient mechanisms strewn across a heavy oak table. As you trail your fingers along the moisture-beaded walls, a chill seeps into your bones, and the metallic taste of stagnation lingers on your tongue like a forgotten secret.
+In the heart of Shadowfen, the Update Room is a place where time itself seems to waver. Dim light filters through the latticework of rusted grates, casting flickering shadows that dance like specters on damp stone walls. The air is thick with the scent of loamy earth and a faint hint of sulfur, mingling with the ever-present aroma of decaying leaves. The soft drip of condensation echoes through the gloom, a rhythmic reminder of the marshlands beyond. As you run your fingers along the cool, moss-cloaked surface of an ancient console, a shiver of anticipation tingles up your spine, as if the room itself is whispering secrets of the past.
+
+Ambient Messages:
+1. "The air hums with the soft crackle of energy, while the metallic scent of polished steel lingers, mingling with the faint, sweet aroma of blooming nightshade from the garden outside."  
+
+2. "A gentle breeze whispers through the open window, carrying the distant laughter of children and the rich, earthy fragrance of damp soil after a midday rain."  
+
+3. "Flickering candlelight casts dancing shadows on the stone walls, as the soothing sound of water trickling from a nearby fountain intermingles with the warm scent of spiced cider simmering in the hearth."

@@ -1,0 +1,29 @@
+{
+  "name": "Patrolling Guard",
+  "title": "Patrolling Guard",
+  "description": "A watchful figure keeping an eye on the path to the watchtower.",
+  "personality": "alert, professional, duty-focused",
+  "pronoun": "they",
+  "stats": {
+    "max_hp": 20,
+    "attack": 3,
+    "defense": 2,
+    "speed": 2,
+    "faction": "guards"
+  },
+  "traits": {
+    "authority": 0.7,
+    "kindness": 0.4,
+    "aggression": 0.3,
+    "curiosity": 0.3
+  },
+  "reactions": {
+    "nod": [
+      "The Patrolling Guard gives you a brief, professional nod while continuing to scan the area."
+    ],
+    "wave": [
+      "The Patrolling Guard acknowledges your wave with a curt nod."
+    ]
+  },
+  "id": "patrolling_guard"
+}

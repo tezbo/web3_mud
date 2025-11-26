@@ -8,8 +8,8 @@ import subprocess
 import json
 from dotenv import load_dotenv
 
-# Add project root to import path
-sys.path.insert(0, '/Users/terryroberts/Documents/code/web3_mud')
+# Add project root to import path if needed
+# sys.path.insert(0, '/Users/terryroberts/Documents/code/web3_mud')
 load_dotenv()
 
 from agents.code_reviewer import CodeReviewerAgent

@@ -1,0 +1,43 @@
+{
+  "name": "Nervous Farmer",
+  "title": "Nervous Farmer",
+  "description": "A local farmer who seems uneasy near the forest edge.",
+  "personality": {
+    "goal": "To save enough money to buy a small piece of land away from the marshes, where he can grow crops without fear of flooding.",
+    "fear": "Losing his family farm to the encroaching swamp and the creatures that lurk within.",
+    "secret": "He once discovered a hidden cache of valuable herbs in the swamp but is too wary of the potential danger from both the swamp and others to sell them.",
+    "speech_pattern": "Speaks in a pragmatic and cautious manner, often choosing words carefully to avoid drawing attention to himself.",
+    "relationships": [
+      "Owes a debt to old Mara, the innkeeper, who helped him during a particularly bad harvest.",
+      "Has a strained relationship with his brother, who left Shadowfen for the prosperity of Sunward.",
+      "Respects the local swamp witch, believing her knowledge of the marsh to be valuable, but is careful not to cross her."
+    ]
+  },
+  "pronoun": "they",
+  "stats": {
+    "max_hp": 14,
+    "attack": 2,
+    "defense": 1,
+    "speed": 2,
+    "faction": "villagers"
+  },
+  "traits": {
+    "authority": 0.2,
+    "kindness": 0.5,
+    "aggression": 0.2,
+    "curiosity": 0.4
+  },
+  "reactions": {
+    "nod": [
+      "The Nervous Farmer gives you a quick, nervous nod while glancing toward the forest."
+    ],
+    "wave": [
+      "The Nervous Farmer hesitantly raises a hand, looking around uneasily."
+    ]
+  },
+  "id": "nervous_farmer",
+  "metadata": {
+    "retrofitted": true,
+    "realm": "Shadowfen"
+  }
+}

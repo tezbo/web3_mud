@@ -1,0 +1,44 @@
+{
+  "name": "Darin",
+  "title": "Watch Guard",
+  "description": "A vigilant guard stationed at the watchtower, scanning the horizon.",
+  "personality": {
+    "goal": "To uncover the truth behind his father's mysterious disappearance and navigate the complexities of his family's legacy.",
+    "fear": "Being betrayed by those he trusts, leading him to isolation, yet he remains cautious about forming connections.",
+    "secret": "He is the unwanted child of a powerful Shadowfen noble, which he keeps hidden to survive in a morally ambiguous society.",
+    "speech_pattern": "Speaks in a low, gravelly voice with a tendency to use pragmatic phrases, often underscoring his statements with a sardonic chuckle.",
+    "relationships": [
+      "Owes a debt to Grelka, the local informant, who has leverage over him.",
+      "Has a complicated relationship with Oren, a fellow seeker of truth, who questions his motives and methods.",
+      "Respects Lady Myra, a noblewoman who once offered him a chance at redemption, despite the risks involved."
+    ]
+  },
+  "pronoun": "he",
+  "stats": {
+    "max_hp": 22,
+    "attack": 3,
+    "defense": 3,
+    "speed": 2,
+    "faction": "guards"
+  },
+  "traits": {
+    "authority": 0.7,
+    "kindness": 0.4,
+    "aggression": 0.3,
+    "curiosity": 0.5
+  },
+  "reactions": {
+    "nod": [
+      "The Watch Guard raises an eyebrow, then nods back slightly.",
+      "The Watch Guard gives you a brief, professional nod."
+    ],
+    "smile": [
+      "Darin cracks a small smile. 'Not much to smile about up here, but I appreciate the gesture.'"
+    ]
+  },
+  "id": "watch_guard",
+  "metadata": {
+    "retrofitted": true,
+    "realm": "Shadowfen"
+  }
+}

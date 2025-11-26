@@ -1,0 +1,240 @@
+{
+    "metadata": {
+        "vision": "A fully immersive, text-based MUD featuring a rich color system, autonomous NPC agents, and the first major content expansion 'Shadowfen'.",
+        "goals": [
+            "Stable Foundation: Zero deployment errors, robust testing pipeline.",
+            "Immersive UX: Full color system, auto-scrolling, polished UI.",
+            "Rich Content: Retrofitted world + new Shadowfen region.",
+            "Agent Autonomy: Agents actively developing and monitoring the game."
+        ],
+        "workforce_status": "active",
+        "messages": []
+    },
+    "epics": [
+        {
+            "id": "epic-1",
+            "title": "The Slums of Thornhaven",
+            "description": "A dangerous, poverty-stricken district in the shadow of the city walls.",
+            "status": "in_progress"
+        },
+        {
+            "id": "epic-2",
+            "title": "The Merchant District",
+            "description": "The bustling heart of commerce, contrasting with the Slums.",
+            "status": "todo"
+        },
+        {
+            "id": "epic-3",
+            "title": "The Sunken Cathedral",
+            "description": "A mid-level dungeon located in the deep swamp.",
+            "status": "todo"
+        },
+        {
+            "id": "epic-4",
+            "title": "Immersion & Polish",
+            "description": "Making the world breathe with sensory details and object histories.",
+            "status": "todo"
+        },
+        {
+            "id": "epic-5",
+            "title": "Lore & Worldbuilding",
+            "description": "Establishing the history, magic, and cultures of Aethermoor.",
+            "status": "todo"
+        },
+        {
+            "id": "epic-6",
+            "title": "Tactical Combat",
+            "description": "From dice rolls to war stories.",
+            "status": "todo"
+        },
+        {
+            "id": "epic-7",
+            "title": "Core Systems",
+            "description": "Foundational systems to support the new content.",
+            "status": "todo"
+        }
+    ],
+    "tasks": [
+        {
+            "id": "task-1",
+            "title": "Design Slums Layout",
+            "description": "Create a maze-like layout with dangerous alleys for the Slums district.",
+            "epic_id": "epic-1",
+            "status": "review_ready",
+            "assigned_to": "Mapmaker",
+            "updated_at": "2025-11-26T12:24:00+11:00"
+        },
+        {
+            "id": "task-2",
+            "title": "Write Slums Descriptions",
+            "description": "Write gritty, oppressive atmosphere descriptions for the Slums.",
+            "epic_id": "epic-1",
+            "status": "review_ready",
+            "assigned_to": "Wordsmith",
+            "updated_at": "2025-11-26T12:24:00+11:00"
+        },
+        {
+            "id": "task-3",
+            "title": "Design 'The Rat King's Tribute' Quest",
+            "description": "Create a quest involving the Rat King in the Slums.",
+            "epic_id": "epic-1",
+            "status": "review_ready",
+            "assigned_to": "Quest Architect",
+            "updated_at": "2025-11-26T12:24:00+11:00"
+        },
+        {
+            "id": "task-4",
+            "title": "Design 'Stolen Medicine' Quest",
+            "description": "Create a quest about stolen medicine in the Slums.",
+            "epic_id": "epic-1",
+            "status": "todo",
+            "assigned_to": "Quest Architect",
+            "updated_at": "2025-11-26T12:24:00+11:00"
+        },
+        {
+            "id": "task-5",
+            "title": "Design Merchant District Layout",
+            "description": "Create wide streets and shop layouts for the Merchant District.",
+            "epic_id": "epic-2",
+            "status": "todo",
+            "assigned_to": "Mapmaker",
+            "updated_at": "2025-11-26T12:24:00+11:00"
+        },
+        {
+            "id": "task-6",
+            "title": "Write Shop Descriptions",
+            "description": "Write luxurious, aromatic, busy descriptions for merchant shops.",
+            "epic_id": "epic-2",
+            "status": "todo",
+            "assigned_to": "Wordsmith",
+            "updated_at": "2025-11-26T12:24:00+11:00"
+        },
+        {
+            "id": "task-7",
+            "title": "Design 'The Counterfeit Coins' Quest",
+            "description": "Create a quest about counterfeit coins in the Merchant District.",
+            "epic_id": "epic-2",
+            "status": "todo",
+            "assigned_to": "Quest Architect",
+            "updated_at": "2025-11-26T12:24:00+11:00"
+        },
+        {
+            "id": "task-8",
+            "title": "Design 'Escort the Caravan' Quest",
+            "description": "Create a caravan escort quest for the Merchant District.",
+            "epic_id": "epic-2",
+            "status": "todo",
+            "assigned_to": "Quest Architect",
+            "updated_at": "2025-11-26T12:24:00+11:00"
+        },
+        {
+            "id": "task-9",
+            "title": "Design Dungeon Layout",
+            "description": "Create flooded halls and hidden chambers for the Sunken Cathedral.",
+            "epic_id": "epic-3",
+            "status": "todo",
+            "assigned_to": "Mapmaker",
+            "updated_at": "2025-11-26T12:24:00+11:00"
+        },
+        {
+            "id": "task-10",
+            "title": "Write Dungeon Descriptions",
+            "description": "Write eerie, damp, echoing descriptions for the Sunken Cathedral.",
+            "epic_id": "epic-3",
+            "status": "todo",
+            "assigned_to": "Wordsmith",
+            "updated_at": "2025-11-26T12:24:00+11:00"
+        },
+        {
+            "id": "task-11",
+            "title": "Design Boss Encounter: 'The High Priest of Rot'",
+            "description": "Create the final boss encounter for the Sunken Cathedral.",
+            "epic_id": "epic-3",
+            "status": "todo",
+            "assigned_to": "Quest Architect",
+            "updated_at": "2025-11-26T12:24:00+11:00"
+        },
+        {
+            "id": "task-12",
+            "title": "Update Room Descriptions with Sensory Details",
+            "description": "Add sight, sound, and smell details to existing room descriptions.",
+            "epic_id": "epic-4",
+            "status": "todo",
+            "assigned_to": "Wordsmith",
+            "updated_at": "2025-11-26T12:24:00+11:00"
+        },
+        {
+            "id": "task-13",
+            "title": "Write Backstories for Key Items",
+            "description": "Create histories and lore for important items in the game.",
+            "epic_id": "epic-4",
+            "status": "todo",
+            "assigned_to": "Wordsmith",
+            "updated_at": "2025-11-26T12:24:00+11:00"
+        },
+        {
+            "id": "task-14",
+            "title": "Write Lore Primer: 'The Sundering' & 'The Three Realms'",
+            "description": "Establish the foundational lore of the world.",
+            "epic_id": "epic-5",
+            "status": "todo",
+            "assigned_to": "Lore Keeper",
+            "updated_at": "2025-11-26T12:24:00+11:00"
+        },
+        {
+            "id": "task-15",
+            "title": "Define Magic System: 'The Singing'",
+            "description": "Create the magic system based on Threads and Weaving.",
+            "epic_id": "epic-5",
+            "status": "todo",
+            "assigned_to": "Lore Keeper",
+            "updated_at": "2025-11-26T12:24:00+11:00"
+        },
+        {
+            "id": "task-16",
+            "title": "Create Naming Conventions & Cultural Guides",
+            "description": "Establish naming patterns and cultural guidelines for consistency.",
+            "epic_id": "epic-5",
+            "status": "todo",
+            "assigned_to": "Lore Keeper",
+            "updated_at": "2025-11-26T12:24:00+11:00"
+        },
+        {
+            "id": "task-17",
+            "title": "Retrofit Existing Room Descriptions with Cultural Flavor",
+            "description": "Update existing rooms with cultural and lore elements.",
+            "epic_id": "epic-5",
+            "status": "todo",
+            "assigned_to": "Wordsmith",
+            "updated_at": "2025-11-26T12:24:00+11:00"
+        },
+        {
+            "id": "task-18",
+            "title": "Write Combat Flavor Text",
+            "description": "Create weapon-specific combat descriptions.",
+            "epic_id": "epic-6",
+            "status": "todo",
+            "assigned_to": "Lore Keeper",
+            "updated_at": "2025-11-26T12:24:00+11:00"
+        },
+        {
+            "id": "task-19",
+            "title": "Design Enemy Archetypes",
+            "description": "Create enemy types with unique tactics and personalities.",
+            "epic_id": "epic-6",
+            "status": "todo",
+            "assigned_to": "Quest Architect",
+            "updated_at": "2025-11-26T12:24:00+11:00"
+        },
+        {
+            "id": "task-20",
+            "title": "Create 'Help' System Content",
+            "description": "Write comprehensive help documentation for players.",
+            "epic_id": "epic-7",
+            "status": "todo",
+            "assigned_to": "Wordsmith",
+            "updated_at": "2025-11-26T12:24:00+11:00"
+        }
+    ],
+    "agents": {}
+}
