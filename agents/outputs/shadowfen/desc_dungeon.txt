@@ -1,1 +1,8 @@
 In the shadowed recesses of the Shadowfen dungeon, the air is thick with the scent of damp earth and corroding metal, a testament to its age. Flickering torchlight dances across walls slick with moisture, casting fleeting specters onto the rusted iron bars that groan in protest with the slightest draft. A steady drip echoes through the chamber, resonating like a somber heartbeat, punctuated by the distant scuttle of unseen creatures. As you step forward, the cold stone floor is slick beneath your feet, sending a shiver through your bones, as if the very dungeon clings to the warmth it has long been denied.
+
+Ambient Messages:
+1. Flickering torchlight casts trembling shadows across damp stone walls, where the faint, echoing drip of water reverberates like whispered secrets in the oppressive darkness.  
+
+2. A heavy, musty air envelops you, tinged with the acrid scent of mold and decay, as the distant skittering of unseen creatures sends shivers racing down your spine.  
+
+3. The ground beneath your feet is uneven and slick with ancient grime, each step releasing a soft squelch that mingles with the unsettling silence, broken only by the low, mournful moan of wind through jagged crevices.
