@@ -1,48 +1,44 @@
-```
-[Guild Square]
-    |
-[Market Street]--[Tannery]
-    |
-[General Store]--[Apothecary]
-    |
-[Dockside Warehouse]
+Below is the design for the "Merchant District" in Shadowfen style, featuring a central hub, logical organization, and exploration opportunities.
 
+```
+       [Alchemy Shop]
+            |
+       [Central Plaza]---[General Store]
+            |      \
+       [Caravan Office] [Weapon Smith]
+            |
+       [Hidden Alley]
 ```
 
 ### Room List with Exits:
 
-1. **Guild Square**
-   - Exits: South to Market Street
-   - Notes: The central hub of the Merchant District, Guild Square is bustling with traders and adventurers. It's a natural gathering place with several notices and job boards, encouraging interaction and commerce.
+1. **Central Plaza**
+   - Exits: North to Alchemy Shop, East to General Store, Southeast to Weapon Smith, South to Caravan Office
+   - Notes: The heart of the Merchant District, it serves as a high-traffic hub. Players naturally congregate here, discovering other locations through exploration.
 
-2. **Market Street**
-   - Exits: North to Guild Square, East to Tannery, South to General Store
-   - Notes: The main thoroughfare, lined with vendor stalls and shops. It's a vibrant area that connects most of the district's key locations, facilitating smooth flow and exploration.
+2. **Alchemy Shop**
+   - Exits: South to Central Plaza
+   - Notes: Specializes in potions and magical ingredients. Positioned conveniently north of the Plaza, it encourages players to explore further into the district.
 
-3. **Tannery**
-   - Exits: West to Market Street
-   - Notes: A specialized shop for leather goods, located slightly off the main street to manage its pungent odors. It serves as a reminder of the district's industrial side and offers crafting materials.
+3. **General Store**
+   - Exits: West to Central Plaza
+   - Notes: Offers a variety of goods for adventurers. Located to the east of the Plaza for easy access, acting as a staple for player needs.
 
-4. **General Store**
-   - Exits: North to Market Street, East to Apothecary, South to Dockside Warehouse
-   - Notes: A convenient stop for basic supplies, strategically positioned to serve both travelers from Market Street and those heading towards the docks.
+4. **Weapon Smith**
+   - Exits: Northwest to Central Plaza
+   - Notes: Provides weapons and armor. Slightly tucked away, it requires players to venture southeast from the Plaza, rewarding exploration with essential gear.
 
-5. **Apothecary**
-   - Exits: West to General Store
-   - Notes: A small but essential shop providing potions and herbs. Its secluded placement suggests the mysterious nature of its wares and caters to adventurers needing healing supplies.
+5. **Caravan Office**
+   - Exits: North to Central Plaza, South to Hidden Alley
+   - Notes: Facilitates trade and travel arrangements. Positioned south of the Plaza, it acts as a transition to less obvious paths, hinting at the Hidden Alley.
 
-6. **Dockside Warehouse**
-   - Exits: North to General Store
-   - Notes: Situated at the southern end, this large storage area is crucial for the import/export activities, reinforcing the district's role in trade. Its proximity to water implies goods are transported via river or sea.
+6. **Hidden Alley**
+   - Exits: North to Caravan Office
+   - Notes: A secluded path that rewards curious players. May contain secretive vendors or rare items. Its discreet location encourages exploration and discovery.
 
-### Design Notes:
+### Design Notes on Flow and Purpose:
 
-- **Flow:** The design encourages players to start at Guild Square and naturally progress through the district. Market Street serves as the main artery, ensuring all rooms are accessible while maintaining a sense of journey.
-  
-- **Purpose:** Each room has a clear thematic and functional role, from the Guild Square's social hub to the Dockside Warehouse's logistical importance.
-
-- **Exploration vs. Convenience:** While the layout is compact for ease of access, the placement of the Tannery and Apothecary rewards players who explore beyond the main path, offering specialized items.
-
-- **Realism:** The layout reflects a plausible urban design, with industrial, commercial, and logistical spaces logically connected, akin to a bustling medieval trade center.
-
-- **Storytelling:** The district tells a story of a thriving trade hub, with hints of industry and commerce in every corner, encouraging players to engage with its economic ecosystem.
+- **Central Hub:** The Central Plaza serves as a natural gathering point, with multiple exits leading to various merchant locations.
+- **Flow:** The district is designed to guide players naturally from the Plaza to essential shops like the General Store and Alchemy Shop while providing a sense of discovery towards the Weapon Smith and Hidden Alley.
+- **Exploration:** The Hidden Alley offers a secretive area that rewards players who stray from the main path, enhancing the sense of adventure and discovery.
+- **Purpose:** Each shop is logically placed to represent a bustling merchant hub, with the Central Plaza as the focal point, ensuring easy navigation and thematic consistency with the Shadowfen style.
