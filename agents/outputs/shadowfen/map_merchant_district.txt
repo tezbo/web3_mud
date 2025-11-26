@@ -1,54 +1,47 @@
 ### Merchant District - Shadowfen Style
 
 ```
-                [5] Herbalist's Hut
-                 |  (Herbs, Potions)
-                 |
-                 |
-[4] Blacksmith --+-- [1] Market Square -- [3] General Store
-    (Weapons,        (Shops, Stalls)         (Supplies, Goods)
-     Tools)          |
-                     |
-                     |
-                [2] Tailor's Shop
-                 |  (Clothing, Fabrics)
-                 |
-                 |
-                [6] Alleyway
-                   (Hidden Path to
-                    Sewers)
+        [Herbalist Shop]
+          /       \
+[General Store]   [Potion Shop]
+    |              |
+ [Market Square]--[Armor Smith]
+    |              |
+ [Street Alley]--[Weapon Smith]
 ```
 
-#### Room List with Exits:
+#### Room List and Exits:
 
 1. **Market Square**
-   - **Exits:** North to Herbalist's Hut, West to Blacksmith, East to General Store, South to Tailor's Shop
-   - **Purpose:** Central hub of the district where players can interact with various NPCs, purchase goods from different stalls, and gather information.
+   - Exits: North to General Store, Northeast to Herbalist Shop, East to Armor Smith, South to Street Alley
+   - Notes: Central hub of the Merchant District. Bustling with vendors and customers, it's the main gathering place. Players naturally pass through here to reach other shops.
 
-2. **Tailor's Shop**
-   - **Exits:** North to Market Square, South to Alleyway
-   - **Purpose:** A specialized shop for purchasing clothing and fabrics. Offers custom tailoring services. Serves as an entry point to the hidden alleyway.
+2. **General Store**
+   - Exits: South to Market Square, East to Herbalist Shop
+   - Notes: Offers a variety of basic goods. Positioned to catch players entering from the main road. Connects to Herbalist Shop for convenience.
 
-3. **General Store**
-   - **Exits:** West to Market Square
-   - **Purpose:** Provides a variety of general supplies and goods. A convenient stop for adventurers to stock up on essentials before their journeys.
+3. **Herbalist Shop**
+   - Exits: South to Market Square, West to General Store
+   - Notes: Specializes in herbs and potions. Its location at the north end draws players looking for specific alchemical ingredients. Serves as a quieter corner of the district.
 
-4. **Blacksmith**
-   - **Exits:** East to Market Square
-   - **Purpose:** Sells weapons and tools. Offers repair services. Creates a sense of realism by being located near the central hub, where demand for such services is high.
+4. **Potion Shop**
+   - Exits: West to Armor Smith
+   - Notes: Sells magical elixirs and potions. Positioned adjacent to the Armor Smith, ensuring that adventurers can gear up both defensively and offensively without backtracking.
 
-5. **Herbalist's Hut**
-   - **Exits:** South to Market Square
-   - **Purpose:** A quieter, more secluded location selling herbs and potions. Offers unique items not found in the general store. Encourages exploration to find special goods.
+5. **Armor Smith**
+   - Exits: West to Market Square, East to Potion Shop
+   - Notes: Provides armor and protective gear. Acts as a barrier between the bustling Market Square and the quieter Potion Shop, creating a transitional space.
 
-6. **Alleyway**
-   - **Exits:** North to Tailor's Shop
-   - **Purpose:** A hidden path leading to the sewers, providing an opportunity for exploration and discovery. Offers a shortcut or secret entrance to other parts of the Shadowfen.
+6. **Weapon Smith**
+   - Exits: West to Street Alley
+   - Notes: Offers a selection of weapons. Located at the south end of the district, connected to the Street Alley, providing a convenient exit for adventurers heading out of the district.
 
-#### Design Notes on Flow and Purpose:
+#### Design Notes:
 
-- **Central Hub:** The Market Square serves as the bustling center of the Merchant District, naturally leading players to the various specialized shops.
-- **Logical Layout:** Shops are logically arranged around the Market Square, ensuring easy navigation while maintaining a sense of distance and exploration.
-- **Discovery Elements:** The hidden Alleyway leading to the sewers adds an element of mystery and encourages players to explore.
-- **Thematic Consistency:** The Shadowfen style is maintained with atmospheric shops like the Herbalist's Hut, which adds to the immersive experience.
-- **Balanced Exploration:** While the district is compact, the arrangement of rooms and the inclusion of a hidden path offer both convenience and the reward of exploration.
+- **Flow and Purpose**: The Market Square serves as the central hub, ensuring that players naturally pass through it to reach other locations. The positioning of shops around the square encourages exploration, with each shop serving a specific adventuring need.
+  
+- **Exploration and Discovery**: The Street Alley offers a less-traveled path to the Weapon Smith, rewarding players who explore beyond the main thoroughfares. This layout also hints at the existence of potential hidden or side paths leading to other districts or special locations.
+
+- **Realism and Storytelling**: The clustering of related shops (e.g., Armor Smith and Potion Shop) reflects logical commercial zoning, enhancing realism. The layout tells a story of a thriving merchant community designed to cater to adventurers and townsfolk alike.
+
+- **Pacing and Balance**: Shops are clustered around the Market Square for convenience, while the Street Alley and Weapon Smith are placed to create a sense of distance and journey, adding depth to the district's exploration.
