@@ -1,46 +1,52 @@
-Sure, here is the ASCII map and details for the 'Merchant District' in Shadowfen style:
+Certainly! Let's design the "Merchant District" in the Shadowfen style, focusing on a blend of commerce, mystery, and organic layouts.
 
+### ASCII Map:
 ```
-    [A]---[B]---[C]
-     |     |     |
-    [D]   [E]   [F]
-
+    [ B ]
+    |   |
+[ D ]-[ M ]-[ A ]
+ |     |  \
+[ S ]  |  [ T ]
+       |
+    [ G ]
 ```
 
-**Room List with Exits and Purpose:**
+### Room List with Exits:
 
-1. **[A] Market Square**
-   - **Exits:** South to [D], East to [B]
-   - **Purpose:** Central hub of the Merchant District with stalls and traders. A high-traffic area where players can meet NPCs, get quests, and buy basic items. 
+1. **[M] Market Square**
+   - **Exits:** North to [B], East to [A], South to [G], West to [D]
+   - **Purpose:** The bustling central hub of the district, filled with stalls, vendors, and the heart of trade in Shadowfen. It serves as the primary navigational anchor.
 
-2. **[B] Blacksmith's Forge**
-   - **Exits:** West to [A], South to [E], East to [C]
-   - **Purpose:** A crucial shop for players to upgrade weapons and armor. The heat and clang of metal are ever-present. Positioned conveniently next to the Market Square for easy access.
+2. **[B] Bazaar of Shadows**
+   - **Exits:** South to [M]
+   - **Purpose:** A mysterious, dimly lit area where rare and exotic goods are traded. Offers occasional quests and hidden paths to those who explore its secrets.
 
-3. **[C] Apothecary**
-   - **Exits:** West to [B], South to [F]
-   - **Purpose:** Offers potions and magical supplies. It serves as the eastern anchor of the district, encouraging players to explore the full breadth of the area.
+3. **[A] Alchemist's Alley**
+   - **Exits:** West to [M], Southeast to [T]
+   - **Purpose:** A narrow street lined with shops selling potions, herbs, and magical trinkets. Provides access to unique items and serves as a secondary commercial area.
 
-4. **[D] Residential Alley**
-   - **Exits:** North to [A]
-   - **Purpose:** Houses for the merchants and their families. A quieter area where players might find side quests or lore.
+4. **[D] Dockside Warehouse**
+   - **Exits:** East to [M], South to [S]
+   - **Purpose:** A storage and shipment hub for goods coming in and out of Shadowfen. Contains hidden passages leading to smuggler's tunnels.
 
-5. **[E] Tailor's Workshop**
-   - **Exits:** North to [B]
-   - **Purpose:** Specializes in clothes and armors made from cloth. Part of the crafting network in the district, it adds depth to the economic ecosystem.
+5. **[S] Smuggler's Cove**
+   - **Exits:** North to [D]
+   - **Purpose:** A secretive hideout used by less savory merchants. Offers hidden quests and a shortcut to the undercity.
 
-6. **[F] Hidden Smuggler's Den**
-   - **Exits:** North to [C]
-   - **Purpose:** A hidden area that rewards exploration. Players can find rare items or engage in secret trades. Accessed through a concealed door in the Apothecary.
+6. **[G] Guild Hall**
+   - **Exits:** North to [M]
+   - **Purpose:** Headquarters for the Merchant Guild. A place to gather information, acquire trade permits, and engage in guild-related activities.
 
-**Design Notes:**
+### Design Notes:
 
-- **Flow:** The Market Square [A] acts as the central hub with multiple exits to ensure high player traffic and ease of navigation. Players naturally move from the central area to the Blacksmith's Forge [B] and then further to the Apothecary [C], promoting exploration.
+- **Flow:** The Market Square [M] acts as the central hub with multiple exits, allowing players to naturally transition between different commercial and narrative areas.
   
-- **Discovery:** Room [F], the Hidden Smuggler's Den, is a reward for players who explore beyond the obvious exits. This hidden path offers a sense of discovery and adventure.
+- **Discovery:** Alchemist's Alley [A] and Bazaar of Shadows [B] encourage exploration with their unique offerings and hidden paths. The Smuggler's Cove [S] adds a layer of mystery and reward for those who seek it.
 
-- **Pacing:** The layout encourages players to move through the district in a circular fashion, starting from the Market Square and looping back after exploring the northern and southern peripheries.
+- **Pacing:** The district is designed to have a mix of high-energy areas like the Market Square and quieter, more intrigue-focused areas like the Dockside Warehouse.
 
-- **Realism:** The district layout reflects practical urban design, with a central hub and specialized shops surrounding it, while residential areas are slightly removed to maintain a sense of living quarters away from the bustling market.
+- **Realism:** The layout mimics a real-life commercial district with logical placement of warehouses by the docks and specialized shops clustered together.
 
-This design balances exploration, convenience, and storytelling, making the Merchant District both functional and engaging for players.
+- **Vertical Space:** Potential vertical elements could include upper floors in shops for private dealings or basements in the Dockside Warehouse for storage and secretive activities.
+
+This map offers a blend of commerce, exploration, and intrigue fitting the Shadowfen style, inviting players to delve deep into the district's secrets.
