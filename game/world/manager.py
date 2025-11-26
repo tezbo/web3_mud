@@ -35,8 +35,13 @@ class WorldManager:
         if not room_data:
             return None
 
+        # Determine Room Class
+        room_type = room_data.get("type", "Room")
+        from game.models.room_types import get_room_class
+        RoomClass = get_room_class(room_type)
+        
         # Create new Room object
-        room = Room(
+        room = RoomClass(
             oid=room_id,
             name=room_data.get("name", "Unknown Room"),
             description=room_data.get("description", "")
