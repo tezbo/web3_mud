@@ -20,3 +20,10 @@ Ambient Messages:
 2. A chill seeps into your bones as the air thickens with the musty scent of decay, punctuated by the acrid tang of old metal and the sound of chains clinking softly in the gloom. 
 
 3. The flickering torchlight dances across jagged rock formations, illuminating ancient runes that pulse faintly, whispering secrets of a long-forgotten past in a language that tingles on your skin.
+
+Ambient Messages:
+1. Shadows writhe in the flickering torchlight, revealing damp stone walls that seem to whisper ancient secrets with every echoing drip of water.  
+
+2. A metallic tang lingers in the stale air, mingling with the earthy scent of moss clinging to the crumbling floor as the distant scuttle of unseen creatures stirs the silence.  
+
+3. The oppressive darkness wraps around you like a shroud, punctuated only by the distant clank of chains, each sound a ghostly reminder of those who once tread these forsaken halls.
