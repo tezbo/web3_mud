@@ -1,1 +1,8 @@
 The dungeon breathes with the thick, cloying mist of Shadowfen, its air steeped in the scent of damp earth and rusted iron. Shadows stretch and shiver across cold stone walls, the flickering torchlight casting a dance of sinister shapes that seem alive. Water drips steadily from the ceiling, each droplet landing with a hollow echo that reverberates through the gloom. Rough-hewn chains hang from the walls, their chill metal biting against the skin like the breath of forgotten specters.
+
+Ambient Messages:
+1. The air is thick with the scent of damp earth and decay, punctuated by the distant echo of dripping water that seems to whisper forgotten secrets in the shadows.  
+
+2. Flickering torchlight dances along the rough-hewn stone walls, casting long, skeletal shadows that writhe like phantoms, while the low rumble of unseen creatures stirs the silence.  
+
+3. A chill seeps from the granite floor, wrapping around your ankles like icy fingers, as the faint metallic tang of blood lingers in the stale air, hinting at past horrors.  
