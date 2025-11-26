@@ -1,25 +1,33 @@
-**Title: The Cure of Shadows**
+**Quest Title: The Cure's Quandary**
 
-**Stage Breakdown:**
+**Stage 1: Discovery and Inquiry**
+The player arrives in the murky village of Mirewatch within Shadowfen, where they learn from Elder Voska that a crucial shipment of medicine, intended to combat a spreading swamp fever, has been stolen. The villagers are desperate, and tensions are high as suspicions about the thief's identity circulate.
 
-1. **Discovery:** The player arrives in the marshy village of Mirewatch in Shadowfen, where they learn that a shipment of vital medicine meant to treat a deadly swamp fever has been stolen. The village healer, Elara, desperately needs the medicine to save the afflicted villagers.
+**Stage 2: Investigation and Decision**
+The player investigates three leads:
+- A local hunter named Ralgar, who was seen near the delivery site.
+- A group of bandits known to raid supply routes.
+- A rival healer, Lira, who opposes Elder Voska's methods.
 
-2. **Investigation:** The player investigates and uncovers that the medicine was last seen with a local bandit group known as the Fen Shadows. The bandits are rumored to be holed up in an abandoned fort deep in the swamp.
+**Stage 3: Resolution and Consequences**
 
-3. **Resolution:** The player must decide how to recover the medicine and deal with the bandits.
+**Solution 1: Confront the Hunter**
+The player confronts Ralgar, who admits he took the medicine to barter with the bandits for his captured brother. The player can:
+- Aid Ralgar in rescuing his brother, retrieving the medicine in the process.
+  - **Consequences:** Ralgar becomes an ally, offering hunting skills to aid the village. The bandit threat diminishes as they lose leverage.
+- Expose Ralgar to the village.
+  - **Consequences:** Ralgar is ostracized, creating a divide. The village is saved, but the fever’s spread renews as the bandits retaliate.
 
-**Solutions:**
+**Solution 2: Negotiate with the Bandits**
+The player tracks down the bandits and negotiates a deal, offering either coin or a favor in exchange for the medicine.
+- **Consequences:** The bandits agree to cease raids temporarily, but the player owes them a future favor. The village is saved, but Elder Voska is wary of the player's associations.
 
-1. **Direct Confrontation:** The player chooses to storm the bandit fort, fighting their way through to recover the medicine by force.
+**Solution 3: Uncover the Rival Healer’s Plot**
+The player discovers Lira has taken the medicine to discredit Elder Voska and promote her own remedies. The player can:
+- Reveal Lira’s plan, restoring the medicine to the village.
+  - **Consequences:** The village turns against Lira, strengthening Elder Voska’s leadership. Lira leaves, seeking allies among the Threadsinging sect, potentially creating future conflict.
+- Support Lira’s initiative.
+  - **Consequences:** Lira’s remedies prove effective, and she gains influence. Elder Voska steps down, altering the village's leadership dynamics and opening new storylines involving Lira's methods and her ties to the Threadsinging.
 
-   - *Consequences:* The bandits are driven out of the area, leading to a temporary peace in Mirewatch. However, the power vacuum attracts a more organized and dangerous group of criminals in the future, causing long-term instability.
-
-2. **Negotiation:** The player speaks with the bandit leader, Kael, and discovers that the bandits stole the medicine to treat their own sick members. The player can negotiate a trade or persuade Kael to share the medicine for the greater good.
-
-   - *Consequences:* A portion of the medicine is shared, saving both the villagers and some of the bandits. This earns the player respect from both sides, and the bandits become less hostile, occasionally aiding Mirewatch in times of need. However, resources in the village become scarce, leading to increased tension among the townsfolk.
-
-3. **Cunning Theft:** The player opts for a stealthy approach, sneaking into the bandit fort under cover of darkness to steal the medicine back without alerting the bandits.
-
-   - *Consequences:* The medicine is returned to Mirewatch without bloodshed, and the villagers are saved. However, the bandits, realizing they've been robbed, become more aggressive, raiding nearby settlements more frequently. This forces Mirewatch to bolster its defenses and be wary of future incursions.
-
-Each choice affects the player's reputation with the villagers and bandits, influencing future interactions and quests in Shadowfen.
+**World Tie-in:**
+The quest ties into the broader lore, as the swamp fever is a byproduct of the ancient Sundering, and the player's choices may uncover or obscure secrets about the realm's past embedded in Shadowfen's history.
