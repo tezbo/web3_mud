@@ -1,49 +1,52 @@
-### ASCII Map of 'Dungeon' District
+### Shadowfen Dungeon Map
 
 ```
          [Entrance]
-             |
-        [Guard Room] -- [Storage Chamber]
-             |                |
-          [Main Hall] -- [Treasure Vault]
-             |
-         [Prison Cells]
+            |
+      [Guard Post]
+       /       \
+  [Central Chamber]---[Treasure Vault]
+       \       /
+       [Prison Cells]
+           |
+       [Secret Tunnel]
+
 ```
 
-### Room List with Exits
+### Room List and Exits
 
 1. **Entrance**
-   - Exits: South to Guard Room
-   - Purpose: Entry point to the Dungeon, guarded and secured.
+   - **Exits:** South to Guard Post
+   - **Purpose:** Entry point to the dungeon, sets the tone with oppressive architecture and dim lighting.
 
-2. **Guard Room**
-   - Exits: North to Entrance, South to Main Hall, East to Storage Chamber
-   - Purpose: Central hub for guards, controlling access to deeper parts of the Dungeon.
+2. **Guard Post**
+   - **Exits:** North to Entrance, South to Central Chamber
+   - **Purpose:** Acts as a checkpoint. Guards were stationed here, remnants of their duty still evident. It serves as a transition from the outside world to the dungeon's depths.
 
-3. **Storage Chamber**
-   - Exits: West to Guard Room
-   - Purpose: Holds supplies and equipment, lesser-used path, potential for hidden secrets or loot.
+3. **Central Chamber**
+   - **Exits:** North to Guard Post, East to Treasure Vault, South to Prison Cells
+   - **Purpose:** The main hub of the dungeon, connecting to important locations. It provides a sense of scale and significance, with ancient carvings hinting at the dungeon's history.
 
-4. **Main Hall**
-   - Exits: North to Guard Room, East to Treasure Vault, South to Prison Cells
-   - Purpose: Central corridor, main axis of the Dungeon, leading to key areas.
+4. **Treasure Vault**
+   - **Exits:** West to Central Chamber
+   - **Purpose:** A reward for explorers, guarded by traps and puzzles. Contains lore items and valuable treasures, offering incentive for those who delve deep.
 
-5. **Treasure Vault**
-   - Exits: West to Main Hall
-   - Purpose: Heavily guarded area, contains valuable loot, focal point for exploration.
+5. **Prison Cells**
+   - **Exits:** North to Central Chamber, South to Secret Tunnel
+   - **Purpose:** Holds the echoes of captured souls. Players may find clues or keys here, with interactive elements like old chains and scattered skeletons.
 
-6. **Prison Cells**
-   - Exits: North to Main Hall
-   - Purpose: Contains captives or dangerous creatures, an eerie and tense atmosphere.
+6. **Secret Tunnel**
+   - **Exits:** North to Prison Cells
+   - **Purpose:** A hidden path for those observant or lucky enough to discover it. Offers an escape route or shortcut, possibly leading to other parts of Shadowfen in future expansions.
 
 ### Design Notes
 
-- **Flow and Purpose**: The Dungeon is designed with a logical flow, starting at the Entrance and moving through the Guard Room, which serves as a central hub. From the Guard Room, players can access the Storage Chamber for additional exploration or proceed deeper into the Dungeon via the Main Hall.
+- **Flow:** The Central Chamber serves as the primary hub, ensuring players naturally pass through it to reach significant areas like the Treasure Vault or the Prison Cells. This design encourages exploration while maintaining a clear route.
   
-- **Exploration and Discovery**: The Storage Chamber provides an opportunity for discovery and finding hidden items or lore. The Guard Room's connection to multiple paths encourages players to explore and determine their preferred route.
+- **Discovery:** The Secret Tunnel rewards players who explore the Prison Cells thoroughly, offering a shortcut and a sense of mystery. The Treasure Vault is a clear goal, enticing players with the promise of reward.
 
-- **Pacing and Realism**: The layout balances exploration with convenience. The Guard Room serves as a checkpoint, making it realistic for a Dungeon's defensive structure. The Treasure Vault's position requires players to engage with the Dungeon's main path, creating a sense of accomplishment when reached.
+- **Pacing:** The layout encourages players to progress from the mundane (Guard Post) to the mysterious (Secret Tunnel), providing a gradual build-up in atmosphere and narrative depth.
 
-- **Vertical and Layered Complexity**: While this design does not use vertical space, it emphasizes branching pathways, encouraging players to consider their choices and explore methodically.
+- **Realism:** The design reflects a defensive structure with logical placements—guards first, main activities central, and valuables hidden away. The Prison Cells are placed to suggest their secondary importance to the structure's original purpose.
 
-- **Storytelling Through Space**: Each room's purpose contributes to the overall narrative of the Dungeon, with the Guard Room controlling access, the Main Hall directing flow, and the Treasure Vault providing an ultimate goal, all tied into the Shadowfen's mysterious and guarded style.
+- **Shadowfen Style:** The dungeon reflects the eerie and mysterious nature of Shadowfen, with rooms that tell a story of past use and abandonment, enhanced by atmospheric descriptions and subtle narrative clues.
