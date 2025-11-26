@@ -1,0 +1,33 @@
+**Title: The Cure in Shadows**
+
+**Stage Breakdown:**
+
+1. **Discovery:**
+   - The player learns from Elara, a distressed healer in Shadowfen, that a crucial shipment of medicine meant for the plague-stricken village has been stolen. Without it, many villagers will perish.
+   - Clues suggest the medicine was taken by a group of renegade alchemists, who believe they can use it to synthesize a more potent cure for the realm-wide Blight.
+
+2. **Investigation:**
+   - The player must track down the renegade alchemists' hideout deep within the swamp.
+   - Along the way, they encounter various locals who have conflicting opinions about the alchemists, hinting at their divided loyalties.
+
+3. **Confrontation and Resolution:**
+   - The player finds the alchemists, led by Alaric, a disillusioned former physician of the realm. He insists their research is the only way to end the Blight once and for all.
+
+**Solutions:**
+
+1. **Diplomatic Negotiation:**
+   - The player can choose to mediate between Elara and Alaric, convincing them to share the medicine while collaborating on the research.
+   - *Consequences:* The new alliance leads to a breakthrough in curing the Blight faster, earning the player a reputation as a peacemaker. However, tensions between those who fear the alchemists remain.
+
+2. **Side with Elara:**
+   - The player retrieves the medicine by force or stealth and returns it to Elara, ensuring the immediate survival of the village.
+   - *Consequences:* The village celebrates the player as a hero, but Alaric's research is set back indefinitely, potentially delaying a Blight cure. The alchemists view the player as an enemy.
+
+3. **Support the Alchemists:**
+   - The player aids Alaric's cause, helping to fend off local mercenaries and providing resources to further the research.
+   - *Consequences:* Alaric's group makes significant progress towards a cure, but the village suffers greatly, leading to distrust and resentment towards the player from villagers and Elara.
+
+**World Ripple Effects:**
+- **Diplomatic Negotiation:** Future quests may arise from the new alliance, with potential for further cooperation or sabotage.
+- **Side with Elara:** The player's reputation among healers improves, but they may face hostility from alchemist sympathizers in future encounters.
+- **Support the Alchemists:** The player gains allies in the scientific community, opening new opportunities for innovative quests, but at the cost of village support and possible moral dilemmas.
