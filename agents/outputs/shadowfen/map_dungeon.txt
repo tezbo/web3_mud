@@ -1,61 +1,50 @@
-### Shadowfen Dungeon Map
+Certainly! Below is an ASCII map for a 6-room district called 'Dungeon' in the Shadowfen style. This design aims to balance exploration with a sense of foreboding and complexity, typical of a dark and mysterious dungeon environment.
 
 ```
-        +--------+
-        | Crypt  |
-        |  (E)   |
-        +---+----+
-            |
-        +---+----+
-        | Antechamber |
-        |  (W, E)     |
-        +---+----+----+
-            |    |
-        +---+----+----+
-        | Main Hall    |
-        | (W, E, D, U) |
-        +---+----+----+
-            |    |
-        +---+    +----+
-        | Armory|    | Treasury
-        | (E)   |    |  (W) 
-        +---+    +----+
+   [Entrance]
+       |
+   [Great Hall]
+    /    |    \
+[Armory] | [Chapel]
+    \    |    /
+   [Guard Quarters]
+       |
+   [Hidden Vault]
 ```
 
-### Room List and Exits
+### Room List with Exits:
 
-1. **Crypt**
-   - Exits: East to Antechamber
-   - Purpose: Starting point in the dungeon, sets the eerie mood.
+1. **Entrance**
+   - Exits: South to Great Hall
+   - Notes: The main entry point into the dungeon, featuring a heavy, creaky door. Sets the tone for the adventure ahead.
 
-2. **Antechamber**
-   - Exits: West to Crypt, East to Main Hall
-   - Purpose: Transition area from the crypt to the heart of the dungeon.
+2. **Great Hall**
+   - Exits: North to Entrance, East to Chapel, West to Armory, South to Guard Quarters
+   - Notes: A central hub with flickering torches lining the walls. The chamber serves as a gathering area with pathways to various sections of the dungeon.
 
-3. **Main Hall**
-   - Exits: West to Antechamber, East to Armory, Down to Basement, Up to Guard Tower
-   - Purpose: Central hub of the dungeon, connects to multiple key areas.
+3. **Armory**
+   - Exits: East to Great Hall
+   - Notes: A cluttered room filled with ancient weapons and rusty armor. An optional side area for players to find equipment.
 
-4. **Armory**
-   - Exits: West to Main Hall
-   - Purpose: Contains weapons and armor, rewards players with equipment.
+4. **Chapel**
+   - Exits: West to Great Hall
+   - Notes: A small, eerie room with remnants of forgotten rituals. Adds to the storytelling of the dungeon's past.
 
-5. **Treasury**
-   - Exits: West to Main Hall
-   - Purpose: Secret room accessible through a hidden mechanism in the Main Hall, contains valuable loot.
+5. **Guard Quarters**
+   - Exits: North to Great Hall, South to Hidden Vault
+   - Notes: Once home to the dungeon's guards, now deserted. A resting spot with clues leading to the Hidden Vault.
 
-6. **Basement (Down from Main Hall)**
-   - Exits: Up to Main Hall
-   - Purpose: Dark and dangerous, contains hidden pathways leading to secret rooms.
+6. **Hidden Vault**
+   - Exits: North to Guard Quarters
+   - Notes: A secret, treasure-laden room that requires exploration through the Guard Quarters. Rewards players for their curiosity.
 
-### Design Notes
+### Design Notes on Flow and Purpose:
 
-- **Flow**: The Main Hall acts as a central hub, allowing access to different parts of the dungeon, encouraging exploration of both side rooms and hidden areas.
-  
-- **Discovery**: The Treasury is hidden, requiring players to solve a puzzle or find a secret passage in the Main Hall.
+- **Central Hub:** The Great Hall acts as a central hub, providing multiple exits to ensure a smooth flow and encourage exploration.
+- **Flow:** Rooms are connected logically, with the Great Hall serving as a natural navigation point to other areas.
+- **Discovery:** The Hidden Vault is a secret area, accessed through exploration of the Guard Quarters, rewarding players with treasure.
+- **Pacing:** The dungeon is designed to gradually reveal its secrets, guiding players from the Entrance to the deepest sections.
+- **Realism:** The layout follows a logical structure, with living quarters, an armory, and a chapel suggesting a once-functional dungeon.
+- **Vertical Space:** While this dungeon doesn't use vertical space due to its small size, the idea of a hidden vault provides depth and intrigue.
 
-- **Pacing**: The layout encourages players to explore each area for resources or clues, with the crypt setting the tone and the armory providing necessary equipment.
-
-- **Realism**: The dungeon layout makes sense with a central hall leading to important rooms, and the vertical elements (Basement and Guard Tower) adding depth and complexity.
-
-- **Vertical Space**: The Main Hall's connections up to the Guard Tower and down to the Basement add layers to exploration, offering different challenges and perspectives.
+This design encourages players to explore and rewards them with secrets and treasures, maintaining an engaging and mysterious atmosphere.
