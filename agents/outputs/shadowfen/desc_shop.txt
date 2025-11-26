@@ -27,3 +27,10 @@ Ambient Messages:
 2. "Sunlight filters through stained glass, casting colorful patterns on the polished wooden floor, while the soft chime of wind bells dances in harmony with the low hum of bustling patrons."  
 
 3. "A tapestry of spices and incense envelops you, punctuated by the sharp clink of glass vials and the soft rustle of parchment, beckoning you deeper into the shop's shadowy nooks."  
+
+Ambient Messages:
+1. The air shimmers with the sweet scent of candied fruits, their colors vibrant against the earthy tones of clay pots stacked haphazardly, each one whispering stories of distant lands.  
+
+2. A low, rhythmic chime of bells dances through the shop as the door creaks open, releasing a waft of spiced incense that swirls around you like a forgotten memory.  
+
+3. The cool touch of polished jade beneath your fingertips contrasts with the warmth of flickering lanterns, casting playful shadows that flicker like secrets among the shelves lined with exotic curiosities.

@@ -1,1 +1,8 @@
 In the heart of the Shadowfen dungeon, shadows cling to moss-slicked stones, whispering secrets lost to time. The air hangs heavy with the musty aroma of damp earth and the faint, coppery scent of rust. Each footstep echoes with a hollow thud, swallowed by the oppressive silence that presses like a shroud against your skin. Flickers of torchlight dance across the jagged walls, their flickering glow casting eerie, distorted silhouettes that slither and writhe in the corners of your vision.
+
+Ambient Messages:
+1. The damp air clings to your skin, thick with the earthy scent of moss and the faint echo of dripping water, as shadows writhe along the stone walls like specters of forgotten souls.  
+
+2. A chill lingers in the stale air, carrying the metallic tang of old blood while the distant sound of skittering claws sends a shiver down your spine.  
+
+3. Flickering torchlight dances across the jagged rock, illuminating the intricate carvings that whisper of ancient curses, while the taste of rust coats your tongue like a grim omen.  
