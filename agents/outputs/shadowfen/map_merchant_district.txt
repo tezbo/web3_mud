@@ -1,48 +1,49 @@
+**Merchant District - Shadowfen Style**
+
 ```
-        [1] Marketplace
-         | N
-         |
-[2] Potion Shop -- [3] Blacksmith
-   W     | S          | E
-         |
-       [4] General Store
-         | S
-         |
-       [5] Alchemist's Alley
-         | W
-         |
-       [6] Hidden Courtyard
+   [Marketplace]
+        |
+  [Blacksmith] -- [Tavern] -- [Tailor]
+        |
+    [Apothecary]
+        |
+  [Hidden Alley]
 ```
 
-### Room List and Exits:
+**Room List & Exits:**
 
 1. **Marketplace**
-   - Exits: North to Potion Shop, South to General Store
-   - Notes: The central hub of the Merchant District. It is bustling with stalls and merchants, serving as the primary point of entry for players exploring the area.
+   - Exits: North to Blacksmith, East to Tavern
+   - Purpose: Central hub of the district where traders gather; bustling with activity, a focal point for newcomers.
 
-2. **Potion Shop**
-   - Exits: South to Marketplace, West to Blacksmith
-   - Notes: A compact shop filled with shelves of potions and ingredients. Positioned close to the marketplace for easy access to alchemical supplies.
+2. **Blacksmith**
+   - Exits: South to Marketplace, East to Tailor
+   - Purpose: Provides weapons and armor; essential services for adventurers, strategically placed for easy access from the market.
 
-3. **Blacksmith**
-   - Exits: East to Potion Shop
-   - Notes: The clanging of metal echoes through the shop. Situated near the Potion Shop for logical synergy between crafting and enchanting tools/weapons.
+3. **Tavern**
+   - Exits: West to Marketplace, East to Tailor
+   - Purpose: Social hub, a place for gathering information and meeting other players; offers a warm place to rest.
 
-4. **General Store**
-   - Exits: North to Marketplace, South to Alchemist's Alley
-   - Notes: A catch-all store offering a variety of goods. Located just south of the Marketplace for convenience, serving as an introduction to the more specialized shops.
+4. **Tailor**
+   - Exits: West to Blacksmith, West to Tavern
+   - Purpose: Supplies clothing and accessories; located near other crafts for convenience.
 
-5. **Alchemist's Alley**
-   - Exits: East to General Store, West to Hidden Courtyard
-   - Notes: A narrow, winding path filled with the scent of exotic herbs. A bit off the beaten path, encouraging exploration to find unique alchemical goods.
+5. **Apothecary**
+   - Exits: North to Marketplace, South to Hidden Alley
+   - Purpose: Sells potions and herbal remedies; positioned slightly away from the hustle to create a quieter atmosphere, but still accessible.
 
-6. **Hidden Courtyard**
-   - Exits: East to Alchemist's Alley
-   - Notes: A secluded area with a small fountain and benches, offering a peaceful retreat. Provides a hidden reward for players who explore beyond the typical routes.
+6. **Hidden Alley**
+   - Exits: North to Apothecary
+   - Purpose: Secretive path leading to potential side quests or hidden treasures; rewards players who explore thoroughly.
 
-### Design Notes:
+**Design Notes:**
 
-- **Flow and Exploration:** The Marketplace serves as a central hub, with logical paths leading to each specialized shop. The design encourages movement through the district while allowing players to discover hidden areas like the Hidden Courtyard.
-- **Purpose and Connection:** Shops are organized to reflect practical adjacency (e.g., Potion Shop near Blacksmith). This spatial arrangement improves player immersion and storytelling.
-- **Discovery and Convenience:** The Alchemist's Alley and Hidden Courtyard provide opportunities for players to find unique items, rewarding those who venture beyond the main thoroughfare.
-- **Realism and Style:** The layout mimics a realistic district with a central marketplace, specialized shops, and hidden paths, fitting the Shadowfen's mysterious and bustling atmosphere.
+- **Flow and Central Hub:** The Marketplace serves as the central hub, naturally guiding players to essential services like the Blacksmith and Tavern. It is designed to be the first point of contact for players entering the district.
+  
+- **Exploration and Discovery:** The Hidden Alley provides a sense of mystery and exploration, encouraging players to venture beyond the obvious paths. This hidden path adds depth and rewards curiosity.
+
+- **Logical Organization:** Shops are logically grouped by purpose (crafts and services), and the Tavern is centrally located for social interaction, reflecting a realistic market layout.
+
+- **Pacing:** Essential services are clustered around the Marketplace for easy access, while optional areas like the Hidden Alley are placed farther away, maintaining a balance between convenience and exploration.
+
+- **Vertical Space:** While this area is primarily horizontal, potential vertical expansions could include upper floors in the Tavern for guest rooms or a hidden underground chamber accessed through the Hidden Alley.
