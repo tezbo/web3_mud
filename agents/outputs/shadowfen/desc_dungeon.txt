@@ -1,1 +1,8 @@
 In the heart of the Shadowfen, the dungeon yawns like a forgotten wound, its stone walls slick with a perennial sheen of moisture. The air is thick with the acrid scent of rust and stagnant water, clinging to the back of your throat with each breath. A distant drip echoes through the corridors, a rhythmic reminder of the world above, while a faint chill seeps through your boots, numbing your toes. Shadows dance with the flicker of torches, their light casting jagged silhouettes that seem to shift and whisper secrets only the darkness understands.
+
+Ambient Messages:
+1. The damp air clings to your skin, thick with the musty scent of ancient stone and the distant echo of dripping water, as shadows flicker along the rough-hewn walls.  
+
+2. A faint, metallic taste lingers on your tongue, mingling with the soft rustle of unseen creatures scuttling through the darkness, while the chill of the ground seeps into your bones.  
+
+3. The flickering torchlight dances across grotesque carvings, revealing a tapestry of despair and forgotten lore, while the faint whisper of a breeze carries the chilling promise of long-lost secrets.  
