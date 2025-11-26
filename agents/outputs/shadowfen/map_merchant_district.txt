@@ -1,63 +1,49 @@
-Certainly! Below is an ASCII map for the 'Merchant District' designed in a Shadowfen style, followed by room details with exits and design notes.
+Certainly! Here's a design for the 'Merchant District' in a Shadowfen style, which might reflect a somewhat dark, swampy, and mysterious atmosphere.
+
+### ASCII Map
 
 ```
-+-------------------+   +-----------------+
-|    Market Square  |---|  Potions Shop   |
-|   (Central Hub)   |   |   (Alchemy)     |
-| Exits: N, E, S, W |   | Exits: W        |
-+-------------------+   +-----------------+
-        | N
+   [Town Square]
         |
-+-------------------+   +-----------------+
-|   Blacksmith's    |   |   Tailor's      |
-|     Forge         |---|   Workshop      |
-| Exits: S, E       |   | Exits: W        |
-+-------------------+   +-----------------+
-                |
-                E
-                |
-+-------------------+
-|   Hidden Alley    |
-|   (Secret Path)   |
-| Exits: W, S       |
-+-------------------+
-                |
-                S
-                |
-+-------------------+
-|  Shady Tavern     |
-| Exits: N          |
-+-------------------+
+   [Market Street] - [Potion Shop]
+        |
+   [Armorer] - [Alleyway]
+        |
+   [Docks]
 ```
 
 ### Room List with Exits
 
-1. **Market Square (Central Hub)**
-   - **Exits**: North to Blacksmith's Forge, East to Potions Shop, South to Shady Tavern, West to Tailor's Workshop
-   - **Notes**: This is the heart of the Merchant District. It serves as a central hub where players can easily navigate to all other locations. It's bustling with NPCs and provides various quests and items.
+1. **Town Square**
+   - **Exits**: South to Market Street
+   - **Notes**: Central hub of the district; a bustling area where merchants set up stalls. Players naturally gather here, making it the starting point for exploration.
 
-2. **Blacksmith's Forge**
-   - **Exits**: South to Market Square, East to Hidden Alley
-   - **Notes**: A place for players to purchase weapons and armor or get repairs. The heat and noise from the forge create an immersive industrial atmosphere.
+2. **Market Street**
+   - **Exits**: North to Town Square, East to Potion Shop, South to Armorer
+   - **Notes**: Main thoroughfare lined with various small merchant stalls. Connects important locations and encourages exploration.
 
-3. **Potions Shop (Alchemy)**
-   - **Exits**: West to Market Square
-   - **Notes**: Filled with bubbling cauldrons and mystical herbs, this shop offers potions and magical items. It's a key visit for magic users.
+3. **Potion Shop**
+   - **Exits**: West to Market Street
+   - **Notes**: A small, dimly-lit shop filled with bubbling cauldrons and rare ingredients. Offers unique potions and serves as a quest point for alchemists.
 
-4. **Tailor's Workshop**
-   - **Exits**: West to Market Square
-   - **Notes**: This shop specializes in clothing and light armor. The tailor is known for crafting unique outfits that provide both style and minor stat bonuses.
+4. **Armorer**
+   - **Exits**: North to Market Street, East to Alleyway, South to Docks
+   - **Notes**: A sturdy structure where players can upgrade gear. Positioned to be easily accessible from the main path while leading to more hidden areas.
 
-5. **Hidden Alley (Secret Path)**
-   - **Exits**: West to Blacksmith's Forge, South to Shady Tavern
-   - **Notes**: A narrow, obscured path that connects less visible parts of the district. It's ideal for players seeking shortcuts or those on specific quests requiring discretion.
+5. **Alleyway**
+   - **Exits**: West to Armorer
+   - **Notes**: A narrow, shadowy path that might hide secrets or shortcuts. Offers a hidden path and potential for storytelling through discovered mysteries.
 
-6. **Shady Tavern**
-   - **Exits**: North to Hidden Alley
-   - **Notes**: A dimly lit establishment frequented by rogues and mercenaries. It's a place for gathering information, hiring help, or undertaking illicit quests.
+6. **Docks**
+   - **Exits**: North to Armorer
+   - **Notes**: The end of the district near the water's edge. Serves as a transition point to other areas or quests involving the nearby swamps or waterways.
 
 ### Design Notes
 
-- **Flow and Exploration**: The Market Square ensures all locations are easily accessible, with the Hidden Alley providing an exciting discovery element and shortcut.
-- **Purpose and Realism**: Shops are logically arranged around the central hub, with related trades (like the Blacksmith and Tailor) being closer to each other. The Shady Tavern's placement is intentionally on the district's fringe, reflecting its unsavory nature.
-- **Narrative and Interaction**: The district's layout facilitates storytelling, with the central hub acting as a focal point for adventures and quests, while hidden paths and side rooms encourage exploration and reward persistent players.
+- **Flow**: The Town Square acts as the central hub, providing a natural starting point. Market Street connects the key commercial locations, ensuring players move through the heart of the district.
+- **Exploration**: The Alleyway serves as a hidden path, rewarding those who venture off the beaten path. It can be used for side quests or to uncover secrets about the district.
+- **Pacing**: The main pathway (Town Square → Market Street → Armorer → Docks) offers a logical progression, while the Potion Shop and Alleyway provide optional detours.
+- **Realism**: The layout reflects a typical trading district with a central gathering spot, main commercial street, and specialized shops. The Docks provide a realistic endpoint connecting to other regions.
+- **Vertical Space**: While this district is primarily horizontal, the potential for vertical exploration exists within shops (e.g., Potion Shop with a basement for rare ingredients). 
+
+This design encourages exploration, balances the central hub with peripheral areas, and maintains a sense of realism and mystery fitting for Shadowfen.

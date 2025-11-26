@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 The room is swathed in a perpetual twilight, where the dim glow of rusted iron sconces casts flickering shadows upon the damp, moss-covered stone walls. A musty scent of earth and decay lingers in the air, mingled with the faint, acrid odor of stagnant water from the nearby fen. The floor, slick with a thin film of moisture, feels cool and treacherous underfoot, each step accompanied by the soft squelch of wet leather on stone. The silence is punctuated by the distant croak of unseen creatures and the occasional drip of water echoing in the gloom, creating a symphony of isolation and ancient secrets.
 =======
 The air is thick with the earthy aroma of damp moss, mingling with the sharp, metallic bite of rusted iron. Mist coils languidly around the twisted frames of long-abandoned machinery, its tendrils caressing the corroded surfaces with a ghostly, wet touch. A soft, persistent drip echoes through the gloom, each droplet sending ripples through stagnant pools that gleam like liquid shadows. Pale fungi cling to the walls, their luminescent tendrils casting an eerie, phosphorescent glow that dances across the stone like whispers of forgotten secrets.
@@ -10,3 +11,6 @@ Ambient Messages:
 
 3. Silk drapes whisper against the cool marble floor, while the soft rustle of fabric and the delicate notes of a lute create an intimate warmth, wrapping the space in a cocoon of nostalgia and longing.  
 >>>>>>> feature/task-2
+=======
+In the heart of Shadowfen, the room sits cloaked in a perpetual shroud of mist, tendrils of fog weaving through the air like ghostly dancers. The walls, stained with the deep rust of age, seep a faint metallic scent that mingles with the earthy dampness of the swamp outside. Each footstep on the sodden wooden floor releases a soft, squelching whisper, as if the room itself were murmuring secrets. Flickering lanterns cast amber pools of light, their glow bouncing off slick surfaces and accentuating the intricate carvings of ancient runes etched into the decaying beams. The air is thick and cool, embracing you like a damp cloak, while the distant croak of unseen creatures punctuates the silence.
+>>>>>>> feature/task-1
