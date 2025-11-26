@@ -1,46 +1,42 @@
-Here's a design for the "Merchant District" in the Shadowfen style, incorporating a mix of bustling commerce and hidden secrets.
-
-### ASCII Map
+Here's a design for the 'Merchant District' in the Shadowfen style:
 
 ```
-           [Tailor]
-              |
-[Armory]--[Market Square]--[Apothecary]
-              |
-         [Tavern]--[Hidden Alley]
+[Market Square] -- [Apothecary] -- [Tailor's Shop]
+     |                  |
+[General Store]      [Hidden Alley]
+     |
+[Dockside Tavern]
+
 ```
 
-### Room List with Exits
+**Room List and Exits:**
 
 1. **Market Square**
-   - Exits: North to Tailor, West to Armory, East to Apothecary, South to Tavern
-   - Notes: The central hub of the Merchant District, bustling with traders and shoppers. The square is a lively place, often hosting street performers and market stalls. It serves as a natural meeting point for players.
+   - Exits: North to Apothecary, South to General Store
+   - Design Notes: Central hub of the Merchant District, bustling with stalls and vendors. Serves as the primary social and commercial gathering spot. Players naturally start here to explore the district.
 
-2. **Tailor**
-   - Exits: South to Market Square
-   - Notes: This shop offers clothing and fabric, with a workshop in the back. It's a quieter spot, ideal for players seeking custom garments or repair services.
+2. **Apothecary**
+   - Exits: South to Market Square, East to Tailor's Shop
+   - Design Notes: A small, dimly lit shop with shelves of potions and herbs. Positioned close to the Market Square for easy access to suppliers and customers. The connection to the Tailor's Shop encourages players to explore further east.
 
-3. **Armory**
-   - Exits: East to Market Square
-   - Notes: A robust shop offering weapons and armor. The forge can be heard clanging from the street, drawing in those interested in combat gear.
+3. **Tailor's Shop**
+   - Exits: West to Apothecary
+   - Design Notes: Filled with colorful fabrics and mannequins. Positioned at the edge of the district, drawing players to the northern area. Provides crafting materials and serves as a quieter spot away from the central hustle.
 
-4. **Apothecary**
-   - Exits: West to Market Square
-   - Notes: Filled with herbs and potions, this shop is a must-visit for players interested in alchemy or seeking remedies. It also has a hidden backroom accessible through a secret passage, which could lead to quests or rare items.
+4. **General Store**
+   - Exits: North to Market Square, South to Dockside Tavern
+   - Design Notes: Stocks a variety of goods necessary for adventurers. Acts as a transition from the commercial area to the more relaxed environment of the tavern. Its placement ensures high foot traffic from players moving south.
 
-5. **Tavern**
-   - Exits: North to Market Square, East to Hidden Alley
-   - Notes: A lively establishment where adventurers gather. The common room is always bustling, and rumors circulate freely. It provides a social space and a source of information.
+5. **Dockside Tavern**
+   - Exits: North to General Store
+   - Design Notes: A cozy, dimly lit establishment frequented by traders and dock workers. Located at the southern edge, it serves as a resting place and a point of interest for players exploring beyond the district.
 
 6. **Hidden Alley**
-   - Exits: West to Tavern
-   - Notes: A narrow, dimly lit path behind the tavern. It's a place for clandestine meetings and perhaps a hidden quest or two. The alley might lead to unexpected encounters or serve as a shortcut for those in the know.
+   - Exits: West to Apothecary
+   - Design Notes: A secretive path known only to a few, it provides a shortcut between the Apothecary and other areas outside the map. Rewards exploration with potential hidden quests and rare items. Adds depth and mystery to the district.
 
-### Design Notes on Flow and Purpose
+**Design Notes:**
 
-- **Central Hub (Market Square):** Serves as the district's focal point, with easy access to all major locations, encouraging player interaction and commerce.
-- **Flow:** The district's layout naturally guides players through the main commercial areas, with the Market Square as the central node.
-- **Discovery:** The Hidden Alley offers an element of mystery, rewarding players who explore beyond the main paths.
-- **Pacing:** The clustering of shops around the Market Square provides a sense of a bustling commercial hub, while the Tailor and Hidden Alley offer a quieter, more secluded experience.
-- **Realism:** The placement of shops around a central square mirrors real-world market districts, enhancing immersion.
-- **Vertical Space:** This district is primarily horizontal, focusing on ease of navigation in a compact commercial area. Future expansions could introduce layered complexity with multi-level buildings.
+- **Flow and Purpose:** The map encourages exploration with the central Market Square as the starting point. Players naturally flow from the bustling square to more specialized shops. The layout balances easy navigation with hidden surprises.
+- **Discovery and Pacing:** The Hidden Alley offers a sense of discovery and rewards players who take the time to explore beyond the obvious paths. The positioning of the Tavern and Tailor's Shop creates a sense of distance and diversity in the district's layout.
+- **Realism:** The arrangement of shops and social spaces reflects a realistic urban setting where related businesses are clustered, and social venues are a short walk from commercial areas.
