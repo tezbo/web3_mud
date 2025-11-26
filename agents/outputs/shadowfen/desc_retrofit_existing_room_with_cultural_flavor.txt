@@ -1,8 +1,1 @@
-The chamber is cloaked in a thick, swirling mist that clings to the skin like a cool, damp shroud. Flickering lanterns cast eerie, rust-hued shadows that dance across the stone walls, their surfaces slick with the perpetual condensation of the fen. The air is heavy with the earthy scent of decaying leaves mingled with the sharp tang of iron, a testament to the nearby bog. As you move, the soft squelch of the moss-covered floor underfoot is accompanied by the distant, mournful croak of unseen swamp creatures.
-
-Ambient Messages:
-1. Sunlight filters through stained glass panes, casting vibrant patterns across the polished stone floor while the air hums with the distant clanging of metal against metal, a rhythmic ode to craftsmanship.  
-
-2. A gentle breeze carries the sweet aroma of blooming night-blooming jasmine, mingling with the soft rustle of silk curtains that dance lazily in the twilight, wrapping the room in a tranquil embrace.  
-
-3. Thick, curling tendrils of mist seep through the cracked window, bringing with them the earthy scent of damp moss and the faintest whisper of rusted iron, hinting at secrets long buried within the shadows.
+The room is steeped in a damp chill, where the air hangs thick with the earthy scent of moss and decaying leaves. Shadows writhe along the rust-streaked walls, their movements whispering like the rustle of unseen creatures. Underfoot, the floor is slick with moisture, a treacherous tapestry of green and black that clings to the soles of your boots. Faint echoes of dripping water punctuate the silence, each drop a distant heartbeat in the cavernous gloom.
