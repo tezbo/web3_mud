@@ -1,0 +1,30 @@
+**Title: "The Balm of Betrayal"**
+
+**Stage Breakdown:**
+
+1. **Investigate the Theft:**
+   - The player arrives in Shadowfen to find the villagers in distress. The only healer, Elder Kael, informs them that a recent shipment of rare medicinal herbs has been stolen. Without it, many ill villagers will suffer.
+   - Clues point to a rival settlement, the Mireblood Clan, who are known for their herbal expertise but are also struggling due to a recent blight.
+
+2. **Confront the Mireblood Clan:**
+   - The player travels to the Mireblood settlement. They discover that the leader, Sova, has taken the herbs out of desperation to heal her own people, who are suffering from a mysterious ailment.
+   - Sova offers to share the herbs but insists on keeping a portion to save her clan.
+
+3. **Resolve the Conflict:**
+   - The player must decide how to resolve the situation between the two communities.
+
+**Solutions:**
+
+1. **Negotiate a Compromise:**
+   - The player persuades Sova and Elder Kael to collaborate. The herbs are divided fairly, and the two communities agree to exchange knowledge and resources to cultivate more herbs together.
+   - *Consequences:* The two villages form an alliance, leading to future cooperative quests. The player is hailed as a peacemaker and gains influence in both areas.
+
+2. **Side with Shadowfen:**
+   - The player convinces Sova to return all the herbs to Shadowfen, possibly through intimidation or offering assistance in finding a cure for the Mireblood's ailment using other means.
+   - *Consequences:* Shadowfen recovers quickly, but the Mireblood Clan becomes hostile. Future quests may involve defending Shadowfen from Mireblood raids or dealing with the consequences of their worsening condition.
+
+3. **Aid the Mireblood Clan:**
+   - The player decides to assist Sova in finding a cure for the Mireblood ailment, using their knowledge or resources to help them. In return, Sova agrees to share some herbs with Shadowfen.
+   - *Consequences:* The player earns deep trust and respect from the Mireblood Clan, unlocking unique resources or skills. However, Shadowfen's recovery is slower, and some villagers may resent the player, affecting future interactions.
+
+This quest intricately ties into the realm's lore, exploring the consequences of scarcity and the moral complexities of survival, offering players meaningful choices that impact the world and its inhabitants.
