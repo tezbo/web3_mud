@@ -1,45 +1,60 @@
-### Shadowfen Dungeon Map
+### ASCII Map: Shadowfen Dungeon District
 
 ```
-         [Chamber of Echoes]
-                 |
-  [Ancient Hallway] -- [Forgotten Armory]
-                 |
-        [Mossy Crypt] -- [Secret Alcove]
-                 |
-            [Sunken Cellar]
+   +---------+      +---------+
+   |  Armory |<---->|  Barracks|
+   |   (A)   |      |   (B)   |
+   +----+----+      +----+----+
+        |                |
+   +----+----+      +----+----+
+   | Guard   |      |  Main   |
+   | Post    |<---->|  Hall   |
+   |  (C)    |      |   (D)   |
+   +----+----+      +----+----+
+        |                |
+   +----+----+      +----+----+
+   | Torture |      |  Secret |
+   | Chamber |<---->|  Vault  |
+   |   (E)   |      |   (F)   |
+   +---------+      +---------+
 ```
 
 ### Room List with Exits
 
-1. **Chamber of Echoes**
-   - Exits: South to Ancient Hallway
-   - Notes: A large, echoing chamber with intricate carvings on the walls. Acts as the main entry point into the dungeon, setting an eerie atmosphere for what's to come.
+1. **Armory (A)**
+   - Exits: East to Barracks (B), South to Guard Post (C)
+   - Purpose: Stores weapons and armor. Players gather supplies here before heading further into the dungeon.
 
-2. **Ancient Hallway**
-   - Exits: North to Chamber of Echoes, East to Forgotten Armory, South to Mossy Crypt
-   - Notes: A long corridor lined with faded murals. Central hub of the dungeon, providing access to other key areas. Encourages exploration with multiple pathways.
+2. **Barracks (B)**
+   - Exits: West to Armory (A), South to Main Hall (D)
+   - Purpose: Housing for dungeon guards. Offers clues about the dungeon's past through personal effects.
 
-3. **Forgotten Armory**
-   - Exits: West to Ancient Hallway
-   - Notes: A room filled with rusted weapons and armor. Hidden treasures can be found here, rewarding those who stray from the main path.
+3. **Guard Post (C)**
+   - Exits: North to Armory (A), East to Main Hall (D), South to Torture Chamber (E)
+   - Purpose: Checkpoint for guards, provides basic enemy encounters and sets the tone for the environment.
 
-4. **Mossy Crypt**
-   - Exits: North to Ancient Hallway, East to Secret Alcove, South to Sunken Cellar
-   - Notes: Damp and overgrown with moss, this crypt houses several ancient sarcophagi. Serves as a transition zone, leading deeper into the dungeon.
+4. **Main Hall (D)**
+   - Exits: North to Barracks (B), West to Guard Post (C), South to Secret Vault (F)
+   - Purpose: Central hub of the dungeon. It is a spacious area for players to regroup. Offers lore about the dungeon's original purpose through murals and inscriptions.
 
-5. **Secret Alcove**
-   - Exits: West to Mossy Crypt
-   - Notes: A small, hidden area accessible through the mossy crypt. Contains valuable loot for keen explorers. Symbolizes the reward for thorough exploration.
+5. **Torture Chamber (E)**
+   - Exits: North to Guard Post (C)
+   - Purpose: Dark and foreboding room with high tension. Contains a hidden switch that reveals a shortcut to the Secret Vault (F).
 
-6. **Sunken Cellar**
-   - Exits: North to Mossy Crypt
-   - Notes: The lowest point in the dungeon, partially flooded. Challenges players with environmental hazards but offers shortcuts back to the surface for those who navigate it well.
+6. **Secret Vault (F)**
+   - Exits: North to Main Hall (D)
+   - Purpose: Hidden treasure room with a puzzle to access. Rewards exploration with valuable loot and a rare artifact.
 
 ### Design Notes
 
-- **Flow**: The Ancient Hallway serves as the central hub, naturally guiding players to explore each area. The layout encourages players to venture off the main path (e.g., to the Forgotten Armory and Secret Alcove) for rewards.
-- **Discovery**: Hidden treasures and environmental storytelling (like faded murals and ancient sarcophagi) enrich the experience and provide narrative depth.
-- **Pacing**: The progression from the Chamber of Echoes down to the Sunken Cellar creates a sense of descending deeper into the dungeon's mysteries.
-- **Realism**: The layout ensures a logical organization, with the crypt and cellar located below ground level, enhancing immersion.
-- **Vertical Space**: The Sunken Cellar introduces vertical complexity, offering a different spatial dynamic with its partial flooding and potential shortcuts.
+- **Flow and Purpose**: The dungeon is designed with a logical progression from preparation (Armory) to resting and information gathering (Barracks), moving into exploration and conflict (Guard Post, Main Hall), and culminating in high-stakes discovery (Torture Chamber, Secret Vault).
+
+- **Exploration and Discovery**: The hidden switch in the Torture Chamber creates a rewarding shortcut to the Secret Vault. The layout encourages players to explore thoroughly to find valuable rewards.
+
+- **Realism and Storytelling**: The layout reflects a plausible military structure, with the Armory and Barracks placed strategically for defense, a Guard Post for vigilance, and a Main Hall as the dungeon's nerve center.
+
+- **Pacing**: Rooms are clustered in a way that allows for quick transitions between combat and exploration, with the Main Hall serving as a central regrouping point.
+
+- **Central Hub**: The Main Hall acts as a central hub, facilitating easy navigation to most parts of the dungeon while maintaining a sense of scale and distance.
+
+- **Vertical Space**: While this design is primarily horizontal, vertical elements like hidden passages or staircases could be added to enhance complexity.
