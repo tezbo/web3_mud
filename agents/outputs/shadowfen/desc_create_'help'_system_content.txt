@@ -13,3 +13,10 @@ Ambient Messages:
 2. "The air is thick with the scent of rain-soaked earth and wildflowers, while the distant trill of nightingales dances like shimmering starlight in the twilight sky."  
 
 3. "The flickering glow of lanterns casts playful shadows on weathered stone, where the rich aroma of spiced stew mingles with the laughter of wanderers sharing stories of their travels."  
+
+Ambient Messages:
+1. "A gentle rustle of silk banners dances in the soft breeze, their faint fragrance of jasmine whispering secrets of ancient tales beneath the twilight sky."  
+
+2. "The distant clang of steel on steel echoes through the air, intermingling with the smoky aroma of spiced meats sizzling over open flames in the bustling market square."  
+
+3. "A thick mist clings to the ground like a shroud, muffling footsteps and carrying the damp, earthy scent of moss-covered stones, while the distant croak of frogs punctuates the stillness."  
