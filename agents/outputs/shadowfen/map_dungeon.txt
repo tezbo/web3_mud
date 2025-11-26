@@ -1,0 +1,44 @@
+ASCII Map of 'Dungeon' District in Shadowfen Style:
+```
+       [Treasure Vault]
+             |
+   [Hidden Tunnel] -- [Secret Chamber]
+             |
+      [Main Hall] -- [Prison Cell]
+             |
+        [Entrance]
+```
+
+Room List with Exits:
+
+1. **Entrance**
+   - Exits: North to Main Hall
+   - Purpose: Starting point of the dungeon, setting the mood with damp, mossy walls and flickering torches. Acts as a buffer between the outside world and the depths of the dungeon.
+
+2. **Main Hall**
+   - Exits: South to Entrance, North to Hidden Tunnel, East to Prison Cell
+   - Purpose: Central hub of the dungeon, a large, echoing chamber with crumbling stone pillars. It provides access to other areas, encouraging players to explore further.
+
+3. **Prison Cell**
+   - Exits: West to Main Hall
+   - Purpose: A grim reminder of the dungeon's dark history, this room contains rusted iron bars and old shackles. It's a dead-end but offers clues or items relevant to the dungeon's lore.
+
+4. **Hidden Tunnel**
+   - Exits: South to Main Hall, East to Secret Chamber, North to Treasure Vault
+   - Purpose: A narrow, winding passage that rewards keen-eyed explorers. The tunnel is partially obscured by shadows and overgrown roots, suggesting its hidden nature.
+
+5. **Secret Chamber**
+   - Exits: West to Hidden Tunnel
+   - Purpose: A secluded room filled with mysterious artifacts and faint magical energies. This optional area provides story elements and minor treasures, encouraging exploration.
+
+6. **Treasure Vault**
+   - Exits: South to Hidden Tunnel
+   - Purpose: The final reward for those who venture deep into the dungeon. It contains a trove of valuables protected by ancient traps, serving as the ultimate goal for treasure-seekers.
+
+Design Notes on Flow and Purpose:
+- The Entrance serves as a threshold that sets the stage for the entire dungeon, providing a sense of foreboding and anticipation.
+- The Main Hall acts as the central hub, with multiple exits leading to other areas, promoting a non-linear exploration experience.
+- The Prison Cell offers a narrative element and a sense of history, emphasizing the dungeon's past usage.
+- The Hidden Tunnel introduces an element of discovery, rewarding players who pay attention to their surroundings with access to the Secret Chamber and Treasure Vault.
+- The Secret Chamber provides additional lore and minor rewards, enriching the dungeon's story.
+- The Treasure Vault serves as the climax, offering substantial rewards and a sense of accomplishment for players who navigate the dungeon's challenges.
