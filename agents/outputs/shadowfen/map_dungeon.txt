@@ -1,0 +1,47 @@
+Below is the ASCII map and room list for the 'Dungeon' district designed in the Shadowfen style. This district embraces a murky, oppressive atmosphere with interconnected rooms that encourage exploration and discovery.
+
+```
+  [Entrance]
+      |
+  [Guardroom] -- [Armory]
+      |
+  [Main Chamber]
+     /      \
+[Torture]  [Secret Passage]
+```
+
+### Room List and Exits:
+
+1. **Entrance**
+   - Exits: South to Guardroom
+   - Notes: This is the primary entry point into the dungeon, setting the tone with damp stone walls and the distant echo of water droplets. It's meant to be foreboding but clearly leads to the next area.
+
+2. **Guardroom**
+   - Exits: North to Entrance, East to Armory, South to Main Chamber
+   - Notes: The Guardroom serves as a checkpoint, with guards' quarters and patrol schedules on a table. It has multiple exits, making it a small central hub of activity.
+
+3. **Armory**
+   - Exits: West to Guardroom
+   - Notes: Contains weapon racks and armor stands. Here, players can find basic equipment but may also encounter a patrolling guard. It provides a side path for those interested in gearing up.
+
+4. **Main Chamber**
+   - Exits: North to Guardroom, West to Torture, East to Secret Passage
+   - Notes: The heart of the dungeon, a large, echoing hall with a high ceiling. This is where prisoners were once gathered, and clues to the dungeon's history can be found here. It serves as a key decision point for exploring further.
+
+5. **Torture Room**
+   - Exits: East to Main Chamber
+   - Notes: A grim area with old racks and chains. It offers storytelling elements through remnants of past captives and documents scattered about. It encourages exploration for lore enthusiasts.
+
+6. **Secret Passage**
+   - Exits: West to Main Chamber
+   - Notes: A hidden pathway revealed by solving a minor puzzle or noticing a loose stone in the Main Chamber. Leads to a small hidden chamber with a treasure chest, rewarding attentive players.
+
+### Design Notes:
+
+- **Flow and Exploration**: The dungeon's layout encourages players to move from the Entrance to the Main Chamber naturally, with opportunities to detour into the Armory or Torture Room.
+- **Central Hub**: The Main Chamber acts as a hub where players decide which path to explore further.
+- **Discovery**: The Secret Passage offers a hidden reward for keen-eyed players, encouraging thorough exploration.
+- **Realism**: The layout maintains a logical approach, with the Guardroom positioned as a control point near the Entrance and the Armory nearby.
+- **Atmosphere**: The design reflects the oppressive Shadowfen style, with damp, dark environments and a sense of history and decay.
+
+This district layout balances exploration and convenience while providing a narrative through its spatial design.
