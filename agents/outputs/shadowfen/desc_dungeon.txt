@@ -1,1 +1,8 @@
 The dungeon's air clings to the skin like a damp shroud, heavy with the musk of mold and rusted iron. Shadows writhe along the stone walls, their forms distorted by the flickering torchlight that casts a sickly, ochre glow. The distant drip of water echoes through the corridors, a hollow, rhythmic patter that mingles with the faint skittering of unseen creatures. The floor is slick beneath your boots, a treacherous mix of slime and grit that threatens to unsteady your step.
+
+Ambient Messages:
+1. Shadows dance along the damp stone walls, their flickering forms whispering secrets of long-forgotten souls as the chill air carries a faint, metallic tang of aged iron and decay.  
+
+2. The distant drip of water echoes through the cavernous gloom, punctuated by the soft rustle of unseen creatures skittering across the uneven floor, leaving the scent of damp earth and mold hanging heavy.  
+
+3. A musty warmth envelops you as you tread deeper, the oppressive silence broken only by the low, mournful wail of the wind, stirring ancient dust motes that shimmer like lost hopes in the faint glow of your torchlight.
