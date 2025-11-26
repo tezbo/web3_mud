@@ -1,8 +1,8 @@
-The shop huddles beneath a canopy of twisting branches, their gnarled silhouettes casting flickering shadows across cracked, moss-laden stones. Inside, the air is thick with the earthy scent of damp wood and the faint, acrid bite of old rust. The soft rustle of leaves brushing against the roof mingles with the distant drip of water, creating a muted symphony that seems to pulse with the heartbeat of the swamp. Shelves sag under the weight of peculiar artifacts, their surfaces slick with a thin film of moisture, cold and slightly tacky to the touch.
+The shop huddles beneath a tangle of ancient trees, their gnarled branches dripping with moisture that patters softly on the mossy roof. Inside, the air is thick with the pungent aroma of dried herbs and the faint, coppery scent of rusting iron, mingling with the earthy musk of decaying leaves. Shelves carved from dark, waterlogged wood creak beneath the weight of glass jars filled with strange, luminescent fungi and grotesque, pickled specimens. A dim, flickering lantern casts wavering shadows across the uneven floor, where your boots sink slightly into the spongy, damp planks.
 
 Ambient Messages:
-1. The air thrums with the soft chime of delicate wind bells, their notes dancing above the rich aroma of aged leather and polished wood that fills the cozy shop.  
+1. "The air hums with the rich aroma of spices and herbs, while shelves brimming with colorful glass jars cast shimmering reflections in the flickering candlelight."  
 
-2. Shelves groan under the weight of dusty tomes and shimmering potions, the faint rustle of parchment whispering secrets of forgotten lore in the dim candlelight.  
+2. "Soft whispers of silk brush against the wooden counter, where vibrant fabrics hang like dreams waiting to be woven into reality."  
 
-3. A gentle breeze wafts through the open door, carrying the sweet scent of dried herbs and spices, while the subtle crackle of a nearby hearth beckons customers to linger longer.
+3. "The metallic clink of coins mingles with the low murmur of conversation, as the scent of aged parchment and leather wraps around you like a warm embrace."

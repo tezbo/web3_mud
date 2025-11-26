@@ -1,47 +1,44 @@
-### ASCII Map of 'Shadowfen Dungeon' District
+### Shadowfen Dungeon Map
 
 ```
-          [Ancient Altar]
-                |
-         [Secret Chamber]
-                |
-     [Treasure Vault] -- [Guard Post]
-          |               |
-   [Entrance Hall] ------[Flooded Passage]
+  [Entrance Hall] -- [Guard Post] -- [Torture Chamber]
+        |                    |
+        |                    |
+  [Prison Cells] -- [Armory] -- [Hidden Treasury]
 ```
 
 ### Room List with Exits
 
 1. **Entrance Hall**
-   - Exits: North to Treasure Vault, East to Flooded Passage
-   - Notes: The starting point for adventurers. This room serves as a central hub with a grand, decaying archway. Its purpose is to introduce players to the dungeon's atmosphere.
+   - Exits: North to Guard Post, East to Prison Cells
+   - Notes: The starting point of the dungeon; a dimly lit room with moss-covered walls. Sets the tone for the eerie atmosphere. Acts as a central hub for branching into other areas.
 
-2. **Treasure Vault**
-   - Exits: South to Entrance Hall, East to Guard Post, North to Secret Chamber
-   - Notes: This room contains various chests and relics. Its central location encourages exploration from the onset. The vault is guarded by traps, providing a risk-reward scenario.
+2. **Guard Post**
+   - Exits: South to Entrance Hall, East to Torture Chamber, North to Armory
+   - Notes: A checkpoint for dungeon guards. Contains a few weapons and armor. Offers strategic positioning, encouraging players to plan their approach.
 
-3. **Guard Post**
-   - Exits: West to Treasure Vault, South to Flooded Passage
-   - Notes: A small room where spectral guards once stood watch, now serving as a minor puzzle area. It creates a natural connection between the Treasure Vault and the Flooded Passage.
+3. **Torture Chamber**
+   - Exits: West to Guard Post
+   - Notes: A chilling room with remnants of past torment. Primarily a storytelling space, featuring environmental clues to the dungeon's history.
 
-4. **Flooded Passage**
-   - Exits: West to Entrance Hall, North to Guard Post
-   - Notes: A treacherous corridor partially submerged in water. Offers an alternative path and introduces environmental challenges, emphasizing the dungeon's Shadowfen theme.
+4. **Prison Cells**
+   - Exits: West to Entrance Hall, East to Armory
+   - Notes: A series of dank cells, some still holding skeletons or prisoners. Offers opportunities for side quests or finding keys leading to other areas.
 
-5. **Secret Chamber**
-   - Exits: South to Treasure Vault, North to Ancient Altar
-   - Notes: A hidden room accessed through a concealed mechanism in the Treasure Vault. Rewards players' curiosity and exploration with lore and minor treasures.
+5. **Armory**
+   - Exits: West to Prison Cells, South to Guard Post, East to Hidden Treasury
+   - Notes: Well-stocked with weapons, this room serves as a reward for exploration. Provides players a chance to equip themselves better.
 
-6. **Ancient Altar**
-   - Exits: South to Secret Chamber
-   - Notes: The deepest part of the dungeon, serving as a climax for exploration. Here, players find significant lore and high-value treasures. The altar's ominous presence adds narrative weight.
+6. **Hidden Treasury**
+   - Exits: West to Armory
+   - Notes: A secretive room revealed by a concealed mechanism in the Armory. Contains valuable loot or a powerful artifact, rewarding players for their curiosity and exploration.
 
 ### Design Notes
 
-- **Flow and Exploration**: The design encourages a natural flow from the Entrance Hall through to the deeper parts of the dungeon with opportunities for discovery. The Secret Chamber and Ancient Altar reward players who explore beyond the main paths.
+- **Flow and Purpose**: The dungeon is designed to guide players from the Entrance Hall and allow them to choose between the Guard Post and Prison Cells, creating a non-linear exploration experience. The Guard Post serves as a secondary hub, branching into the Torture Chamber and Armory, enhancing strategic planning and decision-making.
   
-- **Purpose and Atmosphere**: Each room serves a distinct narrative or gameplay purpose, whether introducing players to the dungeon (Entrance Hall), providing rewards (Treasure Vault), or challenging players with environmental hazards (Flooded Passage).
+- **Discovery and Exploration**: The Hidden Treasury is a key element, rewarding players who thoroughly explore the Armory. The presence of environmental storytelling in the Torture Chamber and Prison Cells enriches the narrative and adds depth to the dungeon's backstory.
 
-- **Realism and Storytelling**: The layout reflects a logical progression deeper into the dungeon, culminating at the Ancient Altar. The flooded and guarded themes are consistent with a Shadowfen style, creating an immersive experience.
+- **Pacing and Realism**: The layout balances exploration with purpose, situating rooms logically (e.g., the Armory near the Guard Post and Prison Cells). The progression from entrance to treasure room builds anticipation and satisfaction.
 
-This district design balances exploration with a clear sense of progression, encouraging players to delve deeper while rewarding those who seek out its hidden secrets.
+- **Vertical Space**: Although this map is flat, it suggests natural verticality through environmental descriptions (e.g., stairwells in the Entrance Hall leading to uncharted levels or visual elements hinting at deeper layers). This alludes to further exploration opportunities in expanded maps or future updates.

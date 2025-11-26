@@ -1,47 +1,53 @@
-Certainly! Below is the ASCII map and detailed description for the 'Merchant District' designed in a Shadowfen style. The district is intended to serve as a bustling trade hub with a touch of mystery and hidden paths.
+### ASCII Map for 'Merchant District'
 
 ```
-      [Tailor] - [Jewelers]
-         |           |
-      [Market Square]
-         |      \
-  [Alchemy Shop] [Hidden Alley]
-         |
-      [Blacksmith]
+           [Bank]
+             |
+          ┌─────┐
+          |     |
+      [Market Square]--[General Store]
+          |     |
+          └─────┘
+             |
+         [Clothier]--[Blacksmith]
+             |
+        [Hidden Alley]
 ```
 
 ### Room List with Exits
 
 1. **Market Square**
-   - Exits: North to Tailor, Northeast to Jewelers, South to Alchemy Shop, Southeast to Hidden Alley
-   - Notes: The central hub of the district, bustling with activity. Stalls and traders fill the square, making it a vibrant place for commerce and interaction.
+   - Exits: North to [Bank], East to [General Store], South to [Clothier]
+   - Notes: The central hub of the Merchant District, bustling with activity and serving as the primary navigation point.
 
-2. **Tailor**
-   - Exits: South to Market Square
-   - Notes: A modest shop offering fine Shadowfen garments. Positioned close to the heart of the district for easy access to fabrics and customers.
+2. **Bank**
+   - Exits: South to [Market Square]
+   - Notes: A secure and well-guarded building where players can store and manage their wealth. Situated north of the Market Square for easy access.
 
-3. **Jewelers**
-   - Exits: South to Market Square
-   - Notes: Known for crafting exquisite jewelry, this shop is strategically placed near the Tailor to attract customers interested in completing their attire with matching adornments.
+3. **General Store**
+   - Exits: West to [Market Square]
+   - Notes: Offers a variety of essential goods. It's the first stop for newcomers, strategically placed directly east of the Market Square.
 
-4. **Alchemy Shop**
-   - Exits: North to Market Square, South to Blacksmith
-   - Notes: A mysterious shop filled with potions and remedies. Its location between the square and blacksmith allows for convenient trade and supply of materials.
+4. **Clothier**
+   - Exits: North to [Market Square], East to [Blacksmith], South to [Hidden Alley]
+   - Notes: Specializes in clothing and tailor-made items. Located south of the Market Square, it connects to both the Blacksmith and a hidden alley.
 
-5. **Hidden Alley**
-   - Exits: Northwest to Market Square
-   - Notes: A narrow, concealed passage leading away from the main thoroughfare. It's rumored to house a secretive merchant dealing in rare goods. Explores who venture here may find unique treasures.
+5. **Blacksmith**
+   - Exits: West to [Clothier]
+   - Notes: Provides weapons and armor. Placed adjacent to the Clothier to create a seamless shopping experience for equipment and clothing.
 
-6. **Blacksmith**
-   - Exits: North to Alchemy Shop
-   - Notes: The shop's heat and noise can be felt even at the Alchemy Shop. Positioned at the edge of the district, it supplies weapons and armor forged with skill and precision.
+6. **Hidden Alley**
+   - Exits: North to [Clothier]
+   - Notes: A secretive side path that offers rare finds and potential quests. It's tucked away to encourage exploration.
 
 ### Design Notes
 
-- **Flow and Exploration**: The Market Square acts as a central hub, allowing players to easily navigate to various shops. The Hidden Alley adds an element of discovery for those willing to explore beyond the obvious paths.
+- **Flow and Purpose**: The Market Square serves as the primary hub, with shops clustered around it for easy access. The placement of the Bank, General Store, and Clothier creates a logical flow for players to navigate through the district.
   
-- **Balance of Convenience and Exploration**: Essential services like the Blacksmith and Alchemy Shop are accessible yet spaced to require traversing the district. This layout encourages players to pass through the Market Square, enhancing the sense of community and activity.
+- **Exploration and Discovery**: The Hidden Alley is designed to reward players who explore beyond the obvious paths, offering unique items or quests unavailable elsewhere.
 
-- **Storytelling and Realism**: The district reflects a logical arrangement where complementary shops are near each other (e.g., Tailor and Jewelers), while the Hidden Alley introduces an element of mystery characteristic of Shadowfen.
+- **Realism and Storytelling**: The layout reflects a typical medieval market town, where essential services are centralized, and specialty shops are within walking distance, promoting a vibrant economic center.
 
-- **Vertical Space Consideration**: Though not explicitly vertical, the map includes a hidden dimension with the Hidden Alley, suggesting subterfuge and intrigue without the need for physical elevation changes.
+- **Vertical Space and Complexity**: While this district is primarily on a single plane, the Hidden Alley introduces an element of layered complexity. Future expansion could consider vertical elements like an upstairs room in the Bank or a cellar in the General Store.
+
+This design balances accessibility with the intrigue of discovery, utilizing logical spatial organization to create a believable and engaging district.
