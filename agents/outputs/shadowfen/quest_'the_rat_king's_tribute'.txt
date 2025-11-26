@@ -2,7 +2,6 @@
 
 **Stage Breakdown:**
 
-<<<<<<< HEAD
 1. **The Missing Tribute:**
    - The player arrives in Shadowfen, a murky swamp town, and learns that the annual tribute meant for the Rat King has gone missing. Without it, the town risks unleashing the Rat King's wrath, a fearsome entity revered and feared by the townsfolk.
    
@@ -28,30 +27,3 @@
 
 **Tie to World Lore:**
 The Rat King is said to be a result of The Sundering, an ancient event that transformed creatures and landscapes. His domain is a remnant of the old world, bound by the Threadsingers who once sang to keep such powers in check. The player's actions could influence how the Threadsingers view their role in maintaining balance in the realm.
-=======
-1. **Stage 1: The Call of the Shadows**
-   - The player arrives in the murky swamps of Shadowfen, where rumors speak of the Rat King, a mysterious figure who demands tribute from the local swampfolk in exchange for protection from the more dangerous creatures of the fen.
-   - The player meets Elda, an old swamp dweller whose family has long paid tribute but now struggles due to a poor harvest. She asks the player to intervene, fearing the Rat King's wrath.
-
-2. **Stage 2: Into the Rat's Den**
-   - The player must travel to the Rat King's lair, a network of tunnels beneath an ancient, gnarled tree, to negotiate terms, confront the Rat King, or find another way to resolve Elda's plight.
-
-3. **Stage 3: The Tribute's Cost**
-   - Depending on the player's actions, the resolution of the quest unfolds, impacting not only Elda but the entire Shadowfen community.
-
-**Solutions and Consequences:**
-
-1. **Negotiate a New Tribute:**
-   - The player uses diplomacy to convince the Rat King to accept a new form of tribute, perhaps labor or a shared resource that benefits both parties.
-   - *Consequences:* The Rat King agrees, leading to improved relations between the swampfolk and the Rat King. Elda's family and others see the player as a peacemaker, providing discounts and information in future interactions. However, some swampfolk feel uneasy about the continued reliance on the Rat King.
-
-2. **Confront the Rat King:**
-   - The player challenges the Rat King, either through combat or by revealing a secret that undermines his power, such as evidence of his manipulation of the swamp's wildlife to create fear.
-   - *Consequences:* The Rat King's rule is broken, freeing the swampfolk from tribute. Elda and her community celebrate, but the power vacuum attracts new dangers as rival factions vie for control in Shadowfen, creating future conflicts the player might need to address.
-
-3. **Uncover an Alternative Protector:**
-   - The player discovers an ancient artifact in the Shadowfen that can be used to control the swamp's dangerous creatures, offering it to Elda and her kin to protect themselves without the Rat King's aid.
-   - *Consequences:* The swampfolk gain independence and self-sufficiency, viewing the player as a hero. However, the artifact's power attracts the attention of outside forces, such as Threadsingers or realm officials, potentially leading to future quests that involve defending the swamp from external threats.
-
-Each choice provides a meaningful impact on the world of Shadowfen and allows the player to explore different facets of the realm's lore and conflicts.
->>>>>>> b91101023fea0627e883b31ebe59bee0a37ab749

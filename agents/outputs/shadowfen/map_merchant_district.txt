@@ -1,51 +1,53 @@
-Certainly! Below is the design for a 6-room 'Merchant District' in the Shadowfen style, featuring a bustling marketplace and interconnected shops:
+### ASCII Map for 'Merchant District'
 
 ```
-  [Apothecary]
-      |
-  [Marketplace] -- [General Store]
-      |               |
-  [Tavern]       [Blacksmith]
-      |
-  [Alleyway]
+           [Bank]
+             |
+          ┌─────┐
+          |     |
+      [Market Square]--[General Store]
+          |     |
+          └─────┘
+             |
+         [Clothier]--[Blacksmith]
+             |
+        [Hidden Alley]
 ```
 
-**Room List with Exits:**
+### Room List with Exits
 
-1. **Marketplace**
-   - Exits: North to Apothecary, East to General Store, South to Tavern
-   - Purpose: The central hub of the Merchant District where traders gather. It serves as the primary area for commerce and social interaction.
+1. **Market Square**
+   - Exits: North to [Bank], East to [General Store], South to [Clothier]
+   - Notes: The central hub of the Merchant District, bustling with activity and serving as the primary navigation point.
 
-2. **Apothecary**
-   - Exits: South to Marketplace
-   - Purpose: Specializes in potions and remedies. Positioned north to symbolize the pursuit of knowledge and healing. It invites players seeking alchemical supplies.
+2. **Bank**
+   - Exits: South to [Market Square]
+   - Notes: A secure and well-guarded building where players can store and manage their wealth. Situated north of the Market Square for easy access.
 
 3. **General Store**
-   - Exits: West to Marketplace, South to Blacksmith
-   - Purpose: Offers a wide range of basic supplies. Its proximity to the marketplace makes it accessible for travelers needing essentials.
+   - Exits: West to [Market Square]
+   - Notes: Offers a variety of essential goods. It's the first stop for newcomers, strategically placed directly east of the Market Square.
 
-4. **Blacksmith**
-   - Exits: North to General Store
-   - Purpose: Provides weapons and armor. Located south of the General Store to represent progression from general supplies to specialized equipment.
+4. **Clothier**
+   - Exits: North to [Market Square], East to [Blacksmith], South to [Hidden Alley]
+   - Notes: Specializes in clothing and tailor-made items. Located south of the Market Square, it connects to both the Blacksmith and a hidden alley.
 
-5. **Tavern**
-   - Exits: North to Marketplace, South to Alleyway
-   - Purpose: A place for rest and gathering information. Positioned south of the marketplace to provide a natural flow from commerce to relaxation.
+5. **Blacksmith**
+   - Exits: West to [Clothier]
+   - Notes: Provides weapons and armor. Placed adjacent to the Clothier to create a seamless shopping experience for equipment and clothing.
 
-6. **Alleyway**
-   - Exits: North to Tavern
-   - Purpose: A hidden path that might lead to secretive dealings or shortcuts. It adds an element of mystery and encourages exploration beyond the main paths.
+6. **Hidden Alley**
+   - Exits: North to [Clothier]
+   - Notes: A secretive side path that offers rare finds and potential quests. It's tucked away to encourage exploration.
 
-**Design Notes:**
+### Design Notes
 
-- **Flow**: The Marketplace acts as the central hub, ensuring that players can easily navigate to various shops from a single point. The radial design promotes a sense of exploration while maintaining convenience.
+- **Flow and Purpose**: The Market Square serves as the primary hub, with shops clustered around it for easy access. The placement of the Bank, General Store, and Clothier creates a logical flow for players to navigate through the district.
   
-- **Discovery**: The Alleyway offers a hidden route, enticing players who enjoy uncovering secret areas. It could potentially connect to future expansions or hidden content.
+- **Exploration and Discovery**: The Hidden Alley is designed to reward players who explore beyond the obvious paths, offering unique items or quests unavailable elsewhere.
 
-- **Realism**: The layout reflects a logical setup for a merchant district, with shops clustered around a central market. The Apothecary's position suggests a separation from the more bustling areas, providing a quieter space for its delicate wares.
+- **Realism and Storytelling**: The layout reflects a typical medieval market town, where essential services are centralized, and specialty shops are within walking distance, promoting a vibrant economic center.
 
-- **Pacing**: While the Marketplace is the busiest area, the Apothecary and Blacksmith offer specialized interactions. This setup allows players to pace their shopping and exploration.
+- **Vertical Space and Complexity**: While this district is primarily on a single plane, the Hidden Alley introduces an element of layered complexity. Future expansion could consider vertical elements like an upstairs room in the Bank or a cellar in the General Store.
 
-- **Vertical Space**: Although this design is primarily horizontal, future expansions could introduce vertical elements like a watchtower or underground smuggling tunnels accessible from the Alleyway.
-
-This layout balances exploration and convenience while maintaining a realistic and engaging environment for players in the Shadowfen style.
+This design balances accessibility with the intrigue of discovery, utilizing logical spatial organization to create a believable and engaging district.
