@@ -1,47 +1,43 @@
-Certainly! Below is an ASCII-style map of the 'Merchant District' in Shadowfen style, along with a room list, exits, and design notes.
+Certainly! Below is an ASCII map of the 'Merchant District' designed in the Shadowfen style, followed by a room list with exits and design notes.
 
 ```
-      [Market Square]
-           / | \
-   [Alchemist] | [Clothier]
-          /    |    \
-[Blacksmith] [General Store]
-          \    |    /
-        [Tavern Cellar]
+   [Market Square]
+       |
+   [Apothecary]--[Blacksmith]
+       |
+    [Tailor]--[Jeweler]
 ```
 
-### Room List with Exits:
+### Room List and Exits
 
 1. **Market Square**
-   - **Exits:** North to Alchemist, East to Clothier, South to General Store, Southwest to Blacksmith, Southeast to Tavern Cellar
-   - **Purpose:** Central hub of the Merchant District. A bustling area with merchants and traders, serving as the main gathering and trading point.
+   - Exits: North to Apothecary, East to Blacksmith
+   - Purpose: Central hub of the district, bustling with merchants and customers. Serves as the main gathering point and starting location for exploration.
 
-2. **Alchemist**
-   - **Exits:** South to Market Square
-   - **Purpose:** A shop filled with potions and mystical items. The interior is cluttered with shelves of ingredients and bubbling concoctions.
+2. **Apothecary**
+   - Exits: South to Market Square, East to Tailor
+   - Purpose: Offers potions and herbal remedies. A quieter, more mysterious location with shelves of strange ingredients. Connection to Tailor emphasizes the district's interconnected trade network.
 
-3. **Clothier**
-   - **Exits:** West to Market Square
-   - **Purpose:** A fashionable boutique offering clothing and accessories. Displays of fine garments and mannequins line the walls.
+3. **Blacksmith**
+   - Exits: West to Market Square
+   - Purpose: Provides weapons and armor. The heat and clamor contrast with the calmer Market Square. Its position allows easy access for adventurers returning from quests.
 
-4. **General Store**
-   - **Exits:** North to Market Square, Up to Blacksmith
-   - **Purpose:** A multi-purpose shop selling day-to-day necessities. The store is well-organized with a variety of goods.
+4. **Tailor**
+   - Exits: West to Apothecary, East to Jeweler
+   - Purpose: Sells clothing and fabrics. Positioned between the Apothecary and Jeweler to illustrate the progression from practical needs to luxury items.
 
-5. **Blacksmith**
-   - **Exits:** Down to General Store, Northeast to Market Square
-   - **Purpose:** A forge where weapons and armor are crafted. The sound of hammering echoes throughout, and the air smells of metal and fire.
+5. **Jeweler**
+   - Exits: West to Tailor
+   - Purpose: Specializes in fine jewelry and rare gems. Represents the pinnacle of luxury in the district, with a sense of exclusivity due to its location at the edge.
 
-6. **Tavern Cellar**
-   - **Exits:** North to Market Square
-   - **Purpose:** A cool, dimly lit storage area below a tavern. Barrels and crates abound, and there's a sense of secrecy with whispers of hidden dealings.
+### Design Notes
 
-### Design Notes:
+- **Flow:** The Market Square serves as a natural hub where players can start their exploration. The linear path from Apothecary to Jeweler encourages a progression from practical to luxury goods, while still allowing for easy navigation back to the central hub.
+  
+- **Exploration vs. Convenience:** The district is compact but offers a logical path through its various shops. The Apothecary’s connection to both the Market Square and Tailor encourages exploration beyond just the main square.
 
-- **Flow and Purpose:** The Market Square acts as a central node, allowing easy access to all other rooms and ensuring that players naturally encounter the main areas of commerce.
-- **Discovery:** The Tavern Cellar offers a hint of mystery and exploration, potentially leading to hidden quests or interactions with shady characters.
-- **Pacing:** The clustering of the Alchemist and Clothier around the Market Square encourages players to explore each shop in sequence while maintaining a sense of progression.
-- **Realism:** Shops are logically organized around the central hub, reflecting a realistic layout where traders and shoppers can easily navigate between stores.
-- **Vertical Space:** The Blacksmith is accessible via stairs from the General Store, adding a vertical element that suggests a multi-level environment, typical for a more industrial area like a forge. 
+- **Realism:** The layout makes physical sense, with shops that logically cluster together based on related trades. This mirrors real-world marketplaces where related businesses often group for convenience.
 
-This design offers a balance of exploration, logical layout, and thematic cohesion within the Shadowfen style.
+- **Storytelling Through Space:** Each shop tells its own story through its position and connections. The Apothecary’s secluded position suggests a place of subtlety and mystery, while the Jeweler’s edge location implies exclusivity.
+
+This design balances the need for a compact district with the desire for exploration and story, creating a vibrant, interconnected merchant area that feels both alive and logical.
