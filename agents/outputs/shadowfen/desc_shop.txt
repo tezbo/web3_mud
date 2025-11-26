@@ -1,15 +1,1 @@
-In the dim glow of witchfire lanterns, the shop is a tapestry of shadow and rust, where the air hangs heavy with the musk of damp earth and aged leather. Shelves bow under the weight of peculiar artifacts, each cloaked in a fine patina of dust, whispering stories long forgotten. The floorboards creak beneath your step, their groans echoing softly amidst the distant drip of water, while the scent of old parchment mingles with a faint, sweet rot. The cool, clammy air brushes against your skin, leaving a tingling reminder of the swamp's eerie embrace just beyond the threshold.
-
-Ambient Messages:
-1. The air is thick with the sweet, heady aroma of spiced teas, while the soft rustle of silk drapes whispers secrets of far-off lands.  
-
-2. The clinking of glass jars filled with vibrant, glowing powders creates a symphony of color, as the faint scent of burnt herbs hangs heavily in the air.  
-
-3. Wooden shelves creak under the weight of peculiar trinkets, their surfaces glistening with a fine layer of dust that tells tales of countless curious hands exploring their mysteries.  
-
-Ambient Messages:
-1. "The air is thick with the rich, sweet aroma of spiced fruits, while the soft chime of glass wind chimes dances gently with the breeze filtering through the open shutters."  
-
-2. "Faded tapestries hang like ghosts along the walls, their colors muted by time, as the faint sound of distant laughter spills from the back room, mingling with the rustle of parchment and the clink of coins."  
-
-3. "A warm, inviting glow emanates from flickering lanterns, illuminating shelves crammed with curious trinkets, their polished surfaces gleaming like secrets waiting to be discovered."  
+The shop nestles in the murky embrace of Shadowfen, its walls cloaked in a patchwork of moss and rusted iron. A faint luminescence seeps through clouded windows, casting ghostly silhouettes across shelves laden with mildewed tomes and tarnished relics. The air hums with a chorus of distant croaks and the soft patter of rain against the roof, while the earthy scent of damp peat mingles with the acrid tang of old parchment. As your fingers brush a faded velvet curtain, it releases a whisper of dust that dances in the dim light, leaving a gritty residue on your skin.
