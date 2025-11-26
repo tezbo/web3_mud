@@ -1,1 +1,8 @@
 In the heart of the Shadowfen, the dungeon sprawls like a forgotten beast, its stone walls slick with a sheen of perpetual dampness. Muffled echoes of dripping water reverberate through the air, mingling with the faint, rusted groan of ancient chains swaying gently in the unseen drafts. The air carries the fetid stench of mold and decay, a cloying reminder of the countless souls lost within these oppressive confines. As your fingers brush against the cold, uneven stones, they leave a trail of moisture on your skin, a chilling reminder of the dungeon's clammy embrace. Shadows twist and writhe in the dim torchlight, casting grotesque shapes that seem to whisper secrets from the darkness.
+
+Ambient Messages:
+1. Flickering torchlight dances along the damp stone walls, casting ghostly shadows that seem to whisper secrets of the long-forgotten souls trapped within these cold, echoing corridors.  
+
+2. The air hangs thick with the musty scent of ancient decay, punctuated by the faint metallic tang of blood and the distant sound of dripping water, like a morbid heartbeat echoing through the darkness.  
+
+3. A low, ominous rumble reverberates through the ground, as the chill of the damp earth seeps into your bones, while a faint, sweet rot lingers, hinting at the perilous treasures and lurking horrors that lie ahead.
