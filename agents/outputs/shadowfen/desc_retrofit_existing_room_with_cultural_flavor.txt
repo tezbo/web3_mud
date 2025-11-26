@@ -1,16 +1,1 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-The room is a tapestry of shadows, where the damp, earthen walls glisten with a sheen of moisture that refracts the ghostly glow of phosphorescent fungi. A faint, continuous drip echoes through the chamber, a melancholic rhythm that mingles with the whisper of swamp breezes seeping through unseen cracks. The scent of moss and decaying leaves pervades the air, a heady perfume that clings to the skin like a second layer. Underfoot, the floor is slick with a carpet of spongy moss, yielding softly to each step, as if the earth itself sighs beneath your weight.
-=======
-The room is shrouded in a perpetual twilight, where shadows dance across walls adorned with rusted iron filigree. A damp chill clings to the skin, carrying the earthy musk of moss and the faint, metallic bite of oxidized metal. The floor, slick with condensation, muffles footsteps as they tread upon the uneven stones. From a distant corner, the soft drip of water echoes, a haunting melody that mingles with the whisper of unseen creatures shifting in the gloom.
->>>>>>> feature/task-3
-=======
-The room exudes an ancient, forgotten air, its walls consumed by creeping tendrils of rust that whisper stories of decay. Mist slithers across the floor, cool and damp against your skin, carrying the scent of wet earth and distant, stagnant waters. Shadows coil in the corners, their presence punctuated by the occasional drip, drip, drip of unseen moisture. A lone, tarnished lantern hangs from the ceiling, casting a flickering light that dances like wraiths over the jade figurines lined up like sentinels on a crumbling shelf.
-
-Ambient Messages:
-1. Sunlight dances through stained glass, casting kaleidoscopic patterns on the polished stone walls, while the rich aroma of spiced lamb and roasted herbs wafts from the hearth, enticing all who enter.  
-
-2. Silken drapes rustle softly in the cool twilight breeze, mingling with the soothing sound of water trickling from a jade fountain, as the air fills with the sweet fragrance of blooming night jasmine.  
-
-3. A thick, cloying mist clings to the damp earth, wrapping the gnarled roots of ancient trees, where the faint, rustling whispers of unseen creatures echo in the murky shadows, and the pungent scent of wet moss envelops you like a shroud.  
->>>>>>> feature/task-2
+The room is cloaked in a shroud of mist, its edges blurring into shadow, where rusted chains dangle like forgotten whispers from the ceiling. The air is thick and clings to the skin, carrying the earthy aroma of damp leaves and the faint metallic scent of decay. Flickering lanterns cast a dim, ghostly light, illuminating the jade-green moss that curls possessively around every stone surface. The soft drip of water echoes in the distance, punctuating the eerie silence with a rhythmic, mournful cadence.
