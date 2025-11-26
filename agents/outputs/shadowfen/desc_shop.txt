@@ -1,1 +1,8 @@
 Within the dim confines of the Shadowfen shop, the air is thick with the pungent aroma of damp earth and decaying leaves, mingling with the sharp scent of rusting metal. Shelves of gnarled wood bow under the weight of peculiar trinkets, their surfaces etched with intricate, swirling patterns that seem to shift with the flickering light of a solitary, sputtering candle. The soft, almost imperceptible hum of whispered incantations reverberates through the room, echoing off the stone walls slick with moisture. As your fingers brush against the cool, uneven surface of a jade amulet, you feel a faint, tingling pulse, as if the very object breathes with an ancient, slumbering magic.
+
+Ambient Messages:
+1. The air buzzes with the chime of glass beads and the soft rustle of silk, while the sweet aroma of dried herbs mingles with the rich scent of polished wood, inviting you deeper into the vibrant marketplace.  
+
+2. Flickering candlelight casts playful shadows across shelves brimming with colorful trinkets, and the faint sound of laughter carries from the back, promising warmth and camaraderie amidst the bustling throng.  
+
+3. A cool breeze drifts through the open doorway, carrying the salty tang of the sea and the distant cry of gulls, as the scent of aged leather and the soft whisper of parchment beckon you to explore the hidden treasures within.

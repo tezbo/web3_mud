@@ -1,1 +1,8 @@
 The dungeon's air clings like damp wool, heavy with the fetid stench of mildew and rusted chains. Faint echoes of dripping water resonate through the stone corridors, each drop a distant whisper of forgotten time. The walls, slick with a cold, clammy moisture, glisten under the dim phosphorescence of moss that weaves like spectral veins across their surface. As you tread cautiously, the ground yields a soft, squelching protest, releasing a metallic tang that lingers in your throat.
+
+Ambient Messages:
+1. A faint, echoing drip of water reverberates through the damp stone corridors, mingling with the musty scent of decay, as shadows dance in the flickering light of your torches.  
+
+2. The air grows thick with the metallic tang of old blood, while the distant sound of rattling chains whispers secrets of the forsaken souls trapped within these walls.  
+
+3. A chill seeps from the rough-hewn walls, wrapping around you like a ghostly embrace, as the faintest rustle of unseen creatures stirs the heavy silence.  
