@@ -20,3 +20,10 @@ Ambient Messages:
 2. "Sunlight spills through stained glass, casting vibrant mosaics onto the polished wooden floor, while the faint sound of rustling pages invites you to explore the collection of forgotten tomes lining the shelves."  
 
 3. "A faint shimmer of silver dust hangs in the air, illuminated by flickering candlelight, as the sweet scent of candied fruits entwines with the earthy tang of potions brewing in bubbling cauldrons."  
+
+Ambient Messages:
+1. "The air is thick with the rich aroma of aged leather and the faint crackle of enchanted trinkets, as vibrant tapestries sway gently in the draft, whispering secrets of the past."  
+
+2. "Sunlight filters through stained glass, casting colorful patterns on the polished wooden floor, while the soft chime of wind bells dances in harmony with the low hum of bustling patrons."  
+
+3. "A tapestry of spices and incense envelops you, punctuated by the sharp clink of glass vials and the soft rustle of parchment, beckoning you deeper into the shop's shadowy nooks."  
