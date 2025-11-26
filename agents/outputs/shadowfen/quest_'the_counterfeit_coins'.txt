@@ -1,0 +1,25 @@
+Title: The Counterfeit Conundrum
+
+Stage 1: Discovery
+- The player learns of a surge in counterfeit coins circulating in the market district of Shadowfen, causing distress among merchants and a loss of trust in the local currency. The player is approached by Lira, a distressed merchant, who suspects the counterfeiting operation is being run by someone within the city.
+
+Stage 2: Investigation
+- The player must gather clues about the source of the counterfeit coins. They can:
+  1. Infiltrate the local Thieves' Guild, rumored to be involved, by gaining the trust of a low-ranking member, Rook.
+  2. Investigate the minting house records with the help of a contact in the city guard, Captain Edrin, who believes it might be an inside job.
+  3. Speak with the street urchins who often exchange coins in the market, gaining their trust by helping them with a separate small task.
+
+Stage 3: Resolution
+- Armed with evidence, the player confronts the mastermind behind the operation, a respected noble named Lord Tersian, who has been using his position to fund his lavish lifestyle.
+
+Solutions:
+1. **Expose and Arrest**: Present the evidence to Captain Edrin, leading to Lord Tersian's arrest. 
+   - **Consequences**: Trust in the currency is restored, and Lira and other merchants are grateful. However, the noble families grow wary of the player's actions, potentially affecting future interactions with the upper class.
+
+2. **Join and Control**: The player can confront Lord Tersian privately and offer to keep his secret in exchange for a share of the profits and influence over the counterfeit operation.
+   - **Consequences**: The player gains wealth and a new network of influence, but their reputation among honest merchants suffers. The Thieves' Guild sees the player as a potential ally.
+
+3. **Reform**: Persuade Lord Tersian to shut down the operation and make amends by funding community projects in Shadowfen.
+   - **Consequences**: The player gains favor among the common folk and merchants, as well as an ally in Lord Tersian, who is grateful for the chance to reform. However, the Thieves' Guild may see this as a threat to their interests.
+
+Through these choices, the player's actions will ripple through Shadowfen, affecting their standing with various factions and individuals.
