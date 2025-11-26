@@ -1,15 +1,1 @@
-The dungeon sprawls out in a labyrinthine weave of damp stone and creeping shadows, the walls slick with a persistent sheen of moisture. The air is thick with the cloying scent of decay, mingling with the metallic bite of rusting iron chains that sway gently with an unseen draft. Each footfall echoes like a distant whisper, the sound swallowed by the oppressive gloom that clings to the skin like a cold, clammy shroud. A chill seeps through the soles of your boots, as if the very ground beneath is alive, murmuring secrets of ages past.
-
-Ambient Messages:
-1. Shadows dance on the rough-hewn stone walls as the distant drip of water echoes like a heartbeat, mingling with the stale air thick with the musty scent of ancient decay.  
-
-2. A faint, acrid tang of burnt herbs lingers in the air, while the low hum of unseen creatures skitters across the damp floor, sending chills racing down your spine.  
-
-3. Flickering torches cast long, trembling shadows, illuminating the jagged carvings of long-forgotten faces that seem to whisper secrets in the language of the dark.
-
-Ambient Messages:
-1. The damp air clings to your skin, thick with the musty odor of ancient stone, while the distant drip of water echoes like a ghostly heartbeat in the shadows.  
-
-2. Flickering torchlight dances across the rough-hewn walls, revealing jagged scars of forgotten battles, as a low whisper of wind carries the faintest hint of decay.  
-
-3. The ground beneath your feet is slick with moss, squelching softly with each cautious step, while the oppressive silence wraps around you like a heavy shroud, broken only by the scuttling of unseen creatures.
+In the suffocating embrace of Shadowfen's dungeon, walls of crumbling stone drip with the sweat of ages, each droplet echoing into the murk. A chill hangs in the air, biting through flesh and settling into bones, while the metallic tang of rust and the fetid stench of stagnant water cling to the senses. The flickering torchlight casts dancing shadows that twist and writhe like forgotten phantoms, their whispering rustle barely audible beneath the distant, mournful howl of the wind. Underfoot, the uneven floor is slick with a film of slime, a treacherous reminder that this place is as alive as it is forgotten.
