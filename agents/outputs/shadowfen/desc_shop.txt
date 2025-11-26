@@ -1,1 +1,8 @@
 The shop crouches beneath a canopy of twisting vines, their tendrils weaving through cracked, moss-covered shingles. Inside, the air hangs heavy with the earthy scent of damp soil and the sharp tang of rusting iron. The floorboards creak underfoot, their groans echoing like distant whispers in the mist-laden air. Flickering lanterns cast wavering shadows, illuminating shelves lined with curious trinkets and potions, each bottle cool and slick to the touch, promising secrets unknown.
+
+Ambient Messages:
+1. The air hums with the faint chime of wind chimes, their tinkling notes weaving through the rich aroma of aged leather and fragrant spices that linger in the warm, dimly-lit corners of the shop.  
+
+2. Dust motes dance in the golden light spilling through the stained glass windows, casting colorful patterns on the polished wooden floor, while the faint rustle of parchment and the soft clink of glass bottles create a symphony of anticipation.  
+
+3. Shelves groan under the weight of peculiar trinkets and shimmering baubles, the intoxicating scent of exotic herbs swirling around you like a forgotten memory, inviting you deeper into the secrets held within the shop's shadowy embrace.  
