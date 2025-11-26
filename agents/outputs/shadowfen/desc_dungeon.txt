@@ -13,3 +13,10 @@ Ambient Messages:
 2. Flickering torchlight dances across ancient runes etched into the rough-hewn walls, their faint glow revealing the dust motes swirling in the stagnant air, heavy with the scent of mold and forgotten memories. 
 
 3. A chill seeps into your bones as you tread cautiously over the uneven ground, the metallic tang of old blood lingering in the silence, punctuated only by the soft rustle of a tattered banner that sways in a draft from the depths below.
+
+Ambient Messages:
+1. Shadows flicker along damp stone walls as the distant drip of water echoes, mingling with the faint rustle of unseen creatures skittering through the darkness. 
+
+2. A chill seeps into your bones as the air thickens with the musty scent of decay, punctuated by the acrid tang of old metal and the sound of chains clinking softly in the gloom. 
+
+3. The flickering torchlight dances across jagged rock formations, illuminating ancient runes that pulse faintly, whispering secrets of a long-forgotten past in a language that tingles on your skin.
