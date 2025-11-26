@@ -1,15 +1,1 @@
-The dungeon lies cloaked in perpetual twilight, where damp stone walls glisten with a sheen of moisture, their surface gritty beneath your fingertips. A low, persistent drip echoes hauntingly, each drop resonating through the silence like a heartbeat in the stillness. The air is thick with the earthy scent of moss, mingling with the acrid tang of rusted iron bars that encase the cells. Underfoot, the ground is cold and uneven, the chill seeping through the soles of your boots as if the very shadows seek to entwine themselves around you.
-
-Ambient Messages:
-1. Shadows flicker along damp stone walls, as the faint drip of water echoes through the suffocating silence, mingling with the musty scent of decay.  
-
-2. A chill breeze whispers past, carrying the acrid stench of burnt herbs and the distant, eerie skittering of unseen creatures across the uneven floor.  
-
-3. Flickering torchlight reveals ancient runes etched deep into the granite, their cold surfaces pulsing with a faint, otherworldly hum that vibrates against your skin.  
-
-Ambient Messages:
-1. Shadows dance along damp stone walls as the distant drip of water echoes like whispered secrets in the suffocating darkness.  
-
-2. A chill breeze grazes your skin, carrying the faint, acrid smell of decay and the unsettling rustle of unseen creatures lurking just beyond your sight.  
-
-3. The air thickens with the taste of iron as flickering torchlight reveals ancient carvings, their meanings lost to time, yet radiating an unsettling sense of foreboding.
+In the depths of Shadowfen's dungeon, shadows coil like living things, swallowing the feeble light that dares intrude. The air hangs heavy with the damp, earthy scent of moss and decay, punctuated by the occasional metallic bite of rusted chains. Each step echoes against the cold stone floor, the sound swallowed by the oppressive silence. A chill seeps through the walls, its clammy fingers brushing against your skin, while the distant drip of water creates an eerie rhythm that both soothes and unnerves.
