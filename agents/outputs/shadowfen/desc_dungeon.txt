@@ -6,3 +6,10 @@ Ambient Messages:
 2. Flickering torchlight dances on the rough-hewn walls, casting jagged shadows that seem to breathe, while the stale air is thick with the metallic tang of old blood and forgotten secrets.  
 
 3. The ground beneath your feet is slick with ancient slime, each step squelching softly as the air grows heavier with the rancid aroma of decay, mingling with the faint whisper of unseen creatures lurking just out of sight.
+
+Ambient Messages:
+1. The damp air clings to your skin, heavy with the musty scent of ancient stone and the faint echo of dripping water, as shadows dance in the flickering light of your torch. 
+
+2. A low, rhythmic thrum resonates through the cavern walls, punctuated by the distant skittering of unseen creatures, while the taste of rust lingers on your tongue. 
+
+3. Wisps of cold, stale air swirl around you, carrying the acrid odor of burnt incense and the whispers of long-forgotten secrets that curl like smoke from the crumbling edges of the darkened passage.
