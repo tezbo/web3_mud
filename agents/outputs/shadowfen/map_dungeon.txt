@@ -1,59 +1,49 @@
-### Shadowfen Dungeon Map
+# Shadowfen Dungeon Map
 
 ```
-       [Guard Post]
-            |
-       [Main Hall] -- [Prison Cells]
-            |
-       [Torture Chamber]
-            |
-      +-- [Armory] --+
-      |              |
-[Secret Passage]  [Treasure Room]
+  [A] -- [B] -- [C]
+   |             |
+  [D]           [E]
+   |
+  [F]
 ```
 
-### Room List with Exits
+## Room List and Exits
 
-1. **Guard Post**
-   - **Exits:** South to Main Hall
-   - **Purpose:** Entry point with guards stationed to monitor access to the dungeon.
-   - **Notes:** Sets the mood with tense atmosphere; a checkpoint for unauthorized entry.
+1. **[A] Entry Hall**
+   - **Exits:** East to [B], South to [D]
+   - **Notes:** The starting point for adventurers, this room sets the tone with dimly lit torches and damp stone walls. It funnels players towards either exploration (to [B]) or combat (to [D]).
 
-2. **Main Hall**
-   - **Exits:** North to Guard Post, East to Prison Cells, South to Torture Chamber
-   - **Purpose:** Central hub connecting key areas of the dungeon.
-   - **Notes:** Designed for high traffic, with a foreboding ambiance. The focal point for navigation within the dungeon.
+2. **[B] Fallen Library**
+   - **Exits:** West to [A], East to [C]
+   - **Notes:** A once-grand library now in ruins, filled with collapsed shelves and scattered books. Here, players can find lore that hints at the dungeon's history and secrets. It's a hub that connects deeper into the dungeon.
 
-3. **Prison Cells**
-   - **Exits:** West to Main Hall
-   - **Purpose:** Containment area for prisoners.
-   - **Notes:** Provides storytelling opportunities with NPC interactions; hints at the dungeon's sinister nature.
+3. **[C] Ritual Chamber**
+   - **Exits:** West to [B], South to [E]
+   - **Notes:** The heart of the Shadowfen Dungeon, where dark rituals were once performed. This room holds the main quest objective and a hidden passage (requires investigation) to [E].
 
-4. **Torture Chamber**
-   - **Exits:** North to Main Hall, South to Armory
-   - **Purpose:** Interrogation and punishment room.
-   - **Notes:** Dark theme with grisly details; adds depth to the dungeon's narrative.
+4. **[D] Guard Barracks**
+   - **Exits:** North to [A], South to [F]
+   - **Notes:** Housing for the dungeon's defenders, now overrun by creatures. Offers combat encounters and a chance for players to collect weapons or armor.
 
-5. **Armory**
-   - **Exits:** North to Torture Chamber, East to Treasure Room, West to Secret Passage
-   - **Purpose:** Storage for weapons and armor; strategic supply location.
-   - **Notes:** Key for combat preparation; hidden path access enhances exploration.
+5. **[E] Secret Treasury**
+   - **Exits:** North to [C]
+   - **Notes:** A hidden room revealed by solving a puzzle in the Ritual Chamber [C]. Contains valuable loot and artifacts, rewarding players for their curiosity and problem-solving.
 
-6. **Secret Passage**
-   - **Exits:** East to Armory
-   - **Purpose:** Concealed route for stealthy navigation.
-   - **Notes:** Encourages exploration; rewards players with shortcuts and surprises.
+6. **[F] Prison Cells**
+   - **Exits:** North to [D]
+   - **Notes:** A grim area with metal bars and chains. Players may find clues to the dungeon's past prisoners or even rescue someone who can provide aid or information.
 
-7. **Treasure Room**
-   - **Exits:** West to Armory
-   - **Purpose:** Vault for valuables and loot.
-   - **Notes:** Final reward for exploration; contains traps for added challenge.
+## Design Notes
 
-### Design Notes
+- **Flow:** The Entry Hall [A] gives a choice of initial direction, allowing players to decide their approach—either through lore and exploration via the Library [B] or more direct combat via the Barracks [D].
+  
+- **Central Hub:** The Fallen Library [B] serves as a central hub, directing players towards the Ritual Chamber [C] and hinting at the dungeon's history.
 
-- **Flow:** The dungeon is designed with a central hub (Main Hall) that branches into key areas, encouraging exploration while maintaining logical connections.
-- **Purpose:** Each room serves a distinct role within the dungeon, contributing to the overarching theme of imprisonment and secrecy.
-- **Discovery:** Hidden paths like the Secret Passage offer players the chance to uncover shortcuts and gain advantages.
-- **Pacing:** Rooms cluster around the Main Hall, with the Treasure Room and Secret Passage offering distant rewards for deeper exploration.
-- **Realism:** The layout reflects a functional yet ominous space, with rooms logically placed to serve the dungeon's sinister operations.
-- **Vertical Space:** Although not explicitly vertical, the secret passage offers a layered experience by providing an alternate route.
+- **Discovery and Secrets:** The Ritual Chamber [C] contains a hidden passage to the Secret Treasury [E], encouraging players to investigate their surroundings thoroughly.
+
+- **Pacing and Realism:** The placement of rooms reflects logical use of space—guards near the entrance in [D], prisoners isolated in [F], and ritual activities centralized in [C].
+
+- **Vertical Space:** Although this map does not utilize vertical space, the inclusion of a hidden passage in [C] to [E] adds a layer of complexity akin to finding a secret stairway or passage.
+
+This design balances exploration with combat, providing multiple paths and rewarding players who venture off the beaten path.
