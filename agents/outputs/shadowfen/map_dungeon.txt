@@ -1,49 +1,55 @@
-Certainly! Here's an ASCII map for the 'Dungeon' district in Shadowfen style, along with a room list, exits, and design notes.
+### Shadowfen Dungeon District Map
 
 ```
-     [Sacrificial Chamber]
-           |
-      [Dark Passage]
-           |
-[Torture Chamber]--[Holding Cells]
-           |
-    [Guard Barracks]
-           |
-       [Entrance]
+        [Chamber of Echoes]
+              |
+          (hidden)
+              |
+      [Forsaken Hall]--[Gloaming Grotto]
+              |
+          (stairs)
+              |
+      [Silted Cellar]--[Shrouded Niche]
+              |
+      (secret passage)
+              |
+      [Cavern of Whispers]
 ```
 
-### Room List and Exits
+### Room List with Exits
 
-1. **Entrance**
-   - **Exits:** North to Guard Barracks
-   - **Purpose:** The starting point for players entering the dungeon. It's a foreboding entry with rusted iron gates and dim torches. Sets the tone for the rest of the dungeon.
+1. **Chamber of Echoes**
+   - Exits: South (hidden to Forsaken Hall)
+   - Notes: An eerie room where whispers seem to repeat indefinitely. Acts as an introductory chamber that encourages exploration. The hidden exit requires players to investigate the room's acoustics.
 
-2. **Guard Barracks**
-   - **Exits:** North to Torture Chamber, South to Entrance
-   - **Purpose:** The resting area for dungeon guards. Contains bunks and weapon racks. Players may find minor loot or clues about the dungeon's operation.
+2. **Forsaken Hall**
+   - Exits: North (hidden to Chamber of Echoes), South (stairs to Silted Cellar), East to Gloaming Grotto
+   - Notes: A central hub with multiple exits, balancing accessibility and mystery. It presents a clear choice between descending further or exploring horizontally.
 
-3. **Torture Chamber**
-   - **Exits:** North to Dark Passage, East to Holding Cells, South to Guard Barracks
-   - **Purpose:** A grim room filled with cruel implements. This is a central hub where players can choose to explore deeper into the dungeon or investigate the cells.
+3. **Gloaming Grotto**
+   - Exits: West to Forsaken Hall
+   - Notes: A side passage filled with bioluminescent fungi. This optional area rewards players with hidden lore or minor treasures, providing a break from the main path.
 
-4. **Holding Cells**
-   - **Exits:** West to Torture Chamber
-   - **Purpose:** A series of barred cells where prisoners are kept. Offers potential side quests or lore about captives and their stories. Exploration may lead to hidden items or keys.
+4. **Silted Cellar**
+   - Exits: North (stairs to Forsaken Hall), East to Shrouded Niche, South (secret passage to Cavern of Whispers)
+   - Notes: A muddy and treacherous area that acts as a transitional space to deeper, darker areas. Players must navigate carefully, emphasizing the dungeon's hazardous nature.
 
-5. **Dark Passage**
-   - **Exits:** North to Sacrificial Chamber, South to Torture Chamber
-   - **Purpose:** A shadowy corridor that connects the central Torture Chamber to the deeper, more sinister areas of the dungeon. It's a narrow space with secret alcoves and potential ambushes.
+5. **Shrouded Niche**
+   - Exits: West to Silted Cellar
+   - Notes: A small, secluded chamber with ancient relics. It serves as a mini-quest location, encouraging players to explore and solve simple environmental puzzles.
 
-6. **Sacrificial Chamber**
-   - **Exits:** South to Dark Passage
-   - **Purpose:** The final, ominous room where dark rituals are conducted. Features an altar and atmospheric lighting. Key plot points or bosses could be located here.
+6. **Cavern of Whispers**
+   - Exits: North (secret passage to Silted Cellar)
+   - Notes: The final room that holds a significant narrative or quest-related item. The secret passage back to the Silted Cellar allows for a quick exit after completion.
 
 ### Design Notes
 
-- **Flow:** The map is designed to guide players through a logical progression from the Entrance to the Sacrificial Chamber while offering optional exploration in the Holding Cells. The Torture Chamber acts as a central hub.
-- **Purpose:** Each room has a distinct purpose, enhancing the narrative of a dark and forbidding dungeon. The progression becomes increasingly eerie, culminating in the Sacrificial Chamber.
-- **Discovery:** The Holding Cells offer optional content that rewards players with additional lore and items. Players who explore these areas deepen their understanding of the dungeon's backstory.
-- **Realism:** The layout maintains a sense of realism with logical room placements, such as the Guard Barracks near the entrance and the Holding Cells adjacent to the Torture Chamber.
-- **Vertical Space:** Although primarily horizontal, the narrow Dark Passage introduces a sense of depth and complexity, suggesting hidden or layered spaces within the dungeon.
+- **Flow and Exploration**: The dungeon is designed with a central hub (Forsaken Hall) that provides multiple paths, encouraging exploration. The hidden and secret passages create a sense of mystery and reward players who pay attention to their surroundings.
 
-This layout balances exploration with a clear progression, encouraging players to delve deeper into the dark mysteries of the 'Dungeon' district.
+- **Vertical Space**: The use of stairs in the Forsaken Hall to the Silted Cellar adds a vertical element, enhancing the sense of descending into a deeper, more dangerous area.
+
+- **Natural Storytelling**: Each room's name and description hint at the history and nature of the dungeon, inviting players to piece together the story as they explore.
+
+- **Balance**: The layout balances exploration with convenience, offering shortcuts and hidden paths to reward curiosity and provide a sense of discovery.
+
+This Shadowfen Dungeon District offers a layered experience with both clear objectives and hidden depths, encouraging players to engage with the space thoughtfully.
