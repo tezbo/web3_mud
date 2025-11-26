@@ -1,44 +1,47 @@
-### Shadowfen Dungeon ASCII Map
+### Shadowfen Dungeon Map
 
 ```
-     [Chamber of Echoes]
-             |
-       [Hall of Whispers] -- [Guard Post]
-             |
-    [Catacomb Entrance] -- [Hidden Alcove]
-             |
-      [Sinking Chamber]
+      [Entrance]
+         |
+      [Antechamber] -- [Guard Barracks]
+         |                 |
+      [Main Hall]-------[Armory]
+         |
+      [Treasure Vault]
 ```
 
 ### Room List with Exits
 
-1. **Chamber of Echoes**
-   - Exits: South to Hall of Whispers
-   - Notes: Central hub of the dungeon with high ceilings that amplify sound. Acts as a gathering point for those who dare to explore deeper into the Shadowfen. Mysterious echoes lure adventurers.
+1. **Entrance**
+   - Exits: South to Antechamber
+   - Purpose: Initial entry point into the dungeon. Sets the foreboding atmosphere with dim lighting and damp walls.
 
-2. **Hall of Whispers**
-   - Exits: North to Chamber of Echoes, East to Guard Post, South to Catacomb Entrance
-   - Notes: A narrow corridor where whispers seem to follow you. Provides the main path through the dungeon, with a sense of being watched.
+2. **Antechamber**
+   - Exits: North to Entrance, South to Main Hall, East to Guard Barracks
+   - Purpose: Acts as a buffer zone between the outside world and the deeper dungeon. Provides a sense of transition from light to dark.
 
-3. **Guard Post**
-   - Exits: West to Hall of Whispers
-   - Notes: Formerly manned by ethereal guards, now an abandoned checkpoint. Contains remnants of old weapons and armor. Offers a view back into the Hall of Whispers, suggesting a strategic point of defense.
+3. **Guard Barracks**
+   - Exits: West to Antechamber, South to Armory
+   - Purpose: Housing area for dungeon guards. Contains bunks and personal effects, providing a glimpse into the lives of the inhabitants.
 
-4. **Catacomb Entrance**
-   - Exits: North to Hall of Whispers, East to Hidden Alcove, South to Sinking Chamber
-   - Notes: The transition point into the deeper parts of the dungeon. The air grows damp and the stonework more ancient. Often used as a resting spot for adventurers.
+4. **Main Hall**
+   - Exits: North to Antechamber, East to Armory, South to Treasure Vault
+   - Purpose: Central hub of the dungeon. High ceiling with echoes, creating an imposing atmosphere. Suitable for battles or encounters.
 
-5. **Hidden Alcove**
-   - Exits: West to Catacomb Entrance
-   - Notes: A small, secretive chamber tucked away from the main path. Contains a few scattered treasures and old inscriptions hinting at the dungeon's lore. Accessible only to those exploring off the beaten path.
+5. **Armory**
+   - Exits: West to Main Hall, North to Guard Barracks
+   - Purpose: Storage of weapons and gear. Offers an opportunity for players to discover or loot items. Reinforces the militaristic nature of the dungeon.
 
-6. **Sinking Chamber**
-   - Exits: North to Catacomb Entrance
-   - Notes: The lowest point in this section of the dungeon, partially submerged in murky water. Provides a sense of foreboding and mystery. Rumored to contain the relics of an ancient civilization.
+6. **Treasure Vault**
+   - Exits: North to Main Hall
+   - Purpose: Final goal and reward for players. Contains valuable treasures and potentially a boss or challenging puzzle. Reflects the culmination of exploration and effort.
 
 ### Design Notes
 
-- **Flow and Purpose**: The central hub, Chamber of Echoes, draws players in with its mysterious allure and leads them deeper into the dungeon. The main path through the Hall of Whispers and the Catacomb Entrance guides players naturally, while the Guard Post and Hidden Alcove provide opportunities for exploration and discovery.
-- **Exploration vs. Convenience**: The layout encourages exploration with the Hidden Alcove being off the main path, rewarding players with lore and items. The Guard Post offers a strategic vantage point, hinting at the dungeon's defensive past.
-- **Realism and Storytelling**: The spatial design reflects a once-defended, now-abandoned structure with logical connections between rooms. The Sinking Chamber's partial submersion adds an element of environmental storytelling, suggesting ongoing decay and mystery in the Shadowfen style.
-- **Vertical Space**: Though primarily horizontal in this layout, the Sinking Chamber's water level introduces a vertical element for potential future expansions, such as deeper submerged passages or hidden underwater treasures.
+- **Flow and Exploration**: The dungeon is designed to naturally guide players from the Entrance to the Treasure Vault. The central Main Hall acts as a hub, encouraging exploration of side rooms (Guard Barracks and Armory) before reaching the ultimate goal.
+  
+- **Discovery and Complexity**: Hidden passages or secret levers could be integrated into the Guard Barracks or Armory to unlock additional treasures or lore. This rewards thorough exploration.
+
+- **Pacing and Realism**: The layout respects the need for logical room placement, with the Guard Barracks strategically positioned near the entrance for defense, and the Armory accessible for quick armament.
+
+- **Atmosphere and Storytelling**: Each room contributes to the dungeon's narrative, from the eerie silence of the Antechamber to the opulent but guarded Treasure Vault, enhancing immersion and player engagement.
