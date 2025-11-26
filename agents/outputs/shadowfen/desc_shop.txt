@@ -1,8 +1,1 @@
-The shop in Shadowfen is a dim, cluttered haven where the air hangs heavy with the scent of aged parchment and musty leather. Shelves carved from ancient, gnarled wood groan under the weight of curious trinkets, their surfaces slick with a fine layer of swamp mist. As you step inside, the floorboards creak softly, their groans swallowed by the rustling whispers of wind slipping through the cracks. A pale, eerie glow from phosphorescent fungi casts flickering shadows, revealing glimpses of tarnished silver and the gleam of glass vials filled with thick, mysterious liquids.the corner."
-
-Ambient Messages:
-1. The air is thick with the scent of polished wood and leather, as the soft chime of wind bells accompanies the gentle rustle of parchment beneath the shopkeeper's busy hands.  
-
-2. A tapestry of colors unfurls around you, where the vibrant hues of gemstones glisten under the flickering lantern light, mingling with whispers of ancient secrets woven into the fabric of the wares.  
-
-3. The floorboards creak softly underfoot, a symphony of nostalgia, while the rich aroma of spiced oils and herbs dances through the air, inviting you to explore the hidden treasures that line the shadowy shelves.  
+The shop clings to the edge of the Shadowfen like a secret whispered in the dark. Its walls are cloaked in creeping vines, their leaves glistening with the damp mist that hangs heavy in the air. Inside, the scent of aged leather and musty parchment mingles with the earthy aroma of moss. Shelves sag under the weight of rusting trinkets, each artifact cold and slick to the touch, whispering tales of forgotten times. The soft drip of water from the ceiling punctuates the silence, a rhythm as timeless as the shadows themselves.
