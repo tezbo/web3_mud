@@ -1,1 +1,8 @@
 In the dim light of the shop, shadows weave through shelves laden with curiosities, each item cloaked in a thin veil of dust, whispering of forgotten tales. The air is thick with the scent of damp earth and aged parchment, a musty perfume that clings to the back of your throat. The creaking wooden floorboards moan softly beneath your feet, their ancient timbre echoing in the quiet. Fingers brush over cold, tarnished metal and smooth, timeworn leather, each texture a testament to the passage of time in this mysterious enclave.
+
+Ambient Messages:
+1. "The warm glow of lanterns flickers against shelves lined with vibrant jars, each filled with herbs that release a chorus of fragrant whispers, inviting you to linger a little longer."  
+
+2. "A soft chime of wind bells dances through the air as the shopkeeper's laughter mingles with the rich aroma of spiced tea, wrapping around you like a comforting embrace."  
+
+3. "The air is thick with the scent of oiled leather and polished wood, while the rhythmic thud of a hammer echoes from the back, promising treasures waiting to be unveiled."  
