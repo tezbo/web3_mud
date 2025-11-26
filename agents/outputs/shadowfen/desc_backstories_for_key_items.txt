@@ -1,8 +1,1 @@
-Dim light filters through the dense canopy of the Shadowfen, casting the room in an ever-shifting tapestry of shadows and muted greens. The air is thick with the earthy scent of damp moss and decaying leaves, mingling with the faint metallic tang of ancient, rusted artifacts. The floor underfoot is uneven, a patchwork of slick stone and creeping tendrils that brush against your skin with a cold, persistent touch. Whispers of forgotten tales seem to echo off the walls, a soft susurration that mingles with the distant drip of unseen water, inviting the curious to uncover the secrets hidden within the weathered tomes and relics scattered throughout.
-
-Ambient Messages:
-1. The obsidian dagger, its blade glinting with a cold, hungry sheen, hums softly in the quiet, echoing the whispered secrets of long-forgotten betrayals inked in blood beneath the ancient moonlight.
-
-2. Wrapped in a faded silk cloth, the jade amulet pulses with a warm, almost heartbeat-like rhythm, exuding the sweet, heady aroma of blooming night jasmine that beckons lost spirits from the shadows.
-
-3. The weathered leather tome, its pages brittle and yellowed, releases a musty scent of aged parchment and hidden knowledge, as the faint rustle of wind through cracked windows seems to carry the voices of those who dared to uncover its forbidden truths.
+In the dim confines of the Shadowfen's hidden archive, the air hangs heavy with the scent of vellum and the musk of ancient ink. Flickering candlelight dances across the walls, illuminating shelves that sag beneath the weight of tomes bound in cracked leather and rusted clasps. The soft rustle of parchment whispers secrets long forgotten, while the floor beneath your boots creaks with the groans of wood swollen by the pervasive damp. Each touch of a spine or scroll leaves a faint trace of dust on your fingertips, a tactile reminder of the countless stories waiting to be unearthed.
