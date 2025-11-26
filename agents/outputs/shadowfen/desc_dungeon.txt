@@ -27,3 +27,10 @@ Ambient Messages:
 2. Flickering torchlight dances across jagged rock formations, casting long, monstrous silhouettes, while the distant clatter of chains sends a shiver racing down your spine.  
 
 3. The chill of the air bites at your skin, carrying a metallic tang that mingles with the earthy scent of disturbed graves, as the silence is punctuated by the unsettling rustle of something lurking just beyond your sight.  
+
+Ambient Messages:
+1. The damp air clings to your skin like a shroud, while the distant drip of water echoes through the cavern, punctuated by the soft scuttle of unseen creatures in the shadows.  
+
+2. A faint, acrid smell of decay permeates the darkness, mingling with the cold, rough stone that scratches against your fingertips as you move deeper into the unknown.  
+
+3. Flickering torchlight reveals ancient carvings on the walls, their surfaces slick with moisture, while a low, mournful wind whispers secrets from the depths of the dungeon's heart.  
