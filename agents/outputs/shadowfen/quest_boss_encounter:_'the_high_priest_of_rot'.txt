@@ -1,0 +1,28 @@
+**Quest Title:** "The Rotting Faith"
+
+**Stage Breakdown:**
+
+1. **Stage 1: The Plight of Shadowfen**
+   - The village of Shadowfen is plagued by sickness and decay. The villagers suspect the High Priest of Rot, who resides in the ancient temple at the heart of the swamp, is behind the curse. They seek a hero to confront him.
+
+2. **Stage 2: The Temple of Rot**
+   - The player must navigate the treacherous swamp and enter the temple. Inside, they discover evidence of the priest's experiments with dark magic and corrupted flora. The player encounters villagers who were captured and turned into mindless servants.
+
+3. **Stage 3: The Confrontation**
+   - Deep within the temple, the player faces the High Priest of Rot. The priest reveals his belief that the decay is a necessary process to bring about a new, stronger life cycle. The player must decide how to deal with him.
+
+**Solutions:**
+
+1. **Solution 1: Direct Confrontation**
+   - The player chooses to fight and defeat the High Priest of Rot, putting an end to his dark rituals. The temple collapses, and the swamp begins to heal over time. The villagers are grateful, but they mourn the loss of those who were turned into servants.
+   - **Consequences:** The village slowly recovers, but there are whispers of a new cult forming in the shadows, inspired by the priest's teachings. The player gains a reputation as a hero, but the swamp remains a place of mystery and danger.
+
+2. **Solution 2: Negotiation and Redemption**
+   - The player attempts to reason with the High Priest, convincing him that his methods are misguided. The priest sees the error of his ways and agrees to reverse the curse, using his powers to heal the land and his followers.
+   - **Consequences:** The village returns to prosperity, and the priest becomes a guardian of the swamp, using his knowledge for good. However, some villagers remain suspicious, and the player's reputation is mixed—seen as a savior by some and a fool by others.
+
+3. **Solution 3: Embrace the Cycle**
+   - The player aligns with the High Priest's philosophy, believing that the decay is a natural part of the world's cycle. They help him refine his methods to ensure the process is controlled and beneficial in the long run.
+   - **Consequences:** Shadowfen becomes a place of renewal, where decay and growth are in balance. The player gains a following among those who embrace the natural cycle, but they are seen as a pariah by traditionalists who view the changes as unnatural.
+
+Each solution creates a ripple effect in the world, influencing the reputation of the player, the fate of Shadowfen, and the balance of nature in the region.
