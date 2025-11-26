@@ -1,55 +1,49 @@
+Certainly! Below is the design for a 6-room district called 'Dungeon' in the Shadowfen style. This design emphasizes a dark, swampy, and mysterious atmosphere with hidden passages and a layered exploration experience.
+
+### ASCII Map
+
 ```
-           +---------+
-           |  Cells  |
-           |  (N)    |
-           +----+----+
-                |
-           +----+----+
-           | Torture |
-           | Chamber |
-           |(E/W)    |
-           +----+----+
-                |
-           +----+----+
-           | Main    |
-           | Hall    |
-           | (N/S/E) |
-           +----+----+
-                |
-           +----+----+    +---------+
-           | Entry   |----| Armory  |
-           | (N)     |    | (W)     |
-           +----+----+    +----+----+
+   [A] - [B] - [C]
+    |         |
+   [D]       [E]
+    |
+   [F]
 ```
 
-**Room List with Exits:**
+### Room List with Exits
 
-1. **Entry (S)**
-   - Exits: North to Main Hall
-   - Purpose: The starting point of the dungeon, guarded entrance where players begin their exploration.
+1. **[A] Entrance Hall**
+   - Exits: South to [D], East to [B]
+   - Purpose: The starting point of the dungeon, dimly lit with moss-covered stone walls. Sets the tone for exploration.
 
-2. **Main Hall (N/S/E)**
-   - Exits: North to Torture Chamber, South to Entry, East to Armory
-   - Purpose: The central hub of the dungeon, connecting key locations. Designed for players to plan their exploration.
+2. **[B] Forgotten Armory**
+   - Exits: West to [A], East to [C], Secret Passage to [E]
+   - Purpose: Contains old, rusted weapons and armor. A hidden lever opens a secret passage to [E], rewarding observant players.
 
-3. **Torture Chamber (E/W)**
-   - Exits: East to Cells, West to Main Hall
-   - Purpose: A grim area filled with instruments of torment. Offers clues or items necessary for progression.
+3. **[C] Murkwater Chamber**
+   - Exits: West to [B], South to [E]
+   - Purpose: A flooded room with waist-high murky water. Navigating this room is challenging, adding an atmospheric hazard.
 
-4. **Cells (N)**
-   - Exits: South to Torture Chamber
-   - Purpose: Holding area for prisoners, some might provide information or quests. Encourages exploration for hidden keys or items.
+4. **[D] Shadow Cellar**
+   - Exits: North to [A], South to [F]
+   - Purpose: A storage area containing ancient barrels. The scent of mold is strong, hinting at its age and neglect.
 
-5. **Armory (W)**
-   - Exits: West to Main Hall
-   - Purpose: Stores weapons and armor. Players can find useful equipment here. Serves as a reward for exploration.
+5. **[E] Hidden Treasury**
+   - Exits: North to [C], Secret Passage to [B]
+   - Purpose: A reward for exploration, this secluded chamber contains valuable loot guarded by an environmental puzzle.
 
-**Design Notes on Flow and Purpose:**
+6. **[F] Dark Altar Room**
+   - Exits: North to [D]
+   - Purpose: The deepest part of the dungeon. An eerie, magical aura fills the room where rituals were once performed. It holds clues to the dungeon's past.
 
-- **Flow:** The Main Hall acts as the central hub, allowing players to branch out to different parts of the dungeon. This encourages strategic planning and revisiting areas as needed.
-- **Purpose:** Each room serves a specific function, creating a narrative of the dungeon's past use and current state. The Entry sets the scene, while the Armory and Cells reveal more about the dungeon's history.
-- **Exploration:** The layout encourages exploration through the promise of useful items in the Armory and potential secrets in the Cells. The Torture Chamber provides atmospheric storytelling and tension.
-- **Realism:** The layout reflects a functional dungeon, with logical placement of rooms. The Entry is the only way in and out, while the Main Hall's central position allows for efficient movement.
-- **Discovery and Pacing:** The dungeon rewards players who explore the less obvious paths (e.g., Cells) with valuable items or lore. The clustered nature ensures related rooms are accessed without excessive backtracking.
+### Design Notes
 
-The design aims to balance player exploration with logical space use, providing a concise yet rich dungeon experience.
+- **Flow and Exploration:** The layout encourages players to explore and discover hidden elements, such as the secret passage between [B] and [E]. The path from [A] to [F] provides a straightforward progression, while the lateral rooms offer additional rewards for those who deviate from the main path.
+  
+- **Natural Storytelling:** Each room serves a purpose that contributes to the overall narrative of a forgotten, swamp-infested dungeon. The transition from the Entrance Hall to the Dark Altar Room tells a story of descent into deeper and darker parts of the dungeon.
+
+- **Pacing and Realism:** The arrangement of rooms reflects a realistic and immersive environment, with the armory and treasury logically placed away from the entrance but accessible through exploration.
+
+- **Vertical and Horizontal Complexity:** Though primarily horizontal, the map employs horizontal complexity through secret passages and obstacles, enhancing the sense of mystery and danger typical of Shadowfen style.
+
+This design balances exploration and storytelling, encouraging players to delve into each room's unique features while maintaining a coherent and immersive dungeon experience.
