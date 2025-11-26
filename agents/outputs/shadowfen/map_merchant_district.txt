@@ -1,47 +1,53 @@
-Certainly! Below is the ASCII map and corresponding details for the 'Merchant District' in the Shadowfen style.
+Certainly! Below is an ASCII-style map of the "Merchant District" in a text-based game, designed in the Shadowfen style, which typically features murky, mysterious environments with a touch of medieval flair.
 
 ```
-        [Blacksmith]
-             |
-        [Market Square]
-         /    |      \
-[Tavern]  [Alchemist]  [Tailor]
-         \       |
-       [Hidden Path]
+       [Market Square]
+           /   |   \
+          /    |    \
+[Apothecary] [Tailor] [Armorer]
+          \    |    /
+           \   |   /
+        [Tavern]---[Bakery]
 ```
 
-### Room List with Exits and Design Notes
+### Room List with Exits
 
 1. **Market Square**
-   - **Exits:** North to Blacksmith, West to Tavern, East to Alchemist, South to Tailor
-   - **Notes:** The central hub of the Merchant District, bustling with activity. It serves as the primary navigation point, facilitating commerce and social interaction. The square is alive with vendors, and players will naturally be drawn here as they explore the district.
+   - Exits: North to Apothecary, East to Tailor, West to Armorer, South to Tavern
+   - Purpose: Central hub of the district. Bustling with merchants and shoppers. Important for trade, networking, and quest-giving.
 
-2. **Blacksmith**
-   - **Exits:** South to Market Square
-   - **Notes:** Located north of the Market Square, the Blacksmith is where players can craft and repair equipment. Positioned strategically to encourage players to pass through the Market Square, reinforcing its role as the district's heart.
+2. **Apothecary**
+   - Exits: South to Market Square
+   - Purpose: Sells potions, herbs, and magical ingredients. Offers quests related to gathering rare plants. Murky atmosphere with hanging herbs and bubbling cauldrons.
 
-3. **Tavern**
-   - **Exits:** East to Market Square, South to Hidden Path
-   - **Notes:** A place for rest and gathering information, the Tavern is directly accessible from the Market Square. A hidden path in the tavern's cellar leads to secretive areas, rewarding curious players.
+3. **Tailor**
+   - Exits: West to Market Square
+   - Purpose: Provides clothing, armor fittings, and custom attire. A place for players to upgrade their gear aesthetically and functionally. Offers quests involving fabric and dyes.
 
-4. **Alchemist**
-   - **Exits:** West to Market Square, South to Hidden Path
-   - **Notes:** The Alchemist's shop, nestled east of the Market Square, offers potions and mystical items. A hidden path behind a shelf connects to the Tavern's cellar, providing an alternate route for those who explore.
+4. **Armorer**
+   - Exits: East to Market Square
+   - Purpose: Sells weapons and armor. Essential for players looking to improve their combat abilities. Offers quests related to acquiring rare metals or lost weaponry.
 
-5. **Tailor**
-   - **Exits:** North to Market Square
-   - **Notes:** Situated south of the Market Square, the tailor's shop is where players can purchase and customize clothing. Its location encourages a full circuit around the Market for players traveling between shops.
+5. **Tavern**
+   - Exits: North to Market Square, East to Bakery
+   - Purpose: Social hub for players to meet, gather information, and rest. Offers both common room services and rumors that lead to quests.
 
-6. **Hidden Path**
-   - **Exits:** North to Tavern, East to Alchemist
-   - **Notes:** A secret passage connecting the Tavern and Alchemist, encouraging exploration and discovery. This path adds depth and intrigue, offering shortcuts and potential hidden quests or items.
+6. **Bakery**
+   - Exits: West to Tavern
+   - Purpose: Provides food items that offer temporary buffs. A cozy and warm environment. Offers fetch quests involving ingredients or delivering goods.
 
 ### Design Notes
 
-- **Flow:** The Market Square serves as the central hub, with all major shops radiating from it. This design ensures players naturally encounter important locations while exploring.
-- **Discovery:** The hidden path linking the Tavern and Alchemist adds an element of secrecy, rewarding players who explore thoroughly.
-- **Pacing:** The district is compact yet offers enough variety in its layout to keep players engaged. The hidden path and varied shop locations maintain interest.
-- **Realism:** The layout reflects a realistic small merchant district, with related shops positioned logically around a central square.
-- **Vertical Space:** Although the district itself is on one level, vertical exploration is implied in the tavern (cellar leading to the hidden path).
+- **Central Hub**: The Market Square serves as the central hub, providing easy access to all other locations. This layout encourages players to pass through the square frequently, maintaining its lively atmosphere.
+  
+- **Flow**: Players naturally progress from the Market Square to other locations based on their needs (e.g., gear upgrades at the Tailor or Armorer, potions at the Apothecary).
 
-This design balances exploration with convenience, creating a lively and engaging Merchant District in the Shadowfen style.
+- **Discovery**: While the main paths are direct, the interconnected nature of the Tavern and Bakery offers a sense of exploration within the district, encouraging players to visit both for different needs.
+
+- **Pacing**: The layout purposely clusters related shops around the square for convenience, while the Tavern and Bakery are slightly removed to encourage exploration and interaction.
+
+- **Realism**: The arrangement makes sense for a medieval-style merchant district. Essential services like the Armorer and Apothecary are easily accessible, while leisurely visits like the Tavern and Bakery are nearby but require more exploration.
+
+- **Shadowfen Style**: The design incorporates a sense of mystery and medieval charm, with the Apothecary and Tavern particularly embodying the murky, atmospheric qualities of the Shadowfen style.
+
+This "Merchant District" design balances exploration, convenience, and thematic storytelling.
