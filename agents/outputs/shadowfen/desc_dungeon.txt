@@ -1,8 +1,1 @@
-The dungeon yawns like a ravenous maw, its stone walls slick with creeping tendrils of moss that glisten in the dim, flickering torchlight. The air is thick and fetid, carrying the sour stench of decay and the sharp bite of rusting iron bars that imprison shadows, whispering secrets in the damp. Every step echoes ominously, the crunch of gravel underfoot mingling with the distant drip of water, creating a symphony of forlorn despair. A chill licks at your skin, seeping through the tattered remnants of past prisoners’ dreams, leaving a bitter tang of hopelessness on your tongue.
-
-Ambient Messages:
-1. A distant drip echoes through the damp stone corridors, each plink a reminder of the unseen depths lurking just beyond the flickering torchlight.  
-
-2. The air hangs heavy with the musty scent of ancient decay, laced with the faint, metallic tang of rusted chains and long-forgotten secrets.  
-
-3. Shadows writhe along the walls, cast by the sputtering flames of a lone torch, as the low hum of unseen creatures stirs the silence into a tense symphony of anticipation.  
+The dungeon yawned beneath the earth, its stone walls slick with moss and the ghostly touch of cold mist. Chains clink softly in the murk, a metallic whisper that echoes through the labyrinthine corridors. The air is thick with the musty scent of decay, mingling with the sharp, acrid bite of rust. Each step across the uneven, damp floor sends a shiver up your spine, as if the shadows themselves hold secrets they long to share.
