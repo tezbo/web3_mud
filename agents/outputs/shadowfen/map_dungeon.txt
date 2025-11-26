@@ -1,44 +1,47 @@
-### ASCII Map of the 'Dungeon' District in Shadowfen Style
+### Shadowfen Dungeon ASCII Map
 
 ```
-      [Guard Post]
-          |
-    [Prison Cells 1]--[Prison Cells 2]
-          |
-      [Main Chamber]
-          |
-      [Torture Room]--[Hidden Armory]
+   [Entrance]
+       |
+   [Foyer]
+     /   \
+[Gallery] [Chamber]
+     |       |
+[Treasure] [Sanctum]
 ```
 
 ### Room List with Exits
 
-1. **Guard Post**
-   - **Exits**: South to Main Chamber
-   - **Notes**: Entry point to the dungeon, where guards monitor the entrance. This room serves as a checkpoint and security measure, ensuring that only authorized personnel proceed further into the dungeon.
+1. **Entrance**  
+   - Exits: South to Foyer  
+   - Notes: The starting point of the dungeon, it sets the atmosphere with dim torchlight and creeping vine-covered walls. 
 
-2. **Prison Cells 1**
-   - **Exits**: South to Main Chamber, East to Prison Cells 2
-   - **Notes**: The first cluster of prison cells, housing various prisoners. A direct connection to the Main Chamber allows for easy access to move prisoners as needed.
+2. **Foyer**  
+   - Exits: North to Entrance, East to Chamber, West to Gallery  
+   - Notes: A central hub that connects the main areas of the dungeon, it features crumbled stone benches and a waterlogged floor.
 
-3. **Prison Cells 2**
-   - **Exits**: West to Prison Cells 1
-   - **Notes**: Additional cells for overflow or higher-security prisoners. This area is more isolated to increase security for dangerous captives.
+3. **Gallery**  
+   - Exits: East to Foyer, South to Treasure  
+   - Notes: This room displays faded tapestries and broken statues, hinting at the dungeon's history. It invites exploration with its eerie ambiance.
 
-4. **Main Chamber**
-   - **Exits**: North to Guard Post, South to Torture Room, East to Prison Cells 1
-   - **Notes**: Central hub of the dungeon, facilitating movement between the guard post, cells, and torture room. It serves as an observation area for the guards and dungeon master.
+4. **Chamber**  
+   - Exits: West to Foyer, South to Sanctum  
+   - Notes: A larger room filled with decaying furniture and scattered books, suggesting past scholarly activities. A sense of foreboding fills the air.
 
-5. **Torture Room**
-   - **Exits**: North to Main Chamber, East to Hidden Armory
-   - **Notes**: A grim area used for interrogation and punishment. Linked directly to the Main Chamber for easy movement of prisoners and personnel.
+5. **Treasure**  
+   - Exits: North to Gallery  
+   - Notes: A hidden side passage leads to this secretive chamber, filled with chests and relics. The reward for those who delve deeper into the dungeon's mysteries.
 
-6. **Hidden Armory**
-   - **Exits**: West to Torture Room
-   - **Notes**: A secretive location accessible from the Torture Room, used to store weapons and equipment. Its hidden nature provides strategic advantages during emergencies.
+6. **Sanctum**  
+   - Exits: North to Chamber  
+   - Notes: The final room, a place of dark rituals. An altar is the focal point, surrounded by flickering candles. The danger increases, with traps and potential boss encounters.
 
 ### Design Notes
 
-- **Flow and Purpose**: The dungeon's design emphasizes security and control. The Guard Post acts as the initial barrier, while the Main Chamber serves as the central hub, allowing for efficient oversight and management of the dungeon's various areas.
-- **Exploration vs. Convenience**: The layout encourages exploration, with the Hidden Armory rewarding those who investigate the Torture Room closely. The central Main Chamber ensures convenient access to key areas while maintaining a sense of distance and scale.
-- **Realism and Storytelling**: The clustering of prison cells near the Main Chamber reflects a logical organization for managing prisoners, while the hidden nature of the armory provides narrative depth, suggesting secrets and hidden agendas within the dungeon's operations.
-- **Vertical Space and Complexity**: Though a single level, the dungeon's design incorporates complexity through hidden paths and strategic room placement, enhancing the player's sense of discovery and immersion in the Shadowfen atmosphere.
+- **Flow and Purpose**: The dungeon begins at the Entrance, guiding players into the Foyer, which acts as a central hub. From here, players can choose to explore the historical Gallery or venture into the foreboding Chamber. The Treasure room serves as a reward for those who explore the less obvious paths, while the Sanctum represents the narrative climax, offering the toughest challenges.
+
+- **Discovery and Exploration**: The hidden path to the Treasure room from the Gallery rewards players seeking lore and loot. The design encourages thorough exploration with its non-linear connections.
+
+- **Pacing and Realism**: The layout reflects a believable structure; the progression from Entrance to Sanctum mirrors a journey deeper into danger. The Foyer's central position allows for strategic navigation, while the Gallery and Chamber provide thematic variety.
+
+- **Atmosphere and Storytelling**: The dungeon's design leverages Shadowfen's swampy, decaying aesthetic, using environmental storytelling (like the waterlogged Foyer and decaying Chamber) to enhance immersion and narrative depth.
