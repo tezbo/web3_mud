@@ -1,1 +1,8 @@
 The dimly lit shop is cloaked in shadows, where the air hangs heavy with the earthy scent of damp moss and decayed leaves. Shelves, slick with mildew, groan under the weight of rusted trinkets and tarnished relics that glint dully in the flickering candlelight, casting elongated, dancing shadows across the stone floor. The faint drip of moisture echoes in the stillness, and a chill seeps through the soles of your boots as you tread upon the uneven flagstones, each step resonating with a muffled thud. Whispers of a distant wind slip through the cracks in the walls, carrying with them the metallic tang of the fog that perpetually blankets the Shadowfen.
+
+Ambient Messages:
+1. The air is thick with the sweet, smoky aroma of incense, swirling between shelves lined with shimmering trinkets that catch the flickering light of wax candles, casting playful shadows across the polished wooden counters.  
+
+2. A faint chiming echoes through the air as glass baubles sway gently from their hooks, the cool touch of polished stone underfoot grounding you amidst the vibrant colors and bustling whispers of eager shoppers.  
+
+3. The rich scent of aged leather fills the room, mingling with the faintest hint of dried herbs, as the shopkeeper’s raspy voice tells stories of faraway lands, each word woven with the promise of adventure and intrigue.  
