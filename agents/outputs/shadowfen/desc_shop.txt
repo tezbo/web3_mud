@@ -1,15 +1,1 @@
-The shop stands cloaked in perpetual twilight, its walls a tapestry of rusted iron and ancient, mold-blackened stone. Shelves groan under the weight of peculiar trinkets, their metallic surfaces slick with the ever-present dampness of the Shadowfen. A faint, acrid scent of moss and mildew lingers in the air, mingling with the sharper notes of fermented herbs hanging in bundles from the ceiling. The floorboards creak beneath every step, their warped wood whispering secrets with each footfall, while a distant dribble of water echoes softly, weaving a murmured melody that seeps into the bones.
-
-Ambient Messages:
-1. "The air is thick with the sweet, tangy aroma of dried herbs and spices, while the soft chime of wind bells dances with the whispers of haggling voices."  
-
-2. "Shelves creak under the weight of ornate glass bottles, each filled with swirling liquids that shimmer like captured starlight, inviting curious fingers to explore their mysteries."  
-
-3. "Sunlight filters through stained glass windows, casting a kaleidoscope of colors across the wooden counter, where the faint rustle of parchment and the clink of coins create a rhythmic symphony of commerce."  
-
-Ambient Messages:
-1. "The air buzzes with the rich aroma of exotic spices, while the vibrant hues of handwoven tapestries drape like whispers around the shop, beckoning curious souls to explore their stories."  
-
-2. "A faint chime of glass wind chimes dances on the breeze, mingling with the earthy scent of aged wood and the soft rustle of parchment as the merchant meticulously arranges her treasures."  
-
-3. "Beneath the glow of flickering lanterns, the cool touch of polished gemstones glimmers enticingly, their surfaces reflecting the warm laughter and hushed barter of eager patrons."  
+The shop huddles beneath a canopy of twisting vines, their leaves whispering secrets as they brush against the weathered wood. Inside, the air hangs heavy with the earthy aroma of damp moss and the faint, biting scent of rusted metal. Lanterns flicker, casting soft pools of amber light that dance across shelves lined with curious relics—each one cool and slick to the touch, as if still kissed by the morning mist. The creak of floorboards accompanies each step, a gentle reminder of the marshland's encroaching presence.
