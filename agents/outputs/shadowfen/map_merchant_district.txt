@@ -1,49 +1,45 @@
-Certainly! Here’s the design for a 6-room 'Merchant District' in the Shadowfen style:
+Certainly! Here's an ASCII map of the "Merchant District" in the Shadowfen style:
 
 ```
-   [Market Square]
-        / | \
-   [Apothecary] [Blacksmith] [General Store]
-      |              |              |
-   [Alchemist's]  [Armory]   [Hidden Path]
+[Marketplace]
+   /   |   \
+[Apothecary] [Weapon Smith]
+   |              |
+[Clothier]    [Potion Shop]
+   |              |
+[Residential Alley]
 ```
 
-### Room List with Exits
+**Room List with Exits:**
 
-1. **Market Square**
-   - **Exits:** North to Apothecary, East to Blacksmith, West to General Store
-   - **Purpose:** Central hub of the district. Bustling with merchants and customers. The heart of trade and commerce in Shadowfen.
+1. **Marketplace**
+   - Exits: North to Apothecary, East to Weapon Smith, South to Residential Alley
+   - Notes: Central hub of the Merchant District, bustling with vendors and shoppers. Serves as a meeting point and orientation spot for players.
 
 2. **Apothecary**
-   - **Exits:** South to Market Square, Down to Alchemist's
-   - **Purpose:** Specializes in potions and herbs. Offers a mysterious atmosphere with the scent of various concoctions in the air. 
+   - Exits: South to Marketplace
+   - Notes: Offers various herbs and concoctions. Positioned north to symbolize the pursuit of health and vitality. Provides a cozy, aromatic ambiance.
 
-3. **Blacksmith**
-   - **Exits:** South to Market Square, Down to Armory
-   - **Purpose:** Produces and repairs weapons and armor. The constant clanging of metal draws customers and adventurers alike.
+3. **Weapon Smith**
+   - Exits: West to Marketplace, South to Potion Shop
+   - Notes: A place of clanging metal and roaring fires. Positioned east to catch the morning sun's first light—a metaphor for new beginnings and battles.
 
-4. **General Store**
-   - **Exits:** South to Market Square, East to Hidden Path
-   - **Purpose:** Supplies everyday necessities. A crucial spot for any traveler needing provisions.
+4. **Clothier**
+   - Exits: North to Apothecary, South to Residential Alley
+   - Notes: Displays fine garments and fabrics. Situated to encourage players to explore further into the district. Acts as a transition space between the bustling market and quieter residential areas.
 
-5. **Alchemist's**
-   - **Exits:** Up to Apothecary
-   - **Purpose:** A secretive workshop under the Apothecary, dedicated to more experimental and arcane mixtures. 
+5. **Potion Shop**
+   - Exits: North to Weapon Smith
+   - Notes: Sells mystical potions and rare ingredients. Offers a sense of mystery and intrigue, appealing to those seeking hidden knowledge and power.
 
-6. **Armory**
-   - **Exits:** Up to Blacksmith
-   - **Purpose:** Houses a collection of completed weapons and armor. A secure area showcasing the Blacksmith's finest wares.
+6. **Residential Alley**
+   - Exits: North to Clothier, North to Marketplace
+   - Notes: Quiet and narrow, this alley leads to simple residences. Provides a contrast to the busy market, allowing players to encounter NPCs with personal tales and quests.
 
-7. **Hidden Path**
-   - **Exits:** West to General Store
-   - **Purpose:** A discreet shortcut used by those who know about it. It serves as an escape route or a clandestine passage for smuggling goods.
+**Design Notes:**
 
-### Design Notes
-
-- **Flow:** The Market Square acts as the central hub, ensuring players naturally converge here. It directly connects to the key commercial rooms, encouraging exploration from the central point outward.
+- **Flow and Purpose:** The Marketplace serves as the central hub, naturally guiding players towards important shops. The Apothecary and Weapon Smith are positioned to cater to players interested in crafting and combat. Clothier and Potion Shop create pathways that encourage exploration beyond immediate needs.
   
-- **Exploration:** The Hidden Path offers a reward for players who explore the less obvious routes. Additionally, the vertical integration of the Alchemist's and Armory rooms adds depth and complexity.
-  
-- **Purpose and Connections:** Each room is logically placed to reflect its purpose within the district. The Apothecary and Alchemist's are linked, suggesting a layered professional relationship. Similarly, the Blacksmith's and Armory are connected to emphasize production and storage. The General Store's proximity to the Hidden Path adds intrigue and potential narrative hooks.
+- **Exploration and Storytelling:** Hidden interactions in the Residential Alley reward players who explore beyond commercial interests. The Potion Shop offers hidden lore and rare items, catering to players' curiosity and sense of discovery.
 
-- **Stylistic Elements:** The Shadowfen style, known for its mysterious and somewhat foreboding atmosphere, is reflected in the ambient details and secretive passages, inviting deeper exploration and engagement with the environment.
+- **Realism:** The layout reflects a logical organization found in medieval merchant districts, with commercial activities at the forefront and residential areas tucked away, providing a realistic and immersive environment.
