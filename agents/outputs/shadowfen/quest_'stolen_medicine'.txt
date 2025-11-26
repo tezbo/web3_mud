@@ -1,0 +1,28 @@
+Quest Title: "The Cure's Cost"
+
+Stage Breakdown:
+
+1. **Discovery**:
+   - The player arrives in the swampland village of Shadowfen, where they learn from the local healer, Selina, that a shipment of vital medicine has been stolen. The medicine is crucial for treating a deadly fever spreading among the villagers.
+   
+2. **Investigation**:
+   - The player investigates by speaking with various villagers, uncovering rumors of a local bandit group led by a former healer named Varek, who may have taken the medicine for his own purposes.
+
+3. **Confrontation and Resolution**:
+   - The player locates Varek's hideout deep in the marshes, where they can confront him and his bandits about the stolen medicine.
+
+Solutions:
+
+1. **Negotiation**:
+   - The player can choose to negotiate with Varek. By understanding his motives—he believes the villagers have mistreated him and wants to use the medicine to prove his worth—they can convince him to return the medicine in exchange for a promise to allow him to return to the village and share his healing knowledge.
+   - *Consequences*: Varek becomes an ally, offering unique herbal remedies in the future. However, some villagers remain resentful, causing occasional tension within Shadowfen.
+
+2. **Retribution**:
+   - The player can choose to defeat Varek and his bandits in combat, reclaiming the medicine by force.
+   - *Consequences*: The villagers are grateful for the player's actions, and the fever is quickly treated. However, Varek’s replacement as bandit leader seeks revenge, leading to increased bandit activity near Shadowfen in the future.
+
+3. **Deception**:
+   - The player can deceive both parties by secretly taking a portion of the medicine to sell elsewhere while returning the rest to the village. They can convince Varek that this theft was planned by Selina to discredit him.
+   - *Consequences*: The player's deceit enriches them temporarily, but Selina becomes suspicious and less trusting, leading to increased prices for her services. Varek, feeling betrayed, disappears, leaving his bandits disorganized.
+
+Each choice not only resolves the immediate crisis but also shapes the player's relationship with Shadowfen and its inhabitants, affecting future quests and interactions.
