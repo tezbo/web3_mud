@@ -1,59 +1,45 @@
-### Shadowfen Dungeon Map
+Certainly! Here's a 6-room district called 'Dungeon' in the Shadowfen style:
 
 ```
-   [Entrance Hall]
-          |
-       (N/S)
-          |
-  [Guard Post] -- (E) -- [Barracks]
-          |
-       (N/S)
-          |
-   [Central Chamber]
-       /   |   \
-     (W)  (S)  (E)
-    /      |      \
-[Storage] [Prison] [Alchemy Lab]
+       [Guard Post]
+           |
+   [Torture Chamber] -- [Storage Room]
+           |
+       [Prison Cells] -- [Secret Passage]
+           |
+       [Warden's Office]
 ```
 
-### Room List with Exits
+### Room List with Exits:
 
-1. **Entrance Hall**
-   - Exits: South to [Guard Post]
-   - Notes: The initial entry point into the dungeon. Dimly lit with flickering torches, setting an ominous tone.
+1. **Guard Post**
+   - Exits: South to Torture Chamber
+   - Purpose: Entry point with vigilant guards, sets the tone and guards the path deeper into the dungeon.
 
-2. **Guard Post**
-   - Exits: North to [Entrance Hall], South to [Central Chamber], East to [Barracks]
-   - Notes: A checkpoint for sentinels ensuring no unauthorized passage. Contains a small armory.
+2. **Torture Chamber**
+   - Exits: North to Guard Post, South to Prison Cells, East to Storage Room
+   - Purpose: Central hub within the dungeon, where prisoners are broken. High traffic area with multiple exits.
 
-3. **Barracks**
-   - Exits: West to [Guard Post]
-   - Notes: Living quarters for dungeon guards. Contains bunks and personal effects, providing insight into the daily lives of the guards.
+3. **Storage Room**
+   - Exits: West to Torture Chamber
+   - Purpose: Holds torture devices and supplies, a small room off the main path. Could hide a key or item for exploration rewards.
 
-4. **Central Chamber**
-   - Exits: North to [Guard Post], West to [Storage], South to [Prison], East to [Alchemy Lab]
-   - Notes: The heart of the dungeon, a large circular room with a high ceiling. Used for meetings and planning by dungeon overseers.
+4. **Prison Cells**
+   - Exits: North to Torture Chamber, East to Secret Passage
+   - Purpose: Rows of cells where prisoners are kept. Contains a hidden switch leading to the Secret Passage, rewarding players who explore.
 
-5. **Storage**
-   - Exits: East to [Central Chamber]
-   - Notes: Supplies and provisions are kept here. Crates and barrels hint at the dungeon's broader operations.
+5. **Secret Passage**
+   - Exits: West to Prison Cells
+   - Purpose: A hidden path that might lead to an escape route or treasure. Adds layered complexity and encourages exploration.
 
-6. **Prison**
-   - Exits: North to [Central Chamber]
-   - Notes: A damp and dark area with cells lining the walls. Moans and whispers can be heard, adding to the dungeon's eerie atmosphere.
+6. **Warden's Office**
+   - Exits: North to Prison Cells
+   - Purpose: The office of the dungeon's overseer. Contains important documents or clues for lore and quest progression.
 
-7. **Alchemy Lab**
-   - Exits: West to [Central Chamber]
-   - Notes: A workshop filled with bubbling potions and strange ingredients. Provides narrative depth, hinting at experiments conducted by the dungeon's inhabitants.
+### Design Notes:
 
-### Design Notes
-
-- **Flow and Exploration**: The design uses a hub-and-spoke layout centered around the [Central Chamber], encouraging players to explore each branch. The map encourages returning to the center to progress.
-  
-- **Convenience vs. Exploration**: The main path proceeds linearly from [Entrance Hall] to [Central Chamber] but offers side paths for exploration (e.g., [Storage], [Prison], [Alchemy Lab]).
-
-- **Room Purpose and Storytelling**: Each room has a clear purpose, contributing to the narrative of the dungeon's operational structure and its inhabitants' lives.
-
-- **Natural Storytelling**: The progression from entry, through security ([Guard Post]), and into the heart of operations ([Central Chamber]) tells a story of a well-guarded, functional facility.
-
-- **Realism and Aesthetics**: The layout logically represents a defensive and operational dungeon. The presence of function-specific rooms adds to the realism of the space being used and maintained by its occupants.
+- **Flow**: The dungeon's flow is designed to lead players from the entry Guard Post down into the more sinister areas, with the Torture Chamber serving as a central hub. 
+- **Purpose**: Each room has a clear role, enhancing the narrative of a grim and oppressive place. 
+- **Exploration**: The Secret Passage offers a hidden discovery element, rewarding players who thoroughly explore their environment.
+- **Pacing**: The layout encourages players to traverse through different layers of the dungeon, from the functional Guard Post to the depths of the Prison Cells, enhancing the feeling of descent into a shadowy underworld.
+- **Realism**: The layout makes sense for a dungeon, with logical placements of rooms based on their functions and the need for security and concealment.
