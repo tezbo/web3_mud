@@ -6,3 +6,10 @@ Ambient Messages:
 2. Flickering lanterns cast playful shadows across the cobblestone street, their warm glow mingling with the rich aroma of spiced wine and roasting meats, inviting you to linger.  
 
 3. A chill clings to the air, thick with the scent of damp earth and decay, as unseen creatures skitter through the underbrush, their soft rustle echoing in the oppressive silence of the shadowed glade.  
+
+Ambient Messages:
+1. "A soft murmur of wind weaves through the rustling leaves, carrying whispers of forgotten tales and ancient secrets begging to be discovered."  
+
+2. "The air is thick with the scent of rain-soaked earth and wildflowers, while the distant trill of nightingales dances like shimmering starlight in the twilight sky."  
+
+3. "The flickering glow of lanterns casts playful shadows on weathered stone, where the rich aroma of spiced stew mingles with the laughter of wanderers sharing stories of their travels."  
