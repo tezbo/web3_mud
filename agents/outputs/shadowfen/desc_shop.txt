@@ -1,15 +1,1 @@
-The dimly lit shop is cloaked in shadows, where the air hangs heavy with the earthy scent of damp moss and decayed leaves. Shelves, slick with mildew, groan under the weight of rusted trinkets and tarnished relics that glint dully in the flickering candlelight, casting elongated, dancing shadows across the stone floor. The faint drip of moisture echoes in the stillness, and a chill seeps through the soles of your boots as you tread upon the uneven flagstones, each step resonating with a muffled thud. Whispers of a distant wind slip through the cracks in the walls, carrying with them the metallic tang of the fog that perpetually blankets the Shadowfen.
-
-Ambient Messages:
-1. The air is thick with the sweet, smoky aroma of incense, swirling between shelves lined with shimmering trinkets that catch the flickering light of wax candles, casting playful shadows across the polished wooden counters.  
-
-2. A faint chiming echoes through the air as glass baubles sway gently from their hooks, the cool touch of polished stone underfoot grounding you amidst the vibrant colors and bustling whispers of eager shoppers.  
-
-3. The rich scent of aged leather fills the room, mingling with the faintest hint of dried herbs, as the shopkeeper’s raspy voice tells stories of faraway lands, each word woven with the promise of adventure and intrigue.  
-
-Ambient Messages:
-1. "The air is thick with the rich aroma of aged parchment and the faint crackle of enchanted ink, as the shopkeeper's voice weaves tales of forgotten lore between the shelves lined with shimmering tomes."  
-
-2. "A soft chime of crystal wind bells announces your arrival, while the warm glow of lanterns flickers over tables strewn with glistening gemstones and intricately carved talismans, each whispering secrets of their own."  
-
-3. "The cool, metallic scent of finely wrought steel mingles with the earthy notes of dried herbs, as the rhythmic clinking of tools resonates through the workshop, promising the birth of wondrous artifacts."
+The shop crouches beneath a canopy of creeping vines, their tendrils draped like the fingers of a curious specter. Within, the air is thick with the earthy scent of damp peat and the metallic bite of rusted iron, mingling unpleasantly with the sweet decay of overripe fruit. Shadows coil in every corner, their presence punctuated by the flicker of a solitary lantern, casting a sickly yellow light that dances across rows of tarnished trinkets. The floorboards creak mournfully underfoot, their surface slick with a film of condensation that clings to your skin like a cold, unwelcome caress.
