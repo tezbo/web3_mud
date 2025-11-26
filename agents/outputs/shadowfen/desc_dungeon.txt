@@ -1,15 +1,1 @@
-The dungeon exudes a damp chill, the air thick with the earthy musk of moss and the sharp tang of rusted iron. Faint echoes of dripping water punctuate the oppressive silence, each drop resonating like a distant heartbeat. Shadows writhe against the stone walls, their forms distorted by the flicker of an ancient torch, its flame sputtering in protest. Underfoot, the flagstones are slick with a slick film of moisture, their surfaces worn smooth by centuries of forgotten footsteps.
-
-Ambient Messages:
-1. The air is thick with the damp, earthy scent of moss and decay, while distant echoes of dripping water resonate through the shadowed corridors like whispered secrets from long-forgotten souls.  
-
-2. A chill wraps itself around you, prickling your skin as the flickering torchlight reveals ancient runes etched into the damp stone walls, their meanings as elusive as the faint, ghostly murmurs that brush against your ears.  
-
-3. The metallic tang of stale blood lingers in the stale air, mingling with the acrid smell of burnt sulfur, as the ground beneath your feet shifts uneasily, hinting at the restless darkness lurking just beyond the edge of light.  
-
-Ambient Messages:
-1. The air is thick with the damp, earthy scent of decaying stone, punctuated by the faint echo of dripping water that dances through the shadows like whispered secrets.  
-
-2. Flickering torchlight casts erratic shapes upon the rough-hewn walls, revealing ancient carvings that seem to writhe and shift as if alive, hungry for the warmth of your presence.  
-
-3. A chill crawls along your skin, laced with the metallic tang of rust and the faint, unsettling hum of something unseen stirring in the depths beyond the flicker of your candle's flame.  
+In the heart of the Shadowfen dungeon, the air hangs heavy with the damp, earthy scent of decaying leaves and mold. Shadows slink across the stone walls, slick with creeping moisture, their surfaces cold and rough beneath your fingertips. Every footstep echoes ominously, a soft squelch of waterlogged earth beneath leather boots, while distant drips resonate like a ghostly metronome. A bitter tang of rust lingers in the air, mingling with the faint, acrid smell of extinguished torches, casting an oppressive gloom that clings to the skin like an unwanted shroud.
