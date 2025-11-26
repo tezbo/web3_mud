@@ -1,47 +1,49 @@
-### Shadowfen Dungeon ASCII Map
+### Shadowfen Dungeon - "The Sunken Crypt"
+
+#### ASCII Map
 
 ```
-  [Treasure Vault]
+(Entrance) -- (Guard Room) -- (Tomb of the Forgotten)
+      |                 |
+(Dripping Hall)      (Crypt Overlook)
       |
-[Arcane Chamber]--[Guard Post]--[Entrance Hall]
-      |                  |
-[Dark Library]       [Torture Room]
+   (Flooded Vault)
 ```
 
-### Room List with Exits
+#### Room List with Exits
 
-1. **Entrance Hall**
-   - **Exits:** East to Guard Post
-   - **Purpose:** Main entry to the dungeon; sets the atmosphere with shadowy carvings and dim torchlight.
+1. **Entrance**
+   - Exits: East to Guard Room, South to Dripping Hall
+   - Notes: The main entry point to the dungeon, crumbling stone archway with moss and vines. Sets the eerie, damp atmosphere of the crypt.
 
-2. **Guard Post**
-   - **Exits:** West to Entrance Hall, East to Arcane Chamber, South to Torture Room
-   - **Purpose:** Central hub for dungeon security; guards stationed here create a bottleneck for intruders.
+2. **Guard Room**
+   - Exits: West to Entrance, East to Tomb of the Forgotten, South to Crypt Overlook
+   - Notes: Once a checkpoint, now overrun with cobwebs and decaying furniture. Provides a sense of the crypt's original purpose as a guarded resting place.
 
-3. **Arcane Chamber**
-   - **Exits:** West to Guard Post, North to Treasure Vault, South to Dark Library
-   - **Purpose:** Mystical room filled with ancient runes and magical artifacts; serves as a transition to the dungeon's deeper secrets.
+3. **Tomb of the Forgotten**
+   - Exits: West to Guard Room
+   - Notes: A large ceremonial chamber with ancient sarcophagi. Hidden switches in the room could lead to secret compartments with artifacts.
 
-4. **Treasure Vault**
-   - **Exits:** South to Arcane Chamber
-   - **Purpose:** Reward room with hidden treasures; heavily trapped and guarded, encouraging exploration and careful planning.
+4. **Dripping Hall**
+   - Exits: North to Entrance, South to Flooded Vault
+   - Notes: A narrow corridor where water continuously drips from the ceiling, creating a rhythmic echo. Acts as a transition to the deeper parts of the dungeon.
 
-5. **Dark Library**
-   - **Exits:** North to Arcane Chamber
-   - **Purpose:** A repository of forbidden knowledge; hidden passages might be discovered here leading to other adventures.
+5. **Crypt Overlook**
+   - Exits: North to Guard Room
+   - Notes: A balcony-like area looking over the Flooded Vault. Provides a strategic vantage point for players, suggesting tactical approaches to the vault below.
 
-6. **Torture Room**
-   - **Exits:** North to Guard Post
-   - **Purpose:** Adds atmospheric depth and storytelling; evidence of the dungeon's dark past, with potential for finding clues or key items.
+6. **Flooded Vault**
+   - Exits: North to Dripping Hall
+   - Notes: Partially submerged chamber filled with stagnant water. Home to rare aquatic creatures and hidden treasures for those who dare to dive.
 
-### Design Notes
+#### Design Notes
 
-- **Flow and Purpose:** The dungeon is designed with a central hub (Guard Post) that connects to each of the rooms, creating a sense of exploration and danger without feeling linear. The layout encourages players to strategize their movement, especially when seeking the Treasure Vault.
-  
-- **Exploration and Discovery:** The Arcane Chamber acts as a pivotal point for accessing both the Vault and the Library, offering players choices and rewarding curiosity. The Dark Library hints at lore and potential hidden pathways.
+- **Flow and Purpose**: The dungeon flows from the Entrance, splitting towards the Guard Room and Dripping Hall, encouraging exploration. The Guard Room acts as a central hub to access the Tomb of the Forgotten and Crypt Overlook, rewarding players who fully explore with strategic advantages and lore. The Flooded Vault serves as the final challenge, offering rewards for thorough exploration.
 
-- **Realism and Atmosphere:** Each room serves a logical purpose within the context of a dark, mysterious dungeon. The thematic consistency of shadow and secrecy aligns with the Shadowfen style, enhancing the player's immersive experience.
+- **Exploration vs. Convenience**: The layout encourages exploration with branching paths from the Guard Room and the allure of hidden secrets in the Tomb of the Forgotten. The Crypt Overlook provides a shortcut view, enticing players to plan their approach.
 
-- **Vertical Complexity:** Though this map uses a flat structure, the potential for vertical exploration is suggested through the Arcane Chamber's mystical elements, hinting at magical lifts or hidden trapdoors.
+- **Natural Storytelling**: Each room tells a part of the crypt's history, from the forgotten guards to the ceremonial tombs, and the natural decay of the Dripping Hall and Flooded Vault.
 
-The dungeon balances exploration and storytelling, inviting players to engage with its mystery and danger.
+- **Realism**: The layout reflects a logical progression deeper into the crypt, with water levels increasing as players move southward, suggesting natural flood patterns over time.
+
+- **Layered Complexity**: Vertical elements are implied with the Crypt Overlook, adding depth to exploration and tactical planning, while hidden switches and submerged treasures offer additional layers of engagement.
