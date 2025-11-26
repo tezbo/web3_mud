@@ -1,29 +1,31 @@
-**Quest Title: "The Cure's Cost"**
+**Quest Title: "The Missing Cure"**
 
 **Stage Breakdown:**
 
-1. **Discovery:**
-   - The player arrives in Shadowfen, a marshy region plagued by a mysterious illness known as the "Dusk Malaise." At the local healer's hut, the healer, Elara, is in distress. She reveals that a crucial shipment of rare herbs and medicines meant to alleviate the illness has been stolen from her storage.
+1. **Discovery:** 
+   - The player learns that a shipment of medicine vital to treating a deadly swamp fever has been stolen from the village of Shadowfen. The village healer, Elder Vela, is desperate, as without the medicine, many in the village will perish.
 
 2. **Investigation:**
-   - The player is tasked with tracking down the stolen medicine. Clues around the storage area suggest the involvement of a local group known as the Fen Shadows, a band of outcasts who live deep within the swamps.
+   - The player must investigate leads and talk to key villagers. Clues suggest that a local bandit group, the Mirethieves, is responsible. However, suspicion also falls on a rival healer from a nearby village, claiming Shadowfen hoards the medicine.
 
-3. **Confrontation:**
-   - The player locates the Fen Shadows' hideout, where they find the group’s leader, Rurik. It’s revealed that the group took the medicine not for profit, but to treat their own members who are suffering from the same illness.
+3. **Resolution:**
+   - The player tracks down the stolen medicine to the Mirethieves' hideout. However, they discover the bandits are also suffering from the swamp fever and are using the medicine for their own. The player must decide how to handle the situation.
 
 **Solutions:**
 
-1. **Negotiate a Share:**
-   - The player can choose to negotiate with Rurik, convincing him to share the medicine between the town and the Fen Shadows. This requires a skill check (e.g., persuasion or bartering).
-   - **Consequences:** Both the town and the Fen Shadows receive partial relief from the illness, fostering a tentative truce between the two groups. Future quests may involve cooperative efforts between the town and the outcasts.
+1. **Direct Confrontation:**
+   - The player can choose to fight the Mirethieves and reclaim the medicine for Shadowfen.
+   - **Consequences:** The villagers receive the medicine, Elder Vela rewards the player, and the Mirethieves are weakened. However, the bandit threat persists, and they may seek revenge later, attacking Shadowfen more aggressively.
 
-2. **Side with the Town:**
-   - The player can decide to recover the medicine by force or stealth, returning it all to Elara and leaving the Fen Shadows to fend for themselves.
-   - **Consequences:** The town's illness is alleviated more quickly, but tensions with the Fen Shadows escalate. The player may encounter future ambushes or sabotage from the outcasts as they seek revenge.
+2. **Negotiate a Truce:**
+   - The player can attempt to mediate between Shadowfen and the Mirethieves, proposing that some medicine is shared in return for protection or labor from the bandits.
+   - **Consequences:** Both groups benefit, reducing tension in the region. The bandits become allies, offering occasional assistance. However, some villagers may distrust the player for negotiating with criminals.
 
-3. **Aid the Fen Shadows:**
-   - The player can choose to help the Fen Shadows by leaving the medicine with them and finding an alternative solution for the town, such as seeking out another source of herbs or concocting a new remedy with Elara.
-   - **Consequences:** The Fen Shadows are grateful and offer their aid to the player in future endeavors. However, the town’s recovery is slower, and some townsfolk may distrust the player’s motives, affecting reputation and future dealings.
+3. **Expose the Rival Healer:**
+   - The player discovers evidence that the rival healer orchestrated the theft to damage Shadowfen’s reputation. The player can expose this plot.
+   - **Consequences:** The rival healer is discredited, and Shadowfen’s reputation is restored. However, tensions rise between the villages, potentially leading to future conflicts. The bandits, still in possession of some medicine, are left unchecked.
 
-**World Lore Tie-In:**
-- The quest is tied to "The Sundering," as the illness is a lingering effect of the ancient magical catastrophe. Additionally, the Fen Shadows are descendants of those who were exiled due to their ancestors' involvement in forbidden Threadsinging practices, adding depth to the realm's social conflicts.
+**Lore Tie-ins:**
+- The medicine is crafted using Threadsinging techniques, an ancient art now rare due to The Sundering.
+- Shadowfen lies near a contested realm, making it a strategic location for various factions, including the bandits.
+- The swamp fever is a lingering effect of The Sundering, which warped parts of the land and its flora.
