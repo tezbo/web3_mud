@@ -1,15 +1,1 @@
-The Update Room lies shrouded in a perpetual gloom, where the air is thick with the scent of damp earth and rusted iron. Shadows dance across the walls, their movement dictated by the flickering light of lanterns that sputter and hiss like whispering spirits. The stone floor is slick beneath your feet, a chill seeping up through your soles, while the walls are rough to the touch, their surfaces etched with cryptic symbols that pulse with an eerie phosphorescence. In the silence, you can hear the distant drip of water echoing like a forgotten heartbeat, creating a rhythm that feels both ancient and unsettlingly alive.
-
-Ambient Messages:
-1. "The air is thick with the bittersweet aroma of aged parchment, whispering secrets of forgotten lore as flickering candlelight dances across the worn stone walls."  
-
-2. "A soft, haunting melody drifts through the room, its notes intertwining with the faint rustle of silk curtains swaying gently in the cool, drafty breeze."  
-
-3. "The faint taste of iron lingers on your tongue, mingling with the earthy scent of damp moss that clings to the darkened corners of the chamber."  
-
-Ambient Messages:
-1. The faint hum of ancient machinery reverberates through the air, mingling with the sharp scent of oil and the cool touch of polished stone beneath your fingertips.  
-
-2. A soft golden glow bathes the room, illuminating dust motes that dance lazily in the warmth, while the distant sound of water trickling echoes like whispered secrets.  
-
-3. The heavy scent of wet earth permeates the space, and the chill of mist wraps around you, as if the very walls breathe in rhythm with the ghostly whispers of the Shadowfen beyond.
+Shadows drape the Update Room like a velvet shroud, their inky tendrils interweaving with tendrils of mist that cling to the rusted iron walls. The air carries a damp, earthy scent, mingled with a metallic tang, as if the very essence of the fen has seeped into the room's bones. Each footstep echoes with a dull thud, softened by the moss that carpets the stone floor, cool and yielding beneath the feet. A soft, incessant drip of water plays a rhythmic counterpoint, its source hidden within the dim recesses, while the faint taste of iron lingers on the tongue, a reminder of Shadowfen's ancient, secretive heart.

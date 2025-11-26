@@ -1,50 +1,47 @@
-Certainly! Below is an ASCII-style map for the 'Merchant District' in Shadowfen style, along with a room list, exits, and design notes.
+Certainly! Below is the ASCII map and corresponding details for the 'Merchant District' in the Shadowfen style.
 
 ```
-     [2]---[3]
-      |     |
-     [1]   [4]
-      |     |
-     [5]---[6]
-
-[1] Market Square
-[2] General Store
-[3] Apothecary
-[4] Armor Shop
-[5] Residential Alley
-[6] Hidden Tavern
+        [Blacksmith]
+             |
+        [Market Square]
+         /    |      \
+[Tavern]  [Alchemist]  [Tailor]
+         \       |
+       [Hidden Path]
 ```
 
-### Room List with Exits:
+### Room List with Exits and Design Notes
 
 1. **Market Square**
-   - **Exits:** North to [2] General Store, South to [5] Residential Alley
-   - **Notes:** Central hub of the district, bustling with vendors and shoppers. Serves as the main gathering point with easy access to surrounding shops.
+   - **Exits:** North to Blacksmith, West to Tavern, East to Alchemist, South to Tailor
+   - **Notes:** The central hub of the Merchant District, bustling with activity. It serves as the primary navigation point, facilitating commerce and social interaction. The square is alive with vendors, and players will naturally be drawn here as they explore the district.
 
-2. **General Store**
-   - **Exits:** South to [1] Market Square, East to [3] Apothecary
-   - **Notes:** Offers a variety of everyday goods. The logical first stop for necessities, encouraging further exploration to the right.
+2. **Blacksmith**
+   - **Exits:** South to Market Square
+   - **Notes:** Located north of the Market Square, the Blacksmith is where players can craft and repair equipment. Positioned strategically to encourage players to pass through the Market Square, reinforcing its role as the district's heart.
 
-3. **Apothecary**
-   - **Exits:** West to [2] General Store, South to [4] Armor Shop
-   - **Notes:** Specializes in potions and remedies. Positioned to be easily accessible but slightly off the main path, adding to the sense of discovery.
+3. **Tavern**
+   - **Exits:** East to Market Square, South to Hidden Path
+   - **Notes:** A place for rest and gathering information, the Tavern is directly accessible from the Market Square. A hidden path in the tavern's cellar leads to secretive areas, rewarding curious players.
 
-4. **Armor Shop**
-   - **Exits:** North to [3] Apothecary, West to [6] Hidden Tavern
-   - **Notes:** Offers protection gear. Its location requires some exploration past the apothecary, rewarding players with useful equipment.
+4. **Alchemist**
+   - **Exits:** West to Market Square, South to Hidden Path
+   - **Notes:** The Alchemist's shop, nestled east of the Market Square, offers potions and mystical items. A hidden path behind a shelf connects to the Tavern's cellar, providing an alternate route for those who explore.
 
-5. **Residential Alley**
-   - **Exits:** North to [1] Market Square, East to [6] Hidden Tavern
-   - **Notes:** A quiet area with homes, providing a contrast to the bustling square. Leads to a secretive entrance to the tavern.
+5. **Tailor**
+   - **Exits:** North to Market Square
+   - **Notes:** Situated south of the Market Square, the tailor's shop is where players can purchase and customize clothing. Its location encourages a full circuit around the Market for players traveling between shops.
 
-6. **Hidden Tavern**
-   - **Exits:** West to [5] Residential Alley, East to [4] Armor Shop
-   - **Notes:** A concealed establishment known to locals, offering a sense of discovery. Provides a social hub tucked away from the main path.
+6. **Hidden Path**
+   - **Exits:** North to Tavern, East to Alchemist
+   - **Notes:** A secret passage connecting the Tavern and Alchemist, encouraging exploration and discovery. This path adds depth and intrigue, offering shortcuts and potential hidden quests or items.
 
-### Design Notes on Flow and Purpose:
+### Design Notes
 
-- **Central Hub:** The Market Square ([1]) acts as the central hub with multiple exits, ensuring high traffic and easy navigation to key locations.
-- **Flow:** Starting at the Market Square, players are naturally directed to the General Store ([2]) and then further encouraged to explore the Apothecary ([3]) and Armor Shop ([4]).
-- **Discovery:** The Hidden Tavern ([6]) is an optional area that rewards players who explore beyond the main paths, accessed through the Residential Alley ([5]).
-- **Pacing:** Shops are clustered around the square, while the residential area provides a quieter space, spaced out from the bustling commercial areas.
-- **Realism:** The layout logically places shops around a central market, with a residential alley leading to a hidden tavern, mimicking a realistic district layout.
+- **Flow:** The Market Square serves as the central hub, with all major shops radiating from it. This design ensures players naturally encounter important locations while exploring.
+- **Discovery:** The hidden path linking the Tavern and Alchemist adds an element of secrecy, rewarding players who explore thoroughly.
+- **Pacing:** The district is compact yet offers enough variety in its layout to keep players engaged. The hidden path and varied shop locations maintain interest.
+- **Realism:** The layout reflects a realistic small merchant district, with related shops positioned logically around a central square.
+- **Vertical Space:** Although the district itself is on one level, vertical exploration is implied in the tavern (cellar leading to the hidden path).
+
+This design balances exploration with convenience, creating a lively and engaging Merchant District in the Shadowfen style.
