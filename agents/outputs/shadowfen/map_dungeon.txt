@@ -1,49 +1,63 @@
-### ASCII Map of 'Shadowfen Dungeon'
+### ASCII Map of 'Dungeon' District in Shadowfen Style
 
 ```
-        [Treasure Vault]
-              |
-          [Secret Room]
-              |
-[Entrance] - [Main Hall] - [Prison Cells]
-              |
-           [Alchemist's Lair]
+        +---------+
+        | Treasury|
+        |  (S)    |
+        +----+----+
+             |
+             S
+        +----+----+
+        | Main Hall|
+        |(N,S,E,W) |
+        +----+----+
+             |
+             S
+        +----+----+
+        | Entryway |
+        |   (N)    |
+        +----+----+
+             |
+             E
+        +----+----+
+        | Hidden   |
+        | Passage  |
+        |   (W)    |
+        +----+----+
+             |
+             S
+        +----+----+
+        |  Armory  |
+        |   (N)    |
+        +----+----+
 ```
 
 ### Room List with Exits
 
-1. **Entrance**
-   - Exits: East to Main Hall
-   - Purpose: Entry point to the dungeon. A narrow, dimly lit passage that sets the eerie tone.
+1. **Treasury**
+   - **Exits**: South to Main Hall
+   - **Purpose**: The final reward area containing valuable loot. It's tucked away at the far end of the dungeon to encourage exploration.
 
 2. **Main Hall**
-   - Exits: West to Entrance, East to Prison Cells, South to Alchemist's Lair, North to Secret Room
-   - Purpose: Central hub of the dungeon. A large, damp chamber with high ceilings, serving as a crossroads for exploration.
+   - **Exits**: North to Treasury, South to Entryway, East to Hidden Passage, West to Armory
+   - **Purpose**: The central hub of the dungeon, connecting all major areas. It serves as a strategic point for players to plan their exploration.
 
-3. **Prison Cells**
-   - Exits: West to Main Hall
-   - Purpose: A row of decrepit cells. Chains and old bones hint at past captives. Key for Secret Room might be hidden here.
+3. **Entryway**
+   - **Exits**: North to Main Hall
+   - **Purpose**: The entrance to the dungeon, setting the tone for the adventure ahead. Players start here and decide which path to follow from the Main Hall.
 
-4. **Alchemist's Lair**
-   - Exits: North to Main Hall
-   - Purpose: A cluttered workspace with potions and strange artifacts. Contains clues to access the Secret Room.
+4. **Hidden Passage**
+   - **Exits**: West to Main Hall
+   - **Purpose**: An optional hidden route that players can discover, rewarding exploration with potential shortcuts or unique encounters.
 
-5. **Secret Room**
-   - Exits: South to Main Hall, North to Treasure Vault
-   - Purpose: Hidden chamber accessed by solving a puzzle or finding a key. Contains lore and a powerful artifact.
+5. **Armory**
+   - **Exits**: North to Main Hall
+   - **Purpose**: Contains weapons and armor, providing players with resources for their journey. It's strategically placed to the west of the Main Hall, encouraging players to explore different directions.
 
-6. **Treasure Vault**
-   - Exits: South to Secret Room
-   - Purpose: Final reward for exploration. Lavishly decorated with chests of gold and rare items. Must be unlocked via Secret Room.
+### Design Notes on Flow and Purpose
 
-### Design Notes
-
-- **Flow:** The Entrance leads players directly into the Main Hall, the central hub, allowing them to choose their path of exploration. The Main Hall connects all other rooms, ensuring players return here as they explore deeper.
-  
-- **Exploration vs. Convenience:** While the Main Hall offers easy access to multiple rooms, secrets encourage thorough exploration. The Secret Room and Treasure Vault reward players for delving into less obvious areas.
-  
-- **Storytelling:** Each room provides clues about the dungeon's history and inhabitants. The Prison Cells hint at a darker past, while the Alchemist's Lair suggests ongoing experiments.
-  
-- **Realism:** The layout simulates a functional dungeon with a central area for operations (Main Hall) and specialized rooms for different purposes (Prison Cells, Alchemist's Lair).
-  
-- **Vertical Space:** Though all rooms are on the same level, the Secret Room acts as a vertical challenge by requiring players to 'descend' into deeper knowledge and skill to unlock the Treasure Vault.
+- **Flow**: The design uses the Main Hall as a central hub, which is typical for Shadowfen's architectural style, emphasizing a sense of mystery and interconnectedness. Players are encouraged to explore multiple routes from this central point.
+- **Exploration**: Hidden Passage offers a sense of discovery, rewarding players who take the time to explore off the beaten path.
+- **Realism**: The layout makes sense for a dungeon setting, with the Entryway leading naturally into the Main Hall. The Armory is placed logically near the Main Hall for easy access to supplies.
+- **Purpose**: The design encourages both linear progression (from Entryway to Treasury) and lateral exploration (Hidden Passage and Armory), balancing exploration with convenience.
+- **Pacing**: The rooms are clustered around the central Main Hall, creating a sense of progression as players navigate deeper into the dungeon towards the Treasury.
