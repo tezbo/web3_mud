@@ -1,1 +1,8 @@
 In the heart of Shadowfen, the room is shrouded in swirling mists that cling to the skin like cold, damp velvet. Shadows play tricks on the eyes, dancing across walls streaked with rust and the ghostly outlines of forgotten scripts. The faint drip of moisture echoes in the gloom, accompanied by the earthy, metallic scent of decay that permeates the air. Underfoot, the floor feels uneven and slick, as if the very stones have absorbed centuries of secrets and sorrow.
+
+Ambient Messages:
+1. "The distant chime of a bell echoes through the fog, each toll weaving a thread of melancholy into the cool, damp air."  
+
+2. "Sunlight spills through the canopy, dappling the forest floor with golden patches, while the rustle of leaves whispers tales of creatures unseen."  
+
+3. "A soft breeze carries the scent of spiced incense and wet earth, mingling with the low hum of conversation from the shadowy tavern beyond."
