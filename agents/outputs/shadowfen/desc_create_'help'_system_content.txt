@@ -6,3 +6,10 @@ Ambient Messages:
 2. "The flickering glow of lanterns casts dancing shadows on ancient stone walls, while the rich aroma of spiced incense lingers, igniting forgotten memories."  
 
 3. "A gentle breeze carries the faint rustle of silk against polished wood, weaving through the air like a silken thread, inviting you to explore the mysteries that lie ahead."
+
+Ambient Messages:
+1. "A gentle breeze whispers through the ancient trees, carrying the sweet scent of blooming nightshade and the distant echo of laughter from hidden glades."
+
+2. "The flickering glow of lanterns paints shadows on the cobblestone streets, where the rich aroma of spiced wine mingles with the soft murmur of patrons sharing their tales."
+
+3. "Mist clings to the damp earth, wrapping the moonlit landscape in a silken shroud, while the distant croak of frogs punctuates the stillness of the night."
