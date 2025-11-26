@@ -6,3 +6,10 @@ Ambient Messages:
 2. "A faint scent of aged parchment and ink drifts through the stillness, mingling with the metallic tang of gears and the low, rhythmic ticking that echoes like a heartbeat in the room."  
 
 3. "Cool, smooth stone underfoot contrasts with the warmth of the golden lanterns overhead, their gentle glow illuminating intricate carvings that seem to whisper secrets of forgotten tales."
+
+Ambient Messages:
+1. "The soft hum of ancient machinery vibrates through the air, mingling with the faint aroma of oil and metal, as dust particles dance in the shafts of muted, golden light filtering through the high windows."  
+
+2. "A cool breeze carries the scent of damp earth and moss, wrapping around you like a shroud as the distant sound of trickling water echoes through the shadowy corners of the cavernous room."  
+
+3. "The walls pulse with a low, rhythmic thrum, each beat resonating in your chest while the tang of ozone crackles in the air, hinting at the hidden power thrumming within the very stones."  
