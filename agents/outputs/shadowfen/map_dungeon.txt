@@ -1,0 +1,48 @@
+### Shadowfen Dungeon Map
+
+```
+        [A]            [E]
+        |               |
+        |               |
+        [B]---[C]---[D]---[F]
+             /
+           [G]
+```
+
+### Room List with Exits
+
+- **[A] Entrance Hall**
+  - **Exits:** Down to [B]
+  - **Design Notes:** The entry point into the dungeon. It serves as a transition from the outside world into the depths of Shadowfen. The moss-covered stone walls and faintly glowing mushrooms set the eerie atmosphere.
+
+- **[B] Hall of Echoes**
+  - **Exits:** Up to [A], East to [C]
+  - **Design Notes:** A long hallway where footsteps reverberate ominously. This room connects the surface entrance with the deeper sections of the dungeon. Occasionally, the echoes reveal hidden whispers, hinting at secrets within the dungeon.
+
+- **[C] Chamber of Trials**
+  - **Exits:** West to [B], East to [D], South to [G]
+  - **Design Notes:** A central hub for the dungeon, where players must solve puzzles or defeat guardians to proceed. It's a test of skill and a bottleneck that ensures players are prepared for the dangers ahead.
+
+- **[D] Collector's Gallery**
+  - **Exits:** West to [C], East to [F]
+  - **Design Notes:** A room filled with ancient artifacts and treasures gathered by a long-gone collector. Players can find valuable items here if they search carefully. However, some treasures are cursed or trapped.
+
+- **[E] Hidden Alcove**
+  - **Exits:** South to [D]
+  - **Design Notes:** A secret room accessible via a hidden switch in [D]. This area rewards players with exploration skills with rare loot or lore about Shadowfen's history.
+
+- **[F] Guardian's Lair**
+  - **Exits:** West to [D]
+  - **Design Notes:** The final challenge in the dungeon, where a formidable guardian protects the deepest secrets of Shadowfen. Defeating the guardian provides access to an exit or a hidden passage back to the surface.
+
+- **[G] Subterranean Stream**
+  - **Exits:** North to [C]
+  - **Design Notes:** A serene yet eerie underground stream that provides an optional exploration path. Players can find healing herbs or rare fish here, but must beware of lurking creatures.
+
+### Design Notes
+
+- **Flow:** The dungeon presents a central hub ([C]) from which players must decide their path. This design encourages exploration and strategic planning.
+- **Purpose:** The rooms are designed to guide players through a progression of challenges and rewards. The dungeon's layout reflects its theme of mystery and danger.
+- **Exploration:** Hidden paths like [E] and optional areas like [G] offer rewards for players who venture off the main path.
+- **Pacing:** The dungeon's structure ensures that players encounter increasingly difficult challenges as they move deeper, with brief respite in rooms like [G].
+- **Realism:** The layout mimics a naturally constructed underground environment, with rooms logically connected to reflect their functions within the dungeon's lore.
