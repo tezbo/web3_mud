@@ -1,73 +1,55 @@
-Certainly! Below is the design for the 'Merchant District' in a Shadowfen style, which typically features a dark, swampy environment with a mix of rickety wooden structures and stone buildings. The district is bustling with trade activity, providing players with both essential services and hidden secrets.
-
-### ASCII Map
+Certainly! Here's a design for the "Merchant District" in Shadowfen style:
 
 ```
-      +---------------+
-      |  Market Square|
-      |   Exits: N, E, S, W, D|
-      +-------+-------+-------+
-              |
-+-------------+-------------+
-|  Armorer's Shop          |
-|   Exits: E, S            |
-+-------------+------------+
-              |
-+-------------+-------------+
-|  Apothecary's Hut        |
-|   Exits: N, E            |
-+-------------+------------+
-              |
-+-------------+-------------+
-|  Shadowfen Inn           |
-|   Exits: N, U, D         |
-+-------------+------------+
-              |
-+-------------+-------------+
-|  Secret Alley            |
-|   Exits: W               |
-+-------------+------------+
-              |
-+-------------+-------------+
-|  Smuggler's Tunnel       |
-|   Exits: U               |
-+-------------+------------+
+          [Alchemy Shop]
+               |
+               N
+               |
+               S
+  [Tailor]--W--[Market Square]--E--[Blacksmith]
+               |
+               S
+               |
+          [General Goods]
+               |
+               S
+               |
+          [Hidden Alley]
+
 ```
 
-### Room List with Exits
+**Room List with Exits:**
 
 1. **Market Square**
-   - Exits: North (Armorer's Shop), East (Apothecary's Hut), South (Shadowfen Inn), West (Secret Alley), Down (Smuggler's Tunnel)
-   - Purpose: The bustling heart of the district, where traders and adventurers converge. It acts as a central hub with multiple exits leading to specialized shops and hidden paths.
+   - Exits: North (N) to Alchemy Shop, West (W) to Tailor, East (E) to Blacksmith, South (S) to General Goods
+   - Notes: This is the central hub of the Merchant District. It's a bustling area with vendors and is the primary location for trade and interaction. It connects to all other rooms, making it a logical gathering point.
 
-2. **Armorer's Shop**
-   - Exits: East (Market Square), South (Apothecary's Hut)
-   - Purpose: Offers weapons and armor crafted from local materials. Positioned for easy access from the market, encouraging players to upgrade gear.
+2. **Alchemy Shop**
+   - Exits: South (S) to Market Square
+   - Notes: A specialized shop located just north of the Market Square, offering potions and unique ingredients. Its slightly secluded position adds an aura of mystique, drawing adventurers seeking rare concoctions.
 
-3. **Apothecary's Hut**
-   - Exits: North (Market Square), East (Shadowfen Inn)
-   - Purpose: Provides potions and remedies, crucial for survival in the swamp. Located near the inn for travelers needing rest and recuperation.
+3. **Tailor**
+   - Exits: East (E) to Market Square
+   - Notes: This shop offers clothing and armor, situated to the west of the square. Its proximity to the Market Square ensures easy access for those needing quick repairs or new garments.
 
-4. **Shadowfen Inn**
-   - Exits: North (Market Square), Up (Guest Rooms), Down (Cellar)
-   - Purpose: A place of rest with multiple floors. The inn's cellar might hint at more than just storage, creating intrigue.
+4. **Blacksmith**
+   - Exits: West (W) to Market Square
+   - Notes: Found to the east of the Market Square, this is where weapons and armor are crafted and repaired. Its location allows for easy access from the market, facilitating trade and custom orders.
 
-5. **Secret Alley**
-   - Exits: West (Market Square)
-   - Purpose: Hidden path for players who explore. Could lead to small quests or encounters, adding depth to the district.
+5. **General Goods**
+   - Exits: North (N) to Market Square, South (S) to Hidden Alley
+   - Notes: Situated south of the Market Square, this shop provides a variety of essentials for adventurers. It's the stepping stone between the bustling market and the more secluded Hidden Alley.
 
-6. **Smuggler's Tunnel**
-   - Exits: Up (Market Square)
-   - Purpose: A hidden area accessed from the Market Square, offering a shortcut or secretive escape route. Rewards exploration with potential treasure or unique encounters.
+6. **Hidden Alley**
+   - Exits: North (N) to General Goods
+   - Notes: A narrow, less-traveled path south of the General Goods store. It offers a sense of discovery with potential for secret meetings or black market goods. It's a reward for players who explore beyond the obvious paths.
 
-### Design Notes
+**Design Notes:**
 
-- **Flow and Purpose**: The Market Square serves as the nexus, with major paths leading outward, ensuring that players naturally encounter key locations. Merchant services are clustered around the square for convenience.
-  
-- **Exploration and Discovery**: The Secret Alley and Smuggler's Tunnel provide hidden paths that reward curious players. These secondary paths enhance the storytelling by suggesting illicit activities within the district.
+- **Flow:** The Market Square serves as the central hub, ensuring players naturally pass through it to access other locations, reinforcing its importance.
+- **Discovery:** The Hidden Alley is an optional area that rewards exploration with potential secrets or hidden quests.
+- **Pacing:** The layout clusters related shops around the central square, spreading out the less obvious locations like the Hidden Alley.
+- **Realism:** The design logically places specialized shops around a central market, reflecting a realistic and functional merchant district.
+- **Vertical Space:** Not applicable in this design, as it's a surface-level district focused on commerce.
 
-- **Vertical Space**: The Shadowfen Inn uses vertical complexity with guest rooms above and a mysterious cellar below, encouraging players to explore different levels.
-
-- **Realism**: The layout mimics a real-world market district, with shops directly accessible from the central square and supportive facilities nearby. Hidden areas are logically placed to represent the underbelly of trade activities.
-
-This design balances accessibility with intrigue, encouraging both quick visits and deeper exploration.
+This design balances exploration and convenience while creating a coherent and engaging environment for players in the Shadowfen style.
