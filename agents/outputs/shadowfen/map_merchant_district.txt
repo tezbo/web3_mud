@@ -1,43 +1,46 @@
-**ASCII Map of the Merchant District**
+Certainly! Here's the design for a 6-room "Merchant District" in the Shadowfen style, which typically features a dark, swampy aesthetic with an air of mystery and intrigue. 
 
+### ASCII Map
 ```
-        [Blacksmith]
+        [Trading Post]
              |
-[Armorsmith] - [Market Square] - [Alchemy Shop]
-             |         |               |
-          [Apothecary] |          [Warehouse]
+[Alchemist's Shop] - [Market Square] - [Tavern]
+             |             |
+      [Curio Shop]     [Smuggler's Alley]
 ```
 
-**Room List with Exits:**
+### Room List with Exits
 
 1. **Market Square**
-   - Exits: North to Blacksmith, West to Armorsmith, East to Alchemy Shop, South to Apothecary
-   - Purpose: Central hub of the Merchant District, bustling with traders and shoppers. Serves as the main navigation point.
+   - Exits: West to Alchemist's Shop, East to Tavern, South to Smuggler's Alley
+   - Purpose: Central hub where merchants set up stalls. A gathering place for adventurers and traders.
 
-2. **Blacksmith**
-   - Exits: South to Market Square
-   - Purpose: Specializes in weapon crafting and repair. Close proximity to Market Square ensures easy access for adventurers needing gear.
+2. **Alchemist's Shop**
+   - Exits: East to Market Square, North to Trading Post, South to Curio Shop
+   - Purpose: A mysterious shop filled with potions and ingredients. Offers unique items for sale.
 
-3. **Armorsmith**
-   - Exits: East to Market Square
-   - Purpose: Provides protective gear and armor, strategically located near the Blacksmith for convenience.
+3. **Trading Post**
+   - Exits: South to Alchemist's Shop
+   - Purpose: A place for bulk trading and exchanging goods. Often visited by those seeking to offload large quantities of merchandise.
 
-4. **Alchemy Shop**
-   - Exits: West to Market Square, South to Warehouse
-   - Purpose: Offers potions, elixirs, and alchemical ingredients. Its placement encourages exploration towards the Warehouse.
+4. **Tavern**
+   - Exits: West to Market Square
+   - Purpose: A lively establishment where travelers and locals share stories. Often a source of rumors and quests.
 
-5. **Apothecary**
+5. **Curio Shop**
+   - Exits: North to Alchemist's Shop
+   - Purpose: Sells rare and unusual items. A place for those seeking the odd and arcane.
+
+6. **Smuggler's Alley**
    - Exits: North to Market Square
-   - Purpose: Supplies herbal remedies and medical supplies, a quieter spot for those seeking healing without the bustle of the main square.
+   - Purpose: A hidden, less reputable area where under-the-table deals occur. Offers connections to the black market.
 
-6. **Warehouse**
-   - Exits: North to Alchemy Shop
-   - Purpose: Storage for surplus goods and rare items. A potential spot for hidden content or quests related to supply chain disruptions.
+### Design Notes on Flow and Purpose
 
-**Design Notes on Flow and Purpose:**
+- **Central Hub**: The Market Square serves as the central hub, fostering a sense of community and interaction. It connects efficiently to key locations, promoting easy navigation.
+- **Discovery and Exploration**: The Smuggler's Alley introduces an element of intrigue and offers players an optional area to explore for unique interactions and items.
+- **Layered Complexity**: The verticality is subtly implied through the bustling Market Square and the hidden nature of Smuggler’s Alley, suggesting an underbelly to the district.
+- **Realism and Storytelling**: The clustering of shops around the Market Square reflects a logical organization, while the presence of the Smuggler's Alley adds depth and narrative potential to the district.
+- **Pacing and Flow**: The district is compact, facilitating quick transitions between social and commercial spaces, while the presence of the Curio Shop and Smuggler's Alley encourages players to explore off the beaten path for rewards.
 
-- **Central Hub:** The Market Square acts as a central hub, allowing easy access to all major shops, promoting a fluid movement of players.
-- **Flow:** Each shop is logically positioned based on thematic relevance (e.g., Blacksmith and Armorsmith are close). The Market Square provides a clear and direct way to navigate the district.
-- **Exploration and Discovery:** The Warehouse is an optional area, serving as a reward for players who explore beyond the main shops. It can contain hidden quests or rare items.
-- **Realism and Storytelling:** The district layout reflects a realistic medieval marketplace where trade is the heart of activity. The proximity of related shops suggests a well-organized trade district.
-- **Vertical Complexity:** Not applicable here as the design focuses on a horizontal layout, but verticality could be added in future expansions with a lookout tower or underground vaults.
+This design balances the need for a bustling merchant area with opportunities for mystery and hidden stories, characteristic of the Shadowfen style.

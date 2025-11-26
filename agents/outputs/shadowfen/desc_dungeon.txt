@@ -1,1 +1,8 @@
 The dungeon of Shadowfen lies shrouded in perpetual gloom, its walls slick with a patina of rust and mildew. Chains clink softly in the shadows, their metallic whispers echoing eerily through the dank, narrow corridors. A musty odor of decay clings to the air, mingling with the acrid scent of damp stone. Underfoot, the ground is uneven and treacherous, the cold grit of ancient dirt crunching beneath every cautious step.
+
+Ambient Messages:
+1. The damp air clings to your skin, heavy with the scent of mold and the distant echo of dripping water, as shadows dance along the jagged stone walls.  
+
+2. A faint, metallic clink reverberates through the darkness, mingling with the low, mournful whispers of unseen creatures lurking just beyond your sight.  
+
+3. The cold, rough stone beneath your fingertips is slick with moisture, and the faint taste of iron lingers in your mouth, a reminder of the blood-soaked history buried in these depths.
