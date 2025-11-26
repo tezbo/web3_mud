@@ -1,15 +1,1 @@
-In the depths of Shadowfen, the dungeon looms, a labyrinth of cold stone and iron. The air is thick with dampness, carrying a faint, acrid stench of mildew and rust that clings to the walls. The distant drip of water echoes through the corridors, a haunting rhythm underscoring the oppressive silence. Flickering torchlight casts long, quivering shadows, while the chill of the flagstones seeps through boots, numbing toes with every reluctant step.
-
-Ambient Messages:
-1. The damp walls pulse with a chill that seeps into your bones, while the distant drip of water echoes like a mournful dirge in the suffocating darkness. 
-
-2. Flickering shadows dance along the rough-hewn stone, revealing glistening veins of black moss that exude a pungent, earthy aroma, reminiscent of decay and forgotten secrets.
-
-3. A faint, metallic tang hangs in the air, mingling with the stale scent of ancient dust as the whisper of unseen creatures skitters across the cold, uneven floor.
-
-Ambient Messages:
-1. Flickering torchlight dances against damp stone walls, casting long shadows that seem to whisper secrets of those who once tread this forsaken path.  
-
-2. The air hangs heavy with the musty scent of decayed wood and rusted iron, punctuated by the occasional skittering of unseen creatures in the darkness.  
-
-3. A distant drip echoes like an ominous heartbeat, punctuating the silence with each drop that splashes into the murky pool below.  
+The dungeon yawns like a beast's maw, its walls slick with the sweat of ages. A damp chill clings to the air, curling around you like a serpent, while the earthy musk of decay weaves with the metallic scent of rusted chains. The faint drip of water echoes through the stone corridors, a ghostly rhythm that lulls and unnerves in equal measure. Underfoot, the floor is uneven and cold, each step whispering secrets of those who once traversed these haunted halls. Shadows flicker and dance, playing tricks on the eyes as if the very darkness is alive.
