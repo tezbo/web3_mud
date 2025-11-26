@@ -1,1 +1,8 @@
 The dungeon stretches out like a maw of darkness, its stone walls slick with creeping tendrils of moss, glistening under the dim glow of flickering torchlight. A pervasive chill clings to the air, carrying the musty odor of damp earth intertwined with the sharper scent of rusting iron. Each step echoes ominously, the sound swallowed by the oppressive silence that seems to pulse with an ancient, unknowable rhythm. As you trail your fingers along the rough-hewn walls, the gritty texture bites back, a reminder of the countless souls who have passed through this shadowed corridor.
+
+Ambient Messages:
+1. Shadows dance along the damp stone walls, flickering with the ghostly light of a single, sputtering torch, while the stale air carries the faint, metallic tang of ancient blood.  
+
+2. A distant drip echoes through the cavernous expanse, punctuating the suffocating silence, as the chill of the underground seeps into your bones like a shroud of forgotten despair.  
+
+3. The rough, uneven floor is slick with moisture, and the musty scent of rotting wood mingles with the earthy aroma of damp earth, wrapping around you like a lingering curse.  
