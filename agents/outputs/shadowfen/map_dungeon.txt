@@ -1,53 +1,62 @@
 ### Shadowfen Dungeon Map
 
 ```
-  [Entrance]
-     |
-  [Antechamber]
-     |
-[Guardroom] -- [Storeroom]
-     |
-  [Main Hall]
-     |
- [Hidden Alcove]
+     +-----------+
+     |   Altar   |
+     | Exits: S  |
+     +-----+-----+
+           |
+     +-----+-----+
+     | Ritual Hall|
+     | Exits: N, E, W|
+     +-----+-----+
+           |
+ +---------+---------+
+ |  Hall of Echoes   |
+ | Exits: N, E, S    |
+ +---------+---------+
+           |
+     +-----+-----+
+     |   Armory   |
+     | Exits: N, W |
+     +-----+-----+
+           |
+     +-----+-----+
+     |   Cellar   |
+     | Exits: N   |
+     +-----------+
 ```
 
-### Room List with Exits:
+### Room List and Exits
 
-1. **Entrance**
-   - Exits: South to Antechamber
-   - Purpose: Serves as the entry point to the dungeon. It's a narrow, damp passage that sets the mood for the rest of the dungeon.
+1. **Altar Room**
+   - **Exits:** South to Ritual Hall
+   - **Notes:** The heart of the dungeon, where forbidden rites are performed. A place of dark power, echoing with the chants of long-gone cultists.
 
-2. **Antechamber**
-   - Exits: North to Entrance, South to Guardroom
-   - Purpose: A small room that acts as a buffer between the outside and the more secured parts of the dungeon. It contains remnants of old banners and broken furniture.
+2. **Ritual Hall**
+   - **Exits:** North to Altar Room, East to Hall of Echoes, West to Armory
+   - **Notes:** A large chamber used for gatherings and rituals. The central hub of the dungeon, connecting major areas and facilitating easy navigation.
 
-3. **Guardroom**
-   - Exits: North to Antechamber, East to Storeroom, South to Main Hall
-   - Purpose: Once housing the dungeon guards, this room has remnants of old weaponry and armor. Provides a natural intersection for players to decide their next path.
+3. **Hall of Echoes**
+   - **Exits:** North to Ritual Hall, East to Armory, South to Cellar
+   - **Notes:** An eerie corridor where whispers and footsteps seem to linger. This hallway creates a loop, fostering exploration and discovery of hidden passages.
 
-4. **Storeroom**
-   - Exits: West to Guardroom
-   - Purpose: Contains crates and barrels with some useful supplies and a few minor treasures. Encourages players to explore side areas for rewards.
+4. **Armory**
+   - **Exits:** North to Ritual Hall, West to Hall of Echoes
+   - **Notes:** A repository for weapons and armor, now mostly looted. The presence of forgotten gear hints at the dungeon's former military significance.
 
-5. **Main Hall**
-   - Exits: North to Guardroom, South to Hidden Alcove
-   - Purpose: The largest room in the dungeon, used as a central area for gatherings or rituals. Decorated with ancient symbols and partially collapsed stone pillars.
+5. **Cellar**
+   - **Exits:** North to Hall of Echoes
+   - **Notes:** A damp, forgotten storage area, perfect for hidden treasures or lurking dangers. Its isolation from the main path rewards those who delve deeper.
 
-6. **Hidden Alcove**
-   - Exits: North to Main Hall
-   - Purpose: A secretive area partially hidden behind a loose stone wall in the Main Hall. Contains a modest treasure or key item for deeper lore, rewarding keen explorers.
+### Design Notes
 
-### Design Notes on Flow and Purpose:
+- **Flow:** The Ritual Hall serves as the central hub, allowing players to easily navigate between key areas. It connects directly to the Altar Room, ensuring that the main quest path is clear.
 
-- **Flow and Exploration**: The dungeon layout encourages exploration through a central path (Guardroom to Main Hall) with offshoots (Storeroom and Hidden Alcove) that reward curiosity. The storeroom is easily accessible, providing a small reward early on, while the Hidden Alcove requires players to pay attention to environmental cues for discovery.
+- **Exploration:** The Hall of Echoes forms a loop with the Armory, encouraging players to explore and discover the Cellar, a hidden area with potential rewards.
 
-- **Central Hub**: The Guardroom serves as the central hub, with multiple exits allowing players to make meaningful choices about their progression.
+- **Realism:** Each room has a logical placement, reflecting a coherent use of space. The Altar Room is secluded, as befits its ceremonial purpose, while the Armory is accessible for defense.
 
-- **Pacing**: The design clusters the main path from the Entrance to the Main Hall, with the Hidden Alcove providing a final, optional area for players who engage with the space more thoroughly.
+- **Storytelling:** The layout tells a story of a once-thriving cult, now in ruins. The placement of rooms suggests a hierarchy and purpose, with the Altar at the spiritual center.
 
-- **Realism and Storytelling**: The logical flow from Entrance to Main Hall mirrors a realistic progression into the depths of the dungeon, with each room serving a believable purpose within the context of a fortified space.
-
-- **Vertical Spaces**: Not utilized in this design, as the focus is on a horizontal exploration experience typical of a ground-level dungeon.
-
-This layout provides a balanced mix of exploration, discovery, and logical progression, capturing the essence of a Shadowfen-style dungeon.
+- **Vertical Space:** The dungeon is primarily on one level, with the Cellar providing vertical exploration. This preserves the sense of descent often associated with dungeons.

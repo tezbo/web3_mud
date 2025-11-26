@@ -1,1 +1,8 @@
 In the dimly lit alcove of the Shadowfen library, the air hangs heavy with the scent of aged parchment and the earthy musk of moss creeping along the stone walls. Flickering candlelight dances over shelves cluttered with artifacts, their surfaces pockmarked by rust and veiled in cobwebs. A hushed whisper of turning pages echoes softly, as if the books themselves murmur secrets to those who dare to listen. The cool, damp air caresses your skin, leaving a fine mist in its wake, as your fingers brush against the brittle, leather-bound tomes filled with tales long forgotten.
+
+Ambient Messages:
+1. **Ebonwood Staff**: "Carved from the heart of a cursed grove, the staff hums with a low, mournful wail, as if echoing the whispers of lost souls trapped within its dark embrace."  
+
+2. **Twilight Veil**: "Draped in ethereal layers of jade silk, the veil sparkles under starlight, exuding the faint scent of moonlit gardens and the lingering taste of secrets long buried."  
+
+3. **Shard of the Ancients**: "This jagged crystal, pulsing with a ghostly light, crackles with an icy energy, sending shivers down your spine and filling the air with the metallic tang of forgotten power."
