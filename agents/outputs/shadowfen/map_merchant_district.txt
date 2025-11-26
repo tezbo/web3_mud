@@ -1,117 +1,48 @@
-<<<<<<< HEAD
-### Merchant District - Shadowfen Style
+```
+[Guild Square]
+    |
+[Market Street]--[Tannery]
+    |
+[General Store]--[Apothecary]
+    |
+[Dockside Warehouse]
 
 ```
-[Market Square] -- [Blacksmith] -- [Alchemist's Shop]
-     |               |
- [Tailor's Shop]  [Warehouse]
-     |
- [Dockside Path]
-=======
-**Merchant District in Shadowfen Style**
 
-```
-        +----------------+
-        |  Apothecary    |
-        | Exits: S       |
-        |  (Rare Herbs)  |
-        +--------+-------+
-                 |
-                 S
-                 |
-+--------+-------+--------+-------+
-|   Blacksmith          Market    |
-| Exits: E, S          (Central   |
-|  (Weapons & Armor)    Hub)      |
-+--------+-------+--------+-------+
-                 |
-                 S
-                 |
-        +--------+--------+
-        |   Tailor         |
-        | Exits: N, E, W   |
-        |  (Clothing &     |
-        |   Accessories)   |
-        +--------+--------+
-                 |
-                 E
-                 |
-        +--------+--------+
-        |  General Store  |
-        | Exits: W, N     |
-        |  (Supplies)     |
-        +-----------------+
->>>>>>> feature/task-1
-```
+### Room List with Exits:
 
-#### Room List with Exits:
+1. **Guild Square**
+   - Exits: South to Market Street
+   - Notes: The central hub of the Merchant District, Guild Square is bustling with traders and adventurers. It's a natural gathering place with several notices and job boards, encouraging interaction and commerce.
 
-<<<<<<< HEAD
-1. **Market Square**
-   - Exits: North to Blacksmith, South to Tailor's Shop, East to Alchemist's Shop
-   - Notes: Central hub bustling with activity, stalls for various goods. Key starting point for exploration.
+2. **Market Street**
+   - Exits: North to Guild Square, East to Tannery, South to General Store
+   - Notes: The main thoroughfare, lined with vendor stalls and shops. It's a vibrant area that connects most of the district's key locations, facilitating smooth flow and exploration.
 
-2. **Blacksmith**
-   - Exits: South to Market Square, East to Warehouse
-   - Notes: Offers weapons and armor, sounds of hammering and heat of the forge. Logical placement near Market Square for easy access to adventurers.
+3. **Tannery**
+   - Exits: West to Market Street
+   - Notes: A specialized shop for leather goods, located slightly off the main street to manage its pungent odors. It serves as a reminder of the district's industrial side and offers crafting materials.
 
-3. **Alchemist's Shop**
-   - Exits: West to Market Square
-   - Notes: A mysterious shop with potions and elixirs. Intriguing for players interested in magical items. Positioned for easy access from the Market.
+4. **General Store**
+   - Exits: North to Market Street, East to Apothecary, South to Dockside Warehouse
+   - Notes: A convenient stop for basic supplies, strategically positioned to serve both travelers from Market Street and those heading towards the docks.
 
-4. **Tailor's Shop**
-   - Exits: North to Market Square, South to Dockside Path
-   - Notes: Provides clothing and custom garments. Positioned to attract those leaving or entering from the dock.
+5. **Apothecary**
+   - Exits: West to General Store
+   - Notes: A small but essential shop providing potions and herbs. Its secluded placement suggests the mysterious nature of its wares and caters to adventurers needing healing supplies.
 
-5. **Warehouse**
-   - Exits: West to Blacksmith
-   - Notes: Storage for goods, slightly more isolated for security. Can contain hidden paths or side quests involving smuggling or theft.
-
-6. **Dockside Path**
-   - Exits: North to Tailor's Shop
-   - Notes: Leads to the docks, facilitating trade and the arrival of goods. Offers potential for hidden passages or smuggling routes.
+6. **Dockside Warehouse**
+   - Exits: North to General Store
+   - Notes: Situated at the southern end, this large storage area is crucial for the import/export activities, reinforcing the district's role in trade. Its proximity to water implies goods are transported via river or sea.
 
 ### Design Notes:
 
-- **Flow:** The Market Square acts as the central hub, from which players can easily reach key shops, encouraging exploration of the district's main attractions.
-- **Discovery:** The Warehouse hints at possible hidden paths or quests related to trade and smuggling, rewarding players who explore beyond the main roads.
-- **Pacing:** Shops are clustered around the Market Square for convenience, while the Warehouse is slightly removed, adding a sense of distance and intrigue.
-- **Realism:** The layout reflects logical placement of shops around a central market, with the Warehouse appropriately positioned for goods storage.
-- **Vertical Space:** Not utilized in this district, maintaining a focus on outdoor exploration and trading activities. 
+- **Flow:** The design encourages players to start at Guild Square and naturally progress through the district. Market Street serves as the main artery, ensuring all rooms are accessible while maintaining a sense of journey.
+  
+- **Purpose:** Each room has a clear thematic and functional role, from the Guild Square's social hub to the Dockside Warehouse's logistical importance.
 
-This design encourages players to naturally navigate the district, discover secrets, and experience a slice of Shadowfen's commercial life.
-=======
-1. **Apothecary**
-   - Exits: South
-   - Purpose: Specializes in rare herbs and potions. Provides a unique resource for adventurers. 
-   - Design Note: Positioned at the northern edge to encourage exploration from the main market hub.
+- **Exploration vs. Convenience:** While the layout is compact for ease of access, the placement of the Tannery and Apothecary rewards players who explore beyond the main path, offering specialized items.
 
-2. **Blacksmith**
-   - Exits: East, South
-   - Purpose: Sells weapons and armor. Essential stop for adventurers preparing for battles.
-   - Design Note: Positioned at the corner between the Apothecary and Market, encouraging traffic flow through the district.
+- **Realism:** The layout reflects a plausible urban design, with industrial, commercial, and logistical spaces logically connected, akin to a bustling medieval trade center.
 
-3. **Market (Central Hub)**
-   - Exits: North, East, West, South
-   - Purpose: Central gathering and trade area. Acts as the focal point for the district.
-   - Design Note: All major routes converge here, facilitating easy navigation and player interaction.
-
-4. **Tailor**
-   - Exits: North, East, West
-   - Purpose: Provides clothing and accessories for both style and protection.
-   - Design Note: Located directly south of the Market, with multiple exits encouraging further exploration.
-
-5. **General Store**
-   - Exits: West, North
-   - Purpose: Offers a variety of general supplies and essentials for journeys and daily life.
-   - Design Note: Situated at the southeastern corner, its northward exit leads back into the Market, completing a loop for easy navigation.
-
-### Design Notes on Flow and Purpose
-
-- **Central Hub (Market):** The Market serves as the heart of the Merchant District, ensuring high traffic and easy access to all other locations. This design encourages gathering and trading, essential for a vibrant district.
-- **Flow:** The district encourages a natural flow from specialized shops to the central hub and back, promoting exploration without overwhelming players with excessive paths.
-- **Discovery:** While the district is compact, the outer shops like the Apothecary and General Store reward players who explore all the exits from the Market.
-- **Pacing:** The district is designed to be navigated quickly due to its small size, but with enough complexity to prevent it from feeling linear or simplistic.
-
-This layout provides a balanced mix of accessibility and exploration, with a central hub that ties the district together while rewarding players who venture to every corner.
->>>>>>> feature/task-1
+- **Storytelling:** The district tells a story of a thriving trade hub, with hints of industry and commerce in every corner, encouraging players to engage with its economic ecosystem.
