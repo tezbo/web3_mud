@@ -1,72 +1,49 @@
-Here's the design for the 'Merchant District' in Shadowfen style:
+Certainly! Below is the design for the "Merchant District" in a Shadowfen style, emphasizing a murky, mysterious atmosphere with a bustling trade environment.
+
+### ASCII Map
 
 ```
-           +---------+    
-           |  Alchemy|    
-           |   Shop  |    
-           |    [S]  |    
-           +----+----+    
-                |         
-           +----+----+    
-           |   Market |   
-           |   Square |   
-           |[N][E][S][W]|
-           +----+----+    
-                |         
-           +----+----+    
-           |  Tailor  |    
-           |   Shop   |    
-           |   [N]    |    
-           +----+----+    
-                |         
-           +----+----+    
-           |  Jeweler |   
-           |   Shop   |   
-           |   [N]    |   
-           +----+----+    
-                |         
-           +----+----+    
-           |  Black-  |   
-           |  smith   |    
-           |[N][E]    |    
-           +----+----+    
-                |         
-           +----+----+    
-           |  East    |    
-           |   Gate   |    
-           |   [W]    |    
-           +---------+    
+    [Alchemist Lab]
+         |
+    [Herbalist Shop]---[Central Market Square]---[Shadowy Alley]---[Secret Warehouse]
+         |
+    [Fishmonger's Stall]
 ```
 
 ### Room List with Exits
 
-1. **Alchemy Shop**  
-   - **Exits:** South to Market Square
-   - **Purpose:** A shop specializing in potions and ingredients, offering rare items for crafting.
+1. **Central Market Square**
+   - Exits: North (Herbalist Shop), East (Shadowy Alley), West (Alchemist Lab), South (Fishmonger's Stall)
+   - Notes: The heart of the Merchant District. Bustling with traders, this area acts as the main hub connecting all other rooms. It's a lively area with constant foot traffic and various vendors.
 
-2. **Market Square**  
-   - **Exits:** North to Alchemy Shop, East to Tailor Shop, South to Blacksmith, West to East Gate
-   - **Purpose:** The central hub of the Merchant District, bustling with vendors and shoppers.
+2. **Herbalist Shop**
+   - Exits: South (Central Market Square)
+   - Notes: A quaint shop filled with the aromas of rare herbs and potions. It serves as a gateway to the northern part of the district, offering players various alchemical supplies.
 
-3. **Tailor Shop**  
-   - **Exits:** North to Market Square
-   - **Purpose:** Offers clothing and armor, with a focus on both utility and style.
+3. **Alchemist Lab**
+   - Exits: East (Central Market Square)
+   - Notes: A mysterious, dimly-lit room cluttered with alchemical apparatus. It's where players can gather unique ingredients and have potions crafted.
 
-4. **Jeweler Shop**  
-   - **Exits:** North to Tailor Shop
-   - **Purpose:** Sells fine jewelry and trinkets, offering both everyday items and high-value goods.
+4. **Fishmonger's Stall**
+   - Exits: North (Central Market Square)
+   - Notes: Located at the southern end, this stall is vibrant with the sounds and smells of the day's catch. It provides a contrast to the more arcane-focused northern shops.
 
-5. **Blacksmith**  
-   - **Exits:** North to Market Square, East to East Gate
-   - **Purpose:** Provides weapons and tools, essential for adventurers and tradespeople.
+5. **Shadowy Alley**
+   - Exits: West (Central Market Square), East (Secret Warehouse)
+   - Notes: A narrow, dimly-lit path that connects to the less savory parts of the district. The alley is a favorite spot for shady deals and offers a sense of hidden danger.
 
-6. **East Gate**  
-   - **Exits:** West to Blacksmith
-   - **Purpose:** The entrance/exit to the Merchant District, leading to other areas of Shadowfen.
+6. **Secret Warehouse**
+   - Exits: West (Shadowy Alley)
+   - Notes: A concealed location accessible only through the Shadowy Alley. It contains rare and possibly illicit goods, rewarding those who explore the darker corners of the district.
 
 ### Design Notes
 
-- **Flow:** The Market Square serves as the central hub, facilitating easy access to all shops. It encourages players to pass through and explore the district naturally.
-- **Discovery:** While the map is straightforward, the placement of the Jeweler Shop as a less direct path (via the Tailor) adds an element of discovery for players.
-- **Pacing:** The distance and arrangement provide a sense of scale and immersion, with the East Gate offering a transition point to other districts.
-- **Realism:** The layout ensures shops with related themes (e.g., Tailor and Jeweler) are close, while essential services like the Blacksmith are accessible from the Market Square. The East Gate provides a logical boundary for the district.
+- **Flow and Exploration:** The Central Market Square serves as the main hub, ensuring players naturally find the exits to other rooms. Each room offers something different, encouraging players to explore each area for unique interactions or items.
+  
+- **Discovery and Hidden Paths:** The Shadowy Alley and Secret Warehouse provide elements of mystery and reward exploration. The secretive nature of these areas offers special goods or quests not found elsewhere.
+  
+- **Pacing and Realism:** Shops related to each other in function are clustered together, with the Herbalist Shop and Alchemist Lab both focusing on potion-making. The Fishmonger's Stall provides a different atmosphere, enhancing the district's diversity.
+  
+- **Vertical and Layered Complexity:** While the district is primarily on one level, the inclusion of a hidden warehouse adds a layer of depth, suggesting the presence of more beneath the surface.
+
+This layout balances a sense of bustling trade with Shadowfen's murkier aspects, encouraging players to delve into both commerce and intrigue.
