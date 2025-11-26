@@ -1,1 +1,8 @@
 In the shadow-choked dungeon of Shadowfen, the air hangs heavy with the acrid scent of mildew and rust, a testament to years of neglect. Torchlight flickers feebly against the slick stone walls, casting jagged shadows that dance like specters in the gloom. The distant drip of water echoes through the corridors, each drop a cold finger tracing the spine. The ground underfoot is uneven, strewn with gravel and the occasional jagged shard of bone, while a pervasive chill seeps through leather and skin alike.
+
+Ambient Messages:
+1. The damp air clings to your skin, heavy with the scent of moss and earth, while distant echoes of dripping water punctuate the oppressive silence.  
+
+2. Flickering torchlight dances across rough stone walls, casting elongated shadows that seem to whisper secrets of long-forgotten horrors.  
+
+3. A chill winds its way through the narrow passage, carrying with it the faint metallic tang of ancient blood and the eerie rustle of unseen creatures skittering just beyond sight.
