@@ -6,3 +6,10 @@ Ambient Messages:
 2. Flickering shadows dance along the rough-hewn stone walls, their movements whispering secrets of ancient horrors that linger just beyond your sight.  
 
 3. A chill seeps through the air, carrying the metallic tang of rust and the faintest hint of burnt herbs, as if the very essence of lost souls hangs heavy in the musty gloom.  
+
+Ambient Messages:
+1. Shadows dance along the damp stone walls as the distant drip of water echoes, creating a haunting rhythm that fills the oppressive silence.  
+
+2. A chill breeze whispers through the narrow passage, carrying the stale scent of decay and the faintest trace of something ancient and malevolent.  
+
+3. Flickering torchlight reveals intricate carvings of long-forgotten battles, their edges slick with a viscous darkness that seems to pulse with a life of its own.
