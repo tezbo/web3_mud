@@ -1,1 +1,8 @@
 The air hangs heavy with the scent of damp earth and the faint, bitter aroma of decaying leaves, a testament to the endless twilight of Shadowfen. Shadows dance across the stone walls, their surfaces slick with a thin sheen of moisture that leaves a chill lingering on the skin. The soft rustle of unseen creatures echoes through the gloom, a constant reminder of the marshland's teeming life. Faintly, the taste of iron tangs the air, as if the room itself exhaled the breath of forgotten times. Lanterns of tarnished bronze cast an eerie, flickering light, illuminating the intricate patterns etched into the floor, whispering secrets of ancient rites and lost magics.
+
+Ambient Messages:
+1. "A soft, rhythmic tapping echoes through the dimly lit chamber, the steady pulse of unseen water dripping onto ancient stone, mingling with the faint rustle of parchment in the stillness."  
+
+2. "The air is thick with the aroma of spiced tea and burnt sugar, as laughter and the clinking of glassware spill from the nearby tavern, wrapping around you like a warm embrace."  
+
+3. "A chill whispers through the gnarled branches above, rustling leaves that scent the air with damp earth, while distant shadows flicker, hinting at secrets hidden just beyond your reach."
