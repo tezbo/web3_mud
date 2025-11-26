@@ -1,49 +1,54 @@
-Certainly! Below is an ASCII map of the "Merchant District" in the Shadowfen style, along with a room list, exits, and design notes.
-
-### ASCII Map
 ```
-  [Market Square]
-        |
-  [General Store] -- [Blacksmith]
-        |
-  [Tailor Shop]
-        |
- [Residential Alley]
-        |
-   [Storage Yard] 
+          [Clocktower]
+               |
+            (north)
+               |
+         [Market Square]
+        /        |     \
+   (west)  (south)  (east)
+      /        |        \
+[Blacksmith]  [Tavern]  [Tailor]
+               |
+            (south)
+               |
+       [Residential Alley]
+
 ```
 
-### Room List with Exits
+**Room List and Exits:**
 
-1. **Market Square**
-   - Exits: North to General Store, South to Tailor Shop
-   - Purpose: Central hub of the district where players can gather and trade. It serves as the main access point to other locations.
+1. **Clocktower**
+   - Exits: South to Market Square
+   - Purpose: A landmark and potential quest hub. Provides a vantage point over the district.
 
-2. **General Store**
-   - Exits: South to Market Square, East to Blacksmith
-   - Purpose: Offers a variety of general goods. It's strategically positioned as the first stop from the Market Square to ensure players are well-equipped before visiting other shops.
+2. **Market Square**
+   - Exits: North to Clocktower, West to Blacksmith, South to Tavern, East to Tailor
+   - Purpose: Central hub of the Merchant District, bustling with vendors and travelers. Connects to all major areas, encouraging exploration.
 
 3. **Blacksmith**
-   - Exits: West to General Store
-   - Purpose: Provides weapons and armor. Placed adjacent to the General Store for convenience, catering to adventurers looking to upgrade their gear.
+   - Exits: East to Market Square
+   - Purpose: Provides weapon and armor services. Logical placement near the central hub for easy access by adventurers.
 
-4. **Tailor Shop**
+4. **Tavern**
    - Exits: North to Market Square, South to Residential Alley
-   - Purpose: Offers clothing and fabric goods. Positioned between Market Square and the Residential Alley to attract both visiting adventurers and local residents.
+   - Purpose: Social gathering spot for storytelling and quest opportunities. Connects to residential area to reflect real-world tavern locations.
 
-5. **Residential Alley**
-   - Exits: North to Tailor Shop, South to Storage Yard
-   - Purpose: A quieter area where local residents live. It provides a natural transition from the bustling commercial zone to a more serene environment.
+5. **Tailor**
+   - Exits: West to Market Square
+   - Purpose: Offers clothing and special items. Positioned near the market to attract customers.
 
-6. **Storage Yard**
-   - Exits: North to Residential Alley
-   - Purpose: Used by merchants for storage and inventory management. It's the southernmost area, providing a sense of distance and serving as a hidden spot for potential side quests or encounters.
+6. **Residential Alley**
+   - Exits: North to Tavern
+   - Purpose: A quiet area leading to homes, providing a sense of community. Encourages exploration beyond commerce-focused areas.
 
-### Design Notes
+**Design Notes:**
 
-- **Flow and Purpose**: The Market Square acts as the primary hub, with direct connections to essential shops (General Store and Tailor Shop) to maintain a logical shopping flow. The Blacksmith is connected to the General Store to encourage players to prepare for adventures.
-- **Exploration and Discovery**: The layout encourages players to explore beyond the main square. The Residential Alley and Storage Yard provide a sense of discovery and potential for hidden quests or secrets.
-- **Realism**: The district layout follows a logical progression from a busy commercial center to quieter residential areas, with appropriate transitions between shops and living spaces.
-- **Pacing**: The rooms are clustered to create a sense of community while spreading out to give a realistic sense of distance, especially towards the Residential Alley and Storage Yard.
+- **Flow:** The Market Square acts as the central hub, allowing players to discover important locations naturally. Exits are positioned to create a logical flow between commerce, social, and residential spaces.
+  
+- **Discovery:** The Clocktower offers potential hidden paths (e.g., a rooftop or cellar) for players inclined to explore vertically. The Residential Alley could have hidden entrances to underground networks or special homes.
 
-This design ensures a balanced mix of accessibility, exploration, and storytelling within the Merchant District, capturing the unique Shadowfen atmosphere.
+- **Pacing:** By clustering shops around the Market Square and placing the Residential Alley further out, the design maintains a balance between accessibility and exploration.
+
+- **Realism:** Shops are logically placed around the market for easy access, while the tavern's connection to the residential area reflects its role as a communal hub.
+
+- **Vertical Space:** The Clocktower serves as a vertical element, providing both narrative importance and a physical feature for players to interact with.
