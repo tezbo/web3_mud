@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 The room is a tapestry of shadows, where the damp, earthen walls glisten with a sheen of moisture that refracts the ghostly glow of phosphorescent fungi. A faint, continuous drip echoes through the chamber, a melancholic rhythm that mingles with the whisper of swamp breezes seeping through unseen cracks. The scent of moss and decaying leaves pervades the air, a heady perfume that clings to the skin like a second layer. Underfoot, the floor is slick with a carpet of spongy moss, yielding softly to each step, as if the earth itself sighs beneath your weight.
+=======
+The room is shrouded in a perpetual twilight, where shadows dance across walls adorned with rusted iron filigree. A damp chill clings to the skin, carrying the earthy musk of moss and the faint, metallic bite of oxidized metal. The floor, slick with condensation, muffles footsteps as they tread upon the uneven stones. From a distant corner, the soft drip of water echoes, a haunting melody that mingles with the whisper of unseen creatures shifting in the gloom.
+>>>>>>> feature/task-3

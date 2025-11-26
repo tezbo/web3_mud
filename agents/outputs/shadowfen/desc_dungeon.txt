@@ -1,15 +1,1 @@
-The dungeon walls, slick with the perspiration of eternal damp, glisten faintly in the murky torchlight, their surfaces etched with the patina of rust and moss. A faint, oppressive melody of dripping water echoes through the narrow corridors, punctuated by the distant skitter of unseen creatures. The air is thick with the musty scent of earth and decay, mingling with a metallic tang that clings to the back of your throat. As you tread cautiously on the uneven ground, the cold stones beneath your feet seem to whisper secrets of forgotten despair.
-
-Ambient Messages:
-1. A chill seeps from the damp stone walls, where shadows dance like restless spirits, echoing the faint drip of water that punctuates the suffocating silence.  
-
-2. The air is thick with the acrid scent of mildew and burnt incense, each breath heavy with the weight of ancient secrets long forgotten in the suffocating gloom.  
-
-3. Flickering torchlight reveals intricate carvings of twisted faces and serpentine forms, their silent screams seemingly trapped within the cold, unyielding stone.  
-
-Ambient Messages:
-1. A distant drip echoes through the damp air, each drop splattering against ancient stone, as the faint shimmer of phosphorescent fungi casts ghostly green shadows on the walls.  
-
-2. The stale, earthy scent of decaying wood mingles with the metallic tang of long-faded blood, while the oppressive darkness seems to pulse like a living thing, wrapping around you like a shroud.  
-
-3. The heavy silence is punctuated by the soft rustle of unseen creatures skittering through the shadows, their breathless whispers weaving a tapestry of unease that clings to your skin like cobwebs.  
+The dungeon breathes with the damp, clinging chill of Shadowfen, where walls of crumbling stone weep with stagnant moisture. A faint echo of dripping water punctuates the oppressive silence, each drop a ghostly reminder of time forgotten. The air is thick with the pungent aroma of mildew and rust, mingling with the earthy scent of decaying leaves from the world above. As your fingers brush the slick surface of the iron bars, they leave a trail through the cold, gritty grime, a tactile testament to ages of neglect. In the dim light, shadows pool like ink, shifting and stretching, whispering secrets long entombed.

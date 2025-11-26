@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Certainly! Below is an ASCII-style map of a 6-room district called "Dungeon" in the Shadowfen style. This design includes a main path with optional exploration opportunities and a sense of vertical space.
 
 ```
@@ -64,3 +65,68 @@ Certainly! Below is an ASCII-style map of a 6-room district called "Dungeon" in 
 - **Realism**: The placement of the Guard Room and Armory near the entrance provides a logical defense layout. The Hidden Vault as a secret area adds to the lore and realism of a dungeon setting.
 
 This design balances exploration with storytelling, providing players with a compelling environment to explore in the Shadowfen style.
+=======
+### Shadowfen Dungeon ASCII Map
+
+```
+                  +---------+
+                  | Treasure|
+                  |  Room   |
+                  | [Exit S]|
+                  +----+----+
+                       |
+                  +----+----+
+                  |   Hidden |
+                  | Passage  |
+                  | [N, S]   |
+                  +----+----+
+                       |
++---------+       +----+----+       +---------+
+|  Guard  |-------|   Main   |-------|  Cells  |
+| Chamber |       |  Chamber |       |         |
+| [Exit E]|       | [N, E, W]|       | [W, D] |
++---------+       +----+----+       +----+----+
+                       |
+                  +----+----+
+                  | Entrance |
+                  |          |
+                  | [U, N]   |
+                  +----+----+
+```
+
+### Room List and Exits
+
+1. **Entrance**
+   - Exits: Up (U) to the surface, North (N) to Main Chamber
+   - Notes: The entry point for adventurers. Provides a clear ingress/egress to the surface, setting the tone for the dungeon.
+
+2. **Main Chamber**
+   - Exits: North (N) to Hidden Passage, East (E) to Cells, West (W) to Guard Chamber
+   - Notes: The central hub of the dungeon. Acts as a crossroad, facilitating exploration of the dungeon's various sections.
+
+3. **Guard Chamber**
+   - Exits: East (E) to Main Chamber
+   - Notes: A room for dungeon keepers, possibly housing guard NPCs. Provides a logical defense point for the dungeon.
+
+4. **Cells**
+   - Exits: West (W) to Main Chamber, Down (D) to secret passage or lower level (not depicted)
+   - Notes: Contains prisoners or captives, adding narrative depth. The down exit encourages further exploration for secrets.
+
+5. **Hidden Passage**
+   - Exits: North (N) to Treasure Room, South (S) to Main Chamber
+   - Notes: Rewards players who explore beyond the obvious path. The passage is a secret and requires keen observation to find.
+
+6. **Treasure Room**
+   - Exits: South (S) to Hidden Passage
+   - Notes: The ultimate reward area with loot or special items. Its location at the map's end provides a satisfying conclusion to exploration.
+
+### Design Notes
+
+- **Flow and Purpose**: The map design encourages players to navigate through the Main Chamber, which serves as the central hub, ensuring they encounter multiple paths and decisions. The design also guides players naturally from the Entrance to key areas like the Cells and Guard Chamber, while the Hidden Passage and Treasure Room offer an optional, rewarding exploration path.
+  
+- **Exploration and Discovery**: The Hidden Passage and the down exit from the Cells room encourage players to explore and discover secrets, providing optional challenges and rewards.
+  
+- **Pacing and Realism**: The dungeon's layout is compact but non-linear, providing a sense of depth and complexity without overwhelming the player. The spatial logic is consistent with a dungeon setting, emphasizing security (Guard Chamber) and mystery (Hidden Passage).
+
+- **Vertical Space**: Although the map is primarily horizontal, the Entrance and Cells incorporate vertical elements, enhancing the dungeon's dimensionality and realism.
+>>>>>>> feature/task-3

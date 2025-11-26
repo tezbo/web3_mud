@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 **Quest Title: The Currency Conundrum**
 
 **Stage Breakdown:**
@@ -41,3 +42,40 @@
      - The criminal network's disruption ripples through the underworld, with potential allies and enemies emerging in the future.
 
 Each choice not only resolves the immediate issue but also weaves into the broader tapestry of Shadowfen's socio-economic and political landscape, ensuring that the player's actions resonate throughout their journey.
+=======
+**Quest Title: The Coin of Deceit**
+
+**Stage Breakdown:**
+
+1. **The Discovery:**
+   - The player stumbles upon a beggar in Shadowfen, frantically trying to exchange a handful of coins for food, only to be turned away as the coins are counterfeit.
+   - Upon further investigation, the beggar reveals that he received the coins from a mysterious figure in the market, who is known to others as "The Silver Tongue."
+
+2. **Tracing the Source:**
+   - The player must track down leads to identify and locate The Silver Tongue. This involves questioning local merchants, eavesdropping on a secretive meeting in a shadowy alley, or following a suspicious courier leaving the market.
+
+3. **The Silver Tongue's Offer:**
+   - Confronted, The Silver Tongue admits to distributing counterfeit coins but offers the player a choice: join in the scheme for a cut, turn him over to the authorities for a reward, or convince him to abandon his operation for a more honest living.
+
+**Solutions and Consequences:**
+
+1. **Join the Scheme:**
+   - The player decides to partner with The Silver Tongue, receiving a steady income of counterfeit coins.
+   - **Consequences:**
+     - Over time, the player gains a reputation in Shadowfen as a cunning opportunist, leading to new underworld contacts and shady business opportunities.
+     - However, some merchants refuse to deal with the player, and the city guard becomes suspicious, occasionally harassing the player.
+
+2. **Turn Him Over:**
+   - The player reports The Silver Tongue to the city guard, who swiftly apprehends him and rewards the player with a small sum of legitimate currency.
+   - **Consequences:**
+     - The player is hailed as a hero among honest merchants, gaining discounts and occasional gifts.
+     - The beggar is grateful, offering information about hidden stashes of goods in the city.
+     - However, The Silver Tongue's associates swear vengeance, leading to ambushes or traps set for the player at unexpected times.
+
+3. **Convince Him to Change:**
+   - The player persuades The Silver Tongue to abandon his life of crime, offering advice and connections to start anew.
+   - **Consequences:**
+     - The Silver Tongue becomes a reputable merchant, occasionally gifting the player with rare items and offering unique quests related to trade and commerce.
+     - Shadowfen sees a gradual improvement in its economy, leading to a decrease in petty crime and more vibrant market activity.
+     - The player is seen as a wise and influential figure, respected by both the law and former criminals seeking redemption.
+>>>>>>> feature/task-3
