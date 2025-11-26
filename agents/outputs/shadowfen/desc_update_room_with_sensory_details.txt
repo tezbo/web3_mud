@@ -1,8 +1,1 @@
-The Update Room sits shrouded in a tapestry of mist, where dim, flickering lanterns cast ghostly reflections on the damp, rust-streaked walls. The air hums with a low, resonant thrum, like the heartbeat of some slumbering beast, punctuated by the occasional drip of condensation from the ceiling. A metallic tang lingers, merging with the earthy aroma of moss and decay. As you step further, the cold, slick floor sends a shiver through your soles, grounding you in the somber embrace of Shadowfen's forgotten secrets.
-
-Ambient Messages:
-1. "Soft whispers of parchment rustle in the air, mingling with the faint scent of ink and the warm glow of lantern light, as shadows dance playfully across the stone walls."
-
-2. "A chill wind brushes against your skin, carrying the distant echoes of laughter and the sweet, smoky aroma of roasted chestnuts from the bustling market just beyond the door."
-
-3. "The air hums with the vibrant energy of magic, tinged with the crispness of ozone, as the soft glow of amber crystals illuminates the intricate carvings that pulse like a heartbeat."
+The Update Room in Shadowfen breathes with a damp, musty air, its walls woven from twisted roots and clinging moss that glisten with dew. Flickering witchlights hover in the corners, casting eerie shadows that dance over the rusted iron machinery, their metallic groans echoing like whispers of ancient secrets. The floor is soft beneath your feet, a carpet of spongy peat that squelches quietly with each step, releasing the faint aroma of decaying leaves and earth. In the air lingers a metallic tang, mingling with the bitter scent of swamp herbs, as if the room itself exhaled the essence of the fen.
