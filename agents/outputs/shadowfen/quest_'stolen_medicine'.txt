@@ -1,29 +1,36 @@
-**Title: "The Cure's Shadow"**
+**Title: The Cure's Shadow**
 
-**Stage 1: Discover the Theft**
-- The player arrives in the swampy village of Shadowfen, where they hear villagers whispering about a recent theft. The village healer, Elder Meryn, is distraught as a shipment of rare herbs needed to concoct a lifesaving medicine for a mysterious illness has been stolen. 
+**Stage Breakdown:**
 
-**Stage 2: Investigation**
-- The player is tasked with discovering the thief's identity and recovering the stolen herbs. Clues lead to three possible suspects, each with their own motives: 
-  - **Grev, the Outcast:** A former villager who was banished for practicing forbidden Threadsinging.
-  - **Selia, the Herbalist Apprentice:** Jealous of Elder Meryn's status and eager to prove her own skill.
-  - **Rurik, the Desperate Father:** Whose daughter is afflicted by the illness and fears she won't receive the medicine in time.
+1. **Stage 1: The Desperate Plea**
+   - The player encounters Elara, a healer in Shadowfen, distraught over stolen medicine intended for the swamp fever outbreak affecting the village. She suspects a group of outlaws known as the Marsh Reavers, who have been seen nearby.
 
-**Stage 3: Confrontation and Resolution**
-- The player uncovers the truth through investigation and interaction with the suspects.
+2. **Stage 2: Unraveling Motives**
+   - The player investigates the Marsh Reavers' camp and discovers that the medicine was indeed taken. However, it becomes clear that the outlaws are not using the medicine for profit or harm but are attempting to treat their own sick members who are also suffering from swamp fever.
 
-**Solutions:**
+3. **Stage 3: Decision at Dusk**
+   - The player must decide how to handle the situation, balancing the needs of the village and the outlaws.
 
-1. **Confront the Thief Directly:**
-   - **Outcome:** The player discovers Rurik stole the herbs to save his daughter, hoping to concoct a cure himself.
-   - **Consequence:** Returning the herbs leads to the villagers shunning Rurik for his actions, but Elder Meryn, moved by his desperation, decides to help Rurik's daughter first. The village respects the player's determination, but there is tension over the moral dilemma.
+**Solutions and Consequences:**
 
-2. **Negotiate a Compromise:**
-   - **Outcome:** The player mediates between Rurik and Elder Meryn, proposing that they work together to create enough medicine for both his daughter and the village.
-   - **Consequence:** This leads to a strengthened bond between Rurik and the villagers, who see the value in cooperation. The player is celebrated as a peacemaker, and future quests in the area will have NPCs more willing to trust the player's judgment.
+1. **Solution 1: Aid the Outlaws**
+   - The player chooses to help the Marsh Reavers by securing additional medicine from Elara for both the village and the outlaws.
+   - **Consequences:** 
+     - The player gains the trust of the Marsh Reavers, opening future quests where they offer unique services or information.
+     - The village initially distrusts the player for aiding outlaws, leading to a minor reputation hit, but relations improve as both groups recover.
 
-3. **Frame Another Suspect:**
-   - **Outcome:** The player, perhaps swayed by Selia's arguments or Grev's mysterious allure, decides to frame one of them for the theft, allowing Rurik to keep the herbs.
-   - **Consequence:** This choice leads to Selia or Grev being punished, while Rurik's daughter is saved. However, this choice sows distrust among the villagers, causing future interactions to be tense and filled with suspicion. The player gains some allies (Rurik and family) but makes new enemies, which may lead to complications in future dealings in Shadowfen.
+2. **Solution 2: Retrieve and Return**
+   - The player retrieves the stolen medicine and returns it to Elara, confronting the outlaws and convincing them to negotiate for help rather than stealing.
+   - **Consequences:** 
+     - The village is grateful, rewarding the player with a rare herbal remedy.
+     - The Marsh Reavers respect the player's strength and diplomacy, leading to a tentative truce and future collaborative quests.
 
-Each solution carries weight and affects the player's reputation, shaping the world and future interactions in Shadowfen.
+3. **Solution 3: Divide the Cure**
+   - The player negotiates a compromise where the medicine is divided between the village and the outlaws, ensuring both receive enough to combat the outbreak.
+   - **Consequences:**
+     - Both the village and the Marsh Reavers respect the player's wisdom and fairness, strengthening ties between them.
+     - The player gains a reputation as a skilled mediator, leading to future opportunities to resolve conflicts in Shadowfen and beyond.
+
+**Tying to World Lore:**
+- The swamp fever is a consequence of "The Sundering," a cataclysmic event that disrupted natural balances, giving context to the disease's virulence.
+- The Marsh Reavers are former villagers who turned to outlaw life after being displaced by realm conflicts over resources exacerbated by Threadsinging, a form of magic that is altering the landscape.
