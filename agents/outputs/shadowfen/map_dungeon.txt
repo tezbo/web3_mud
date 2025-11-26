@@ -1,51 +1,49 @@
-Certainly! Here's the design for a 6-room district called 'Dungeon' in the Shadowfen style. This design embodies an ominous, swampy environment with an emphasis on exploration and hidden paths.
+### ASCII Map of Shadowfen Dungeon District
 
 ```
-     [Entrance]
-        |
-  [Guard Post] -- [Prison Cells]
-        |              |
-   [Torture Room]  [Secret Passage]
-        |              |
-    [Chamber of Rites] - [Treasure Vault]
+   [Entrance Hall]
+         |
+   [Guard Post] -- [Armory]
+         |
+   [Prison Cells] -- [Interrogation Room]
+         |
+   [Warden's Quarters]
 ```
 
-### Room List:
+### Room List with Exits
 
-1. **Entrance**
-   - **Exits**: South to Guard Post
-   - **Purpose**: The initial entry point into the dungeon. Dimly lit and overgrown with moss, setting a foreboding tone.
+1. **Entrance Hall**
+   - Exits: South to Guard Post
+   - Purpose: Main entry point for the dungeon, designed to intimidate with imposing architecture. Serves as a checkpoint for authorized access.
 
 2. **Guard Post**
-   - **Exits**: North to Entrance, East to Prison Cells, South to Torture Room
-   - **Purpose**: A central hub for the dungeon guards. Players may encounter NPCs here. Provides a strategic location with multiple exits to explore.
+   - Exits: North to Entrance Hall, East to Armory, South to Prison Cells
+   - Purpose: Central hub for dungeon operations, heavily fortified. Guards monitor all comings and goings from this location.
 
-3. **Prison Cells**
-   - **Exits**: West to Guard Post, South to Secret Passage
-   - **Purpose**: A row of damp, dreary cells. Contains prisoners who might offer quests or information. An exploratory path leads to a hidden exit.
+3. **Armory**
+   - Exits: West to Guard Post
+   - Purpose: Storage area for weapons and armor. Guards access equipment here. Contains a hidden passage leading to a secret escape tunnel (not shown for simplicity).
 
-4. **Torture Room**
-   - **Exits**: North to Guard Post, South to Chamber of Rites
-   - **Purpose**: An unsettling room with various instruments. Contains clues or items related to dungeon lore. Serves as a transition to deeper areas.
+4. **Prison Cells**
+   - Exits: North to Guard Post, East to Interrogation Room, South to Warden's Quarters
+   - Purpose: High-security area for holding prisoners. Cells line the walls, with a dreary atmosphere to deter escape attempts.
 
-5. **Secret Passage**
-   - **Exits**: North to Prison Cells, East to Treasure Vault
-   - **Purpose**: A hidden path discovered through exploration. Provides a shortcut to valuable locations, rewarding curious players.
+5. **Interrogation Room**
+   - Exits: West to Prison Cells
+   - Purpose: Used for questioning prisoners. Soundproofed walls to ensure privacy. Contains a secret trapdoor leading to a hidden chamber (optional exploration).
 
-6. **Chamber of Rites**
-   - **Exits**: North to Torture Room, East to Treasure Vault
-   - **Purpose**: A ceremonial chamber used for dark rituals. Offers a narrative climax with potential encounters or puzzles.
+6. **Warden's Quarters**
+   - Exits: North to Prison Cells
+   - Purpose: Private area for the dungeon's overseer. Lavishly decorated compared to other areas, signifying authority and power.
 
-7. **Treasure Vault**
-   - **Exits**: West to Secret Passage, West to Chamber of Rites
-   - **Purpose**: The final reward area containing valuable loot. Accessed through exploration and solving puzzles.
+### Design Notes on Flow and Purpose
 
-### Design Notes:
-
-- **Flow**: The Guard Post serves as a central hub, offering multiple paths to allow players to choose their progression. The initial linear path from Entrance to Guard Post ensures players get a sense of the dungeon's atmosphere before branching out.
+- **Flow**: The dungeon is designed with a logical progression from the entrance to the deeper, more secure areas. The Guard Post serves as a central hub, allowing easy oversight of key areas.
   
-- **Exploration**: The Secret Passage rewards players who explore the Prison Cells thoroughly. This hidden path adds depth and a sense of discovery.
+- **Purpose**: Each room has a distinct function, reflecting a realistic prison environment. The Guard Post and Armory ensure the dungeon is well-defended, while the Prison Cells and Interrogation Room highlight the enforcement aspect.
 
-- **Purpose and Storytelling**: Each room is designed to add to the dungeon's ominous narrative. From the foreboding Entrance to the dark rituals in the Chamber of Rites, players uncover the dungeon's history as they progress.
+- **Discovery**: Hidden elements, such as the escape tunnel in the Armory and the trapdoor in the Interrogation Room, add depth and reward exploration. These features encourage players to search for alternative paths and secrets.
 
-- **Vertical Space**: The layout remains on a single plane, which suits the swampy Shadowfen style, emphasizing horizontal exploration and hidden paths over vertical complexity.
+- **Pacing**: The rooms are clustered logically to maintain thematic cohesion, with the most critical areas (Prison Cells, Interrogation Room) located deeper in the district to emphasize security.
+
+- **Realism**: The layout reflects practical considerations for a dungeon, ensuring that movement through the space feels natural and purposeful. The vertical separation is hinted at through hidden passages rather than explicit staircases, maintaining an air of mystery.

@@ -1,57 +1,53 @@
-### Merchant District - Shadowfen Style
+**Merchant District - Shadowfen Style**
 
 ```
-   [Market Square]
-       /   \
- [General] [Apothecary]
-     |         |
- [Smithy]   [Tailor]
-     |         |
- [Warehouse] [Dock]
+          +------------------+
+          |   Auction House  |
+          |   E: Marketplace |
+          +------------------+
+                   |
+                   S
+          +------------------+
+          |   Marketplace    |
+          | W: Alchemist     |
+          | E: Tailor        |
+          | S: Cobbler       |
+          +------------------+
+         /    |      \          
+        W     S       E
++--------+ +-------+ +--------+
+|Alchemist| |Cobbler| | Tailor |
+|  E: Market | N: Market | W: Market|
++--------+ +-------+ +--------+
 ```
 
----
+### Room List
 
-**Room List with Exits:**
+1. **Auction House**
+   - **Exits**: South to Marketplace
+   - **Notes**: Central hub for trading and auctioning goods. Players can gather information, participate in auctions, and trade with others. It's a key social and economic center, leading directly to the bustling Marketplace.
 
-1. **Market Square**
-   - **Exits:** North to General Store, East to Apothecary
-   - **Purpose:** Central hub of the Merchant District. A bustling area where traders from Shadowfen gather to sell their goods. The square is lively, filled with stalls and local color.
+2. **Marketplace**
+   - **Exits**: North to Auction House, West to Alchemist, East to Tailor, South to Cobbler
+   - **Notes**: The vibrant heart of the Merchant District with stalls and vendors selling a variety of goods. It serves as the main connector to other specialized shops, encouraging exploration and interaction.
 
-2. **General Store**
-   - **Exits:** South to Market Square, East to Smithy
-   - **Purpose:** Offers a variety of common goods. Positioned near the Market Square to ensure easy access for both merchants and customers.
+3. **Alchemist**
+   - **Exits**: East to Marketplace
+   - **Notes**: A mysterious, aromatic shop filled with potions and reagents. It’s slightly tucked away, offering a sense of discovery for those exploring the western paths from the Marketplace. Ideal for players seeking magical or alchemical supplies.
 
-3. **Apothecary**
-   - **Exits:** West to Market Square, South to Tailor
-   - **Purpose:** Sells potions and herbal remedies. The apothecary is a quiet place with an air of mystery, filled with the scent of herbs.
-
-4. **Smithy**
-   - **Exits:** North to General Store, South to Warehouse
-   - **Purpose:** The sound of hammer on anvil echoes through the district. The smithy is crucial for crafting and repairing weapons and armor, making it a key location for adventurers.
+4. **Cobbler**
+   - **Exits**: North to Marketplace
+   - **Notes**: A quaint shop where leather goods and footwear are crafted. Positioned to draw players further south from the Marketplace, balancing the flow by extending the district's reach.
 
 5. **Tailor**
-   - **Exits:** North to Apothecary, South to Dock
-   - **Purpose:** Specializes in clothing and textiles. The tailor is known for exquisite craft, catering to both commoners and nobles alike.
+   - **Exits**: West to Marketplace
+   - **Notes**: A brightly decorated shop offering textiles and garments. Situated to encourage players to explore the eastern side of the Marketplace, maintaining a balanced spatial design with its counterpart, the Alchemist.
 
-6. **Warehouse**
-   - **Exits:** North to Smithy
-   - **Purpose:** Storage for goods awaiting shipment or sale. It is a less frequented area but crucial for the flow of merchandise in the district.
+### Design Notes
 
-7. **Dock**
-   - **Exits:** North to Tailor
-   - **Purpose:** A small dock where goods are imported and exported via the river. It's a point of entry for exotic items not found elsewhere in Shadowfen.
+- **Flow**: The Marketplace acts as a central hub, allowing players to naturally flow between specialized shops. The Auction House's strategic placement north of the Marketplace draws players into the district.
+- **Discovery**: By situating the Alchemist slightly to the west, it encourages exploration beyond the central path. The arrangement avoids linear movement, promoting a dynamic exploration experience.
+- **Pacing**: Shops are clustered around the Marketplace, ensuring related services are conveniently accessible while retaining a sense of distance and exploration.
+- **Realism**: The layout reflects a believable town structure, where common trade areas are central, and specialized services are slightly off the main path. This mirrors the logical organization of a bustling merchant district.
 
----
-
-**Design Notes:**
-
-- **Flow:** The Market Square serves as the central hub, allowing easy access to the surrounding shops. The square’s design encourages players to naturally discover key locations as they explore.
-  
-- **Exploration vs. Convenience:** The district is compact, with shops clustered around the Market Square for convenience. However, the Warehouse and Dock provide a sense of exploration for those venturing outside the main paths.
-
-- **Storytelling:** The placement of the Smithy and Tailor reflects the craftsmanship valued in Shadowfen, while the Apothecary's proximity to the Market Square suggests the importance of trade in herbal goods.
-
-- **Realism:** The layout reflects a logical organization, with the Market Square as the central hub and specialized shops branching out. Each room is placed to reflect its role in the district’s economy.
-
-- **Vertical Space:** Not used in this district design, as the focus is on horizontal flow and ease of navigation for merchants and customers. Vertical elements can be introduced in a larger city map with multi-story buildings or underground pathways.
+By integrating these design principles, the Merchant District offers a balanced mix of convenience and exploration, encouraging players to engage with both the central hub and peripheral areas within the district.
