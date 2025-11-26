@@ -1,0 +1,30 @@
+**Quest Title: "The Decay of Devotion"**
+
+**Stage Breakdown:**
+
+1. **Stage 1: The Ominous Whisper**
+   - The player arrives in Shadowfen, a once-thriving swamp now consumed by decay. Locals speak of a mysterious figure, the High Priest of Rot, who commands the forces of decay.
+   - Quest Hook: A local herbalist, Valaen, pleads for help as her crops and medicinal plants are withering. She believes the High Priest is responsible and fears his power over the swamp.
+
+2. **Stage 2: Gathering the Pieces**
+   - The player is tasked with investigating the High Priest's influence. They learn from the herbalist and other locals about the Priest's temple deep in the swamp, guarded by corrupted creatures.
+   - The player must choose how to approach the temple: through stealth, negotiation with the Priest's followers, or by force.
+
+3. **Stage 3: Confrontation at the Rotting Altar**
+   - The player confronts the High Priest of Rot within his decaying temple. The Priest offers insight into his motives, claiming he seeks balance by returning the world to its natural state of decay.
+
+**Solutions and Consequences:**
+
+1. **Solution A: Purification by Combat**
+   - The player chooses to fight the High Priest, purging the temple of its corruption through force.
+   - **Consequence:** The swamp slowly begins to recover, and Valaen's crops thrive. However, the Priest's followers scatter, potentially regrouping to seek vengeance. The player gains a reputation as a hero but may face future attacks from remaining zealots.
+
+2. **Solution B: Negotiation and Insight**
+   - The player engages in a dialogue with the High Priest, convincing him to temper his methods and focus his efforts on parts of the swamp already beyond saving.
+   - **Consequence:** The swamp stabilizes, retaining some regions of decay while others rejuvenate. The High Priest becomes an enigmatic ally, offering rare knowledge to the player. However, some locals distrust the player's decision, fearing the Priest's potential return to extremism.
+
+3. **Solution C: Alliance with Decay**
+   - The player aligns with the High Priest's vision, aiding him in spreading decay to areas deemed overgrown by civilization.
+   - **Consequence:** The swamp becomes a haven for decay, with new lifeforms adapting to the changes. The player gains unique access to the Priest's knowledge of rot magic, but Valaen and other locals view the player as a betrayer, refusing future aid or trade.
+
+Each choice not only shapes the physical and social landscape of Shadowfen but also influences the player's future interactions and access to resources, weaving into the greater tapestry of the realm's lore and ongoing conflicts.
