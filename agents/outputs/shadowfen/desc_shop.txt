@@ -1,15 +1,1 @@
-The shop crouches like a secret in the mist-drenched alley, its exterior draped in creeping vines that glisten with dew. Inside, the air is thick with the earthy scent of damp wood and rusted iron, mingling with a sharp tang of dried herbs. Shelves, worn and slick to the touch, are laden with mysterious trinkets, their surfaces etched with the patina of age. A soft, rhythmic drip echoes from somewhere unseen, and the distant croak of a frog punctuates the heavy silence, grounding the space in the swampy embrace of Shadowfen.
-
-Ambient Messages:
-1. The air buzzes with the intoxicating aroma of ancient spices, while the soft chime of wind bells dances above shelves brimming with vibrant potions and shimmering trinkets.  
-
-2. Shadows flicker across the walls as the warm glow of lanterns reveals a tapestry of colorful fabrics, their silken threads whispering secrets of distant lands.  
-
-3. The soft rustle of parchment fills the air, punctuated by the gentle clink of glass vials, as a faint scent of aged leather and ink beckons you deeper into the shop’s treasure trove.  
-
-Ambient Messages:
-1. "The shop’s wooden beams creak softly as the scent of aged parchment and spiced herbs wraps around you like a warm embrace, drawing you deeper into its treasure-laden corners."  
-
-2. "Golden light flickers through dusty glass, illuminating shelves lined with shimmering trinkets that tinkle gently, like laughter, as a soft breeze whispers through the open door."  
-
-3. "In the air hangs the rich aroma of candied fruits and exotic spices, mingling with the faintest hint of smoke, as vibrant silk drapes sway softly, beckoning you to explore their hidden stories."  
+In the dimly lit shop, flickering lanterns cast long shadows that dance across the rusted shelves, their surfaces slick with the perpetual damp of the Shadowfen. The air is thick with the scent of damp earth mingled with the sharp, sour tang of mildew and something sweetly rotten, like overripe fruit. Beneath your feet, the wooden floorboards creak softly, their grain swollen and warped by years of mists that seep through every crack and crevice. The quiet murmur of the outside swamp is punctuated by the occasional drip of water, a persistent rhythm that lulls and unnerves in equal measure.
