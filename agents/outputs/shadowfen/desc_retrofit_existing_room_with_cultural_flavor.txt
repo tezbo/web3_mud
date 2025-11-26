@@ -1,5 +1,6 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 The chamber is shrouded in a veil of clinging mist, each droplet cool and cloying against the skin, as if the air itself whispers secrets long forgotten. Dim lanterns, their iron frames etched with rust, cast flickering shadows that dance across the rough-hewn stone walls, the patterns reminiscent of ancient runes. A faint, earthy aroma of damp moss and decaying leaves permeates the space, mingling with the sharper scent of iron and old wood. The silence is punctuated only by the distant drip of water, each drop resonating through the gloom like a heartbeat from the depths of the fen.
 =======
 In the heart of Shadowfen, the room sits cloaked in a perpetual shroud of mist, tendrils of fog weaving through the air like ghostly dancers. The walls, stained with the deep rust of age, seep a faint metallic scent that mingles with the earthy dampness of the swamp outside. Each footstep on the sodden wooden floor releases a soft, squelching whisper, as if the room itself were murmuring secrets. Flickering lanterns cast amber pools of light, their glow bouncing off slick surfaces and accentuating the intricate carvings of ancient runes etched into the decaying beams. The air is thick and cool, embracing you like a damp cloak, while the distant croak of unseen creatures punctuates the silence.
@@ -29,3 +30,13 @@ Ambient Messages:
 2. "The earthy scent of damp moss mingles with the faint rustle of dry reeds as the twilight mist wraps around gnarled trees, creating a hushed sanctuary where secrets linger in the cool air."
 
 3. "Cold steel and warm stone converge in a bustling forge, where the rhythmic pounding of hammers echoes like a heartbeat, and the sharp tang of molten metal hangs heavy, igniting the spirit of creation."
+=======
+In the heart of Shadowfen, the room sits cloaked in a perpetual shroud of mist, tendrils of fog weaving through the air like ghostly dancers. The walls, stained with the deep rust of age, seep a faint metallic scent that mingles with the earthy dampness of the swamp outside. Each footstep on the sodden wooden floor releases a soft, squelching whisper, as if the room itself were murmuring secrets. Flickering lanterns cast amber pools of light, their glow bouncing off slick surfaces and accentuating the intricate carvings of ancient runes etched into the decaying beams. The air is thick and cool, embracing you like a damp cloak, while the distant croak of unseen creatures punctuates the silence.
+
+Ambient Messages:
+1. **Sunward**: "Sunlight glints off the polished steel inlaid with intricate stone carvings, while the warm scent of molten metal lingers like a promise of craftsmanship in the air."
+
+2. **Twilight**: "Silken drapes in deep jade sway gently, releasing a whisper of bergamot and incense as soft music dances through the air, wrapping the room in an embrace of elegance and tranquility."
+
+3. **Shadowfen**: "A thick mist clings to the damp earth, and the pungent aroma of decaying leaves mingles with the distant croak of frogs, enveloping the space in a haunting, primordial hush."
+>>>>>>> feature/task-1

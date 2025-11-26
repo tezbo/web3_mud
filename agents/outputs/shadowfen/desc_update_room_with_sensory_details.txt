@@ -5,4 +5,15 @@ Ambient Messages:
 
 2. The sweet, metallic scent of polished jade fills the room, mingling with the comforting warmth of glowing lanterns that cast flickering shadows against the intricately carved stone walls.  
 
+<<<<<<< HEAD
 3. A cool breeze stirs, carrying the delicate fragrance of night-blooming flowers, while the distant sound of water trickling through hidden channels echoes like a lullaby beneath the hushed conversations of unseen visitors.
+=======
+3. The faint clink of metal on metal punctuates the silence, mingling with the sweet, smoky aroma of incense as it dances through the air, wrapping around the plush silk cushions that beckon weary travelers to pause and reflect.
+
+Ambient Messages:
+1. The air hums with a low, electric buzz, flickering lights casting ghostly shadows across the worn, steel walls, while the faint scent of ozone teases the senses like a whispered secret.  
+
+2. A soft patter of rain dances against the glass, the muted thrum of distant machinery punctuated by the occasional hiss of steam, while the lingering aroma of damp earth and rust fills the cramped space.  
+
+3. The faint rustle of silk drapes brushes against your skin, a gentle reminder of the unseen presence around you, as the heady fragrance of blooming night-blooming jasmine swirls through the air like a lover's caress.  
+>>>>>>> feature/task-1
