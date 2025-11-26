@@ -9404,12 +9404,29 @@ def handle_command(
     Returns:
         tuple: (response_string, updated_game_state)
     """
-    # Advance game time and update weather
-    advance_time(ticks=1)
-    update_weather_if_needed()
-    update_player_weather_status(game)
-    # Update NPC weather status for all NPCs
-    update_npc_weather_statuses()
+    # Update atmospheric systems (weather, time, seasons, lunar)
+    from game.systems.atmospheric_manager import get_atmospheric_manager
+    atmos = get_atmospheric_manager()
+    atmos.update()
+    
+    # Check for sunrise/sunset notifications and broadcast to all players
+    notifications = atmos.check_sunrise_sunset_transitions()
+    if notifications and broadcast_fn and who_fn:
+        # Broadcast to all outdoor rooms
+        for msg_type, message in notifications:
+            # Get all active players and broadcast to their rooms if outdoor
+            players = who_fn()
+            rooms_notified = set()
+            for player_info in players:
+                player_location = player_info.get("location", "town_square")
+                if player_location in rooms_notified:
+                    continue
+                # Check if room is outdoor
+                if player_location in WORLD:
+                    room_def = WORLD[player_location]
+                    if room_def.get("outdoor", False):
+                        broadcast_fn(player_location, message)
+                        rooms_notified.add(player_location)
     
     # Clean up old buried items periodically (every command)
     cleanup_buried_items()
