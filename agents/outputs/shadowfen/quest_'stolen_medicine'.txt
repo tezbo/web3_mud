@@ -1,0 +1,28 @@
+**Quest Title: "The Cure's Cost"**
+
+**Stage Breakdown:**
+
+**Stage 1: The Desperate Plea**
+- The player encounters Alaric, a healer in the marshy village of Mireglow, part of the Shadowfen region. Alaric is distraught because a shipment of vital medicine meant for treating a deadly swamp fever has been stolen. The village is on the brink of an outbreak, and without the medicine, many will die.
+
+**Stage 2: The Hunt for Clues**
+- Alaric suggests the player investigate the nearby trading post where the medicine was last seen. Upon arrival, the player finds signs of a struggle and a trail leading into the deeper swamps, notorious for bandit activity. 
+
+**Stage 3: Confrontation in the Marsh**
+- Following the trail, the player discovers a bandit camp. It's revealed the bandits stole the medicine not for profit but to treat their own sick members who are also suffering from the swamp fever.
+
+**Solutions and Consequences:**
+
+**Solution 1: Negotiate a Compromise**
+- The player can choose to negotiate with the bandit leader, offering a portion of the medicine in exchange for peace and the return of the remaining supplies. 
+  - **Consequences:** The bandits become neutral towards the player and the village, leading to fewer attacks on traders in the future. However, some villagers will still be suspicious of the player for 'helping' the bandits.
+
+**Solution 2: Recover the Medicine by Force**
+- The player decides to fight the bandits to reclaim all the stolen medicine.
+  - **Consequences:** The village is saved, and Alaric praises the player as a hero. However, the bandits retaliate by launching attacks on Mireglow and nearby trade routes, causing long-term security issues.
+
+**Solution 3: Seek an Alternative Cure**
+- The player can look for a rare herb in the swamp that Alaric mentioned could serve as an alternative treatment. If found, the player can trade the herb for the medicine.
+  - **Consequences:** Both the village and the bandits are cured, leading to a fragile peace. Alaric is impressed by the player's resourcefulness and offers future assistance. However, the herb becomes overharvested, leading to ecological changes in the swamp, affecting local wildlife.
+
+Each choice not only resolves the immediate crisis but also creates new dynamics within Shadowfen, affecting future quests and the player's relationship with the inhabitants of Mireglow.

@@ -1,0 +1,46 @@
+### Temple District - Shadowfen Style
+
+```
+    [Shrine of the Moon]
+           |
+           D
+           |
+[Temple Plaza] -- N -- [Ancient Library]
+     |   S
+     E   |
+     |   W
+[Herbalist] -- S -- [Temple Gardens] -- E -- [Catacombs Entrance]
+```
+
+### Room List with Exits
+
+1. **Temple Plaza**
+   - **Exits:** North to Ancient Library, South to Temple Gardens, East to Herbalist, Up to Shrine of the Moon
+   - **Purpose:** Central hub of the district, a gathering place for worshippers and travelers alike. Stalls with vendors and performers can be found here, making it lively and vibrant.
+
+2. **Shrine of the Moon**
+   - **Exits:** Down to Temple Plaza
+   - **Purpose:** An elevated sacred space dedicated to the lunar deity. Offers a serene environment for prayer and meditation, with moonlight filtering through an open ceiling.
+
+3. **Ancient Library**
+   - **Exits:** South to Temple Plaza
+   - **Purpose:** Repository of religious texts and historical records. Scholars and priests often visit to study the scriptures and ancient lore.
+
+4. **Herbalist**
+   - **Exits:** West to Temple Plaza, South to Temple Gardens
+   - **Purpose:** A small shop filled with potions and herbs, run by a knowledgeable herbalist. It serves both the needs of the faithful and adventurers seeking remedies.
+
+5. **Temple Gardens**
+   - **Exits:** North to Temple Plaza, South to Catacombs Entrance, West to Herbalist
+   - **Purpose:** Lush gardens offering a tranquil escape from the busy plaza. Paths wind through exotic plants and flowers, leading to hidden nooks for reflection.
+
+6. **Catacombs Entrance**
+   - **Exits:** West to Temple Gardens
+   - **Purpose:** Discreet entrance to the underground catacombs, where the deceased are honored and laid to rest. It is a place of mystery and quiet reverence.
+
+### Design Notes
+
+- **Flow and Purpose:** The Temple Plaza serves as the central hub, allowing easy access to other areas while encouraging exploration. The Shrine of the Moon's elevated position invites players to ascend for a unique view, while the Ancient Library offers a narrative-rich environment.
+- **Exploration and Discovery:** The Herbalist and Temple Gardens provide a sense of discovery with their hidden paths and specialized purposes. The Catacombs Entrance hints at deeper mysteries below the surface, rewarding those who seek them out.
+- **Pacing and Realism:** The districts' layout ensures a logical and immersive experience, with related areas (like the Temple Gardens and Herbalist) connected. The spatial design reflects a natural progression from public spaces to more private, sacred, or mysterious areas.
+- **Vertical Space:** The Shrine of the Moon utilizes vertical space to create a focal point that draws players upward, contrasting with the Catacombs' downward journey into the depths.
