@@ -5,12 +5,15 @@ End-to-End Workflow Test File
 from datetime import datetime
 
 class WorkflowTest:
-    def __init__(self):
-        self.created_at = datetime.now()
-        self.issue_number = 3
-        self.agent = "System Agent"
-    
-    def get_info(self):
+    def __init__(self) -> None:
+        self.created_at: datetime = datetime.now()
+        self.issue_number: int = 3
+        self.agent: str = "System Agent"
+
+    def get_info(self) -> dict:
+        """
+        Returns a dictionary containing test information.
+        """
         return {
             "created_at": self.created_at.isoformat(),
             "issue": self.issue_number,
@@ -20,5 +23,4 @@ class WorkflowTest:
 
 if __name__ == "__main__":
     test = WorkflowTest()
-    print("E2E Workflow Test File")
-
+    print("E2E Workflow Test created with info:", test.get_info())
