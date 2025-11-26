@@ -20,3 +20,10 @@ Ambient Messages:
 2. Flickering torchlight dances across rough-hewn walls, revealing ancient runes that shimmer like ghostly whispers, while a chill breeze carries the faintest hint of iron and despair.  
 
 3. The ground beneath your feet shifts subtly, a carpet of mold and dust muffling your steps, as the low hum of unseen creatures stirs in the darkness, ready to pounce.
+
+Ambient Messages:
+1. A damp chill seeps through the rough-hewn stone walls, carrying the faint echo of dripping water that dances like whispers in the darkness.  
+
+2. Shadows flicker along the corridor, cast by the ghostly glow of bioluminescent fungi, their faint light revealing the jagged edges of ancient runes etched into the damp earth.  
+
+3. The air is thick with the acrid scent of decaying wood and rust, punctuated by the distant, mournful wail of unseen creatures lurking in the depths below.
