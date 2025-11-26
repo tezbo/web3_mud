@@ -6,3 +6,10 @@ Ambient Messages:
 2. A rich tapestry of spices hangs heavy in the air, mingling with the earthy scent of polished wood, as the shopkeeper's low, melodic voice dances around the wares, inviting whispers of secrets and adventure.  
 
 3. The floor creaks beneath your feet, each step releasing a faint, musty aroma of aged parchment and forgotten tomes, while the flickering candlelight casts long shadows that seem to breathe and shift like living things.  
+
+Ambient Messages:
+1. "The air is thick with the sweet, spicy aroma of incense, while shelves brimming with glass vials clink softly as patrons brush past, their whispers blending into a symphony of secrets and promises."  
+
+2. "A gentle chime of wind bells accompanies the soft rustle of silken fabrics, each vibrant hue catching the light and casting playful shadows on the polished wooden floor."  
+
+3. "The earthy scent of aged parchment mingles with the metallic tang of enchanted trinkets, as the faint crackle of arcane energy dances in the air like a long-forgotten melody."

@@ -1,46 +1,53 @@
-Certainly! Below is the ASCII map design for the 'Dungeon' district in Shadowfen style, along with a room list, exits, and design notes on flow and purpose.
+### Shadowfen Dungeon ASCII Map
 
-### ASCII Map
 ```
-    [1] - [2] - [3]
-         |
-        [4]
-         |
-        [5]
-         |
-        [6]
+        [Guard Post]
+            |
+        [Entrance]
+            |
+       [Main Chamber] -- [Side Passage]
+            |                 |
+       [Treasure Vault]      |
+            |
+        [Hidden Lair]
 ```
 
 ### Room List with Exits
-1. **Entrance Hall**
-   - Exits: East to Torture Chamber (2)
-   - Notes: The starting point of the dungeon, dimly lit with flickering torches. Sets the foreboding tone for the rest of the dungeon.
 
-2. **Torture Chamber**
-   - Exits: West to Entrance Hall (1), East to Reliquary (3), South to Guard Post (4)
-   - Notes: Filled with ominous tools and remnants of past interrogations. Acts as a central hub within the dungeon, giving players multiple paths to explore.
+1. **Guard Post**
+   - **Exits:** Down to Entrance
+   - **Purpose:** Acts as the first line of defense. Guards monitor the entrance and main pathway.
+   - **Design Notes:** Positioned above the entrance for a strategic advantage.
 
-3. **Reliquary**
-   - Exits: West to Torture Chamber (2)
-   - Notes: A room cluttered with ancient artifacts and relics. A hidden compartment rewards players with a unique item if they search thoroughly.
+2. **Entrance**
+   - **Exits:** Up to Guard Post, Down to Main Chamber
+   - **Purpose:** The transition point from the outside world into the dungeon.
+   - **Design Notes:** Serves as a choke point; well-guarded and imposing.
 
-4. **Guard Post**
-   - Exits: North to Torture Chamber (2), South to Prison Cells (5)
-   - Notes: Once manned by vigilant guards, now deserted. Contains clues to the history of the dungeon and hints about the treasure in the Reliquary.
+3. **Main Chamber**
+   - **Exits:** Up to Entrance, Right to Side Passage, Down to Treasure Vault
+   - **Purpose:** Central hub of the dungeon; often where players regroup.
+   - **Design Notes:** Spacious room with multiple connections. NPCs or key items may be found here.
 
-5. **Prison Cells**
-   - Exits: North to Guard Post (4), South to Hidden Passage (6)
-   - Notes: Rows of decrepit cells, some still locked. A keen observer might notice one cell has loose bars, concealing a hidden passage.
+4. **Side Passage**
+   - **Exits:** Left to Main Chamber
+   - **Purpose:** Optional exploration route with minor loot or lore.
+   - **Design Notes:** A narrow, winding path that encourages exploration. Leads to small rewards or hidden story elements.
 
-6. **Hidden Passage**
-   - Exits: North to Prison Cells (5)
-   - Notes: A narrow, secretive path leading to a hidden stash of treasure and a potential shortcut back to the surface, rewarding those who explore thoroughly.
+5. **Treasure Vault**
+   - **Exits:** Up to Main Chamber
+   - **Purpose:** Contains valuable rewards and possibly guarded by a boss.
+   - **Design Notes:** Well-protected room requiring players to overcome challenges to access.
+
+6. **Hidden Lair**
+   - **Exits:** Up to Treasure Vault
+   - **Purpose:** Secret room with rare loot or a unique NPC.
+   - **Design Notes:** Requires solving puzzles or finding hidden switches to access. Rewards dedicated explorers.
 
 ### Design Notes on Flow and Purpose
-- **Flow**: The dungeon's flow encourages exploration by providing multiple routes from the central Torture Chamber. Players must decide whether to seek treasure in the Reliquary or delve deeper through the Guard Post.
-- **Purpose**: Each room has a distinct thematic purpose, contributing to the storyline of an abandoned, haunted dungeon. The Torture Chamber acts as a central hub, while the Guard Post and Prison Cells reveal the dungeon's dark past.
-- **Discovery**: The Hidden Passage offers a rewarding discovery for those players who pay attention to environmental clues in the Prison Cells.
-- **Realism**: The layout reflects a logical progression from entrance to the heart of the dungeon, with realistic room functions like guarding, imprisonment, and relic storage.
-- **Vertical Space**: Although primarily horizontal, the dungeon hints at verticality through the potential to find a shortcut back to the surface via the Hidden Passage, adding a layer of complexity to exploration.
 
-This design provides an engaging blend of exploration, storytelling, and logical structure suitable for a Shadowfen-style dungeon.
+- **Central Hub (Main Chamber):** Serves as the main connection point, ensuring players naturally pass through it multiple times.
+- **Exploration (Side Passage and Hidden Lair):** Encourages players to explore off the beaten path for extra rewards, enhancing the sense of discovery.
+- **Pacing:** The layout balances linear progression (Guard Post to Treasure Vault) with optional exploration (Side Passage and Hidden Lair).
+- **Realism:** The layout mimics a fortified underground space, with layers of security and secretive areas fitting the Shadowfen theme.
+- **Vertical Space:** The use of vertical movement (up/down) creates a sense of depth and layers within the dungeon, enhancing the exploratory experience.
