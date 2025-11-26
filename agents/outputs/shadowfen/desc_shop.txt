@@ -1,8 +1,1 @@
-The shop's shadowy interior is a labyrinth of shelves carved from twisted, gnarled wood, their surfaces slick with the eternal damp of the Shadowfen. A chorus of whispers rustles from the ceiling where strands of cobwebs sway, their threads glistening with trapped dew. The air is a heady mix of peat and mildew, underscored by the sharp, metallic scent of rusting iron trinkets that line the shelves. Beneath your fingers, the leather bindings of ancient tomes feel clammy, their pages musty with the secrets of ages past.
-
-Ambient Messages:
-1. "The air is thick with the rich aroma of aged parchment and the crisp scent of ink, as the faint rustle of scrolls and the soft chime of glass vials echo through the dimly lit shop."  
-
-2. "Flickering candlelight dances across shelves brimming with shimmering potions, their colors swirling like liquid rainbows, while the quiet murmur of secretive deals lingers in the shadows."  
-
-3. "The wooden floorboards creak underfoot, each step releasing the faint, spicy scent of exotic herbs and the distant jingle of silver coins exchanged in hushed tones."  
+The shop crouches in the Shadowfen gloom, its exterior a patchwork of weathered wood and creeping moss, like a forgotten relic swallowed by the swamp. Inside, the air is thick with the earthy scent of dried herbs and the sharper, metallic tang of rusted trinkets. Flickering candlelight casts wavery shadows across shelves cluttered with glass jars, each containing mysterious contents that clink softly when disturbed. The floorboards creak beneath your feet, their worn surfaces rough and cool, as distant drips echo from unseen corners, a constant reminder of the encroaching damp.
