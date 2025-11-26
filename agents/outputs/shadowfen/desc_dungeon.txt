@@ -1,15 +1,1 @@
-The dungeon breathes with the thick, cloying mist of Shadowfen, its air steeped in the scent of damp earth and rusted iron. Shadows stretch and shiver across cold stone walls, the flickering torchlight casting a dance of sinister shapes that seem alive. Water drips steadily from the ceiling, each droplet landing with a hollow echo that reverberates through the gloom. Rough-hewn chains hang from the walls, their chill metal biting against the skin like the breath of forgotten specters.
-
-Ambient Messages:
-1. The air is thick with the scent of damp earth and decay, punctuated by the distant echo of dripping water that seems to whisper forgotten secrets in the shadows.  
-
-2. Flickering torchlight dances along the rough-hewn stone walls, casting long, skeletal shadows that writhe like phantoms, while the low rumble of unseen creatures stirs the silence.  
-
-3. A chill seeps from the granite floor, wrapping around your ankles like icy fingers, as the faint metallic tang of blood lingers in the stale air, hinting at past horrors.  
-
-Ambient Messages:
-1. The air hangs heavy with the scent of damp stone, while distant echoes of dripping water dance through the oppressive silence, as if the darkness itself is alive and waiting.  
-
-2. Shadows flicker against the walls, revealing ancient carvings that glisten with moisture, whispering secrets of long-forgotten horrors and treasures lost to time.  
-
-3. The ground beneath your feet is slick and uneven, the faint rustle of unseen creatures stirring in the gloom sending a shiver racing down your spine, as the stale breath of the dungeon brushes against your skin.  
+In the depths of Shadowfen, the dungeon yawns open like a forgotten maw, its stone walls slick with a film of moss and moisture that chills the fingertips. The air is heavy with the pungent decay of rotting wood and damp earth, mingling with an acrid hint of rust from the ancient chains that clink softly in the stillness. Shadows pool in corners where the feeble glow of phosphorescent fungi fails to reach, casting an eerie, flickering dance of light and dark. The silence is punctuated by the distant, rhythmic drip of water echoing through the labyrinthine corridors, creating a haunting melody that reverberates through the hollow, echoing chambers.
