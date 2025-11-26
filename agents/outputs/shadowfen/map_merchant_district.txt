@@ -1,53 +1,65 @@
-### ASCII Map for 'Merchant District'
+Below is the design for the 'Merchant District' in Shadowfen style. The district is characterized by its bustling trade, shadowy alleys, and a slightly eerie atmosphere, all set within a swampy region. This district serves as the main commercial hub where players can trade, gather information, and encounter intrigue.
 
 ```
-           [Bank]
-             |
-          ┌─────┐
-          |     |
-      [Market Square]--[General Store]
-          |     |
-          └─────┘
-             |
-         [Clothier]--[Blacksmith]
-             |
-        [Hidden Alley]
+       +-------------------+
+       |     Market        |
+       |   Square (MS)     |
+       +--/--+-----+--\----+
+         |   |     |   |
+   +-----+   |     |   +-----+
+   |  Alchemist's |   |  Armory  |
+   |   Lair (AL)  |   |  (AR)    |
+   +--\-----+-----+---/-----+----+
+       |    |     |    |
+   +---+    |     |    +---+
+   |   |    |     |    |   |
+   |   |    +-----+    |   |
+   |  Hidden Alleyway  |   |
+   |     (HA)          |   |
+   +---/--------------\+   |
+       |              |   |
+   +---+--------------+---+
+   |      Trader's Haven   |
+   |          (TH)         |
+   +---\--------------/----+
+       |              |
+   +---+--------------+---+
+   |      Swamp Path (SP) |
+   +----------------------+
 ```
 
-### Room List with Exits
+### Room List with Exits and Purpose
 
-1. **Market Square**
-   - Exits: North to [Bank], East to [General Store], South to [Clothier]
-   - Notes: The central hub of the Merchant District, bustling with activity and serving as the primary navigation point.
+1. **Market Square (MS)**
+   - **Exits:** North to Alchemist's Lair (AL), East to Armory (AR), South to Trader's Haven (TH)
+   - **Purpose:** The central hub of the district, bustling with stalls and merchants. It serves as a convergence point for players looking to buy or sell goods, gather rumors, or find quests.
 
-2. **Bank**
-   - Exits: South to [Market Square]
-   - Notes: A secure and well-guarded building where players can store and manage their wealth. Situated north of the Market Square for easy access.
+2. **Alchemist's Lair (AL)**
+   - **Exits:** South to Market Square (MS), Secret path leading East to Hidden Alleyway (HA)
+   - **Purpose:** A dimly-lit shop filled with potions and exotic ingredients. The Alchemist offers unique items and quests. A hidden door leads to the more clandestine parts of the district.
 
-3. **General Store**
-   - Exits: West to [Market Square]
-   - Notes: Offers a variety of essential goods. It's the first stop for newcomers, strategically placed directly east of the Market Square.
+3. **Armory (AR)**
+   - **Exits:** West to Market Square (MS)
+   - **Purpose:** A fortified store stocked with weapons and armor. The Armory is a key location for players to upgrade their combat gear.
 
-4. **Clothier**
-   - Exits: North to [Market Square], East to [Blacksmith], South to [Hidden Alley]
-   - Notes: Specializes in clothing and tailor-made items. Located south of the Market Square, it connects to both the Blacksmith and a hidden alley.
+4. **Hidden Alleyway (HA)**
+   - **Exits:** West to Alchemist's Lair (AL), South to Trader's Haven (TH)
+   - **Purpose:** A shadowy, narrow alley that can be used as a shortcut or to evade pursuers. This secretive path is ideal for clandestine meetings and hidden treasures.
 
-5. **Blacksmith**
-   - Exits: West to [Clothier]
-   - Notes: Provides weapons and armor. Placed adjacent to the Clothier to create a seamless shopping experience for equipment and clothing.
+5. **Trader's Haven (TH)**
+   - **Exits:** North to Market Square (MS), South to Swamp Path (SP), North through Hidden Alleyway (HA)
+   - **Purpose:** A more refined trading post where high-value transactions occur. It acts as a quieter alternative to the bustling Market Square.
 
-6. **Hidden Alley**
-   - Exits: North to [Clothier]
-   - Notes: A secretive side path that offers rare finds and potential quests. It's tucked away to encourage exploration.
+6. **Swamp Path (SP)**
+   - **Exits:** North to Trader's Haven (TH)
+   - **Purpose:** A murky trail leading out of the district into the surrounding swamp. It's used for smuggling and access to the swamp's hidden dangers and secrets.
 
-### Design Notes
+### Design Notes on Flow and Purpose
 
-- **Flow and Purpose**: The Market Square serves as the primary hub, with shops clustered around it for easy access. The placement of the Bank, General Store, and Clothier creates a logical flow for players to navigate through the district.
-  
-- **Exploration and Discovery**: The Hidden Alley is designed to reward players who explore beyond the obvious paths, offering unique items or quests unavailable elsewhere.
+- **Central Hub:** The Market Square serves as the primary gathering point with easy access to specialized shops and a clear path to hidden areas.
+- **Flow and Exploration:** Players are encouraged to explore the Alchemist's Lair for unique items and then discover the Hidden Alleyway, which provides shortcuts and narrative intrigue.
+- **Convenient Layout:** Essential services (Armory, Trader's Haven) are clustered around the Market Square, ensuring that players can easily access crucial locations.
+- **Realism and Storytelling:** The district’s layout reflects a logical organization of commerce, secrecy, and swampy ambiance, perfectly matching the Shadowfen style.
+- **Vertical Complexity:** While primarily horizontal, the inclusion of secret paths adds depth and rewards exploration.
 
-- **Realism and Storytelling**: The layout reflects a typical medieval market town, where essential services are centralized, and specialty shops are within walking distance, promoting a vibrant economic center.
-
-- **Vertical Space and Complexity**: While this district is primarily on a single plane, the Hidden Alley introduces an element of layered complexity. Future expansion could consider vertical elements like an upstairs room in the Bank or a cellar in the General Store.
-
-This design balances accessibility with the intrigue of discovery, utilizing logical spatial organization to create a believable and engaging district.
+This design balances the need for a lively, engaging commercial area with opportunities for secretive exploration and narrative development.
