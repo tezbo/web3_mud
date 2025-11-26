@@ -1,47 +1,46 @@
-Certainly! Here's a design for the 'Merchant District' in a Shadowfen style, which often features a dark, mysterious atmosphere with intertwining paths and a blend of swampy and urban elements.
+```plaintext
+      [2]
+       |
+[1]--[3]--[4]--[5]
+       |
+      [6]
 
-### ASCII Map
+Room List:
+1. Entrance Gate
+   Exits: East to [3]
+   - Main entrance to the Merchant District. Guards are stationed here.
+   - Designed as a welcoming point for traders entering from other districts.
 
+2. Observation Tower
+   Exits: South to [3]
+   - Offers a vantage point to oversee the district and nearby areas.
+   - Adds vertical space and a sense of security to the district.
+
+3. Market Square
+   Exits: West to [1], North to [2], East to [4], South to [6]
+   - Central hub of the district, bustling with stalls and vendors.
+   - Connects to all key locations, making it the heart of commerce.
+
+4. Artisan Alley
+   Exits: West to [3], East to [5]
+   - Workshops and artisan stalls line this area, showcasing crafts.
+   - Draws players deeper into the district, encouraging exploration.
+
+5. Trade Consortium
+   Exits: West to [4]
+   - Headquarters of the Merchant Guild, where deals and trades are formalized.
+   - Represents high-status commerce, rewarding players who venture further.
+
+6. Shadowfen Tavern
+   Exits: North to [3]
+   - A place for merchants and adventurers to rest and exchange stories.
+   - Offers respite and social opportunities, tucked slightly away for a quieter atmosphere.
+
+Design Notes:
+- Flow: The Market Square [3] is the central hub, allowing easy access to all major locations. It is naturally the busiest area, reflecting the district's focus on trade.
+- Exploration: The Observation Tower [2] provides vertical interest and an optional vantage point, rewarding those who seek it out with information or perhaps a quest.
+- Discovery: Artisan Alley [4] is slightly off the main path, encouraging players to explore its unique offerings.
+- Pacing: Players start at the Entrance Gate [1], get drawn into the Market Square [3], and then have multiple paths to explore, balancing discovery with convenience.
+- Realism: The layout logically places high-traffic areas at the heart, with specialized functions like the Trade Consortium [5] located deeper within for a sense of progression.
+- Vertical Space: The inclusion of an Observation Tower [2] adds a layer of complexity and realism, fitting the Shadowfen style by providing strategic oversight of the district. 
 ```
-      [Witch's Emporium]
-              |
-         [Market Square]
-          /     |     \
-[Blacksmith] [Alchemist] [General Goods]
-          \     |     /
-          [Hidden Alley]
-```
-
-### Room List with Exits
-
-1. **Market Square**
-   - Exits: North to Witch's Emporium, West to Blacksmith, East to Alchemist, South to General Goods, Southeast to Hidden Alley
-   - Notes: The bustling heart of the Merchant District, a hub where traders and adventurers gather. It serves as the primary navigation point.
-
-2. **Witch's Emporium**
-   - Exits: South to Market Square
-   - Notes: A mysterious shop filled with potions and enchanted items. Offers rare goods not found elsewhere, drawing curious adventurers.
-
-3. **Blacksmith**
-   - Exits: East to Market Square, Southeast to Hidden Alley
-   - Notes: A place for crafting and repairing weapons and armor. The forge's glow is visible from afar, attracting warriors.
-
-4. **Alchemist**
-   - Exits: West to Market Square, Southwest to Hidden Alley
-   - Notes: A cluttered, aromatic shop selling herbs and concoctions. The alchemist often has quests for gathering rare ingredients.
-
-5. **General Goods**
-   - Exits: North to Market Square, Northwest to Hidden Alley
-   - Notes: Sells everyday items and supplies, essential for travelers preparing for a journey into the surrounding swamps.
-
-6. **Hidden Alley**
-   - Exits: Northwest to Blacksmith, North to Alchemist, Northeast to General Goods
-   - Notes: A narrow, shadowy lane connecting various shops discreetly. Often a shortcut for those who know its existence, and a place for secretive exchanges.
-
-### Design Notes
-
-- **Flow and Navigation**: The Market Square acts as a central hub, allowing players to easily access all major shops. This ensures efficient navigation while encouraging initial exploration.
-- **Exploration and Discovery**: The Hidden Alley provides a rewarding shortcut and adds an element of mystery, appealing to players who enjoy uncovering secrets.
-- **Thematic Cohesion**: The room arrangement reflects a logical urban layout with thematic ties to Shadowfen's mysterious and slightly ominous atmosphere.
-- **Balance of Exploration vs. Convenience**: While the central Market Square offers convenience, the Hidden Alley introduces complexity and exploration opportunities, balancing the district's design.
-- **Purpose and Storytelling**: Each shop serves a distinct purpose, supporting diverse player needs and enhancing the district's role as a commercial hub within the game world.
