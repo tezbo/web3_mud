@@ -6,3 +6,10 @@ Ambient Messages:
 2. "Soft whispers of silk brush against the wooden counter, where vibrant fabrics hang like dreams waiting to be woven into reality."  
 
 3. "The metallic clink of coins mingles with the low murmur of conversation, as the scent of aged parchment and leather wraps around you like a warm embrace."
+
+Ambient Messages:
+1. "The air is thick with the sweet, cloying scent of dried herbs, as colorful glass jars clink softly against each other on the wooden shelves, whispering secrets of distant lands."  
+
+2. "A soft chime of wind bells heralds your arrival, their tinkling song mingling with the earthy aroma of polished wood and the faintest hint of burning incense."  
+
+3. "Sunlight filters through stained glass windows, casting kaleidoscopic patterns on the stone floor, while the gentle rustle of silk drapes sways like a heartbeat in the stillness."
