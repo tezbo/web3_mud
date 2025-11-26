@@ -1,1 +1,8 @@
 The shop is a dim labyrinth, its shelves carved from gnarled roots that twist like ancient secrets. The air is heavy with the earthy musk of damp wood and the biting scent of herbs drying in bundles overhead. A faint, rhythmic dripping echoes from somewhere unseen, adding a percussive heartbeat to the hushed whispers of customers haggling in shadowy corners. As your fingers brush against the worn leather of a tome, the coolness of its moisture-slicked surface sends a shiver up your spine, grounding you in the eerie, timeless atmosphere of the Shadowfen.
+
+Ambient Messages:
+1. "The air thrums with the soft jangle of glass vials, their contents glistening like captured starlight under the dim glow of lanterns draped in silk."  
+
+2. "A rich tapestry of spices hangs in the air, swirling around you like a fragrant fog, as wooden shelves creak under the weight of ancient tomes and curious trinkets."  
+
+3. "Flickering candlelight dances over polished stone counters, casting playful shadows that flicker like whispers among the shelves laden with shimmering baubles and exotic elixirs."  
