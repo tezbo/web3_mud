@@ -1,51 +1,61 @@
-Sure, let's design a 6-room district called 'Dungeon' in the Shadowfen style, which will incorporate elements of mystery and exploration with a slightly swampy, dark atmosphere.
-
-### ASCII Map
+### Shadowfen Dungeon Map
 
 ```
-       [Treasure Chamber]
-               |
-   [Hidden Passage] - [Central Hall] - [Guard's Quarters]
-               |              |
-[Prison Cell] -+              +-[Armory]
+        +--------+
+        | Crypt  |
+        |  (E)   |
+        +---+----+
+            |
+        +---+----+
+        | Antechamber |
+        |  (W, E)     |
+        +---+----+----+
+            |    |
+        +---+----+----+
+        | Main Hall    |
+        | (W, E, D, U) |
+        +---+----+----+
+            |    |
+        +---+    +----+
+        | Armory|    | Treasury
+        | (E)   |    |  (W) 
+        +---+    +----+
 ```
 
-### Room List with Exits
+### Room List and Exits
 
-1. **Central Hall**
-   - Exits: East to Guard's Quarters, West to Hidden Passage, South to Armory
-   - Purpose: The central hub of the dungeon. It serves as the main thoroughfare where players can decide their path based on their goal—whether to explore more, find treasure, or engage enemies.
+1. **Crypt**
+   - Exits: East to Antechamber
+   - Purpose: Starting point in the dungeon, sets the eerie mood.
 
-2. **Guard's Quarters**
-   - Exits: West to Central Hall
-   - Purpose: A room for thematic storytelling, hinting at the dungeon's history and current occupancy. Players can find lore items or fight guards that drop keys for progression.
+2. **Antechamber**
+   - Exits: West to Crypt, East to Main Hall
+   - Purpose: Transition area from the crypt to the heart of the dungeon.
 
-3. **Armory**
-   - Exits: North to Central Hall
-   - Purpose: Contains weapons and armor, offering players a chance to upgrade or find items crucial for survival deeper in the dungeon.
+3. **Main Hall**
+   - Exits: West to Antechamber, East to Armory, Down to Basement, Up to Guard Tower
+   - Purpose: Central hub of the dungeon, connects to multiple key areas.
 
-4. **Hidden Passage**
-   - Exits: East to Central Hall, North to Treasure Chamber, South to Prison Cell
-   - Purpose: A secret, slightly obscured path that rewards curious players. It provides a shortcut and access to hidden rooms.
+4. **Armory**
+   - Exits: West to Main Hall
+   - Purpose: Contains weapons and armor, rewards players with equipment.
 
-5. **Treasure Chamber**
-   - Exits: South to Hidden Passage
-   - Purpose: The reward room for explorers who choose the hidden path. Contains valuable loot or quest items.
+5. **Treasury**
+   - Exits: West to Main Hall
+   - Purpose: Secret room accessible through a hidden mechanism in the Main Hall, contains valuable loot.
 
-6. **Prison Cell**
-   - Exits: North to Hidden Passage
-   - Purpose: Adds a narrative element of captivity or rescue quests. Players might find prisoners who provide information or side quests.
+6. **Basement (Down from Main Hall)**
+   - Exits: Up to Main Hall
+   - Purpose: Dark and dangerous, contains hidden pathways leading to secret rooms.
 
-### Design Notes on Flow and Purpose
+### Design Notes
 
-- **Central Hub (Central Hall):** The Central Hall serves as the dungeon's main intersection, ensuring that players naturally discover key areas while still offering the choice of direction. Its central location encourages exploration without overwhelming complexity.
+- **Flow**: The Main Hall acts as a central hub, allowing access to different parts of the dungeon, encouraging exploration of both side rooms and hidden areas.
+  
+- **Discovery**: The Treasury is hidden, requiring players to solve a puzzle or find a secret passage in the Main Hall.
 
-- **Flow:** The dungeon balances linear progression with exploration. Players start at the Central Hall, with clear paths to combat (Guard's Quarters), resources (Armory), and secrets (Hidden Passage).
+- **Pacing**: The layout encourages players to explore each area for resources or clues, with the crypt setting the tone and the armory providing necessary equipment.
 
-- **Discovery:** The Hidden Passage rewards players who stray from the main path. This passage also connects to the Treasure Chamber, creating a loop that encourages backtracking and further exploration.
+- **Realism**: The dungeon layout makes sense with a central hall leading to important rooms, and the vertical elements (Basement and Guard Tower) adding depth and complexity.
 
-- **Pacing:** The rooms are clustered to keep related activities (combat, exploration, resource gathering) close, while the hidden passage offers a sense of distance and accomplishment.
-
-- **Realism:** The layout mimics a functional dungeon with living quarters, an armory, and a prison, making it believable and immersive.
-
-This design leverages Shadowfen's mysterious and murky ambiance, providing players with a balance of combat, exploration, and narrative elements.
+- **Vertical Space**: The Main Hall's connections up to the Guard Tower and down to the Basement add layers to exploration, offering different challenges and perspectives.
