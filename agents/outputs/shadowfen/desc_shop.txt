@@ -1,1 +1,8 @@
 Dimly lit by flickering lanterns, the shop is a cavern of shadows where whispers of rusted chains echo faintly against stone walls slick with moss. The air hangs heavy with the sweet, cloying scent of damp earth intermingled with the sharp tang of aged leather. Wooden shelves, warped and gnarled, cradle peculiar trinkets that beckon with the soft glow of jade and obsidian. As you brush past a velvet curtain, its texture is both lush and fraying, like the embrace of a forgotten past.
+
+Ambient Messages:
+1. The air thrums with the soft chime of wind bells, while the warm glow of lanterns flickers against shelves laden with shimmering potions, their colors swirling like liquid rainbows.  
+
+2. A rich tapestry of spices hangs heavy in the air, mingling with the earthy scent of polished wood, as the shopkeeper's low, melodic voice dances around the wares, inviting whispers of secrets and adventure.  
+
+3. The floor creaks beneath your feet, each step releasing a faint, musty aroma of aged parchment and forgotten tomes, while the flickering candlelight casts long shadows that seem to breathe and shift like living things.  
