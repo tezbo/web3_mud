@@ -1,65 +1,68 @@
-Certainly! Here's a design for a 6-room district called "Dungeon" in the Shadowfen style:
+### Shadowfen Dungeon Map
 
 ```
-           +---------+
-           |  Crypt  |
-           |  (T)    |
-           +----+----+
-                |
-                v
-           +---------+
-           | Catacomb|
-           |  (S)    |
-           +----+----+
-                |
-                v
-+---------+   +---------+   +---------+
-|  Guard  |<--|  Cross  |-->| Torture |
-|  Room   |   |  Roads  |   | Chamber |
-| (E, W)  |   | (N, S) |   |  (N)     |
-+---------+   +----+----+---+---------+
-                |
-                v
-           +---------+
-           |  Prison  |
-           |  Cells   |
-           |  (S)     |
-           +----+-----+
+          +---------+
+          |  Altar  |
+          |  Room   |
+          |   [6]   |
+          +----+----+
+               |
+     +---------+---------+
+     |       Main        |
+     |      Chamber      |
+     |        [1]        |
+     +-----+-----+-------+
+           |     |
+    +------+     +------+
+    |                  |
++---+---+          +---+---+
+| Hall  |          | Guard |
+| of    |          | Room  |
+| Echoes|          | [3]   |
+| [2]   |          +---+---+
++---+---+              |
+    |                  |
++---+---+          +---+---+
+| Hidden |          | Armory|
+| Passage|          | [4]   |
+| [5]    |          +---+---+
++--------+              |
+                       +---+
+                       |   |
+                       |   |
+                       +---+
 ```
 
-**Room List with Exits:**
+### Room List with Exits
 
-1. **Crypt (Tomb)**
-   - Exits: South to Catacomb
-   - Notes: The starting point of the dungeon, filled with ancient tombs. This room sets the eerie atmosphere and introduces players to the Shadowfen style.
+1. **Main Chamber [1]**
+   - **Exits:** South to Hall of Echoes [2], East to Guard Room [3]
+   - **Purpose:** Central hub of the dungeon. High-traffic area where players first enter. Contains clues about the dungeon's history and a map hinting at hidden areas.
 
-2. **Catacomb (Storage)**
-   - Exits: North to Crypt, South to Crossroads
-   - Notes: A narrow corridor lined with sarcophagi. Serves as a transition space from the Crypt, increasing tension as players delve deeper.
+2. **Hall of Echoes [2]**
+   - **Exits:** North to Main Chamber [1], South to Hidden Passage [5]
+   - **Purpose:** Echoes of past adventurers reverberate here. It's a corridor that leads to hidden secrets and requires exploration to reveal its mysteries.
 
-3. **Crossroads**
-   - Exits: North to Catacomb, East to Torture Chamber, West to Guard Room, South to Prison Cells
-   - Notes: The central hub of the dungeon, allowing players to choose different paths. Encourages exploration and decision-making.
+3. **Guard Room [3]**
+   - **Exits:** West to Main Chamber [1], South to Armory [4]
+   - **Purpose:** Former guards' station. Contains keys and equipment for players to find. A logical placement for armory access.
 
-4. **Guard Room (Barracks)**
-   - Exits: East to Crossroads
-   - Notes: A room with remnants of old guard equipment. Offers insight into the dungeon's historical use and may contain some minor loot.
+4. **Armory [4]**
+   - **Exits:** North to Guard Room [3]
+   - **Purpose:** Supplies room with weapons and armor. Supplies are scattered, hinting at a past attack or hasty departure.
 
-5. **Torture Chamber**
-   - Exits: North to Crossroads
-   - Notes: A disturbing room with rusty torture devices. Adds to the dark storytelling and might hold a hidden side passage or treasure for those who search carefully.
+5. **Hidden Passage [5]**
+   - **Exits:** North to Hall of Echoes [2], Up to Altar Room [6]
+   - **Purpose:** Secret path rewarding exploration, leading to treasure or shortcuts. Signifies an escape route or a smugglers' path.
 
-6. **Prison Cells**
-   - Exits: North to Crossroads
-   - Notes: The deepest part of the dungeon, featuring iron bars and cells. Potentially houses a quest NPC or an important item.
+6. **Altar Room [6]**
+   - **Exits:** Down to Hidden Passage [5]
+   - **Purpose:** Mysterious room with an altar. Central to the dungeon's lore and possibly a quest objective. Contains valuable loot guarded by traps or puzzles.
 
-**Design Notes on Flow and Purpose:**
+### Design Notes
 
-- **Central Hub (Crossroads):** Designed to be the central point where players make strategic decisions on which path to explore, ensuring they experience the dungeon's breadth.
-- **Flow:** Players naturally progress from the Crypt to the Crossroads, choosing their path while maintaining a sense of exploration.
-- **Discovery:** The Torture Chamber may have a hidden passage to reward those who investigate thoroughly.
-- **Pacing:** The Guard Room and Prison Cells are offset to provide a sense of distance and discovery, while the central Crossroads keeps movement logical and interconnected.
-- **Realism:** The layout mirrors a plausible underground dungeon with practical transitions between rooms.
-- **Storytelling:** Each room contributes to the overall theme of a long-abandoned, once-secure fortress now in decay, hinting at its dark past.
-
-This design balances exploration with narrative depth, offering players a rich experience in the Shadowfen style.
+- **Flow:** The Main Chamber acts as the central hub, with clear paths leading to other essential rooms. It encourages exploration with hints towards the Hidden Passage.
+- **Exploration:** The Hidden Passage is a reward for curious players, providing a shortcut or additional loot. The layout promotes investigation of each room's purpose.
+- **Realism:** The Guard Room's proximity to the Armory makes logical sense, as does the secret passage leading to an important Altar Room.
+- **Vertical Space:** Utilizes verticality with the Hidden Passage leading up to the Altar Room, adding dimension and mystery to the exploration.
+- **Storytelling:** Each room offers lore pieces, such as the Hall of Echoes' whispers or the Altar Room's sacred artifacts, gradually revealing the dungeon's history.
