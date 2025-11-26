@@ -1,49 +1,42 @@
-**Merchant District - Shadowfen Style**
+### ASCII Map of the Merchant District - Shadowfen Style
 
 ```
-   [Marketplace]
-        |
-  [Blacksmith] -- [Tavern] -- [Tailor]
-        |
-    [Apothecary]
-        |
-  [Hidden Alley]
+  [Blacksmith] -- [Market Square] -- [Apothecary]
+        |                |                  |
+        |                |                  |
+     [Bazaar] -- [General Store] -- [Tavern]
 ```
 
-**Room List & Exits:**
+### Room List with Exits
 
-1. **Marketplace**
-   - Exits: North to Blacksmith, East to Tavern
-   - Purpose: Central hub of the district where traders gather; bustling with activity, a focal point for newcomers.
+1. **Market Square**
+   - Exits: North to Blacksmith, East to Apothecary, South to General Store, West to Bazaar
+   - Purpose: Central hub of the district, bustling with activity. Acts as the main navigation point.
 
 2. **Blacksmith**
-   - Exits: South to Marketplace, East to Tailor
-   - Purpose: Provides weapons and armor; essential services for adventurers, strategically placed for easy access from the market.
+   - Exits: South to Market Square
+   - Purpose: Provides weapons and armor. The constant clanging of metal draws players' interest from the Square.
 
-3. **Tavern**
-   - Exits: West to Marketplace, East to Tailor
-   - Purpose: Social hub, a place for gathering information and meeting other players; offers a warm place to rest.
+3. **Apothecary**
+   - Exits: West to Market Square, South to Tavern
+   - Purpose: Offers potions and magical herbs. Positioned to draw those interested in healing and magic.
 
-4. **Tailor**
-   - Exits: West to Blacksmith, West to Tavern
-   - Purpose: Supplies clothing and accessories; located near other crafts for convenience.
+4. **Bazaar**
+   - Exits: East to Market Square
+   - Purpose: A collection of stalls selling exotic goods. Positioned to encourage exploration from the Square.
 
-5. **Apothecary**
-   - Exits: North to Marketplace, South to Hidden Alley
-   - Purpose: Sells potions and herbal remedies; positioned slightly away from the hustle to create a quieter atmosphere, but still accessible.
+5. **General Store**
+   - Exits: North to Market Square, East to Tavern
+   - Purpose: Supplies everyday necessities. Directly accessible from the Square for convenience.
 
-6. **Hidden Alley**
-   - Exits: North to Apothecary
-   - Purpose: Secretive path leading to potential side quests or hidden treasures; rewards players who explore thoroughly.
+6. **Tavern**
+   - Exits: North to Apothecary, West to General Store
+   - Purpose: Social hub for gathering information and rest. Offers quests and rumors for adventurers.
 
-**Design Notes:**
+### Design Notes
 
-- **Flow and Central Hub:** The Marketplace serves as the central hub, naturally guiding players to essential services like the Blacksmith and Tavern. It is designed to be the first point of contact for players entering the district.
-  
-- **Exploration and Discovery:** The Hidden Alley provides a sense of mystery and exploration, encouraging players to venture beyond the obvious paths. This hidden path adds depth and rewards curiosity.
-
-- **Logical Organization:** Shops are logically grouped by purpose (crafts and services), and the Tavern is centrally located for social interaction, reflecting a realistic market layout.
-
-- **Pacing:** Essential services are clustered around the Marketplace for easy access, while optional areas like the Hidden Alley are placed farther away, maintaining a balance between convenience and exploration.
-
-- **Vertical Space:** While this area is primarily horizontal, potential vertical expansions could include upper floors in the Tavern for guest rooms or a hidden underground chamber accessed through the Hidden Alley.
+- **Flow and Exploration**: The Market Square serves as a central hub with access to all other locations, encouraging players to start their exploration here.
+- **Convenience vs. Discovery**: While most essential services are easily accessible from the Market Square, the Bazaar is slightly off the main path to encourage discovery.
+- **Logical Organization**: The Blacksmith is logically placed away from the Apothecary to avoid noise disturbing the delicate potion-making process. The General Store is centrally located for convenience.
+- **Natural Storytelling**: The layout reflects a typical medieval merchant district, with the Market Square as the focal point of commerce and social interaction.
+- **Pacing and Distance**: The design spreads out pivotal locations, like the Tavern and Apothecary, to encourage movement through the district and engagement with multiple spaces before reaching destinations.
