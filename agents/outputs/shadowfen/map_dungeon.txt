@@ -1,53 +1,47 @@
-### Shadowfen Dungeon ASCII Map
+### ASCII Map of 'Shadowfen Dungeon' District
 
 ```
-        [Guard Post]
-            |
-        [Entrance]
-            |
-       [Main Chamber] -- [Side Passage]
-            |                 |
-       [Treasure Vault]      |
-            |
-        [Hidden Lair]
+          [Ancient Altar]
+                |
+         [Secret Chamber]
+                |
+     [Treasure Vault] -- [Guard Post]
+          |               |
+   [Entrance Hall] ------[Flooded Passage]
 ```
 
 ### Room List with Exits
 
-1. **Guard Post**
-   - **Exits:** Down to Entrance
-   - **Purpose:** Acts as the first line of defense. Guards monitor the entrance and main pathway.
-   - **Design Notes:** Positioned above the entrance for a strategic advantage.
+1. **Entrance Hall**
+   - Exits: North to Treasure Vault, East to Flooded Passage
+   - Notes: The starting point for adventurers. This room serves as a central hub with a grand, decaying archway. Its purpose is to introduce players to the dungeon's atmosphere.
 
-2. **Entrance**
-   - **Exits:** Up to Guard Post, Down to Main Chamber
-   - **Purpose:** The transition point from the outside world into the dungeon.
-   - **Design Notes:** Serves as a choke point; well-guarded and imposing.
+2. **Treasure Vault**
+   - Exits: South to Entrance Hall, East to Guard Post, North to Secret Chamber
+   - Notes: This room contains various chests and relics. Its central location encourages exploration from the onset. The vault is guarded by traps, providing a risk-reward scenario.
 
-3. **Main Chamber**
-   - **Exits:** Up to Entrance, Right to Side Passage, Down to Treasure Vault
-   - **Purpose:** Central hub of the dungeon; often where players regroup.
-   - **Design Notes:** Spacious room with multiple connections. NPCs or key items may be found here.
+3. **Guard Post**
+   - Exits: West to Treasure Vault, South to Flooded Passage
+   - Notes: A small room where spectral guards once stood watch, now serving as a minor puzzle area. It creates a natural connection between the Treasure Vault and the Flooded Passage.
 
-4. **Side Passage**
-   - **Exits:** Left to Main Chamber
-   - **Purpose:** Optional exploration route with minor loot or lore.
-   - **Design Notes:** A narrow, winding path that encourages exploration. Leads to small rewards or hidden story elements.
+4. **Flooded Passage**
+   - Exits: West to Entrance Hall, North to Guard Post
+   - Notes: A treacherous corridor partially submerged in water. Offers an alternative path and introduces environmental challenges, emphasizing the dungeon's Shadowfen theme.
 
-5. **Treasure Vault**
-   - **Exits:** Up to Main Chamber
-   - **Purpose:** Contains valuable rewards and possibly guarded by a boss.
-   - **Design Notes:** Well-protected room requiring players to overcome challenges to access.
+5. **Secret Chamber**
+   - Exits: South to Treasure Vault, North to Ancient Altar
+   - Notes: A hidden room accessed through a concealed mechanism in the Treasure Vault. Rewards players' curiosity and exploration with lore and minor treasures.
 
-6. **Hidden Lair**
-   - **Exits:** Up to Treasure Vault
-   - **Purpose:** Secret room with rare loot or a unique NPC.
-   - **Design Notes:** Requires solving puzzles or finding hidden switches to access. Rewards dedicated explorers.
+6. **Ancient Altar**
+   - Exits: South to Secret Chamber
+   - Notes: The deepest part of the dungeon, serving as a climax for exploration. Here, players find significant lore and high-value treasures. The altar's ominous presence adds narrative weight.
 
-### Design Notes on Flow and Purpose
+### Design Notes
 
-- **Central Hub (Main Chamber):** Serves as the main connection point, ensuring players naturally pass through it multiple times.
-- **Exploration (Side Passage and Hidden Lair):** Encourages players to explore off the beaten path for extra rewards, enhancing the sense of discovery.
-- **Pacing:** The layout balances linear progression (Guard Post to Treasure Vault) with optional exploration (Side Passage and Hidden Lair).
-- **Realism:** The layout mimics a fortified underground space, with layers of security and secretive areas fitting the Shadowfen theme.
-- **Vertical Space:** The use of vertical movement (up/down) creates a sense of depth and layers within the dungeon, enhancing the exploratory experience.
+- **Flow and Exploration**: The design encourages a natural flow from the Entrance Hall through to the deeper parts of the dungeon with opportunities for discovery. The Secret Chamber and Ancient Altar reward players who explore beyond the main paths.
+  
+- **Purpose and Atmosphere**: Each room serves a distinct narrative or gameplay purpose, whether introducing players to the dungeon (Entrance Hall), providing rewards (Treasure Vault), or challenging players with environmental hazards (Flooded Passage).
+
+- **Realism and Storytelling**: The layout reflects a logical progression deeper into the dungeon, culminating at the Ancient Altar. The flooded and guarded themes are consistent with a Shadowfen style, creating an immersive experience.
+
+This district design balances exploration with a clear sense of progression, encouraging players to delve deeper while rewarding those who seek out its hidden secrets.
