@@ -3,6 +3,7 @@ import time
 import json
 import subprocess
 import random
+import openai
 from pathlib import Path
 from datetime import datetime
 from dotenv import load_dotenv
@@ -17,6 +18,16 @@ class AutonomousAgent:
         self.role = role
         self.capabilities = capabilities  # List of task types or keywords
         self.current_task = None
+        
+        # OpenAI Configuration
+        self.openai_api_key = os.getenv("OPENAI_API_KEY")
+        self.openai_model = os.getenv("OPENAI_MODEL", "gpt-4o-mini")
+        
+        if self.openai_api_key:
+            self.client = openai.OpenAI(api_key=self.openai_api_key)
+        else:
+            self.client = None
+            print(f"[{self.name}] ⚠️ OPENAI_API_KEY not found. AI features disabled.")
         
     def log(self, message):
         """Log a message to the dashboard."""
@@ -243,3 +254,43 @@ class AutonomousAgent:
     def execute_task(self, task):
         """Override this method to implement specific agent logic."""
         raise NotImplementedError
+
+    def think(self, prompt, system_prompt=None, response_format=None):
+        """
+        Use AI to think about a problem.
+        
+        Args:
+            prompt (str): The user prompt/question.
+            system_prompt (str): Optional system prompt override.
+            response_format (dict): Optional format (e.g. {"type": "json_object"}).
+            
+        Returns:
+            str or dict: The AI response.
+        """
+        if not self.client:
+            return "AI unavailable"
+            
+        if not system_prompt:
+            system_prompt = f"You are {self.name}, a {self.role}. {self.capabilities}"
+            
+        try:
+            messages = [
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": prompt}
+            ]
+            
+            response = self.client.chat.completions.create(
+                model=self.openai_model,
+                messages=messages,
+                response_format=response_format
+            )
+            
+            content = response.choices[0].message.content
+            
+            if response_format and response_format.get("type") == "json_object":
+                return json.loads(content)
+            return content
+            
+        except Exception as e:
+            self.log(f"❌ Thinking error: {e}")
+            return f"Error: {str(e)}"

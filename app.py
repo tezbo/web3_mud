@@ -674,7 +674,8 @@ def dashboard():
 @app.route("/api/agent_status")
 def api_agent_status():
     """Return current agent status JSON."""
-    status_file = os.path.join("agents", "agent_status.json")
+    # Look for agent_tasks.json in root
+    status_file = "agent_tasks.json"
     if os.path.exists(status_file):
         try:
             with open(status_file, "r") as f:

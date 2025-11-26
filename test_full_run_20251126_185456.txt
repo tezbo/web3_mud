@@ -1,0 +1,42 @@
+[2025-11-26 18:54:56.784] [   0.000s] [   INFO] ================================================================================
+[2025-11-26 18:54:56.784] [   0.000s] [   INFO]   AETHERMOOR MUD - COMPLETE END-TO-END AGENT WORKFLOW TEST
+[2025-11-26 18:54:56.784] [   0.000s] [   INFO] ================================================================================
+[2025-11-26 18:54:56.784] [   0.001s] [   INFO] 
+[2025-11-26 18:54:56.784] [   0.001s] [   INFO] Test Start Time: 2025-11-26T18:54:56.784963
+[2025-11-26 18:54:56.785] [   0.001s] [   INFO] Repository: tezbo/web3_mud
+[2025-11-26 18:54:56.785] [   0.001s] [   INFO] Log File: test_full_run_20251126_185456.txt
+[2025-11-26 18:54:56.785] [   0.001s] [   INFO] 
+[2025-11-26 18:54:56.785] [   0.001s] [   INFO] ================================================================================
+[2025-11-26 18:54:56.785] [   0.001s] [   INFO]   STARTING COMPLETE END-TO-END AGENT WORKFLOW TEST
+[2025-11-26 18:54:56.785] [   0.001s] [   INFO] ================================================================================
+[2025-11-26 18:54:56.785] [   0.001s] [   INFO] ================================================================================
+[2025-11-26 18:54:56.785] [   0.001s] [   INFO]   PHASE 1: AGENT CLAIMS TASK FROM BACKLOG
+[2025-11-26 18:54:56.785] [   0.001s] [   INFO] ================================================================================
+[2025-11-26 18:54:56.785] [   0.001s] [   INFO] Fetching issues from GitHub...
+[2025-11-26 18:54:57.272] [   0.488s] [   INFO] Selected Issue #3: Story 1.2: Restore Lost Features from Pre-Refactor
+[2025-11-26 18:54:57.272] [   0.489s] [   INFO] Issue URL: https://github.com/tezbo/web3_mud/issues/3
+[2025-11-26 18:54:57.273] [   0.489s] [   INFO] System Agent claiming issue #3...
+[2025-11-26 18:54:58.189] [   1.406s] [   INFO] ✅ Task claimed successfully
+[2025-11-26 18:54:58.197] [   1.413s] [   INFO] Comment posted to issue #3
+[2025-11-26 18:54:58.198] [   1.414s] [   INFO] ================================================================================
+[2025-11-26 18:54:58.198] [   1.414s] [   INFO]   PHASE 2: AGENT CREATES FEATURE BRANCH
+[2025-11-26 18:54:58.198] [   1.414s] [   INFO] ================================================================================
+[2025-11-26 18:54:58.198] [   1.414s] [   INFO] Creating branch: system-agent/issue-3-e2e-test
+[2025-11-26 18:54:58.230] [   1.446s] [  ERROR] TEST FAILED: Git error: b'error: Your local changes to the following files would be overwritten by checkout:\n\tagent_tasks.json\n\tagents/code_reviewer.py\n\tgame/world/data.py\n\tgame_engine.py\nPlease commit your changes or stash them before you switch branches.\nAborting\n'
+[2025-11-26 18:54:58.232] [   1.448s] [  ERROR] Traceback (most recent call last):
+  File "/Users/terryroberts/Documents/code/web3_mud/test_e2e_full_workflow.py", line 212, in create_feature_branch
+    subprocess.run(["git", "checkout", "main"], check=True, capture_output=True)
+  File "/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['git', 'checkout', 'main']' returned non-zero exit status 1.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/terryroberts/Documents/code/web3_mud/test_e2e_full_workflow.py", line 76, in run_full_test
+    branch_name = self.create_feature_branch(issue_number)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/terryroberts/Documents/code/web3_mud/test_e2e_full_workflow.py", line 227, in create_feature_branch
+    raise Exception(f"Git error: {e.stderr}")
+Exception: Git error: b'error: Your local changes to the following files would be overwritten by checkout:\n\tagent_tasks.json\n\tagents/code_reviewer.py\n\tgame/world/data.py\n\tgame_engine.py\nPlease commit your changes or stash them before you switch branches.\nAborting\n'
+

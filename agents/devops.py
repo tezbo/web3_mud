@@ -3,14 +3,15 @@ import time
 import json
 import logging
 import requests
+from datetime import datetime
 from dotenv import load_dotenv
-from agents.base_agent import BaseAgent
+from agents.agent_framework import AutonomousAgent
 
 load_dotenv()
 
 logger = logging.getLogger(__name__)
 
-class DevOpsAgent(BaseAgent):
+class DevOpsAgent(AutonomousAgent):
     """
     Agent responsible for monitoring deployment status, checking CI/CD pipelines,
     and verifying system health.
@@ -20,19 +21,206 @@ class DevOpsAgent(BaseAgent):
         super().__init__(
             name="DevOps Engineer",
             role="DevOps & Infrastructure Specialist",
-            system_prompt=(
-                "You are an expert DevOps Engineer responsible for maintaining the stability "
-                "and deployment pipeline of the MUD. You monitor GitHub Actions, Render deployments, "
-                "and system health metrics. You provide concise status reports and actionable "
-                "recommendations when builds fail."
-            )
+            capabilities=["deployment", "monitoring", "incident_response"]
         )
         # Load tokens from env
         self.github_token = os.environ.get("GITHUB_TOKEN")
-        self.render_api_key = os.environ.get("RENDER_API_KEY")
+        self.render_api_key = os.environ.get("RENDER_TOKEN", "rnd_aG8HyBDlx8BpaeEp9aV8oBenT0NK")
         self.repo_owner = "tezbo"
         self.repo_name = "web3_mud"
         
+        # Render API configuration
+        self.render_api_url = "https://api.render.com/v1"
+        self.render_headers = {
+            "Authorization": f"Bearer {self.render_api_key}",
+            "Accept": "application/json"
+        }
+        
+    # === RENDER WEBHOOK & INCIDENT RESPONSE ===
+    
+    def process_render_webhook(self, webhook_payload: dict) -> tuple:
+        """
+        Process Render deployment webhook and create incident if needed
+        """
+        logger.info("=" * 60)
+        logger.info("🤖 DevOps Agent: Processing Render webhook (AI Powered)")
+        logger.info("=" * 60)
+        
+        event_type = webhook_payload.get("type")
+        service = webhook_payload.get("service", {})
+        deploy = webhook_payload.get("deploy", {})
+        
+        service_id = service.get("id")
+        service_name = service.get("name")
+        deploy_id = deploy.get("id")
+        deploy_status = deploy.get("status")
+        
+        # Check for deployment failure
+        if event_type == "deploy.failed" or deploy_status == "failed":
+            logger.error("❌ Deployment FAILED - Initiating AI Analysis")
+            
+            # Fetch deployment logs
+            logs = self._get_render_logs(service_id, deploy_id)
+            
+            # Use AI to analyze logs
+            analysis = self._analyze_logs_with_ai(logs, service_name)
+            
+            incident = {
+                "service_id": service_id,
+                "service_name": service_name,
+                "deploy_id": deploy_id,
+                "status": deploy_status,
+                "timestamp": deploy.get("createdAt", datetime.utcnow().isoformat()),
+                "logs": logs,
+                "analysis": analysis, # AI Analysis
+                "severity": "P0"
+            }
+            
+            issue_number = self._create_incident_issue(incident)
+            return True, issue_number
+            
+        # Check for degraded service
+        elif event_type == "service.degraded":
+            logger.warning("⚠️  Service DEGRADED - Investigating")
+            
+            logs = self._get_render_logs(service_id, None, lines=100)
+            analysis = self._analyze_logs_with_ai(logs, service_name)
+            
+            if analysis.get("is_critical"):
+                incident = {
+                    "service_id": service_id,
+                    "service_name": service_name,
+                    "deploy_id": deploy_id,
+                    "status": "degraded",
+                    "timestamp": datetime.utcnow().isoformat(),
+                    "logs": logs,
+                    "analysis": analysis,
+                    "severity": "P1"
+                }
+                
+                issue_number = self._create_incident_issue(incident)
+                return True, issue_number
+        
+        # Successful deployment
+        elif event_type == "deploy.succeeded" or deploy_status == "live":
+            logger.info("✅ Deployment successful")
+            self.report_status_log(f"✅ Deployment successful: {service_name}")
+            return False, None
+        
+        return False, None
+
+    def _analyze_logs_with_ai(self, logs: str, service_name: str) -> dict:
+        """Use OpenAI to analyze deployment logs."""
+        prompt = f"""
+        Analyze these deployment logs for service '{service_name}'.
+        Identify the root cause of the failure.
+        
+        LOGS:
+        {logs[-4000:]}  # Last 4000 chars
+        """
+        
+        system_prompt = "You are an expert DevOps Engineer. Analyze logs and output JSON: { 'root_cause': str, 'recommendation': str, 'is_critical': bool, 'error_summary': str }"
+        
+        return self.think(prompt, system_prompt, response_format={"type": "json_object"})
+
+    def _get_render_logs(self, service_id: str, deploy_id: str = None, lines: int = 200) -> str:
+        """Fetch logs from Render API via MCP"""
+        try:
+            if deploy_id:
+                url = f"{self.render_api_url}/services/{service_id}/deploys/{deploy_id}/logs"
+            else:
+                url = f"{self.render_api_url}/services/{service_id}/logs"
+            
+            params = {"tail": lines}
+            response = requests.get(url, headers=self.render_headers, params=params, timeout=10)
+            
+            if response.status_code == 200:
+                log_entries = response.json()
+                logs = "\n".join([entry.get("message", "") for entry in log_entries])
+                return logs
+            else:
+                logger.error(f"Failed to fetch logs: {response.status_code}")
+                return "Unable to fetch deployment logs"
+                
+        except Exception as e:
+            logger.error(f"Error fetching logs: {e}")
+            return f"Error fetching logs: {str(e)}"
+    
+    def _create_incident_issue(self, incident: dict) -> int:
+        """Create GitHub issue for production incident"""
+        if not self.github_token:
+            logger.error("GitHub token not configured")
+            return None
+        
+        analysis = incident.get('analysis', {})
+        error_summary = analysis.get('error_summary', 'Unknown Error')
+        
+        # Build issue title
+        title = f"[PRODUCTION] {error_summary}"
+        
+        # Build issue body
+        body = f"""## 🚨 Production Incident Report (AI Analyzed)
+
+**Service:** {incident['service_name']}
+**Status:** {incident['status'].upper()}
+**Severity:** {incident['severity']}
+
+### 🤖 AI Analysis
+**Root Cause:**
+{analysis.get('root_cause', 'N/A')}
+
+**Recommendation:**
+{analysis.get('recommendation', 'N/A')}
+
+### 📝 Logs
+<details>
+<summary>Click to expand logs</summary>
+
+```
+{incident.get('logs', '')[-2000:]}
+```
+</details>
+"""
+        
+        # Determine labels
+        labels = [
+            f"priority: p{incident['severity'][1]}-{'blocker' if incident['severity'] == 'P0' else 'critical'}",
+            "component: backend",
+            "status: blocked",
+            "agent: system",
+            "agent: devops"
+        ]
+        
+        # Create issue
+        try:
+            url = f"https://api.github.com/repos/{self.repo_owner}/{self.repo_name}/issues"
+            headers = {
+                "Authorization": f"Bearer {self.github_token}",
+                "Accept": "application/vnd.github+json",
+                "X-GitHub-Api-Version": "2022-11-28"
+            }
+            payload = {
+                "title": title,
+                "body": body,
+                "labels": labels
+            }
+            
+            response = requests.post(url, headers=headers, json=payload, timeout=10)
+            
+            if response.status_code == 201:
+                issue = response.json()
+                issue_number = issue["number"]
+                logger.info(f"✅ Created incident issue #{issue_number}")
+                self.report_status_log(f"🚨 Created incident issue #{issue_number}")
+                return issue_number
+            else:
+                logger.error(f"Failed to create issue: {response.status_code}")
+                return None
+                
+        except Exception as e:
+            logger.error(f"Error creating GitHub issue: {e}")
+            return None
+
     def check_github_actions_status(self, branch="main"):
         """Check the status of the latest GitHub Actions run for a branch."""
         if not self.github_token:
@@ -89,12 +277,14 @@ class DevOpsAgent(BaseAgent):
                 for svc in services_data:
                     if svc['service']['name'] == 'web3_mud' or len(services_data) == 1:
                         service_id = svc['service']['id']
+                        self.service_id = service_id
                         print(f"🔍 Found Render Service: {svc['service']['name']} ({service_id})")
                         break
                 
                 if not service_id and services_data:
                     # Fallback to first one
                     service_id = services_data[0]['service']['id']
+                    self.service_id = service_id
                     print(f"⚠️ Using first found service: {services_data[0]['service']['name']} ({service_id})")
                     
             except Exception as e:

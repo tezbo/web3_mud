@@ -1,0 +1,172 @@
+[
+    {
+        "name": "epic: technical-debt",
+        "color": "0052CC",
+        "description": "Technical debt and refactoring"
+    },
+    {
+        "name": "epic: sensory-richness",
+        "color": "0052CC",
+        "description": "Sensory details and descriptions"
+    },
+    {
+        "name": "epic: ambient-life",
+        "color": "0052CC",
+        "description": "Ambient messages and NPC activities"
+    },
+    {
+        "name": "epic: ai-npcs",
+        "color": "0052CC",
+        "description": "AI-enhanced NPC improvements"
+    },
+    {
+        "name": "epic: world-expansion",
+        "color": "0052CC",
+        "description": "New rooms and NPCs"
+    },
+    {
+        "name": "epic: polish",
+        "color": "0052CC",
+        "description": "UI/UX polish and styling"
+    },
+    {
+        "name": "epic: testing",
+        "color": "0052CC",
+        "description": "QA and testing"
+    },
+    {
+        "name": "priority: p0-blocker",
+        "color": "B60205",
+        "description": "Critical blocker"
+    },
+    {
+        "name": "priority: p1-critical",
+        "color": "D93F0B",
+        "description": "Critical for release"
+    },
+    {
+        "name": "priority: p2-important",
+        "color": "FBCA04",
+        "description": "Important"
+    },
+    {
+        "name": "priority: p3-nice-to-have",
+        "color": "0E8A16",
+        "description": "Nice to have"
+    },
+    {
+        "name": "type: bug",
+        "color": "7057FF",
+        "description": "Something isn't working"
+    },
+    {
+        "name": "type: feature",
+        "color": "7057FF",
+        "description": "New feature or enhancement"
+    },
+    {
+        "name": "type: refactor",
+        "color": "7057FF",
+        "description": "Code refactoring"
+    },
+    {
+        "name": "type: documentation",
+        "color": "7057FF",
+        "description": "Documentation update"
+    },
+    {
+        "name": "type: test",
+        "color": "7057FF",
+        "description": "Testing related"
+    },
+    {
+        "name": "component: backend",
+        "color": "536471",
+        "description": "Backend/game engine"
+    },
+    {
+        "name": "component: frontend",
+        "color": "536471",
+        "description": "UI/templates"
+    },
+    {
+        "name": "component: npc",
+        "color": "536471",
+        "description": "NPC system"
+    },
+    {
+        "name": "component: room",
+        "color": "536471",
+        "description": "Room system"
+    },
+    {
+        "name": "component: combat",
+        "color": "536471",
+        "description": "Combat system"
+    },
+    {
+        "name": "component: quest",
+        "color": "536471",
+        "description": "Quest system"
+    },
+    {
+        "name": "component: ai",
+        "color": "536471",
+        "description": "AI integration"
+    },
+    {
+        "name": "status: blocked",
+        "color": "FF6B6B",
+        "description": "Blocked by dependency"
+    },
+    {
+        "name": "status: needs-review",
+        "color": "FF6B6B",
+        "description": "Awaiting review"
+    },
+    {
+        "name": "status: in-progress",
+        "color": "FF6B6B",
+        "description": "Currently being worked on"
+    },
+    {
+        "name": "status: ready",
+        "color": "FF6B6B",
+        "description": "Ready to start"
+    },
+    {
+        "name": "agent: system",
+        "color": "00D0BE",
+        "description": "System Agent"
+    },
+    {
+        "name": "agent: codereviewer",
+        "color": "00D0BE",
+        "description": "Code Reviewer"
+    },
+    {
+        "name": "agent: wordsmith",
+        "color": "00D0BE",
+        "description": "Wordsmith"
+    },
+    {
+        "name": "agent: lorekeeper",
+        "color": "00D0BE",
+        "description": "Lore Keeper"
+    },
+    {
+        "name": "agent: personalitydesigner",
+        "color": "00D0BE",
+        "description": "Personality Designer"
+    },
+    {
+        "name": "agent: questarchitect",
+        "color": "00D0BE",
+        "description": "Quest Architect"
+    },
+    {
+        "name": "agent: mapmaker",
+        "color": "00D0BE",
+        "description": "Mapmaker"
+    }
+]

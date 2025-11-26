@@ -50,10 +50,12 @@ from game.state import (
     NPC_ROUTE_POSITIONS, EXIT_STATES, IN_GAME_HOUR_DURATION, IN_GAME_DAY_DURATION
 )
 from game.systems.ambient import AmbientSystem
+from game.systems.weather import WeatherSystem
 from game.utils import colors
 
 # Initialize Systems
 AMBIENT_SYSTEM = AmbientSystem()
+WEATHER_SYSTEM = WeatherSystem()
 
 # Global registry for the broadcast function
 _GLOBAL_BROADCAST_FN = None
@@ -5937,7 +5939,15 @@ def describe_location(game):
     viewer = Player(game.get("username", "adventurer"))
     
     # Return the description from the Room object
-    return room.look(viewer)
+    description = room.look(viewer)
+    
+    # Append Weather (if outdoors)
+    # For now, we assume all rooms are outdoors or we check room flags if available
+    # Simple check: if room name doesn't contain "Inside", show weather
+    if "inside" not in room.name.lower():
+        description += f"\n\n{WEATHER_SYSTEM.get_description()}"
+        
+    return description
     
 
 

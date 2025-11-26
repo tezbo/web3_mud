@@ -21,7 +21,10 @@ class Player(Entity):
         # Game State Trackers
         self.quests: Dict[str, Any] = {}
         self.completed_quests: Dict[str, Any] = {}
-        self.reputation: Dict[str, int] = {}
+        
+        from game.systems.reputation import ReputationSystem
+        self.reputation = ReputationSystem()
+        
         self.npc_memory: Dict[str, List[Dict]] = {}
         
         # RPG Stats
@@ -84,7 +87,11 @@ class Player(Entity):
                 self.inventory.append(item)
             
         self.max_carry_weight = state.get("max_carry_weight", 20.0)
-        self.reputation = state.get("reputation", {})
+        
+        # Load Reputation
+        rep_data = state.get("reputation", {})
+        self.reputation.initialize(rep_data)
+        
         self.npc_memory = state.get("npc_memory", {})
         
         # Load quests
@@ -136,7 +143,7 @@ class Player(Entity):
                 "stats": self.stats,
                 "backstory": self.backstory
             },
-            "reputation": self.reputation,
+            "reputation": self.reputation.to_dict(),
             "npc_memory": self.npc_memory,
             "quests": {qid: q.to_dict() for qid, q in self.quests.items()},
             "completed_quests": self.completed_quests,
