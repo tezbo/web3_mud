@@ -1,8 +1,1 @@
-In the heart of Shadowfen, the air is thick with a damp, earthy musk, clinging to the skin like a cold, wet cloak. Pale beams of moonlight filter through the tangled canopy above, casting a ghostly lattice of shadows across the rust-streaked walls of the ancient chamber. A faint, persistent drip echoes in the silence, each droplet falling into an unseen pool with a hollow plunk that reverberates through the mist. The stone floor is slick beneath your boots, slick with a film of moss and moisture that makes every step a careful dance against the threat of slipping into the murky depths below.
-
-Ambient Messages:
-1. "The faint crackle of distant thunder reverberates through the air, mingling with the sweet, earthy scent of rain-soaked soil, inviting you to seek shelter beneath the ancient oaks." 
-
-2. "Muffled whispers of the wind glide through the twilight-hued leaves, carrying the delicate aroma of night-blooming flowers that beckon you deeper into the shadowed grove."
-
-3. "The rhythmic clinking of glass and soft laughter spill from the tavern’s open door, where the warm, spiced scent of mulled wine dances with the crisp chill of the evening air."
+The air is thick with an earthy dampness, carrying whispers of moss and decay that cling to the skin like a cold shroud. Flickering lanterns cast ghostly reflections upon the walls, their light struggling to pierce the swirling mist that dances in the corners. The floor, slick with a sheen of moisture, groans softly beneath each cautious step, echoing the distant croak of unseen frogs. A faint metallic tang lingers in the air, reminiscent of rusted iron left to the mercy of the swamp's embrace.
