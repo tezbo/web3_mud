@@ -6,3 +6,10 @@ Ambient Messages:
 2. A bitter chill seeps through the air, carrying the musty scent of decay and the faint rustle of unseen creatures skittering just beyond the reach of your torchlight.  
 
 3. The ground beneath your feet is slick with a mixture of mud and ancient blood, while an unsettling whisper seems to weave through the darkness, promising secrets long buried.  
+
+Ambient Messages:
+1. The damp stone walls seep with a chill, echoing the distant drip of water that resonates like a lonely heartbeat in the suffocating dark.  
+
+2. Flickers of pale light dance along the jagged edges of the cavern, casting ghostly shadows that writhe and twist as if alive in the stale air thick with the scent of earth and decay.  
+
+3. A low, mournful wail winds through the narrow passages, weaving through the air like a lost soul, while the metallic taste of fear lingers on your tongue.  
