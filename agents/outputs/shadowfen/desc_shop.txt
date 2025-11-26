@@ -1,1 +1,8 @@
 The shop crouches beneath a canopy of creeping vines, their tendrils draped like the fingers of a curious specter. Within, the air is thick with the earthy scent of damp peat and the metallic bite of rusted iron, mingling unpleasantly with the sweet decay of overripe fruit. Shadows coil in every corner, their presence punctuated by the flicker of a solitary lantern, casting a sickly yellow light that dances across rows of tarnished trinkets. The floorboards creak mournfully underfoot, their surface slick with a film of condensation that clings to your skin like a cold, unwelcome caress.
+
+Ambient Messages:
+1. The bell above the door jingles softly as you enter, and the air is thick with the rich, earthy aroma of aged leather and polished wood, whispering tales of craftsmanship and care.  
+
+2. Shelves lined with vibrant glass vials shimmer in the dim light, their contents swirling like captured sunsets, while the faint, sweet scent of dried herbs dances playfully through the air.  
+
+3. A low murmur of voices mingles with the crackle of parchment being unfurled, the sharp tang of ink lingering like a secret waiting to be discovered beneath the shopkeeper's watchful gaze.  
