@@ -6,3 +6,10 @@ Ambient Messages:
 2. "A tapestry of muted colors hangs from the rafters, its intricate patterns whispering secrets of distant lands, as the rich aroma of aged leather and polished wood envelops you like a comforting embrace."  
 
 3. "The bell above the door jingles softly, releasing a gust of cool, spiced air that carries the musky scent of incense and the faint crackle of fire from the hearth, wrapping you in a world of enchantment."  
+
+Ambient Messages:
+1. "The soft chime of wind bells dances through the air, mingling with the rich aroma of exotic spices that cling to the shelves, beckoning patrons closer to the treasures within."  
+
+2. "Sunlight filters through stained glass, casting a kaleidoscope of colors onto the polished stone floor, where the faint rustle of silk wraps whispers secrets of distant lands."  
+
+3. "A cool, damp breeze drifts in from the open door, carrying the earthy scent of moss and shadow, as the faint echo of dripping water creates a rhythmic heartbeat in the hushed shop."  
