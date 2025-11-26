@@ -39,10 +39,7 @@ class Room(GameObject):
         """
         lines = []
         
-        # 1. Room Name (title)
-        lines.append(f"[BOLD]{self.name}[/BOLD]")
-        
-        # 2. Base Description (Time/Weather aware)
+        # 1. Base Description (Time/Weather aware) - no room name for immersion
         desc = self._get_base_description_text()
         lines.append(desc)
         
