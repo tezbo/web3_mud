@@ -1,51 +1,55 @@
-### Shadowfen Dungeon Map
-
 ```
-          [Treasure Room]
+           +---------+
+           |  Cells  |
+           |  (N)    |
+           +----+----+
                 |
-          [Secret Passage]
+           +----+----+
+           | Torture |
+           | Chamber |
+           |(E/W)    |
+           +----+----+
                 |
-          [Main Chamber]
-            /         \
-   [Guard Room]     [Prison Cell]
-            \         /
-         [Entrance Hall]
+           +----+----+
+           | Main    |
+           | Hall    |
+           | (N/S/E) |
+           +----+----+
+                |
+           +----+----+    +---------+
+           | Entry   |----| Armory  |
+           | (N)     |    | (W)     |
+           +----+----+    +----+----+
 ```
 
-### Room List and Exits
+**Room List with Exits:**
 
-1. **Entrance Hall**
-   - **Exits:** North to Main Chamber, East to Guard Room
-   - **Purpose:** Acts as the main entry point into the dungeon. Provides a sense of foreboding with dim torchlight and eerie echoes. Introduces players to the dungeon's atmosphere.
+1. **Entry (S)**
+   - Exits: North to Main Hall
+   - Purpose: The starting point of the dungeon, guarded entrance where players begin their exploration.
 
-2. **Main Chamber**
-   - **Exits:** South to Entrance Hall, East to Prison Cell, Up to Secret Passage
-   - **Purpose:** A large, central hub with high ceilings, serving as the main crossroads of the dungeon. Contains ancient relics and signs of past rituals, hinting at the dungeon's history.
+2. **Main Hall (N/S/E)**
+   - Exits: North to Torture Chamber, South to Entry, East to Armory
+   - Purpose: The central hub of the dungeon, connecting key locations. Designed for players to plan their exploration.
 
-3. **Guard Room**
-   - **Exits:** West to Entrance Hall
-   - **Purpose:** Houses the remnants of old dungeon guards, complete with decaying weapons and armor. Provides lore and minor loot, emphasizing the dungeon's defensive history.
+3. **Torture Chamber (E/W)**
+   - Exits: East to Cells, West to Main Hall
+   - Purpose: A grim area filled with instruments of torment. Offers clues or items necessary for progression.
 
-4. **Prison Cell**
-   - **Exits:** West to Main Chamber
-   - **Purpose:** A grim room with rusted iron bars and the skeletons of forgotten prisoners. Offers storytelling through environmental clues and a hidden key for secret passage access.
+4. **Cells (N)**
+   - Exits: South to Torture Chamber
+   - Purpose: Holding area for prisoners, some might provide information or quests. Encourages exploration for hidden keys or items.
 
-5. **Secret Passage**
-   - **Exits:** Down to Main Chamber, North to Treasure Room
-   - **Purpose:** A hidden route discovered through careful exploration in the Main Chamber, rewarding observant players. Adds a layer of mystery and hidden history to the dungeon.
+5. **Armory (W)**
+   - Exits: West to Main Hall
+   - Purpose: Stores weapons and armor. Players can find useful equipment here. Serves as a reward for exploration.
 
-6. **Treasure Room**
-   - **Exits:** South to Secret Passage
-   - **Purpose:** The final reward for explorers, filled with ancient treasure and guarded by a spectral sentinel. Offers high-value loot and a sense of achievement for those who uncover the dungeon's secrets.
+**Design Notes on Flow and Purpose:**
 
-### Design Notes
+- **Flow:** The Main Hall acts as the central hub, allowing players to branch out to different parts of the dungeon. This encourages strategic planning and revisiting areas as needed.
+- **Purpose:** Each room serves a specific function, creating a narrative of the dungeon's past use and current state. The Entry sets the scene, while the Armory and Cells reveal more about the dungeon's history.
+- **Exploration:** The layout encourages exploration through the promise of useful items in the Armory and potential secrets in the Cells. The Torture Chamber provides atmospheric storytelling and tension.
+- **Realism:** The layout reflects a functional dungeon, with logical placement of rooms. The Entry is the only way in and out, while the Main Hall's central position allows for efficient movement.
+- **Discovery and Pacing:** The dungeon rewards players who explore the less obvious paths (e.g., Cells) with valuable items or lore. The clustered nature ensures related rooms are accessed without excessive backtracking.
 
-- **Flow:** The dungeon's central hub is the Main Chamber, which allows players to explore the more dangerous or rewarding areas at their own pace. The Entrance Hall and Main Chamber are essential for navigation, while the Guard Room and Prison Cell offer side narratives and smaller rewards.
-  
-- **Discovery:** The Secret Passage is a hidden element that encourages players to pay attention to their surroundings, rewarding exploration with access to the Treasure Room.
-
-- **Pacing:** The layout encourages players to first explore the Entrance Hall and Main Chamber, with the option to delve into side rooms before uncovering the Secret Passage.
-
-- **Realism:** The structure of the dungeon is logical, with the Entrance Hall leading to a central Main Chamber, reminiscent of old fortifications. The Guard Room and Prison Cell are naturally placed along the defensive and punitive lines.
-
-- **Vertical Space:** The use of vertical movement through the Secret Passage adds depth and complexity to the exploration, simulating the experience of unearthing hidden secrets within the dungeon.
+The design aims to balance player exploration with logical space use, providing a concise yet rich dungeon experience.

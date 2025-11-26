@@ -1,1 +1,8 @@
 The shop crouches beneath a canopy of ancient, gnarled trees, their limbs draped with ghostly veils of moss that whisper in the murmur of the fen's breath. The air is thick with the scent of damp earth and rust, mingling with a faint hint of something sweet and rotten, like overripe fruit. Inside, the light is dim and flickering, cast by lanterns with tarnished brass casings; their glow dances across shelves cluttered with peculiar trinkets and potion vials. As you brush against the hanging strands of cobwebs, they cling momentarily to your skin, leaving a lingering chill that seems to seep into your bones.
+
+Ambient Messages:
+1. "The shop's wooden door creaks open, releasing a wave of warm spices and sweet incense that dances with the flickering candlelight, casting playful shadows on the shelves lined with curious trinkets."  
+
+2. "Bottles of glimmering potions catch the eye, their vibrant colors swirling like liquid rainbows, while the faint chime of wind chimes outside lulls patrons into a sense of magical possibility."  
+
+3. "A tapestry of soft, silken fabrics drapes from the ceiling, their rich textures whispering secrets of far-off lands, as the air hums with the distant sound of a lute, blending with the scent of freshly polished wood."  
