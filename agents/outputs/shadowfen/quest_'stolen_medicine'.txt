@@ -1,0 +1,24 @@
+**Quest Title: The Cure's Cost**
+
+**Stage Breakdown:**
+1. **The Discovery**: The player learns from Healer Elara in Shadowfen that a shipment of vital medicine meant for the swamp's plagued villagers has been stolen. The theft threatens the health of the entire community.
+   
+2. **The Investigation**: The player investigates the nearby areas for clues. They uncover evidence pointing to a desperate group of outcasts known as "The Forgotten," who have been pushed to the fringes of society due to past wrongdoings.
+
+3. **The Confrontation**: The player locates The Forgotten's hideout and must decide how to handle the situation.
+
+**Solutions:**
+
+1. **Negotiate a Trade**:
+   - **Action**: The player can choose to negotiate with The Forgotten. By offering to help them find a more sustainable solution to their problems, such as a safe place in Shadowfen or resources, they agree to relinquish the stolen medicine.
+   - **Consequences**: The Forgotten become allies of the player and Shadowfen, aiding in future conflicts. However, some villagers remain distrustful of the outcasts, leading to tension.
+
+2. **Recover by Force**:
+   - **Action**: The player can opt to retrieve the medicine by force, confronting and defeating The Forgotten in combat and taking back the supplies.
+   - **Consequences**: The medicine is returned, restoring health to the villagers, but The Forgotten harbor resentment and may become future adversaries, leading to ambushes or sabotage in later quests.
+
+3. **Mediation Through Understanding**:
+   - **Action**: Investigating deeper, the player learns The Forgotten are also suffering from a similar plague. The player mediates a peace by convincing Healer Elara to create more medicine to aid both the villagers and The Forgotten.
+   - **Consequences**: A newfound alliance forms between The Forgotten and the villagers, fostering peace and cooperation in Shadowfen. Healer Elara gains respect and influence, but resources become strained, requiring the community to solve this issue collaboratively.
+
+Each choice leaves a lasting impact on Shadowfen, shaping its social landscape and the player's future interactions in the region.
