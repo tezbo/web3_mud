@@ -1,47 +1,47 @@
-### Merchant District - Shadowfen Style
-
 ```
-          [Blacksmith]
-             |   
-          [Marketplace] -- [General Store]
-             |             /
-          [Apothecary] -- [Tailor]
-             |
-         [Residential Alley]
+  [Market Square]
+     /    |    \
+[Apothecary]   [Tailor]
+    |              |
+[General Store] [Warehouse]
+    \            /
+   [Docks Entrance]
 ```
 
-#### Room List and Exits:
+### Room List with Exits
 
-1. **Blacksmith**
-   - Exits: South to Marketplace
-   - Notes: Positioned at the north end, the blacksmith provides a natural start for adventurers seeking gear or repairs. The constant hammering sounds draw players toward the central activity hub below.
+1. **Market Square**
+   - **Exits:** North to Apothecary, East to Tailor, South to Docks Entrance, West to General Store
+   - **Notes:** Central hub of the Merchant District. Bustling with merchants and customers. Key items and quests often start or end here.
 
-2. **Marketplace**
-   - Exits: North to Blacksmith, South to Apothecary, East to General Store
-   - Notes: A bustling central hub with various stalls and vendors. It's the primary area for commerce and player interaction. The layout encourages players to explore further into the district.
+2. **Apothecary**
+   - **Exits:** South to Market Square
+   - **Notes:** Offers potions and herbs. Connected to the Market Square for easy access to rare ingredients and clientele seeking remedies.
 
-3. **General Store**
-   - Exits: West to Marketplace, South to Tailor
-   - Notes: Provides essential supplies and basic adventuring gear. Its location next to the marketplace ensures it catches player traffic en route to other specialized stores.
+3. **Tailor**
+   - **Exits:** West to Market Square, South to Warehouse
+   - **Notes:** Sells clothing and fabrics. Strategic location between the Market Square and Warehouse, emphasizing the flow of goods.
 
-4. **Apothecary**
-   - Exits: North to Marketplace, East to Tailor
-   - Notes: South of the marketplace, the apothecary offers potions and remedies. It's an important stop for players needing healing or alchemical ingredients, naturally extending exploration to the eastern side.
+4. **General Store**
+   - **Exits:** North to Market Square, East to Docks Entrance
+   - **Notes:** Sells a variety of everyday items. Positioned to serve both the local populace and travelers arriving at the docks.
 
-5. **Tailor**
-   - Exits: North to General Store, West to Apothecary
-   - Notes: Offers clothing and armor modifications. Located between the general store and apothecary, it serves both practical and aesthetic needs, encouraging a full circuit around the district.
+5. **Warehouse**
+   - **Exits:** North to Tailor, East to Docks Entrance
+   - **Notes:** Storage for goods awaiting shipment or sale. Its location facilitates the movement of inventory between the Tailor and the docks.
 
-6. **Residential Alley**
-   - Exits: North to Apothecary
-   - Notes: A quieter area that provides a narrative of where the merchants and artisans reside. It offers potential for hidden quests or secret paths leading out of the district.
+6. **Docks Entrance**
+   - **Exits:** North to General Store, West to Warehouse, North to Market Square
+   - **Notes:** Gateway to the district for arriving shipments. Provides a seamless transition from river trade to market commerce.
 
-### Design Notes:
+### Design Notes
 
-- **Flow and Central Hub:** The Marketplace acts as the central hub, naturally guiding players through the district's various shops. The layout promotes exploration, with multiple interconnected paths ensuring no single linear route.
+- **Flow:** The Market Square serves as the central hub, ensuring all paths lead to this key area. The design encourages players to explore each specialized shop while maintaining a logical flow of goods from docks to market.
   
-- **Discovery and Exploration:** While the main commercial area is straightforward, the Residential Alley suggests potential for hidden paths or quests, rewarding players who venture beyond the typical merchant interactions.
+- **Discovery:** While the main paths are straightforward, players might discover NPCs with unique quests or rare items in less-trafficked areas, like the Warehouse.
 
-- **Realism and Immersion:** Each shop's position reflects its role; the Blacksmith is strategically placed to draw players into the market, while the Apothecary and Tailor provide logical transitions to residential life.
+- **Pacing:** The district is compact, intentionally clustering related rooms together while maintaining distinct roles for each to encourage exploration without overwhelming the player.
 
-- **Pacing and Balance:** The map balances convenience with exploration. It clusters related rooms (shops) for easy access while the Residential Alley adds depth and potential for narrative expansion.
+- **Realism:** The spatial organization reflects a realistic medieval trade district, with the flow of goods naturally moving from docks to storage to market.
+
+- **Vertical Space:** While not utilized in this layout, future expansions could introduce layered complexity, such as a second floor in the Tailor for custom fittings or a cellar in the Apothecary for brewing potions.
