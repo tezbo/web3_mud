@@ -1,42 +1,43 @@
-### Shadowfen Merchant District
+### Shadowfen Merchant District Map
 
 ```
-    [S]---[M]---[W]
-     |     |
-    [R]   [B]
-     |     
-    [A]   
+   [Market Square]
+        |
+   [Potion Shop] - [Armory]
+        |            |
+   [Tailor] - [General Store]
 ```
 
-### Room List and Exits
+### Room List with Exits
 
-1. **[S] - South Gate**
-   - **Exits:** North to [R], East to [M]
-   - **Purpose:** Entry point from the southern swamps. Guards regulate entry. Provides a sense of boundary and transition from wild to urban.
+1. **Market Square**
+   - Exits: North to Potion Shop, East to Armory
+   - Notes: The bustling heart of the Merchant District, this open space is where traders set up stalls. It's the central hub for player interaction and a starting point for exploration.
 
-2. **[R] - Residential Alleyway**
-   - **Exits:** North to [A], South to [S]
-   - **Purpose:** A narrow path leading to the residential area. It's quieter, offering a contrast to the bustling market. Limited traffic ensures a residential atmosphere.
+2. **Potion Shop**
+   - Exits: South to Market Square, East to Tailor
+   - Notes: A quaint shop with a mysterious aura. Players can purchase or discover unique potions here. Its proximity to the Market Square ensures it catches player attention early.
 
-3. **[A] - Artisan's Row**
-   - **Exits:** South to [R]
-   - **Purpose:** Home to workshops of skilled artisans. The row fosters discovery with occasional hidden alleys leading to specialty craftsmen. Encourages exploration for unique items.
+3. **Armory**
+   - Exits: West to Market Square, South to General Store
+   - Notes: Heavy with the scent of metal and leather, the armory offers weapons and armor. Its eastward placement from the Market Square encourages players to explore further.
 
-4. **[M] - Market Square**
-   - **Exits:** West to [S], East to [B], North to [W]
-   - **Purpose:** The district's central hub buzzing with life. Vendors sell an array of goods. Players gather information and trade here. It's a navigational anchor with multiple exits, ensuring fluid movement.
+4. **Tailor**
+   - Exits: West to Potion Shop, South to General Store
+   - Notes: This cozy workspace is filled with vibrant fabrics. It's a quiet spot where players can purchase or repair clothing, tucked slightly away from the central hustle.
 
-5. **[B] - Bazaar**
-   - **Exits:** West to [M]
-   - **Purpose:** A covered area with exotic goods from distant lands. It's an extension of the market, offering rare items. The layout is slightly maze-like, enhancing the sense of discovery.
+5. **General Store**
+   - Exits: North to Armory, East to Tailor
+   - Notes: Stocked with various goods and essentials, this store is a convenient stop for adventurers. Its location ensures it serves as a transition between the Armory and Tailor.
 
-6. **[W] - Warehouse District**
-   - **Exits:** South to [M]
-   - **Purpose:** Storage and logistics area for market goods. Offers side quests related to trade and smuggling. The connection to the market emphasizes the supply chain flow.
+### Design Notes
 
-### Design Notes on Flow and Purpose
+- **Flow and Purpose**: The design starts at the Market Square, encouraging players to explore northward or eastward naturally. Shop locations are strategically placed to ensure a logical flow, with essential services like potions and armor closer to the central hub.
+  
+- **Exploration vs. Convenience**: The district offers a balance, with shops easily accessible from the central Market Square for convenience, while still encouraging exploration through the network of interconnected shops.
 
-- **Central Hub (Market Square):** Acts as the navigational heart, from where players can choose directions based on their objectives (shopping, quests, or exploration). This ensures players naturally pass through it, increasing engagement.
-- **Flow and Exploration:** The district's design encourages exploration, with the Bazaar's maze-like paths and Artisan's Row's hidden workshops. Players are rewarded with rare items and unique interactions.
-- **Pacing and Realism:** The progression from a busy market to quieter residential and warehouse areas provides a realistic urban experience. The layout reflects a logical flow of goods from storage ([W]) to market ([M]).
-- **Vertical Space:** Not used in this district to maintain a horizontal spread typical of outdoor merchant areas, focusing on lateral exploration and discovery.
+- **Storytelling Through Space**: The arrangement of shops around the Market Square tells a story of a thriving merchant community, with specialized shops branching off from the main hub. Each shop's thematic design helps reinforce the Shadowfen atmosphere.
+
+- **Realism**: The layout makes physical sense, as shops are logically connected and positioned in relation to one another, mirroring the flow of a realistic merchant district.
+
+- **Layered Complexity**: While this map is surface-level, hidden elements or vendor-specific quests could be integrated to add depth, such as secret deals or exclusive items found through interactions within the district.
