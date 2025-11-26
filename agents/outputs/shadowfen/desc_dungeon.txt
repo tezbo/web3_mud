@@ -13,3 +13,10 @@ Ambient Messages:
 2. A chill breeze whispers through the narrow passage, carrying the stale scent of decay and the faintest trace of something ancient and malevolent.  
 
 3. Flickering torchlight reveals intricate carvings of long-forgotten battles, their edges slick with a viscous darkness that seems to pulse with a life of its own.
+
+Ambient Messages:
+1. The air is thick with the scent of damp earth and decaying stone, as distant echoes of dripping water punctuate the oppressive stillness of the dungeon's shadowy depths.  
+
+2. Flickering torchlight dances across rough-hewn walls, revealing ancient runes that shimmer like ghostly whispers, while a chill breeze carries the faintest hint of iron and despair.  
+
+3. The ground beneath your feet shifts subtly, a carpet of mold and dust muffling your steps, as the low hum of unseen creatures stirs in the darkness, ready to pounce.
