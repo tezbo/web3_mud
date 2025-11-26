@@ -1,99 +1,47 @@
-<<<<<<< HEAD
-### ASCII Map of 'Dungeon' in Shadowfen Style
+Certainly! Here's a Shadowfen-style 'Dungeon' district designed with exploration and storytelling in mind.
+
+### ASCII Map
 
 ```
-        [Chamber of Echoes]
-                |
-       [Hidden Tunnel] -- [Treasure Vault]
-                |
-         [Mossy Corridor]
-                |
-        [Guard Post] -- [Prison Cell]
+   [Entrance]
+       |
+  [Guard Room] -- [Prison Cells]
+       |
+  [Main Hall] -- [Armory]
+       |
+   [Dark Shrine]
 ```
 
 ### Room List with Exits
 
-1. **Chamber of Echoes**
-   - Exits: Down to Hidden Tunnel
-   - Purpose: Entry point. The acoustics here create disorienting echoes, setting an eerie tone. Serves as the main entrance to the Dungeon.
+1. **Entrance**
+   - **Exits:** South to Guard Room
+   - **Purpose:** The starting point of the dungeon, setting the tone with a foreboding atmosphere. 
 
-2. **Hidden Tunnel**
-   - Exits: Up to Chamber of Echoes, Right to Treasure Vault, Down to Mossy Corridor
-   - Purpose: A narrow, dimly-lit passage that holds an optional path to a secret treasure. It's a reward for players who choose to explore.
+2. **Guard Room**
+   - **Exits:** North to Entrance, South to Main Hall, East to Prison Cells
+   - **Purpose:** Acts as a checkpoint and defensive position. Guards' quarters and surveillance area.
 
-3. **Treasure Vault**
-   - Exits: Left to Hidden Tunnel
-   - Purpose: A hidden room containing valuable loot. Only accessible by those who explore the Hidden Tunnel. It encourages players to take risks and explore side paths.
+3. **Prison Cells**
+   - **Exits:** West to Guard Room
+   - **Purpose:** Contains cells for prisoners. Includes a hidden passage back to the Main Hall for added exploration.
 
-4. **Mossy Corridor**
-   - Exits: Up to Hidden Tunnel, Down to Guard Post
-   - Purpose: A transition area showing signs of age and neglect, lined with flickering torches and damp moss. Acts as a main artery leading deeper into the Dungeon.
+4. **Main Hall**
+   - **Exits:** North to Guard Room, South to Dark Shrine, East to Armory
+   - **Purpose:** Central hub of the dungeon, featuring ominous statues and ancient carvings, hinting at the dungeon's dark past.
 
-5. **Guard Post**
-   - Exits: Up to Mossy Corridor, Right to Prison Cell
-   - Purpose: A checkpoint for players, possibly inhabited by enemy guards. It reinforces the Dungeon's defensive nature and offers a strategic chokepoint.
+5. **Armory**
+   - **Exits:** West to Main Hall
+   - **Purpose:** Houses weapons and armor, some of which are cursed or enchanted. Optional area for players to discover valuable equipment.
 
-6. **Prison Cell**
-   - Exits: Left to Guard Post
-   - Purpose: A grim room filled with the remains of past captives. Provides narrative depth and might contain clues or items related to quests.
+6. **Dark Shrine**
+   - **Exits:** North to Main Hall
+   - **Purpose:** The final room, featuring an altar for dark rituals. A key story point with potential boss battles or quest-related objectives.
 
 ### Design Notes
 
-- **Flow:** The Dungeon is designed to lead players naturally from the entrance through to the Guard Post, with opportunities for exploration along the way. The main path is straightforward, but the Hidden Tunnel offers a detour for treasure seekers.
-  
-- **Exploration vs. Convenience:** The Hidden Tunnel and Treasure Vault present optional exploration opportunities without detracting from the main storyline. Players can choose to delve deeper or proceed directly.
-  
-- **Storytelling:** The rooms tell a story of a once-defensive structure now overgrown and partly forgotten. The Chamber of Echoes sets an atmospheric tone, while the Guard Post and Prison Cell hint at its past use.
-
-- **Realism:** The layout makes physical sense, with defensive structures (Guard Post) placed appropriately to protect key areas (Treasure Vault).
-
-- **Vertical Space:** Limited use of vertical space to maintain simplicity, with the main vertical transition being between the Chamber of Echoes and the Mossy Corridor via the Hidden Tunnel.
-=======
-Certainly! Below is the ASCII map and detailed design for the 'Dungeon' district in Shadowfen style. Shadowfen is a dark, marshy area, so the dungeon will reflect that with damp, eerie themes and hidden secrets.
-
-```
-        [Storage]
-           |
-           v
-[Entrance]-[Main Hall]--[Chamber of Whispers]
-           |      |          |
-           v      v          v
-       [Guardroom]  [Treasure Vault]
-```
-
-**Room List with Exits:**
-
-1. **Entrance**
-   - Exits: South to Main Hall
-   - Design Notes: The first room players encounter, designed to set the atmosphere with dripping water sounds and moss-covered stone. It's a transition from the outside marsh into the dungeon's depths.
-
-2. **Main Hall**
-   - Exits: North to Entrance, South to Guardroom, East to Chamber of Whispers
-   - Design Notes: The central hub of the dungeon. It's a large, echoing chamber with flickering torchlight. Players will feel the weight of the dungeon above them, and the air is thick with anticipation. 
-
-3. **Guardroom**
-   - Exits: North to Main Hall
-   - Design Notes: This room serves as a checkpoint. It's filled with old, rusted weapons and armor. A place where players might encounter a lingering guard or spirit. It's a reminder of the dungeon's past purposes and potential threats.
-
-4. **Chamber of Whispers**
-   - Exits: West to Main Hall, South to Treasure Vault
-   - Design Notes: A unique room where echoes and whispers are amplified. Players may discover clues here, hidden messages, or even a ghostly NPC. The atmosphere is unsettling, encouraging players to move carefully.
-
-5. **Treasure Vault**
-   - Exits: North to Chamber of Whispers
-   - Design Notes: This room is the reward for exploration. It's filled with chests and precious items, though not all are easily accessible. Some might be booby-trapped or require solving a puzzle uncovered in the Chamber of Whispers.
-
-6. **Storage**
-   - Exits: South to Main Hall
-   - Design Notes: A hidden room that rewards thorough exploration. Accessed through a secret door in the Main Hall, it contains old supplies, forgotten relics, and possibly a hidden passage or lore items that give insight into the dungeon's history.
-
-**Design Notes on Flow and Purpose:**
-
-- **Central Hub (Main Hall):** This room serves as the nexus, with multiple pathways leading to different experiences. It's designed to encourage players to make strategic decisions about where to explore first.
-- **Flow:** Players naturally move from the Entrance to the Main Hall, where they must choose their path. The Chamber of Whispers teases rewards and lore, while the Guardroom presents a more straightforward challenge.
-- **Discovery:** Hidden elements like the Storage room offer additional rewards for players who take the time to explore thoroughly.
-- **Pacing:** The layout allows for tension buildup in the Chamber of Whispers and a tangible reward in the Treasure Vault.
-- **Realism and Theme:** The arrangement makes physical sense for a dungeon setting, with logical placements of rooms that suggest past uses and current mysteries. The marshy, eerie theme is consistent throughout, with atmospheric elements enhancing the experience.
-
-This design ensures a balanced mix of exploration, challenge, and reward, all while maintaining the moody, mysterious aesthetic of the Shadowfen style.
->>>>>>> feature/task-1
+- **Flow:** The linear path from Entrance to Dark Shrine ensures players experience key narrative elements, while side rooms (Prison Cells and Armory) provide opportunities for exploration and reward.
+- **Exploration vs. Convenience:** Main Hall serves as the central hub to facilitate movement, while Prison Cells and Armory offer optional paths for players who wish to explore further.
+- **Realism:** The layout reflects an organized albeit sinister underground facility, with logical progression from entry, through security, and into the heart of darkness.
+- **Vertical Space:** The design is flat, as suits the underground setting, with hidden passages adding vertical complexity.
+- **Storytelling:** Each room contributes to the narrative of a once-operational facility turned into a place of malevolent rituals, enhancing the sense of mystery and danger.
