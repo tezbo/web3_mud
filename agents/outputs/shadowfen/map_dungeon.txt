@@ -1,0 +1,50 @@
+### Shadowfen Dungeon District Map
+
+```
+          [Treasure Chamber]
+                 |
+          (hidden passage)
+                 |
+ [Abandoned Crypt] --- [Catacombs] --- [Guard Post]
+                 |            |
+          (trapdoor)    (hidden door)
+                 |            |
+          [Sewer Entrance]   [Prison Cells]
+```
+
+### Room List with Exits
+
+1. **Treasure Chamber**
+   - Exits: Hidden passage south to Abandoned Crypt
+   - Purpose: Contains valuable loot and rewards for those who discover the hidden passage. Provides incentive for exploration.
+
+2. **Abandoned Crypt**
+   - Exits: North to Treasure Chamber (hidden passage), south via trapdoor to Sewer Entrance, east to Catacombs
+   - Purpose: Serves as a central hub for the dungeon, connecting multiple areas. It is filled with remnants of those interred here, setting a somber tone.
+
+3. **Catacombs**
+   - Exits: West to Abandoned Crypt, east via hidden door to Prison Cells
+   - Purpose: A labyrinthine area that encourages careful navigation. The hidden door to the Prison Cells rewards thorough exploration.
+
+4. **Guard Post**
+   - Exits: West to Catacombs
+   - Purpose: Acts as a checkpoint, suggesting a narrative of the dungeon once being guarded. It provides lore and potential quest hooks.
+
+5. **Sewer Entrance**
+   - Exits: North via trapdoor to Abandoned Crypt
+   - Purpose: Provides an alternate entry point to the dungeon. Its location beneath the crypt hints at a hidden, possibly illicit past use.
+
+6. **Prison Cells**
+   - Exits: West via hidden door to Catacombs
+   - Purpose: Adds a layer of history and narrative. The hidden nature implies secret detentions or forgotten prisoners, enhancing the mystery and depth.
+
+### Design Notes on Flow and Purpose
+
+- **Central Hub:** The Abandoned Crypt acts as the main hub, connecting to four other rooms, encouraging players to explore and discover new paths.
+- **Flow:** The layout ensures players naturally transition from the central hub to other areas. Hidden passages add a layer of complexity and reward curiosity.
+- **Discovery:** Hidden passages in the Treasure Chamber and Catacombs reward players who explore thoroughly. The discovery of these paths gives a sense of accomplishment.
+- **Pacing:** Rooms are clustered to ensure a sense of progression. The transition from the crypt to the sewers offers a change in environment and pacing.
+- **Realism:** The design reflects a plausible underground layout, with logical connections between a crypt, catacombs, and prison cells, all tied together by the central crypt.
+- **Vertical Space:** Utilizes vertical elements with a trapdoor in the Abandoned Crypt leading down to the Sewer Entrance, adding depth and a sense of exploration.
+
+This Shadowfen Dungeon District offers players a rich environment to explore, filled with secrets and storytelling potential through its spatial design.
