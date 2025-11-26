@@ -1,23 +1,33 @@
-Title: The Cure's Burden
+**Quest Title: The Cure's Cost**
 
-Stage Breakdown:
-1. **Discovery**: The player learns that a shipment of medicine meant for the ailing inhabitants of Shadowfen has been stolen. The medicine is crucial as it treats a rare swamp fever spreading among the villagers.
-   
-2. **Investigation**: The player must gather information on the theft. They discover that a local smuggler, Elira, has been seen with the medicine crates near the edge of the swamp. Further probing reveals that Elira stole the medicine to help a rival village suffering from the same fever, but whom the Shadowfen villagers refuse to help due to an ancient grudge.
+**Stage Breakdown:**
 
-3. **Resolution**: The player confronts Elira and must decide how to handle the situation.
+**Stage 1: The Missing Tonic**
+- Hook: In the murky swamps of Shadowfen, healer Eldra approaches the player in distress. A shipment of rare medicine she desperately needs to treat a deadly swamp fever has gone missing. Without it, the afflicted will perish within days.
+- Task: Investigate the missing shipment.
 
-Solutions:
-1. **Assist Shadowfen**:
-   - The player sides with the Shadowfen villagers, retrieving the medicine by force or persuasion from Elira.
-   - *Consequences*: Shadowfen receives the medicine, halting the fever's spread. However, the rival village suffers, leading to increased tension and potential conflict in future interactions. Elira becomes a fugitive, complicating trade routes as she seeks revenge or redemption.
+**Stage 2: The Traitor's Trail**
+- The player discovers that the shipment was stolen by a local named Jorvik, who claims he needed it for his ailing daughter. However, rumors suggest he intends to sell it to a rival healer in the neighboring village for profit.
 
-2. **Aid the Rival Village**:
-   - The player decides to let Elira deliver the medicine to the rival village, seeing their need as greater or seeking to mend old wounds.
-   - *Consequences*: The rival village is saved, and relations with Shadowfen sour. The player might find themselves unwelcome in Shadowfen for a time, but gain allies in the rival village. Future quests could involve bridging the gap between the two communities or dealing with Shadowfen's mistrust.
+**Stage 3: The Decision**
+- Present the player with three choices:
+  1. **Confrontation**: Confront Jorvik and retrieve the medicine by force or persuasion. Return it to Eldra.
+  2. **Negotiation**: Mediate a deal between Eldra and Jorvik, promising Eldra a portion of the future profits if she agrees to provide some medicine to Jorvik's daughter.
+  3. **Subterfuge**: Secretly help Jorvik sell the medicine, but arrange for him to donate a portion of his earnings back to the village to fund future medicine supplies.
 
-3. **Broker a Truce**:
-   - The player mediates a meeting between the two villages, convincing them to share the medicine and work together against the fever.
-   - *Consequences*: Both villages receive enough medicine to alleviate their suffering, leading to a fragile peace. This cooperation could pave the way for joint projects and a better future. Elira becomes a hero in both villages, unlocking future questlines that explore deeper regional conflicts or alliances.
+**Consequences:**
 
-Each resolution creates a ripple effect throughout Shadowfen, affecting player reputation, available resources, and future questlines tied to the health and politics of the region.
+1. **Confrontation**:
+   - *Positive*: Eldra is grateful and treats the sick, enhancing her reputation and offering the player discounted healing services in the future.
+   - *Negative*: Jorvik is resentful, and tension in the community increases, leading to possible future conflicts that may involve the player.
+
+2. **Negotiation**:
+   - *Positive*: A new alliance forms between Eldra and Jorvik. The village benefits from a steady supply of medicine, and both parties vouch for the player, granting them influence in village decisions.
+   - *Negative*: Future tensions arise if the deal is perceived as unfair by either side, potentially dragging the player into community disputes.
+
+3. **Subterfuge**:
+   - *Positive*: The player gains a cut of the profits and a reputation for cunning. Jorvik uses the money for his daughter and the village, gaining local support.
+   - *Negative*: Eldra is suspicious of the player’s involvement and trust is damaged, leading to increased prices for her services and reluctance to help in future quests.
+
+**World Impact:**
+- The player's choices ripple through Shadowfen, affecting trade, community trust, and the player's standing among the villagers. Rumors of their actions spread, influencing how they are received in other territories and by different factions within the realm.
