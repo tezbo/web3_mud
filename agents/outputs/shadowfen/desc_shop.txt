@@ -10,3 +10,11 @@ Ambient Messages:
 
 3. The floorboards creak softly underfoot, a symphony of nostalgia, while the rich aroma of spiced oils and herbs dances through the air, inviting you to explore the hidden treasures that line the shadowy shelves.  
 >>>>>>> feature/task-2
+
+
+Ambient Messages:
+1. The air buzzes with the soft clink of glass and the rich, sweet aroma of aged spices, while shelves overflow with colorful jars that catch the flickering candlelight like tiny stars captured in glass.  
+
+2. A tapestry of scents—worn leather, fresh parchment, and a hint of burnt incense—wraps around you as you navigate the narrow aisles, where treasures from distant lands beckon with whispered promises of adventure.  
+
+3. The rhythmic sound of a distant anvil echoes through the shop, mingling with the sharp tang of iron and soot, as shelves bristle with glinting tools and gleaming weapons, each one a testament to craftsmanship and fierce determination.  

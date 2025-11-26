@@ -24,3 +24,11 @@ Ambient Messages:
 
 3. The flickering torchlight dances across jagged rock formations, illuminating ancient runes that pulse faintly, whispering secrets of a long-forgotten past in a language that tingles on your skin.
 >>>>>>> feature/task-2
+
+
+Ambient Messages:
+1. Shadows flicker along the damp stone walls, whispering secrets as the air thickens with the musty scent of ancient decay and the distant echo of dripping water.  
+
+2. A faint, acrid tang of burnt herbs lingers in the stale air, mingling with the low, rhythmic thump of unseen creatures scuttling through the darkened passages.  
+
+3. The chill of the subterranean air wraps around you like a shroud, each breath tasting of earth and iron as the soft scuffle of unseen feet sends a shiver racing down your spine.  
