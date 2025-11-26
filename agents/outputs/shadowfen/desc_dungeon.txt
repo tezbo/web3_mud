@@ -1,1 +1,8 @@
 The dungeon breathes with an ancient, unsettling chill, its stone walls slick with creeping moss that glistens like wet emeralds in the dim light. The air is thick with the acrid tang of rusting iron and the fetid musk of stagnant water pooling in uneven stone grooves. Chains clatter softly from unseen recesses, a ghostly symphony echoing through the cavernous gloom. As you brush against the walls, a damp, gritty residue clings to your fingertips, a tactile reminder of the dungeon's unyielding embrace.
+
+Ambient Messages:
+1. The air hangs thick with dampness, echoing the distant drip of water that mingles with the faint, musty scent of ancient stone, casting shadows that dance like forgotten memories across the cold walls.  
+
+2. Flickering torchlight reveals a tapestry of moss and mildew, their textures rough against your fingertips as the low hum of unseen creatures skitters just out of sight.  
+
+3. A chill wraps around you like a shroud, carrying the metallic tang of blood and decay, while the soft, mournful whispers of lost souls seem to weave through the darkness, beckoning you deeper into the abyss.  
