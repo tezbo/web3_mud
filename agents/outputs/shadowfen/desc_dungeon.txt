@@ -1,1 +1,8 @@
 The dungeon looms with the oppressive weight of age, its stone walls slick with the eternal embrace of creeping moss and moisture. Faint echoes of dripping water punctuate the thick, suffocating silence, each droplet a metronome ticking away in the gloom. A rancid odor of decay lingers, mingled with the sharp tang of iron, hinting at long-forgotten tales of suffering. The chill in the air is palpable, a damp, clammy mist that clutches at your skin and seeps into your very bones, leaving an unsettling chill in its wake.
+
+Ambient Messages:
+1. Shadows writhe along the damp stone walls, their flickering dance illuminated by the ghostly glow of luminescent fungi, while the distant drip of water echoes like the heartbeat of the dungeon itself.  
+
+2. The air is thick with the stale scent of mold and decay, punctuated by the metallic tang of blood, as the low growl of unseen creatures reverberates through the darkened corridors.  
+
+3. Cold, rough granite presses against your fingertips, and the faint rustle of ancient parchment brushes past your ears, whispering secrets long forgotten in this tomb of stone and silence.
