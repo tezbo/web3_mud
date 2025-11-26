@@ -1,15 +1,1 @@
-
-
-Ambient Messages:
-1. The dagger’s hilt, wrapped in faded crimson leather, still carries the faint warmth of the blood it once spilled, whispering tales of betrayal and vengeance in the flickering torchlight.  
-
-2. This weathered map, its edges frayed and ink smudged, bears the sweet scent of aged parchment and the remnants of long-forgotten dreams, inviting adventurers to trace paths of mystery and peril.  
-
-3. A silver locket, cool to the touch and engraved with intricate swirls, holds within it the ghostly echoes of laughter and a lingering perfume of lavender, a bittersweet reminder of love lost to the shadows.  
-
-Ambient Messages:
-1. **Wraithwood Staff**: The staff, carved from the gnarled roots of a long-dead tree, whispers secrets of the shadowed glades, its surface cool to the touch and exuding the earthy scent of damp moss and ancient decay.
-
-2. **The Emberbloom Pendant**: Glowing faintly like the last rays of sunset, the pendant radiates warmth and a sweet, smoky fragrance, reminiscent of a campfire's dying embers, evoking memories of laughter and stories shared beneath a star-studded sky.
-
-3. **Rusted Dagger of the Forgotten**: This blade, nearly consumed by time, feels unnervingly cold against the skin, its jagged edges still carry the faint metallic tang of bloodshed, while the air around it hums with the sorrowful echoes of unfulfilled vengeance.
+The chamber is cloaked in a perpetual twilight, where the air hangs thick with the scent of damp earth and aging parchment. Shelves sag under the weight of ancient tomes, their spines cracked and glistening like serpent scales in the dim glow of phosphorescent fungi. The only sound is the soft rustle of pages turning, as if the books themselves whisper secrets long forgotten. Your fingers brush against the cool, velvety surface of moss creeping up stone walls, each step muffled by the spongy carpet beneath your feet.
