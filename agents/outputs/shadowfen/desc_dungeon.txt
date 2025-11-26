@@ -1,8 +1,1 @@
-The dungeon breathes with an ancient, damp chill, its walls slick with moss and secrets. A low, persistent drip echoes in the distance, each drop a metronome in the silence, while the air is thick with the cloying scent of mildew and rust. Flickering torches cast wavering shadows that dance like phantoms across the rough-hewn stone, their flames hissing softly in protest. Beneath your fingers, the iron bars of the cell are cold and unyielding, a reminder of countless souls that once grasped them in desperation.
-
-Ambient Messages:
-1. Shadows dance along the damp stone walls, whispering secrets of long-forgotten horrors as the air thickens with the musty scent of decay. 
-
-2. The distant drip of water echoes like a heartbeat, punctuated by the soft skittering of unseen creatures scuttling through the darkness, their presence felt rather than seen. 
-
-3. A chill wind gusts through the narrow passage, carrying with it the faint metallic tang of old blood and the lingering taste of fear that clings to the very stones.
+The dungeon breathes with an unsettling dampness, its stone walls slick with a sheen of moisture that clings to your fingers like a cold whisper. Flickering torchlight dances across rust-streaked iron bars, casting jagged shadows that creep along the floor like dark tendrils. The air is heavy with the acrid scent of mildew, mingling with the faint, metallic bite of old blood. Every footstep echoes with a hollow, resonant note, a mournful symphony that underscores the distant drip of unseen water.
