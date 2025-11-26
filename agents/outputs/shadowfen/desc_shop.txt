@@ -1,8 +1,1 @@
-The shop crouches at the edge of the mist-shrouded street, its wooden facade marred by creeping vines of rust-orange moss. Inside, the air is thick with the scent of damp earth and the sharp, metallic bite of old iron; the floorboards creak underfoot, each step releasing a whisper of dust that tickles the nose. Shelves groan beneath the weight of peculiar trinkets and tarnished relics, their surfaces cool and slick to the touch, as if perpetually weeping the moisture of the fen. From the back, the soft clinking of glass jars creates a rhythmic counterpoint to the distant croak of unseen frogs, weaving an eerie melody that lingers long after one departs.
-
-Ambient Messages:
-1. "The air is thick with the rich, earthy aroma of dried herbs and spices, while the gentle clink of glass vials echoes softly, a promise of hidden potions waiting to be discovered."  
-
-2. "Sunlight filters through stained glass, casting kaleidoscopic patterns on the polished wood floor, where the soft rustle of parchment hints at ancient tomes filled with forgotten knowledge."  
-
-3. "A bell tinkles softly as the door swings open, releasing a gust of warm, sweet-scented air laced with the comforting smell of leather and candle wax, inviting you deeper into the shop's cozy embrace."
+In the dim light of the shop, the air is thick with the earthy scent of damp moss and the faint metallic tang of rust. Shadows dance across walls cluttered with trinkets and relics, each item whispering tales from the mire beyond. The wooden floorboards creak softly underfoot, their surface rough and cool, as if the swamp's chill has seeped into the very bones of the building. A muted chorus of croaks and chirps filters in from the marsh outside, mingling with the rustle of leaves brushing against the stone facade, creating a symphony of the Shadowfen's eternal twilight.
