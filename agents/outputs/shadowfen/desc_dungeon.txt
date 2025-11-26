@@ -1,1 +1,8 @@
 In the heart of the Shadowfen, the dungeon lies shrouded in a perpetual twilight, where the air hangs heavy with the acrid stench of damp earth and rusted iron. Shadows twist and writhe across the stone walls, their surfaces slick with a thin film of moisture that chills the fingers and sends shivers racing up the spine. The distant drip of water echoes like a ghostly heartbeat, punctuated by the unsettling scuttle of unseen creatures skirting the edges of perception. A faint taste of decay lingers in the air, as if the very essence of the place has seeped into every crevice, leaving a haunting imprint on the senses.
+
+Ambient Messages:
+1. The damp stone walls glisten with moisture, and the distant drip of water echoes like whispered secrets in the suffocating silence.  
+
+2. Shadows dance along the flickering torchlight, revealing ancient runes etched into the floor, their faint glow pulsing like a heartbeat in the oppressive dark.  
+
+3. A chill breeze carries the faint scent of decay and damp earth, as though the very air is laden with the weight of long-forgotten tales and buried treachery.
