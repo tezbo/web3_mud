@@ -27,3 +27,10 @@ Ambient Messages:
 2. "A soft rustle of silk curtains brushes against your skin like a lover’s touch, while the scent of blooming nightshade invites secrets to linger in the shadows."  
 
 3. "The distant echo of water droplets dances in the stillness, a rhythmic heartbeat that punctuates the musty scent of damp stone and unspoken tales."  
+
+Ambient Messages:
+1. "Echoes of laughter spill from the tavern's open door, mingling with the rich aroma of spiced mead and roasted game, inviting weary travelers to share their tales of adventure."  
+
+2. "A gentle breeze whispers through the ancient trees, carrying the sweet scent of blooming nightshade and the soft rustle of silk leaves, as twilight descends upon the hidden glade."  
+
+3. "The air crackles with energy as flickering lanterns cast dancing shadows across the cobblestones, their warm glow revealing the intricate carvings of forgotten lore etched into the stone walls."  
