@@ -1,1 +1,8 @@
 Dim light filters through a canopy of interwoven branches, casting a dappled pattern on the damp, earthen floor of the Shadowfen shop. Shelves carved from ancient, moss-covered wood line the walls, creaking softly under the weight of glass vials filled with swirling, luminescent liquids. The air is thick with the pungent aroma of wet leaves and the faint, metallic bite of swamp water, tinged with the sweet decay of fallen foliage. A distant croak echoes from outside, resonating through the shop like a ghostly lullaby, while your fingers brush against the moist, cool surfaces of the polished counters, slick with the constant humidity of the fen.
+
+Ambient Messages:
+1. "The air hums with the soft chime of wind bells, while the sweet aroma of dried herbs and spices weaves through the open doorway, inviting wanderers to explore the treasures within."  
+
+2. "Shelves creak under the weight of glass jars, their contents shimmering like captured starlight, as the faint sound of parchment rustling echoes from a distant corner."  
+
+3. "A tapestry of vibrant silks hangs from the ceiling, their colors dancing in the flickering candlelight, while the rich scent of polished wood and ancient tomes envelops you like a warm embrace."  
