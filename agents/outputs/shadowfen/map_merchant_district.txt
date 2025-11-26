@@ -1,47 +1,67 @@
+Certainly! Below is an ASCII-style map of the "Merchant District" in Shadowfen, followed by a list of rooms with exits and design notes on flow and purpose.
+
 ```
-  [Market Square]
-     /    |    \
-[Apothecary]   [Tailor]
-    |              |
-[General Store] [Warehouse]
-    \            /
-   [Docks Entrance]
+        +-------+
+        |  (3)  |
+        | Tailor|
+        |       |
+        +---+---+
+            |
++---+---+   |   +---+---+
+|  (1)  |---+---|  (4)  |
+|Market |       | Smith |
+| Square|       |       |
++---+---+   |   +---+---+
+            |
+        +---+---+
+        |  (2)  |
+        | Alchem|
+        |  ist  |
+        +---+---+
+            |
+        +---+---+
+        |  (5)  |
+        |  Inn  |
+        |       |
+        +---+---+
+            |
+        +---+---+
+        |  (6)  |
+        | Dock  |
+        |       |
+        +-------+
 ```
 
 ### Room List with Exits
 
 1. **Market Square**
-   - **Exits:** North to Apothecary, East to Tailor, South to Docks Entrance, West to General Store
-   - **Notes:** Central hub of the Merchant District. Bustling with merchants and customers. Key items and quests often start or end here.
+   - Exits: North to Tailor, East to Smith, South to Alchemist
+   - Purpose: Central hub for the Merchant District, high-traffic area where players gather. Various stalls and merchants offer a wide array of goods. Provides a sense of bustling activity.
 
-2. **Apothecary**
-   - **Exits:** South to Market Square
-   - **Notes:** Offers potions and herbs. Connected to the Market Square for easy access to rare ingredients and clientele seeking remedies.
+2. **Alchemist's Shop**
+   - Exits: North to Market Square, South to Inn
+   - Purpose: A quaint shop filled with mysterious potions and ingredients. Offers unique items for players interested in alchemy and magic. Positioned to encourage exploration between essential locations.
 
 3. **Tailor**
-   - **Exits:** West to Market Square, South to Warehouse
-   - **Notes:** Sells clothing and fabrics. Strategic location between the Market Square and Warehouse, emphasizing the flow of goods.
+   - Exits: South to Market Square
+   - Purpose: A specialized shop for clothing and fabric-based equipment. Adds variety to the district's offerings, showcasing the diversity of merchants.
 
-4. **General Store**
-   - **Exits:** North to Market Square, East to Docks Entrance
-   - **Notes:** Sells a variety of everyday items. Positioned to serve both the local populace and travelers arriving at the docks.
+4. **Smith**
+   - Exits: West to Market Square
+   - Purpose: A place for players to acquire weapons and armor. Close proximity to the market emphasizes its importance to adventurers gearing up for quests.
 
-5. **Warehouse**
-   - **Exits:** North to Tailor, East to Docks Entrance
-   - **Notes:** Storage for goods awaiting shipment or sale. Its location facilitates the movement of inventory between the Tailor and the docks.
+5. **Inn**
+   - Exits: North to Alchemist, South to Dock
+   - Purpose: Provides lodging and rest for weary travelers. Positioned as a transition between the bustling district and the quieter dock area. Encourages players to pause and plan their next steps.
 
-6. **Docks Entrance**
-   - **Exits:** North to General Store, West to Warehouse, North to Market Square
-   - **Notes:** Gateway to the district for arriving shipments. Provides a seamless transition from river trade to market commerce.
+6. **Dock**
+   - Exits: North to Inn
+   - Purpose: A serene waterfront area where goods are shipped in and out. Offers a picturesque contrast to the busy market, a potential starting point for quests involving trade or travel.
 
-### Design Notes
+### Design Notes on Flow and Purpose
 
-- **Flow:** The Market Square serves as the central hub, ensuring all paths lead to this key area. The design encourages players to explore each specialized shop while maintaining a logical flow of goods from docks to market.
-  
-- **Discovery:** While the main paths are straightforward, players might discover NPCs with unique quests or rare items in less-trafficked areas, like the Warehouse.
-
-- **Pacing:** The district is compact, intentionally clustering related rooms together while maintaining distinct roles for each to encourage exploration without overwhelming the player.
-
-- **Realism:** The spatial organization reflects a realistic medieval trade district, with the flow of goods naturally moving from docks to storage to market.
-
-- **Vertical Space:** While not utilized in this layout, future expansions could introduce layered complexity, such as a second floor in the Tailor for custom fittings or a cellar in the Apothecary for brewing potions.
+- **Central Hub**: The Market Square serves as the central hub, with key shops like the Smith and Alchemist's Shop nearby, ensuring players can easily access important services.
+- **Natural Discovery**: The layout encourages players to naturally discover the Tailor and Dock as they move through the district, rewarding exploration with varied experiences.
+- **Logical Organization**: Shops are situated logically around the square, with related services (e.g., Smith and Alchemist) positioned nearby to enhance flow without overwhelming players.
+- **Pacing**: The Dock provides a change of pace from the busy district, acting as a peaceful endpoint that invites players to contemplate future adventures.
+- **Realism**: The layout makes physical sense, with the Inn acting as a logical transition between the commerce-heavy areas and the more serene Dock, reflecting real-world urban planning.
