@@ -1,8 +1,8 @@
-The room is a dim sanctuary where shadows cling to the walls like ancient moss. A damp chill permeates the air, carrying the earthy scent of wet leaves and the faintest whisper of decay. Flickering lanterns cast an amber glow over rusted iron shelves, their surfaces pocked and cold to the touch. The distant croak of unseen frogs echoes softly, a lullaby to the whispering breeze that rustles through tattered curtains. Here, the atmosphere feels both oppressive and intimate, as if the room itself holds secrets whispered by the mist.
+Within the heart of Shadowfen, a dimly lit chamber sprawls, its stone walls slick with perpetual dampness, reflecting the pale glow of phosphorescent fungi. The air hangs heavy with the earthy scent of moss and the faint metallic bite of rust, mingling with the distant croak of unseen creatures. Underfoot, the ground is soft and yielding, a carpet of loamy soil and decaying leaves that squelches softly with each step. A chill pervades the air, prickling at exposed skin like the whisper of a forgotten curse, while tendrils of mist curl lazily around your ankles, as if welcoming you into their embrace.
 
 Ambient Messages:
-1. "A distant chime echoes through the twilight haze, mingling with the soft rustle of silk banners that flutter gently in the cool evening breeze." 
+1. "Faint whispers of forgotten spells flicker through the air, mingling with the crackle of energy that dances like fireflies in the twilight gloom."  
 
-2. "The air grows thick with the earthy scent of damp moss and decaying leaves as shadows weave through the ancient trees, whispering secrets of the forest." 
+2. "The chill of damp earth seeps through the worn stone floor, as the faint rustle of unseen creatures echoes in the shadowy corners of the room."  
 
-3. "A crackling fire pops and hisses, sending sparks dancing into the night sky, while the rich aroma of spiced stew fills the air, wrapping around you like a warm embrace."
+3. "A warm breeze carries the scent of blooming nightshade and distant laughter, painting the air with a sense of magic just beyond reach."  

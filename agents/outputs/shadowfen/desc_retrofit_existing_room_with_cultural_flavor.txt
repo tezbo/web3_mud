@@ -1,15 +1,8 @@
-The room resided in eternal twilight, its surfaces veiled in a ghostly mist that clung like a second skin. Rusted chains dangled from the ceiling, swaying gently and creating a soft clinking melody that echoed off the damp, moss-covered stone walls. A faint, earthy scent of decaying leaves mingled with the metallic tang of the stagnant air, as if the forest outside had crept in to rest. Underfoot, the floor was slick with moisture, each step leaving a trail of dark footprints that quickly vanished into the gloom.
+The room is a tapestry of shadow and subtle decay, where the air carries the earthy musk of damp moss and the faint coppery tang of rust. Soft, persistent drips echo from corners shrouded in twilight, their rhythm a somber lullaby against the quietude. Walls, encrusted with a delicate patina of mildew, offer a cool, clammy touch that clings to the skin, reminiscent of forgotten stone crypts. Flickering lanterns cast a sepia glow, their light weaving through hanging strands of mist, creating a dance of silhouettes that whisper stories of the past.
 
 Ambient Messages:
-1. The air is thick with the pungent aroma of roasted spices, while the flickering shadows cast by intricately carved lanterns dance across the polished obsidian walls, whispering tales of ancient craftsmanship.  
+1. The air hums with the soft rustle of silk curtains, their rich jade hues catching the flickering light of lanterns, while the spicy aroma of roasted chestnuts wafts in from the bustling market beyond the window.  
 
-2. A soft breeze carries the delicate sound of silk brushing against stone, as the faint notes of a distant zither weave through the twilight-hued chamber, inviting the weary traveler to pause and savor the moment.  
+2. Shadows dance along the stone walls, punctuated by the rhythmic drip of water from ancient carvings, as the faint scent of moss and damp earth envelops the room like a forgotten secret.  
 
-3. The gentle drip of condensation from the jade-tiled roof mingles with the earthy scent of damp moss, as luminous fungi pulse softly in the corners, creating an enchanting glow that cradles the secrets of the Shadowfen.  
-
-Ambient Messages:
-1. "Flickering lanterns cast playful shadows on the polished jade walls, while the rich aroma of spiced tea wafts through the air, inviting whispers of forgotten stories."  
-
-2. "The soft rustle of silk curtains sways gently in the cool breeze, carrying the distant chime of iron wind bells from the balcony, each note a reminder of the bustling city below."  
-
-3. "Mist clings to the worn stone floor, mingling with the earthy scent of damp moss and the distant croaking of frogs, as if the very room breathes alongside the secrets of the Shadowfen."
+3. The metallic clang of tools echoes in the background, mingling with the sweet scent of blooming night-blooming jasmine, as the warm glow of forge fires spills over the polished steel surfaces, illuminating intricate designs etched with care.  

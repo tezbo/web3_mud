@@ -1,1 +1,8 @@
-The Update Room in Shadowfen is a dim sanctuary where shadows dance across rust-veined walls, their surfaces cool and slick with the perpetual mist that clings to every surface. A faint drip echoes, a rhythmic metronome against the unsettling silence that swallows even the faintest whisper. The air is thick with the earthy aroma of damp moss, undercut by an acrid tang of iron that lingers at the back of the throat. As you step further inside, your fingers brush against the jagged edges of ancient gears protruding from the walls, their metal teeth cold and unyielding, whispering of forgotten time.
+Veils of mist drift languidly through the Update Room, their ghostly tendrils weaving between tarnished iron shelves. The air is thick with the earthy perfume of damp moss and the faint, acrid bite of rust. A distant drip echoes softly, each drop a gentle percussion in the pervasive silence. The stone floor is cool beneath your feet, slick with condensation, as if the very room breathes with the dampness of the fen. Pale light filters through a narrow window, casting shifting patterns of shadow that dance across the walls like restless spirits.
+
+Ambient Messages:
+1. The air in the Update Room hums with the low thrum of machinery, as the faint, acrid scent of burning circuitry mingles with the metallic tang of sweat-soaked metal panels.  
+
+2. A soft, rhythmic clicking echoes through the dimly lit space, while the cool touch of polished stone underfoot grounds you amidst the swirling shadows that twist like whispers in the corners.  
+
+3. The flickering glow of holographic displays casts ghostly patterns on your skin, their electric buzz mingling with the sweet, stale aroma of old parchment and forgotten dreams.
