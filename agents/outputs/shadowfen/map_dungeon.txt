@@ -1,0 +1,53 @@
+### ASCII Map of 'Dungeon' District
+
+```
+     [Treasure Vault]
+            |
+      [Hidden Chamber]
+            |
+       [Main Hall]
+         /     \
+[Guard Room]   [Crypt]
+         \
+       [Entrance]
+```
+
+### Room List with Exits
+
+1. **Entrance**
+   - Exits: North to Main Hall, East to Guard Room
+   - Purpose: Entry point to the Dungeon, sets the tone with a damp, mossy atmosphere. Provides a clear entry path.
+
+2. **Main Hall**
+   - Exits: South to Entrance, North to Hidden Chamber, East to Crypt
+   - Purpose: Central hub of the dungeon. High-traffic area with multiple paths leading to other rooms. Designed to encourage decision-making.
+
+3. **Guard Room**
+   - Exits: West to Main Hall
+   - Purpose: Acts as a minor challenge or obstacle. Contains basic loot and a few guards to defeat. Connects back to the Main Hall.
+
+4. **Crypt**
+   - Exits: West to Main Hall
+   - Purpose: Themed area with undead enemies. Provides a narrative link to the ancient nature of the dungeon. Contains clues to the Hidden Chamber's secret entrance.
+
+5. **Hidden Chamber**
+   - Exits: South to Main Hall, North to Treasure Vault
+   - Purpose: Secretive area accessed by solving a puzzle in the Crypt. Provides a sense of discovery and rewards exploration with lore and minor treasures.
+
+6. **Treasure Vault**
+   - Exits: South to Hidden Chamber
+   - Purpose: The ultimate reward room containing significant loot and treasure. Offers a sense of accomplishment for players who reach it.
+
+### Design Notes on Flow and Purpose
+
+- **Central Hub:** The Main Hall acts as the central hub, providing multiple exits to encourage exploration and decision-making. This design ensures players naturally discover key locations.
+  
+- **Flow:** The linear path from Entrance to Treasure Vault is broken by the multiple choices offered in the Main Hall. This encourages players to explore, rather than rush to the end.
+
+- **Discovery:** The Hidden Chamber is a secretive area that rewards players for paying attention to clues found in the Crypt. This adds depth and replayability.
+
+- **Pacing:** Main challenges are spread across the Guard Room and Crypt, with the Hidden Chamber providing a narrative break before the final reward in the Treasure Vault.
+
+- **Realism:** The layout mimics a logical underground structure with a main corridor and side paths, enhancing immersion.
+
+- **Vertical Space:** Though the dungeon is on a single plane, the crypt's design provides a sense of depth and ancient history, reinforcing the Shadowfen style.
