@@ -758,7 +758,7 @@
     "Release Manager": {
       "status": "idle",
       "current_task_id": null,
-      "last_active": "2025-11-26T15:04:07.986275+11:00",
+      "last_active": "2025-11-26T15:04:08.069874+11:00",
       "logs": [
         "[15:04:06] \u274c Git error during release: Command '['git', 'pull', '--rebase']' returned non-zero exit status 128.",
         "[15:04:06] \ud83d\ude80 Processing release for task task-test-001: Verify Release Pipeline",
@@ -768,9 +768,6 @@
         "[15:04:06] \u2713 Committed changes: feat(task-test-001): Verify Release Pipeline",
         "[15:04:06] \u274c Git error during release: Command '['git', 'pull', '--rebase']' returned non-zero exit status 128.",
         "[15:04:06] \ud83d\ude80 Processing release for task task-test-001: Verify Release Pipeline",
-        "[15:04:06] \u2713 Committed changes: feat(task-test-001): Verify Release Pipeline",
-        "[15:04:06] \u274c Git error during release: Command '['git', 'pull', '--rebase']' returned non-zero exit status 128.",
-        "[15:04:06] \ud83d\ude80 Processing release for task task-test-001: Verify Release Pipeline",
         "[15:04:07] \u2713 Committed changes: feat(task-test-001): Verify Release Pipeline",
         "[15:04:07] \u274c Git error during release: Command '['git', 'pull', '--rebase']' returned non-zero exit status 128.",
         "[15:04:07] \ud83d\ude80 Processing release for task task-test-001: Verify Release Pipeline",
@@ -809,7 +806,10 @@
         "[15:04:07] \ud83d\ude80 Processing release for task task-test-001: Verify Release Pipeline",
         "[15:04:07] \u2713 Committed changes: feat(task-test-001): Verify Release Pipeline",
         "[15:04:07] \u274c Git error during release: Command '['git', 'pull', '--rebase']' returned non-zero exit status 128.",
-        "[15:04:07] \ud83d\ude80 Processing release for task task-test-001: Verify Release Pipeline"
+        "[15:04:07] \ud83d\ude80 Processing release for task task-test-001: Verify Release Pipeline",
+        "[15:04:08] \u2713 Committed changes: feat(task-test-001): Verify Release Pipeline",
+        "[15:04:08] \u274c Git error during release: Command '['git', 'pull', '--rebase']' returned non-zero exit status 128.",
+        "[15:04:08] \ud83d\ude80 Processing release for task task-test-001: Verify Release Pipeline"
       ]
     },
     "DevOps": {
