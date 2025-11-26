@@ -139,6 +139,36 @@ class WeatherSystem:
         
         return False
     
+    def get_description(self) -> str:
+        """
+        Get a descriptive string for the current weather.
+        
+        Returns:
+            str: Description of current weather (e.g., "It is raining heavily.")
+        """
+        wtype = self.current_type
+        intensity = self.current_intensity
+        temp = self.current_temperature
+        
+        if wtype == "clear":
+            return f"The sky is clear and the air is {temp}."
+        elif wtype == "overcast":
+            return f"The sky is overcast and the air is {temp}."
+        elif wtype == "windy":
+            return f"It is {intensity} windy and {temp}."
+        elif wtype == "rain":
+            return f"It is raining ({intensity}) and {temp}."
+        elif wtype == "storm":
+            return f"A {intensity} storm is raging."
+        elif wtype == "snow":
+            return f"It is snowing ({intensity}) and {temp}."
+        elif wtype == "sleet":
+            return f"Sleet is falling ({intensity}) and it is {temp}."
+        elif wtype == "heatwave":
+            return f"A heatwave is in effect; it is sweltering."
+            
+        return f"The weather is {wtype}."
+
     def get_state(self) -> Dict[str, str]:
         """Get current weather state."""
         return {
