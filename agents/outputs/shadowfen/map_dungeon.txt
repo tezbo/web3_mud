@@ -1,65 +1,59 @@
-Certainly! Here's a design for a 6-room district called "Dungeon" in the Shadowfen style:
+### Shadowfen Dungeon Map
 
 ```
-           +---------+
-           |  Crypt  |
-           |  (T)    |
-           +----+----+
-                |
-                v
-           +---------+
-           | Catacomb|
-           |  (S)    |
-           +----+----+
-                |
-                v
-+---------+   +---------+   +---------+
-|  Guard  |<--|  Cross  |-->| Torture |
-|  Room   |   |  Roads  |   | Chamber |
-| (E, W)  |   | (N, S) |   |  (N)     |
-+---------+   +----+----+---+---------+
-                |
-                v
-           +---------+
-           |  Prison  |
-           |  Cells   |
-           |  (S)     |
-           +----+-----+
+       [Guard Post]
+            |
+       [Main Hall] -- [Prison Cells]
+            |
+       [Torture Chamber]
+            |
+      +-- [Armory] --+
+      |              |
+[Secret Passage]  [Treasure Room]
 ```
 
-**Room List with Exits:**
+### Room List with Exits
 
-1. **Crypt (Tomb)**
-   - Exits: South to Catacomb
-   - Notes: The starting point of the dungeon, filled with ancient tombs. This room sets the eerie atmosphere and introduces players to the Shadowfen style.
+1. **Guard Post**
+   - **Exits:** South to Main Hall
+   - **Purpose:** Entry point with guards stationed to monitor access to the dungeon.
+   - **Notes:** Sets the mood with tense atmosphere; a checkpoint for unauthorized entry.
 
-2. **Catacomb (Storage)**
-   - Exits: North to Crypt, South to Crossroads
-   - Notes: A narrow corridor lined with sarcophagi. Serves as a transition space from the Crypt, increasing tension as players delve deeper.
+2. **Main Hall**
+   - **Exits:** North to Guard Post, East to Prison Cells, South to Torture Chamber
+   - **Purpose:** Central hub connecting key areas of the dungeon.
+   - **Notes:** Designed for high traffic, with a foreboding ambiance. The focal point for navigation within the dungeon.
 
-3. **Crossroads**
-   - Exits: North to Catacomb, East to Torture Chamber, West to Guard Room, South to Prison Cells
-   - Notes: The central hub of the dungeon, allowing players to choose different paths. Encourages exploration and decision-making.
+3. **Prison Cells**
+   - **Exits:** West to Main Hall
+   - **Purpose:** Containment area for prisoners.
+   - **Notes:** Provides storytelling opportunities with NPC interactions; hints at the dungeon's sinister nature.
 
-4. **Guard Room (Barracks)**
-   - Exits: East to Crossroads
-   - Notes: A room with remnants of old guard equipment. Offers insight into the dungeon's historical use and may contain some minor loot.
+4. **Torture Chamber**
+   - **Exits:** North to Main Hall, South to Armory
+   - **Purpose:** Interrogation and punishment room.
+   - **Notes:** Dark theme with grisly details; adds depth to the dungeon's narrative.
 
-5. **Torture Chamber**
-   - Exits: North to Crossroads
-   - Notes: A disturbing room with rusty torture devices. Adds to the dark storytelling and might hold a hidden side passage or treasure for those who search carefully.
+5. **Armory**
+   - **Exits:** North to Torture Chamber, East to Treasure Room, West to Secret Passage
+   - **Purpose:** Storage for weapons and armor; strategic supply location.
+   - **Notes:** Key for combat preparation; hidden path access enhances exploration.
 
-6. **Prison Cells**
-   - Exits: North to Crossroads
-   - Notes: The deepest part of the dungeon, featuring iron bars and cells. Potentially houses a quest NPC or an important item.
+6. **Secret Passage**
+   - **Exits:** East to Armory
+   - **Purpose:** Concealed route for stealthy navigation.
+   - **Notes:** Encourages exploration; rewards players with shortcuts and surprises.
 
-**Design Notes on Flow and Purpose:**
+7. **Treasure Room**
+   - **Exits:** West to Armory
+   - **Purpose:** Vault for valuables and loot.
+   - **Notes:** Final reward for exploration; contains traps for added challenge.
 
-- **Central Hub (Crossroads):** Designed to be the central point where players make strategic decisions on which path to explore, ensuring they experience the dungeon's breadth.
-- **Flow:** Players naturally progress from the Crypt to the Crossroads, choosing their path while maintaining a sense of exploration.
-- **Discovery:** The Torture Chamber may have a hidden passage to reward those who investigate thoroughly.
-- **Pacing:** The Guard Room and Prison Cells are offset to provide a sense of distance and discovery, while the central Crossroads keeps movement logical and interconnected.
-- **Realism:** The layout mirrors a plausible underground dungeon with practical transitions between rooms.
-- **Storytelling:** Each room contributes to the overall theme of a long-abandoned, once-secure fortress now in decay, hinting at its dark past.
+### Design Notes
 
-This design balances exploration with narrative depth, offering players a rich experience in the Shadowfen style.
+- **Flow:** The dungeon is designed with a central hub (Main Hall) that branches into key areas, encouraging exploration while maintaining logical connections.
+- **Purpose:** Each room serves a distinct role within the dungeon, contributing to the overarching theme of imprisonment and secrecy.
+- **Discovery:** Hidden paths like the Secret Passage offer players the chance to uncover shortcuts and gain advantages.
+- **Pacing:** Rooms cluster around the Main Hall, with the Treasure Room and Secret Passage offering distant rewards for deeper exploration.
+- **Realism:** The layout reflects a functional yet ominous space, with rooms logically placed to serve the dungeon's sinister operations.
+- **Vertical Space:** Although not explicitly vertical, the secret passage offers a layered experience by providing an alternate route.
