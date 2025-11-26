@@ -1,0 +1,39 @@
+```
+    [North Gate]
+          |
+[Watchtower]---[Market Square]---[Tavern]
+          |          |                |
+[South Gate]---[Trader's Alley]---[Alchemist's Shop]
+```
+
+### Room List and Exits
+
+1. **Market Square**
+   - Exits: North (Watchtower), South (Trader's Alley), East (Tavern)
+   - Notes: The bustling heart of the town, featuring various stalls and vendors. Serves as a central hub connecting the main points of interest.
+
+2. **Watchtower**
+   - Exits: South (Market Square), North (North Gate)
+   - Notes: Overlooks the town, providing a vantage point and security. The North Gate exit leads to roads outside the town.
+
+3. **Trader's Alley**
+   - Exits: North (Market Square), South (South Gate), East (Alchemist's Shop)
+   - Notes: A narrow street lined with shops, specializing in goods and services. Connects to the South Gate for traders entering and exiting the town.
+
+4. **Tavern**
+   - Exits: West (Market Square)
+   - Notes: A lively place for adventurers to gather, rest, and share stories. Offers food, drink, and occasionally, quests.
+
+5. **Alchemist's Shop**
+   - Exits: West (Trader's Alley)
+   - Notes: A mysterious shop filled with potions and magical items. A side stop for those venturing into the unknown, offering unique supplies.
+
+### Design Notes
+
+- **Flow and Purpose**: The Market Square is the focal point, offering immediate access to essential services. The Watchtower and Trader's Alley provide logical routes to and from the town's gates, ensuring a steady flow of traffic and commerce.
+  
+- **Exploration and Convenience**: The layout encourages exploration with immediate access to common needs (Tavern, Alchemist's Shop) while maintaining a realistic sense of distance and purpose.
+
+- **Central Hub**: Market Square is designed to be a high-traffic area where players naturally converge, with all other rooms purposefully branching from it for ease of navigation.
+
+- **Realism**: The layout reflects a typical town center with a blend of commerce, security, and social interaction, balancing convenience with a sense of a lived-in world.

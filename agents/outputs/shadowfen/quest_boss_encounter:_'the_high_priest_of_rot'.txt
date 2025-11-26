@@ -1,0 +1,30 @@
+**Quest Title: The Rot's Reckoning**
+
+**Stage Breakdown:**
+
+1. **Stage 1: The Plague of Shadowfen**
+   - The player arrives in the swampy region of Shadowfen, where villagers are suffering from a mysterious plague. Rumors suggest the High Priest of Rot, a sinister figure worshipping decay, is behind it.
+   - The player learns of an upcoming ritual at the Temple of Decay, which will supposedly unleash a more potent form of the plague.
+
+2. **Stage 2: Gathering Allies**
+   - The player must decide how to approach the situation: infiltrate the temple, rally local resistance, or seek ancient knowledge to counter the priest's power.
+   - Each approach requires the player to interact with different NPCs and factions in Shadowfen, like the secretive Swamp Druids, the desperate Shadowfen Militia, or the enigmatic Threadsinging Elder.
+
+3. **Stage 3: Confrontation at the Temple of Decay**
+   - The player confronts the High Priest of Rot in the temple. The outcome depends on the chosen path, with the opportunity to negotiate, battle, or perform a ritual that counters the plague.
+
+**Solutions and Consequences:**
+
+1. **Solution 1: Infiltration and Assassination**
+   - The player uses stealth and cunning, possibly with the help of the Swamp Druids, to sneak into the temple and assassinate the High Priest before the ritual.
+   - Consequence: The plague is stopped immediately, but the power vacuum left by the priest's death leads to a struggle among cultists, causing unrest in Shadowfen. Future quests may involve dealing with the cult's remnants.
+
+2. **Solution 2: Rally the Militia**
+   - The player rallies the Shadowfen Militia to storm the temple and directly confront the High Priest of Rot in battle.
+   - Consequence: A hard-fought victory causes significant casualties, but the plague is halted. The militia gains influence, leading to a more militarized Shadowfen. Future encounters may involve dealing with their newfound power and its impact on civil life.
+
+3. **Solution 3: Seek Ancient Knowledge**
+   - The player consults the Threadsinging Elder, who reveals an ancient song that can disrupt the priest's ritual. The player performs the song during the confrontation, neutralizing the High Priest's power.
+   - Consequence: The High Priest is rendered powerless and captured. The plague recedes naturally, and the region slowly recovers. The player's alliance with the Threadsingers strengthens, opening up quests related to ancient lore and the Sundering.
+
+Each solution provides a unique story path, affecting the player's reputation and future interactions in Shadowfen, while tying deeply into the world lore and existing conflicts.
