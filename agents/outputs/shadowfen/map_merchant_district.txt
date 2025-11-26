@@ -1,52 +1,47 @@
-Certainly! Below is a design for the 'Merchant District' set in a Shadowfen style. This district will reflect a slightly mysterious and foggy atmosphere with narrow alleys and clustered shops. 
-
-### ASCII Map:
 ```
-        [Clocktower Plaza]
-               |
-       +-------+-------+
-       |               |
-  [Herbalist's]   [Silversmith's]
-       |               |
-  [Alchemist's]   [Shadow Market]
-       |               |
-   [Mystic Path]     [Whispering Alley]
+    [Town Square]
+        |
+    [General Store] -- [Blacksmith]
+        |
+    [Potion Shop] -- [Tailor]
+        |
+    [Hidden Alley]
 ```
 
-### Room List with Exits:
+**Room List with Exits:**
 
-1. **Clocktower Plaza**
-   - Exits: South to Herbalist's, Southwest to Alchemist's, Southeast to Shadow Market
-   - Notes: A central hub with a towering clock that occasionally rings out a haunting chime. It's a bustling intersection where merchants gather and travelers mark their bearings.
+1. **Town Square**
+   - Exits: North to General Store, South to Potion Shop
+   - Notes: The central hub of the Merchant District, bustling with activity. Performers and traders can be found here, attracting players to explore the surrounding shops.
 
-2. **Herbalist's Shop**
-   - Exits: North to Clocktower Plaza, South to Alchemist's Shop
-   - Notes: Filled with the scent of rare herbs and potions. The Herbalist's shop serves as a transition from the bustling plaza to more specialized trades.
+2. **General Store**
+   - Exits: South to Town Square, East to Blacksmith
+   - Notes: A convenient stop for adventurers to stock up on essentials. Positioned on the main path to encourage visits.
 
-3. **Alchemist's Shop**
-   - Exits: North to Herbalist's Shop, South to Mystic Path
-   - Notes: A dimly lit shop with glowing vials and bubbling concoctions. The Alchemist's shop is a place of secrets, perfect for those daring to explore the mysteries of Shadowfen.
+3. **Blacksmith**
+   - Exits: West to General Store
+   - Notes: Provides weapons and armor. Located adjacent to the General Store for logical resource flow. The clanging of metal can be heard from the Town Square.
 
-4. **Silversmith's Shop**
-   - Exits: North to Clocktower Plaza, South to Whispering Alley
-   - Notes: The sound of clanging metal and the sight of shining silver wares make this shop a beacon for traders and adventurers looking for quality goods.
+4. **Potion Shop**
+   - Exits: North to Town Square, East to Tailor
+   - Notes: Offers potions and magical items. Positioned opposite the General Store to balance the district and encourage exploration of the southern path.
 
-5. **Shadow Market**
-   - Exits: North to Clocktower Plaza
-   - Notes: A slightly hidden market where rare and perhaps illicit goods are traded. It rewards those who venture off the beaten path from the main plaza.
+5. **Tailor**
+   - Exits: West to Potion Shop
+   - Notes: Sells clothing and accessories. Nestled next to the Potion Shop, it caters to players interested in non-combat gear.
 
-6. **Mystic Path**
-   - Exits: North to Alchemist's Shop
-   - Notes: A narrow, winding path shrouded in mist. It hints at hidden knowledge and connects back to the heart of the district, encouraging exploration.
+6. **Hidden Alley**
+   - Exits: North to Potion Shop
+   - Notes: A secretive passageway offering rare and exotic items. Designed as a reward for exploration, encouraging players to search beyond the main paths. The entrance is subtly marked, appealing to keen-eyed adventurers.
 
-### Design Notes:
+**Design Notes:**
 
-- **Flow:** The Clocktower Plaza acts as the central hub, naturally leading to the specialized shops. The paths from the plaza to the shops are straightforward, allowing players to easily find what they need.
-  
-- **Discovery:** The Shadow Market is slightly hidden, encouraging exploration and rewarding players with unique items or information.
+- **Flow:** The Town Square acts as the central hub, providing easy access to all shops. The main vertical path allows for straightforward navigation while encouraging players to explore the horizontal connections for a richer experience.
 
-- **Pacing:** The district is designed to encourage players to linger and explore. The Herbalist's and Alchemist's shops are linked, creating a small loop for players interested in magical goods.
+- **Discovery:** The Hidden Alley is an optional, rewarding space for those who venture beyond the obvious paths, adding an element of intrigue and mystery.
 
-- **Realism:** The layout resembles a typical medieval market district with a central plaza and surrounding shops, fitting the Shadowfen theme.
-  
-- **Vertical Space:** While this map doesn't use vertical spaces, the layered complexity is achieved through the interconnectedness of the shops and hidden alleyways.
+- **Realism:** The layout mimics a real-world market district with logical placement of shops and a central gathering place, enhancing immersion.
+
+- **Balance:** The district's design offers a mix of direct paths for convenience and hidden areas for exploration, catering to different player preferences.
+
+- **Storytelling:** Each shop contributes to the narrative of a thriving merchant community within Shadowfen, with the Hidden Alley hinting at the district's secretive and adventurous underbelly.
