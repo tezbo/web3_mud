@@ -1,70 +1,47 @@
-**Merchant District in Shadowfen Style**
+### Merchant District in Shadowfen Style
 
 ```
-        +----------------+
-        |  Apothecary    |
-        | Exits: S       |
-        |  (Rare Herbs)  |
-        +--------+-------+
-                 |
-                 S
-                 |
-+--------+-------+--------+-------+
-|   Blacksmith          Market    |
-| Exits: E, S          (Central   |
-|  (Weapons & Armor)    Hub)      |
-+--------+-------+--------+-------+
-                 |
-                 S
-                 |
-        +--------+--------+
-        |   Tailor         |
-        | Exits: N, E, W   |
-        |  (Clothing &     |
-        |   Accessories)   |
-        +--------+--------+
-                 |
-                 E
-                 |
-        +--------+--------+
-        |  General Store  |
-        | Exits: W, N     |
-        |  (Supplies)     |
-        +-----------------+
+   [Alchemy Shop] -- [Blacksmith]
+         |                 |
+   [General Store] -- [Market Square] -- [Tavern]
+         |                 |
+  [Residential Alley] -- [Tailor]
 ```
 
-### Room List with Exits
+#### Room List with Exits:
 
-1. **Apothecary**
-   - Exits: South
-   - Purpose: Specializes in rare herbs and potions. Provides a unique resource for adventurers. 
-   - Design Note: Positioned at the northern edge to encourage exploration from the main market hub.
+1. **Market Square**
+   - **Exits**: North (Alchemy Shop), East (Tavern), South (General Store), West (Blacksmith)
+   - **Purpose**: Central hub of the Merchant District; a bustling area where various paths converge.
 
-2. **Blacksmith**
-   - Exits: East, South
-   - Purpose: Sells weapons and armor. Essential stop for adventurers preparing for battles.
-   - Design Note: Positioned at the corner between the Apothecary and Market, encouraging traffic flow through the district.
+2. **Alchemy Shop**
+   - **Exits**: South (Market Square), East (Blacksmith)
+   - **Purpose**: Offers potions and magical ingredients; provides a quieter atmosphere away from the main hustle.
 
-3. **Market (Central Hub)**
-   - Exits: North, East, West, South
-   - Purpose: Central gathering and trade area. Acts as the focal point for the district.
-   - Design Note: All major routes converge here, facilitating easy navigation and player interaction.
+3. **Blacksmith**
+   - **Exits**: East (Market Square), West (Alchemy Shop)
+   - **Purpose**: Sells weapons and armor; the clang of metal can be heard, attracting adventurers.
 
-4. **Tailor**
-   - Exits: North, East, West
-   - Purpose: Provides clothing and accessories for both style and protection.
-   - Design Note: Located directly south of the Market, with multiple exits encouraging further exploration.
+4. **General Store**
+   - **Exits**: North (Market Square), South (Residential Alley)
+   - **Purpose**: Supplies everyday items; acts as a transition from the commercial area to the residential zone.
 
-5. **General Store**
-   - Exits: West, North
-   - Purpose: Offers a variety of general supplies and essentials for journeys and daily life.
-   - Design Note: Situated at the southeastern corner, its northward exit leads back into the Market, completing a loop for easy navigation.
+5. **Tavern**
+   - **Exits**: West (Market Square)
+   - **Purpose**: A place of rest and information; offers quests and social interaction.
 
-### Design Notes on Flow and Purpose
+6. **Residential Alley**
+   - **Exits**: North (General Store), East (Tailor)
+   - **Purpose**: A narrow passage lined with homes; a quiet area leading to specialized shops.
 
-- **Central Hub (Market):** The Market serves as the heart of the Merchant District, ensuring high traffic and easy access to all other locations. This design encourages gathering and trading, essential for a vibrant district.
-- **Flow:** The district encourages a natural flow from specialized shops to the central hub and back, promoting exploration without overwhelming players with excessive paths.
-- **Discovery:** While the district is compact, the outer shops like the Apothecary and General Store reward players who explore all the exits from the Market.
-- **Pacing:** The district is designed to be navigated quickly due to its small size, but with enough complexity to prevent it from feeling linear or simplistic.
+7. **Tailor**
+   - **Exits**: West (Residential Alley)
+   - **Purpose**: Sells clothing and armor; a quieter shop tucked away from the main paths.
 
-This layout provides a balanced mix of accessibility and exploration, with a central hub that ties the district together while rewarding players who venture to every corner.
+#### Design Notes:
+
+- **Flow**: The Market Square serves as the central hub, allowing players to naturally navigate to key locations. Shops are clustered around the square, ensuring easy access to essential services.
+- **Exploration**: The Residential Alley introduces a sense of discovery as players move away from the bustling market to quieter, specialized areas like the Tailor.
+- **Convenience vs. Exploration**: The direct connections to the Market Square offer convenience, while the side path through the Residential Alley rewards players who explore with a discovery of the Tailor.
+- **Realism**: The layout mimics a realistic town setup with a central market and surrounding shops, transitioning to quieter residential areas.
+- **Pacing**: The bustling Market Square contrasts with the more serene Residential Alley and Alchemy Shop, providing varied experiences for players.
