@@ -1,65 +1,43 @@
-Below is the design for the 'Merchant District' in Shadowfen style. The district is characterized by its bustling trade, shadowy alleys, and a slightly eerie atmosphere, all set within a swampy region. This district serves as the main commercial hub where players can trade, gather information, and encounter intrigue.
-
 ```
-       +-------------------+
-       |     Market        |
-       |   Square (MS)     |
-       +--/--+-----+--\----+
-         |   |     |   |
-   +-----+   |     |   +-----+
-   |  Alchemist's |   |  Armory  |
-   |   Lair (AL)  |   |  (AR)    |
-   +--\-----+-----+---/-----+----+
-       |    |     |    |
-   +---+    |     |    +---+
-   |   |    |     |    |   |
-   |   |    +-----+    |   |
-   |  Hidden Alleyway  |   |
-   |     (HA)          |   |
-   +---/--------------\+   |
-       |              |   |
-   +---+--------------+---+
-   |      Trader's Haven   |
-   |          (TH)         |
-   +---\--------------/----+
-       |              |
-   +---+--------------+---+
-   |      Swamp Path (SP) |
-   +----------------------+
+[Market Square]
+    |    \
+[Armory] [General Store]
+    |          |
+[Tailor] -- [Alchemist]
+    |
+[Warehouse]
 ```
 
-### Room List with Exits and Purpose
+### Room List with Exits:
 
-1. **Market Square (MS)**
-   - **Exits:** North to Alchemist's Lair (AL), East to Armory (AR), South to Trader's Haven (TH)
-   - **Purpose:** The central hub of the district, bustling with stalls and merchants. It serves as a convergence point for players looking to buy or sell goods, gather rumors, or find quests.
+1. **Market Square**
+   - **Exits:** North to [Armory], Northeast to [General Store]
+   - **Purpose:** Central hub of the Merchant District. A bustling open area where merchants set up stalls. The square is filled with sounds of haggling and the scent of exotic spices.
 
-2. **Alchemist's Lair (AL)**
-   - **Exits:** South to Market Square (MS), Secret path leading East to Hidden Alleyway (HA)
-   - **Purpose:** A dimly-lit shop filled with potions and exotic ingredients. The Alchemist offers unique items and quests. A hidden door leads to the more clandestine parts of the district.
+2. **Armory**
+   - **Exits:** South to [Market Square], South to [Tailor]
+   - **Purpose:** Specializes in weapons and armor. Positioned near the Market Square for easy access to adventurers. Has a sturdy, fortified appearance.
 
-3. **Armory (AR)**
-   - **Exits:** West to Market Square (MS)
-   - **Purpose:** A fortified store stocked with weapons and armor. The Armory is a key location for players to upgrade their combat gear.
+3. **General Store**
+   - **Exits:** Southwest to [Market Square], South to [Alchemist]
+   - **Purpose:** Sells a variety of goods including adventuring supplies and everyday items. Positioned for convenience, attracting both locals and travelers.
 
-4. **Hidden Alleyway (HA)**
-   - **Exits:** West to Alchemist's Lair (AL), South to Trader's Haven (TH)
-   - **Purpose:** A shadowy, narrow alley that can be used as a shortcut or to evade pursuers. This secretive path is ideal for clandestine meetings and hidden treasures.
+4. **Tailor**
+   - **Exits:** North to [Armory], East to [Alchemist], South to [Warehouse]
+   - **Purpose:** Offers bespoke clothing and textiles. Located between the Armory and Warehouse, serving both craftsmen and traders.
 
-5. **Trader's Haven (TH)**
-   - **Exits:** North to Market Square (MS), South to Swamp Path (SP), North through Hidden Alleyway (HA)
-   - **Purpose:** A more refined trading post where high-value transactions occur. It acts as a quieter alternative to the bustling Market Square.
+5. **Alchemist**
+   - **Exits:** North to [General Store], West to [Tailor]
+   - **Purpose:** Sells potions, remedies, and magical ingredients. A slightly secluded shop, providing a quieter atmosphere for potion brewing.
 
-6. **Swamp Path (SP)**
-   - **Exits:** North to Trader's Haven (TH)
-   - **Purpose:** A murky trail leading out of the district into the surrounding swamp. It's used for smuggling and access to the swamp's hidden dangers and secrets.
+6. **Warehouse**
+   - **Exits:** North to [Tailor]
+   - **Purpose:** Storage for goods and supplies. Positioned at the district's edge, facilitating easy loading and unloading of merchandise.
 
-### Design Notes on Flow and Purpose
+### Design Notes:
 
-- **Central Hub:** The Market Square serves as the primary gathering point with easy access to specialized shops and a clear path to hidden areas.
-- **Flow and Exploration:** Players are encouraged to explore the Alchemist's Lair for unique items and then discover the Hidden Alleyway, which provides shortcuts and narrative intrigue.
-- **Convenient Layout:** Essential services (Armory, Trader's Haven) are clustered around the Market Square, ensuring that players can easily access crucial locations.
-- **Realism and Storytelling:** The district’s layout reflects a logical organization of commerce, secrecy, and swampy ambiance, perfectly matching the Shadowfen style.
-- **Vertical Complexity:** While primarily horizontal, the inclusion of secret paths adds depth and rewards exploration.
-
-This design balances the need for a lively, engaging commercial area with opportunities for secretive exploration and narrative development.
+- **Flow:** The Market Square serves as the main hub, with shops radiating outwards to ensure easy navigation for players. The Armory and General Store are directly accessible from the square, catering to different player needs.
+- **Discovery:** Players exploring beyond the Market Square will find interconnected shops like the Tailor and Alchemist, rewarding them with specialized goods.
+- **Pacing:** Related shops like the Tailor and Armory are closely grouped to provide logical shopping trips. The Warehouse is a bit further, emphasizing its purpose as a storage facility.
+- **Realism:** The layout reflects a thriving commercial area, with the Market Square as the focal point. The arrangement of shops supports a logical flow of trade and goods.
+- **Vertical Space:** While not utilized in this district, the potential for vertical expansion exists, such as adding a second-floor tailoring workshop or a basement storage in the warehouse.
