@@ -1,48 +1,48 @@
 ### Merchant District in Shadowfen Style
 
 ```
-[Market Square]--[General Store]--[Tailor Shop]
-     |                |
-[Alchemist Shop]    [Hidden Alley]
-     |
-[Blacksmith Forge]
-
+       [Market Square]
+           /     \
+     [Armory]   [Potion Shop]
+        |           |
+ [Blacksmith]     [Herbalist]
+        |
+    [Tannery]
 ```
 
-#### Room List with Exits
+#### Room List with Exits and Design Notes:
 
 1. **Market Square**
-   - Exits: North to General Store, East to Alchemist Shop
-   - Notes: Central hub of the Merchant District, bustling with traders and shoppers. A lively atmosphere with stalls selling various goods. Serves as the main gathering point and orientation center for players.
+   - **Exits:** North to Armory, East to Potion Shop
+   - **Purpose:** Central hub and gathering point. Bustling with vendors and merchants, it's the heart of the district. Sets the tone with an open-air market feel, ideal for player interactions and quest givers.
+   - **Design Notes:** As the central hub, this space encourages exploration by offering multiple exits to specialized shops.
 
-2. **General Store**
-   - Exits: South to Market Square, East to Tailor Shop, South to Hidden Alley
-   - Notes: A one-stop shop for adventurers' basic needs, from provisions to simple equipment. Positioned between the Market Square and Tailor Shop, it naturally channels players exploring retail spaces.
+2. **Armory**
+   - **Exits:** South to Market Square, South to Blacksmith
+   - **Purpose:** Sells armor and defensive gear. Players come here to prepare for battles.
+   - **Design Notes:** Positioned near the Market Square for easy access, with a direct path to the Blacksmith for crafting needs.
 
-3. **Tailor Shop**
-   - Exits: West to General Store
-   - Notes: Specializes in clothing and armor customization. Located at the edge of the district, encouraging players to explore the surrounding areas for more specialized services.
+3. **Potion Shop**
+   - **Exits:** West to Market Square, South to Herbalist
+   - **Purpose:** Specializes in potions and alchemical supplies. Offers quests related to rare ingredients.
+   - **Design Notes:** Flow from Market Square to Potion Shop encourages players to explore further, leading naturally to the Herbalist for ingredient gathering.
 
-4. **Alchemist Shop**
-   - Exits: West to Market Square, South to Blacksmith Forge
-   - Notes: Sells potions and magical ingredients. Adjacent to the Market Square for easy access by players, with a secondary path leading down to the Blacksmith Forge, promoting vertical exploration.
+4. **Blacksmith**
+   - **Exits:** North to Armory, South to Tannery
+   - **Purpose:** Offers weapon crafting and repair services. Essential for players focusing on combat.
+   - **Design Notes:** Logical connection from Armory to Blacksmith, allowing players to seamlessly transition from buying armor to upgrading weapons.
 
-5. **Hidden Alley**
-   - Exits: North to General Store
-   - Notes: A secretive, narrow passage accessible only through the General Store, offering hidden quests or black market dealings. Rewards players who explore thoroughly with unique opportunities or items.
+5. **Herbalist**
+   - **Exits:** North to Potion Shop
+   - **Purpose:** Sells herbs and natural remedies. Engages players in gathering quests and trades with the Potion Shop.
+   - **Design Notes:** Positioned as a natural extension of the Potion Shop, reinforcing a supply chain narrative.
 
-6. **Blacksmith Forge**
-   - Exits: North to Alchemist Shop
-   - Notes: Located one level down from the Alchemist Shop, providing a sense of depth and verticality. Specializes in weapons and armor crafting. The forge's heat and noise contrast sharply with the magical ambiance of the Alchemist Shop above.
+6. **Tannery**
+   - **Exits:** North to Blacksmith
+   - **Purpose:** Processes hides into leather goods. Provides materials for crafting and bartering.
+   - **Design Notes:** The southernmost point of the district, offering a sense of progression from metalwork (Blacksmith) to leatherwork, completing the crafting loop.
 
-#### Design Notes
-
-- **Flow**: The Market Square serves as the district's central hub, naturally directing players to essential services like the General Store and Alchemist Shop. The Tailor Shop, positioned further out, encourages exploration.
-  
-- **Discovery**: The Hidden Alley provides a secret path and a sense of mystery, rewarding players who investigate thoroughly with unique content.
-
-- **Pacing**: Clustering the General Store and Tailor Shop near the Market Square focuses commerce-related activities while spreading out specialized services like the Blacksmith Forge, providing a balanced exploration experience.
-
-- **Realism**: The layout reflects a logical organization, with essential services like the General Store easily accessible from the Market Square, while specialty shops are slightly more remote, mirroring realistic urban planning.
-
-- **Vertical Space**: The connection between the Alchemist Shop and Blacksmith Forge introduces vertical exploration, adding complexity and depth to the district.
+### Design Overview
+- **Flow:** The central Market Square encourages initial exploration, with specialized shops radiating outwards. Each shop is positioned to logically support nearby businesses, creating a natural flow of commerce.
+- **Discovery:** While the district is compact, the variety of shops offers opportunities for players to uncover quests and trades that require visiting multiple locations.
+- **Realism:** The spatial arrangement reflects a realistic merchant district where trade and crafting are interconnected, providing a believable and immersive environment.
