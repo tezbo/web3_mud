@@ -49,3 +49,7 @@ users.db
 # Logs
 *.log
 
+
+# Agent State
+agent_tasks.json
+agents/outputs/

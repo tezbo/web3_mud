@@ -3,9 +3,13 @@
 Check Deployment Status Script
 """
 import sys
+import requests
 from agents.devops import DevOpsAgent
 
-def check_status():
+def check_status() -> None:
+    """
+    Connects to the Render API to check the deployment status and analyze logs if the deployment has failed.
+    """
     print("🔍 Connecting to Render API...")
     agent = DevOpsAgent()
     
@@ -29,7 +33,6 @@ def check_status():
         # Let's rely on the agent's internal service discovery if we call _get_render_logs
         
         # We need the service ID. Let's list services to find it.
-        import requests
         headers = agent.render_headers
         resp = requests.get("https://api.render.com/v1/services", headers=headers, params={"limit": 1})
         if resp.status_code == 200 and resp.json():

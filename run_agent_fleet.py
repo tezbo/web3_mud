@@ -7,21 +7,49 @@ from agents.system_architect import SystemArchitectAgent
 from agents.devops import DevOpsAgent
 from agents.qa_bot import QABotAgent
 from agents.code_reviewer import CodeReviewerAgent
+from agents.lore_keeper import LoreKeeperAgent
+from agents.map_maker import MapMakerAgent
+
+from agents.agent_framework import AutonomousAgent, JSON_LOCK
 
 # Initialize shared task file
-STATUS_FILE = Path('agent_tasks.json')
+STATUS_FILE = "agent_tasks.json"
 
 def init_task_file():
     data = {
         "agents": {},
         "tasks": [
             {
-                "id": "story-1.2-verify",
-                "title": "Verify Weather and Reputation Systems",
-                "description": "Run tests to verify WeatherSystem and ReputationSystem integration.",
+                "id": "story-1.3",
+                "title": "Implement Enhanced NPC AI",
+                "description": "Implement AISystem, update NPC model with memory/state, and integrate into game engine.",
                 "status": "todo",
-                "assigned_to": "QA Bot",
-                "type": "verify"
+                "assigned_to": "System Architect",
+                "type": "implement"
+            },
+            {
+                "id": "story-2.1",
+                "title": "Enhance Room Descriptions",
+                "description": "Add sensory details (smell, sound, texture) to all rooms.",
+                "status": "todo",
+                "assigned_to": "Lore Keeper",
+                "type": "implement"
+            },
+            {
+                "id": "story-3.1",
+                "title": "Boost Ambient Message System",
+                "description": "Increase frequency and variety of ambient messages.",
+                "status": "todo",
+                "assigned_to": "Lore Keeper",
+                "type": "implement"
+            },
+            {
+                "id": "story-5.1",
+                "title": "Expand World to 30+ Rooms",
+                "description": "Design and implement new areas (Shadowfen expansion, Sunward Kingdoms).",
+                "status": "todo",
+                "assigned_to": "Mapmaker",
+                "type": "implement"
             }
         ],
         "metadata": {
@@ -29,9 +57,10 @@ def init_task_file():
             "messages": []
         }
     }
-    with open(STATUS_FILE, 'w') as f:
-        json.dump(data, f, indent=2)
-    print("📋 Initialized agent_tasks.json with Story 1.2")
+    with JSON_LOCK:
+        with open(STATUS_FILE, 'w') as f:
+            json.dump(data, f, indent=2)
+    print("📋 Initialized agent_tasks.json with Story 1.3")
 
 def run_agent(agent_class):
     try:
@@ -52,7 +81,9 @@ if __name__ == "__main__":
         SystemArchitectAgent,
         DevOpsAgent,
         QABotAgent,
-        CodeReviewerAgent
+        CodeReviewerAgent,
+        LoreKeeperAgent,
+        MapMakerAgent
     ]
     
     threads = []
@@ -72,8 +103,9 @@ if __name__ == "__main__":
         while True:
             # Monitor status file and print updates
             try:
-                with open(STATUS_FILE, 'r') as f:
-                    data = json.load(f)
+                with JSON_LOCK:
+                    with open(STATUS_FILE, 'r') as f:
+                        data = json.load(f)
                 
                 # Print active tasks
                 active = [t for t in data.get('tasks', []) if t['status'] == 'in_progress']
@@ -83,7 +115,8 @@ if __name__ == "__main__":
                     print(f"\r💤 Fleet Idle...", end="")
                     
                 time.sleep(2)
-            except:
+            except Exception as e:
+                # print(f"Error reading status: {e}")
                 pass
     except KeyboardInterrupt:
         print("\n🛑 Stopping fleet...")

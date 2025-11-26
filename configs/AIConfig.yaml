@@ -1,0 +1,7 @@
+npcs:
+    - name: 'Guard'
+      starting_state: 'patrol'
+    - name: 'Merchant'
+      starting_state: 'idle'
+    - name: 'Villager'
+      starting_state: 'wander'
