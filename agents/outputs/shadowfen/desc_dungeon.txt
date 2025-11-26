@@ -1,1 +1,8 @@
 In the depths of the Shadowfen, the dungeon looms, a labyrinth of damp stone walls slick with a sheen of persistent moisture. Fetid air clings to the skin, carrying the earthy scent of decay and the sharp tang of rusting iron. The soft drip of water echoes through the corridors, a haunting metronome that disturbs the oppressive silence. Underfoot, the ground is uneven and treacherous, strewn with fragments of crumbling masonry that crunch underfoot like brittle bones. Shadows twist and writhe in the flickering torchlight, casting fleeting, grotesque shapes on the walls that seem to whisper secrets from the abyss.
+
+Ambient Messages:
+1. The air is thick with the scent of damp stone and ancient decay, while the soft drip of water echoes like whispered secrets in the darkness.  
+
+2. Flickering shadows dance across the rough-hewn walls, their movements accompanied by the distant clinking of metal against metal, as if the very dungeon breathes with a life of its own.  
+
+3. A chilling breeze wafts through the narrow passage, carrying with it the faintest hint of iron and something far more sinister, as if the walls themselves remember the horrors they've witnessed.  
