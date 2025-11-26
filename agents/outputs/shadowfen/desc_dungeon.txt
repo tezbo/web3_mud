@@ -6,3 +6,10 @@ Ambient Messages:
 2. A chill breeze whispers past, carrying the acrid stench of burnt herbs and the distant, eerie skittering of unseen creatures across the uneven floor.  
 
 3. Flickering torchlight reveals ancient runes etched deep into the granite, their cold surfaces pulsing with a faint, otherworldly hum that vibrates against your skin.  
+
+Ambient Messages:
+1. Shadows dance along damp stone walls as the distant drip of water echoes like whispered secrets in the suffocating darkness.  
+
+2. A chill breeze grazes your skin, carrying the faint, acrid smell of decay and the unsettling rustle of unseen creatures lurking just beyond your sight.  
+
+3. The air thickens with the taste of iron as flickering torchlight reveals ancient carvings, their meanings lost to time, yet radiating an unsettling sense of foreboding.
