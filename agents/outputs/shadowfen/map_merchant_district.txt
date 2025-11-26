@@ -1,53 +1,42 @@
-### Merchant District - Shadowfen Style
+### Shadowfen Merchant District
 
 ```
-        [Market Square]
-           /   |    \
-          /    |     \
-[General Store] [Armory] [Apothecary]
-          \        |
-           \       |
-           [Alleyway]
-               |
-          [Storage Shed]
+    [S]---[M]---[W]
+     |     |
+    [R]   [B]
+     |     
+    [A]   
 ```
 
 ### Room List and Exits
 
-1. **Market Square**
-   - **Exits:** North to General Store, Northeast to Armory, East to Apothecary
-   - **Purpose:** Central hub of the Merchant District. Bustling with traders and buyers. A large fountain sits in the center, serving as a meeting point.
-   - **Design Notes:** Acts as the main connection point; all other rooms are accessible from here, encouraging players to return.
+1. **[S] - South Gate**
+   - **Exits:** North to [R], East to [M]
+   - **Purpose:** Entry point from the southern swamps. Guards regulate entry. Provides a sense of boundary and transition from wild to urban.
 
-2. **General Store**
-   - **Exits:** South to Market Square
-   - **Purpose:** Supplies everyday goods and essentials. Shelves cramped with items from traveling merchants.
-   - **Design Notes:** Positioned to be one of the first stops for players needing basic supplies.
+2. **[R] - Residential Alleyway**
+   - **Exits:** North to [A], South to [S]
+   - **Purpose:** A narrow path leading to the residential area. It's quieter, offering a contrast to the bustling market. Limited traffic ensures a residential atmosphere.
 
-3. **Armory**
-   - **Exits:** Southwest to Market Square, South to Alleyway
-   - **Purpose:** Offers weapons and armor. The blacksmith's forge can be heard from afar.
-   - **Design Notes:** Positioned to allow quick access from the Market Square but also connects to the Alleyway, providing a secretive path.
+3. **[A] - Artisan's Row**
+   - **Exits:** South to [R]
+   - **Purpose:** Home to workshops of skilled artisans. The row fosters discovery with occasional hidden alleys leading to specialty craftsmen. Encourages exploration for unique items.
 
-4. **Apothecary**
-   - **Exits:** West to Market Square
-   - **Purpose:** Filled with exotic herbs and potions. A mysterious air permeates the small shop.
-   - **Design Notes:** Located at the edge to suggest its slightly mysterious nature, encouraging exploration for curious players.
+4. **[M] - Market Square**
+   - **Exits:** West to [S], East to [B], North to [W]
+   - **Purpose:** The district's central hub buzzing with life. Vendors sell an array of goods. Players gather information and trade here. It's a navigational anchor with multiple exits, ensuring fluid movement.
 
-5. **Alleyway**
-   - **Exits:** North to Armory, South to Storage Shed
-   - **Purpose:** A narrow path between buildings, often used for discreet transactions.
-   - **Design Notes:** Adds a layer of intrigue and a shortcut between Armory and Storage Shed, rewarding players who explore beyond the main paths.
+5. **[B] - Bazaar**
+   - **Exits:** West to [M]
+   - **Purpose:** A covered area with exotic goods from distant lands. It's an extension of the market, offering rare items. The layout is slightly maze-like, enhancing the sense of discovery.
 
-6. **Storage Shed**
-   - **Exits:** North to Alleyway
-   - **Purpose:** Used to store excess goods for merchants. Occasionally, rare items can be found here.
-   - **Design Notes:** Positioned to be a reward location for players who explore the less obvious routes.
+6. **[W] - Warehouse District**
+   - **Exits:** South to [M]
+   - **Purpose:** Storage and logistics area for market goods. Offers side quests related to trade and smuggling. The connection to the market emphasizes the supply chain flow.
 
 ### Design Notes on Flow and Purpose
 
-- **Central Hub:** The Market Square serves as the main hub, ensuring high traffic and easy navigation to other key locations.
-- **Flow:** Logical placement of shops around the Market Square supports natural flow for players engaging in trade.
-- **Discovery:** The Alleyway introduces an element of mystery and serves as a connection to the Storage Shed, rewarding players who explore it.
-- **Pacing:** Shops are clustered around the square for convenience, while the Alleyway and Storage Shed provide a slight detour for those seeking additional adventures.
-- **Realism:** The layout reflects a realistic merchant district, with shops logically placed around a central gathering area and a hidden alley for discreet activities.
+- **Central Hub (Market Square):** Acts as the navigational heart, from where players can choose directions based on their objectives (shopping, quests, or exploration). This ensures players naturally pass through it, increasing engagement.
+- **Flow and Exploration:** The district's design encourages exploration, with the Bazaar's maze-like paths and Artisan's Row's hidden workshops. Players are rewarded with rare items and unique interactions.
+- **Pacing and Realism:** The progression from a busy market to quieter residential and warehouse areas provides a realistic urban experience. The layout reflects a logical flow of goods from storage ([W]) to market ([M]).
+- **Vertical Space:** Not used in this district to maintain a horizontal spread typical of outdoor merchant areas, focusing on lateral exploration and discovery.
