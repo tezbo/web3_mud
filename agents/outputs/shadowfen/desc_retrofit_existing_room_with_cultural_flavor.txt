@@ -1,8 +1,1 @@
-In the gloom of the Shadowfen, the room is a dim sanctuary of rust and mist. The walls, draped in tattered tapestries, whisper secrets with each damp breeze that slithers through cracked windows. A faint, acrid scent of iron mingles with the earthy aroma of decaying leaves, creating a ghostly bouquet. Beneath your feet, the floor is slick with moisture, the wood groaning softly underfoot as if echoing ancient laments. A solitary lantern swings gently from the ceiling, casting flickering shadows that dance like phantoms across the stone hearth, where embers smolder with a sullen glow.
-
-Ambient Messages:
-1. **Sunward**: "Sunlight glints off the polished granite walls, while the rhythmic clang of hammers echoes from the nearby forge, mingling with the warm, earthy aroma of roasted chestnuts that drift through the open windows."
-
-2. **Twilight**: "Silken drapes flutter gently in the cool evening breeze, carrying the sweet scent of blooming night jasmine, as the soft chiming of jade wind chimes fills the air with an ethereal melody."
-
-3. **Shadowfen**: "A thick, ghostly mist clings to the air, its dampness chilling the skin while the distant croak of frogs and the rustle of unseen creatures weave an eerie symphony, punctuated by the rich, loamy scent of decaying leaves."
+The chamber is cloaked in a perpetual twilight, where tendrils of mist curl around rusted iron sconces that flicker with anemic candlelight. A damp chill clings to the air, carrying the earthy scent of moss and decaying leaves. As you step inside, the worn flagstones beneath your feet are slick with moisture, their surface uneven and treacherous. The distant sound of dripping water echoes softly, a haunting melody that reverberates off the jade-veined walls, whispering secrets of times long past.
