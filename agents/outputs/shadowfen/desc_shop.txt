@@ -1,1 +1,13 @@
+<<<<<<< HEAD
 The shop crouches beneath a veil of clinging mist, its wooden beams dark with age and damp. Inside, the air is thick with the pungent aroma of dried herbs and musty parchment, a testament to its long-forgotten secrets. Shelves groan under the weight of glass jars filled with murky liquids, their contents casting distorted shadows that dance across the walls. The floorboards creak underfoot, each step echoing like a whispered promise in the eerie silence, while a chilly draft brushes against your skin, leaving a trail of goosebumps in its wake.
+=======
+The shop is a dim enclave, its atmosphere heavy with the scent of damp earth and the faint, acrid bite of rust. Shelves, warped and slick with moisture, groan beneath the weight of peculiar trinkets—a tarnished compass, a vial of shimmering mist, and a dagger with a hilt of twisted bone. The soft plinking of water droplets echoes in the cool air, a lullaby of the swamp beyond the warped wooden door. Shadows cling to every corner, their velvety caress whispering secrets to any who linger too long within.
+>>>>>>> feature/task-1
+
+
+Ambient Messages:
+1. "The air is thick with the sharp scent of spice and the warm glow of lanterns flickers off the polished wooden shelves, each brimming with colorful jars that murmur secrets of distant lands."  
+
+2. "A soft chime of wind bells announces your arrival, while the rich aroma of aged parchment and herbal infusions wraps around you like a familiar embrace."  
+
+3. "The gentle rustle of silk against stone echoes softly as patrons sift through vibrant fabrics, their whispers mingling with the sweet, intoxicating scent of incense wafting from the back room."  
