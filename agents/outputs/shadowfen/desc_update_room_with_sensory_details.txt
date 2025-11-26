@@ -17,3 +17,11 @@ Ambient Messages:
 
 3. The room pulses with a warm glow, the flicker of golden lanterns casting playful shadows, while the sweet, smoky fragrance of burning herbs wraps around you like a comforting embrace.  
 >>>>>>> feature/task-2
+
+
+Ambient Messages:
+1. A soft hum of machinery reverberates through the air, mingling with the faint, acrid scent of ozone as flickering screens cast a ghostly blue glow across the polished steel walls.  
+
+2. The cool touch of smooth stone beneath your fingertips contrasts with the warm, earthy aroma of aged wood, while distant whispers of hushed conversations swirl around you like a gentle breeze.  
+
+3. A kaleidoscope of colors dances on the walls as sunlight filters through stained glass, illuminating the scent of fresh herbs that lingers in the air, beckoning you closer to the heart of the room.  

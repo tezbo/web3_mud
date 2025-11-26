@@ -1,122 +1,59 @@
-<<<<<<< HEAD
-Certainly! Below is an ASCII map of a 6-room district called 'Dungeon' in the Shadowfen style.
+### Shadowfen Dungeon Map
 
 ```
-  [Treasure Vault]
-        |
-        v
-   [Hidden Chamber]---[Secret Tunnel]
-        |
-        v
-  [Main Corridor]---[Guard Room]
-        |
-        v
-  [Entrance Hall]
+           [Chamber of Echoes]
+                  |
+                  D
+                  |
+           [Mossy Antechamber] -- E -- [Hidden Alcove]
+                  |
+                  D
+                  |
+           [Silt-Flooded Passage]
+                  |
+                  D
+                  |
+           [Slime-Covered Stairwell]
+                  |
+                  D
+                  |
+           [Fungal Vestibule] -- E -- [Treasure Lair]
 ```
 
-### Room List with Exits and Design Notes
+### Room List with Exits
 
-1. **Entrance Hall**
-   - Exits: Up to Main Corridor
-   - Notes: The starting point for adventurers, featuring ominous carvings and a foreboding atmosphere. It sets the tone for the rest of the dungeon with dim lighting and echoing footsteps.
+1. **Chamber of Echoes**
+   - Exits: Down (D) to Mossy Antechamber
+   - Notes: Central hub of the dungeon with natural acoustics enhancing eerie sounds. This room sets the theme and atmosphere of the Shadowfen. 
 
-2. **Main Corridor**
-   - Exits: Down to Entrance Hall, Left to Guard Room, Up to Hidden Chamber
-   - Notes: A long hallway that serves as the main artery of the dungeon. It encourages players to choose their path, either confronting guards or searching for secrets.
+2. **Mossy Antechamber**
+   - Exits: North (N) to Chamber of Echoes, East (E) to Hidden Alcove, Down (D) to Silt-Flooded Passage
+   - Notes: A transitional zone connecting the Chamber of Echoes to deeper parts. The damp air and moss hint at the dungeon's age and neglect.
 
-3. **Guard Room**
-   - Exits: Right to Main Corridor
-   - Notes: A heavily fortified room where dungeon guards are stationed. Provides a combat challenge and rewards strategizing. Players may find keys or clues here.
+3. **Hidden Alcove**
+   - Exits: West (W) to Mossy Antechamber
+   - Notes: A concealed nook rewarding explorers with rare items or lore snippets. Accessible only by keen-eyed adventurers.
 
-4. **Hidden Chamber**
-   - Exits: Down to Main Corridor, Right to Secret Tunnel, Up to Treasure Vault
-   - Notes: A cleverly concealed room that can be discovered through exploration or solving puzzles. This room provides lore and hints about the dungeon's backstory, enhancing the narrative depth.
+4. **Silt-Flooded Passage**
+   - Exits: Up (U) to Mossy Antechamber, Down (D) to Slime-Covered Stairwell
+   - Notes: A slippery, waterlogged corridor challenging players with movement penalties, enhancing the treacherous feel.
 
-5. **Secret Tunnel**
-   - Exits: Left to Hidden Chamber
-   - Notes: A narrow and winding passageway that offers a shortcut back to the entrance or a stealthy route past the guards. Encourages exploration and rewards players with an alternative path.
+5. **Slime-Covered Stairwell**
+   - Exits: Up (U) to Silt-Flooded Passage, Down (D) to Fungal Vestibule
+   - Notes: A vertical transition space, the slick stairs test balance and introduce organic hazards, such as creeping vines and fungi.
 
-6. **Treasure Vault**
-   - Exits: Down to Hidden Chamber
-   - Notes: The ultimate reward room, filled with treasures and rare items. It requires solving puzzles or defeating a mini-boss found in the Hidden Chamber to gain access.
+6. **Fungal Vestibule**
+   - Exits: Up (U) to Slime-Covered Stairwell, East (E) to Treasure Lair
+   - Notes: A lush, bioluminescent area teeming with oversized mushrooms. Acts as the final resting point before the hidden Treasure Lair.
+
+7. **Treasure Lair**
+   - Exits: West (W) to Fungal Vestibule
+   - Notes: A secret chamber containing treasures and potential boss encounters. The reward for those who traverse the entire dungeon.
 
 ### Design Notes on Flow and Purpose
 
-- **Flow**: The dungeon is designed to guide players through a central path (Main Corridor) while offering choices for exploration (Hidden Chamber, Secret Tunnel). This ensures a balance between linear progression and player agency.
-
-- **Purpose**: Each room serves a distinct thematic and gameplay purpose. The Entrance Hall sets the atmosphere, the Guard Room provides combat, the Hidden Chamber offers lore, and the Treasure Vault rewards exploration.
-
-- **Discovery**: Hidden Chamber and Secret Tunnel serve as optional areas that reward curious players with shortcuts or additional narrative elements.
-
-- **Realism**: The logical placement of rooms (e.g., guards near the entrance, treasure hidden deep within) enhances the believability of the dungeon's layout.
-
-- **Vertical Space**: Utilizes up/down exits to create a sense of depth and exploration, encouraging players to think vertically as well as horizontally.
-
-This map balances exploration and storytelling while maintaining a logical and engaging dungeon crawl experience.
-=======
-Certainly! Here's a design for a 6-room district called "Dungeon" in the Shadowfen style:
-
-```
-           +---------+
-           |  Crypt  |
-           |  (T)    |
-           +----+----+
-                |
-                v
-           +---------+
-           | Catacomb|
-           |  (S)    |
-           +----+----+
-                |
-                v
-+---------+   +---------+   +---------+
-|  Guard  |<--|  Cross  |-->| Torture |
-|  Room   |   |  Roads  |   | Chamber |
-| (E, W)  |   | (N, S) |   |  (N)     |
-+---------+   +----+----+---+---------+
-                |
-                v
-           +---------+
-           |  Prison  |
-           |  Cells   |
-           |  (S)     |
-           +----+-----+
-```
-
-**Room List with Exits:**
-
-1. **Crypt (Tomb)**
-   - Exits: South to Catacomb
-   - Notes: The starting point of the dungeon, filled with ancient tombs. This room sets the eerie atmosphere and introduces players to the Shadowfen style.
-
-2. **Catacomb (Storage)**
-   - Exits: North to Crypt, South to Crossroads
-   - Notes: A narrow corridor lined with sarcophagi. Serves as a transition space from the Crypt, increasing tension as players delve deeper.
-
-3. **Crossroads**
-   - Exits: North to Catacomb, East to Torture Chamber, West to Guard Room, South to Prison Cells
-   - Notes: The central hub of the dungeon, allowing players to choose different paths. Encourages exploration and decision-making.
-
-4. **Guard Room (Barracks)**
-   - Exits: East to Crossroads
-   - Notes: A room with remnants of old guard equipment. Offers insight into the dungeon's historical use and may contain some minor loot.
-
-5. **Torture Chamber**
-   - Exits: North to Crossroads
-   - Notes: A disturbing room with rusty torture devices. Adds to the dark storytelling and might hold a hidden side passage or treasure for those who search carefully.
-
-6. **Prison Cells**
-   - Exits: North to Crossroads
-   - Notes: The deepest part of the dungeon, featuring iron bars and cells. Potentially houses a quest NPC or an important item.
-
-**Design Notes on Flow and Purpose:**
-
-- **Central Hub (Crossroads):** Designed to be the central point where players make strategic decisions on which path to explore, ensuring they experience the dungeon's breadth.
-- **Flow:** Players naturally progress from the Crypt to the Crossroads, choosing their path while maintaining a sense of exploration.
-- **Discovery:** The Torture Chamber may have a hidden passage to reward those who investigate thoroughly.
-- **Pacing:** The Guard Room and Prison Cells are offset to provide a sense of distance and discovery, while the central Crossroads keeps movement logical and interconnected.
-- **Realism:** The layout mirrors a plausible underground dungeon with practical transitions between rooms.
-- **Storytelling:** Each room contributes to the overall theme of a long-abandoned, once-secure fortress now in decay, hinting at its dark past.
-
-This design balances exploration with narrative depth, offering players a rich experience in the Shadowfen style.
->>>>>>> feature/task-2
+- **Flow and Exploration**: The dungeon's design encourages players to delve deeper with a clear vertical progression, while also rewarding lateral exploration with the Hidden Alcove.
+- **Atmosphere and Theming**: Each room contributes to the Shadowfen's distinct vibe—moist, echoing, and overgrown with nature reclaiming the space.
+- **Discovery and Reward**: The Hidden Alcove and Treasure Lair provide motivation for exploration beyond the main path, with both practical and narrative rewards.
+- **Pacing**: The design moves players from open spaces to more confined, challenging environments, creating a sense of progression and depth.
+- **Realism and Immersion**: The logical sequence of rooms supports a narrative of an abandoned, nature-overrun dungeon, promoting immersion in the Shadowfen theme.
