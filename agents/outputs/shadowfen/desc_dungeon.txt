@@ -1,1 +1,8 @@
 The dungeon of Shadowfen is a claustrophobic warren of dank stone tunnels, where the walls ooze with a persistent, clammy moisture. A fetid scent of mildew and decay hangs heavily in the air, mingling with the sharp, metallic tang of rusted chains that rattle softly whenever a draft whispers through the corridors. The flickering torchlight casts twisted shadows that dance upon the slick, uneven floor, while the distant drip of water echoes like a ghostly heartbeat. Each step you take is met with the gritty texture of damp, crumbling earth underfoot, as if the very ground seeks to swallow you whole.
+
+Ambient Messages:
+1. A chill seeps through the damp stone walls, carrying the faint echo of dripping water that dances like whispers in the shadows.  
+
+2. The air is thick with the musty scent of ancient decay, as ghostly tendrils of fog curl around your ankles like fingers seeking warmth.  
+
+3. Flickering torchlight casts jittery silhouettes across the rough-hewn rock, while the distant skitter of unseen creatures sends a chill racing down your spine.  
