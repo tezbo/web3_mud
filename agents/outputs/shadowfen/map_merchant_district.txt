@@ -1,51 +1,47 @@
-Certainly! Below is an ASCII map of the 'Merchant District' in Shadowfen style, followed by a room list with exits and design notes on flow and purpose.
+Certainly! Here's a design for the 'Merchant District' in a Shadowfen style, which often features a dark, mysterious atmosphere with intertwining paths and a blend of swampy and urban elements.
 
 ### ASCII Map
 
 ```
-     [Market Square]
-          /   |   \
-     [Potion] [Tailor]
-        |       | 
-   [Blacksmith] [Bakery]
-          \   /
-     [Warehouse]
+      [Witch's Emporium]
+              |
+         [Market Square]
+          /     |     \
+[Blacksmith] [Alchemist] [General Goods]
+          \     |     /
+          [Hidden Alley]
 ```
 
 ### Room List with Exits
 
 1. **Market Square**
-   - Exits: North to Potion Shop, Northeast to Tailor, South to Blacksmith, Southeast to Bakery, Southwest to Warehouse
-   - Notes: Central hub of the district, bustling with vendors and patrons. Acts as the primary navigation point for players entering the district.
+   - Exits: North to Witch's Emporium, West to Blacksmith, East to Alchemist, South to General Goods, Southeast to Hidden Alley
+   - Notes: The bustling heart of the Merchant District, a hub where traders and adventurers gather. It serves as the primary navigation point.
 
-2. **Potion Shop**
+2. **Witch's Emporium**
    - Exits: South to Market Square
-   - Notes: Offers various potions and alchemical ingredients. Positioned near the Market Square for easy access by adventurers seeking supplies.
+   - Notes: A mysterious shop filled with potions and enchanted items. Offers rare goods not found elsewhere, drawing curious adventurers.
 
-3. **Tailor**
-   - Exits: Southwest to Market Square, South to Bakery
-   - Notes: Provides clothing and armor fitting services. Positioned to catch the attention of those leaving the Potion Shop and entering the Bakery.
+3. **Blacksmith**
+   - Exits: East to Market Square, Southeast to Hidden Alley
+   - Notes: A place for crafting and repairing weapons and armor. The forge's glow is visible from afar, attracting warriors.
 
-4. **Blacksmith**
-   - Exits: North to Market Square, Southeast to Warehouse
-   - Notes: Offers weapons and armor. Situated close to the Market Square for adventurers, with a side path to the Warehouse for supply deliveries.
+4. **Alchemist**
+   - Exits: West to Market Square, Southwest to Hidden Alley
+   - Notes: A cluttered, aromatic shop selling herbs and concoctions. The alchemist often has quests for gathering rare ingredients.
 
-5. **Bakery**
-   - Exits: North to Tailor, Northwest to Market Square
-   - Notes: Fills the air with the smell of fresh bread and pastries, enticing customers exiting the Tailor or passing through the Market Square.
+5. **General Goods**
+   - Exits: North to Market Square, Northwest to Hidden Alley
+   - Notes: Sells everyday items and supplies, essential for travelers preparing for a journey into the surrounding swamps.
 
-6. **Warehouse**
-   - Exits: Northeast to Blacksmith, North to Market Square
-   - Notes: Storage for bulk goods and raw materials, connected to the Blacksmith for resource flow and positioned slightly off the main path to create a sense of depth and exploration.
+6. **Hidden Alley**
+   - Exits: Northwest to Blacksmith, North to Alchemist, Northeast to General Goods
+   - Notes: A narrow, shadowy lane connecting various shops discreetly. Often a shortcut for those who know its existence, and a place for secretive exchanges.
 
 ### Design Notes
 
-- **Flow**: The Market Square serves as the central hub, with most locations easily reachable from it. This ensures players can quickly navigate to key shops.
-  
-- **Discovery**: The Warehouse is slightly off the main path, rewarding players who explore beyond immediate shops.
-
-- **Pacing**: Shops are clustered around the Market Square, with the Warehouse providing a sense of distance and purpose for exploration.
-  
-- **Realism**: Logical placement of shops around a central square mimics real-world market layouts, with supply lines (Warehouse to Blacksmith) enhancing believability.
-
-- **Vertical Space**: Not used in this layout to maintain simplicity and accessibility for a small district.
+- **Flow and Navigation**: The Market Square acts as a central hub, allowing players to easily access all major shops. This ensures efficient navigation while encouraging initial exploration.
+- **Exploration and Discovery**: The Hidden Alley provides a rewarding shortcut and adds an element of mystery, appealing to players who enjoy uncovering secrets.
+- **Thematic Cohesion**: The room arrangement reflects a logical urban layout with thematic ties to Shadowfen's mysterious and slightly ominous atmosphere.
+- **Balance of Exploration vs. Convenience**: While the central Market Square offers convenience, the Hidden Alley introduces complexity and exploration opportunities, balancing the district's design.
+- **Purpose and Storytelling**: Each shop serves a distinct purpose, supporting diverse player needs and enhancing the district's role as a commercial hub within the game world.
