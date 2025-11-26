@@ -1,0 +1,29 @@
+**Quest Title: The Shadow of Currency**
+
+**Stage Breakdown:**
+
+**Stage 1: Discovery in the Marketplace**
+- The player stumbles upon a heated argument between two traders in the bustling Shadowfen marketplace. One accuses the other of paying with counterfeit coins. The accuser, a merchant named Lira, begs for help to uncover the source of these fake coins.
+
+**Stage 2: Investigation at the Coin Forge**
+- The player is directed to the local coin forge, where whispers of a secret minting operation have been circulating. Here, they meet Goran, the forge master, who seems nervous and evasive. The player must gather clues and decide how to approach the situation.
+
+**Stage 3: The Culprit Revealed**
+- The investigation leads to a hidden workshop beneath the forge, where a band of forgers led by an enigmatic figure known as "The Shadewright" is discovered. The player must decide how to handle the situation.
+
+**Solutions and Consequences:**
+
+**Solution 1: Lawful Justice**
+- The player can choose to report the counterfeit operation to the local authorities, leading to the arrest of The Shadewright and his accomplices.
+- *Consequences:* The marketplace stabilizes, and Lira rewards the player with a rare artifact. However, some traders warn the player that Shadowfen’s underworld may now view them as a threat, leading to possible future ambushes or sabotage.
+
+**Solution 2: Join the Racket**
+- The player can negotiate with The Shadewright, offering to keep the operation secret in exchange for a share of the profits and influence within the Shadowfen underworld.
+- *Consequences:* The player gains access to valuable resources and black market goods. However, their reputation among honest traders declines, and they may be approached for more morally ambiguous tasks in the future.
+
+**Solution 3: Mediate and Reform**
+- The player can propose a truce, convincing The Shadewright to cease forgery and instead use their skills for legitimate coin minting under Lira’s oversight.
+- *Consequences:* The player earns the respect of both traders and gains a steady supply of legitimate goods at reduced prices. This choice strengthens the local economy, but creates tension with other criminal elements who relied on the counterfeit trade.
+
+**Tie to World Lore:**
+- The quest ties into Shadowfen’s history as a hub for trade and intrigue, with its strategic position making it a hotbed for both legitimate and illicit dealings. The Sundering’s impact on commerce is evident, with counterfeiting being a symptom of the wider economic struggles across the realm. Choices made here reflect the player's influence on the balance between order and chaos in Shadowfen.
