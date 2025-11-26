@@ -1,68 +1,53 @@
-### Shadowfen Dungeon Map
+Certainly! Here's an ASCII-style map and design notes for the "Dungeon" district in a Shadowfen style, which is known for its murky and mysterious ambiance:
 
 ```
-          +---------+
-          |  Altar  |
-          |  Room   |
-          |   [6]   |
-          +----+----+
-               |
-     +---------+---------+
-     |       Main        |
-     |      Chamber      |
-     |        [1]        |
-     +-----+-----+-------+
-           |     |
-    +------+     +------+
-    |                  |
-+---+---+          +---+---+
-| Hall  |          | Guard |
-| of    |          | Room  |
-| Echoes|          | [3]   |
-| [2]   |          +---+---+
-+---+---+              |
-    |                  |
-+---+---+          +---+---+
-| Hidden |          | Armory|
-| Passage|          | [4]   |
-| [5]    |          +---+---+
-+--------+              |
-                       +---+
-                       |   |
-                       |   |
-                       +---+
+   [Entrance]
+       |
+   [Guard Room] -- [Armory]
+       |
+   [Main Hall] -- [Prison Cells]
+       |
+   [Torture Chamber]
+       |
+   [Secret Passage]
 ```
 
-### Room List with Exits
+### Room List and Exits:
 
-1. **Main Chamber [1]**
-   - **Exits:** South to Hall of Echoes [2], East to Guard Room [3]
-   - **Purpose:** Central hub of the dungeon. High-traffic area where players first enter. Contains clues about the dungeon's history and a map hinting at hidden areas.
+1. **Entrance**
+   - Exits: South to Guard Room
+   - Notes: The entrance is a narrow, damp corridor leading into the depths of the dungeon. It sets the tone with flickering torchlight and the distant sound of dripping water.
 
-2. **Hall of Echoes [2]**
-   - **Exits:** North to Main Chamber [1], South to Hidden Passage [5]
-   - **Purpose:** Echoes of past adventurers reverberate here. It's a corridor that leads to hidden secrets and requires exploration to reveal its mysteries.
+2. **Guard Room**
+   - Exits: North to Entrance, East to Armory, South to Main Hall
+   - Notes: This is where the dungeon guards are stationed. It's a hub for security, allowing access to essential areas. Contains basic supplies and a small barracks area.
 
-3. **Guard Room [3]**
-   - **Exits:** West to Main Chamber [1], South to Armory [4]
-   - **Purpose:** Former guards' station. Contains keys and equipment for players to find. A logical placement for armory access.
+3. **Armory**
+   - Exits: West to Guard Room
+   - Notes: A small room filled with weapons and armor, secured with heavy locks. It's a crucial resource for guards and adventurers who manage to find a way in.
 
-4. **Armory [4]**
-   - **Exits:** North to Guard Room [3]
-   - **Purpose:** Supplies room with weapons and armor. Supplies are scattered, hinting at a past attack or hasty departure.
+4. **Main Hall**
+   - Exits: North to Guard Room, East to Prison Cells, South to Torture Chamber
+   - Notes: The central area of the dungeon, with a high ceiling and eerie echoes. It's a crossroad with easy access to other key locations, fostering exploration.
 
-5. **Hidden Passage [5]**
-   - **Exits:** North to Hall of Echoes [2], Up to Altar Room [6]
-   - **Purpose:** Secret path rewarding exploration, leading to treasure or shortcuts. Signifies an escape route or a smugglers' path.
+5. **Prison Cells**
+   - Exits: West to Main Hall
+   - Notes: A row of grimy cells, each holding a tale of its own. This area adds depth to the storytelling with clues about previous prisoners and hidden messages.
 
-6. **Altar Room [6]**
-   - **Exits:** Down to Hidden Passage [5]
-   - **Purpose:** Mysterious room with an altar. Central to the dungeon's lore and possibly a quest objective. Contains valuable loot guarded by traps or puzzles.
+6. **Torture Chamber**
+   - Exits: North to Main Hall, South to Secret Passage
+   - Notes: A chilling room with various devices that evoke a sense of dread. It serves as a psychological turning point, daring players to delve deeper.
 
-### Design Notes
+7. **Secret Passage**
+   - Exits: North to Torture Chamber
+   - Notes: A hidden tunnel behind a false wall in the Torture Chamber, rewarding players for their curiosity. Leads to an unknown exit or treasure, enhancing the sense of discovery.
 
-- **Flow:** The Main Chamber acts as the central hub, with clear paths leading to other essential rooms. It encourages exploration with hints towards the Hidden Passage.
-- **Exploration:** The Hidden Passage is a reward for curious players, providing a shortcut or additional loot. The layout promotes investigation of each room's purpose.
-- **Realism:** The Guard Room's proximity to the Armory makes logical sense, as does the secret passage leading to an important Altar Room.
-- **Vertical Space:** Utilizes verticality with the Hidden Passage leading up to the Altar Room, adding dimension and mystery to the exploration.
-- **Storytelling:** Each room offers lore pieces, such as the Hall of Echoes' whispers or the Altar Room's sacred artifacts, gradually revealing the dungeon's history.
+### Design Notes:
+
+- **Flow:** The dungeon has a clear progression from the Entrance to the Secret Passage, encouraging players to explore while maintaining a logical flow through the rooms.
+- **Purpose:** Each room serves a distinct function, from security (Guard Room) to exploration (Secret Passage), ensuring a balanced experience between narrative and gameplay.
+- **Discovery:** The Secret Passage rewards players who explore thoroughly, offering an optional route that can lead to hidden treasures or exits.
+- **Realism:** The layout mimics practical medieval dungeons, with security at the forefront and layered challenges as players move deeper.
+- **Vertical Space:** Although this map doesn't explicitly use vertical space, future expansions could include staircases or trapdoors leading to other dungeon levels.
+
+This design creates a mysterious and engaging dungeon experience, inviting players to uncover its secrets while navigating its treacherous corridors.
