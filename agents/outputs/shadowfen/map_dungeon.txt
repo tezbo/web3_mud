@@ -1,41 +1,51 @@
-### Shadowfen Dungeon District Map
+### ASCII Map of 'Dungeon' District
 
 ```
-   [Guard Post] -- [Antechamber] -- [Cell Block]
-        |                |                |
-      [Armory]     [Torture Chamber]     [Warden's Office]
+      [Entrance]
+         |
+     [Antechamber]
+     /     |     \
+[Guard] [Corridor] [Hidden Passage]
+         /          \
+   [Prison Block]  [Treasure Room]
 ```
 
 ### Room List with Exits
 
-1. **Guard Post**
-   - Exits: East to Antechamber, South to Armory
-   - Notes: The entry point to the dungeon, heavily fortified. Guards monitor all who enter. Sets the tone for a foreboding and secure facility.
+1. **Entrance**
+   - **Exits:** South to Antechamber
+   - **Notes:** The starting point for adventurers, heavily guarded door that marks the entry into the dungeon.
 
 2. **Antechamber**
-   - Exits: West to Guard Post, East to Cell Block, South to Torture Chamber
-   - Notes: Central hub of the dungeon. Directs flow to other critical areas. Dimly lit with flickering torches, it serves as an intimidating junction.
+   - **Exits:** North to Entrance, South to Corridor, West to Guard Room, East to Hidden Passage
+   - **Notes:** Central hub of the dungeon, a large room with torchlight illuminating the dark stone walls. Provides access to multiple paths.
 
-3. **Cell Block**
-   - Exits: West to Antechamber, South to Warden's Office
-   - Notes: Rows of cells containing prisoners. Echoes of despair fill the air. A place of grim reality and a focal point of the dungeon’s purpose.
+3. **Guard Room**
+   - **Exits:** East to Antechamber
+   - **Notes:** A small, fortified room with guards stationed to protect the dungeon. Contains weapons and basic supplies.
 
-4. **Armory**
-   - Exits: North to Guard Post
-   - Notes: Stocked with weapons and armor for the dungeon guards. Offers players a chance to gather equipment if they prove resourceful.
+4. **Corridor**
+   - **Exits:** North to Antechamber, South to Prison Block
+   - **Notes:** A narrow, winding corridor that leads deeper into the dungeon. The walls are lined with torches, and the air grows colder as one progresses southward.
 
-5. **Torture Chamber**
-   - Exits: North to Antechamber
-   - Notes: Dark and sinister, designed for interrogation. Its presence highlights the brutal nature of the dungeon and the oppressive regime.
+5. **Hidden Passage**
+   - **Exits:** West to Antechamber, South to Treasure Room
+   - **Notes:** A secret path concealed by a false wall in the Antechamber, rewarding players who explore. The passage is narrow and dimly lit.
 
-6. **Warden's Office**
-   - Exits: North to Cell Block
-   - Notes: The operational center of the dungeon. Holds records and keys, rewarding players who explore with valuable information or items.
+6. **Prison Block**
+   - **Exits:** North to Corridor
+   - **Notes:** A large, grim area filled with cells. Each cell is locked, and the air is thick with the smell of damp stone and despair.
+
+7. **Treasure Room**
+   - **Exits:** North to Hidden Passage
+   - **Notes:** The end reward for those who uncover the hidden path. Filled with ancient artifacts and guarded by traps.
 
 ### Design Notes
 
-- **Flow:** The Antechamber serves as the central hub, allowing easy access to the critical areas of the dungeon. This layout encourages exploration by leading players naturally from the Guard Post into the more notorious areas.
-- **Purpose:** The design reflects a foreboding and oppressive environment, typical of Shadowfen's treacherous landscapes. The Guard Post and Antechamber set the stage for what lies deeper within, with the Cell Block and Torture Chamber illustrating the harsh realities of imprisonment and control.
-- **Discovery:** The Warden's Office and Armory offer rewards for exploration, with keys and equipment that can assist players in their journey or escape.
-- **Realism:** The layout makes sense logistically, with critical facilities like the Armory near the Guard Post and the Warden's Office overseeing the Cell Block. The Torture Chamber's location off the Antechamber emphasizes its secretive and grim function.
-- **Pacing:** The central Antechamber clusters related rooms, while the linear progression from Guard Post to Cell Block and Warden's Office introduces a sense of depth and distance.
+- **Flow:** The Antechamber serves as the central hub, with multiple exits providing various paths to explore. The Guard Room is logically placed to protect the entrance. The Corridor leads to the Prison Block, creating a sense of progression into the depth of the dungeon.
+  
+- **Discovery:** The Hidden Passage encourages exploration and rewards players with a shortcut to the Treasure Room, bypassing the main path through the Corridor.
+
+- **Purpose:** Each room serves a specific function, maintaining a realistic layout: guards near the entrance, prisoners deeper inside, and treasure hidden and protected.
+
+- **Pacing:** The layout balances exploration and convenience, with the Treasure Room and Prison Block requiring players to choose between the direct path or the hidden, rewarding route.
