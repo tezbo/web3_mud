@@ -1,15 +1,1 @@
-The chamber is shrouded in a perpetual twilight, where the walls seem to weep with rivulets of rust, tracing eerie patterns down to the damp stone floor. A faint, persistent dripping sound echoes from the corners, a rhythmic reminder of the swamp's encroaching presence. The air is thick with the earthy musk of decaying leaves, mingled with the sharp, metallic scent of iron. Beneath your fingertips, the stonework feels slick and cool, as if the very room is breathing with the murmur of the marshlands beyond.
-
-Ambient Messages:
-1. The air is thick with the heady aroma of spiced tea, while soft lantern light flickers across the intricate wooden carvings of a Sunward chamber, each shadow dancing like whispers of long-forgotten tales. 
-
-2. A silken tapestry, woven with jade threads, billows gently in the twilight breeze, carrying the distant sound of a bamboo flute that echoes like a tender lullaby through the opulent halls of the Twilight estate. 
-
-3. The damp, earthy scent of moss mingles with the sharp tang of rust, as ghostly wisps of fog coil between crooked, gnarled trees, each creak and rustle in the Shadowfen a reminder of the secrets that slumber beneath the murky waters.
-
-Ambient Messages:
-1. The walls pulse with the warm glow of etched brass lanterns, casting flickering shadows that dance across the polished slate floor, while the rich aroma of simmering spices lingers like a cherished memory. 
-
-2. Silken drapes flutter gently in the cool breeze, carrying whispers of the night's jasmine-scented air, as the soft chime of jade wind bells weaves a melodic tapestry through the twilight-lit chamber. 
-
-3. A heavy mist clings to the air, tinged with the earthy scent of damp moss and decaying wood, while the faint rustle of unseen creatures stirs the silence, evoking the hidden depths of the shadowy fen beyond.
+The air hangs thick with the scent of damp earth and decaying leaves, a testament to the swamp's relentless embrace. Mists coil lazily around gnarled roots that breach the floor like ancient serpents, their bark slick with moisture. A dim, phosphorescent glow emanates from patches of lichen clinging to the corroded iron walls, casting ghostly patterns that waver and dance. Each footfall is met with a gentle squelch, the ground yielding reluctantly, as if whispering secrets of the fen into the soles of your boots.
