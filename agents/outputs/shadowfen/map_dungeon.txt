@@ -1,0 +1,43 @@
+Certainly! Here's a design for a 6-room district called "Dungeon" in a Shadowfen style. This design emphasizes exploration, hidden paths, and a sense of mystery.
+
+```
+  [1]--[2]--[3]
+   |         |
+  [4]------[5]
+   |
+  [6]
+
+Room List with Exits and Design Notes:
+
+1. Entrance Hall
+   Exits: East to [2], South to [4]
+   Notes: This is the starting point for players entering the dungeon. It sets the tone with damp stone walls and flickering torchlight. The dual exits encourage exploration and decision-making.
+
+2. Guardroom
+   Exits: West to [1], East to [3]
+   Notes: A defensive checkpoint with remnants of old weaponry and armor. Players can learn about the dungeon’s past inhabitants here. It's a straight path but offers clues about hidden secrets elsewhere.
+
+3. Chamber of Shadows
+   Exits: West to [2], South to [5]
+   Notes: A mysterious room filled with eerie shadows cast by an unknown light source. The atmosphere hints at the presence of hidden paths or secrets. Players will find cryptic symbols that suggest a secret mechanism.
+
+4. Storage Room
+   Exits: North to [1], East to [5], South to [6]
+   Notes: Filled with crates and barrels, this room offers a hiding spot for players to discover a hidden lever that opens a secret passage to a treasure room. The multiple exits provide a sense of depth and complexity.
+
+5. Hall of Echoes
+   Exits: West to [4], North to [3]
+   Notes: Named for its peculiar acoustics, this room plays tricks on the ears. It serves as a hub for players to reflect on their journey with echoes of past encounters. The acoustics hint at another hidden path.
+
+6. Hidden Treasure Room
+   Exits: North to [4] (hidden entrance)
+   Notes: Accessible only through a secret passage activated in the Storage Room. It rewards exploration with treasure and lore items that enhance the storytelling of the dungeon.
+
+Design Notes:
+- Flow: The design leads players from the Entrance Hall into a series of interconnected rooms, encouraging both linear progression and exploration.
+- Discovery: The layout includes hidden paths and a secret room [6] to reward those who explore thoroughly.
+- Pacing: Rooms [1]-[3] provide initial exploration, while [4]-[6] deepen the mystery and complexity.
+- Realism: The layout resembles a functional, albeit abandoned, fortification with logical room connections.
+- Vertical Space: Not used in this design to maintain simplicity and focus on horizontal exploration.
+
+This design balances exploration and convenience, creating a sense of mystery and reward for players who delve deep into the Shadowfen Dungeon.
