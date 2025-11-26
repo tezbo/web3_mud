@@ -1,41 +1,45 @@
 ```
-       [Warehouse]
-           |
-[Blacksmith]---[Market Square]---[Alchemist]
-           |         |
-        [Tavern]---[Tailor]
+       [Street Corner]
+            |
+         [Market Square]
+          /     |     \
+[Curio Shop] [Bazaar] [Tavern]
+          \     |     /
+        [Alleyway]
 ```
 
-### Room List with Exits
+### Room List and Exits
 
-1. **Market Square**
-   - Exits: North to Blacksmith, East to Alchemist, South to Tailor
-   - Notes: Central hub of the Merchant District. Bustling with activity, stalls set up with various goods. Serves as the main point of reference for navigation.
+1. **Street Corner**
+   - **Exits:** South to Market Square
+   - **Notes:** Entry point into the Merchant District. A bustling intersection where travelers arrive, with signposts directing to the Market Square. It sets the stage for the district's vibrant energy.
 
-2. **Blacksmith**
-   - Exits: South to Market Square, North to Warehouse
-   - Notes: Smithy with the sound of clanging metal. Positioned close to the Warehouse for easy access to raw materials.
+2. **Market Square**
+   - **Exits:** North to Street Corner, West to Curio Shop, East to Tavern, South to Bazaar
+   - **Notes:** Central hub of the Merchant District. A lively area filled with vendors. Acts as the main traffic conduit connecting various shops and providing a sense of community and commerce.
 
-3. **Warehouse**
-   - Exits: South to Blacksmith
-   - Notes: Storage for trade goods. Acts as a logistical support to the Blacksmith and other merchants. Not often visited by players, but an essential part of the district's economy.
+3. **Curio Shop**
+   - **Exits:** East to Market Square, South to Alleyway
+   - **Notes:** A quaint shop filled with exotic and mysterious items. Offers a hidden passage to the Alleyway, rewarding those who explore. Emphasizes the district's eclectic nature.
 
-4. **Alchemist**
-   - Exits: West to Market Square
-   - Notes: A shop filled with potions and mystical ingredients. It is ideally placed near the market for easy access to rare and exotic materials.
+4. **Bazaar**
+   - **Exits:** North to Market Square, South to Alleyway
+   - **Notes:** A sprawling outdoor market with numerous stalls selling everything from local crafts to rare ingredients. The Bazaar is a key area for player interactions and trades.
 
-5. **Tailor**
-   - Exits: North to Market Square, West to Tavern
-   - Notes: Offers custom clothing and repairs. Conveniently located for customers moving between the Tavern and the Market Square.
+5. **Tavern**
+   - **Exits:** West to Market Square, South to Alleyway
+   - **Notes:** A popular gathering place for adventurers and locals alike. Provides information, quests, and a chance to rest. Its proximity to the Market Square makes it a convenient meeting point.
 
-6. **Tavern**
-   - Exits: North to Blacksmith, East to Tailor
-   - Notes: A social hub for merchants and adventurers. Positioned to act as a rest stop between the busy Market Square and the industrious Blacksmith.
+6. **Alleyway**
+   - **Exits:** North to Curio Shop, North to Bazaar, North to Tavern
+   - **Notes:** A narrow, shadowy path connecting the district's main areas. Offers shortcuts between the Curio Shop, Bazaar, and Tavern, rewarding players familiar with the area and providing a sense of layered exploration.
 
 ### Design Notes
 
-- **Flow**: The Market Square is the central hub, ensuring all players naturally pass through this area when navigating the district. This design encourages social interaction and trading.
-- **Exploration**: Although the main areas are easily accessible, there are incentives to explore the less obvious connections, such as the path through the Tavern to the Tailor.
-- **Realism**: The placement of the Blacksmith near the Warehouse makes sense for material supply logistics. The Alchemist's proximity to the Market Square allows for easy access to exotic goods.
-- **Pacing**: The Market Square's central location balances the district, providing a consistent point for players to branch out and explore the other specialized shops and facilities.
-- **Storytelling**: Each room contributes to the narrative of a thriving trading hub, where each shop has a role in the overall economy. The Blacksmith and Warehouse highlight the industrial aspect, while the Market Square and Alchemist emphasize commerce and mystery.
+- **Flow:** The Market Square serves as the central hub, ensuring all major locations are easily accessible while maintaining the district's bustling atmosphere. Players naturally discover shops and the tavern through this design.
+  
+- **Exploration and Discovery:** The Alleyway provides hidden paths and shortcuts, encouraging players to explore off the beaten path for quicker navigation and discovery of secrets.
+
+- **Pacing:** The district is compact with a logical organization, clustering shops around the Market Square for ease of access while retaining a sense of exploration through the Alleyway and Curio Shop's hidden passage.
+
+- **Realism:** The layout makes physical sense, with the Market Square acting as a central access point, surrounded by relevant commercial and social spaces, typical of a vibrant merchant district.
