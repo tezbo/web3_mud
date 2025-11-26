@@ -27,3 +27,10 @@ Ambient Messages:
 2. Shadows flicker along the corridor, cast by the ghostly glow of bioluminescent fungi, their faint light revealing the jagged edges of ancient runes etched into the damp earth.  
 
 3. The air is thick with the acrid scent of decaying wood and rust, punctuated by the distant, mournful wail of unseen creatures lurking in the depths below.
+
+Ambient Messages:
+1. The air hangs heavy with the damp, earthy scent of moss, while the distant echo of dripping water creates a haunting rhythm that reverberates through the shadowy stone corridors.  
+
+2. Flickering torchlight dances against rough-hewn walls, casting sinister silhouettes that seem to whisper secrets of long-forgotten horrors lurking just beyond the edge of perception.  
+
+3. A chill seeps into your bones as the faint rustle of unseen creatures scuttles across the cold, gritty floor, mingling with the metallic tang of ancient bloodstains that mar the darkened stone.  
