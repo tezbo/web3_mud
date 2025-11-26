@@ -1,62 +1,45 @@
-### Merchant District: Shadowfen Style
+### Merchant District - Shadowfen Style
 
 ```
-        +-------------+
-        |  Guild Hall |
-        |   (Up)      |
-        +------|------+
-               |
-               V
-        +-------------+
-        |  Market     |
-        |   Square    |
-        +------|------+
-        |             |
-      +-V-+         +-V-+
-      |  |           |  |
-  +---+  |       +---+  +---+
-  |      |       |         |
-  |  Apothecary  |   Armory  |
-  |      |       |           |
-  +---|--+       +---|---|---+
-      |              |
-    +-V-+          +-V-+
-    |   |          |   |
-    |  Alchemist   |  Tailor   |
-    |   Shop       |   Shop    |
-    +-------------+-----------+
+[Market Square] -- [Blacksmith] -- [Alchemist's Shop]
+     |               |
+ [Tailor's Shop]  [Warehouse]
+     |
+ [Dockside Path]
 ```
 
-### Room List with Exits
+#### Room List with Exits:
 
-1. **Guild Hall**
-   - **Exits:** Down to Market Square
-   - **Purpose:** Central hub for traders and merchants, serves as a meeting place and administrative center.
+1. **Market Square**
+   - Exits: North to Blacksmith, South to Tailor's Shop, East to Alchemist's Shop
+   - Notes: Central hub bustling with activity, stalls for various goods. Key starting point for exploration.
 
-2. **Market Square**
-   - **Exits:** Up to Guild Hall, East to Armory, South to Apothecary
-   - **Purpose:** Central hub of the Merchant District, bustling with stalls and vendors. Main area for players to congregate and trade.
+2. **Blacksmith**
+   - Exits: South to Market Square, East to Warehouse
+   - Notes: Offers weapons and armor, sounds of hammering and heat of the forge. Logical placement near Market Square for easy access to adventurers.
 
-3. **Apothecary**
-   - **Exits:** North to Market Square, South to Alchemist Shop
-   - **Purpose:** Provides herbs and potions, a vital stop for adventurers needing supplies for healing and enhancements.
+3. **Alchemist's Shop**
+   - Exits: West to Market Square
+   - Notes: A mysterious shop with potions and elixirs. Intriguing for players interested in magical items. Positioned for easy access from the Market.
 
-4. **Armory**
-   - **Exits:** West to Market Square, South to Tailor Shop
-   - **Purpose:** Sells weapons and armor; essential for players preparing for combat.
+4. **Tailor's Shop**
+   - Exits: North to Market Square, South to Dockside Path
+   - Notes: Provides clothing and custom garments. Positioned to attract those leaving or entering from the dock.
 
-5. **Alchemist Shop**
-   - **Exits:** North to Apothecary
-   - **Purpose:** Specializes in crafting potions and elixirs, offering advanced alchemical services beyond simple apothecary stock.
+5. **Warehouse**
+   - Exits: West to Blacksmith
+   - Notes: Storage for goods, slightly more isolated for security. Can contain hidden paths or side quests involving smuggling or theft.
 
-6. **Tailor Shop**
-   - **Exits:** North to Armory
-   - **Purpose:** Offers clothing and armor upgrades, customization services for players looking to improve their defense or alter their appearance.
+6. **Dockside Path**
+   - Exits: North to Tailor's Shop
+   - Notes: Leads to the docks, facilitating trade and the arrival of goods. Offers potential for hidden passages or smuggling routes.
 
-### Design Notes
+### Design Notes:
 
-- **Flow:** The Market Square serves as the central hub, ensuring high traffic and ease of access to key locations like the Guild Hall, Apothecary, and Armory.
-- **Exploration vs. Convenience:** Shops are clustered around the Market Square for convenience, but players must travel through the square to access specialized services, encouraging exploration.
-- **Natural Storytelling:** The Guild Hall's position above the Market Square symbolizes its importance and oversight of the district's commerce.
-- **Indoor/Outdoor Transitions:** The district is primarily outdoor with covered areas for each shop, enhancing the bustling marketplace atmosphere.
-- **Layered Complexity:** While the main paths are straightforward, hidden interactions and NPCs within shops can lead to quests or uncover additional lore about Shadowfen's mercantile traditions.
+- **Flow:** The Market Square acts as the central hub, from which players can easily reach key shops, encouraging exploration of the district's main attractions.
+- **Discovery:** The Warehouse hints at possible hidden paths or quests related to trade and smuggling, rewarding players who explore beyond the main roads.
+- **Pacing:** Shops are clustered around the Market Square for convenience, while the Warehouse is slightly removed, adding a sense of distance and intrigue.
+- **Realism:** The layout reflects logical placement of shops around a central market, with the Warehouse appropriately positioned for goods storage.
+- **Vertical Space:** Not utilized in this district, maintaining a focus on outdoor exploration and trading activities. 
+
+This design encourages players to naturally navigate the district, discover secrets, and experience a slice of Shadowfen's commercial life.
