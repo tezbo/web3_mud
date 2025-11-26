@@ -1,0 +1,44 @@
+### Shadowfen Dungeon District Map
+
+```
+  [Entrance]
+      |
+  [Antechamber]--[Guard Room]
+      |            |
+   [Main Hall]--[Treasure Vault]
+      |
+  [Hidden Chamber]
+```
+
+### Room List with Exits
+
+1. **Entrance**
+   - Exits: South to Antechamber
+   - Notes: The entry point into the dungeon, overgrown with Shadowfen flora, giving a foreboding and mysterious atmosphere.
+
+2. **Antechamber**
+   - Exits: North to Entrance, East to Guard Room, South to Main Hall
+   - Notes: Serves as a central hub, allowing initial exploration in multiple directions. Dimly lit with flickering torches, setting the mood for deeper exploration.
+
+3. **Guard Room**
+   - Exits: West to Antechamber, South to Treasure Vault
+   - Notes: Filled with old weapon racks and a few skeletal remains, hinting at past defenses. Offers a direct path to the Treasure Vault, suggesting a guarded treasure.
+
+4. **Main Hall**
+   - Exits: North to Antechamber, East to Treasure Vault, South to Hidden Chamber
+   - Notes: The largest room, decorated with murals depicting ancient battles. Acts as a gathering point before choosing to delve deeper or search for treasure.
+
+5. **Treasure Vault**
+   - Exits: West to Guard Room, West to Main Hall
+   - Notes: A heavily secured room with a large, ornately carved door. Inside, players find valuable loot, guarded by a simple trap or puzzle to overcome.
+
+6. **Hidden Chamber**
+   - Exits: North to Main Hall
+   - Notes: Accessible only through a concealed door in the Main Hall. Contains cryptic lore or clues to the dungeon’s history, rewarding keen explorers.
+
+### Design Notes
+
+- **Flow and Exploration**: The Antechamber serves as the central hub, allowing players to choose their path. The Guard Room provides a shortcut to the Treasure Vault, rewarding those who explore thoroughly.
+- **Discovery and Secrets**: The Hidden Chamber is a secret room, encouraging players to investigate their surroundings carefully. Its lore ties back to the overarching narrative of Shadowfen.
+- **Pacing and Realism**: Rooms are logically clustered, with the Guard Room and Treasure Vault adjacent, simulating a logical defense layout. The Hidden Chamber introduces vertical complexity, as it requires players to discover a hidden route.
+- **Atmosphere**: The design incorporates the Shadowfen style, with rooms described in a way that conveys a dark, swampy aesthetic, enhancing the immersive experience.
