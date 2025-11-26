@@ -1,47 +1,54 @@
-Shadowfen Dungeon Map:
+Here's the design for a 6-room district called 'Dungeon' in the Shadowfen style, known for its murky, swampy atmosphere and hidden dangers.
 
+### ASCII Map
 ```
-  [Entrance Hall]
-       |
-  [Guard Room]
-   /        \
-[Prison]  [Armory]
-   \        /
-  [Torture Chamber]
-       |
-  [Hidden Vault]
+   [Entrance]
+      |
+   [Guard Post] -- [Torture Chamber]
+      |
+   [Main Hall]
+      |
+   [Prison Cells]
+      |
+   [Hidden Passage] -- [Treasure Room]
 ```
 
-Room List with Exits:
+### Room List with Exits
 
-1. **Entrance Hall**
-   - Exits: South to Guard Room
-   - Purpose: Entry point into the dungeon, sets the atmosphere with damp stone walls and flickering torches.
+1. **Entrance**
+   - **Exits:** South to Guard Post
+   - **Purpose:** The initial point of entry into the dungeon, setting the tone with damp, moss-covered walls. This is where players first encounter the ominous atmosphere of the Shadowfen style.
 
-2. **Guard Room**
-   - Exits: North to Entrance Hall, East to Armory, West to Prison
-   - Purpose: Central hub for the guards, provides initial resistance for intruders. Contains a few guards and a minor treasure.
+2. **Guard Post**
+   - **Exits:** North to Entrance, East to Torture Chamber, South to Main Hall
+   - **Purpose:** A checkpoint and possible encounter point with enemies. This area is essential for controlling access deeper into the dungeon and adds a layer of intimidation.
 
-3. **Prison**
-   - Exits: East to Guard Room, South to Torture Chamber
-   - Purpose: Holds prisoners, offering a narrative on past captives. Contains clues relating to the dungeon's history.
+3. **Torture Chamber**
+   - **Exits:** West to Guard Post
+   - **Purpose:** A grim reminder of the dungeon's purpose, this room contains various instruments of agony. It serves as a storytelling element, highlighting the dark history of the dungeon.
 
-4. **Armory**
-   - Exits: West to Guard Room, South to Torture Chamber
-   - Purpose: Supplies the guards with weapons and armor. Players can find useful equipment here.
+4. **Main Hall**
+   - **Exits:** North to Guard Post, South to Prison Cells
+   - **Purpose:** The central hub of the dungeon, providing access to key areas. The Main Hall is a large, echoing chamber with eerie lighting, emphasizing the scale and depth of the dungeon.
 
-5. **Torture Chamber**
-   - Exits: North to Prison, North to Armory, South to Hidden Vault
-   - Purpose: The darkest part of the dungeon, used for interrogating prisoners. Provides a storytelling element with gruesome details.
+5. **Prison Cells**
+   - **Exits:** North to Main Hall, South to Hidden Passage
+   - **Purpose:** Rows of barred cells containing skeletons or restless spirits. This area is pivotal for quests related to rescuing prisoners or retrieving lost items.
 
-6. **Hidden Vault**
-   - Exits: North to Torture Chamber
-   - Purpose: Secretive room holding valuable treasures and rare items. Accessible only through a hidden mechanism in the Torture Chamber.
+6. **Hidden Passage**
+   - **Exits:** North to Prison Cells, East to Treasure Room
+   - **Purpose:** A cleverly concealed path that rewards exploration. Players who investigate closely will find this secret route leading to a hidden cache.
 
-Design Notes on Flow and Purpose:
-- **Central Hub:** The Guard Room acts as the central hub, connecting most critical rooms and providing a strategic point for players to regroup and plan further exploration.
-- **Flow:** Players naturally progress from the Entrance Hall to the Guard Room, where they can choose to explore the Armory or the Prison. This choice allows for different playstyles and strategies.
-- **Discovery:** The Hidden Vault offers a reward for players who thoroughly explore the Torture Chamber. This hidden area encourages attentiveness and curiosity.
-- **Pacing:** By clustering the Prison and Torture Chamber, the narrative of the dungeon as a place of confinement and suffering is reinforced. The Armory offers a contrasting utilitarian function.
-- **Realism:** The layout makes logical sense for a dungeon used to detain and interrogate prisoners while maintaining security through the Guard Room.
-- **Vertical Space:** Although not explicitly used in this map, the potential for vertical exploration (e.g., hidden ladders or trapdoors) can be incorporated in future expansions or additional layers.
+7. **Treasure Room**
+   - **Exits:** West to Hidden Passage
+   - **Purpose:** A small, well-guarded room containing valuable loot. This area is the ultimate reward for players who uncover the hidden passage, offering rare items and treasures.
+
+### Design Notes
+
+- **Flow and Purpose:** The dungeon is designed to mimic the oppressive atmosphere typical of Shadowfen, with a logical progression from the Entrance to the Treasure Room. Each room serves a purpose in storytelling and gameplay, from the foreboding Guard Post to the rewarding Treasure Room.
+
+- **Exploration vs. Convenience:** While the main path is straightforward, the Hidden Passage offers an incentive for keen explorers. This adds a layer of complexity and encourages players to investigate their surroundings.
+
+- **Realism and Storytelling:** The layout makes physical sense, with the Guard Post logically placed to protect the Main Hall, and the Prison Cells leading to a secretive area. The Torture Chamber, while optional, adds depth to the dungeon's narrative.
+
+- **Layered Complexity:** Vertical spaces are not utilized in this design as the focus remains on horizontal exploration, with the hidden path providing sufficient complexity for a six-room district.
