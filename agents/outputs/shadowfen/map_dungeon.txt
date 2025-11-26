@@ -1,50 +1,47 @@
-Certainly! Below is the design for a 6-room district called 'Dungeon' in the Shadowfen style, focusing on a main path with hidden side passages for exploration.
+ASCII Map of Shadowfen Dungeon District:
 
 ```
-            [Treasure Room]
-                 |
-                 v
-        [Secret Chamber] -- [Hidden Alcove]
-                 |
-                 v
-            [Guard Post]
-                 |
-                 v
-        [Entrance Hall] -- [Mossy Passage]
+        [Entrance]
+            |
+        [Guard Room] -- [Prison Cells]
+            |
+        [Main Hall] -- [Storage Room]
+            |
+          [Crypt]
 ```
 
-**Room List with Exits:**
+Room List with Exits:
 
-1. **Entrance Hall**
-   - Exits: North to Guard Post, East to Mossy Passage
-   - Notes: The starting point of the dungeon, dimly lit with moisture-laden air. Sets the tone for exploration and danger.
+1. **Entrance**
+   - Exits: South to Guard Room
+   - Purpose: Entry point into the dungeon, sets a foreboding tone with heavy wooden doors and torch-lit walls.
 
-2. **Guard Post**
-   - Exits: South to Entrance Hall, North to Secret Chamber
-   - Notes: Formerly a checkpoint, now abandoned. Contains remnants of old weaponry. It serves as a natural choke point, providing a sense of progression.
+2. **Guard Room**
+   - Exits: North to Entrance, East to Prison Cells, South to Main Hall
+   - Purpose: Central hub for guards, equipped with weapon racks and surveillance equipment. This room serves as the control center for dungeon operations.
 
-3. **Secret Chamber**
-   - Exits: South to Guard Post, East to Hidden Alcove, North to Treasure Room
-   - Notes: A hidden room behind a cleverly disguised wall. Contains lore elements and a key item needed to unlock the Treasure Room. Encourages players to explore and discover secrets.
+3. **Prison Cells**
+   - Exits: West to Guard Room
+   - Purpose: A series of locked cells holding prisoners. This area contains hidden messages and clues from previous captives, encouraging exploration and discovery.
 
-4. **Hidden Alcove**
-   - Exits: West to Secret Chamber
-   - Notes: A small, secluded area known only to the most astute explorers. Contains a minor treasure or lore piece as a reward for those who find it.
+4. **Main Hall**
+   - Exits: North to Guard Room, East to Storage Room, South to Crypt
+   - Purpose: The largest room in the dungeon with high ceilings and a sense of grandeur. This hall is used for gatherings and strategic discussions by the dungeon's occupants.
 
-5. **Treasure Room**
-   - Exits: South to Secret Chamber
-   - Notes: The ultimate goal of the dungeon, filled with valuable loot. The journey to reach it through the Secret Chamber makes it rewarding and satisfying.
+5. **Storage Room**
+   - Exits: West to Main Hall
+   - Purpose: Filled with supplies and provisions, this room offers players the chance to find valuable items or uncover secrets hidden among the crates and barrels.
 
-6. **Mossy Passage**
-   - Exits: West to Entrance Hall
-   - Notes: An optional side path that offers a brief detour. Contains environmental storytelling elements, such as ancient murals or carvings, adding depth to the dungeon without impacting progression.
+6. **Crypt**
+   - Exits: North to Main Hall
+   - Purpose: The deepest part of the dungeon, a resting place for ancient guardians. This room holds the dungeon's greatest treasure and is guarded by formidable foes. It's a reward for those who explore thoroughly.
 
-**Design Notes on Flow and Purpose:**
+Design Notes on Flow and Purpose:
 
-- **Flow:** The dungeon's flow moves primarily northward through a linear central path (Entrance Hall -> Guard Post -> Secret Chamber -> Treasure Room) with a hidden branch (Secret Chamber -> Hidden Alcove) that rewards exploration.
-- **Central Path vs. Exploration:** While the main path leads to the Treasure Room, hidden routes and side rooms (Secret Chamber, Hidden Alcove, Mossy Passage) offer additional exploration opportunities and rewards.
-- **Discovery:** The Secret Chamber acts as a hub for discovery, being central to both the hidden alcove and the Treasure Room. It encourages players to be thorough in their exploration.
-- **Realism and Setting:** The Shadowfen style is reflected in the damp, overgrown environment with moss creeping along the walls and the presence of abandoned guard posts, making the space feel both ancient and foreboding.
-- **Pacing:** The layout allows for a sense of progression from the entrance to the treasure, with the Guard Post acting as a midpoint that builds anticipation before discovering the secret areas.
+- **Flow**: The dungeon's layout is designed to naturally guide players from the Entrance to the Crypt, with the Main Hall serving as a key hub. The Guard Room acts as a central connection point, allowing for strategic choices in movement.
+- **Purpose**: Each room serves a distinct purpose that contributes to the overall narrative of the dungeon. For example, the Prison Cells provide backstory and hidden lore, while the Storage Room rewards players with resources.
+- **Exploration**: The design encourages exploration through hidden messages in the Prison Cells and potential treasures in the Storage Room, creating a sense of mystery and reward.
+- **Realism**: The layout is logical, with guards stationed near the entrance and valuable resources stored securely. The Crypt's placement as the final, deepest room adds an element of danger and climax to the exploration.
+- **Vertical Space**: While this district is primarily horizontal, the sense of descending deeper into the dungeon is created through the progression from the Entrance to the Crypt.
 
-Overall, this dungeon layout emphasizes exploration, discovery, and a rewarding sense of progression, in line with the Shadowfen aesthetic.
+This Shadowfen Dungeon District offers an engaging and narrative-rich exploration experience, blending logical design with opportunities for discovery and adventure.

@@ -1,1 +1,8 @@
 The shop is a dim-lit alcove, where the air clings like damp velvet, carrying the earthy aroma of moss and the sharp bite of rusted iron. Shelves sag with the weight of peculiar trinkets, their surfaces slick with a thin film of moisture that clings to your fingertips. The faint drip of water echoes from somewhere unseen, a rhythmic counterpoint to the whispered rustle of parchment as the shopkeeper turns a page. Lanterns of tarnished copper cast a sepia glow, their light flickering like distant will-o'-wisps, revealing glimpses of mysterious shadows that dance along the walls.
+
+Ambient Messages:
+1. The warm glow of flickering lanterns dances across shelves brimming with glistening potions, while the sweet, spicy scent of dried herbs wraps around you like a comforting embrace. 
+
+2. A soft chime announces your entrance as the air fills with the rich aroma of polished wood and faint traces of aged leather, whispering stories of countless travelers who have wandered through this haven. 
+
+3. The gentle rustle of silk and the soft thud of well-worn tomes create a symphony of discovery, mingling with the tantalizing scent of parchment and ink that beckons the curious to explore further.
