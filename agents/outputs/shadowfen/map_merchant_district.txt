@@ -1,52 +1,61 @@
-Certainly! Let's design the "Merchant District" in the Shadowfen style, focusing on a blend of commerce, mystery, and organic layouts.
+### ASCII Map of Merchant District
 
-### ASCII Map:
 ```
-    [ B ]
-    |   |
-[ D ]-[ M ]-[ A ]
- |     |  \
-[ S ]  |  [ T ]
-       |
-    [ G ]
+        +------------------+
+        |    Town Square   |
+        |  Exits: N, S, E  |
+        +--------+---------+
+                 |
+        +--------+---------+
+        |  Blacksmith's    |
+        |    Forge         |
+        |  Exits: N, S     |
+        +--------+---------+
+                 |
+        +--------+---------+   +-----------------+
+        |  General Goods   |---|  Alchemist's    |
+        |     Store        |   |     Shop        |
+        |  Exits: N, E     |   |  Exits: W       |
+        +--------+---------+   +-----------------+
+                 |
+        +--------+---------+
+        |  Shadowfen        |
+        |   Tavern          |
+        |  Exits: N, E, D   |
+        +--------+---------+
+                 |
+        +--------+---------+
+        |   Secret Cellar   |
+        |  Exits: U         |
+        +-------------------+
 ```
 
-### Room List with Exits:
+### Room List with Exits and Design Notes
 
-1. **[M] Market Square**
-   - **Exits:** North to [B], East to [A], South to [G], West to [D]
-   - **Purpose:** The bustling central hub of the district, filled with stalls, vendors, and the heart of trade in Shadowfen. It serves as the primary navigational anchor.
+1. **Town Square**
+   - **Exits:** North to General Goods Store, South to Shadowfen Tavern, East to Residential Area (not mapped)
+   - **Design Notes:** Central hub of the Merchant District. A bustling area with street vendors and performers, serving as the primary navigation point. Encourages exploration by providing multiple pathways.
 
-2. **[B] Bazaar of Shadows**
-   - **Exits:** South to [M]
-   - **Purpose:** A mysterious, dimly lit area where rare and exotic goods are traded. Offers occasional quests and hidden paths to those who explore its secrets.
+2. **Blacksmith's Forge**
+   - **Exits:** North to General Goods Store, South to Town Square
+   - **Design Notes:** Conveniently located close to the Town Square. The rhythmic clanging of metal attracts players. Provides essential services and equipment for adventurers.
 
-3. **[A] Alchemist's Alley**
-   - **Exits:** West to [M], Southeast to [T]
-   - **Purpose:** A narrow street lined with shops selling potions, herbs, and magical trinkets. Provides access to unique items and serves as a secondary commercial area.
+3. **General Goods Store**
+   - **Exits:** South to Blacksmith's Forge, East to Alchemist's Shop
+   - **Design Notes:** Offers a wide variety of items for purchase. Positioned between the Blacksmith and the Alchemist, forming a corridor of commerce. Encourages players to explore the full range of available goods.
 
-4. **[D] Dockside Warehouse**
-   - **Exits:** East to [M], South to [S]
-   - **Purpose:** A storage and shipment hub for goods coming in and out of Shadowfen. Contains hidden passages leading to smuggler's tunnels.
+4. **Alchemist's Shop**
+   - **Exits:** West to General Goods Store
+   - **Design Notes:** A mysterious shop filled with potions and rare ingredients. Located off the main path, encouraging curious players to delve deeper. Adds an element of discovery with unique items.
 
-5. **[S] Smuggler's Cove**
-   - **Exits:** North to [D]
-   - **Purpose:** A secretive hideout used by less savory merchants. Offers hidden quests and a shortcut to the undercity.
+5. **Shadowfen Tavern**
+   - **Exits:** North to Town Square, East to Secret Cellar
+   - **Design Notes:** A social gathering spot for adventurers and locals. Offers rest, rumors, and quests. The tavern's lively atmosphere contrasts with the secretive nature of the cellar below.
 
-6. **[G] Guild Hall**
-   - **Exits:** North to [M]
-   - **Purpose:** Headquarters for the Merchant Guild. A place to gather information, acquire trade permits, and engage in guild-related activities.
+6. **Secret Cellar**
+   - **Exits:** Up to Shadowfen Tavern
+   - **Design Notes:** Hidden beneath the tavern, accessed via a trapdoor. A perfect spot for clandestine meetings or hidden treasures. Adds vertical complexity and an element of mystery to the district.
 
-### Design Notes:
+### Design Summary
 
-- **Flow:** The Market Square [M] acts as the central hub with multiple exits, allowing players to naturally transition between different commercial and narrative areas.
-  
-- **Discovery:** Alchemist's Alley [A] and Bazaar of Shadows [B] encourage exploration with their unique offerings and hidden paths. The Smuggler's Cove [S] adds a layer of mystery and reward for those who seek it.
-
-- **Pacing:** The district is designed to have a mix of high-energy areas like the Market Square and quieter, more intrigue-focused areas like the Dockside Warehouse.
-
-- **Realism:** The layout mimics a real-life commercial district with logical placement of warehouses by the docks and specialized shops clustered together.
-
-- **Vertical Space:** Potential vertical elements could include upper floors in shops for private dealings or basements in the Dockside Warehouse for storage and secretive activities.
-
-This map offers a blend of commerce, exploration, and intrigue fitting the Shadowfen style, inviting players to delve deep into the district's secrets.
+The Merchant District is designed to balance exploration with convenience, encouraging players to navigate through a network of shops and services. The Town Square acts as the central hub, ensuring smooth flow while promoting discovery. Vertical space in the form of the Secret Cellar enhances the district's complexity, rewarding players who seek out hidden paths. This layout maintains realism and logical organization, creating an immersive and engaging experience in the Shadowfen style.
