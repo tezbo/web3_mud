@@ -13,3 +13,10 @@ Ambient Messages:
 2. "A tapestry of scents unfurls—dried herbs, sweet incense, and a hint of something metallic—as shelves bow under the weight of curiosities, each whispering tales of distant lands and forgotten secrets."  
 
 3. "As you step inside, the warm glow of polished wood and the gentle rustle of silk garments envelop you, while the distant sound of a bubbling potion hints at the magic that lingers in every nook."
+
+Ambient Messages:
+1. "The air thrums with the soft chime of wind bells, their metallic whispers mingling with the rich aroma of aged leather and fragrant herbs, beckoning you deeper into the shop's shadowy corners."  
+
+2. "Sunlight spills through stained glass, casting vibrant mosaics onto the polished wooden floor, while the faint sound of rustling pages invites you to explore the collection of forgotten tomes lining the shelves."  
+
+3. "A faint shimmer of silver dust hangs in the air, illuminated by flickering candlelight, as the sweet scent of candied fruits entwines with the earthy tang of potions brewing in bubbling cauldrons."  
