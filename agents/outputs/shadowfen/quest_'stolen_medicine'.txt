@@ -1,32 +1,20 @@
-**Quest Title: "The Healing Heist"**
+**Quest Title: The Cure's Cost**
 
-**Stage Breakdown:**
+**Stage 1: The Theft**
+- **Hook:** In the murky swamps of Shadowfen, the village healer, Eldra, discovers her precious stock of medicine has been stolen. The medicine is vital for treating a deadly swamp fever that's spreading among the villagers.
+- **Objective:** Speak with Eldra to learn more about the theft and gather clues.
 
-**Stage 1: Discovery of the Theft**
-- The player finds a frantic herbalist named Elara in Shadowfen. She reveals that a vital shipment of medicine, meant to treat a deadly fever outbreak in the swamp, has been stolen from her workshop.
+**Stage 2: The Culprits**
+- **Investigation:** Players can investigate the scene of the theft and interview villagers. They learn of a group of outcast swamp dwellers, led by a figure named Varik, who might be responsible. Varik's people have been ostracized and struggling with their own outbreak.
 
-**Stage 2: Investigating the Culprits**
-- Elara suspects a local band of outcasts known as the Fen Shadows, but there are whispers of a rival herbalist, Calder, who might be sabotaging her to corner the market.
+**Stage 3: Resolution**
+- **Confrontation & Choices:**
+  1. **Negotiate for Sharing:** Players can choose to mediate between Eldra and Varik, proposing a deal to share the medicine in exchange for Varik's people helping the village with their herbal knowledge to create more. 
+     - **Consequences:** This choice leads to improved relations between the village and the outcasts. In future quests, the player benefits from unique herbal remedies and Varik's people offer aid during swamp threats.
+  2. **Side with Eldra:** Players can assist Eldra in retrieving the stolen medicine by stealth or force, ensuring all supplies are returned to the village.
+     - **Consequences:** This choice secures immediate safety for the village, but Varik's people become hostile. Future quests involve dealing with increased tensions and possible sabotage from the outcasts.
+  3. **Aid Varik's People:** Players can choose to help Varik's group by finding alternative resources or crafting additional medicine, allowing them to keep the stolen supplies.
+     - **Consequences:** This choice wins the loyalty of Varik's people, who become valuable allies. However, the village initially suffers increased illness, and players must help stabilize the situation with additional side quests.
 
-**Stage 3: Confrontation and Resolution**
-- The player tracks the scent of rare herbs to a secluded hideout deep in the swamp, where they find the stolen medicine.
-
-**Solutions and Consequences:**
-
-1. **Align with the Fen Shadows:**
-   - **Choice:** The player learns the outcasts took the medicine to help their own sick members, who are shunned by the local villages.
-   - **Action:** The player can choose to help the Fen Shadows by giving them half of the medicine and assisting them in negotiating a truce with the villages.
-   - **Consequences:** The outcasts become more accepted, leading to new trade relationships and quest opportunities, but some villagers may resent the player's aid to former thieves.
-
-2. **Expose Calder's Sabotage:**
-   - **Choice:** The player finds evidence in the hideout linking Calder to the theft, revealing he hired the outcasts to steal the medicine and frame them.
-   - **Action:** Confront Calder, offering him a chance to confess or expose him to the village council.
-   - **Consequences:** Calder is either ostracized or exiled, depending on his choice. Elara becomes the favored herbalist, but the local economy suffers a temporary shortage as Calder's stocks are seized and redistributed.
-
-3. **Negotiate a Compromise:**
-   - **Choice:** The player proposes a meeting between Elara, the outcasts, and Calder to find a peaceful resolution.
-   - **Action:** The player mediates the discussion, resulting in an agreement where Elara supplies the outcasts with discounted medicine while Calder contributes resources to the village as penance.
-   - **Consequences:** A new community alliance is formed, with increased cooperation and prosperity in Shadowfen. However, the player must deal with occasional tensions as old grudges linger beneath the surface.
-
-**World Lore Tie-In:**
-The quest subtly introduces players to the region's complex social dynamics and the impact of The Sundering, which has left many communities fragmented and distrusting. The presence of Threadsinging herbs in the stolen shipment hints at deeper magical undercurrents that could be explored in future quests.
+**Tie to World Lore:**
+- The quest ties into the broader theme of the realm's social conflicts, highlighting the impact of The Sundering on societal divisions. Threadsinging lore can be woven in if players choose to use ancient songs to calm tensions or craft medicines.

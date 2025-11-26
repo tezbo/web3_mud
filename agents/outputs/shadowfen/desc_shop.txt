@@ -1,1 +1,8 @@
 In the dimly lit shop, the air is thick with the scent of damp earth and aged leather, mingling with a faint trace of something metallic and sharp. Shelves of rusted curios and ancient trinkets line the walls, their surfaces slick with the perpetual moisture that clings to everything in the Shadowfen. The floor creaks underfoot, each step a whispered protest, as if the shop itself is reluctant to reveal its secrets. A distant drip of water echoes softly, a rhythmic heartbeat in the murky gloom, as your fingers brush against the cool, slick edges of mysterious relics that seem to pulse with stories long forgotten.
+
+Ambient Messages:
+1. "The air hums with the rich aroma of spices and incense, while the soft rustle of silk drapes invites you deeper into the shop's vibrant, colorful embrace."  
+
+2. "A gentle chime of crystal wind catchers fills the air, mingling with the earthy scent of polished wood and the faint hints of leather, as treasures from distant lands beckon for your touch."  
+
+3. "Sunlight filters through stained glass, casting a kaleidoscope of colors upon the worn stone floor, where the faint sound of bubbling potions dances with the sweetness of dried herbs and flowers."
