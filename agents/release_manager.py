@@ -97,8 +97,13 @@ class ReleaseManagerAgent(AutonomousAgent):
             # For now, we are committing directly to the current branch (likely main)
             # to avoid complex merge logic in this first iteration.
             
-            # Pull first to avoid conflicts
-            subprocess.run(["git", "pull", "--rebase"], check=True)
+            # Pull first to avoid conflicts (rebase on top of our new commit)
+            try:
+                subprocess.run(["git", "pull", "--rebase"], check=True, capture_output=True)
+            except subprocess.CalledProcessError:
+                # If rebase fails, abort and try standard pull
+                subprocess.run(["git", "rebase", "--abort"], check=False)
+                subprocess.run(["git", "pull"], check=True)
             
             # Push
             subprocess.run(["git", "push"], check=True)
