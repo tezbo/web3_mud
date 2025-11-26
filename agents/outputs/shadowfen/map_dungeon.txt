@@ -1,46 +1,51 @@
-### ASCII Map
+### Shadowfen Dungeon Map
 
 ```
-     [Cave Entrance]
-           |
-     [Mossy Chamber] -- [Stagnant Pool]
-           |                 |
-     [Ritual Room]      [Hidden Nook]
-           |
-      [Ancient Vault]
+          [Treasure Room]
+                |
+          [Secret Passage]
+                |
+          [Main Chamber]
+            /         \
+   [Guard Room]     [Prison Cell]
+            \         /
+         [Entrance Hall]
 ```
 
-### Room List with Exits
+### Room List and Exits
 
-1. **Cave Entrance**
-   - Exits: East to *Mossy Chamber*
-   - Purpose: Entry point into the dungeon. Sets the mood with damp air and faint echoes.
+1. **Entrance Hall**
+   - **Exits:** North to Main Chamber, East to Guard Room
+   - **Purpose:** Acts as the main entry point into the dungeon. Provides a sense of foreboding with dim torchlight and eerie echoes. Introduces players to the dungeon's atmosphere.
 
-2. **Mossy Chamber**
-   - Exits: West to *Cave Entrance*, East to *Stagnant Pool*, South to *Ritual Room*
-   - Purpose: Central hub of the dungeon. Overgrown with moss, suggestive of neglect and age. Serves as a decision point for players.
+2. **Main Chamber**
+   - **Exits:** South to Entrance Hall, East to Prison Cell, Up to Secret Passage
+   - **Purpose:** A large, central hub with high ceilings, serving as the main crossroads of the dungeon. Contains ancient relics and signs of past rituals, hinting at the dungeon's history.
 
-3. **Stagnant Pool**
-   - Exits: West to *Mossy Chamber*, South to *Hidden Nook*
-   - Purpose: A dead-end room with a murky pool. Players might find minor loot or clues here. Visually intriguing with potential for hidden dangers.
+3. **Guard Room**
+   - **Exits:** West to Entrance Hall
+   - **Purpose:** Houses the remnants of old dungeon guards, complete with decaying weapons and armor. Provides lore and minor loot, emphasizing the dungeon's defensive history.
 
-4. **Hidden Nook**
-   - Exits: North to *Stagnant Pool*
-   - Purpose: A secret area accessible through a narrow passage. Rewards exploration with hidden treasure or lore items.
+4. **Prison Cell**
+   - **Exits:** West to Main Chamber
+   - **Purpose:** A grim room with rusted iron bars and the skeletons of forgotten prisoners. Offers storytelling through environmental clues and a hidden key for secret passage access.
 
-5. **Ritual Room**
-   - Exits: North to *Mossy Chamber*, South to *Ancient Vault*
-   - Purpose: An eerie space with remnants of old rituals. Midpoint of the dungeon, where narrative elements unfold.
+5. **Secret Passage**
+   - **Exits:** Down to Main Chamber, North to Treasure Room
+   - **Purpose:** A hidden route discovered through careful exploration in the Main Chamber, rewarding observant players. Adds a layer of mystery and hidden history to the dungeon.
 
-6. **Ancient Vault**
-   - Exits: North to *Ritual Room*
-   - Purpose: The final destination with the main treasure or boss encounter. A heavily secured chamber, hinting at its importance.
+6. **Treasure Room**
+   - **Exits:** South to Secret Passage
+   - **Purpose:** The final reward for explorers, filled with ancient treasure and guarded by a spectral sentinel. Offers high-value loot and a sense of achievement for those who uncover the dungeon's secrets.
 
-### Design Notes on Flow and Purpose
+### Design Notes
 
-- **Flow**: The layout encourages exploration by branching out from the *Mossy Chamber*. Each path offers different narrative elements and potential rewards, creating an engaging journey through the dungeon.
-- **Central Hub**: The *Mossy Chamber* acts as a central node, allowing players to choose their path. This design supports multiple play styles, whether players seek combat, story, or treasure.
-- **Discovery**: The *Hidden Nook* is a reward for players who investigate thoroughly. It adds depth to the dungeon by offering a bonus area off the main path.
-- **Pacing**: The dungeon starts with straightforward navigation but introduces branching paths and hidden areas to increase complexity as players progress.
-- **Realism**: The layout reflects a natural cave system, enhanced by the presence of the *Ritual Room* and *Ancient Vault*, suggesting a forgotten history and purpose.
-- **Narrative**: Storytelling is integrated through room design, with each area contributing to the dungeon's backstory, from the forgotten rituals to the ancient treasures.
+- **Flow:** The dungeon's central hub is the Main Chamber, which allows players to explore the more dangerous or rewarding areas at their own pace. The Entrance Hall and Main Chamber are essential for navigation, while the Guard Room and Prison Cell offer side narratives and smaller rewards.
+  
+- **Discovery:** The Secret Passage is a hidden element that encourages players to pay attention to their surroundings, rewarding exploration with access to the Treasure Room.
+
+- **Pacing:** The layout encourages players to first explore the Entrance Hall and Main Chamber, with the option to delve into side rooms before uncovering the Secret Passage.
+
+- **Realism:** The structure of the dungeon is logical, with the Entrance Hall leading to a central Main Chamber, reminiscent of old fortifications. The Guard Room and Prison Cell are naturally placed along the defensive and punitive lines.
+
+- **Vertical Space:** The use of vertical movement through the Secret Passage adds depth and complexity to the exploration, simulating the experience of unearthing hidden secrets within the dungeon.
