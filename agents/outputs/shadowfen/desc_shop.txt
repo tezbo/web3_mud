@@ -1,8 +1,1 @@
-The shop crouches beneath a canopy of twisted, moss-draped trees, their branches clawing at the murky air. Inside, the dim light filters through grime-streaked windows, casting eerie shadows over shelves laden with peculiar trinkets and rusted curios. A damp, earthy scent mingles with the sharp tang of old iron, while the faint gurgle of a distant bog echoes through the cracked walls. Your fingers brush against the cold, clammy surface of a leather-bound tome, its pages whispering secrets as they flutter in the draft.
-
-Ambient Messages:
-1. "The air is thick with the rich aroma of aged leather and polished wood, punctuated by the faint clink of glass as the shopkeeper arranges delicate crystal baubles under the warm glow of flickering lanterns."
-
-2. "Dust motes dance in slanted beams of sunlight that filter through the stained glass windows, casting vibrant patterns onto the rough-hewn counter where trinkets of forgotten lore lie waiting to be discovered."
-
-3. "A symphony of chimes and soft whispers envelops you as the door creaks open, revealing shelves brimming with curious artifacts that seem to hum with the echoes of stories untold."
+In the dimly lit shop of Shadowfen, the walls glisten with a sheen of perpetually clinging mist, their surface mottled with patches of pale lichen. A symphony of soft creaks accompanies your steps as the ancient wooden floorboards shift beneath your weight. The air is thick with the scent of damp earth and the faint, acrid bite of rusting metal, mingling with the sweet decay of forest loam. Shelves stagger under the weight of peculiar trinkets, their surfaces cold and slick to the touch, each object whispering secrets from forgotten times.
