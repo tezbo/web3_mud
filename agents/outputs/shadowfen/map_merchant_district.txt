@@ -1,47 +1,43 @@
-Certainly! Here is the design for the "Merchant District" in the Shadowfen style, complete with an ASCII map, room list with exits, and design notes.
-
-### ASCII Map
+```
+           [T] - [B]
+             |     |
+          [M] - [S]
+             |     |
+          [G] - [D]
 
 ```
-    [Workshop] 
-       |       
-  [Market Square] -- [Apothecary]
-       |       \
-   [Armorer]-- [Hidden Path]
-       | 
-    [Tailor]
-```
 
-### Room List with Exits
+**Room List and Exits:**
 
-1. **Market Square**
-   - Exits: North to Workshop, East to Apothecary, South to Armorer, Southwest to Hidden Path
-   - Purpose: Central hub of the district with various stalls and vendors. It serves as the key navigation point for players exploring the Merchant District. Natural storytelling occurs through overheard conversations and bustling activity.
+1. **[T] Tailor's Shop**
+   - Exits: South to [M] Market Square, East to [B] Blacksmith
+   - Purpose: Offers clothing and light armor. Positioned near the market for easy access to cloth merchants.
 
-2. **Workshop**
-   - Exits: South to Market Square
-   - Purpose: A place where players can craft or repair items. The Workshop is a logical northern addition as it is slightly removed from the main commercial activity, providing a quieter space for focused tasks.
+2. **[B] Blacksmith**
+   - Exits: West to [T] Tailor's Shop, South to [S] Stables
+   - Purpose: Provides weapons and armor. Close to the market for trade but slightly distanced to manage noise and heat.
 
-3. **Apothecary**
-   - Exits: West to Market Square
-   - Purpose: A shop offering potions and remedies. Positioned to the east for easy access from the Market Square, encouraging players to visit for healing supplies after combat.
+3. **[M] Market Square**
+   - Exits: North to [T] Tailor's Shop, South to [G] General Store, East to [S] Stables
+   - Purpose: Central hub of the Merchant District. Bustling with vendors, ideal for player trade and social interactions.
 
-4. **Armorer**
-   - Exits: North to Market Square, East to Hidden Path, South to Tailor
-   - Purpose: A shop specializing in weapons and armor. Its location provides a direct route back to the Market Square and a connection to the hidden path, hinting at discreet dealings or special services.
+4. **[S] Stables**
+   - Exits: North to [B] Blacksmith, West to [M] Market Square, South to [D] Docks
+   - Purpose: Houses mounts and supplies for travelers. Positioned on the edge for easy access to incoming and outgoing traffic.
 
-5. **Tailor**
-   - Exits: North to Armorer
-   - Purpose: A shop for clothing and light armor, found on the southern edge of the district. This placement encourages players to explore deeper into the district for specialty items.
+5. **[G] General Store**
+   - Exits: North to [M] Market Square, East to [D] Docks
+   - Purpose: Supplies everyday goods and adventuring essentials. Conveniently located for both locals and visitors.
 
-6. **Hidden Path**
-   - Exits: Northwest to Market Square, West to Armorer
-   - Purpose: A secretive, less-traveled route connecting the Armorer to the Market Square. This path offers a shortcut and potential for hidden encounters or quests, rewarding players who explore.
+6. **[D] Docks**
+   - Exits: North to [S] Stables, West to [G] General Store
+   - Purpose: Gateway for goods and travelers entering the district via water routes. Positioned at the district's boundary for logistic efficiency.
 
-### Design Notes
+**Design Notes:**
 
-- **Flow and Exploration**: The Market Square serves as the central hub, ensuring players encounter it frequently. The district's design encourages exploration with the strategically placed hidden path and logical shop arrangements.
-- **Convenience vs. Exploration**: While the Market Square provides convenient access to most shops, the Tailor's position further away requires intentional exploration, balancing convenience with discovery.
-- **Natural Storytelling**: Each room offers unique interactions and narrative elements, from the bustling Market Square to the quiet Workshop. The Hidden Path provides opportunities for secrets and side quests.
-- **Realism**: The layout makes physical sense with logical clustering of related services (e.g., Armorer near Hidden Path for discreet transactions).
-- **Layered Complexity**: The use of the Hidden Path and varied shop placements introduces complexity without overwhelming new players.
+- **Flow:** The Market Square [M] serves as the central hub, with most shops connected to it, ensuring high foot traffic and easy navigation for players.
+- **Discovery:** Players may discover hidden discounts or unique items by visiting less apparent shops like the Tailor's Shop [T] and Blacksmith [B].
+- **Pacing:** The layout encourages players to pass through the Market Square multiple times, promoting interaction and trade.
+- **Realism:** The arrangement reflects realistic town planning, with the docks [D] at the edge for trade, and the stables [S] nearby for travelers.
+- **Merchant Dynamics:** The proximity of shops to the Market Square creates a lively commerce atmosphere, while the docks' connection to the stables facilitates the flow of goods and travel.
+- **Shadowfen Style:** The district adopts a slightly swampy, fog-laden atmosphere with wooden planks and lanterns guiding the paths, reflecting the Shadowfen style of murky, mysterious trade routes.
