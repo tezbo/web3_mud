@@ -1,59 +1,55 @@
-### Shadowfen Dungeon Map
+### ASCII Map of 'Dungeon' District - Shadowfen Style
 
 ```
-           [Chamber of Echoes]
-                  |
-                  D
-                  |
-           [Mossy Antechamber] -- E -- [Hidden Alcove]
-                  |
-                  D
-                  |
-           [Silt-Flooded Passage]
-                  |
-                  D
-                  |
-           [Slime-Covered Stairwell]
-                  |
-                  D
-                  |
-           [Fungal Vestibule] -- E -- [Treasure Lair]
+     [Entrance]
+         |
+    [Guard Room]
+         |
+    [Main Hall] -- [Hidden Alcove]
+         |
+     [Prison Cells] -- [Secret Passage]
+         |
+    [Boss Chamber]
 ```
 
-### Room List with Exits
+### Room List with Exits and Purpose
 
-1. **Chamber of Echoes**
-   - Exits: Down (D) to Mossy Antechamber
-   - Notes: Central hub of the dungeon with natural acoustics enhancing eerie sounds. This room sets the theme and atmosphere of the Shadowfen. 
+1. **Entrance**
+   - **Exits:** South to Guard Room
+   - **Purpose:** The entry point to the dungeon, guarded by heavy iron gates. Sets the tone with damp, earthy smells and flickering torchlight.
 
-2. **Mossy Antechamber**
-   - Exits: North (N) to Chamber of Echoes, East (E) to Hidden Alcove, Down (D) to Silt-Flooded Passage
-   - Notes: A transitional zone connecting the Chamber of Echoes to deeper parts. The damp air and moss hint at the dungeon's age and neglect.
+2. **Guard Room**
+   - **Exits:** North to Entrance, South to Main Hall
+   - **Purpose:** A small room where guards are stationed. Contains weapon racks and a modest table. It serves as a checkpoint, introducing a minor obstacle or encounter.
 
-3. **Hidden Alcove**
-   - Exits: West (W) to Mossy Antechamber
-   - Notes: A concealed nook rewarding explorers with rare items or lore snippets. Accessible only by keen-eyed adventurers.
+3. **Main Hall**
+   - **Exits:** North to Guard Room, East to Hidden Alcove, South to Prison Cells
+   - **Purpose:** The central hub of the dungeon, a vast, echoing chamber. It connects to various paths and is often filled with the sounds of distant water dripping. The architecture hints at forgotten grandeur.
 
-4. **Silt-Flooded Passage**
-   - Exits: Up (U) to Mossy Antechamber, Down (D) to Slime-Covered Stairwell
-   - Notes: A slippery, waterlogged corridor challenging players with movement penalties, enhancing the treacherous feel.
+4. **Hidden Alcove**
+   - **Exits:** West to Main Hall
+   - **Purpose:** A secret area concealed behind a tapestry or a loose stone. It rewards players who explore with a small cache of treasure or a unique item. 
 
-5. **Slime-Covered Stairwell**
-   - Exits: Up (U) to Silt-Flooded Passage, Down (D) to Fungal Vestibule
-   - Notes: A vertical transition space, the slick stairs test balance and introduce organic hazards, such as creeping vines and fungi.
+5. **Prison Cells**
+   - **Exits:** North to Main Hall, East to Secret Passage
+   - **Purpose:** A series of dank cells with heavy, rusted bars. This area is filled with the remnants of past prisoners. It adds depth to the story, hinting at the dungeon's dark history.
 
-6. **Fungal Vestibule**
-   - Exits: Up (U) to Slime-Covered Stairwell, East (E) to Treasure Lair
-   - Notes: A lush, bioluminescent area teeming with oversized mushrooms. Acts as the final resting point before the hidden Treasure Lair.
+6. **Secret Passage**
+   - **Exits:** West to Prison Cells, South to Boss Chamber
+   - **Purpose:** A narrow, winding corridor discovered by careful observation or solving a puzzle. It provides a shortcut or strategic advantage leading to the final area.
 
-7. **Treasure Lair**
-   - Exits: West (W) to Fungal Vestibule
-   - Notes: A secret chamber containing treasures and potential boss encounters. The reward for those who traverse the entire dungeon.
+7. **Boss Chamber**
+   - **Exits:** North to Secret Passage
+   - **Purpose:** The final confrontation area. A large, ominous chamber with an oppressive atmosphere, perhaps dominated by a throne or altar. It serves as the climax of the dungeon's narrative.
 
 ### Design Notes on Flow and Purpose
 
-- **Flow and Exploration**: The dungeon's design encourages players to delve deeper with a clear vertical progression, while also rewarding lateral exploration with the Hidden Alcove.
-- **Atmosphere and Theming**: Each room contributes to the Shadowfen's distinct vibe—moist, echoing, and overgrown with nature reclaiming the space.
-- **Discovery and Reward**: The Hidden Alcove and Treasure Lair provide motivation for exploration beyond the main path, with both practical and narrative rewards.
-- **Pacing**: The design moves players from open spaces to more confined, challenging environments, creating a sense of progression and depth.
-- **Realism and Immersion**: The logical sequence of rooms supports a narrative of an abandoned, nature-overrun dungeon, promoting immersion in the Shadowfen theme.
+- **Flow:** The design encourages players to explore multiple paths while maintaining a logical progression from entrance to the final boss. The central Main Hall allows for easy navigation and decision-making.
+  
+- **Discovery:** Hidden Alcove and Secret Passage reward exploration and curiosity. These areas provide strategic advantages or unique rewards, encouraging players to look beyond the obvious.
+
+- **Purpose:** Each room serves a distinct role, contributing to the overall narrative of a once-great structure fallen into disrepair. The Guard Room and Prison Cells add to the lore, suggesting a past use as a holding facility.
+
+- **Realism:** The layout reflects a plausible dungeon structure, with defensive measures (Guard Room) and a central gathering area (Main Hall) that support the dungeon's thematic consistency.
+
+- **Vertical Space:** Although the map is primarily horizontal, the narrative and room descriptions can imply depth and height, such as the imposing nature of the Main Hall or the claustrophobic Secret Passage.
