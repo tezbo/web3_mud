@@ -13,3 +13,10 @@ Ambient Messages:
 2. A soft glow spills from intricately carved lanterns, illuminating shelves brimming with exotic trinkets that seem to pulse with a life of their own.  
 
 3. The rich scent of aged parchment mingles with the sharp tang of ink, as the quiet rustle of parchment pages dances through the dimly lit corners of the shop.
+
+Ambient Messages:
+1. "The air crackles with the scent of aged parchment and ink, while the soft rustle of scrolls creates a symphony of secrets waiting to be uncovered."  
+
+2. "Beneath the flickering glow of lanterns, the vibrant colors of polished gemstones dance like fireflies, tempting passersby with whispers of untold adventures."  
+
+3. "The cool, smooth touch of metal trinkets contrasts sharply with the warm, spiced aroma of herbal potions, inviting you to explore the mysteries hidden within each bottle."
