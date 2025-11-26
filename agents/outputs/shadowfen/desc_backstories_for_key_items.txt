@@ -1,12 +1,1 @@
-<<<<<<< HEAD
-The chamber is shrouded in a perpetual twilight, where the walls weep with damp and the floor is a mosaic of rusted iron tiles, slick beneath your feet. Faint whispers, like the rustle of ancient parchment, echo from the shadows, telling tales of forgotten relics. The air is thick with the scent of decaying leaves, mingling with the sharp tang of iron, and every breath tastes of earth and time. Your fingers brush against shelves lined with mist-kissed tomes and relics, their surfaces cool and gritty, each whispering its own history into the silence.
-
-Ambient Messages:
-1. The amber-hued vial, still warm to the touch, vibrates softly with the memory of a forgotten summer's day, where laughter danced like fireflies under the setting sun.  
-
-2. This intricately carved dagger, its blade etched with swirling patterns, hums with the whispers of ancient battles, the air around it thick with the scent of blood and burnt earth.  
-
-3. Wrapped in faded silk, the ornate scroll crackles softly, releasing a faint aroma of aged parchment and ink, its secrets yearning to be unfurled in the flickering glow of candlelight.
-=======
-In the dim recesses of the Shadowfen library, shelves of warped and worn wood groan under the weight of ancient tomes, their spines cracked like the bark of elder trees. A pervasive scent of mildew and ink hangs heavy in the air, mingling with the faint, acrid tang of something long forgotten. The soft rustle of parchment echoes as spectral drafts whisper through the room, caressing your skin with a chill that lingers like a forgotten memory. Each tome hums with latent secrets, its cover cool and gritty beneath your fingers, promising tales that twist through the mists of time.
->>>>>>> feature/task-2
+In the dim recesses of the Shadowfen library, the room seems to breathe with the musty sigh of forgotten tales. Shelves of ancient tomes, their spines cracked and ink faded like autumn leaves, line the walls, exuding a faint whiff of mildew mingled with the ghostly scent of decaying parchment. The air is thick with the whisper of pages turning themselves, as if the room remembers and murmurs its secrets. Each step on the damp, moss-covered stones sends a shiver up the spine, while the cool, clammy air clings to the skin like a spectral caress.
