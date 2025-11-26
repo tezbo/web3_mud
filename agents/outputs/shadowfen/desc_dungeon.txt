@@ -1,1 +1,8 @@
 The air in the dungeon hangs heavy with the cloying scent of damp earth and the acrid sting of rust. Shadows drip from the ceiling like ink, pooling in the jagged cracks of the stone walls, while the distant drip of water echoes eerily through the corridors. The rough-hewn floor is slick underfoot, a treacherous blend of mud and moss that clings to the soles like a persistent whisper. Lanterns, their light flickering feebly against the encroaching gloom, cast fleeting, distorted silhouettes that dance along the walls like restless phantoms.
+
+Ambient Messages:
+1. A chill creeps through the damp air, mingling with the faint echo of dripping water, while the ancient stone walls seem to whisper secrets long buried in the shadows.  
+
+2. The flicker of torchlight dances across jagged rock formations, casting eerie silhouettes that sway like restless spirits beneath the oppressive weight of darkness.  
+
+3. A musty blend of decaying earth and stale air fills your lungs, as the ground beneath your feet shifts subtly, hinting at long-forgotten paths leading deeper into the abyss.  
