@@ -1,51 +1,47 @@
-### ASCII Map of the Merchant District
+### Merchant District - Shadowfen Style
 
 ```
-        [Market Square]
-             / | \
-            /  |  \
-   [Armory] [General Store] [Tailor]
-            \  |  /
-             \ | /
-          [Potion Shop]
-             |
-         [Warehouse]
+[Market Square] ---- [Tailor's Shop] ---- [Blacksmith's Forge]
+     |                    |
+[Trader's Alley]   [Hidden Alley]
+     |
+[Storage Warehouse]
 ```
 
-### Room List with Exits
+#### Room List and Exits
 
 1. **Market Square**
-   - Exits: North to Armory, East to General Store, West to Tailor, South to Potion Shop
-   - Notes: Central hub of the district. Bustling with activity, featuring various merchant stalls and performers. Players naturally gravitate here for social interactions and trade.
+   - **Exits:** East to Tailor's Shop, South to Trader's Alley
+   - **Purpose:** The bustling heart of the Merchant District. Stalls and vendors offer a variety of goods. A central fountain serves as a meeting point.
 
-2. **Armory**
-   - Exits: South to Market Square
-   - Notes: Offers weapons and armor. Positioned near the heart of the district for easy access by adventurers preparing for quests. The blacksmith's forge can be heard from the square, drawing in customers.
+2. **Tailor's Shop**
+   - **Exits:** West to Market Square, East to Blacksmith's Forge, South to Hidden Alley
+   - **Purpose:** A cozy shop with mannequins displaying fine fabrics. The tailor specializes in Shadowfen's traditional garbs.
 
-3. **General Store**
-   - Exits: West to Market Square, South to Potion Shop
-   - Notes: Sells a variety of goods, from food supplies to adventuring gear. Its dual exits provide convenient access between the Market Square and the Potion Shop, encouraging exploration.
+3. **Blacksmith's Forge**
+   - **Exits:** West to Tailor's Shop
+   - **Purpose:** A noisy workshop where the clanging of metal echoes. The blacksmith crafts weapons and armor. A warm hearth glows in the corner.
 
-4. **Tailor**
-   - Exits: East to Market Square
-   - Notes: Provides clothing and light armor. Placed opposite the Armory to balance the district with different types of crafting professions.
+4. **Trader's Alley**
+   - **Exits:** North to Market Square, South to Storage Warehouse
+   - **Purpose:** A narrow, winding street lined with small shops and kiosks. An excellent spot for finding rare and exotic items.
 
-5. **Potion Shop**
-   - Exits: North to Market Square, South to Warehouse
-   - Notes: Sells potions and alchemical ingredients. Positioned strategically between the General Store and the Warehouse to suggest a supply chain.
+5. **Hidden Alley**
+   - **Exits:** North to Tailor's Shop
+   - **Purpose:** A secluded path behind the tailor's shop. Rumored to be a meeting place for those seeking discretion in their transactions.
 
-6. **Warehouse**
-   - Exits: North to Potion Shop
-   - Notes: Houses bulk goods and serves as the storage for merchants. Offers room for hidden paths or secret storage areas, rewarding players who explore further.
+6. **Storage Warehouse**
+   - **Exits:** North to Trader's Alley
+   - **Purpose:** A large, dimly lit building filled with crates and barrels. Used by merchants to store surplus goods.
 
-### Design Notes
+#### Design Notes
 
-- **Flow**: The Market Square serves as the central hub, naturally guiding players to key locations. The Armory, General Store, and Tailor are directly accessible, ensuring players can easily find essential services.
+- **Flow:** The Market Square acts as the central hub, naturally guiding players to explore the Tailor's Shop and Trader's Alley. From there, players can discover more specialized locations like the Blacksmith's Forge and the Hidden Alley.
   
-- **Discovery**: The Warehouse, slightly removed from the main hub, hints at hidden paths and secrets, encouraging players to delve deeper into the district.
+- **Discovery:** The Hidden Alley encourages exploration and rewards players with unique narrative opportunities or secret dealings.
 
-- **Pacing**: Related services are clustered around the Market Square, while the Warehouse is further away, creating a sense of distance for bulk goods management.
+- **Pacing:** The progression from the busy Market Square to the quieter, more secluded areas like the Hidden Alley and Storage Warehouse provides a balance between social interaction and solitary exploration.
 
-- **Realism**: The layout reflects a logical organization typical of a merchant district, with the Market Square as the focal point and surrounding specialized shops.
+- **Realism:** The layout reflects a realistic merchant district, with shops logically placed around a central market. The Storage Warehouse is conveniently located near Trader's Alley for easy access.
 
-- **Verticality**: While this map is primarily horizontal, the Warehouse offers potential for vertical exploration through hidden paths or upper storage levels.
+- **Vertical Space:** Although this design is primarily horizontal, consider adding a second story to the Tailor's Shop for living quarters or a basement in the Blacksmith's Forge for material storage in future expansions.
