@@ -1,48 +1,51 @@
-### Merchant District - Shadowfen Style
-
-#### ASCII Map
 ```
-          [Tannery]
-              |
-[Blacksmith]--[Market Square]--[Jeweler]
-              |        |
-       [General Store] [Apothecary]
+        [Market Square]
+           /  |    \
+          /   |     \
+  [Tailor Shop]  [Apothecary]
+       |        /     |
+       |       /      |
+  [Blacksmith]       [General Store]
+       |              /
+       |             /
+   [Warehouse Entrance]
+
 ```
 
-#### Room List with Exits
+**Room List with Exits:**
 
 1. **Market Square**
-   - Exits: North to Tannery, West to Blacksmith, East to Jeweler, South to General Store, Southeast to Apothecary
-   - Notes: The central hub of the district where merchants gather to sell goods. It serves as a lively meeting point for traders, adventurers, and locals. The multiple exits make it easy to navigate to specialized shops.
+   - Exits: North to Tailor Shop, East to Apothecary, South to Warehouse Entrance
+   - Purpose: Central hub and high-traffic area where players gather. It serves as the main social and trade center of the Merchant District.
+   
+2. **Tailor Shop**
+   - Exits: South to Market Square, East to Blacksmith
+   - Purpose: Offers clothing and armor enhancements. Positioned close to the Market Square for easy access to customers.
 
-2. **Blacksmith**
-   - Exits: East to Market Square
-   - Notes: Provides weapons and armor, catering to adventurers and guards. Located near the Market Square for easy access to raw materials and customers.
+3. **Apothecary**
+   - Exits: West to Market Square, South to General Store
+   - Purpose: Sells potions and herbs. Located near the Market Square to attract both adventurers and locals seeking remedies.
 
-3. **Jeweler**
-   - Exits: West to Market Square
-   - Notes: Offers precious gems and crafted jewelry. Positioned opposite the Blacksmith, symbolizing wealth and refinement amidst the ruggedness of Shadowfen.
-
-4. **Tannery**
-   - Exits: South to Market Square
-   - Notes: Produces leather goods, essential for both clothing and armor. Located at the northern edge to benefit from prevailing winds, minimizing odor spread into the marketplace.
+4. **Blacksmith**
+   - Exits: North to Tailor Shop, South to Warehouse Entrance
+   - Purpose: Provides weapons and armor crafting. Strategically placed between the Tailor Shop and Warehouse for material supply and trade.
 
 5. **General Store**
-   - Exits: North to Market Square
-   - Notes: Sells everyday supplies and adventuring gear. Positioned conveniently next to the Market Square to ensure high foot traffic and easy access for residents and visitors alike.
+   - Exits: North to Apothecary, Southwest to Warehouse Entrance
+   - Purpose: Sells general goods and adventuring supplies. Located away from the main square but connected to the Apothecary for potion supplies.
 
-6. **Apothecary**
-   - Exits: Northwest to Market Square
-   - Notes: Offers potions and herbal remedies. Slightly offset from the main thoroughfare to create a more secluded, mysterious atmosphere, encouraging exploration for those seeking cures or enchantments.
+6. **Warehouse Entrance**
+   - Exits: North to Blacksmith, Northeast to General Store, South to other districts
+   - Purpose: Storage and logistics hub for goods. Acts as a transition point to other districts, ensuring a steady flow of supplies into the district.
 
-#### Design Notes
+**Design Notes:**
 
-- **Flow and Exploration**: The Market Square acts as the central hub, allowing players to quickly orient themselves and choose their next destination. Each specialized shop is easily accessible, emphasizing trade and commerce as the district's primary theme.
+- **Flow:** The Market Square serves as a central hub, with all paths leading from here. This design encourages players to naturally discover essential services as they move through the district.
   
-- **Discovery**: The Apothecary's positioning encourages players to explore beyond the obvious paths, rewarding them with unique potions and lore about Shadowfen's herbal practices.
+- **Discovery:** The presence of a warehouse suggests potential hidden paths or shortcuts for players to explore, rewarding curiosity with quicker access to other districts or hidden items.
 
-- **Pacing and Realism**: Shops requiring heavy and raw materials (Blacksmith, Tannery) are placed on the outskirts to minimize disruption to the central square. The Jeweler's strategic location opposite the Blacksmith highlights the cultural blend of utility and luxury within the district.
+- **Pacing:** Shops are clustered around the Market Square, promoting easy access to essential services. The Warehouse, slightly out of the way, emphasizes its logistical nature.
 
-- **Vertical Space Consideration**: While this design focuses on a horizontal layout, vertical spaces could be incorporated within individual shops, such as cellars in the General Store for storage or a loft in the Tannery for curing hides.
+- **Realism:** The layout reflects a realistic merchant area, with shops and services logically placed around a central market, as would be expected in a bustling trade district.
 
-This layout ensures a balance between convenience and exploration, fostering a sense of community while encouraging players to delve deeper into the district's unique offerings.
+- **Vertical Space:** The map is primarily horizontal, with possible vertical exploration hinted at in the Warehouse, where goods might be stored on multiple levels.
