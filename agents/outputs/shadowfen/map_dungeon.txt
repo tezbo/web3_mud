@@ -1,46 +1,49 @@
-### Shadowfen Dungeon Map
+### ASCII Map of 'Dungeon' in Shadowfen Style
 
 ```
-     [Entrance]
-         |
-     [Antechamber]
-       /     \
- [Guardroom] [Crossroads]
-         |       |
-      [Armory] [Treasure Room]
+        [Chamber of Echoes]
+                |
+       [Hidden Tunnel] -- [Treasure Vault]
+                |
+         [Mossy Corridor]
+                |
+        [Guard Post] -- [Prison Cell]
 ```
 
 ### Room List with Exits
 
-1. **Entrance**
-   - Exits: South to Antechamber
-   - Purpose: The starting point of the dungeon. It sets the foreboding tone with damp walls and the echo of distant water drops.
+1. **Chamber of Echoes**
+   - Exits: Down to Hidden Tunnel
+   - Purpose: Entry point. The acoustics here create disorienting echoes, setting an eerie tone. Serves as the main entrance to the Dungeon.
 
-2. **Antechamber**
-   - Exits: North to Entrance, West to Guardroom, East to Crossroads
-   - Purpose: A transitional room that introduces players to the layout of the dungeon. Flickering torchlight provides a sense of direction, with exits leading to different branches.
+2. **Hidden Tunnel**
+   - Exits: Up to Chamber of Echoes, Right to Treasure Vault, Down to Mossy Corridor
+   - Purpose: A narrow, dimly-lit passage that holds an optional path to a secret treasure. It's a reward for players who choose to explore.
 
-3. **Guardroom**
-   - Exits: East to Antechamber
-   - Purpose: A defensive checkpoint, filled with skeletal remains and rusted weapons. This room offers a hint of the dangers that lie ahead, building tension for explorers. 
+3. **Treasure Vault**
+   - Exits: Left to Hidden Tunnel
+   - Purpose: A hidden room containing valuable loot. Only accessible by those who explore the Hidden Tunnel. It encourages players to take risks and explore side paths.
 
-4. **Crossroads**
-   - Exits: West to Antechamber, South to Treasure Room
-   - Purpose: The central decision-making point of the dungeon. It features ancient murals and hints at hidden secrets, encouraging players to choose their path wisely.
+4. **Mossy Corridor**
+   - Exits: Up to Hidden Tunnel, Down to Guard Post
+   - Purpose: A transition area showing signs of age and neglect, lined with flickering torches and damp moss. Acts as a main artery leading deeper into the Dungeon.
 
-5. **Armory**
-   - Exits: North to Antechamber
-   - Purpose: A storage area for weapons and armor, partially flooded and overgrown with moss. Offers players a chance to find useful items or clues.
+5. **Guard Post**
+   - Exits: Up to Mossy Corridor, Right to Prison Cell
+   - Purpose: A checkpoint for players, possibly inhabited by enemy guards. It reinforces the Dungeon's defensive nature and offers a strategic chokepoint.
 
-6. **Treasure Room**
-   - Exits: North to Crossroads
-   - Purpose: The ultimate destination, heavily trapped and guarded by a lingering spectral sentinel. Contains valuable loot and a mysterious artifact to reward diligent adventurers.
+6. **Prison Cell**
+   - Exits: Left to Guard Post
+   - Purpose: A grim room filled with the remains of past captives. Provides narrative depth and might contain clues or items related to quests.
 
 ### Design Notes
 
-- **Flow**: The dungeon is designed with a central Antechamber that allows players to choose between a more dangerous path (Guardroom -> Armory) or a more rewarding path (Crossroads -> Treasure Room).
-- **Exploration vs. Convenience**: The Crossroads offers a shortcut to the Treasure Room for those daring enough to face potential traps directly, while the detour through the Guardroom and Armory allows for more strategic preparation.
-- **Discovery**: The Guardroom contains hints of hidden paths and secrets, encouraging players to look for more than just the straightforward route.
-- **Pacing**: The layout provides a gradual build-up of tension and reward, with the climax in the Treasure Room.
-- **Realism**: The layout makes sense as a defensive structure, with the Guardroom positioned to protect the treasure and the Armory providing resources.
-- **Vertical Space**: Though not explicitly used here, the damp, mossy environment of the Armory suggests the potential for hidden lower levels or flooded passages.
+- **Flow:** The Dungeon is designed to lead players naturally from the entrance through to the Guard Post, with opportunities for exploration along the way. The main path is straightforward, but the Hidden Tunnel offers a detour for treasure seekers.
+  
+- **Exploration vs. Convenience:** The Hidden Tunnel and Treasure Vault present optional exploration opportunities without detracting from the main storyline. Players can choose to delve deeper or proceed directly.
+  
+- **Storytelling:** The rooms tell a story of a once-defensive structure now overgrown and partly forgotten. The Chamber of Echoes sets an atmospheric tone, while the Guard Post and Prison Cell hint at its past use.
+
+- **Realism:** The layout makes physical sense, with defensive structures (Guard Post) placed appropriately to protect key areas (Treasure Vault).
+
+- **Vertical Space:** Limited use of vertical space to maintain simplicity, with the main vertical transition being between the Chamber of Echoes and the Mossy Corridor via the Hidden Tunnel.
