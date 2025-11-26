@@ -1,52 +1,73 @@
-Certainly! Below is the ASCII map for the 'Merchant District' in the Shadowfen style, along with a room list, exits, and design notes.
+**Merchant District - Shadowfen Style**
 
 ```
-      [1] - [2] - [3]
-       |     |     |
-      [4] - [5] - [6]
-
-[1] Market Square
-[2] General Store
-[3] Blacksmith
-[4] Apothecary
-[5] Tailor
-[6] Hidden Alley
+          +--------+
+          |  Tower |  
+          |   Top  |
+          |  (Up)  |
+          +---+----+
+              |
+          +---+----+
+          | Watch  |
+          |  Tower |
+          +---+----+
+              |
+          +---+----+
+          | Market |
+          | Square |
+       /--+---+----+--\
+     /      |     |     \
++---+---+   |  +--+---+  +---+---+
+|  Black |  |  |  General|   Alch-|
+| smith  |  |  |  Store  |  emist  |
++---+---+  +--+---+---+  +---+---+
+              |     |
+          +---+---+  +---+---+
+          |   Inn  |  | Fish  |
+          |        |  | Market|
+          +--------+  +-------+
 ```
 
-### Room List and Exits
+**Room List & Exits:**
 
-1. **Market Square**
-   - **Exits:** East to General Store [2], South to Apothecary [4]
-   - **Purpose:** Central hub of the Merchant District with stalls and vendors. Acts as a lively gathering place.
-   
-2. **General Store**
-   - **Exits:** West to Market Square [1], East to Blacksmith [3], South to Tailor [5]
-   - **Purpose:** Offers a variety of general goods. Positioned centrally to cater to various needs.
-   
-3. **Blacksmith**
-   - **Exits:** West to General Store [2], South to Hidden Alley [6]
-   - **Purpose:** Provides weapons and armor, located near the district's edge to limit noise. Hidden Alley access for discreet transactions.
-   
-4. **Apothecary**
-   - **Exits:** North to Market Square [1], East to Tailor [5]
-   - **Purpose:** Sells potions and remedies. Positioned to draw traffic from the Market Square.
-   
-5. **Tailor**
-   - **Exits:** North to General Store [2], West to Apothecary [4], East to Hidden Alley [6]
-   - **Purpose:** Offers clothing and textiles, reflecting the district’s theme of trade and commerce.
-   
-6. **Hidden Alley**
-   - **Exits:** North to Blacksmith [3], West to Tailor [5]
-   - **Purpose:** A secretive area for less-than-legal dealings. Provides a shortcut between Blacksmith and Tailor.
+1. **Watch Tower (Top)**
+   - **Exits**: Down to Watch Tower
+   - **Purpose**: Observation point providing a view over the district. Acts as a high vantage point for guards and a strategic location for players seeking an overview.
 
-### Design Notes on Flow and Purpose
+2. **Watch Tower**
+   - **Exits**: Up to Watch Tower (Top), Down to Market Square
+   - **Purpose**: Central hub for patrols, providing security and oversight for the district. Encourages players to visit for quests related to district safety.
 
-- **Flow:** The Market Square acts as the central hub, encouraging players to pass through it frequently. The main shops (General Store, Blacksmith, Apothecary, and Tailor) are all accessible from this hub, ensuring that all players encounter the key locations.
+3. **Market Square**
+   - **Exits**: Up to Watch Tower, East to General Store, South to Inn, West to Blacksmith, Southwest to Alchemist, Southeast to Fish Market
+   - **Purpose**: The bustling heart of the Merchant District, where various traders and vendors gather. Designed to be a central hub with easy access to all major commercial locations.
+
+4. **Blacksmith**
+   - **Exits**: East to Market Square
+   - **Purpose**: Provides crafting and repair services. Positioned close to the market for convenience but separated to prevent noise from disturbing other merchants.
+
+5. **General Store**
+   - **Exits**: West to Market Square
+   - **Purpose**: Supplies adventurers with essential goods. Centrally located to be directly accessible from the Market Square, facilitating easy trade.
+
+6. **Alchemist**
+   - **Exits**: Northeast to Market Square
+   - **Purpose**: Offers potions and unique items. Located slightly off the main path to create a sense of discovery for players seeking special goods.
+
+7. **Inn**
+   - **Exits**: North to Market Square
+   - **Purpose**: Provides lodging and a place for social interaction. Positioned near the Market Square to serve weary travelers and those needing rest.
+
+8. **Fish Market**
+   - **Exits**: Northwest to Market Square
+   - **Purpose**: Sells fresh seafood, highlighting the district's proximity to water. Placed at the edge of the Market Square to manage the distinct smell from affecting other merchants.
+
+**Design Notes:**
+
+- **Flow & Centrality**: The Market Square acts as the primary hub, ensuring that all key locations are easily accessible while maintaining a realistic sense of a bustling district.
   
-- **Discovery:** The Hidden Alley adds a layer of intrigue, accessible only from the Blacksmith and Tailor. It rewards players who explore beyond the obvious paths, providing shortcuts and hidden opportunities.
-  
-- **Realism:** The Merchant District's layout reflects realistic urban planning, with the central market surrounded by specialized shops. The Hidden Alley is a believable feature, offering both a sense of mystery and practical routing.
+- **Exploration & Discovery**: The Alchemist and Fish Market are slightly off the beaten path, rewarding players who take the time to explore beyond the obvious routes.
 
-- **Pacing:** The rooms are clustered with related shops close to each other, while the Hidden Alley introduces a more secluded, optional area for players seeking adventure or secrecy.
+- **Vertical Space**: The Watch Tower provides a vertical element, utilizing the up/down dimensions to add depth and complexity to the district's navigation.
 
-This layout balances exploration with convenience, ensuring that players can easily navigate the district while also encountering rewarding discoveries.
+- **Realism & Storytelling**: The layout reflects a logical organization where shops and services are arranged for both convenience and thematic coherence, with the Watch Tower symbolizing authority and oversight characteristic of a Shadowfen style.

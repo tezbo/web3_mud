@@ -1,1 +1,8 @@
 The shop crouches at the edge of the Shadowfen, its wooden door warped and rusted hinges groaning like old bones. Inside, the air is thick with the acrid scent of damp leather and the faint sweetness of decaying wood. Shelves, heavy with dust, sag under the weight of peculiar trinkets—each coated in a patina of neglect, their surfaces cool and clammy to the touch. A low murmur of voices, whispers carried by the mist, seems to dance just beyond the flickering glow of a single lantern, casting elongated shadows that slither across the floor.
+
+Ambient Messages:
+1. "The air is thick with the rich aroma of aged leather and the faint crackle of enchanted trinkets, each whispering secrets of distant lands from their shelves."  
+
+2. "Sunlight filters through stained glass, casting vibrant patterns on the cool stone floor, where the soft chime of wind bells dances amidst the murmurs of eager customers."  
+
+3. "The heavy scent of spices and herbs clings to the tapestry-lined walls, punctuated by the rhythmic thud of a mortar and pestle, as a merchant’s voice beckons with promises of rare concoctions."
