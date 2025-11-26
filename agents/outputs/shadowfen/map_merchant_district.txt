@@ -1,45 +1,44 @@
-Certainly! Here's an ASCII map of the "Merchant District" in the Shadowfen style:
+Below is the ASCII map of the 'Merchant District' in Shadowfen style, along with room details and design notes:
 
 ```
-[Marketplace]
-   /   |   \
-[Apothecary] [Weapon Smith]
-   |              |
-[Clothier]    [Potion Shop]
-   |              |
-[Residential Alley]
+     [Blacksmith]---[Armory]
+         |             |
+     [Market Square]---[Herbalist]
+         |             |
+      [Apothecary]---[Tailor]
 ```
 
-**Room List with Exits:**
+### Room List with Exits:
 
-1. **Marketplace**
-   - Exits: North to Apothecary, East to Weapon Smith, South to Residential Alley
-   - Notes: Central hub of the Merchant District, bustling with vendors and shoppers. Serves as a meeting point and orientation spot for players.
+1. **Market Square**
+   - Exits: North to Blacksmith, East to Herbalist, South to Apothecary
+   - Purpose: Central hub of the Merchant District, bustling with activity, traders, and shoppers. Acts as a gathering point for players to branch out to other shops.
 
-2. **Apothecary**
-   - Exits: South to Marketplace
-   - Notes: Offers various herbs and concoctions. Positioned north to symbolize the pursuit of health and vitality. Provides a cozy, aromatic ambiance.
+2. **Blacksmith**
+   - Exits: South to Market Square, East to Armory
+   - Purpose: Provides weapons and armor crafting services. The forge's heat and ringing hammers are a constant presence.
 
-3. **Weapon Smith**
-   - Exits: West to Marketplace, South to Potion Shop
-   - Notes: A place of clanging metal and roaring fires. Positioned east to catch the morning sun's first light—a metaphor for new beginnings and battles.
+3. **Armory**
+   - Exits: West to Blacksmith, South to Herbalist
+   - Purpose: Sells finished weapons and armor. Positioned next to the Blacksmith for logical resource flow.
 
-4. **Clothier**
-   - Exits: North to Apothecary, South to Residential Alley
-   - Notes: Displays fine garments and fabrics. Situated to encourage players to explore further into the district. Acts as a transition space between the bustling market and quieter residential areas.
+4. **Herbalist**
+   - Exits: West to Market Square, North to Armory, South to Tailor
+   - Purpose: Offers various herbs and potions. The aroma of fresh herbs fills the air, providing a calm transition from the busy market.
 
-5. **Potion Shop**
-   - Exits: North to Weapon Smith
-   - Notes: Sells mystical potions and rare ingredients. Offers a sense of mystery and intrigue, appealing to those seeking hidden knowledge and power.
+5. **Apothecary**
+   - Exits: North to Market Square, East to Tailor
+   - Purpose: Specializes in potions and remedies. A quieter place for players to prepare for their adventures.
 
-6. **Residential Alley**
-   - Exits: North to Clothier, North to Marketplace
-   - Notes: Quiet and narrow, this alley leads to simple residences. Provides a contrast to the busy market, allowing players to encounter NPCs with personal tales and quests.
+6. **Tailor**
+   - Exits: North to Herbalist, West to Apothecary
+   - Purpose: Offers custom clothing and armor enhancements. A creative corner where players can upgrade their appearance and gear.
 
-**Design Notes:**
+### Design Notes on Flow and Purpose:
 
-- **Flow and Purpose:** The Marketplace serves as the central hub, naturally guiding players towards important shops. The Apothecary and Weapon Smith are positioned to cater to players interested in crafting and combat. Clothier and Potion Shop create pathways that encourage exploration beyond immediate needs.
-  
-- **Exploration and Storytelling:** Hidden interactions in the Residential Alley reward players who explore beyond commercial interests. The Potion Shop offers hidden lore and rare items, catering to players' curiosity and sense of discovery.
-
-- **Realism:** The layout reflects a logical organization found in medieval merchant districts, with commercial activities at the forefront and residential areas tucked away, providing a realistic and immersive environment.
+- **Central Hub:** The Market Square serves as the central hub, ensuring players can easily navigate to the primary shops.
+- **Logical Layout:** Shops that logically benefit from proximity are placed adjacent to each other (e.g., Blacksmith next to Armory).
+- **Flow:** The layout encourages players to pass through the Market Square, reinforcing its role as a central location.
+- **Discovery:** Players exploring beyond the Market Square will find specialized shops rewarding their exploration.
+- **Pacing:** Related services (e.g., Blacksmith and Armory) are clustered, while more distant services (e.g., Apothecary and Tailor) provide a sense of distance and exploration.
+- **Realism and Storytelling:** The layout reflects a realistic merchant district, with the Market Square as the heart of commerce, surrounded by specialized trade shops, each with its own character and offerings.
