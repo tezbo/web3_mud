@@ -1,15 +1,1 @@
-The shop's interior is cloaked in a shroud of whispering shadows, where the air is thick with the earthy scent of damp moss and aged parchment. Shelves, crafted from gnarled, twisted wood, creak quietly under the weight of peculiar trinkets that glint with faint, ghostly luminescence. The floorboards, slick with a persistent sheen of moisture, groan underfoot, adding a low, rhythmic symphony to the quiet murmur of distant, unseen waters. A cool, clammy breeze drifts through the open doorway, carrying with it the faint metallic taste of rust and distant rain.
-
-Ambient Messages:
-1. The air is thick with the rich aroma of spices and the faint crackle of dried herbs, as vibrant glass jars cast a kaleidoscope of colors across the stone floor.  
-
-2. The gentle chime of wind bells dances through the shop, mingling with the scent of polished wood and the soft rustle of parchment, creating a symphony of anticipation.  
-
-3. A warm glow spills from behind shelves piled high with curious trinkets, their surfaces dusted with the whispers of time, as the faint hum of whispered conversations weaves through the air like a forgotten spell.  
-
-Ambient Messages:
-1. The soft chime of brass bells announces your entry, while the heady aroma of aged parchment and spiced incense envelops you like a warm embrace.  
-   
-2. Dust dances in the shafts of sunlight streaming through stained glass, casting vibrant patterns across the polished wooden shelves heavy with curiosities from distant lands.  
-
-3. The faint clink of glass jars echoes softly as a breeze carries the scent of dried herbs and the distant murmur of haggling voices from the bustling street outside.
+The dimly lit shop is cloaked in shadows, where the air hangs heavy with the earthy scent of damp moss and decayed leaves. Shelves, slick with mildew, groan under the weight of rusted trinkets and tarnished relics that glint dully in the flickering candlelight, casting elongated, dancing shadows across the stone floor. The faint drip of moisture echoes in the stillness, and a chill seeps through the soles of your boots as you tread upon the uneven flagstones, each step resonating with a muffled thud. Whispers of a distant wind slip through the cracks in the walls, carrying with them the metallic tang of the fog that perpetually blankets the Shadowfen.
