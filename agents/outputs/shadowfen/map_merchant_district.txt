@@ -1,51 +1,64 @@
-### Merchant District - Shadowfen Style
-
-**ASCII Map:**
+### Merchant District in Shadowfen Style
 
 ```
-        [A] - [B]
-         |     |
-        [C] - [D]
-         |     |
-        [E] - [F]
+       +----------+
+       |  Apothecary|
+       |  Exits: S  |
+       +-----+----+-+
+             |
+       +-----+-----+
+       |  Market Sq |
+       |Exits: N E S|
+       +-----+-----+ 
+             |
+       +-----+-----+
+       |  Blacksmith|
+       |  Exits: N  |
+       +-----+-----+ 
+             |
+     +-------+-------+
+     |   Tailor Shop  |
+     | Exits: W N E   |
+     +-------+-------+
+         /         \
++--------+         +--------+
+|  Hidden Path     |  Docks  |
+|  Exits: E        |  Exits: W|
++--------+         +--------+ 
 ```
 
-**Room List with Exits:**
+### Room List and Exits:
 
-1. **[A] Market Square**
-   - Exits: South to [C], East to [B]
-   - Notes: Central hub of the Merchant District. Bustling with vendors and traders. Serves as a primary gathering point and navigation hub.
+1. **Apothecary**
+   - Exits: South
+   - Notes: A quaint shop offering potions and herbs. Positioned at the northern edge for easy access to the countryside.
 
-2. **[B] Artisan Alley**
-   - Exits: West to [A], South to [D]
-   - Notes: A narrow street lined with specialty shops and workshops. Offers custom goods and unique items. Encourages exploration for rare finds.
+2. **Market Square**
+   - Exits: North, East, South
+   - Notes: The central hub of the Merchant District, bustling with vendors and visitors. Acts as a navigation point to other rooms.
 
-3. **[C] General Goods Store**
-   - Exits: North to [A], South to [E], East to [D]
-   - Notes: Provides essential supplies and mundane items. Positioned for convenience between the market and residential areas.
+3. **Blacksmith**
+   - Exits: North
+   - Notes: Located directly south of the Market Square, the rhythmic clanging draws customers seeking weapons and armor.
 
-4. **[D] Blacksmith's Forge**
-   - Exits: West to [C], North to [B], South to [F]
-   - Notes: A loud and smoky forge producing weapons and armor. Located near Artisan Alley for thematic consistency and proximity to other crafts.
+4. **Tailor Shop**
+   - Exits: West, North, East
+   - Notes: The Tailor Shop offers fine garments and is strategically placed for easy access from the Market Square and Docks.
 
-5. **[E] Residential Alley**
-   - Exits: North to [C], East to [F]
-   - Notes: Quiet lane leading to modest homes of merchants. Offers a small detour from the bustling market, enhancing immersion with everyday life.
+5. **Hidden Path**
+   - Exits: East
+   - Notes: A narrow, secretive alley leading back to the Tailor Shop, rewarding explorers with a shortcut.
 
-6. **[F] Secretive Backroom**
-   - Exits: North to [D], West to [E]
-   - Notes: Hidden chamber accessible through a concealed door in the Blacksmith's Forge. Contains rare and illicit goods, rewarding keen explorers.
+6. **Docks**
+   - Exits: West
+   - Notes: Positioned at the southern end, the docks bustle with trade, providing a scenic view and access to imported goods.
 
-**Design Notes on Flow and Purpose:**
+### Design Notes:
 
-- **Central Hub:** Market Square ([A]) acts as the district's core, facilitating easy movement to other areas and maintaining high foot traffic.
-  
-- **Flow:** Players naturally navigate from the central market to specialized areas like Artisan Alley ([B]) and Blacksmith's Forge ([D]). The General Goods Store ([C]) is easily accessible for quick shopping trips.
+- **Flow and Purpose**: The Market Square serves as the district's central hub, enabling straightforward navigation to key commercial areas while promoting a sense of community. The Apothecary and Blacksmith are logically positioned for easy access to travelers and locals alike.
 
-- **Discovery:** The Secretive Backroom ([F]) serves as a hidden space for players who explore beyond the obvious paths, adding an element of mystery and reward.
+- **Exploration and Discovery**: The Hidden Path offers a secretive route back to the Tailor Shop, rewarding players who explore beyond the main paths. This path adds an element of discovery and surprise.
 
-- **Pacing:** The district is compact but layered, with the main thoroughfares leading to essential services and quieter alleys leading to residential and secretive zones.
+- **Pacing and Realism**: The district features a sensible layout with clustered commercial spaces around the central Market Square. The docks provide a tangible sense of distance and realism, representing the district's connection to trade routes.
 
-- **Realism:** The layout reflects a realistic arrangement of a merchant district, with workshops near the central market and residential spaces slightly removed for privacy.
-
-This design emphasizes the contrast between the lively market environment and the quieter, more secretive undertones of Shadowfen, encouraging exploration and providing a sense of depth.
+- **Vertical Space and Layered Complexity**: Although primarily a street-level district, the potential for vertical expansion exists through hidden basements or lofts in future expansions, maintaining the Shadowfen's mysterious allure.
