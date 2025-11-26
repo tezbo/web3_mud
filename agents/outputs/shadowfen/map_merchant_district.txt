@@ -1,67 +1,42 @@
-Certainly! Below is an ASCII-style map of the "Merchant District" in Shadowfen, followed by a list of rooms with exits and design notes on flow and purpose.
+Below is the design for the 'Merchant District' in Shadowfen style. This district is envisioned as a bustling hub of trade and commerce, with a mix of open-air stalls, permanent shops, and residential areas for merchants and their families. The layout encourages exploration and interaction, while maintaining a logical flow.
 
 ```
-        +-------+
-        |  (3)  |
-        | Tailor|
-        |       |
-        +---+---+
-            |
-+---+---+   |   +---+---+
-|  (1)  |---+---|  (4)  |
-|Market |       | Smith |
-| Square|       |       |
-+---+---+   |   +---+---+
-            |
-        +---+---+
-        |  (2)  |
-        | Alchem|
-        |  ist  |
-        +---+---+
-            |
-        +---+---+
-        |  (5)  |
-        |  Inn  |
-        |       |
-        +---+---+
-            |
-        +---+---+
-        |  (6)  |
-        | Dock  |
-        |       |
-        +-------+
+        [Alchemist's Nook]
+                |
+[Residential Alley] -- [Market Square] -- [Silk Street]
+                |                   |
+          [Stone Bridge] -- [Riverbank Path]
 ```
 
-### Room List with Exits
+### Room List and Exits:
 
 1. **Market Square**
-   - Exits: North to Tailor, East to Smith, South to Alchemist
-   - Purpose: Central hub for the Merchant District, high-traffic area where players gather. Various stalls and merchants offer a wide array of goods. Provides a sense of bustling activity.
+   - **Exits**: North to Residential Alley, East to Silk Street, South to Riverbank Path
+   - **Purpose and Connections**: This is the central hub of the Merchant District, where traders and customers converge. It's surrounded by a variety of shops and stalls, making it the liveliest area. The main path to other rooms originates here.
 
-2. **Alchemist's Shop**
-   - Exits: North to Market Square, South to Inn
-   - Purpose: A quaint shop filled with mysterious potions and ingredients. Offers unique items for players interested in alchemy and magic. Positioned to encourage exploration between essential locations.
+2. **Residential Alley**
+   - **Exits**: South to Market Square, North to Alchemist's Nook
+   - **Purpose and Connections**: A quieter street lined with modest homes for the district's merchants. It provides a direct path to the Alchemist's Nook, facilitating the flow of both residents and those seeking specialized goods.
 
-3. **Tailor**
-   - Exits: South to Market Square
-   - Purpose: A specialized shop for clothing and fabric-based equipment. Adds variety to the district's offerings, showcasing the diversity of merchants.
+3. **Alchemist's Nook**
+   - **Exits**: South to Residential Alley
+   - **Purpose and Connections**: A secluded shop offering potions and rare ingredients. The location makes it a bit of a secret treasure for those in the know, encouraging exploration beyond the bustling market.
 
-4. **Smith**
-   - Exits: West to Market Square
-   - Purpose: A place for players to acquire weapons and armor. Close proximity to the market emphasizes its importance to adventurers gearing up for quests.
+4. **Silk Street**
+   - **Exits**: West to Market Square
+   - **Purpose and Connections**: Known for its high-end textiles and clothing shops, Silk Street attracts affluent customers. It provides a contrast to the more diverse offerings in the Market Square, creating a natural flow from common goods to luxury items.
 
-5. **Inn**
-   - Exits: North to Alchemist, South to Dock
-   - Purpose: Provides lodging and rest for weary travelers. Positioned as a transition between the bustling district and the quieter dock area. Encourages players to pause and plan their next steps.
+5. **Stone Bridge**
+   - **Exits**: East to Residential Alley, South to Riverbank Path
+   - **Purpose and Connections**: A sturdy stone bridge connecting the residential area with the scenic Riverbank Path. It's a more relaxed route, offering a picturesque view and a transition from the bustling district to the calm riverside.
 
-6. **Dock**
-   - Exits: North to Inn
-   - Purpose: A serene waterfront area where goods are shipped in and out. Offers a picturesque contrast to the busy market, a potential starting point for quests involving trade or travel.
+6. **Riverbank Path**
+   - **Exits**: North to Market Square, West to Stone Bridge
+   - **Purpose and Connections**: A tranquil path along the river, ideal for a peaceful stroll away from the market's chaos. It serves as a scenic escape and a practical route for those heading to or from the Stone Bridge.
 
-### Design Notes on Flow and Purpose
+### Design Notes:
 
-- **Central Hub**: The Market Square serves as the central hub, with key shops like the Smith and Alchemist's Shop nearby, ensuring players can easily access important services.
-- **Natural Discovery**: The layout encourages players to naturally discover the Tailor and Dock as they move through the district, rewarding exploration with varied experiences.
-- **Logical Organization**: Shops are situated logically around the square, with related services (e.g., Smith and Alchemist) positioned nearby to enhance flow without overwhelming players.
-- **Pacing**: The Dock provides a change of pace from the busy district, acting as a peaceful endpoint that invites players to contemplate future adventures.
-- **Realism**: The layout makes physical sense, with the Inn acting as a logical transition between the commerce-heavy areas and the more serene Dock, reflecting real-world urban planning.
+- **Flow**: The Market Square acts as the focal point, with easy access to all other rooms, encouraging movement and interaction.
+- **Exploration and Discovery**: The Alchemist's Nook is slightly off the beaten path, rewarding those who venture beyond main thoroughfares.
+- **Realism and Structure**: The layout is logical for a trade district; commercial areas are centralized, with residential and scenic paths on the periphery.
+- **Pacing and Experience**: The district offers a blend of lively commerce and quiet retreats, catering to different player moods and activities.
