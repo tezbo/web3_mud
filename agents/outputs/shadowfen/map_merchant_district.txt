@@ -1,43 +1,52 @@
+### Merchant District - Shadowfen Style
+
 ```
-          [Guard Post]
-              |
-       [Marketplace] -- [Potion Shop]
-        /     |     \
-[General Store]   [Tailor]
-            \
-         [Blacksmith]
+       +-----------+       +----------+
+       |  Armory   |-------|  Tailor  |
+       |  (Weapons)|       | (Clothes)|
+       +-----+-----+       +-----+----+
+             |                   |
+       +-----+-----+       +-----+----+
+       |   Central  |------|  Apothecary|
+       |   Market   |      | (Potions)  |
+       +-----+-----+       +-----+----+
+             |
+       +-----+-----+
+       |  Stables  |
+       | (Mounts)  |
+       +-----+-----+
 ```
 
-**Room List with Exits:**
+### Room List with Exits
 
-1. **Guard Post**
-   - **Exits:** South to Marketplace
-   - **Purpose:** Acts as a checkpoint ensuring safety in the Merchant District. Guards regulate entry, enhancing realism and immersion.
+1. **Central Market**
+   - Exits: North to Armory, Northeast to Tailor, East to Apothecary, South to Stables
+   - Purpose: Serves as the central hub of the Merchant District, bustling with activity and vendors selling a variety of goods. It is the main point of orientation for players entering the district.
 
-2. **Marketplace**
-   - **Exits:** North to Guard Post, East to Potion Shop, West to General Store, South to Tailor
-   - **Purpose:** The bustling heart of the Merchant District where traders and adventurers converge. A central hub that provides access to all key services.
+2. **Armory**
+   - Exits: South to Central Market, East to Tailor
+   - Purpose: Offers weapons and armor. Positioned close to the market to attract adventurers who prioritize gear. Shares a connection with the Tailor for players interested in both armor and clothing enhancements.
 
-3. **Potion Shop**
-   - **Exits:** West to Marketplace
-   - **Purpose:** A specialized shop offering various potions and ingredients. Its proximity to the Marketplace encourages traffic from adventurers seeking supplies.
+3. **Tailor**
+   - Exits: West to Armory, South to Apothecary
+   - Purpose: Sells clothing and accessories. Located near the Armory to cater to players interested in crafting and customizing their appearance. The path to the Apothecary encourages exploration of non-combat resources.
 
-4. **General Store**
-   - **Exits:** East to Marketplace, South to Blacksmith
-   - **Purpose:** Offers a variety of essential goods. Positioned for easy access from the Marketplace and Blacksmith, facilitating resource flow.
+4. **Apothecary**
+   - Exits: West to Central Market, North to Tailor
+   - Purpose: Provides potions and alchemical supplies. Its location ensures easy access for players who need healing or buffs, while its connection to the Tailor suggests a thematic link between potions and crafting.
 
-5. **Tailor**
-   - **Exits:** North to Marketplace
-   - **Purpose:** Provides clothing and armor modifications. Located south of the Marketplace for convenient access by those looking to upgrade their attire.
+5. **Stables**
+   - Exits: North to Central Market
+   - Purpose: Offers mounts and related services. Positioned at the southern edge to symbolize a transition point for players leaving the district, suggesting readiness for travel or exploration beyond the Merchant District.
 
-6. **Blacksmith**
-   - **Exits:** North to General Store
-   - **Purpose:** Supplies weapons and repairs armor. Positioned at the district's edge, creating a sense of journey and specialization. Its location encourages continuation from the General Store.
+### Design Notes
 
-**Design Notes:**
+- **Flow and Purpose**: The Central Market acts as the nucleus, ensuring players naturally discover key shops. The radial design allows for easy navigation while maintaining a sense of exploration.
+  
+- **Discovery and Exploration**: The layout encourages players to explore shops that might not be their primary interest, promoting a holistic shopping experience. The Armory and Tailor connection fosters cross-interest exploration.
 
-- **Flow:** The Marketplace serves as the central hub, ensuring all rooms connect logically. This supports player navigation and exploration.
-- **Exploration vs. Convenience:** Shops are clustered around the Marketplace for convenience, yet the Blacksmith's position rewards players who venture further in.
-- **Realism:** The Guard Post's positioning emphasizes security. The Blacksmith's slight isolation represents the need for space and safety.
-- **Storytelling:** The district layout suggests a thriving trade area with a bustling center and specialized services branching out, narrating the story of commerce and community.
-- **Pacing:** The layout encourages a natural progression from general to specialized services. The Guard Post sets the stage, while the Blacksmith signifies the district's boundary.
+- **Realism and Storytelling**: Each shop's placement is logical, with related services clustered together. The Stables at the district's edge suggest a logical transition to outdoor areas or other districts.
+
+- **Balance**: The district balances convenience with exploration by offering crucial services near the hub while rewarding players who explore all exits with diverse shopping options.
+
+- **Shadowfen Style**: The layout reflects a compact, efficient district typical of a bustling trade hub in a dense, possibly swampy environment, characteristic of Shadowfen's unique geographical and cultural style.
