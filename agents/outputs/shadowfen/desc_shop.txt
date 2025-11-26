@@ -1,15 +1,1 @@
-The shop's wooden door creaks open, revealing a dimly lit interior where shadows cling to the corners like wary specters. The air is thick with the musk of aged leather and the faint, metallic tang of rust. Shelves groan under the weight of peculiar artifacts, their surfaces slick with a sheen of moisture, as if the swamp beyond has seeped inside. A soft, eerie melody hums from a cracked gramophone in the corner, its notes weaving through the damp air like whispers from forgotten souls.
-
-Ambient Messages:
-1. The air is thick with the rich aroma of aged leather and exotic spices, while the gentle clink of glass bottles creates a melodic symphony amid the soft flicker of candlelight.  
-
-2. A tapestry of vibrant silks and iridescent gems drapes the walls, their colors shimmering like twilight, while the whisper of rustling parchment hints at ancient secrets waiting to be uncovered.  
-
-3. The faint hum of enchantments swirls through the aisles, as the scent of warm incense dances with the crisp tang of freshly forged steel, drawing you deeper into this treasure-laden sanctuary.
-
-Ambient Messages:
-1. "The air is thick with the rich aroma of aged leather and the faint crackle of enchanted trinkets, as colorful bolts of fabric hang like whispers from the ceiling."  
-
-2. "A low hum of tinkling glass chimes dances through the shop, mingling with the warm scent of spiced tea that wafts from a bubbling cauldron in the corner."  
-
-3. "Sunlight filters through stained glass windows, casting kaleidoscopic patterns on the polished wood floor, while the soft rustle of parchment and the gentle clink of coins create a symphony of commerce."  
+A dim glow seeps through the shop's murky windows, casting elongated shadows across shelves laden with peculiar wares. The air is thick with the musty aroma of aged parchment and the sharp, earthy scent of dried herbs, mingling with the faint metallic rust that seems endemic to Shadowfen. The floorboards creak underfoot, their surfaces uneven and cool to the touch, as if the dampness of the swamp outside has seeped into their very grain. From somewhere in the back, the sound of a low, rhythmic drip punctuates the silence, adding a strange melody to the shop's atmosphere.
