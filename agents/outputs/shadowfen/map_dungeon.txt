@@ -1,47 +1,47 @@
-### Shadowfen Dungeon Design
+### Shadowfen Dungeon Map
 
 ```
-   D1 - D2 - D3
-    |    |
-   D4   D5
-    |
-   D6
+        [Treasure Vault]
+              |
+     [Secret Passage] -- [Hidden Chamber]
+              |
+          [Chamber of Echoes]
+              |
+     [Entry Hall] -- [Guard Post]
 ```
 
-**Room List and Exits**
+### Room List with Exits
 
-1. **D1: Entrance Hall**
-   - Exits: East to D2, South to D4
-   - Purpose: Entry point into the dungeon, serves as a gathering area for adventurers. Damp and dimly lit, with moss-covered stone walls.
+1. **Entry Hall**
+   - Exits: North to Chamber of Echoes, East to Guard Post
+   - Purpose: The primary entry point into the dungeon, where players first arrive. It's a wide room with damp stone walls and a heavy, iron-bound door leading further into the depths.
 
-2. **D2: Guard Post**
-   - Exits: West to D1, East to D3, South to D5
-   - Purpose: A checkpoint manned by spectral guards. Provides a sense of danger and sets the tone for the dungeon. Contains a hidden lever that unlocks a secret passage to D6.
+2. **Guard Post**
+   - Exits: West to Entry Hall
+   - Purpose: A small, fortified room where dungeon guards would traditionally be stationed. Now abandoned, it contains old weapon racks and a few scattered bones, hinting at its history. Offers a quick glimpse into the dungeon’s use as a defensive structure.
 
-3. **D3: Armory**
-   - Exits: West to D2
-   - Purpose: Storage for old, rusted weapons and armor. A chance for players to find useful gear. The room is cluttered with racks and crates, creating a maze-like feel.
+3. **Chamber of Echoes**
+   - Exits: South to Entry Hall, North to Secret Passage
+   - Purpose: A large, cavernous room where any sound is amplified and distorted. The room's acoustics are used to disorient intruders. It serves as a central hub within the dungeon, allowing access to deeper, more dangerous areas.
 
-4. **D4: Prison Cells**
-   - Exits: North to D1, South to D6
-   - Purpose: A grim area lined with barred cells. Players can find clues about the dungeon's history and possibly rescue a captive NPC for a side quest.
+4. **Secret Passage**
+   - Exits: South to Chamber of Echoes, North to Treasure Vault, East to Hidden Chamber
+   - Purpose: A narrow, hidden corridor that rewards players' curiosity and exploration. Its discovery is key for accessing the Treasure Vault and an optional side room, the Hidden Chamber.
 
-5. **D5: Ritual Chamber**
-   - Exits: North to D2
-   - Purpose: A dark, foreboding room with an altar at its center. The room is used for sinister rituals, offering players a mystery to uncover. Contains a puzzle that, when solved, reveals a hidden cache of magical items.
+5. **Hidden Chamber**
+   - Exits: West to Secret Passage
+   - Purpose: A small, secluded room off the Secret Passage. Contains lore-rich artifacts and clues about the dungeon's past, offering narrative depth and rewarding players who explore beyond the main path.
 
-6. **D6: Hidden Treasury**
-   - Exits: North to D4
-   - Purpose: A secret room filled with treasure and guarded by a powerful spirit. Accessed either through solving the puzzle in D5 or by discovering the hidden passage from D2. Provides a significant reward for exploration and problem-solving.
+6. **Treasure Vault**
+   - Exits: South to Secret Passage
+   - Purpose: The ultimate reward room, filled with valuable loot and guarded by a puzzle or trap mechanism. Represents the culmination of the dungeon's exploration and is accessed only by those who find the Secret Passage.
 
-**Design Notes**
+### Design Notes
 
-- **Flow and Exploration:** The dungeon is structured to encourage exploration and discovery. Players naturally move from the entrance through the guard post, with optional detours to the armory and ritual chamber before reaching the prison cells and hidden treasury.
+- **Flow**: The Entry Hall naturally directs players towards the Chamber of Echoes, which functions as a central hub for this small dungeon. From there, players can discover the Secret Passage that branches out to the Treasure Vault and Hidden Chamber.
   
-- **Central Hub Concept:** D2 acts as a mini-hub, with multiple exits leading to other rooms, allowing players to make choices about their path.
-
-- **Pacing and Discovery:** The layout provides a balance between linear progression and optional exploration. Hidden elements in D2 and D5 reward players who pay attention to details.
-
-- **Realism:** The dungeon's layout reflects its purpose as a fortified underground complex. The placement of rooms such as the guard post and prison cells make logical sense within the context of a dungeon environment.
-
-- **Vertical Space:** Though primarily horizontal, the hidden treasury (D6) adds a layer of vertical complexity by being a concealed lower chamber, enhancing the sense of depth and discovery.
+- **Exploration vs. Convenience**: While the main path is straightforward, the Secret Passage encourages exploration, rewarding players with access to valuable resources and story elements.
+  
+- **Storytelling through Space**: Each room has been designed to convey the dungeon's history—an abandoned guard post, a disorienting echo chamber, and a hidden treasure vault—offering narrative layers to discover.
+  
+- **Realism and Verticality**: The layout remains horizontal, appropriate for the Shadowfen style, focusing on hidden and narrow passages rather than vertical complexity, fitting the marshy, dense nature of the environment.
