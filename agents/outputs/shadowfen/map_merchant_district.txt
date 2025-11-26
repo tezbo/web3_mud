@@ -1,45 +1,49 @@
-Certainly! Below is the design for a 6-room "Merchant District" in the Shadowfen style, incorporating murky, swamp-like themes mixed with bustling trade activity.
+### ASCII Map of the Merchant District
 
 ```
-          [ Watchtower ]
-              |
-       [ Market Square ] -- [ Apothecary ]
-         /   |       \
-   [ Fishmonger's ] [ General Store ]
-         \
-    [ Blacksmith ]
+        [Watchtower]
+            |
+        [Market Square]
+        /     |     \
+  [Apothecary] | [Curio Shop]
+        |     |     |
+    [Tailor] [Blacksmith]
 ```
 
-**Room List with Exits:**
+### Room List with Exits
 
-1. **Market Square**
-   - **Exits:** North to Watchtower, East to Apothecary, Southwest to Fishmonger's, Southeast to General Store
-   - **Purpose:** Central hub of the Merchant District; a bustling open-air market where traders from all over gather to sell their goods. It serves as the primary meeting point and navigational center for players.
+1. **Watchtower**
+   - **Exits:** Down to Market Square
+   - **Purpose:** Acts as a lookout and security point. Provides a vantage view of the district. Only accessible from the Market Square.
 
-2. **Watchtower**
-   - **Exits:** South to Market Square
-   - **Purpose:** A small guard post overseeing the district, providing security and a vantage point. Offers a potential quest-giver or lookout scenario for players.
+2. **Market Square**
+   - **Exits:** Up to Watchtower, East to Curio Shop, West to Apothecary, Southeast to Blacksmith
+   - **Purpose:** Central hub for trade and commerce. A bustling area with vendors and stalls. Connects all major shops and serves as a gathering place.
 
 3. **Apothecary**
-   - **Exits:** West to Market Square
-   - **Purpose:** A dimly lit shop filled with strange herbs and concoctions. Offers healing potions and unique Shadowfen remedies. Encourages exploration due to its mysterious inventory.
+   - **Exits:** East to Market Square, South to Tailor
+   - **Purpose:** Sells potions, herbs, and remedies. Located close to the Market Square for accessibility. The Tailor is further accessed from here, providing a quieter route.
 
-4. **Fishmonger's**
-   - **Exits:** Northeast to Market Square, South to Blacksmith
-   - **Purpose:** A narrow shop specializing in the local aquatic bounty. Provides crafting ingredients and food supplies. Has a slightly off-the-beaten-path feel, enhancing discovery.
+4. **Curio Shop**
+   - **Exits:** West to Market Square, South to Blacksmith
+   - **Purpose:** Offers rare and exotic items. Positioned to attract curious adventurers coming from the Market Square. Directly linked to the Blacksmith for those seeking enchanted weaponry.
 
-5. **General Store**
-   - **Exits:** Northwest to Market Square
-   - **Purpose:** Sells a variety of general goods and everyday items. Acts as a convenient stop for players needing to restock basic supplies.
+5. **Tailor**
+   - **Exits:** North to Apothecary
+   - **Purpose:** Offers clothing and armor customization. Tucked away from the main flow to provide a more intimate setting for customers. 
 
 6. **Blacksmith**
-   - **Exits:** North to Fishmonger's
-   - **Purpose:** Located near the water to use the natural resources for cooling metals. Offers weapons, armor, and repair services. Positioned slightly aside to reward players who explore beyond the main market paths.
+   - **Exits:** Northwest to Market Square, North to Curio Shop
+   - **Purpose:** Supplies weapons and armor. Easily reachable from the Market Square and Curio Shop, ensuring high traffic from adventurers.
 
-**Design Notes:**
+### Design Notes
 
-- **Flow:** The Market Square acts as the central hub, guiding players naturally to various shops, ensuring they encounter key locations without excessive backtracking.
-- **Discovery:** The Fishmonger's shop offers a hidden connection to the Blacksmith, encouraging players to explore beyond initial expectations.
-- **Vertical Space:** Not emphasized in this district due to the swampy terrain, focusing instead on horizontal exploration.
-- **Realism:** Each shop's placement reflects a logical arrangement based on trade needs and environmental factors (e.g., Blacksmith near water for practicality).
-- **Shadowfen Style:** The district's layout and themed shops reflect a sense of mystery and natural integration typical of Shadowfen, enhancing the atmospheric storytelling.
+- **Flow:** The Market Square serves as the central hub, ensuring that players can navigate to any major shop easily. The flow encourages players to return to the Market Square after visiting other locations.
+  
+- **Purpose:** Each shop serves a distinct purpose, catering to different player needs. The layout encourages exploration of each shop based on player interests.
+
+- **Discovery:** While the main shops are directly accessible from the Market Square, the Tailor is slightly hidden, rewarding those who explore the Apothecary's quieter path.
+
+- **Realism:** The district layout mimics a realistic small trade area where essential services are centralized, and specialized services are slightly off the main path.
+
+- **Storytelling:** The Watchtower provides a narrative element of security and oversight, while the Curio Shop adds mystery and intrigue, enhancing the district's lore.
