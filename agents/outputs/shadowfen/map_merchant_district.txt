@@ -1,73 +1,57 @@
-Certainly! Here's an ASCII map and detailed structure for the 'Merchant District' in the Shadowfen style:
+### Merchant District - Shadowfen Style
 
 ```
-      +------------+
-      |  Town Gate |
-      |  (Exit N)  |
-      +-----+------+
-            |
-            v
-     +------------+
-     |  Market    |
-     |  Square    |
-     | (Central)  |
-     +-----+------+
-      /   |   \
-     v    v    v
-+-------+ +-------+ +-------+
-|  Potion| |  Armory| |  Tailor |
-|  Shop  | |        | |        |
-+---+---+ +---+---+ +---+---+
-    |           |           |
-    v           v           v
-+-------+ +-------+ +-------+
-|  Alley | |  Back  | |  Side  |
-|  Way   | |  Room  | |  Street|
-+-------+ +-------+ +-------+
+   [Market Square]
+       /   \
+ [General] [Apothecary]
+     |         |
+ [Smithy]   [Tailor]
+     |         |
+ [Warehouse] [Dock]
 ```
 
-### Room List with Exits:
+---
 
-1. **Town Gate**
-   - **Exits:** South to Market Square
-   - **Notes:** Entry point to the district. This room serves as a logical transition from the outside world into the bustling Merchant District.
+**Room List with Exits:**
 
-2. **Market Square**
-   - **Exits:** North to Town Gate, East to Armory, West to Potion Shop, South to Tailor
-   - **Notes:** The central hub of the district, acting as a high-traffic area where players naturally converge. It’s designed for easy navigation to various shops.
+1. **Market Square**
+   - **Exits:** North to General Store, East to Apothecary
+   - **Purpose:** Central hub of the Merchant District. A bustling area where traders from Shadowfen gather to sell their goods. The square is lively, filled with stalls and local color.
 
-3. **Potion Shop**
-   - **Exits:** South to Alleyway, East to Market Square
-   - **Notes:** A small shop filled with various potions. Located on the west side of the Market Square for easy access to alchemical supplies.
+2. **General Store**
+   - **Exits:** South to Market Square, East to Smithy
+   - **Purpose:** Offers a variety of common goods. Positioned near the Market Square to ensure easy access for both merchants and customers.
 
-4. **Armory**
-   - **Exits:** South to Back Room, West to Market Square
-   - **Notes:** Sells weapons and armor. Positioned directly east of the Market Square, it services adventurers looking to equip themselves.
+3. **Apothecary**
+   - **Exits:** West to Market Square, South to Tailor
+   - **Purpose:** Sells potions and herbal remedies. The apothecary is a quiet place with an air of mystery, filled with the scent of herbs.
+
+4. **Smithy**
+   - **Exits:** North to General Store, South to Warehouse
+   - **Purpose:** The sound of hammer on anvil echoes through the district. The smithy is crucial for crafting and repairing weapons and armor, making it a key location for adventurers.
 
 5. **Tailor**
-   - **Exits:** North to Market Square, South to Side Street
-   - **Notes:** This shop offers clothing and armor repairs. Situated to the south of the Market Square, it connects to a quiet side street.
+   - **Exits:** North to Apothecary, South to Dock
+   - **Purpose:** Specializes in clothing and textiles. The tailor is known for exquisite craft, catering to both commoners and nobles alike.
 
-6. **Alleyway**
-   - **Exits:** North to Potion Shop
-   - **Notes:** A narrow path behind the Potion Shop. It’s an optional exploration area that might lead to hidden quests or encounters.
+6. **Warehouse**
+   - **Exits:** North to Smithy
+   - **Purpose:** Storage for goods awaiting shipment or sale. It is a less frequented area but crucial for the flow of merchandise in the district.
 
-7. **Back Room**
-   - **Exits:** North to Armory
-   - **Notes:** A storage area behind the Armory, potentially hiding secrets or additional inventory.
-
-8. **Side Street**
+7. **Dock**
    - **Exits:** North to Tailor
-   - **Notes:** A less-traveled path that might offer hidden opportunities or shortcuts to other districts.
+   - **Purpose:** A small dock where goods are imported and exported via the river. It's a point of entry for exotic items not found elsewhere in Shadowfen.
 
-### Design Notes:
+---
 
-- **Flow:** The Market Square serves as the central hub, allowing players to easily access different shops. Each shop has a logical connection to the central hub, ensuring players can find what they need with ease.
+**Design Notes:**
+
+- **Flow:** The Market Square serves as the central hub, allowing easy access to the surrounding shops. The square’s design encourages players to naturally discover key locations as they explore.
   
-- **Discovery:** The Alleyway and Back Room provide opportunities for players to discover hidden content, encouraging exploration beyond the main paths.
+- **Exploration vs. Convenience:** The district is compact, with shops clustered around the Market Square for convenience. However, the Warehouse and Dock provide a sense of exploration for those venturing outside the main paths.
 
-- **Purpose:** Each shop is strategically placed around the Market Square to cater to different player needs, from potions to armor to clothing.
+- **Storytelling:** The placement of the Smithy and Tailor reflects the craftsmanship valued in Shadowfen, while the Apothecary's proximity to the Market Square suggests the importance of trade in herbal goods.
 
-- **Pacing:** The layout clusters related activities (shopping) around the Market Square, while offering quieter paths (Alleyway, Side Street) for players seeking something different.
+- **Realism:** The layout reflects a logical organization, with the Market Square as the central hub and specialized shops branching out. Each room is placed to reflect its role in the district’s economy.
 
-- **Realism:** The spatial organization mimics a realistic market district, with shops centered around a square and accessible from a main gate. This mirrors the typical structure of a bustling medieval market area.
+- **Vertical Space:** Not used in this district design, as the focus is on horizontal flow and ease of navigation for merchants and customers. Vertical elements can be introduced in a larger city map with multi-story buildings or underground pathways.
