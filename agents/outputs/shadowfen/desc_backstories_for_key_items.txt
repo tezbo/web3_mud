@@ -1,15 +1,1 @@
-In the dimly lit alcove of the Shadowfen library, the air hangs heavy with the scent of aged parchment and the earthy musk of moss creeping along the stone walls. Flickering candlelight dances over shelves cluttered with artifacts, their surfaces pockmarked by rust and veiled in cobwebs. A hushed whisper of turning pages echoes softly, as if the books themselves murmur secrets to those who dare to listen. The cool, damp air caresses your skin, leaving a fine mist in its wake, as your fingers brush against the brittle, leather-bound tomes filled with tales long forgotten.
-
-Ambient Messages:
-1. **Ebonwood Staff**: "Carved from the heart of a cursed grove, the staff hums with a low, mournful wail, as if echoing the whispers of lost souls trapped within its dark embrace."  
-
-2. **Twilight Veil**: "Draped in ethereal layers of jade silk, the veil sparkles under starlight, exuding the faint scent of moonlit gardens and the lingering taste of secrets long buried."  
-
-3. **Shard of the Ancients**: "This jagged crystal, pulsing with a ghostly light, crackles with an icy energy, sending shivers down your spine and filling the air with the metallic tang of forgotten power."
-
-Ambient Messages:
-1. The tattered map, ink smeared and edges frayed, whispers of forgotten trails and hidden treasures, its faint scent of aged parchment mingling with the musty air of long-abandoned ruins.
-
-2. This obsidian dagger, its surface glimmering like a starless night, thrums with the echoes of ancient rituals, the chill of its hilt sending shivers through the palm as if it remembers the blood it once craved.
-
-3. An intricately carved wooden amulet, warm to the touch and imbued with the earthy aroma of pine, hums softly, resonating with the heartbeats of the forest, drawing you closer to its ancient wisdom.
+The dim chamber of Backstories for Key Items is shrouded in a perpetual, silvery mist, curling like ghostly fingers around timeworn shelves. Each step on the creaking, lichen-covered floorboards releases a faint, earthy musk, mingling with the metallic scent of rusted artifacts. The soft, distant drip of unseen water echoes through the space, a gentle reminder of the swamp's omnipresent embrace. As you run your fingers over the cool, damp surfaces of ancient tomes, their leather spines whisper tales of forgotten heroes and lost relics, tinged with the bittersweet tang of aged parchment.
