@@ -1,1 +1,8 @@
 The dungeon is a labyrinthine maw carved from ancient stone, its walls slick with the perspiration of the earth. A faint, acrid stench of rusted iron permeates the air, mingling with the musty breath of decay. Each footfall echoes with a hollow dread, reverberating through the narrow corridors like a whispering specter. The chill of the damp air clings to the skin, seeping through fabric to settle in the bones, while distant drops of water punctuate the oppressive silence with a rhythmic, mournful drip.
+
+Ambient Messages:
+1. Shadows flicker against the damp stone walls, where the faint sound of dripping water echoes like a distant whisper, mingling with the musty scent of ancient decay.  
+
+2. The air grows thick with the metallic tang of blood and rust, as the faint scrapes of claws against stone send shudders through the darkness, wrapping the chamber in a chilling embrace.  
+
+3. A sudden gust stirs the stale air, carrying the lingering aroma of burnt incense and forgotten spells, while the flickering torchlight reveals intricate runes half-buried in the dust, their secrets waiting to be unearthed.  
