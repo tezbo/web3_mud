@@ -1,1 +1,8 @@
 The dungeon exudes a damp chill, the air thick with the earthy musk of moss and the sharp tang of rusted iron. Faint echoes of dripping water punctuate the oppressive silence, each drop resonating like a distant heartbeat. Shadows writhe against the stone walls, their forms distorted by the flicker of an ancient torch, its flame sputtering in protest. Underfoot, the flagstones are slick with a slick film of moisture, their surfaces worn smooth by centuries of forgotten footsteps.
+
+Ambient Messages:
+1. The air is thick with the damp, earthy scent of moss and decay, while distant echoes of dripping water resonate through the shadowed corridors like whispered secrets from long-forgotten souls.  
+
+2. A chill wraps itself around you, prickling your skin as the flickering torchlight reveals ancient runes etched into the damp stone walls, their meanings as elusive as the faint, ghostly murmurs that brush against your ears.  
+
+3. The metallic tang of stale blood lingers in the stale air, mingling with the acrid smell of burnt sulfur, as the ground beneath your feet shifts uneasily, hinting at the restless darkness lurking just beyond the edge of light.  
