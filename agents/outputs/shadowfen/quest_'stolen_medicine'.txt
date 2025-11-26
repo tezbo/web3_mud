@@ -1,28 +1,29 @@
-**Quest Title: The Cure's Cost**
+**Quest Title: "The Bitter Cure"**
 
 **Stage Breakdown:**
 
-1. **Discovery of the Theft:**
-   - Upon entering Shadowfen, the player encounters Elara, a distressed herbalist. She explains that a crucial shipment of medicinal herbs has been stolen. These herbs are vital for treating a mysterious illness affecting the village.
-   
-2. **Investigation and Decision:**
-   - The player investigates the theft, leading to a group of desperate villagers. They reveal they stole the herbs to treat their own sick loved ones, fearing the village's allocation would run out before reaching them.
+1. **Stage 1: Discovery in the Shadows**
+   - The player arrives in Shadowfen, a swampy region plagued by illness. They encounter Elder Rynn, a community leader, who reveals that a shipment of vital medicine for the ailing villagers has been stolen. Rynn suspects a group of rogue bandits known as the Swamp Serpents.
 
-3. **Resolution:**
-   - The player must decide how to handle the situation, taking into account the needs of both the villagers and the town.
+2. **Stage 2: The Hunt for the Medicine**
+   - The player is tasked with locating the bandit camp, deep within the treacherous fens. Along the way, they encounter Lira, a former Swamp Serpent who claims she left the group due to their increasingly violent methods. She offers to guide the player to the camp in exchange for a promise of protection.
 
-**Solutions:**
+3. **Stage 3: Confrontation and Choices**
+   - Upon reaching the camp, the player finds the bandits divided. Some want to sell the medicine for profit, while others, led by a bandit named Jarek, want to return it, fearing the wrath of the Shadowfen spirits. The player must decide how to resolve the situation.
 
-1. **Redistribute the Herbs:**
-   - The player can choose to mediate a compromise, redistributing some herbs back to the village and ensuring the villagers' sick are treated as well.
-   - **Consequences:** The village appreciates the player's fairness, leading to improved relations and future discounts on goods. However, the village's elder, who prefers strict adherence to rules, may distrust the player's judgment in future quests.
+**Solutions and Consequences:**
 
-2. **Side with the Villagers:**
-   - The player can decide to support the villagers, allowing them to keep the herbs and advising them on how to cultivate their own supply.
-   - **Consequences:** The villagers are grateful, offering the player a unique recipe for a potent healing potion. However, the village suffers from the shortage, leading to tension and a potential outbreak of illness, affecting future quest availability.
+1. **Diplomatic Solution:**
+   - The player mediates between Jarek and the profit-focused bandits, persuading them to return the medicine peacefully by appealing to their conscience or offering them a share in future trade with Shadowfen.
+   - **Consequences:** Shadowfen villagers receive the medicine, leading to improved health and gratitude towards the player. The Swamp Serpents, now less hostile, become potential allies, offering unique services or information in future quests.
 
-3. **Return All Herbs to the Village:**
-   - The player can return the entire shipment to the village, ensuring the town's requirements are met first.
-   - **Consequences:** The village's leaders are pleased and reward the player with a rare artifact. However, the affected villagers view the player as heartless, leading to a potential confrontation or sabotage in future quests.
+2. **Aggressive Solution:**
+   - The player chooses to fight the bandits to recover the medicine, siding with Jarek afterwards to distribute it among the villagers.
+   - **Consequences:** The immediate threat is quelled, and the villagers are healed, but the remaining bandits harbor a grudge, leading to increased hostility in Shadowfen. Future encounters with bandits may be more violent.
 
-Each choice not only impacts the immediate situation but also influences the player's reputation and relationships within Shadowfen, creating a dynamic narrative that reflects the complexity of moral decisions in a world shaped by the consequences of The Sundering and the ongoing realm conflicts.
+3. **Subterfuge Solution:**
+   - The player secretly steals the medicine while the bandits argue and returns it to Shadowfen without direct confrontation.
+   - **Consequences:** The medicine is returned and the villagers are saved, but the bandits, unaware of the player's involvement, blame Jarek and Lira for the theft. This results in internal conflict among the bandits, potentially weakening their hold on the region.
+
+**Tied to World Lore:**
+- The quest ties into the history of Shadowfen, a region long affected by The Sundering, which has left its inhabitants in a fragile state. The player's actions can either stabilize or further destabilize the area, reflecting the delicate balance of the world.
