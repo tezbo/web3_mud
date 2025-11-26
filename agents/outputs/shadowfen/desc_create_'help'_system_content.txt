@@ -1,15 +1,1 @@
-The chamber lies shrouded in a perpetual twilight, where the air is thick with the acrid scent of damp earth and decaying leaves. Stalactites hang like jagged teeth from the ceiling, dripping icy water that echoes through the gloom with a slow, rhythmic plink. Along the walls, veins of rust-colored ore seem to pulse with an eerie, dull glow, casting flickering shadows that dance like specters across the slick stone floor. A chill seeps through your boots, numbing toes and sending shivers up your spine, while the distant hoot of a fen owl punctuates the quiet with haunting regularity.
-
-Ambient Messages:
-1. "The soft rustle of parchment whispers secrets of ancient spells, while the air shimmers faintly with the scent of ink and magic, inviting you to delve deeper into the arcane."  
-
-2. "Faint echoes of laughter and clinking glasses drift from the nearby tavern, where the rich aroma of spiced meat and warm ale beckons weary travelers to rest and share tales."  
-
-3. "A cool mist wraps around your ankles, carrying the earthy scent of damp moss and decaying leaves, as the twilight sky casts an otherworldly glow over the shadowy path ahead."
-
-Ambient Messages:
-1. "The distant chime of a crystal bell echoes through the misty corridors, mingling with the whisper of secrets long forgotten."  
-
-2. "A flickering torch casts dancing shadows along the damp stone walls, while the earthy scent of moss and damp wood fills the air."  
-
-3. "The soft rustle of silk curtains brushes against your skin, releasing a delicate perfume of honeysuckle and moonlight as you step into the twilight glow."  
+The room is swathed in perpetual twilight, where faint, spectral light filters through the tangled lattice of branches overhead. The air is heavy with the earthy scent of damp moss and the metallic bite of nearby rusting iron. A soft, persistent drip echoes from unseen corners, each drop a whisper against the slick flagstones underfoot. Shadows flit across the walls, fluid as ink, and the chill of the air clings like a second skin, leaving a ghostly touch in its wake.
