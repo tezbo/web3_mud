@@ -1,62 +1,57 @@
-### Shadowfen Dungeon Map
+Certainly! Below is the ASCII-style map for a district called "Dungeon" in Shadowfen style, along with a room list, exits, and design notes.
 
 ```
-     +-----------+
-     |   Altar   |
-     | Exits: S  |
-     +-----+-----+
-           |
-     +-----+-----+
-     | Ritual Hall|
-     | Exits: N, E, W|
-     +-----+-----+
-           |
- +---------+---------+
- |  Hall of Echoes   |
- | Exits: N, E, S    |
- +---------+---------+
-           |
-     +-----+-----+
-     |   Armory   |
-     | Exits: N, W |
-     +-----+-----+
-           |
-     +-----+-----+
-     |   Cellar   |
-     | Exits: N   |
-     +-----------+
+           [Guard Room]
+                |
+                N
+                |
+           [Main Hall] -- E -- [Armory]
+                |
+                S
+                |
+           [Cell Block]
+                |
+                S
+                |
+       [Torture Chamber]
+                |
+                D
+                |
+           [Secret Vault]
 ```
 
-### Room List and Exits
+### Room List with Exits
 
-1. **Altar Room**
-   - **Exits:** South to Ritual Hall
-   - **Notes:** The heart of the dungeon, where forbidden rites are performed. A place of dark power, echoing with the chants of long-gone cultists.
+1. **Guard Room**
+   - **Exits:** South to Main Hall
+   - **Purpose:** Entry point into the Dungeon; guards keep watch over the entrance.
 
-2. **Ritual Hall**
-   - **Exits:** North to Altar Room, East to Hall of Echoes, West to Armory
-   - **Notes:** A large chamber used for gatherings and rituals. The central hub of the dungeon, connecting major areas and facilitating easy navigation.
+2. **Main Hall**
+   - **Exits:** North to Guard Room, South to Cell Block, East to Armory
+   - **Purpose:** Central hub of the Dungeon. The main path for navigation.
 
-3. **Hall of Echoes**
-   - **Exits:** North to Ritual Hall, East to Armory, South to Cellar
-   - **Notes:** An eerie corridor where whispers and footsteps seem to linger. This hallway creates a loop, fostering exploration and discovery of hidden passages.
+3. **Armory**
+   - **Exits:** West to Main Hall
+   - **Purpose:** Storage for weapons and armor. Offers equipment that might aid the player.
 
-4. **Armory**
-   - **Exits:** North to Ritual Hall, West to Hall of Echoes
-   - **Notes:** A repository for weapons and armor, now mostly looted. The presence of forgotten gear hints at the dungeon's former military significance.
+4. **Cell Block**
+   - **Exits:** North to Main Hall, South to Torture Chamber
+   - **Purpose:** Prison cells holding captives. Contains clues to the Dungeon's backstory.
 
-5. **Cellar**
-   - **Exits:** North to Hall of Echoes
-   - **Notes:** A damp, forgotten storage area, perfect for hidden treasures or lurking dangers. Its isolation from the main path rewards those who delve deeper.
+5. **Torture Chamber**
+   - **Exits:** North to Cell Block, Down to Secret Vault
+   - **Purpose:** Dark and foreboding area for interrogation. Hints at hidden passages.
+
+6. **Secret Vault**
+   - **Exits:** Up to Torture Chamber
+   - **Purpose:** Hidden treasure room. Accessible only via the Torture Chamber, rewarding exploration.
 
 ### Design Notes
 
-- **Flow:** The Ritual Hall serves as the central hub, allowing players to easily navigate between key areas. It connects directly to the Altar Room, ensuring that the main quest path is clear.
+- **Flow and Central Hub:** The Main Hall acts as the central hub, allowing easy access to key locations such as the Armory and the Cell Block. This keeps players oriented while encouraging exploration beyond the main path.
 
-- **Exploration:** The Hall of Echoes forms a loop with the Armory, encouraging players to explore and discover the Cellar, a hidden area with potential rewards.
+- **Exploration and Discovery:** The Torture Chamber serves as a critical point for discovery, revealing the hidden Secret Vault below. This layered complexity rewards players who are curious and thorough in their exploration.
 
-- **Realism:** Each room has a logical placement, reflecting a coherent use of space. The Altar Room is secluded, as befits its ceremonial purpose, while the Armory is accessible for defense.
+- **Purpose and Realism:** Each room has a clear, logical purpose. The Guard Room secures the entrance, the Main Hall connects major areas, the Armory provides resources, the Cell Block holds prisoners, the Torture Chamber adds depth to the narrative, and the Secret Vault offers a treasure-laden reward for diligent adventurers.
 
-- **Storytelling:** The layout tells a story of a once-thriving cult, now in ruins. The placement of rooms suggests a hierarchy and purpose, with the Altar at the spiritual center.
-
-- **Vertical Space:** The dungeon is primarily on one level, with the Cellar providing vertical exploration. This preserves the sense of descent often associated with dungeons.
+- **Vertical Space:** The use of vertical space with the Secret Vault adds a dimension to exploration, creating a sense of depth and mystery, fitting the Shadowfen style's dark and secretive theme.
