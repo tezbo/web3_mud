@@ -1,43 +1,48 @@
-Certainly! Below is the ASCII map and design for the 'Merchant District' in a Shadowfen style.
-
-### ASCII Map
+Certainly! Below is the ASCII map for the 'Merchant District' in Shadowfen style, along with a room list, exits, and design notes.
 
 ```
-  [1]--[2]--[3]
-   |    |    |
-  [4]  [5]  [6]
+          [Central Market Square]
+                 /  |  \
+                /   |   \
+            [Apothecary] [General Goods]
+               |           |
+           [Blacksmith]   [Tailor]
+                \         /
+                 [Hidden Alley]
 ```
 
-### Room List with Exits and Purpose
+**Room List with Exits:**
 
-1. **Market Square**
-   - **Exits:** East to [2], South to [4]
-   - **Purpose:** Central hub of the Merchant District. This bustling square is filled with stalls and vendors, offering a variety of goods. It acts as a gathering place and the main point of entry for visitors.
+1. **Central Market Square**
+   - Exits: North to Apothecary, East to General Goods, South to Hidden Alley
+   - Notes: This is the central hub of the district. It's a bustling area with market stalls and traders. Players are naturally drawn here as it connects to all other rooms.
 
-2. **Potion Shop**
-   - **Exits:** West to [1], East to [3], South to [5]
-   - **Purpose:** A small, dimly lit shop filled with shelves of colorful potions. The shopkeeper is knowledgeable about remedies and poisons alike. This shop stands as a vital resource for adventurers.
+2. **Apothecary**
+   - Exits: South to Central Market Square
+   - Notes: A place for players to purchase potions and herbs. Its position north of the square implies a slightly quieter, more secluded atmosphere suitable for alchemy.
 
-3. **Armorer's Forge**
-   - **Exits:** West to [2], South to [6]
-   - **Purpose:** The clang of metal rings from this forge. The armorer specializes in crafting and repairing weapons and armor. It is a critical stop for those preparing for battles.
+3. **General Goods**
+   - Exits: West to Central Market Square, South to Tailor
+   - Notes: Offers a wide variety of items necessary for adventuring. Located conveniently next to the square for easy access, and next to the Tailor for logical consumer flow.
 
-4. **Tavern**
-   - **Exits:** North to [1], East to [5]
-   - **Purpose:** A lively place where locals and travelers alike share stories and rest. The tavern offers a warm meal and a place to gather information or hire a guide. It's directly accessible from the Market Square to encourage social interaction.
+4. **Blacksmith**
+   - Exits: North to Central Market Square
+   - Notes: Players can buy and repair weapons and armor here. Positioned to be easily accessible yet slightly off the main path to suggest the heavy work done here.
 
-5. **General Store**
-   - **Exits:** North to [2], West to [4], East to [6]
-   - **Purpose:** This store sells a bit of everything, from travel supplies to everyday items. It bridges the gap between the potion shop and armorer's forge, making it a convenient stop for a variety of needs.
+5. **Tailor**
+   - Exits: North to General Goods, West to Hidden Alley
+   - Notes: Sells clothing and light armor. Positioned to be near General Goods to imply a shared clientele. The exit to Hidden Alley suggests secretive dealings or a less reputable side business.
 
-6. **Black Market**
-   - **Exits:** North to [3], West to [5]
-   - **Purpose:** Hidden from casual eyes, this clandestine market deals in rare and illicit goods. It's a place for those in the know, requiring exploration to discover its location.
+6. **Hidden Alley**
+   - Exits: North to Central Market Square, East to Tailor
+   - Notes: A secretive and narrow passage that rewards players who explore. Could hold hidden vendors or quests. Provides a sense of discovery, linking back to the square for ease of navigation.
 
-### Design Notes
+**Design Notes:**
 
-- **Flow:** The central Market Square [1] serves as the primary hub, allowing players to naturally flow into specialized shops [2, 3] and community spaces like the Tavern [4].
-- **Discovery:** The Black Market [6] requires exploration, rewarding players who venture through the district.
-- **Pacing:** Shops are clustered around the central square, with related establishments (e.g., Potion Shop and Armorer's Forge) nearby.
-- **Realism:** The layout mimics a logical merchant district, where related businesses are clustered for convenience, while secretive operations like the Black Market are tucked away.
-- **Vertical Space:** Although not used here, opportunities for vertical exploration could include hidden basements or upper shop levels for future expansion.
+- **Flow:** The district is designed to encourage exploration from the central hub. The Central Market Square acts as the main point of interest, with pathways leading to specialized shops.
+- **Discovery:** The Hidden Alley adds a layer of mystery and rewards players who stray from the main path. It also creates a shortcut between the Tailor and the central hub.
+- **Pacing:** Shops are clustered around the market square to maintain logical consumer flow while allowing players to explore the district without feeling overwhelmed.
+- **Realism:** The layout makes physical sense with the main commercial activities centered around the market, and specialized services branching out logically.
+- **Vertical Space:** Not used in this small district, keeping the focus on horizontal exploration.
+
+This design captures the bustling yet slightly mysterious atmosphere of a 'Shadowfen' Merchant District, encouraging both commerce and exploration.
