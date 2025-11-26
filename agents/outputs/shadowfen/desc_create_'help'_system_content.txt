@@ -6,3 +6,10 @@ Ambient Messages:
 2. "The soft rustle of silken banners whispers overhead, their jade hues shimmering like the last light of dusk, as the distant clang of metal on metal resonates from the blacksmith's forge."  
 
 3. "Mist clings to the gnarled roots of ancient trees, wrapping the forest in a shroud of secrets, while the damp earth releases a rich, loamy scent that promises hidden treasures beneath its surface."
+
+Ambient Messages:
+1. "A distant melody of chimes dances on the breeze, mingling with the faint rustle of leaves as twilight casts a warm, golden hue over the cobblestone paths."  
+
+2. "The air is thick with the earthy aroma of damp moss and ancient stone, while the soft drip of water echoes in the shadowed corners of this forgotten sanctuary."  
+
+3. "As you draw closer, the sweet, smoky scent of roasted chestnuts envelops you, accompanied by the lively chatter of townsfolk weaving tales beneath flickering lantern light."
