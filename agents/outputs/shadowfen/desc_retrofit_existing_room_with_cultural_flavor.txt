@@ -21,3 +21,11 @@ Ambient Messages:
 
 3. In the Shadowfen alcove, a thick mist coils around gnarled roots, muffling the soft whispers of the wind, as the damp scent of moss and decay mingles with the faint tang of iron, creating an atmosphere heavy with secrets and ancient stories.
 >>>>>>> feature/task-2
+
+
+Ambient Messages:
+1. "The air hums with the gentle clink of jade ornaments, their polished surfaces catching the flickering light of lanterns that cast soft shadows across the intricately woven silk tapestries."
+
+2. "The earthy scent of damp moss mingles with the faint rustle of dry reeds as the twilight mist wraps around gnarled trees, creating a hushed sanctuary where secrets linger in the cool air."
+
+3. "Cold steel and warm stone converge in a bustling forge, where the rhythmic pounding of hammers echoes like a heartbeat, and the sharp tang of molten metal hangs heavy, igniting the spirit of creation."
