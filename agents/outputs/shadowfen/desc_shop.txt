@@ -20,3 +20,10 @@ Ambient Messages:
 2. A tinkling melody of wind chimes fills the dimly lit shop, where the rich aroma of aged parchment and spiced incense dances in the air, inviting you to explore its hidden secrets.  
 
 3. The polished wooden counter, worn smooth by countless transactions, is adorned with a chaotic mosaic of vibrant gemstones that shimmer like captured stars under the flickering candlelight.
+
+Ambient Messages:
+1. "The air hums with the soft jingle of glass trinkets swaying, while the rich aroma of aged leather and exotic spices wraps around you like a warm embrace."  
+
+2. "Sunlight filters through stained glass, casting vibrant patterns on the worn wooden floor, as the faint sound of a bell chimes with each customer’s entrance."  
+
+3. "A curtain of incense-laden mist swirls around shelves brimming with curiosities, the faint crackle of parchment and whispered secrets filling the air like a forgotten melody."
