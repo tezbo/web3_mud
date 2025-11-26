@@ -2,28 +2,24 @@
 
 **Stage Breakdown:**
 
-1. **The Discovery:** 
-   - The player arrives in Shadowfen, a town thriving on its bustling marketplace. Rumors spread about counterfeit coins disrupting trade. The local merchant, Elda, seeks help after being swindled with fake currency.
-   
-2. **The Investigation:** 
-   - Elda directs the player to investigate the source of the fake coins. Leads point to three suspects: a desperate blacksmith named Torin, the enigmatic apothecary Selene, and a wandering bard, Liora. Each has a motive tied to Shadowfen's economic struggles.
+1. **The Illusive Coin**: The player arrives in Shadowfen and hears rumors of counterfeit coins flooding the market, causing chaos among merchants. Anxious shopkeeper Elira approaches the player, suspecting a nearby coin minter, Jareth, as the source.
 
-3. **The Confrontation:** 
-   - The player gathers evidence and decides on a course of action: confront the chosen suspect, convince them to cease their operations, or expose them to the town council.
+2. **The Source of Shadows**: The player investigates Jareth’s workshop, discovering evidence of counterfeit coin molds. Jareth insists he’s being framed and points to a rival merchant, Lirael, whose business has mysteriously thrived amid the chaos.
+
+3. **The Web Unraveled**: The player must decide how to handle the situation—either expose Jareth or Lirael, or uncover a deeper conspiracy involving both.
 
 **Solutions:**
 
-1. **Expose the Culprit:**
-   - The player carefully gathers evidence against the true counterfeiter and presents it to the town council. The council publicly denounces the culprit, restoring trust in the marketplace.
-   - *Consequences:* The player earns respect and a small stipend from grateful merchants. However, the exposed culprit may harbor a grudge, potentially leading to future conflicts or sabotage attempts.
+1. **Expose Jareth**: Believing Jareth is guilty, the player turns him into the authorities with the evidence found. This leads to the closure of his workshop and the end of the counterfeit operation, but the player later learns that the real mastermind, Lirael, was working with Jareth’s assistant. This choice results in a temporary market recovery but leaves Lirael’s influence untouched.
 
-2. **Negotiate a Truce:**
-   - Discovering that Torin, the blacksmith, is the counterfeiter, the player learns he was forced into it due to crushing debt. The player brokers a deal with Elda to forgive some of his debt in exchange for stopping his operations.
-   - *Consequences:* Torin becomes an ally, offering discounts on blacksmithing services. However, suspicion still lingers among townsfolk, slightly affecting market prices.
+2. **Expose Lirael**: The player investigates further and discovers that Lirael orchestrated the counterfeiting to ruin Jareth and dominate the market. By exposing her, the player restores balance to the market, earning gratitude from Jareth and local merchants. However, Lirael’s powerful connections mean that the player gains a formidable enemy, affecting future dealings in Shadowfen.
 
-3. **Join the Scheme:**
-   - The player decides to align with Selene, who is secretly the mastermind, believing her vision of redistributing wealth is just. They help refine the counterfeiting process, ensuring it remains undetected.
-   - *Consequences:* The player gains a share of the profits and Selene's loyalty, but risks future detection. If discovered, they might face severe penalties or need to flee Shadowfen.
+3. **Uncover the Conspiracy**: Delving deeper, the player uncovers that both Jareth and Lirael were pawns in a larger scheme by a secret guild aiming to destabilize the economy for political leverage. By revealing this plot, the player earns the respect and trust of Shadowfen’s leaders, but the guild remains in the shadows, waiting for another opportunity to strike.
 
-**Tie to World Lore:**
-- The Sundering has left many regions, including Shadowfen, economically unstable. This quest reflects the broader societal impacts of such events, showing how individuals adapt to survive. Threadsinging, a rare skill, could be subtly involved, as Selene might use it to enhance her forgery techniques, hinting at deeper magical influences at play.
+**Consequences for Each Choice:**
+
+1. **Expose Jareth**: Merchants regain trust in the market, but the player’s reputation among artisans suffers. Lirael’s influence grows, leading to more expensive goods in Shadowfen. Future quests might involve dealing with her manipulations.
+
+2. **Expose Lirael**: Jareth becomes a powerful ally, offering discounts and aid. Lirael, however, swears vengeance, and the player may face ambushes or sabotage when dealing with Shadowfen in the future.
+
+3. **Uncover the Conspiracy**: The player gains political allies and increased influence in Shadowfen, unlocking unique quests with the city’s leaders. However, the guild’s agents may target the player, resulting in unexpected threats or challenges in future adventures.
