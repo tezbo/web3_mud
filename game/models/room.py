@@ -67,21 +67,23 @@ class Room(GameObject):
 
     def _get_base_description_text(self) -> str:
         """Get the room description based on time of day and weather."""
-        # Import helpers from game_engine (temporary bridge)
-        from game_engine import get_time_of_day, apply_weather_to_description
+        from game.systems.atmospheric_manager import get_atmospheric_manager
         
-        time_of_day = get_time_of_day()
-        desc = self.descriptions_by_time.get(time_of_day, self.description)
+        atmos = get_atmospheric_manager()
+        
+        # Get time-aware description if available
+        # For now, use base description (time-specific descriptions per room can be added later)
+        desc = self.description
         
         if self.outdoor:
-            desc = apply_weather_to_description(desc, time_of_day)
+            desc = atmos.apply_weather_to_description(desc)
             
         return desc
     
     def _get_weather_time_line(self) -> str:
         """Get the combined weather and time description for outdoor rooms."""
-        from game_engine import get_combined_time_weather_description
-        return get_combined_time_weather_description(is_outdoor=self.outdoor)
+        from game.systems.atmospheric_manager import get_atmospheric_manager
+        return get_atmospheric_manager().get_combined_description(is_outdoor=self.outdoor)
 
     def _get_items_description(self, viewer: 'GameObject') -> str:
         """Get description of items in the room."""
