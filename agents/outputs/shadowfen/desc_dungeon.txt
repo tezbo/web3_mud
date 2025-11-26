@@ -13,3 +13,10 @@ Ambient Messages:
 2. Flickering torchlight casts frantic shadows across the jagged stone walls, where ancient runes pulse softly, whispering secrets long forgotten by time.  
 
 3. The ground beneath your feet is slick with moisture, and the low growl of unseen beasts reverberates in your chest, a haunting reminder of the dangers lurking just beyond the veil of darkness.  
+
+Ambient Messages:
+1. A distant drip echoes through the shadowy halls, the rhythmic plink of water pooling onto cold stone, mingling with the musty scent of damp earth and ancient dust.  
+
+2. Flickering torchlight dances along the jagged walls, casting ghostly shadows that seem to whisper secrets of long-forgotten battles and buried treasures.  
+
+3. The air hangs heavy with the metallic tang of blood and rust, as the low growl of unseen creatures reverberates through the dark, a reminder that danger lurks just beyond the flickering light.

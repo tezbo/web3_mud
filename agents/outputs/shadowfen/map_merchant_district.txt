@@ -1,59 +1,47 @@
-Certainly! Here's a design for the 'Merchant District' in a Shadowfen style, complete with a map, room list, and design notes:
+### Merchant District Map (Shadowfen Style)
 
-### ASCII Map:
 ```
-       +------------+
-       |  Watchtower|
-       |    (U)     |
-       +-----+------+
-             |
-             D
-+------------+------------+
-|  Apothecary|  Market    |
-|     (N)    | Square (S) |
-+------------+------------+
-             |
-             S
-+------------+------------+
-|   Tavern   |  Smithy    |
-|     (E)    |    (W)     |
-+------------+------------+
-             |
-             S
-+------------+
-|   Docks    |
-|    (N)     |
-+------------+
+         [Market Square]
+              /   \
+      [Armory]   [Tavern]
+         |         |
+   [Tailor Shop] [General Store]
+         \       /
+        [Hidden Alley]
 ```
 
-### Room List with Exits:
+### Room List with Exits
+
 1. **Market Square**
-   - **Exits:** North to Apothecary, East to Tavern, South to Docks, Up to Watchtower
-   - **Notes:** Central hub with high traffic. The square is bustling with vendors, a great place for players to gather information or acquire items.
+   - Exits: North to Armory, Northeast to Tavern
+   - Design Notes: Central hub of the Merchant District. Bustling with traders and shoppers. Key location for players to gather and socialize. Acts as the main access point to all other rooms.
 
-2. **Apothecary**
-   - **Exits:** South to Market Square
-   - **Notes:** Offers potions and herbs. Located north of the Market Square for easy access to supplies. The shadowy interior matches the Shadowfen aesthetic.
+2. **Armory**
+   - Exits: South to Market Square, Southeast to Tailor Shop
+   - Design Notes: Sells weapons and armor. Directly connected to the Market Square for ease of access. Offers a strategic advantage for players focused on combat.
 
-3. **Watchtower**
-   - **Exits:** Down to Market Square
-   - **Notes:** Overlooks the district and provides a vantage point. Accessible via the Market Square, offering a vertical element to the district.
+3. **Tavern**
+   - Exits: West to Market Square, South to General Store
+   - Design Notes: A place for rest and gathering information. Players can pick up rumors or quests here. Positioned with easy access from the Market Square and connection to the General Store for supplies.
 
-4. **Tavern**
-   - **Exits:** West to Market Square
-   - **Notes:** A place for rest and gathering information. The entrance from the east side provides a natural flow of movement from the market.
+4. **Tailor Shop**
+   - Exits: Northwest to Armory, East to Hidden Alley
+   - Design Notes: A specialized shop for clothing and light armor. Positioned between the Armory and Hidden Alley to encourage exploration and serve as a transition between visible and hidden areas.
 
-5. **Smithy**
-   - **Exits:** East to Market Square
-   - **Notes:** Provides weapons and armor, essential for adventurers. Located conveniently by the Market Square for quick access to gear.
+5. **General Store**
+   - Exits: North to Tavern, West to Hidden Alley
+   - Design Notes: Sells general goods and adventuring supplies. Conveniently located to be accessed easily from the Tavern. Connects to the Hidden Alley, encouraging players to explore for potential secrets.
 
-6. **Docks**
-   - **Exits:** North to Market Square
-   - **Notes:** Offers a transition to the water routes. Located south, serving as an entry or exit point for those arriving by water, emphasizing the district's trade focus.
+6. **Hidden Alley**
+   - Exits: West to Tailor Shop, East to General Store
+   - Design Notes: A secretive, narrow passageway. Contains hidden treasures or quests. Designed as a reward for players who explore the district beyond the obvious paths.
 
-### Design Notes:
-- **Flow:** The Market Square serves as the central hub, ensuring all paths lead through it, facilitating natural discovery of key locations.
-- **Exploration and Convenience:** The Watchtower provides a unique perspective and additional room to explore without cluttering the ground level.
-- **Realism and Storytelling:** The placement of the Docks fosters a sense of trade and travel, while the Apothecary and Smithy reflect the district's commercial focus.
-- **Vertical Space:** The inclusion of the Watchtower adds vertical interest and a storytelling element of surveillance and protection in a potentially dangerous area.
-- **Shadowfen Style:** The district's layout and room purposes reflect the murky, mysterious vibe typical of Shadowfen, with a focus on trade and subtle intrigue.
+### Design Notes on Flow and Purpose
+
+- **Central Hub (Market Square):** Functions as the main gathering spot, ensuring players encounter each other and share experiences. It creates a natural starting point for exploration within the district.
+- **Flow:** The district is structured to lead players from the central Market Square outward, with natural connections between shops that thematically complement each other.
+- **Discovery:** The Hidden Alley adds an element of mystery and reward for players who delve deeper into the district, encouraging exploration beyond the obvious.
+- **Pacing and Realism:** The layout balances convenience and exploration. Shops are logically placed, with armory and tailor close for ease of gear acquisition, while the tavern and general store serve as resource points.
+- **Layered Complexity:** Encourages vertical thinking with hidden elements and the potential for quests or discoveries in less-traveled areas.
+
+This design ensures that while the Merchant District is compact, it offers both necessary resources and incentives for exploration, enriching player experience in a Shadowfen-themed environment.
