@@ -1,53 +1,47 @@
-**Merchant District - Shadowfen Style**
-
 ```
-          +------------------+
-          |   Auction House  |
-          |   E: Marketplace |
-          +------------------+
-                   |
-                   S
-          +------------------+
-          |   Marketplace    |
-          | W: Alchemist     |
-          | E: Tailor        |
-          | S: Cobbler       |
-          +------------------+
-         /    |      \          
-        W     S       E
-+--------+ +-------+ +--------+
-|Alchemist| |Cobbler| | Tailor |
-|  E: Market | N: Market | W: Market|
-+--------+ +-------+ +--------+
-```
+                  Merchant District
+                          |
+                         [A]
+                          |
+                +---------+---------+
+                |                   |
+               [B]                 [C]
+                |                   |
+                |                   |
+               [D]                 [E]
+                |                   |
+                +---------+---------+
+                          |
+                         [F]
 
-### Room List
+Room List:
+[A] Central Market Square
+    Exits: South to [B], East to [C]
+    Purpose: A bustling hub of activity, the heart of the Merchant District. Stalls line the square, offering a variety of goods. Acts as the main navigation point for the district.
 
-1. **Auction House**
-   - **Exits**: South to Marketplace
-   - **Notes**: Central hub for trading and auctioning goods. Players can gather information, participate in auctions, and trade with others. It's a key social and economic center, leading directly to the bustling Marketplace.
+[B] Artisan Alley
+    Exits: North to [A], South to [D]
+    Purpose: A narrow street filled with workshops where artisans craft and sell their wares. Provides a direct path south towards residential areas.
 
-2. **Marketplace**
-   - **Exits**: North to Auction House, West to Alchemist, East to Tailor, South to Cobbler
-   - **Notes**: The vibrant heart of the Merchant District with stalls and vendors selling a variety of goods. It serves as the main connector to other specialized shops, encouraging exploration and interaction.
+[C] Merchant Guild Hall
+    Exits: West to [A], South to [E]
+    Purpose: A grand building where merchants convene to discuss trade. Offers a path further south towards storage areas and docks.
 
-3. **Alchemist**
-   - **Exits**: East to Marketplace
-   - **Notes**: A mysterious, aromatic shop filled with potions and reagents. It’s slightly tucked away, offering a sense of discovery for those exploring the western paths from the Marketplace. Ideal for players seeking magical or alchemical supplies.
+[D] Trade Street
+    Exits: North to [B], East to [F]
+    Purpose: A lively street lined with general shops and small eateries. Connects residential sections to the main market.
 
-4. **Cobbler**
-   - **Exits**: North to Marketplace
-   - **Notes**: A quaint shop where leather goods and footwear are crafted. Positioned to draw players further south from the Marketplace, balancing the flow by extending the district's reach.
+[E] Warehouse Row
+    Exits: North to [C], West to [F]
+    Purpose: A quieter area with large warehouses storing imported goods. Provides access to docks further south.
 
-5. **Tailor**
-   - **Exits**: West to Marketplace
-   - **Notes**: A brightly decorated shop offering textiles and garments. Situated to encourage players to explore the eastern side of the Marketplace, maintaining a balanced spatial design with its counterpart, the Alchemist.
+[F] Riverfront Docks
+    Exits: North to [D], East to [E]
+    Purpose: The southern boundary of the district where goods are loaded and unloaded from riverboats. Transition point to other districts or areas via boat.
 
-### Design Notes
-
-- **Flow**: The Marketplace acts as a central hub, allowing players to naturally flow between specialized shops. The Auction House's strategic placement north of the Marketplace draws players into the district.
-- **Discovery**: By situating the Alchemist slightly to the west, it encourages exploration beyond the central path. The arrangement avoids linear movement, promoting a dynamic exploration experience.
-- **Pacing**: Shops are clustered around the Marketplace, ensuring related services are conveniently accessible while retaining a sense of distance and exploration.
-- **Realism**: The layout reflects a believable town structure, where common trade areas are central, and specialized services are slightly off the main path. This mirrors the logical organization of a bustling merchant district.
-
-By integrating these design principles, the Merchant District offers a balanced mix of convenience and exploration, encouraging players to engage with both the central hub and peripheral areas within the district.
+Design Notes:
+- Flow: The map is designed to naturally guide players through the central hub [A], encouraging exploration of the surrounding rooms.
+- Clustering: Shops are clustered around the market [A], while storage areas like [E] are positioned further from residential and market zones.
+- Discovery: Players may find hidden transactions and rare goods by exploring less trafficked areas like [E] and [F].
+- Realism: The market square serves as a logical central hub, with nearby artisan and guild activities. Residential and storage areas extend further out, maintaining a sense of logical urban planning.
+- Vertical space: While not explicitly depicted, interiors like the Merchant Guild Hall [C] could have additional floors for offices or meeting rooms.
