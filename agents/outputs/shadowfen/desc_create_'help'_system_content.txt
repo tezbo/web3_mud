@@ -6,3 +6,10 @@ Ambient Messages:
 2. "Faint echoes of laughter and clinking glasses drift from the nearby tavern, where the rich aroma of spiced meat and warm ale beckons weary travelers to rest and share tales."  
 
 3. "A cool mist wraps around your ankles, carrying the earthy scent of damp moss and decaying leaves, as the twilight sky casts an otherworldly glow over the shadowy path ahead."
+
+Ambient Messages:
+1. "The soft rustle of parchment whispers secrets from forgotten tomes, while the faint scent of ink lingers like a shadow in the dimly lit alcove."  
+
+2. "A gentle breeze carries the sweet aroma of blooming nightshade as the moonlight dances on the surface of the tranquil pond, casting rippling silver reflections."  
+
+3. "The distant clink of glass and low murmur of laughter spill from the tavern, mingling with the rich scent of spiced ale and roasting meat that beckons like an old friend."  
