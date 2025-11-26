@@ -1,56 +1,43 @@
-### ASCII Map of the Merchant District
+Certainly! Below is an ASCII map of the 'Merchant District' designed in the Shadowfen style, followed by a room list with exits and design notes.
 
 ```
-        +-----------+        +-----------+
-        |  Armorer  |<------>|  Tailor   |
-        |           |        |           |
-        |   (2)     |        |   (3)     |
-        +----+------+        +----+------+
-             |                    |
-             v                    v
-        +-----------+        +-----------+
-        |  Market   |<------>|  Alchemist|
-        |  Square   |        |   Shop    |
-        |   (1)     |        |   (4)     |
-        +----+------+        +----+------+
-             |                    |
-             v                    v
-        +-----------+        +-----------+
-        |  Pawnshop |<------>|  Warehouse|
-        |           |        |           |
-        |   (5)     |        |   (6)     |
-        +-----------+        +-----------+
+  [Market Square]
+       / | \
+      /  |  \
+[Armory]-[General Shop]-[Tavern]
+     |          |
+ [Tailor]    [Apothecary]
 ```
 
 ### Room List with Exits
 
 1. **Market Square**
-   - **Exits**: North to Armorer, East to Alchemist Shop, South to Pawnshop
-   - **Purpose**: Central hub of the district; a bustling area with vendors and traders. It encourages exploration by leading to specialized shops.
+   - Exits: North to Armory, East to General Shop, Southeast to Tavern
+   - Notes: The bustling heart of the Merchant District, where merchants set up stalls selling various goods. It serves as a central hub with multiple exits leading to specialized shops.
 
-2. **Armorer**
-   - **Exits**: South to Market Square, East to Tailor
-   - **Purpose**: Sells armor and protective gear. Positioned to be easily accessible from the market for adventurers looking to gear up.
+2. **Armory**
+   - Exits: South to Market Square, East to Tailor
+   - Notes: A sturdy building with weapons and armor on display. Positioned next to the Market Square for easy access to adventurers. The Tailor is logically placed nearby for purchasing or repairing armor padding and clothing.
 
-3. **Tailor**
-   - **Exits**: West to Armorer, South to Alchemist Shop
-   - **Purpose**: Provides clothing and light armor. Its proximity to the Armorer fosters a logical flow for players upgrading their gear.
+3. **General Shop**
+   - Exits: West to Market Square, East to Apothecary
+   - Notes: Offers a variety of common goods and adventuring supplies. It connects directly to the Apothecary, allowing easy access for those looking to stock up on potions and remedies.
 
-4. **Alchemist Shop**
-   - **Exits**: West to Market Square, North to Tailor, South to Warehouse
-   - **Purpose**: Offers potions and arcane supplies. Placed strategically between the Market and Tailor to attract a variety of foot traffic.
+4. **Tavern**
+   - Exits: Northwest to Market Square
+   - Notes: A lively place where travelers rest and exchange tales. Its proximity to the Market Square makes it a popular stop for those seeking refreshment after shopping.
 
-5. **Pawnshop**
-   - **Exits**: North to Market Square, East to Warehouse
-   - **Purpose**: Buys and sells miscellaneous items. It's a place for players to offload loot or find unique items. Its location near the Market makes for convenient trading.
+5. **Tailor**
+   - Exits: West to Armory
+   - Notes: Specializes in clothing and light armor. Positioned conveniently for those who need custom fittings or quick mending after purchasing gear from the Armory.
 
-6. **Warehouse**
-   - **Exits**: North to Alchemist Shop, West to Pawnshop
-   - **Purpose**: Storage for goods and potential quest-related activities. Positioned at the district's edge, it serves as a logical end-point for deliveries and smuggling operations.
+6. **Apothecary**
+   - Exits: West to General Shop
+   - Notes: A small, aromatic shop filled with herbs and potions. Its location next to the General Shop ensures that adventurers can easily acquire both supplies and remedies.
 
-### Design Notes
+### Design Notes on Flow and Purpose
 
-- **Flow**: The Market Square serves as the central hub, ensuring players naturally pass through it to reach other locations. This design encourages players to explore each shop, creating a sense of bustling activity and commerce.
-- **Discovery**: The district provides a straightforward exploration path with interconnected shops. Each shop leads logically to the next, simulating the experience of wandering through a real market district.
-- **Pacing**: The spatial arrangement allows for a balance between exploration and convenience, with short distances between key locations, while maintaining a sense of district scale.
-- **Realism**: The layout mirrors a traditional urban market setup, with related businesses clustered together, making the district feel both functional and lively.
+- **Flow**: The layout encourages players to start at the Market Square, a natural gathering point, and explore outward. Each shop is just a short walk from this hub, facilitating easy navigation.
+- **Purpose**: The arrangement reflects the practical needs of adventurers and residents, with essential services clustered around the Market Square. Shops are grouped logically; for instance, the Armory and Tailor are close, catering to those interested in personal gear.
+- **Exploration and Realism**: The design balances exploration with convenience. Players can quickly find what they need but are also encouraged to explore each shop for unique items. The placement of the Tavern near the Market Square ensures it is a social focal point.
+- **Vertical Space**: While this district remains on a single level for simplicity, future expansions could include multi-level buildings for added complexity, such as a cellar in the Tavern or an upstairs potion lab in the Apothecary.
