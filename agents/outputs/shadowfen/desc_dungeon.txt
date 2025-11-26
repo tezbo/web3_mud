@@ -1,8 +1,1 @@
-The dungeon lies shrouded in a perpetual haze, where tendrils of mist coil around rusted iron bars, whispering secrets to the shadows. A damp chill seeps through the stone walls, slick with moss and the weight of countless years, pressing like a cold hand against your skin. The air carries a fetid stench of decay, mingling with the acrid scent of ancient iron, as distant echoes of dripping water punctuate the oppressive silence. Each step on the uneven, grit-covered floor sends a shiver through your bones, as if the ground itself remembers the sorrows of those long vanished.
-
-Ambient Messages:
-1. Shadows flicker on damp stone walls as the distant drip of water echoes like a heartbeat, mingling with the faint whispers of long-lost souls trapped in the darkness.  
-
-2. A chill breeze snakes through the narrow passage, carrying the acrid scent of mold and decay, while the ground beneath your feet shifts with the uneasy squelch of centuries-old muck.  
-
-3. The air hangs thick with the metallic tang of iron and the muted thrum of unseen creatures stirring, their breath a low, steady hiss that sends shivers down your spine.  
+The dungeon yawns open like a maw, its stone walls slick with the permanent kiss of dampness, exuding the earthy scent of moss and mildew. Chains clink faintly in the shadows, their metallic whispers echoing against the hollow, oppressive silence that hangs heavy in the air. Faint shafts of moonlight filter through iron-barred windows, casting ghostly patterns on the floor, where cold rivulets of water snake through the rusted grates. The chill bites through to the bone, leaving a metallic tang on the tongue and a sense of foreboding that clings to the skin like a shroud.

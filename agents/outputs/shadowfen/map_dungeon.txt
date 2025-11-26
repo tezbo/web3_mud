@@ -1,55 +1,63 @@
-### ASCII Map of 'Dungeon' District - Shadowfen Style
+Certainly! Below is an ASCII map and detailed design for a 6-room district called "Dungeon" in the Shadowfen style.
+
+### ASCII Map
 
 ```
-     [Entrance]
-         |
-    [Guard Room]
-         |
-    [Main Hall] -- [Hidden Alcove]
-         |
-     [Prison Cells] -- [Secret Passage]
-         |
-    [Boss Chamber]
+       [Treasure Chamber]
+              |
+             (S)
+              |
+      [Hidden Passage]
+         /        \
+       (W)        (E)
+       /            \
+[Guard Room]---(N)---[Main Hall]---(E)---[Research Lab]
+       |              |
+      (S)            (S)
+       |              |
+  [Prison Cells]  [Entrance]
 ```
 
-### Room List with Exits and Purpose
+### Room List with Exits
 
 1. **Entrance**
-   - **Exits:** South to Guard Room
-   - **Purpose:** The entry point to the dungeon, guarded by heavy iron gates. Sets the tone with damp, earthy smells and flickering torchlight.
+   - Exits: North to Main Hall
+   - Purpose: The entry point to the dungeon, guarded and foreboding, setting the tone.
 
-2. **Guard Room**
-   - **Exits:** North to Entrance, South to Main Hall
-   - **Purpose:** A small room where guards are stationed. Contains weapon racks and a modest table. It serves as a checkpoint, introducing a minor obstacle or encounter.
+2. **Main Hall**
+   - Exits: South to Entrance, East to Research Lab, West to Guard Room, North to Hidden Passage
+   - Purpose: Central hub of the dungeon, connecting most of the other rooms.
 
-3. **Main Hall**
-   - **Exits:** North to Guard Room, East to Hidden Alcove, South to Prison Cells
-   - **Purpose:** The central hub of the dungeon, a vast, echoing chamber. It connects to various paths and is often filled with the sounds of distant water dripping. The architecture hints at forgotten grandeur.
+3. **Guard Room**
+   - Exits: East to Main Hall, South to Prison Cells
+   - Purpose: Where guards rest and monitor prisoners. Contains keys and basic supplies.
 
-4. **Hidden Alcove**
-   - **Exits:** West to Main Hall
-   - **Purpose:** A secret area concealed behind a tapestry or a loose stone. It rewards players who explore with a small cache of treasure or a unique item. 
+4. **Prison Cells**
+   - Exits: North to Guard Room
+   - Purpose: Houses prisoners, a place with potential subplots or rescue missions.
 
-5. **Prison Cells**
-   - **Exits:** North to Main Hall, East to Secret Passage
-   - **Purpose:** A series of dank cells with heavy, rusted bars. This area is filled with the remnants of past prisoners. It adds depth to the story, hinting at the dungeon's dark history.
+5. **Research Lab**
+   - Exits: West to Main Hall
+   - Purpose: A site for magical experiments or sinister plots, with research notes and alchemical ingredients.
 
-6. **Secret Passage**
-   - **Exits:** West to Prison Cells, South to Boss Chamber
-   - **Purpose:** A narrow, winding corridor discovered by careful observation or solving a puzzle. It provides a shortcut or strategic advantage leading to the final area.
+6. **Hidden Passage**
+   - Exits: South to Main Hall, East to Treasure Chamber, West (secret) to alternate exit
+   - Purpose: Secretive and rewarding exploration, leading to hidden treasures and an alternate escape route.
 
-7. **Boss Chamber**
-   - **Exits:** North to Secret Passage
-   - **Purpose:** The final confrontation area. A large, ominous chamber with an oppressive atmosphere, perhaps dominated by a throne or altar. It serves as the climax of the dungeon's narrative.
+7. **Treasure Chamber**
+   - Exits: South to Hidden Passage
+   - Purpose: The reward for exploration, containing valuable loot or artifacts.
 
-### Design Notes on Flow and Purpose
+### Design Notes
 
-- **Flow:** The design encourages players to explore multiple paths while maintaining a logical progression from entrance to the final boss. The central Main Hall allows for easy navigation and decision-making.
+- **Flow**: The Main Hall acts as the central hub, allowing players to navigate to key areas while keeping a sense of discovery and mystery alive. The North-south axis leads to the entrance and deeper into more secretive parts.
   
-- **Discovery:** Hidden Alcove and Secret Passage reward exploration and curiosity. These areas provide strategic advantages or unique rewards, encouraging players to look beyond the obvious.
+- **Purpose and Storytelling**: Each room serves a logical purpose within a dungeon setting, enhancing the narrative. The Research Lab hints at the dark activities taking place, while the Prison Cells provide subplots.
 
-- **Purpose:** Each room serves a distinct role, contributing to the overall narrative of a once-great structure fallen into disrepair. The Guard Room and Prison Cells add to the lore, suggesting a past use as a holding facility.
+- **Exploration and Discovery**: The Hidden Passage offers a side quest feeling, rewarding players with a Treasure Chamber. This encourages thorough exploration and rewards curiosity.
 
-- **Realism:** The layout reflects a plausible dungeon structure, with defensive measures (Guard Room) and a central gathering area (Main Hall) that support the dungeon's thematic consistency.
+- **Realism**: The layout mimics a believable dungeon, with the Guard Room positioned to oversee the Prison Cells and the Main Hall serving as a connective space for ease of access.
 
-- **Vertical Space:** Although the map is primarily horizontal, the narrative and room descriptions can imply depth and height, such as the imposing nature of the Main Hall or the claustrophobic Secret Passage.
+- **Vertical Space**: While not explicitly detailed, the Hidden Passage could include a ladder or trap door leading to an upper or lower level, adding verticality and depth.
+
+This design balances exploration and storytelling, encouraging players to delve deeper into the Shadowfen dungeon to uncover secrets and rewards.
