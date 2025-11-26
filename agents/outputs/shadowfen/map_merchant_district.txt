@@ -1,49 +1,51 @@
+Certainly! Below is an ASCII map of the 'Merchant District' in Shadowfen style, followed by a room list with exits and design notes on flow and purpose.
+
+### ASCII Map
+
 ```
-   [Market Square]
-         |
- [Blacksmith] - [General Store]
-         |
-      [Tavern]
-         |
-   [Tailor Shop]
-         |
+     [Market Square]
+          /   |   \
+     [Potion] [Tailor]
+        |       | 
+   [Blacksmith] [Bakery]
+          \   /
      [Warehouse]
 ```
 
 ### Room List with Exits
 
 1. **Market Square**
-   - Exits: North to Blacksmith, East to General Store, South to Tavern
-   - Notes: The bustling heart of the Merchant District. Designed as a central hub where players can easily access various shops. The atmosphere is lively, with NPCs showcasing their wares and engaging in trade.
+   - Exits: North to Potion Shop, Northeast to Tailor, South to Blacksmith, Southeast to Bakery, Southwest to Warehouse
+   - Notes: Central hub of the district, bustling with vendors and patrons. Acts as the primary navigation point for players entering the district.
 
-2. **Blacksmith**
+2. **Potion Shop**
    - Exits: South to Market Square
-   - Notes: Positioned north of the Market Square to symbolize strength and industry. The blacksmith's forge is a place of constant activity, with clanging sounds of metalwork. Offers weapons and armor.
+   - Notes: Offers various potions and alchemical ingredients. Positioned near the Market Square for easy access by adventurers seeking supplies.
 
-3. **General Store**
-   - Exits: West to Market Square
-   - Notes: Located to the east of the Market Square for easy access. Offers a variety of goods and essentials, providing players a convenient stop for common supplies. The store is cluttered yet organized, with shelves piled high with goods.
+3. **Tailor**
+   - Exits: Southwest to Market Square, South to Bakery
+   - Notes: Provides clothing and armor fitting services. Positioned to catch the attention of those leaving the Potion Shop and entering the Bakery.
 
-4. **Tavern**
-   - Exits: North to Market Square, South to Tailor Shop
-   - Notes: Situated south of the Market Square, the tavern provides a place for players to rest, gather information, and partake in side quests. The ambiance is warm and inviting, with a roaring fireplace and the sound of merry chatter.
+4. **Blacksmith**
+   - Exits: North to Market Square, Southeast to Warehouse
+   - Notes: Offers weapons and armor. Situated close to the Market Square for adventurers, with a side path to the Warehouse for supply deliveries.
 
-5. **Tailor Shop**
-   - Exits: North to Tavern, South to Warehouse
-   - Notes: South of the Tavern, the tailor shop offers clothing and light armor. It's a quieter space, with the sound of scissors cutting fabric and the soft hum of a sewing machine. A tailored suit or dress can offer social benefits in certain quests.
+5. **Bakery**
+   - Exits: North to Tailor, Northwest to Market Square
+   - Notes: Fills the air with the smell of fresh bread and pastries, enticing customers exiting the Tailor or passing through the Market Square.
 
 6. **Warehouse**
-   - Exits: North to Tailor Shop
-   - Notes: Located at the southern end of the district, the warehouse is a storage area for the district's goods. It serves as a potential quest location, with hidden passages leading to secret areas or illicit dealings. The atmosphere is dusty and dimly lit.
+   - Exits: Northeast to Blacksmith, North to Market Square
+   - Notes: Storage for bulk goods and raw materials, connected to the Blacksmith for resource flow and positioned slightly off the main path to create a sense of depth and exploration.
 
-### Design Notes on Flow and Purpose
+### Design Notes
 
-- **Flow:** The Merchant District is designed with the Market Square as the central hub, facilitating easy navigation between shops. Players organically discover each shop as they explore.
+- **Flow**: The Market Square serves as the central hub, with most locations easily reachable from it. This ensures players can quickly navigate to key shops.
   
-- **Purpose:** Each shop is placed logically, complementing the district's role as a commercial hub. The Market Square hosts the main interactions, while the surrounding shops cater to specific needs, enhancing the sense of a thriving trade area.
+- **Discovery**: The Warehouse is slightly off the main path, rewarding players who explore beyond immediate shops.
 
-- **Discovery:** The Warehouse introduces a hint of mystery and potential for exploration with hidden paths, rewarding players who delve deeper.
+- **Pacing**: Shops are clustered around the Market Square, with the Warehouse providing a sense of distance and purpose for exploration.
+  
+- **Realism**: Logical placement of shops around a central square mimics real-world market layouts, with supply lines (Warehouse to Blacksmith) enhancing believability.
 
-- **Realism:** The layout mirrors a traditional market district, with shops conveniently clustered around a central square, creating a believable and immersive environment.
-
-- **Pacing:** The sequence from the lively Market Square through to the more secluded Warehouse provides a natural progression from social interaction to potential adventure.
+- **Vertical Space**: Not used in this layout to maintain simplicity and accessibility for a small district.
