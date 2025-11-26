@@ -20,3 +20,10 @@ Ambient Messages:
 2. "A shroud of mist weaves through the towering pines, muffling the rustle of leaves and cloaking the forest in a hushed reverence, as the earthy scent of damp soil fills your lungs."  
 
 3. "The rhythmic drip of water echoes from the stone walls, each drop a reminder of the unyielding passage of time, while the lingering aroma of aged parchment and ink wraps around you like a well-loved cloak."  
+
+Ambient Messages:
+1. "The air crackles with anticipation as whispers of forgotten spells swirl around ancient, crumbling tomes, their pages yearning to be unfurled."  
+
+2. "A soft rustle of silk curtains brushes against your skin like a lover’s touch, while the scent of blooming nightshade invites secrets to linger in the shadows."  
+
+3. "The distant echo of water droplets dances in the stillness, a rhythmic heartbeat that punctuates the musty scent of damp stone and unspoken tales."  
