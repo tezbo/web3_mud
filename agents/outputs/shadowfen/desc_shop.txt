@@ -13,3 +13,10 @@ Ambient Messages:
 2. Shelves sag under the weight of curiosities, each trinket whispering secrets of distant lands, while the soft rustle of silk drapes fills the air with an alluring promise of adventure.  
 
 3. A low hum of conversation mingles with the rich aroma of spiced tea, as lanterns flicker softly, illuminating the intricate carvings that tell tales of a thousand trades beneath the watchful gaze of a polished stone gargoyle.
+
+Ambient Messages:
+1. "The air hums with the clinking of glass vials and the faint sweetness of dried herbs, while the warm glow of lanterns casts playful shadows across shelves brimming with curiosities."  
+
+2. "A musty aroma of aged parchment and ink lingers, punctuated by the soft rustle of scrolls as patrons whisper their secrets among the towering shelves of arcane tomes."  
+
+3. "The sharp, metallic scent of fresh iron fills the space, harmonizing with the rhythmic tapping of hammers and the low, steady thrum of the forge, where glowing embers dance like fireflies in the dusk."  
