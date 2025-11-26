@@ -1,15 +1,1 @@
-The shop huddles beneath a tangle of ancient trees, their gnarled branches dripping with moisture that patters softly on the mossy roof. Inside, the air is thick with the pungent aroma of dried herbs and the faint, coppery scent of rusting iron, mingling with the earthy musk of decaying leaves. Shelves carved from dark, waterlogged wood creak beneath the weight of glass jars filled with strange, luminescent fungi and grotesque, pickled specimens. A dim, flickering lantern casts wavering shadows across the uneven floor, where your boots sink slightly into the spongy, damp planks.
-
-Ambient Messages:
-1. "The air hums with the rich aroma of spices and herbs, while shelves brimming with colorful glass jars cast shimmering reflections in the flickering candlelight."  
-
-2. "Soft whispers of silk brush against the wooden counter, where vibrant fabrics hang like dreams waiting to be woven into reality."  
-
-3. "The metallic clink of coins mingles with the low murmur of conversation, as the scent of aged parchment and leather wraps around you like a warm embrace."
-
-Ambient Messages:
-1. The air is thick with the sweet aroma of exotic spices, punctuated by the sharp clink of glass jars as a vendor carefully arranges his vibrant wares beneath fluttering silk banners.  
-
-2. A low hum of whispered negotiations mingles with the rustle of parchment as the scent of aged leather and ink envelops you, beckoning you deeper into the dimly lit shop.  
-
-3. A soft glow emanates from shelves lined with shimmering crystals, their ethereal light casting playful shadows that dance along the stone walls, while the faint crackle of a fire warms the chill of the autumn air.  
+The shop is a chiaroscuro of shadows and flickering lamplight, where the damp air clings like a second skin. Shelves groan under the weight of peculiar trinkets, each dusted with a thin layer of rust that hints at forgotten histories. The scent of aged leather and musty tomes mingles with a faint, acrid whiff of something herbal and mysterious. A subtle drip echoes from somewhere deep within, punctuating the hushed whispers of the shopkeeper and patrons, their voices as soft and secretive as the murky fen outside.
