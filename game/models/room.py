@@ -37,28 +37,39 @@ class Room(GameObject):
         Return the full room description including exits, items, and entities.
         Replaces game_engine.describe_location.
         """
-        # 1. Base Description (Time/Weather aware)
-        desc = self._get_base_description()
+        lines = []
         
-        # 2. Exits
+        # 1. Room Name (title)
+        lines.append(f"[BOLD]{self.name}[/BOLD]")
+        
+        # 2. Base Description (Time/Weather aware)
+        desc = self._get_base_description_text()
+        lines.append(desc)
+        
+        # 3. Weather/Time Line (dark yellow) - for outdoor rooms only
+        if self.outdoor:
+            weather_line = self._get_weather_time_line()
+            if weather_line:
+                lines.append(f"[DARK_YELLOW]{weather_line}[/DARK_YELLOW]")
+        
+        # 4. Exits (dark green)
         exits_str = ", ".join(self.exits.keys()) or "none"
+        lines.append(f"[DARK_GREEN]Exits: {exits_str}[/DARK_GREEN]")
         
-        # 3. Items
+        # 5. Items
         items_text = self._get_items_description(viewer)
+        if items_text:
+            lines.append(items_text)
         
-        # 4. Entities (NPCs + Players)
+        # 6. Entities (NPCs + Players)
         entities_text = self._get_entities_description(viewer)
+        if entities_text:
+            lines.append(entities_text)
         
-        # Format Output
-        output = f"""<div class='room-title'>{self.name}</div>
-<div class='room-description'>{desc}</div>
-<div class='room-exits'>[Exits: {exits_str}]</div>
-<div class='room-contents'>{items_text}</div>
-<div class='room-entities'>{entities_text}</div>"""
-        return output
+        return "\n".join(lines)
 
-    def _get_base_description(self) -> str:
-        """Get the description based on time of day and weather."""
+    def _get_base_description_text(self) -> str:
+        """Get the room description based on time of day and weather."""
         # Import helpers from game_engine (temporary bridge)
         from game_engine import get_time_of_day, apply_weather_to_description
         
@@ -69,6 +80,11 @@ class Room(GameObject):
             desc = apply_weather_to_description(desc, time_of_day)
             
         return desc
+    
+    def _get_weather_time_line(self) -> str:
+        """Get the combined weather and time description for outdoor rooms."""
+        from game_engine import get_combined_time_weather_description
+        return get_combined_time_weather_description(is_outdoor=self.outdoor)
 
     def _get_items_description(self, viewer: 'GameObject') -> str:
         """Get description of items in the room."""
