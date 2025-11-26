@@ -1,45 +1,46 @@
-### Merchant District - Shadowfen Style
+Here's a design for the "Merchant District" in the Shadowfen style, incorporating a mix of bustling commerce and hidden secrets.
+
+### ASCII Map
 
 ```
-  [North Gate]
-       |
-  [Marketplace] -- [Potion Shop]
-       |            
-[Armory] -- [Smithy]
-       |
-  [Tailor]
+           [Tailor]
+              |
+[Armory]--[Market Square]--[Apothecary]
+              |
+         [Tavern]--[Hidden Alley]
 ```
 
 ### Room List with Exits
 
-1. **North Gate**
-   - Exits: South to Marketplace
-   - Notes: The primary entry point into the Merchant District from the northern path. Guards are stationed here, serving as a security checkpoint and welcoming area for travelers and traders entering the district.
+1. **Market Square**
+   - Exits: North to Tailor, West to Armory, East to Apothecary, South to Tavern
+   - Notes: The central hub of the Merchant District, bustling with traders and shoppers. The square is a lively place, often hosting street performers and market stalls. It serves as a natural meeting point for players.
 
-2. **Marketplace**
-   - Exits: North to North Gate, South to Armory, East to Potion Shop
-   - Notes: The bustling heart of the Merchant District, filled with stalls and vendors selling a variety of goods. This central hub is designed to direct foot traffic to surrounding shops and is a place for players to gather, trade, and pick up quests.
+2. **Tailor**
+   - Exits: South to Market Square
+   - Notes: This shop offers clothing and fabric, with a workshop in the back. It's a quieter spot, ideal for players seeking custom garments or repair services.
 
-3. **Potion Shop**
-   - Exits: West to Marketplace
-   - Notes: A mystical shop with shelves lined with potions and magical ingredients. Located adjacent to the Marketplace for easy access to curious adventurers seeking alchemical supplies.
+3. **Armory**
+   - Exits: East to Market Square
+   - Notes: A robust shop offering weapons and armor. The forge can be heard clanging from the street, drawing in those interested in combat gear.
 
-4. **Armory**
-   - Exits: North to Marketplace, East to Smithy, South to Tailor
-   - Notes: A well-fortified building displaying an array of weapons and armor. Positioned to draw in those coming from the Marketplace or heading towards the Smithy for custom work.
+4. **Apothecary**
+   - Exits: West to Market Square
+   - Notes: Filled with herbs and potions, this shop is a must-visit for players interested in alchemy or seeking remedies. It also has a hidden backroom accessible through a secret passage, which could lead to quests or rare items.
 
-5. **Smithy**
-   - Exits: West to Armory
-   - Notes: The sound of hammer on anvil echoes from this shop. Close proximity to the Armory allows for seamless transactions between weapon crafting and selling.
+5. **Tavern**
+   - Exits: North to Market Square, East to Hidden Alley
+   - Notes: A lively establishment where adventurers gather. The common room is always bustling, and rumors circulate freely. It provides a social space and a source of information.
 
-6. **Tailor**
-   - Exits: North to Armory
-   - Notes: A cozy shop filled with fine fabrics and garments. Located at the southern end to encourage exploration beyond the immediate vicinity of the Marketplace.
+6. **Hidden Alley**
+   - Exits: West to Tavern
+   - Notes: A narrow, dimly lit path behind the tavern. It's a place for clandestine meetings and perhaps a hidden quest or two. The alley might lead to unexpected encounters or serve as a shortcut for those in the know.
 
-### Design Notes
+### Design Notes on Flow and Purpose
 
-- **Flow**: The Marketplace serves as a central hub, ensuring players naturally encounter it upon entering through the North Gate. From here, the district's layout encourages exploration of surrounding shops.
-- **Discovery**: Each room serves a distinct purpose, with the potential for hidden interactions or quests, particularly in the Potion Shop or Tailor.
-- **Pacing**: Shops are clustered around the Marketplace to maintain a sense of community and trade activity, while still providing enough space between each for a natural flow.
-- **Realism**: The layout reflects a logical organization where shops offering related services (Armory and Smithy) are positioned near each other, enhancing both realism and convenience.
-- **Vertical Space**: While this design does not include vertical elements, the potential for vertical expansion exists in the form of multi-story shops or hidden basements for future development.
+- **Central Hub (Market Square):** Serves as the district's focal point, with easy access to all major locations, encouraging player interaction and commerce.
+- **Flow:** The district's layout naturally guides players through the main commercial areas, with the Market Square as the central node.
+- **Discovery:** The Hidden Alley offers an element of mystery, rewarding players who explore beyond the main paths.
+- **Pacing:** The clustering of shops around the Market Square provides a sense of a bustling commercial hub, while the Tailor and Hidden Alley offer a quieter, more secluded experience.
+- **Realism:** The placement of shops around a central square mirrors real-world market districts, enhancing immersion.
+- **Vertical Space:** This district is primarily horizontal, focusing on ease of navigation in a compact commercial area. Future expansions could introduce layered complexity with multi-level buildings.
