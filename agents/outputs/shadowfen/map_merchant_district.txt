@@ -1,52 +1,45 @@
 ### Merchant District - Shadowfen Style
 
 ```
-       +-----------+       +----------+
-       |  Armory   |-------|  Tailor  |
-       |  (Weapons)|       | (Clothes)|
-       +-----+-----+       +-----+----+
-             |                   |
-       +-----+-----+       +-----+----+
-       |   Central  |------|  Apothecary|
-       |   Market   |      | (Potions)  |
-       +-----+-----+       +-----+----+
-             |
-       +-----+-----+
-       |  Stables  |
-       | (Mounts)  |
-       +-----+-----+
+  [North Gate]
+       |
+  [Marketplace] -- [Potion Shop]
+       |            
+[Armory] -- [Smithy]
+       |
+  [Tailor]
 ```
 
 ### Room List with Exits
 
-1. **Central Market**
-   - Exits: North to Armory, Northeast to Tailor, East to Apothecary, South to Stables
-   - Purpose: Serves as the central hub of the Merchant District, bustling with activity and vendors selling a variety of goods. It is the main point of orientation for players entering the district.
+1. **North Gate**
+   - Exits: South to Marketplace
+   - Notes: The primary entry point into the Merchant District from the northern path. Guards are stationed here, serving as a security checkpoint and welcoming area for travelers and traders entering the district.
 
-2. **Armory**
-   - Exits: South to Central Market, East to Tailor
-   - Purpose: Offers weapons and armor. Positioned close to the market to attract adventurers who prioritize gear. Shares a connection with the Tailor for players interested in both armor and clothing enhancements.
+2. **Marketplace**
+   - Exits: North to North Gate, South to Armory, East to Potion Shop
+   - Notes: The bustling heart of the Merchant District, filled with stalls and vendors selling a variety of goods. This central hub is designed to direct foot traffic to surrounding shops and is a place for players to gather, trade, and pick up quests.
 
-3. **Tailor**
-   - Exits: West to Armory, South to Apothecary
-   - Purpose: Sells clothing and accessories. Located near the Armory to cater to players interested in crafting and customizing their appearance. The path to the Apothecary encourages exploration of non-combat resources.
+3. **Potion Shop**
+   - Exits: West to Marketplace
+   - Notes: A mystical shop with shelves lined with potions and magical ingredients. Located adjacent to the Marketplace for easy access to curious adventurers seeking alchemical supplies.
 
-4. **Apothecary**
-   - Exits: West to Central Market, North to Tailor
-   - Purpose: Provides potions and alchemical supplies. Its location ensures easy access for players who need healing or buffs, while its connection to the Tailor suggests a thematic link between potions and crafting.
+4. **Armory**
+   - Exits: North to Marketplace, East to Smithy, South to Tailor
+   - Notes: A well-fortified building displaying an array of weapons and armor. Positioned to draw in those coming from the Marketplace or heading towards the Smithy for custom work.
 
-5. **Stables**
-   - Exits: North to Central Market
-   - Purpose: Offers mounts and related services. Positioned at the southern edge to symbolize a transition point for players leaving the district, suggesting readiness for travel or exploration beyond the Merchant District.
+5. **Smithy**
+   - Exits: West to Armory
+   - Notes: The sound of hammer on anvil echoes from this shop. Close proximity to the Armory allows for seamless transactions between weapon crafting and selling.
+
+6. **Tailor**
+   - Exits: North to Armory
+   - Notes: A cozy shop filled with fine fabrics and garments. Located at the southern end to encourage exploration beyond the immediate vicinity of the Marketplace.
 
 ### Design Notes
 
-- **Flow and Purpose**: The Central Market acts as the nucleus, ensuring players naturally discover key shops. The radial design allows for easy navigation while maintaining a sense of exploration.
-  
-- **Discovery and Exploration**: The layout encourages players to explore shops that might not be their primary interest, promoting a holistic shopping experience. The Armory and Tailor connection fosters cross-interest exploration.
-
-- **Realism and Storytelling**: Each shop's placement is logical, with related services clustered together. The Stables at the district's edge suggest a logical transition to outdoor areas or other districts.
-
-- **Balance**: The district balances convenience with exploration by offering crucial services near the hub while rewarding players who explore all exits with diverse shopping options.
-
-- **Shadowfen Style**: The layout reflects a compact, efficient district typical of a bustling trade hub in a dense, possibly swampy environment, characteristic of Shadowfen's unique geographical and cultural style.
+- **Flow**: The Marketplace serves as a central hub, ensuring players naturally encounter it upon entering through the North Gate. From here, the district's layout encourages exploration of surrounding shops.
+- **Discovery**: Each room serves a distinct purpose, with the potential for hidden interactions or quests, particularly in the Potion Shop or Tailor.
+- **Pacing**: Shops are clustered around the Marketplace to maintain a sense of community and trade activity, while still providing enough space between each for a natural flow.
+- **Realism**: The layout reflects a logical organization where shops offering related services (Armory and Smithy) are positioned near each other, enhancing both realism and convenience.
+- **Vertical Space**: While this design does not include vertical elements, the potential for vertical expansion exists in the form of multi-story shops or hidden basements for future development.
