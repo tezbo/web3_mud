@@ -1,51 +1,49 @@
-### ASCII Map of 'Dungeon' District
+Certainly! Here's an ASCII map design for a 6-room district called 'Dungeon' in the Shadowfen style:
 
 ```
-      [Entrance]
-         |
-     [Antechamber]
-     /     |     \
-[Guard] [Corridor] [Hidden Passage]
-         /          \
-   [Prison Block]  [Treasure Room]
+    [Chamber of Echoes]
+           |
+   [Ancient Hallway] -- [The Pit]
+           |
+   [Hall of Sorrow] -- [Crypt of Whispers]
+           |
+     [Guardian's Lair]
 ```
 
-### Room List with Exits
+**Room List with Exits:**
 
-1. **Entrance**
-   - **Exits:** South to Antechamber
-   - **Notes:** The starting point for adventurers, heavily guarded door that marks the entry into the dungeon.
+1. **Chamber of Echoes**
+   - Exits: South to Ancient Hallway
+   - Purpose: Entry point with eerie acoustics; sets the tone with sounds that hint at the lurking dangers.
 
-2. **Antechamber**
-   - **Exits:** North to Entrance, South to Corridor, West to Guard Room, East to Hidden Passage
-   - **Notes:** Central hub of the dungeon, a large room with torchlight illuminating the dark stone walls. Provides access to multiple paths.
+2. **Ancient Hallway**
+   - Exits: North to Chamber of Echoes, South to Hall of Sorrow, East to The Pit
+   - Purpose: Main thoroughfare; introduces players to the core of the dungeon. Contains faded murals that narrate ancient history.
 
-3. **Guard Room**
-   - **Exits:** East to Antechamber
-   - **Notes:** A small, fortified room with guards stationed to protect the dungeon. Contains weapons and basic supplies.
+3. **The Pit**
+   - Exits: West to Ancient Hallway
+   - Purpose: Optional, challenging side area; a deep chasm with a rickety bridge. Rewards careful navigation with unique loot.
 
-4. **Corridor**
-   - **Exits:** North to Antechamber, South to Prison Block
-   - **Notes:** A narrow, winding corridor that leads deeper into the dungeon. The walls are lined with torches, and the air grows colder as one progresses southward.
+4. **Hall of Sorrow**
+   - Exits: North to Ancient Hallway, East to Crypt of Whispers, South to Guardian's Lair
+   - Purpose: Central hub for the deeper dungeon areas; statues of weeping figures add to the somber atmosphere.
 
-5. **Hidden Passage**
-   - **Exits:** West to Antechamber, South to Treasure Room
-   - **Notes:** A secret path concealed by a false wall in the Antechamber, rewarding players who explore. The passage is narrow and dimly lit.
+5. **Crypt of Whispers**
+   - Exits: West to Hall of Sorrow
+   - Purpose: Hidden side chamber; requires solving a puzzle to enter. Contains echoes of ancient secrets and a rare item.
 
-6. **Prison Block**
-   - **Exits:** North to Corridor
-   - **Notes:** A large, grim area filled with cells. Each cell is locked, and the air is thick with the smell of damp stone and despair.
+6. **Guardian's Lair**
+   - Exits: North to Hall of Sorrow
+   - Purpose: End-point of the main path; home to a formidable guardian blocking the treasure vault. Players must defeat it to claim the major treasure.
 
-7. **Treasure Room**
-   - **Exits:** North to Hidden Passage
-   - **Notes:** The end reward for those who uncover the hidden path. Filled with ancient artifacts and guarded by traps.
+**Design Notes:**
 
-### Design Notes
+- **Flow and Purpose:** The dungeon's design encourages exploration through its main path (Chamber of Echoes -> Ancient Hallway -> Hall of Sorrow -> Guardian's Lair). The optional paths (The Pit and Crypt of Whispers) offer rewards for those willing to explore further.
 
-- **Flow:** The Antechamber serves as the central hub, with multiple exits providing various paths to explore. The Guard Room is logically placed to protect the entrance. The Corridor leads to the Prison Block, creating a sense of progression into the depth of the dungeon.
-  
-- **Discovery:** The Hidden Passage encourages exploration and rewards players with a shortcut to the Treasure Room, bypassing the main path through the Corridor.
+- **Central Hubs:** The Ancient Hallway acts as a central hub from which players can choose to continue deeper or explore side passages.
 
-- **Purpose:** Each room serves a specific function, maintaining a realistic layout: guards near the entrance, prisoners deeper inside, and treasure hidden and protected.
+- **Discovery and Storytelling:** The murals in the Ancient Hallway and the statues in the Hall of Sorrow provide storytelling elements that immerse players in the history of the dungeon.
 
-- **Pacing:** The layout balances exploration and convenience, with the Treasure Room and Prison Block requiring players to choose between the direct path or the hidden, rewarding route.
+- **Pacing and Realism:** The layout balances exploration and challenge, with a logical progression deeper into the dungeon. The physical connections make sense, with the flow leading naturally from entry to climax.
+
+- **Vertical Space:** While this design focuses on horizontal exploration, The Pit adds a vertical element with its chasm, enhancing the sense of depth and danger.
