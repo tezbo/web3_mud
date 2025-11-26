@@ -1,1 +1,8 @@
 In the Update Room, shadows cling to the rust-streaked walls, their murky depths quivering as if alive. The air is thick with the acrid scent of corroded metal and damp earth, mingling with the faintest whisper of decaying leaves. Soft, almost imperceptible drips echo through the gloom, each splash a reminder of the marshland's encroaching grasp. As you step forward, the slick, uneven stone underfoot presses cold and unyielding against your soles, while a chill breath of wind brushes past, carrying with it the ghostly sighs of forgotten whispers.
+
+Ambient Messages:
+1. The air hums with a low, electric buzz, punctuated by the soft, rhythmic tapping of gears as they mesh and whir, casting flickering shadows across the polished stone walls.  
+
+2. A faint, acrid scent of burnt circuitry lingers, mingling with the cool metallic tang of freshly polished surfaces, while the distant echo of muffled voices drifts through the dimly lit corridors like a ghostly whisper.  
+
+3. The floor vibrates gently beneath your feet, each pulse resonating with the heartbeat of the room, as the faint glow of luminescent screens bathes everything in a surreal bluish hue, inviting curiosity and unease in equal measure.
