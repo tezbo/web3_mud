@@ -22,7 +22,8 @@ class WorkflowTest:
         self.issue_number = 3
         self.agent = "System Agent"
     
-    def get_info(self):
+    def get_info(self) -> dict:
+        """Get workflow test information"""
         return {
             "created_at": self.created_at.isoformat(),
             "issue": self.issue_number,
