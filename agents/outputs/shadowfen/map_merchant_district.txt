@@ -1,111 +1,52 @@
-<<<<<<< HEAD
-Below is the ASCII map of the 'Merchant District' in Shadowfen style:
+Certainly! Below is the ASCII map for the 'Merchant District' in the Shadowfen style, along with a room list, exits, and design notes.
 
 ```
-          +--------+       
-          | Guild  |       
-          | Hall   |       
-          +----+---+       
-               |           
-         +-----+-----+     
-         |  Market   |     
-         |  Square   |     
-    +----+-----+-----+----+
-    |  Armory   |   Tailor |
-    |           |          |
-    +-----------+----------+
-         |               |
-   +-----+-----+     +----+----+
-   |  Blacksmith |   |  Apothecary|
-   |             |   |           |
-   +-------------+   +-----------+
-=======
-### ASCII Map of the Merchant District
+      [1] - [2] - [3]
+       |     |     |
+      [4] - [5] - [6]
 
-```
-        [Watchtower]
-            |
-        [Market Square]
-        /     |     \
-  [Apothecary] | [Curio Shop]
-        |     |     |
-    [Tailor] [Blacksmith]
->>>>>>> feature/task-2
+[1] Market Square
+[2] General Store
+[3] Blacksmith
+[4] Apothecary
+[5] Tailor
+[6] Hidden Alley
 ```
 
-**Room List with Exits and Design Notes:**
+### Room List and Exits
 
-<<<<<<< HEAD
-1. **Guild Hall**
-   - **Exits:** South to Market Square
-   - **Purpose:** Central hub for traders and merchants to gather, exchange information, and negotiate deals. Acts as the administrative center of the district.
-   - **Design Notes:** Positioned at the northern edge to symbolize authority and overlook the entire district. High-traffic area due to its importance.
-
-2. **Market Square**
-   - **Exits:** North to Guild Hall, South to Armory and Tailor, West to Blacksmith, East to Apothecary
-   - **Purpose:** The central hub of the Merchant District, bustling with commerce. Stalls and vendors offer a variety of goods.
-   - **Design Notes:** Central location ensures easy access from all parts of the district. It serves as the primary social and commercial gathering place.
-
-3. **Armory**
-   - **Exits:** North to Market Square
-   - **Purpose:** Sells weapons and armor, catering to adventurers and the town's militia.
-   - **Design Notes:** Positioned to the west of the square, logical for quick access to defensive gear and supplies.
-
-4. **Tailor**
-   - **Exits:** North to Market Square
-   - **Purpose:** Offers clothing and textiles, including special garments for travelers and nobility.
-   - **Design Notes:** Located to the east of the square, providing a more artisanal and less militaristic option compared to the armory.
-
-5. **Blacksmith**
-   - **Exits:** East to Market Square
-   - **Purpose:** Forges tools, weapons, and armor; essential for both the armory and general district maintenance.
-   - **Design Notes:** Positioned to the southwest, near the armory for practical resource flow.
-
-6. **Apothecary**
-   - **Exits:** West to Market Square
-   - **Purpose:** Sells potions, herbs, and remedies. A crucial stop for adventurers needing healing supplies.
-   - **Design Notes:** Located to the southeast, balancing the district by providing vital services opposite the Blacksmith.
-
-**Design Notes on Flow and Purpose:**
-- **Central Hub:** Market Square acts as the primary focal point, ensuring smooth access to all district facilities.
-- **Flow:** The layout encourages natural movement from the Market Square to specialized shops, with the Guild Hall anchoring the district.
-- **Exploration:** Players are rewarded for exploring each shop, discovering unique goods and services.
-- **Realism:** The positioning of shops (e.g., Blacksmith near Armory) reflects practical realism, enhancing immersion.
-- **Pacing:** The spread of shops around the square maintains a balanced exploration experience without overwhelming players with too many choices.
-=======
-1. **Watchtower**
-   - **Exits:** Down to Market Square
-   - **Purpose:** Acts as a lookout and security point. Provides a vantage view of the district. Only accessible from the Market Square.
-
-2. **Market Square**
-   - **Exits:** Up to Watchtower, East to Curio Shop, West to Apothecary, Southeast to Blacksmith
-   - **Purpose:** Central hub for trade and commerce. A bustling area with vendors and stalls. Connects all major shops and serves as a gathering place.
-
-3. **Apothecary**
-   - **Exits:** East to Market Square, South to Tailor
-   - **Purpose:** Sells potions, herbs, and remedies. Located close to the Market Square for accessibility. The Tailor is further accessed from here, providing a quieter route.
-
-4. **Curio Shop**
-   - **Exits:** West to Market Square, South to Blacksmith
-   - **Purpose:** Offers rare and exotic items. Positioned to attract curious adventurers coming from the Market Square. Directly linked to the Blacksmith for those seeking enchanted weaponry.
-
+1. **Market Square**
+   - **Exits:** East to General Store [2], South to Apothecary [4]
+   - **Purpose:** Central hub of the Merchant District with stalls and vendors. Acts as a lively gathering place.
+   
+2. **General Store**
+   - **Exits:** West to Market Square [1], East to Blacksmith [3], South to Tailor [5]
+   - **Purpose:** Offers a variety of general goods. Positioned centrally to cater to various needs.
+   
+3. **Blacksmith**
+   - **Exits:** West to General Store [2], South to Hidden Alley [6]
+   - **Purpose:** Provides weapons and armor, located near the district's edge to limit noise. Hidden Alley access for discreet transactions.
+   
+4. **Apothecary**
+   - **Exits:** North to Market Square [1], East to Tailor [5]
+   - **Purpose:** Sells potions and remedies. Positioned to draw traffic from the Market Square.
+   
 5. **Tailor**
-   - **Exits:** North to Apothecary
-   - **Purpose:** Offers clothing and armor customization. Tucked away from the main flow to provide a more intimate setting for customers. 
+   - **Exits:** North to General Store [2], West to Apothecary [4], East to Hidden Alley [6]
+   - **Purpose:** Offers clothing and textiles, reflecting the district’s theme of trade and commerce.
+   
+6. **Hidden Alley**
+   - **Exits:** North to Blacksmith [3], West to Tailor [5]
+   - **Purpose:** A secretive area for less-than-legal dealings. Provides a shortcut between Blacksmith and Tailor.
 
-6. **Blacksmith**
-   - **Exits:** Northwest to Market Square, North to Curio Shop
-   - **Purpose:** Supplies weapons and armor. Easily reachable from the Market Square and Curio Shop, ensuring high traffic from adventurers.
+### Design Notes on Flow and Purpose
 
-### Design Notes
-
-- **Flow:** The Market Square serves as the central hub, ensuring that players can navigate to any major shop easily. The flow encourages players to return to the Market Square after visiting other locations.
+- **Flow:** The Market Square acts as the central hub, encouraging players to pass through it frequently. The main shops (General Store, Blacksmith, Apothecary, and Tailor) are all accessible from this hub, ensuring that all players encounter the key locations.
   
-- **Purpose:** Each shop serves a distinct purpose, catering to different player needs. The layout encourages exploration of each shop based on player interests.
+- **Discovery:** The Hidden Alley adds a layer of intrigue, accessible only from the Blacksmith and Tailor. It rewards players who explore beyond the obvious paths, providing shortcuts and hidden opportunities.
+  
+- **Realism:** The Merchant District's layout reflects realistic urban planning, with the central market surrounded by specialized shops. The Hidden Alley is a believable feature, offering both a sense of mystery and practical routing.
 
-- **Discovery:** While the main shops are directly accessible from the Market Square, the Tailor is slightly hidden, rewarding those who explore the Apothecary's quieter path.
+- **Pacing:** The rooms are clustered with related shops close to each other, while the Hidden Alley introduces a more secluded, optional area for players seeking adventure or secrecy.
 
-- **Realism:** The district layout mimics a realistic small trade area where essential services are centralized, and specialized services are slightly off the main path.
-
-- **Storytelling:** The Watchtower provides a narrative element of security and oversight, while the Curio Shop adds mystery and intrigue, enhancing the district's lore.
->>>>>>> feature/task-2
+This layout balances exploration with convenience, ensuring that players can easily navigate the district while also encountering rewarding discoveries.
