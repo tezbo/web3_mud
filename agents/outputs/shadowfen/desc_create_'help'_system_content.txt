@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 The chamber is a murky warren of shadows, where the walls weep with the slow drip of moisture, their surface slick and cool to the touch. Wisps of mist coil languidly at your feet, whispering secrets of the fen with every languid swirl. The air is heavy with the scent of damp earth and the faint, acrid tang of rusted iron, pricking at your senses. From a distant corner, the soft plink of water echoes, a rhythmic lullaby that mingles with the rustle of unseen creatures skittering across the stone floor.
+=======
+The chamber is steeped in shadows, where the air seems to quiver with ancient whispers that slither through the damp, stone walls. A cloying scent of decaying leaves hangs heavy, mingling with the earthy aroma of moss that carpets the floor in a spongy embrace. Flickering torchlight dances upon rusted iron sconces, casting elongated, spectral figures that shift and sway like restless spirits. The distant drip of water echoes softly, each droplet a ghostly reminder of time's relentless passage in this forgotten hollow.
+>>>>>>> feature/task-2

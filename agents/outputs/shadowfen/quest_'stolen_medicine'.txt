@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 **Quest Title: "Bitter Remedies"**
 
 **Stage Breakdown:**
@@ -26,3 +27,39 @@
    - *Consequences:* Mirelda's patients recover slower, causing tension in Shadowfen. However, the swamp-dwellers become allies, providing players with unique Threadsinging abilities. The artifact stabilizes the swamp, leading to new discoveries about the region's ancient lore.
 
 Each choice offers a different perspective on the moral complexities of survival and cooperation, with lasting impacts on the region's stability and the player's standing within its communities.
+=======
+**Quest Title: The Balm of Shadowfen**
+
+**Stage Breakdown:**
+
+1. **Discovery:** 
+   - The player arrives in Shadowfen and learns that a shipment of vital medicine intended for the swamp's ailing inhabitants has been stolen. The local healer, Elara, is desperate as the swamp fever spreads rapidly.
+
+2. **Investigation:**
+   - The player investigates the theft and discovers that a group of disgruntled marsh-dwellers, led by a woman named Kaelin, took the medicine. They claim it was stolen by the town first, from their sacred herbal grounds.
+
+3. **Confrontation/Resolution:**
+   - The player must decide how to handle the situation after finding the marsh-dwellers' camp.
+
+**Solutions and Consequences:**
+
+1. **Negotiate a Trade:**
+   - The player can broker a deal between Elara and Kaelin, suggesting that the town provides the marsh-dwellers with resources they need in exchange for the return of the medicine.
+   - *Consequences:* 
+     - Relations between the town and the marsh-dwellers improve, leading to mutual aid in future quests.
+     - The player gains a reputation as a peacemaker, unlocking new dialogue options with other NPCs.
+
+2. **Side with the Marsh-dwellers:**
+   - The player can support Kaelin, helping her make a case that the medicine rightfully belongs to the marsh-dwellers, insisting the town find another source.
+   - *Consequences:*
+     - The town suffers a setback as they scramble to get more medicine, leading to unrest and a future quest where the player must help quell tensions.
+     - The player earns the trust and gratitude of the marsh-dwellers, gaining access to their unique herbal knowledge and potential allies.
+
+3. **Retrieve the Medicine by Force:**
+   - The player can choose to take the medicine back by force, siding with Elara and the townsfolk.
+   - *Consequences:* 
+     - The town is grateful, but the marsh-dwellers become hostile, setting traps for the player and any town guards who venture into the swamp.
+     - Future encounters with marsh-dwellers become increasingly dangerous, and the player might face ambushes.
+
+Each choice not only resolves the immediate crisis but also significantly influences the player's interactions and experiences within Shadowfen, shaping the narrative based on the player's moral compass and decisions.
+>>>>>>> feature/task-2

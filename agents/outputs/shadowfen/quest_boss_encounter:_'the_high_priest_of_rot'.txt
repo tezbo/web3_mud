@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 **Quest Title:** "The Rot Beneath"
 
 **Stage Breakdown:**
@@ -26,3 +27,43 @@
    - **Consequences:** A fragile peace is established, with both natural and blighted areas coexisting. The swamp-dwellers gain a voice in local matters, but tensions remain high. Future quests could involve mediating disputes between factions or dealing with external threats exploiting the region's instability.
 
 Each choice creates a story that resonates through the world, shaping the future of Shadowfen and the player's relationship with its people.
+=======
+**Quest Title: The Rot Within**
+
+**Stage Breakdown:**
+
+**Stage 1: The Plague's Genesis**  
+- The player arrives in Shadowfen, where a mysterious plague is slowly corrupting the land and its people.
+- A local healer, Edda, reveals that the source of the plague is the High Priest of Rot, who resides deep within the fetid marshes.
+- Edda implores the player to stop the High Priest, offering guidance on how to reach his sanctuary.
+
+**Stage 2: The Path of Decay**  
+- As the player navigates through Shadowfen, they encounter villagers struggling with the effects of the plague.
+- The player learns that the High Priest has followers who believe the plague is a divine gift, purging the weak and ushering in a new era.
+
+**Stage 3: Confrontation in the Rot Sanctum**  
+- Deep within the marshes, the player finds the Rot Sanctum, where the High Priest of Rot conducts his dark rituals.
+- The area's decay challenges the player's resolve as they prepare to confront the High Priest.
+
+**Solutions and Consequences:**
+
+**Solution 1: The Path of Purity**  
+- The player decides to confront and defeat the High Priest of Rot in direct combat, determined to cleanse the land of his influence.  
+- **Consequences:**  
+  - With the High Priest defeated, the plague begins to dissipate. Edda and the villagers celebrate the player's heroism.
+  - However, the High Priest's followers vow revenge, becoming a new threat that occasionally harasses the player in future interactions.
+
+**Solution 2: The Path of Diplomacy**  
+- Instead of fighting, the player seeks to understand the High Priest's motivations and persuades him to abandon his dark path by appealing to his past humanity.  
+- **Consequences:**  
+  - The High Priest agrees to halt the plague, and his followers disperse, leaving Shadowfen to slowly recover.
+  - Edda is grateful but wary, knowing the High Priest might return to his old ways. The player's reputation as a skillful mediator spreads.
+
+**Solution 3: The Path of Corruption**  
+- The player chooses to ally with the High Priest, seeing potential in the power of the plague or perhaps fearing what his followers may become without leadership.  
+- **Consequences:**  
+  - The player gains access to unique dark abilities and resources from the High Priest, aiding them in future quests.
+  - Shadowfen remains plagued, and Edda, along with other villagers, turns against the player, causing tension and hostility in subsequent encounters.
+
+Each choice shapes the player's journey and the world of Shadowfen, ensuring that their actions have lasting impacts that ripple throughout their adventure.
+>>>>>>> feature/task-2

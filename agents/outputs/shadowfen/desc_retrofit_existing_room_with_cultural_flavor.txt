@@ -1,1 +1,12 @@
+<<<<<<< HEAD
 The room is swathed in a perpetual twilight, where the dim glow of rusted iron sconces casts flickering shadows upon the damp, moss-covered stone walls. A musty scent of earth and decay lingers in the air, mingled with the faint, acrid odor of stagnant water from the nearby fen. The floor, slick with a thin film of moisture, feels cool and treacherous underfoot, each step accompanied by the soft squelch of wet leather on stone. The silence is punctuated by the distant croak of unseen creatures and the occasional drip of water echoing in the gloom, creating a symphony of isolation and ancient secrets.
+=======
+The air is thick with the earthy aroma of damp moss, mingling with the sharp, metallic bite of rusted iron. Mist coils languidly around the twisted frames of long-abandoned machinery, its tendrils caressing the corroded surfaces with a ghostly, wet touch. A soft, persistent drip echoes through the gloom, each droplet sending ripples through stagnant pools that gleam like liquid shadows. Pale fungi cling to the walls, their luminescent tendrils casting an eerie, phosphorescent glow that dances across the stone like whispers of forgotten secrets.
+
+Ambient Messages:
+1. The air thrums with the low hum of machinery, as copper pipes glisten under flickering lights, filling the room with the sharp scent of oil and the taste of iron on your tongue.  
+
+2. Shadows dance along the stone walls, where the faint sound of distant chimes mingles with the sweet, spicy aroma of incense wafting from a hidden alcove.  
+
+3. Silk drapes whisper against the cool marble floor, while the soft rustle of fabric and the delicate notes of a lute create an intimate warmth, wrapping the space in a cocoon of nostalgia and longing.  
+>>>>>>> feature/task-2

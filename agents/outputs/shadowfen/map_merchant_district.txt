@@ -1,3 +1,53 @@
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+### Merchant District - Shadowfen Style
+
+```
+          [Blacksmith]
+              |
+          [Market Square] -- [General Store]
+            /     |    \
+      [Tavern]  [Alley]  [Guild Hall]
+```
+
+### Room List with Exits:
+
+1. **Market Square**
+   - **Exits**: North to Blacksmith, East to General Store, South to Alley, Southwest to Tavern, Southeast to Guild Hall
+   - **Purpose/Design**: The bustling heart of the Merchant District, filled with stalls and traders. Acts as the central hub connecting to all key locations. Designed to encourage player interaction and trade.
+
+2. **Blacksmith**
+   - **Exits**: South to Market Square
+   - **Purpose/Design**: A place for players to craft and repair weapons/armor. Positioned north of the Market Square to symbolize the upward journey towards strength and preparation.
+
+3. **General Store**
+   - **Exits**: West to Market Square
+   - **Purpose/Design**: Supplies adventurers with general goods and necessities. Easy access from the Market Square facilitates quick restocking before heading out.
+
+4. **Tavern**
+   - **Exits**: Northeast to Market Square
+   - **Purpose/Design**: A social hub for gathering information, recruiting companions, or just relaxing. Positioned to the southwest to suggest a retreat from the busy commerce of the square.
+
+5. **Alley**
+   - **Exits**: North to Market Square
+   - **Purpose/Design**: A narrow passageway leading to a hidden area, encouraging exploration. Rumored to be the route to a secretive traders' guild or black market.
+
+6. **Guild Hall**
+   - **Exits**: Northwest to Market Square
+   - **Purpose/Design**: The administrative center for merchants, where deals are made and disputes settled. Located southeast to imply a place of order and governance, away from the immediate hustle.
+
+### Design Notes on Flow and Purpose:
+
+- **Flow**: The Market Square serves as a central hub, allowing players to easily navigate to different areas based on their needs. The layout encourages movement through the square for both convenience and storytelling.
+- **Discovery**: The Alley provides an element of mystery and exploration, rewarding players who stray from the beaten path with potential secrets.
+- **Realism**: The arrangement of rooms mirrors a realistic town layout, with the Market Square as the focal point and related businesses logically positioned around it.
+- **Pacing**: By clustering key locations around the Market Square and placing the Guild Hall slightly further, exploration feels both rewarding and appropriately paced.
+- **Vertical Space**: The design is primarily horizontal to reflect the open, bustling nature of a market district, with vertical elements implied in future expansions (e.g., multi-story shops or hidden cellars).
+=======
+### ASCII Map for 'Merchant District'
+
+>>>>>>> feature/task-2
 ```
        [Street Corner]
             |
@@ -42,4 +92,11 @@
 
 - **Pacing:** The district is compact with a logical organization, clustering shops around the Market Square for ease of access while retaining a sense of exploration through the Alleyway and Curio Shop's hidden passage.
 
+<<<<<<< HEAD
 - **Realism:** The layout makes physical sense, with the Market Square acting as a central access point, surrounded by relevant commercial and social spaces, typical of a vibrant merchant district.
+=======
+- **Vertical Space and Complexity**: While this district is primarily on a single plane, the Hidden Alley introduces an element of layered complexity. Future expansion could consider vertical elements like an upstairs room in the Bank or a cellar in the General Store.
+
+This design balances accessibility with the intrigue of discovery, utilizing logical spatial organization to create a believable and engaging district.
+>>>>>>> b91101023fea0627e883b31ebe59bee0a37ab749
+>>>>>>> feature/task-2
