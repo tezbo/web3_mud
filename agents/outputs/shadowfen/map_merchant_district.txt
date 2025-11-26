@@ -1,49 +1,60 @@
-Certainly! Here's a design for the 'Merchant District' in a Shadowfen style:
+Below is the ASCII map of the 'Merchant District' in Shadowfen style:
 
 ```
-    [Market Square]
-       /   |   \
-[Blacksmith] [General Store]
-     |         |
-    [Alleyway] |
-     |         |
- [Apothecary] [Tailor]
-       \       /
-         [Dockside]
+          +--------+       
+          | Guild  |       
+          | Hall   |       
+          +----+---+       
+               |           
+         +-----+-----+     
+         |  Market   |     
+         |  Square   |     
+    +----+-----+-----+----+
+    |  Armory   |   Tailor |
+    |           |          |
+    +-----------+----------+
+         |               |
+   +-----+-----+     +----+----+
+   |  Blacksmith |   |  Apothecary|
+   |             |   |           |
+   +-------------+   +-----------+
 ```
 
-**Room List with Exits:**
+**Room List with Exits and Design Notes:**
 
-1. **Market Square**
-   - Exits: North to Blacksmith, East to General Store, South to Alleyway
-   - Purpose: Central hub of the Merchant District; a bustling area where vendors set up stalls. Key meeting point for players.
+1. **Guild Hall**
+   - **Exits:** South to Market Square
+   - **Purpose:** Central hub for traders and merchants to gather, exchange information, and negotiate deals. Acts as the administrative center of the district.
+   - **Design Notes:** Positioned at the northern edge to symbolize authority and overlook the entire district. High-traffic area due to its importance.
 
-2. **Blacksmith**
-   - Exits: South to Market Square
-   - Purpose: Provides weapons and armor. Located near the Market Square for easy access, yet set slightly apart to accommodate noise and heat.
+2. **Market Square**
+   - **Exits:** North to Guild Hall, South to Armory and Tailor, West to Blacksmith, East to Apothecary
+   - **Purpose:** The central hub of the Merchant District, bustling with commerce. Stalls and vendors offer a variety of goods.
+   - **Design Notes:** Central location ensures easy access from all parts of the district. It serves as the primary social and commercial gathering place.
 
-3. **General Store**
-   - Exits: West to Market Square, South to Tailor
-   - Purpose: Supplies general goods and adventuring supplies. Conveniently connected to both the main square and adjacent to the Tailor for synergistic shopping.
+3. **Armory**
+   - **Exits:** North to Market Square
+   - **Purpose:** Sells weapons and armor, catering to adventurers and the town's militia.
+   - **Design Notes:** Positioned to the west of the square, logical for quick access to defensive gear and supplies.
 
-4. **Alleyway**
-   - Exits: North to Market Square, South to Apothecary
-   - Purpose: A narrow, shadowy passage that offers a shortcut from the market to the dockside. Potential location for quests or hidden encounters.
+4. **Tailor**
+   - **Exits:** North to Market Square
+   - **Purpose:** Offers clothing and textiles, including special garments for travelers and nobility.
+   - **Design Notes:** Located to the east of the square, providing a more artisanal and less militaristic option compared to the armory.
 
-5. **Apothecary**
-   - Exits: North to Alleyway, East to Dockside
-   - Purpose: Sells potions and remedies. Positioned on the quieter side of the district, suggesting a more serene atmosphere compared to the bustling main square.
+5. **Blacksmith**
+   - **Exits:** East to Market Square
+   - **Purpose:** Forges tools, weapons, and armor; essential for both the armory and general district maintenance.
+   - **Design Notes:** Positioned to the southwest, near the armory for practical resource flow.
 
-6. **Tailor**
-   - Exits: North to General Store, West to Dockside
-   - Purpose: Specializes in clothing and light armor. Positioned conveniently between the General Store and Dockside for easy delivery of goods.
+6. **Apothecary**
+   - **Exits:** West to Market Square
+   - **Purpose:** Sells potions, herbs, and remedies. A crucial stop for adventurers needing healing supplies.
+   - **Design Notes:** Located to the southeast, balancing the district by providing vital services opposite the Blacksmith.
 
-**Design Notes:**
-
-- **Flow and Purpose:** The Market Square acts as the central hub, ensuring that all other shops are easily accessible from this point. This layout promotes exploration without overwhelming the player, as each room is logically connected.
-  
-- **Exploration and Discovery:** The Alleyway provides a hidden shortcut to the Dockside, encouraging players to explore off the beaten path. This area might contain secrets or serve as a quest location.
-
-- **Pacing and Realism:** Shops are clustered around the Market Square, mimicking real-world marketplaces. The location of the Apothecary and Tailor on opposite ends adds a sense of distance and promotes exploration within the district.
-
-- **Shadowfen Style:** The district maintains a somewhat mysterious and shadowy atmosphere, with the Alleyway serving as a potential setting for clandestine activities. The Dockside, accessible through both the Apothecary and Tailor, suggests a connection to trade and smuggling typical of the Shadowfen style.
+**Design Notes on Flow and Purpose:**
+- **Central Hub:** Market Square acts as the primary focal point, ensuring smooth access to all district facilities.
+- **Flow:** The layout encourages natural movement from the Market Square to specialized shops, with the Guild Hall anchoring the district.
+- **Exploration:** Players are rewarded for exploring each shop, discovering unique goods and services.
+- **Realism:** The positioning of shops (e.g., Blacksmith near Armory) reflects practical realism, enhancing immersion.
+- **Pacing:** The spread of shops around the square maintains a balanced exploration experience without overwhelming players with too many choices.
