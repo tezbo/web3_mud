@@ -1,47 +1,51 @@
-Below is the design for the 'Merchant District' in the Shadowfen style, complete with an ASCII map, room list with exits, and design notes on flow and purpose.
+Here's the design for the 'Merchant District' in the Shadowfen style, a place bustling with trade and commerce, but with hints of the mysterious and the arcane.
 
 ### ASCII Map
 
 ```
-    [2] - [3] - [4]
-     |     |     |
-    [1] - [5] - [6]
+          [Gem Shop]
+              |
+[Tavern]--[Market Square]--[General Store]
+              |
+          [Apothecary]
+              |
+           [Hidden Path]
 ```
 
 ### Room List with Exits
 
 1. **Market Square**
-   - Exits: North to [2], East to [5]
-   - Notes: The central hub of the Merchant District, bustling with stalls and vendors. Players naturally flow here from various directions.
+   - Exits: North to Gem Shop, East to General Store, South to Apothecary, West to Tavern
+   - Purpose: Central hub of the Merchant District, a bustling area filled with stalls and traders selling goods of all kinds. This is where most players will start their exploration.
 
-2. **Herbalist's Grove**
-   - Exits: South to [1], East to [3]
-   - Notes: A lush, overgrown area where an herbalist peddles rare herbs and potions. Offers a serene contrast to the busy square.
+2. **Tavern**
+   - Exits: East to Market Square
+   - Purpose: A lively establishment where traders and adventurers gather. The tavern offers rest and rumors, serving as a social hub. Players can overhear hints about the Hidden Path here.
 
-3. **Armory Alley**
-   - Exits: West to [2], East to [4], South to [5]
-   - Notes: A narrow alley lined with armories and weapon shops. It's a key location for players looking to gear up.
+3. **General Store**
+   - Exits: West to Market Square
+   - Purpose: Supplies and essentials for adventurers. The store is well-stocked with common items and tools, catering to both locals and travelers.
 
-4. **Mystic's Corner**
-   - Exits: West to [3], South to [6]
-   - Notes: A secluded alcove housing a mystical shop. Offers unique items and serves as a discovery point for players exploring beyond the main paths.
+4. **Gem Shop**
+   - Exits: South to Market Square
+   - Purpose: A small, luxurious shop specializing in rare gems and enchanted jewelry. The owner is known for having connections to the arcane, hinting at deeper secrets within Shadowfen.
 
-5. **Trader's Row**
-   - Exits: West to [1], North to [3], East to [6]
-   - Notes: A street bustling with general goods traders. It serves as a crossroad, linking the Market Square to more specialized areas.
+5. **Apothecary**
+   - Exits: North to Market Square, South to Hidden Path
+   - Purpose: A mysterious shop filled with potions and alchemical supplies. The apothecary is run by an enigmatic figure who knows much about the district's secrets.
 
-6. **Shadowfen Tavern**
-   - Exits: North to [4], West to [5]
-   - Notes: A dimly lit tavern where players can gather information and rest. It's strategically placed at the district's edge for easy access from adjacent areas.
+6. **Hidden Path**
+   - Exits: North to Apothecary
+   - Purpose: A secretive alleyway that is not immediately obvious to players. It leads to other secretive parts of Shadowfen or perhaps to a special quest or treasure. Discovery of this path rewards keen exploration.
 
 ### Design Notes
 
-- **Flow and Purpose**: The Market Square [1] acts as the central hub, ensuring players can easily access any part of the district. By clustering related shops along [3] and [5], players can efficiently navigate through trade-related activities.
+- **Flow:** The Market Square acts as the central hub, allowing easy navigation to surrounding shops. Players naturally encounter each shop while exploring the district.
   
-- **Discovery and Exploration**: The Mystic's Corner [4] is slightly off the beaten path, encouraging exploration and rewarding players with unique finds. Its placement is intentional to provide a sense of mystery and reward for thorough exploration.
+- **Discovery:** The Hidden Path offers an element of mystery. Players who pay attention to conversations in the Tavern or clues in the Apothecary may find this path.
 
-- **Pacing and Realism**: The district's layout is designed to mimic a realistic market area, with a central square, specialized alleys, and a tavern for social interaction. The Herbalist's Grove [2] adds a touch of nature, balancing the urban feel.
+- **Pacing:** Shops and services are clustered around the Market Square for convenience, with the Hidden Path offering an element of intrigue for those who explore more thoroughly.
 
-- **Logical Organization**: The placement of shops and tavern follows a logical flow, avoiding jarring transitions like placing a blacksmith next to a temple. The armory and mystic shops are placed where players naturally seek them, enhancing immersion.
+- **Realism:** The layout makes physical sense, with the central square serving as a natural gathering place, surrounded by businesses that benefit from high foot traffic.
 
-This design ensures a balance of convenience and exploration, with logical room connections and a natural flow through the Merchant District.
+- **Vertical Space:** While this district focuses on horizontal exploration, vertical elements could include upper floors in the Tavern or a cellar in the Apothecary for future expansions.
