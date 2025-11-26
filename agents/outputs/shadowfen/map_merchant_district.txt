@@ -1,64 +1,72 @@
-### Merchant District in Shadowfen Style
+Here's the design for the 'Merchant District' in Shadowfen style:
 
 ```
-       +----------+
-       |  Apothecary|
-       |  Exits: S  |
-       +-----+----+-+
-             |
-       +-----+-----+
-       |  Market Sq |
-       |Exits: N E S|
-       +-----+-----+ 
-             |
-       +-----+-----+
-       |  Blacksmith|
-       |  Exits: N  |
-       +-----+-----+ 
-             |
-     +-------+-------+
-     |   Tailor Shop  |
-     | Exits: W N E   |
-     +-------+-------+
-         /         \
-+--------+         +--------+
-|  Hidden Path     |  Docks  |
-|  Exits: E        |  Exits: W|
-+--------+         +--------+ 
+           +---------+    
+           |  Alchemy|    
+           |   Shop  |    
+           |    [S]  |    
+           +----+----+    
+                |         
+           +----+----+    
+           |   Market |   
+           |   Square |   
+           |[N][E][S][W]|
+           +----+----+    
+                |         
+           +----+----+    
+           |  Tailor  |    
+           |   Shop   |    
+           |   [N]    |    
+           +----+----+    
+                |         
+           +----+----+    
+           |  Jeweler |   
+           |   Shop   |   
+           |   [N]    |   
+           +----+----+    
+                |         
+           +----+----+    
+           |  Black-  |   
+           |  smith   |    
+           |[N][E]    |    
+           +----+----+    
+                |         
+           +----+----+    
+           |  East    |    
+           |   Gate   |    
+           |   [W]    |    
+           +---------+    
 ```
 
-### Room List and Exits:
+### Room List with Exits
 
-1. **Apothecary**
-   - Exits: South
-   - Notes: A quaint shop offering potions and herbs. Positioned at the northern edge for easy access to the countryside.
+1. **Alchemy Shop**  
+   - **Exits:** South to Market Square
+   - **Purpose:** A shop specializing in potions and ingredients, offering rare items for crafting.
 
-2. **Market Square**
-   - Exits: North, East, South
-   - Notes: The central hub of the Merchant District, bustling with vendors and visitors. Acts as a navigation point to other rooms.
+2. **Market Square**  
+   - **Exits:** North to Alchemy Shop, East to Tailor Shop, South to Blacksmith, West to East Gate
+   - **Purpose:** The central hub of the Merchant District, bustling with vendors and shoppers.
 
-3. **Blacksmith**
-   - Exits: North
-   - Notes: Located directly south of the Market Square, the rhythmic clanging draws customers seeking weapons and armor.
+3. **Tailor Shop**  
+   - **Exits:** North to Market Square
+   - **Purpose:** Offers clothing and armor, with a focus on both utility and style.
 
-4. **Tailor Shop**
-   - Exits: West, North, East
-   - Notes: The Tailor Shop offers fine garments and is strategically placed for easy access from the Market Square and Docks.
+4. **Jeweler Shop**  
+   - **Exits:** North to Tailor Shop
+   - **Purpose:** Sells fine jewelry and trinkets, offering both everyday items and high-value goods.
 
-5. **Hidden Path**
-   - Exits: East
-   - Notes: A narrow, secretive alley leading back to the Tailor Shop, rewarding explorers with a shortcut.
+5. **Blacksmith**  
+   - **Exits:** North to Market Square, East to East Gate
+   - **Purpose:** Provides weapons and tools, essential for adventurers and tradespeople.
 
-6. **Docks**
-   - Exits: West
-   - Notes: Positioned at the southern end, the docks bustle with trade, providing a scenic view and access to imported goods.
+6. **East Gate**  
+   - **Exits:** West to Blacksmith
+   - **Purpose:** The entrance/exit to the Merchant District, leading to other areas of Shadowfen.
 
-### Design Notes:
+### Design Notes
 
-- **Flow and Purpose**: The Market Square serves as the district's central hub, enabling straightforward navigation to key commercial areas while promoting a sense of community. The Apothecary and Blacksmith are logically positioned for easy access to travelers and locals alike.
-
-- **Exploration and Discovery**: The Hidden Path offers a secretive route back to the Tailor Shop, rewarding players who explore beyond the main paths. This path adds an element of discovery and surprise.
-
-- **Pacing and Realism**: The district features a sensible layout with clustered commercial spaces around the central Market Square. The docks provide a tangible sense of distance and realism, representing the district's connection to trade routes.
-
-- **Vertical Space and Layered Complexity**: Although primarily a street-level district, the potential for vertical expansion exists through hidden basements or lofts in future expansions, maintaining the Shadowfen's mysterious allure.
+- **Flow:** The Market Square serves as the central hub, facilitating easy access to all shops. It encourages players to pass through and explore the district naturally.
+- **Discovery:** While the map is straightforward, the placement of the Jeweler Shop as a less direct path (via the Tailor) adds an element of discovery for players.
+- **Pacing:** The distance and arrangement provide a sense of scale and immersion, with the East Gate offering a transition point to other districts.
+- **Realism:** The layout ensures shops with related themes (e.g., Tailor and Jeweler) are close, while essential services like the Blacksmith are accessible from the Market Square. The East Gate provides a logical boundary for the district.
