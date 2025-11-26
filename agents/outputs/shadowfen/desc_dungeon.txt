@@ -1,1 +1,8 @@
 The dungeon walls, slick with the perspiration of eternal damp, glisten faintly in the murky torchlight, their surfaces etched with the patina of rust and moss. A faint, oppressive melody of dripping water echoes through the narrow corridors, punctuated by the distant skitter of unseen creatures. The air is thick with the musty scent of earth and decay, mingling with a metallic tang that clings to the back of your throat. As you tread cautiously on the uneven ground, the cold stones beneath your feet seem to whisper secrets of forgotten despair.
+
+Ambient Messages:
+1. A chill seeps from the damp stone walls, where shadows dance like restless spirits, echoing the faint drip of water that punctuates the suffocating silence.  
+
+2. The air is thick with the acrid scent of mildew and burnt incense, each breath heavy with the weight of ancient secrets long forgotten in the suffocating gloom.  
+
+3. Flickering torchlight reveals intricate carvings of twisted faces and serpentine forms, their silent screams seemingly trapped within the cold, unyielding stone.  
