@@ -6,3 +6,10 @@ Ambient Messages:
 2. "A shiver runs through the air as the scent of burning incense and damp earth wraps around you, beckoning you toward the heart of the bustling market, alive with laughter and vibrant colors."
 
 3. "The chill of the stone walls seeps into your bones, while the flickering torchlight dances across intricate carvings, whispering tales of long-lost heroes and forgotten realms."
+
+Ambient Messages:
+1. "A soft murmur of distant waves crashes against the rugged cliffs, while the salty breeze carries whispers of forgotten tales from the sea."  
+
+2. "The flickering glow of candlelight dances across the darkened chamber, illuminating the dust motes that swirl like ancient spirits in the heavy, fragrant air."  
+
+3. "In the heart of the bustling market, vibrant fabrics flutter in the warm sun, mingling with the rich aroma of spiced meats sizzling over open flames."  
