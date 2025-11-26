@@ -6,3 +6,10 @@ Ambient Messages:
 2. "A rich tapestry of spices hangs in the air, swirling around you like a fragrant fog, as wooden shelves creak under the weight of ancient tomes and curious trinkets."  
 
 3. "Flickering candlelight dances over polished stone counters, casting playful shadows that flicker like whispers among the shelves laden with shimmering baubles and exotic elixirs."  
+
+Ambient Messages:
+1. The air is thick with the rich aroma of aged leather and polished wood, as the flickering light of lanterns casts dancing shadows across shelves brimming with curious trinkets and glinting steel.  
+
+2. A gentle chime of brass bells announces your entrance, mingling with the soft rustle of silk as wafting fragrances of spiced incense envelop you in a warm, inviting embrace.  
+
+3. The floorboards creak softly underfoot, whispering secrets of countless transactions, while the scent of freshly brewed herbal tea lingers, promising comfort amid the clatter of goods being exchanged.
