@@ -1,51 +1,47 @@
-Here's the design for the 'Merchant District' in the Shadowfen style, a place bustling with trade and commerce, but with hints of the mysterious and the arcane.
-
-### ASCII Map
+### Merchant District Map
 
 ```
-          [Gem Shop]
-              |
-[Tavern]--[Market Square]--[General Store]
-              |
-          [Apothecary]
-              |
-           [Hidden Path]
+     [Tannery]         [Blacksmith]
+        |                  |
+      [Alley]--[Market Square]--[Inn]
+        |                  |
+     [Apothecary]      [Tailor Shop]
 ```
 
 ### Room List with Exits
 
 1. **Market Square**
-   - Exits: North to Gem Shop, East to General Store, South to Apothecary, West to Tavern
-   - Purpose: Central hub of the Merchant District, a bustling area filled with stalls and traders selling goods of all kinds. This is where most players will start their exploration.
+   - Exits: North to Alley, East to Inn, South to Tailor Shop, West to Blacksmith
+   - Purpose: Central hub of the Merchant District where various vendors set up stalls. High traffic, encourages exploration in all directions.
 
-2. **Tavern**
+2. **Blacksmith**
    - Exits: East to Market Square
-   - Purpose: A lively establishment where traders and adventurers gather. The tavern offers rest and rumors, serving as a social hub. Players can overhear hints about the Hidden Path here.
+   - Purpose: Offers weapons and armor; logical placement near central market for adventurers seeking gear. The forge sounds draw players in.
 
-3. **General Store**
+3. **Inn**
    - Exits: West to Market Square
-   - Purpose: Supplies and essentials for adventurers. The store is well-stocked with common items and tools, catering to both locals and travelers.
+   - Purpose: Provides rest and social interactions; connecting point for travelers. Offers rumors and quests.
 
-4. **Gem Shop**
-   - Exits: South to Market Square
-   - Purpose: A small, luxurious shop specializing in rare gems and enchanted jewelry. The owner is known for having connections to the arcane, hinting at deeper secrets within Shadowfen.
+4. **Tailor Shop**
+   - Exits: North to Market Square
+   - Purpose: Sells clothing and light armor; caters to those looking to blend in or stand out. Encourages revisits for new outfits.
 
-5. **Apothecary**
-   - Exits: North to Market Square, South to Hidden Path
-   - Purpose: A mysterious shop filled with potions and alchemical supplies. The apothecary is run by an enigmatic figure who knows much about the district's secrets.
+5. **Alley**
+   - Exits: South to Market Square, North to Tannery
+   - Purpose: Hidden path connecting otherwise distant locations. Contains minor NPCs and possible side quests.
 
-6. **Hidden Path**
-   - Exits: North to Apothecary
-   - Purpose: A secretive alleyway that is not immediately obvious to players. It leads to other secretive parts of Shadowfen or perhaps to a special quest or treasure. Discovery of this path rewards keen exploration.
+6. **Tannery**
+   - Exits: South to Alley
+   - Purpose: Produces leather goods; its location away from the main hub reduces the olfactory impact on the Market Square.
 
 ### Design Notes
 
-- **Flow:** The Market Square acts as the central hub, allowing easy navigation to surrounding shops. Players naturally encounter each shop while exploring the district.
-  
-- **Discovery:** The Hidden Path offers an element of mystery. Players who pay attention to conversations in the Tavern or clues in the Apothecary may find this path.
+- **Flow:** The Market Square serves as the primary hub with multiple exits, ensuring players naturally explore all areas. The Blacksmith and Tailor Shop are placed logically near the Market Square to draw players interested in gear and attire.
 
-- **Pacing:** Shops and services are clustered around the Market Square for convenience, with the Hidden Path offering an element of intrigue for those who explore more thoroughly.
+- **Exploration & Discovery:** The Alley provides a shortcut and an opportunity for players to discover hidden quests or NPCs. This adds depth and rewards those who stray from the main path.
 
-- **Realism:** The layout makes physical sense, with the central square serving as a natural gathering place, surrounded by businesses that benefit from high foot traffic.
+- **Pacing & Clustering:** Shops are clustered around the Market Square to simulate a bustling merchant environment. The Inn is slightly offset to provide a sense of progression from the central hub.
 
-- **Vertical Space:** While this district focuses on horizontal exploration, vertical elements could include upper floors in the Tavern or a cellar in the Apothecary for future expansions.
+- **Realism:** The Tannery is placed further from the market to realistically separate its smell from the bustling center. This reflects a realistic town layout where more unpleasant industries are located on the outskirts.
+
+- **Vertical Space:** Not utilized in this design, maintaining a focus on horizontal exploration typical of an outdoor district. Future expansions could include basements for some shops or a rooftop garden for the Inn.
