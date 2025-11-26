@@ -1,0 +1,43 @@
+### Shadowfen Dungeon Map
+
+```
+[Entrance Hall] -- [Guard Post] -- [Torture Chamber]
+     |                  | 
+[Supplies Room]    [Prison Cells]
+     |
+[Hidden Alcove]
+```
+
+### Room List and Exits
+
+1. **Entrance Hall**
+   - **Exits:** North to Guard Post, East to Supplies Room
+   - **Purpose:** The initial entry point into the dungeon, setting the tone with dim torchlight and the sound of distant water dripping. It serves as a hub to other areas.
+
+2. **Guard Post**
+   - **Exits:** South to Entrance Hall, East to Torture Chamber, North to Prison Cells
+   - **Purpose:** A checkpoint where guards would be stationed. The room is cramped, filled with old weapons and armor, indicating its past use for security.
+
+3. **Torture Chamber**
+   - **Exits:** West to Guard Post
+   - **Purpose:** A grim room with rusted racks and chains. It tells the story of past horrors and is a dead-end, adding to the dungeon's atmosphere.
+
+4. **Prison Cells**
+   - **Exits:** South to Guard Post
+   - **Purpose:** Rows of grimy cells, some open and others locked. It hints at the dungeon's history of imprisonment and suffering. A place where players might find hidden clues or NPCs.
+
+5. **Supplies Room**
+   - **Exits:** West to Entrance Hall, Down to Hidden Alcove
+   - **Purpose:** Contains old supplies and equipment. A mundane room with a secret trapdoor leading downwards, encouraging exploration.
+
+6. **Hidden Alcove**
+   - **Exits:** Up to Supplies Room
+   - **Purpose:** A reward for keen explorers, this room holds forgotten treasures and lore. It's a small, secret area that adds depth and mystery.
+
+### Design Notes
+
+- **Flow:** The dungeon is designed to lead players from the Entrance Hall through a logical progression of rooms, with the Guard Post acting as a central hub for branching paths.
+- **Exploration:** Hidden Alcove rewards keen players who explore the Supplies Room thoroughly. The layout encourages players to investigate all areas with a mix of linear and branching paths.
+- **Theme:** The Shadowfen style is reflected in the oppressive atmosphere and decayed state of the dungeon. Each room tells part of the story of a once-functioning, now-abandoned facility.
+- **Realism:** The layout makes physical sense as a security-focused dungeon with a central guard area, prisoner management spaces, and storage facilities.
+- **Pacing:** The central Guard Post serves to cluster the main paths, while the Supplies Room and Hidden Alcove offer a break from the tension with discovery and reward.
