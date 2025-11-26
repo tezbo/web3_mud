@@ -1,1 +1,8 @@
 The dungeon breathes with the chill of the Shadowfen, its walls slick with a sheen of moisture that glistens like tarnished silver in the dim light. Chains clink faintly, their echoes swallowed by the thick, choking mist that clings to your skin like cold, clammy fingers. The air is laced with the sharp, iron scent of rust and the fetid, organic musk of decay, as if the very stone itself were rotting. Underfoot, the ground is uneven, a treacherous tangle of roots and crumbling masonry, each step a whispered threat of betrayal.
+
+Ambient Messages:
+1. Cold, damp air clings to your skin as the distant drip of water echoes through the shadowy recesses, each drop a reminder of the ancient stone walls slowly yielding to time.  
+
+2. A faint, acrid scent of mold and decay lingers, mingling with the metallic tang of rusted iron, as your footsteps disturb the thick layer of dust that blankets the forgotten treasures scattered across the floor.  
+
+3. Flickering shadows dance across the rough-hewn walls, cast by the sputtering flame of a lone torch, while the low rumble of unseen creatures stirs the oppressive silence, making the hairs on the back of your neck stand alert.  
