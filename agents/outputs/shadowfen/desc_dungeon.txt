@@ -1,1 +1,8 @@
 The air hangs heavy in the dungeon, a cloying blend of mildew and rust that clings to your skin like a damp shroud. Flickering torchlight casts erratic shadows on the stone walls, their surfaces slick with the relentless seep of groundwater. Each step echoes with a hollow, ominous resonance, the sound swallowed by the oppressive silence. The tang of iron and decay lingers on your tongue, as if the stones themselves exhale the remnants of forgotten prisoners.
+
+Ambient Messages:
+1. A low, echoing drip of water punctuates the oppressive silence, each drop splattering against cold stone like a heartbeat in the dark.  
+
+2. The air is thick with the scent of damp earth and iron, as shadows dance in the flickering light of torches, revealing ancient carvings that whisper forgotten secrets.  
+
+3. Faint whispers skitter through the narrow passages, brushing against your ears like the touch of ghostly fingers, urging you deeper into the suffocating embrace of the abyss.
