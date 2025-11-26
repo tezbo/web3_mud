@@ -1,45 +1,63 @@
-### ASCII Map of 'Dungeon' District in Shadowfen Style
+### Shadowfen Dungeon ASCII Map
 
 ```
-  [Entrance] -- [Chamber of Shadows] -- [Dark Altar]
-      |                 |
-  [Guard Room]      [Hidden Passage]
-      |
-  [Prison Cells]
+                  +---------+
+                  | Treasure|
+                  |  Room   |
+                  | [Exit S]|
+                  +----+----+
+                       |
+                  +----+----+
+                  |   Hidden |
+                  | Passage  |
+                  | [N, S]   |
+                  +----+----+
+                       |
++---------+       +----+----+       +---------+
+|  Guard  |-------|   Main   |-------|  Cells  |
+| Chamber |       |  Chamber |       |         |
+| [Exit E]|       | [N, E, W]|       | [W, D] |
++---------+       +----+----+       +----+----+
+                       |
+                  +----+----+
+                  | Entrance |
+                  |          |
+                  | [U, N]   |
+                  +----+----+
 ```
 
-### Room List with Exits
+### Room List and Exits
 
 1. **Entrance**
-   - Exits: East to Chamber of Shadows, South to Guard Room
-   - Notes: A foreboding entryway with heavy, moss-covered stone doors. Sets the tone for the dungeon with dim lighting and the sound of dripping water echoing throughout.
+   - Exits: Up (U) to the surface, North (N) to Main Chamber
+   - Notes: The entry point for adventurers. Provides a clear ingress/egress to the surface, setting the tone for the dungeon.
 
-2. **Chamber of Shadows**
-   - Exits: West to Entrance, East to Dark Altar, South to Hidden Passage
-   - Notes: The central hub of the dungeon, filled with flickering shadows cast by torchlight. It serves as a meeting point, with ominous carvings on the walls suggesting the presence of dark rituals.
+2. **Main Chamber**
+   - Exits: North (N) to Hidden Passage, East (E) to Cells, West (W) to Guard Chamber
+   - Notes: The central hub of the dungeon. Acts as a crossroad, facilitating exploration of the dungeon's various sections.
 
-3. **Dark Altar**
-   - Exits: West to Chamber of Shadows
-   - Notes: A sinister room dominated by an ancient altar used for shadowy rituals. The air is thick with the scent of incense, and whispers seem to echo from the walls. A key location for quests involving dark magic or forbidden knowledge.
+3. **Guard Chamber**
+   - Exits: East (E) to Main Chamber
+   - Notes: A room for dungeon keepers, possibly housing guard NPCs. Provides a logical defense point for the dungeon.
 
-4. **Guard Room**
-   - Exits: North to Entrance, South to Prison Cells
-   - Notes: A small, cramped room with worn furniture and weapon racks. Guards are stationed here to prevent prisoners from escaping, and players might find clues or keys here for freeing captives.
+4. **Cells**
+   - Exits: West (W) to Main Chamber, Down (D) to secret passage or lower level (not depicted)
+   - Notes: Contains prisoners or captives, adding narrative depth. The down exit encourages further exploration for secrets.
 
-5. **Prison Cells**
-   - Exits: North to Guard Room
-   - Notes: Dank and oppressive, with several cells lining the walls. Each cell tells a story of its own, with etchings from former prisoners. Players can find side quests or rescue missions here.
+5. **Hidden Passage**
+   - Exits: North (N) to Treasure Room, South (S) to Main Chamber
+   - Notes: Rewards players who explore beyond the obvious path. The passage is a secret and requires keen observation to find.
 
-6. **Hidden Passage**
-   - Exits: North to Chamber of Shadows
-   - Notes: A secretive corridor accessed via a concealed lever in the Chamber of Shadows. Leads to a small hidden chamber with a treasure chest, rewarding players who take the time to explore.
+6. **Treasure Room**
+   - Exits: South (S) to Hidden Passage
+   - Notes: The ultimate reward area with loot or special items. Its location at the map's end provides a satisfying conclusion to exploration.
 
-### Design Notes on Flow and Purpose
+### Design Notes
 
-- **Flow:** The Entrance leads directly into the Chamber of Shadows, establishing it as the main hub. From here, players can choose to explore the Dark Altar for quests or delve into the Guard Room and Prison Cells for more narrative-driven encounters.
+- **Flow and Purpose**: The map design encourages players to navigate through the Main Chamber, which serves as the central hub, ensuring they encounter multiple paths and decisions. The design also guides players naturally from the Entrance to key areas like the Cells and Guard Chamber, while the Hidden Passage and Treasure Room offer an optional, rewarding exploration path.
   
-- **Purpose:** Each room serves a distinct purpose, with the Chamber of Shadows providing central connectivity. The Dark Altar and Hidden Passage encourage exploration and uncovering secrets, while the Guard Room and Prison Cells offer story elements and side quests.
+- **Exploration and Discovery**: The Hidden Passage and the down exit from the Cells room encourage players to explore and discover secrets, providing optional challenges and rewards.
+  
+- **Pacing and Realism**: The dungeon's layout is compact but non-linear, providing a sense of depth and complexity without overwhelming the player. The spatial logic is consistent with a dungeon setting, emphasizing security (Guard Chamber) and mystery (Hidden Passage).
 
-- **Exploration vs. Convenience:** The map is designed to encourage exploration without being overly complex. Hidden Passage rewards curiosity, while clear paths ensure players don't get lost.
-
-- **Realism and Storytelling:** The layout reflects a logical progression from entrance to depth, with rooms serving functions typical of a dungeon setting (guarding, imprisoning, ritualistic). The environmental storytelling is enhanced by room-specific details, such as carvings, etchings, and ambient sounds.
+- **Vertical Space**: Although the map is primarily horizontal, the Entrance and Cells incorporate vertical elements, enhancing the dungeon's dimensionality and realism.
