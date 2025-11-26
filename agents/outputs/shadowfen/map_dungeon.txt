@@ -1,44 +1,47 @@
-### Shadowfen Dungeon Map
+### Shadowfen Dungeon ASCII Map
 
 ```
-  [Entrance Hall] -- [Guard Post] -- [Torture Chamber]
-        |                    |
-        |                    |
-  [Prison Cells] -- [Armory] -- [Hidden Treasury]
+  [Treasure Vault]
+      |
+[Arcane Chamber]--[Guard Post]--[Entrance Hall]
+      |                  |
+[Dark Library]       [Torture Room]
 ```
 
 ### Room List with Exits
 
 1. **Entrance Hall**
-   - Exits: North to Guard Post, East to Prison Cells
-   - Notes: The starting point of the dungeon; a dimly lit room with moss-covered walls. Sets the tone for the eerie atmosphere. Acts as a central hub for branching into other areas.
+   - **Exits:** East to Guard Post
+   - **Purpose:** Main entry to the dungeon; sets the atmosphere with shadowy carvings and dim torchlight.
 
 2. **Guard Post**
-   - Exits: South to Entrance Hall, East to Torture Chamber, North to Armory
-   - Notes: A checkpoint for dungeon guards. Contains a few weapons and armor. Offers strategic positioning, encouraging players to plan their approach.
+   - **Exits:** West to Entrance Hall, East to Arcane Chamber, South to Torture Room
+   - **Purpose:** Central hub for dungeon security; guards stationed here create a bottleneck for intruders.
 
-3. **Torture Chamber**
-   - Exits: West to Guard Post
-   - Notes: A chilling room with remnants of past torment. Primarily a storytelling space, featuring environmental clues to the dungeon's history.
+3. **Arcane Chamber**
+   - **Exits:** West to Guard Post, North to Treasure Vault, South to Dark Library
+   - **Purpose:** Mystical room filled with ancient runes and magical artifacts; serves as a transition to the dungeon's deeper secrets.
 
-4. **Prison Cells**
-   - Exits: West to Entrance Hall, East to Armory
-   - Notes: A series of dank cells, some still holding skeletons or prisoners. Offers opportunities for side quests or finding keys leading to other areas.
+4. **Treasure Vault**
+   - **Exits:** South to Arcane Chamber
+   - **Purpose:** Reward room with hidden treasures; heavily trapped and guarded, encouraging exploration and careful planning.
 
-5. **Armory**
-   - Exits: West to Prison Cells, South to Guard Post, East to Hidden Treasury
-   - Notes: Well-stocked with weapons, this room serves as a reward for exploration. Provides players a chance to equip themselves better.
+5. **Dark Library**
+   - **Exits:** North to Arcane Chamber
+   - **Purpose:** A repository of forbidden knowledge; hidden passages might be discovered here leading to other adventures.
 
-6. **Hidden Treasury**
-   - Exits: West to Armory
-   - Notes: A secretive room revealed by a concealed mechanism in the Armory. Contains valuable loot or a powerful artifact, rewarding players for their curiosity and exploration.
+6. **Torture Room**
+   - **Exits:** North to Guard Post
+   - **Purpose:** Adds atmospheric depth and storytelling; evidence of the dungeon's dark past, with potential for finding clues or key items.
 
 ### Design Notes
 
-- **Flow and Purpose**: The dungeon is designed to guide players from the Entrance Hall and allow them to choose between the Guard Post and Prison Cells, creating a non-linear exploration experience. The Guard Post serves as a secondary hub, branching into the Torture Chamber and Armory, enhancing strategic planning and decision-making.
+- **Flow and Purpose:** The dungeon is designed with a central hub (Guard Post) that connects to each of the rooms, creating a sense of exploration and danger without feeling linear. The layout encourages players to strategize their movement, especially when seeking the Treasure Vault.
   
-- **Discovery and Exploration**: The Hidden Treasury is a key element, rewarding players who thoroughly explore the Armory. The presence of environmental storytelling in the Torture Chamber and Prison Cells enriches the narrative and adds depth to the dungeon's backstory.
+- **Exploration and Discovery:** The Arcane Chamber acts as a pivotal point for accessing both the Vault and the Library, offering players choices and rewarding curiosity. The Dark Library hints at lore and potential hidden pathways.
 
-- **Pacing and Realism**: The layout balances exploration with purpose, situating rooms logically (e.g., the Armory near the Guard Post and Prison Cells). The progression from entrance to treasure room builds anticipation and satisfaction.
+- **Realism and Atmosphere:** Each room serves a logical purpose within the context of a dark, mysterious dungeon. The thematic consistency of shadow and secrecy aligns with the Shadowfen style, enhancing the player's immersive experience.
 
-- **Vertical Space**: Although this map is flat, it suggests natural verticality through environmental descriptions (e.g., stairwells in the Entrance Hall leading to uncharted levels or visual elements hinting at deeper layers). This alludes to further exploration opportunities in expanded maps or future updates.
+- **Vertical Complexity:** Though this map uses a flat structure, the potential for vertical exploration is suggested through the Arcane Chamber's mystical elements, hinting at magical lifts or hidden trapdoors.
+
+The dungeon balances exploration and storytelling, inviting players to engage with its mystery and danger.

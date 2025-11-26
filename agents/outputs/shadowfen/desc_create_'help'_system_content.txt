@@ -1,1 +1,8 @@
 In the heart of Shadowfen, the room is cloaked in a persistent, eerie twilight, where tendrils of mist curl lazily around tarnished iron shelves, their surfaces slick with a constant bead of moisture. The air is thick with the earthy scent of damp soil and decaying leaves, intermingled with an acrid hint of mildew. A soft, unsettling drip echoes from somewhere unseen, punctuating the oppressive silence like a distant heartbeat. As you brush against the walls, the cold, clammy stone clings to your skin, leaving a lingering chill that seeps into your bones.
+
+Ambient Messages:
+1. "The air hums with the soft crackle of arcane energy, shimmering like a mirage against the backdrop of ancient stone walls draped in emerald ivy."  
+
+2. "A distant melody, woven from the whispers of the wind and the gentle rustle of silk banners, dances through the twilight, beckoning you closer to the heart of the festival."  
+
+3. "The thick, damp fog clings to your skin like a shroud, muffling the echo of your footsteps as the earthy scent of moss and decay rises from the shadowed underbrush."  
