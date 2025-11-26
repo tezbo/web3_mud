@@ -361,23 +361,23 @@ class Player(Entity):
             
         for item in self.inventory:
             if target_name == item.name.lower() or target_name in [adj.lower() for adj in item.adjectives] or target_name in item.name.lower().split():
-                return f"You see {item.get_display_name()}.
-{item.description}"
+                return f"""You see {item.get_display_name()}.
+{item.description}"""
                 
         if not self.location:
             return "You see nothing."
             
         for item in self.location.items:
             if target_name == item.name.lower() or target_name in [adj.lower() for adj in item.adjectives] or target_name in item.name.lower().split():
-                return f"You see {item.get_display_name()}.
-{item.description}"
+                return f"""You see {item.get_display_name()}.
+{item.description}"""
                 
         from game.world.manager import WorldManager
         wm = WorldManager.get_instance()
         for npc_id in self.location.npcs:
             npc = wm.get_npc(npc_id)
             if npc and (target_name == npc.name.lower() or target_name in npc.name.lower().split()):
-                return f"You see {npc.name}.
-{npc.description}"
+                return f"""You see {npc.name}.
+{npc.description}"""
                 
         return f"You don't see '{target_name}' here."
