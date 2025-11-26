@@ -1,46 +1,45 @@
-```plaintext
-      [2]
-       |
-[1]--[3]--[4]--[5]
-       |
-      [6]
+### Merchant District - Shadowfen Style
 
-Room List:
-1. Entrance Gate
-   Exits: East to [3]
-   - Main entrance to the Merchant District. Guards are stationed here.
-   - Designed as a welcoming point for traders entering from other districts.
-
-2. Observation Tower
-   Exits: South to [3]
-   - Offers a vantage point to oversee the district and nearby areas.
-   - Adds vertical space and a sense of security to the district.
-
-3. Market Square
-   Exits: West to [1], North to [2], East to [4], South to [6]
-   - Central hub of the district, bustling with stalls and vendors.
-   - Connects to all key locations, making it the heart of commerce.
-
-4. Artisan Alley
-   Exits: West to [3], East to [5]
-   - Workshops and artisan stalls line this area, showcasing crafts.
-   - Draws players deeper into the district, encouraging exploration.
-
-5. Trade Consortium
-   Exits: West to [4]
-   - Headquarters of the Merchant Guild, where deals and trades are formalized.
-   - Represents high-status commerce, rewarding players who venture further.
-
-6. Shadowfen Tavern
-   Exits: North to [3]
-   - A place for merchants and adventurers to rest and exchange stories.
-   - Offers respite and social opportunities, tucked slightly away for a quieter atmosphere.
-
-Design Notes:
-- Flow: The Market Square [3] is the central hub, allowing easy access to all major locations. It is naturally the busiest area, reflecting the district's focus on trade.
-- Exploration: The Observation Tower [2] provides vertical interest and an optional vantage point, rewarding those who seek it out with information or perhaps a quest.
-- Discovery: Artisan Alley [4] is slightly off the main path, encouraging players to explore its unique offerings.
-- Pacing: Players start at the Entrance Gate [1], get drawn into the Market Square [3], and then have multiple paths to explore, balancing discovery with convenience.
-- Realism: The layout logically places high-traffic areas at the heart, with specialized functions like the Trade Consortium [5] located deeper within for a sense of progression.
-- Vertical Space: The inclusion of an Observation Tower [2] adds a layer of complexity and realism, fitting the Shadowfen style by providing strategic oversight of the district. 
 ```
+   [Market Square]
+       |      |
+[Blacksmith] [Apothecary]
+       |      |
+   [Silk Road]---[Jeweler]
+       | 
+  [Warehouse]
+```
+
+#### Room List with Exits:
+
+1. **Market Square**
+   - Exits: North to Blacksmith, East to Apothecary, South to Silk Road
+   - Purpose: Central hub for the Merchant District. Bustling with traders and shoppers, this is where players can gather information and purchase general goods.
+
+2. **Blacksmith**
+   - Exits: South to Market Square
+   - Purpose: Provides weapons and armor. Logical placement next to Market Square for easy access by adventurers seeking upgrades before heading out on quests.
+
+3. **Apothecary**
+   - Exits: West to Market Square
+   - Purpose: Offers potions and herbal remedies. Positioned for convenient access for those in need of healing supplies or concoctions.
+
+4. **Silk Road**
+   - Exits: North to Market Square, South to Warehouse, East to Jeweler
+   - Purpose: A narrow, winding street lined with various stalls selling exotic textiles and trinkets. Acts as a connector between key areas while offering exploration opportunities.
+
+5. **Jeweler**
+   - Exits: West to Silk Road
+   - Purpose: Specializes in rare gems and jewelry. Positioned slightly off the main path to create a sense of discovery, encouraging players to venture beyond the primary routes.
+
+6. **Warehouse**
+   - Exits: North to Silk Road
+   - Purpose: Storage for goods coming in and out of the district. Potential side quest location involving supply chain disruptions or hidden treasure.
+
+#### Design Notes:
+
+- **Flow and Centralization:** The Market Square serves as the hub, with all initial paths leading from it, ensuring players naturally encounter the primary services.
+- **Exploration and Discovery:** The Jeweler is placed off the main Silk Road, rewarding players who take the time to explore beyond the obvious paths.
+- **Realism and Cohesion:** The arrangement logically groups similar services together (e.g., Blacksmith and Apothecary near the central hub for quick access; Warehouse at the district's edge).
+- **Pacing:** Important rooms (Market Square, Blacksmith, Apothecary) are immediately accessible, while the exploration of Silk Road and the discovery of the Jeweler add depth.
+- **Shadowfen Style:** Reflects the district's dark, swampy aesthetic with twisting paths and tightly packed structures, creating an atmosphere of mystery and intrigue.
