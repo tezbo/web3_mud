@@ -1,47 +1,47 @@
-### Shadowfen Dungeon Map
+Below is an ASCII-style map of the 'Dungeon' district in Shadowfen style, complete with room names, exits, and design notes:
 
 ```
-      [Entrance]
-         |
-      [Antechamber] -- [Guard Barracks]
-         |                 |
-      [Main Hall]-------[Armory]
-         |
-      [Treasure Vault]
+      [Treasure Chamber]
+            |
+            |
+      [Hidden Alcove]---[Secret Exit]
+            |
+      [Torture Chamber]
+            |
+      [Main Corridor]---[Storage Room]
+            |
+      [Entrance Hall]
 ```
 
-### Room List with Exits
+**Room List with Exits:**
 
-1. **Entrance**
-   - Exits: South to Antechamber
-   - Purpose: Initial entry point into the dungeon. Sets the foreboding atmosphere with dim lighting and damp walls.
+1. **[Entrance Hall]**
+   - Exits: North to Main Corridor
+   - Notes: The gateway to the Dungeon, featuring imposing stone doors. This area serves as the first step into the depths, setting the tone with dim lighting and eerie echoes.
 
-2. **Antechamber**
-   - Exits: North to Entrance, South to Main Hall, East to Guard Barracks
-   - Purpose: Acts as a buffer zone between the outside world and the deeper dungeon. Provides a sense of transition from light to dark.
+2. **[Main Corridor]**
+   - Exits: South to Entrance Hall, North to Torture Chamber, East to Storage Room
+   - Notes: A central artery for the Dungeon, this corridor is lined with flickering torches. It connects the entrance to deeper parts of the Dungeon, encouraging further exploration.
 
-3. **Guard Barracks**
-   - Exits: West to Antechamber, South to Armory
-   - Purpose: Housing area for dungeon guards. Contains bunks and personal effects, providing a glimpse into the lives of the inhabitants.
+3. **[Storage Room]**
+   - Exits: West to Main Corridor
+   - Notes: A side chamber filled with dusty crates and forgotten supplies. Players might find useful items or clues here, rewarding those who stray from the main path.
 
-4. **Main Hall**
-   - Exits: North to Antechamber, East to Armory, South to Treasure Vault
-   - Purpose: Central hub of the dungeon. High ceiling with echoes, creating an imposing atmosphere. Suitable for battles or encounters.
+4. **[Torture Chamber]**
+   - Exits: South to Main Corridor, North to Hidden Alcove
+   - Notes: A grim room used for interrogation, complete with ominous implements and shackles. It adds to the Dungeon's dark atmosphere and serves as a thematic centerpiece.
 
-5. **Armory**
-   - Exits: West to Main Hall, North to Guard Barracks
-   - Purpose: Storage of weapons and gear. Offers an opportunity for players to discover or loot items. Reinforces the militaristic nature of the dungeon.
+5. **[Hidden Alcove]**
+   - Exits: South to Torture Chamber, East to Secret Exit, North to Treasure Chamber
+   - Notes: A concealed area that players must discover, possibly through interacting with objects or solving a puzzle. It connects to both a hidden exit and a treasure room, rewarding inquisitive adventurers.
 
-6. **Treasure Vault**
-   - Exits: North to Main Hall
-   - Purpose: Final goal and reward for players. Contains valuable treasures and potentially a boss or challenging puzzle. Reflects the culmination of exploration and effort.
+6. **[Treasure Chamber]**
+   - Exits: South to Hidden Alcove
+   - Notes: The ultimate reward for those who explore thoroughly, this chamber contains valuable loot. Its hidden nature encourages players to search for clues and secrets throughout the Dungeon.
 
-### Design Notes
+**Design Notes:**
 
-- **Flow and Exploration**: The dungeon is designed to naturally guide players from the Entrance to the Treasure Vault. The central Main Hall acts as a hub, encouraging exploration of side rooms (Guard Barracks and Armory) before reaching the ultimate goal.
-  
-- **Discovery and Complexity**: Hidden passages or secret levers could be integrated into the Guard Barracks or Armory to unlock additional treasures or lore. This rewards thorough exploration.
-
-- **Pacing and Realism**: The layout respects the need for logical room placement, with the Guard Barracks strategically positioned near the entrance for defense, and the Armory accessible for quick armament.
-
-- **Atmosphere and Storytelling**: Each room contributes to the dungeon's narrative, from the eerie silence of the Antechamber to the opulent but guarded Treasure Vault, enhancing immersion and player engagement.
+- **Flow and Purpose:** The Dungeon is designed with a main path from the Entrance Hall to the Treasure Chamber, with a side detour to the Storage Room. The Hidden Alcove acts as a branching point for resourceful players to find additional exits and treasures.
+- **Exploration and Discovery:** Hidden passages and rooms like the Hidden Alcove and Secret Exit reward players who explore beyond the obvious route.
+- **Thematic Consistency:** The layout and room functions, such as the Torture Chamber and Treasure Chamber, reinforce the dark and foreboding atmosphere typical of a Shadowfen Dungeon.
+- **Logical Layout:** The organization of rooms makes sense spatially, with functional connections like the Storage Room being a logical offshoot of the Main Corridor and the Treasure Chamber being well-guarded by its hidden location.
