@@ -1,47 +1,51 @@
-### Merchant District in Shadowfen Style
+### Merchant District - Shadowfen Style
+
+**ASCII Map:**
 
 ```
-   [Alchemy Shop] -- [Blacksmith]
-         |                 |
-   [General Store] -- [Market Square] -- [Tavern]
-         |                 |
-  [Residential Alley] -- [Tailor]
+        [A] - [B]
+         |     |
+        [C] - [D]
+         |     |
+        [E] - [F]
 ```
 
-#### Room List with Exits:
+**Room List with Exits:**
 
-1. **Market Square**
-   - **Exits**: North (Alchemy Shop), East (Tavern), South (General Store), West (Blacksmith)
-   - **Purpose**: Central hub of the Merchant District; a bustling area where various paths converge.
+1. **[A] Market Square**
+   - Exits: South to [C], East to [B]
+   - Notes: Central hub of the Merchant District. Bustling with vendors and traders. Serves as a primary gathering point and navigation hub.
 
-2. **Alchemy Shop**
-   - **Exits**: South (Market Square), East (Blacksmith)
-   - **Purpose**: Offers potions and magical ingredients; provides a quieter atmosphere away from the main hustle.
+2. **[B] Artisan Alley**
+   - Exits: West to [A], South to [D]
+   - Notes: A narrow street lined with specialty shops and workshops. Offers custom goods and unique items. Encourages exploration for rare finds.
 
-3. **Blacksmith**
-   - **Exits**: East (Market Square), West (Alchemy Shop)
-   - **Purpose**: Sells weapons and armor; the clang of metal can be heard, attracting adventurers.
+3. **[C] General Goods Store**
+   - Exits: North to [A], South to [E], East to [D]
+   - Notes: Provides essential supplies and mundane items. Positioned for convenience between the market and residential areas.
 
-4. **General Store**
-   - **Exits**: North (Market Square), South (Residential Alley)
-   - **Purpose**: Supplies everyday items; acts as a transition from the commercial area to the residential zone.
+4. **[D] Blacksmith's Forge**
+   - Exits: West to [C], North to [B], South to [F]
+   - Notes: A loud and smoky forge producing weapons and armor. Located near Artisan Alley for thematic consistency and proximity to other crafts.
 
-5. **Tavern**
-   - **Exits**: West (Market Square)
-   - **Purpose**: A place of rest and information; offers quests and social interaction.
+5. **[E] Residential Alley**
+   - Exits: North to [C], East to [F]
+   - Notes: Quiet lane leading to modest homes of merchants. Offers a small detour from the bustling market, enhancing immersion with everyday life.
 
-6. **Residential Alley**
-   - **Exits**: North (General Store), East (Tailor)
-   - **Purpose**: A narrow passage lined with homes; a quiet area leading to specialized shops.
+6. **[F] Secretive Backroom**
+   - Exits: North to [D], West to [E]
+   - Notes: Hidden chamber accessible through a concealed door in the Blacksmith's Forge. Contains rare and illicit goods, rewarding keen explorers.
 
-7. **Tailor**
-   - **Exits**: West (Residential Alley)
-   - **Purpose**: Sells clothing and armor; a quieter shop tucked away from the main paths.
+**Design Notes on Flow and Purpose:**
 
-#### Design Notes:
+- **Central Hub:** Market Square ([A]) acts as the district's core, facilitating easy movement to other areas and maintaining high foot traffic.
+  
+- **Flow:** Players naturally navigate from the central market to specialized areas like Artisan Alley ([B]) and Blacksmith's Forge ([D]). The General Goods Store ([C]) is easily accessible for quick shopping trips.
 
-- **Flow**: The Market Square serves as the central hub, allowing players to naturally navigate to key locations. Shops are clustered around the square, ensuring easy access to essential services.
-- **Exploration**: The Residential Alley introduces a sense of discovery as players move away from the bustling market to quieter, specialized areas like the Tailor.
-- **Convenience vs. Exploration**: The direct connections to the Market Square offer convenience, while the side path through the Residential Alley rewards players who explore with a discovery of the Tailor.
-- **Realism**: The layout mimics a realistic town setup with a central market and surrounding shops, transitioning to quieter residential areas.
-- **Pacing**: The bustling Market Square contrasts with the more serene Residential Alley and Alchemy Shop, providing varied experiences for players.
+- **Discovery:** The Secretive Backroom ([F]) serves as a hidden space for players who explore beyond the obvious paths, adding an element of mystery and reward.
+
+- **Pacing:** The district is compact but layered, with the main thoroughfares leading to essential services and quieter alleys leading to residential and secretive zones.
+
+- **Realism:** The layout reflects a realistic arrangement of a merchant district, with workshops near the central market and residential spaces slightly removed for privacy.
+
+This design emphasizes the contrast between the lively market environment and the quieter, more secretive undertones of Shadowfen, encouraging exploration and providing a sense of depth.
