@@ -1,28 +1,34 @@
-**Title: "The Rot Beneath the Roots"**
+**Quest Title:** "The Rot's Reckoning"
 
 **Stage Breakdown:**
 
-1. **Discovery of Decay:**
-   - The player stumbles upon a village on the outskirts of Shadowfen where crops are withering, and livestock falls ill. Villagers whisper of a cult led by the High Priest of Rot, believed to be spreading blight from an ancient swamp temple.
+**Stage 1: Gathering Shadows**
+- **Objective:** Discover why the Shadowfen is succumbing to an unnatural blight.
+- **Details:** The player arrives in the village of Mirewatch, where the crops are decaying, and the villagers are plagued by mysterious illnesses. They learn from the village elder that the blight is spreading from the ancient temple deep within the swamp, where the High Priest of Rot is rumored to conduct dark rituals.
 
-2. **Into the Swamp:**
-   - The player navigates the treacherous Shadowfen, encountering cultists and creatures twisted by rot. Along the way, they hear conflicting stories about the High Priest's motivations and past.
+**Stage 2: Confrontation with Decay**
+- **Objective:** Enter the Temple of Rot and confront the High Priest.
+- **Details:** The player navigates the treacherous swamp, facing corrupted wildlife and overcoming traps set by the priest's acolytes. Upon reaching the temple, they find the High Priest of Rot conducting a ritual to summon the Avatar of Decay.
 
-3. **Confrontation at the Temple:**
-   - Deep within the swamp, the player confronts the High Priest of Rot in the dilapidated temple. The priest reveals he seeks to restore balance, claiming the blight emerged only after a recent expansion of farmland disrupted the natural order.
+**Stage 3: The Final Decision**
+- **Objective:** Decide the fate of the High Priest and the blight.
+- **Details:** The player interrupts the ritual, and the High Priest, revealed to be a once-respected scholar who turned to forbidden magic to save the swamp from an ancient curse, pleads for his life. The player must choose their course of action.
 
 **Solutions:**
 
-1. **Forceful Purge:**
-   - The player decides to eliminate the High Priest and his cult, believing the blight will end with their demise.
-   - **Consequences:** The blight recedes, but the land slowly becomes barren, suggesting that the cult's presence maintained a delicate balance. The village eventually relocates, and the player gains a reputation as a decisive but short-sighted hero.
+1. **Solution 1: Redemption through Knowledge**
+   - **Action:** Spare the High Priest and help him complete a modified ritual to reverse the blight without summoning the Avatar.
+   - **Consequence:** The swamp begins to heal, and the High Priest becomes an ally, sharing his lore and knowledge. However, some villagers distrust the player for sparing him, leading to tension in future interactions.
 
-2. **Diplomatic Resolution:**
-   - The player proposes a truce, negotiating with the High Priest to cease the blight in exchange for the villagers respecting the swamp's boundaries and restoring sacred groves.
-   - **Consequences:** The blight gradually lifts as the villagers and cult cooperate, leading to a new era of coexistence. The player is celebrated as a peacemaker, and both groups offer unique resources or boons.
+2. **Solution 2: Justice and Retribution**
+   - **Action:** Defeat the High Priest, destroying his connection to the dark magic.
+   - **Consequence:** The ritual is disrupted, causing the blight to recede slowly. The villagers celebrate the player's bravery, but a lingering curse remains in the swamp, occasionally causing minor disturbances. The village elder warns that the ancient curse might still persist.
 
-3. **Subversive Alliance:**
-   - The player secretly allies with the High Priest, helping him to subtly influence the villagers to abandon practices that harm the swamp, while feigning efforts to eliminate the cult.
-   - **Consequences:** The blight reduces, and the player's cunning is admired by the cult, granting access to hidden knowledge and artifacts. However, should the alliance be exposed, trust from the villagers is shattered, affecting future interactions and trade.
+3. **Solution 3: Embrace the Rot**
+   - **Action:** Assist the High Priest in completing the ritual, but negotiate to control the Avatar of Decay.
+   - **Consequence:** The Avatar is summoned under the player's control, granting them powerful abilities to call upon in future quests. However, the swamp remains blighted, and Mirewatch becomes a place of fear and mystery, avoided by travelers. The player's reputation as a potential threat grows, affecting interactions across the realm.
 
-Each solution ties back to the world's lore, emphasizing the consequences of disrupting natural order and highlighting the moral ambiguity of choosing between immediate action and long-term balance. The player's choices not only shape the fate of Shadowfen but also ripple through their reputation and relationships in the realm.
+**Consequences for Each Choice:**
+- **Redemption through Knowledge:** Gains a powerful ally in the High Priest and access to rare lore; however, some NPCs remain wary.
+- **Justice and Retribution:** Earns the villagers' trust and respect, but minor disturbances due to the lingering curse may affect future quests.
+- **Embrace the Rot:** Gains powerful abilities but at the cost of the swamp's health and a tarnished reputation, affecting future interactions and quests across the region.

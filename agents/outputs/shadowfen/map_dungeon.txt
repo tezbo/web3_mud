@@ -1,50 +1,49 @@
-Certainly! Below is an ASCII map for a 6-room district called 'Dungeon' in the Shadowfen style. This design aims to balance exploration with a sense of foreboding and complexity, typical of a dark and mysterious dungeon environment.
+Certainly! Here's an ASCII map for the 'Dungeon' district in Shadowfen style, along with a room list, exits, and design notes.
 
 ```
-   [Entrance]
-       |
-   [Great Hall]
-    /    |    \
-[Armory] | [Chapel]
-    \    |    /
-   [Guard Quarters]
-       |
-   [Hidden Vault]
+     [Sacrificial Chamber]
+           |
+      [Dark Passage]
+           |
+[Torture Chamber]--[Holding Cells]
+           |
+    [Guard Barracks]
+           |
+       [Entrance]
 ```
 
-### Room List with Exits:
+### Room List and Exits
 
 1. **Entrance**
-   - Exits: South to Great Hall
-   - Notes: The main entry point into the dungeon, featuring a heavy, creaky door. Sets the tone for the adventure ahead.
+   - **Exits:** North to Guard Barracks
+   - **Purpose:** The starting point for players entering the dungeon. It's a foreboding entry with rusted iron gates and dim torches. Sets the tone for the rest of the dungeon.
 
-2. **Great Hall**
-   - Exits: North to Entrance, East to Chapel, West to Armory, South to Guard Quarters
-   - Notes: A central hub with flickering torches lining the walls. The chamber serves as a gathering area with pathways to various sections of the dungeon.
+2. **Guard Barracks**
+   - **Exits:** North to Torture Chamber, South to Entrance
+   - **Purpose:** The resting area for dungeon guards. Contains bunks and weapon racks. Players may find minor loot or clues about the dungeon's operation.
 
-3. **Armory**
-   - Exits: East to Great Hall
-   - Notes: A cluttered room filled with ancient weapons and rusty armor. An optional side area for players to find equipment.
+3. **Torture Chamber**
+   - **Exits:** North to Dark Passage, East to Holding Cells, South to Guard Barracks
+   - **Purpose:** A grim room filled with cruel implements. This is a central hub where players can choose to explore deeper into the dungeon or investigate the cells.
 
-4. **Chapel**
-   - Exits: West to Great Hall
-   - Notes: A small, eerie room with remnants of forgotten rituals. Adds to the storytelling of the dungeon's past.
+4. **Holding Cells**
+   - **Exits:** West to Torture Chamber
+   - **Purpose:** A series of barred cells where prisoners are kept. Offers potential side quests or lore about captives and their stories. Exploration may lead to hidden items or keys.
 
-5. **Guard Quarters**
-   - Exits: North to Great Hall, South to Hidden Vault
-   - Notes: Once home to the dungeon's guards, now deserted. A resting spot with clues leading to the Hidden Vault.
+5. **Dark Passage**
+   - **Exits:** North to Sacrificial Chamber, South to Torture Chamber
+   - **Purpose:** A shadowy corridor that connects the central Torture Chamber to the deeper, more sinister areas of the dungeon. It's a narrow space with secret alcoves and potential ambushes.
 
-6. **Hidden Vault**
-   - Exits: North to Guard Quarters
-   - Notes: A secret, treasure-laden room that requires exploration through the Guard Quarters. Rewards players for their curiosity.
+6. **Sacrificial Chamber**
+   - **Exits:** South to Dark Passage
+   - **Purpose:** The final, ominous room where dark rituals are conducted. Features an altar and atmospheric lighting. Key plot points or bosses could be located here.
 
-### Design Notes on Flow and Purpose:
+### Design Notes
 
-- **Central Hub:** The Great Hall acts as a central hub, providing multiple exits to ensure a smooth flow and encourage exploration.
-- **Flow:** Rooms are connected logically, with the Great Hall serving as a natural navigation point to other areas.
-- **Discovery:** The Hidden Vault is a secret area, accessed through exploration of the Guard Quarters, rewarding players with treasure.
-- **Pacing:** The dungeon is designed to gradually reveal its secrets, guiding players from the Entrance to the deepest sections.
-- **Realism:** The layout follows a logical structure, with living quarters, an armory, and a chapel suggesting a once-functional dungeon.
-- **Vertical Space:** While this dungeon doesn't use vertical space due to its small size, the idea of a hidden vault provides depth and intrigue.
+- **Flow:** The map is designed to guide players through a logical progression from the Entrance to the Sacrificial Chamber while offering optional exploration in the Holding Cells. The Torture Chamber acts as a central hub.
+- **Purpose:** Each room has a distinct purpose, enhancing the narrative of a dark and forbidding dungeon. The progression becomes increasingly eerie, culminating in the Sacrificial Chamber.
+- **Discovery:** The Holding Cells offer optional content that rewards players with additional lore and items. Players who explore these areas deepen their understanding of the dungeon's backstory.
+- **Realism:** The layout maintains a sense of realism with logical room placements, such as the Guard Barracks near the entrance and the Holding Cells adjacent to the Torture Chamber.
+- **Vertical Space:** Although primarily horizontal, the narrow Dark Passage introduces a sense of depth and complexity, suggesting hidden or layered spaces within the dungeon.
 
-This design encourages players to explore and rewards them with secrets and treasures, maintaining an engaging and mysterious atmosphere.
+This layout balances exploration with a clear progression, encouraging players to delve deeper into the dark mysteries of the 'Dungeon' district.
