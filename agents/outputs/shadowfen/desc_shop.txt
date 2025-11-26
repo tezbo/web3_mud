@@ -6,3 +6,10 @@ Ambient Messages:
 2. A faint chiming echoes through the air as glass baubles sway gently from their hooks, the cool touch of polished stone underfoot grounding you amidst the vibrant colors and bustling whispers of eager shoppers.  
 
 3. The rich scent of aged leather fills the room, mingling with the faintest hint of dried herbs, as the shopkeeper’s raspy voice tells stories of faraway lands, each word woven with the promise of adventure and intrigue.  
+
+Ambient Messages:
+1. "The air is thick with the rich aroma of aged parchment and the faint crackle of enchanted ink, as the shopkeeper's voice weaves tales of forgotten lore between the shelves lined with shimmering tomes."  
+
+2. "A soft chime of crystal wind bells announces your arrival, while the warm glow of lanterns flickers over tables strewn with glistening gemstones and intricately carved talismans, each whispering secrets of their own."  
+
+3. "The cool, metallic scent of finely wrought steel mingles with the earthy notes of dried herbs, as the rhythmic clinking of tools resonates through the workshop, promising the birth of wondrous artifacts."

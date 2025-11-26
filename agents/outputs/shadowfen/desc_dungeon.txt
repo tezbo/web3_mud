@@ -6,3 +6,10 @@ Ambient Messages:
 2. A faint, acrid tang of burnt herbs lingers in the air, while the low hum of unseen creatures skitters across the damp floor, sending chills racing down your spine.  
 
 3. Flickering torches cast long, trembling shadows, illuminating the jagged carvings of long-forgotten faces that seem to whisper secrets in the language of the dark.
+
+Ambient Messages:
+1. The damp air clings to your skin, thick with the musty odor of ancient stone, while the distant drip of water echoes like a ghostly heartbeat in the shadows.  
+
+2. Flickering torchlight dances across the rough-hewn walls, revealing jagged scars of forgotten battles, as a low whisper of wind carries the faintest hint of decay.  
+
+3. The ground beneath your feet is slick with moss, squelching softly with each cautious step, while the oppressive silence wraps around you like a heavy shroud, broken only by the scuttling of unseen creatures.
