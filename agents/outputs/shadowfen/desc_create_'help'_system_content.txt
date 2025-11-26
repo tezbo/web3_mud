@@ -13,3 +13,10 @@ Ambient Messages:
 2. "A gentle breeze carries the sweet aroma of blooming nightshade as the moonlight dances on the surface of the tranquil pond, casting rippling silver reflections."  
 
 3. "The distant clink of glass and low murmur of laughter spill from the tavern, mingling with the rich scent of spiced ale and roasting meat that beckons like an old friend."  
+
+Ambient Messages:
+1. "The air crackles with anticipation as the vibrant hum of distant conversations mingles with the soft clinking of tankards, creating a symphony of camaraderie under flickering lantern light."  
+
+2. "A shroud of mist weaves through the towering pines, muffling the rustle of leaves and cloaking the forest in a hushed reverence, as the earthy scent of damp soil fills your lungs."  
+
+3. "The rhythmic drip of water echoes from the stone walls, each drop a reminder of the unyielding passage of time, while the lingering aroma of aged parchment and ink wraps around you like a well-loved cloak."  
