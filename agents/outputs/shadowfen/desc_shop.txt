@@ -1,1 +1,8 @@
 The shop is a dimly-lit haven, where pale moonlight filters through warped glass windows, casting ghostly patterns on the uneven wooden floor. Shelves lined with vials and rusted trinkets creak softly under the weight of forgotten memories, their metallic scent mingling with the sharp tang of damp earth. The air is thick with the aroma of aged parchment and the faintest whisper of mildew, clinging to your skin like a cold embrace. As you move, the floorboards groan underfoot, a soft, mournful echo that seems to follow you through the shadowed aisles.
+
+Ambient Messages:
+1. The air is thick with the rich, earthy aroma of spices, while colorful jars glimmer like jewels beneath the soft glow of lantern light, inviting you to explore their secrets.  
+
+2. The gentle chime of wind bells dances through the shop, mingling with the sweet scent of dried flowers, as vibrant fabrics drape like whispers of forgotten tales.  
+
+3. Shadows flicker across the stone walls, where shelves groan under the weight of ancient tomes and glistening trinkets, each exuding a faint hum of magic that beckons the curious.
