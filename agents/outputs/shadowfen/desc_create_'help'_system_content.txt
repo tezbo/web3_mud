@@ -13,3 +13,10 @@ Ambient Messages:
 2. "In the heart of the ancient forest, vibrant shafts of emerald light pierce through the thick, swirling mist, while the earthy aroma of damp moss and decaying leaves envelops you like a forgotten memory."  
 
 3. "Beneath a canopy of shimmering stars, the gentle rustle of silk banners dances with the soft whispers of revelers, as the rich fragrance of spiced wine and roasted meats beckons you closer to the vibrant celebration."  
+
+Ambient Messages:
+1. "The distant clatter of oars against wooden hulls echoes through the mist, as the salty breeze carries whispers of forgotten tales from the sea."  
+
+2. "Flickering candlelight dances across the ancient stone walls, casting shadows that seem to breathe with the secrets of long-lost sorcery."  
+
+3. "The rich aroma of spiced tea drifts from the hearth, mingling with the soft rustle of silk curtains as laughter and music weave together in the twilight air."  
