@@ -6,3 +6,10 @@ Ambient Messages:
 2. The gentle chime of wind bells dances through the shop, mingling with the scent of polished wood and the soft rustle of parchment, creating a symphony of anticipation.  
 
 3. A warm glow spills from behind shelves piled high with curious trinkets, their surfaces dusted with the whispers of time, as the faint hum of whispered conversations weaves through the air like a forgotten spell.  
+
+Ambient Messages:
+1. The soft chime of brass bells announces your entry, while the heady aroma of aged parchment and spiced incense envelops you like a warm embrace.  
+   
+2. Dust dances in the shafts of sunlight streaming through stained glass, casting vibrant patterns across the polished wooden shelves heavy with curiosities from distant lands.  
+
+3. The faint clink of glass jars echoes softly as a breeze carries the scent of dried herbs and the distant murmur of haggling voices from the bustling street outside.

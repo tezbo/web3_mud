@@ -1,8 +1,1 @@
-The dungeon yawns open with an oppressive darkness, its walls slick with moisture that clings like a shroud to any who dare tread its depths. The air is thick with the fetid odor of decaying leaves and the coppery tang of rusting chains that clink softly in the unseen breeze. Underfoot, the ground is a patchwork of crumbling stone and treacherous puddles, each step a gamble against unseen hazards. Faint echoes of distant, dripping water create a haunting melody, while shadows shift and dance, concealing secrets best left undisturbed.
-
-Ambient Messages:
-1. The damp air clings like a second skin, heavy with the earthy scent of mold and the faint echo of distant, dripping water that punctuates the oppressive silence.  
-
-2. Flickering torchlight dances across the rough-hewn stone walls, casting elongated shadows that twist and writhe as if alive, accompanied by the soft scuttle of unseen creatures in the dark.  
-
-3. A chill gust sweeps through the narrow passage, carrying with it the stale breath of long-forgotten secrets and the metallic tang of ancient blood.  
+In the depths of Shadowfen's dungeon, shadows cling to the damp stone walls like ancient secrets, the dim light barely penetrating the murk. The air is thick with the musk of decay, mingling with the acrid tang of rusting iron bars, their surfaces cool and slick beneath a tentative touch. Each step echoes with a hollow resonance, accompanied by the distant drip of water that falls with a rhythmic, hollow cadence. A faint chill licks at your skin, leaving a ghostly trail that raises the fine hairs on your arms, as if the very air itself is alive with whispers of the past.
