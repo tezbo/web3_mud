@@ -1,1 +1,8 @@
 The dungeon breathes with the damp, clinging chill of Shadowfen, where walls of crumbling stone weep with stagnant moisture. A faint echo of dripping water punctuates the oppressive silence, each drop a ghostly reminder of time forgotten. The air is thick with the pungent aroma of mildew and rust, mingling with the earthy scent of decaying leaves from the world above. As your fingers brush the slick surface of the iron bars, they leave a trail through the cold, gritty grime, a tactile testament to ages of neglect. In the dim light, shadows pool like ink, shifting and stretching, whispering secrets long entombed.
+
+Ambient Messages:
+1. Shadows flicker along the damp stone walls as the distant drip of water echoes like a heartbeat in the suffocating silence.  
+
+2. A bitter chill seeps through the air, carrying the musty scent of decay and the faint rustle of unseen creatures skittering just beyond the reach of your torchlight.  
+
+3. The ground beneath your feet is slick with a mixture of mud and ancient blood, while an unsettling whisper seems to weave through the darkness, promising secrets long buried.  
