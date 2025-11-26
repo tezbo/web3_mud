@@ -1,45 +1,52 @@
+### Shadowfen Dungeon District Map
+
 ```
-       [A] - [B]
-        |     |
-       [C] - [D]
-        |     |
-       [E] - [F]
+        [Crypt]
+          |
+          N
+          |
+[Chamber of Echoes] -- W -- [Fungal Grotto]
+          |
+          S
+          |
+[Sacrificial Altar] -- E -- [Darkened Library]
+          |
+          S
+          |
+     [Ancient Armory]
 ```
 
-### Room List with Exits
+### Room List and Exits
 
-- **[A] Entrance Chamber**
-  - **Exits:** South to [C], East to [B]
-  - **Purpose:** Starting point for adventurers entering the dungeon. Dimly lit with moss-covered stone walls. A place to set the tone for the exploration.
+1. **Chamber of Echoes**
+   - **Exits**: North to Crypt, South to Sacrificial Altar, West to Fungal Grotto
+   - **Purpose**: Central hub of the dungeon; echoes amplify sound, hinting at hidden passages.
 
-- **[B] Guardroom**
-  - **Exits:** West to [A], South to [D]
-  - **Purpose:** Once manned by guards, now abandoned. Contains old weapons and a hidden side passage to a small treasure cache (not shown on the map).
+2. **Crypt**
+   - **Exits**: South to Chamber of Echoes
+   - **Purpose**: Holds ancient secrets and potentially valuable relics. Key to unlocking a hidden path in the dungeon.
 
-- **[C] Central Hall**
-  - **Exits:** North to [A], South to [E], East to [D]
-  - **Purpose:** The main hub of the dungeon, a large room with multiple pathways leading out. Its openness encourages exploration in different directions. 
+3. **Fungal Grotto**
+   - **Exits**: East to Chamber of Echoes
+   - **Purpose**: Overgrown with bioluminescent fungi. Acts as a resource area for crafting or potion-making.
 
-- **[D] Armory**
-  - **Exits:** West to [C], North to [B]
-  - **Purpose:** Contains old, rusted weapons and armor. Offers clues about the dungeon's past. A hidden trapdoor here leads down to a secondary, unexplored lower level (not shown).
+4. **Sacrificial Altar**
+   - **Exits**: North to Chamber of Echoes, East to Darkened Library, South to Ancient Armory
+   - **Purpose**: Dark rituals were once performed here. Clues to the dungeon’s past can be found.
 
-- **[E] Ritual Chamber**
-  - **Exits:** North to [C], East to [F]
-  - **Purpose:** A dark, foreboding room with an altar at its center. Offers lore and hints about the dungeon's origins. A sense of mystery surrounds this room.
+5. **Darkened Library**
+   - **Exits**: West to Sacrificial Altar
+   - **Purpose**: Houses forbidden knowledge and ancient scrolls. Important for lore discovery.
 
-- **[F] Storage Room**
-  - **Exits:** West to [E]
-  - **Purpose:** Filled with old crates and barrels. Some might still contain useful supplies. Offers the potential for hidden rewards for those who take the time to search.
+6. **Ancient Armory**
+   - **Exits**: North to Sacrificial Altar
+   - **Purpose**: Contains old weapons and armor. A hidden mechanism here unlocks a shortcut back to the Chamber of Echoes.
 
 ### Design Notes
 
-- **Flow:** The central hall [C] serves as the primary hub, allowing players to choose between multiple paths (north to the entrance, south to the ritual chamber, east to the armory). This creates a natural flow and encourages exploration.
-  
-- **Discovery:** The guardroom [B] and the armory [D] both contain secret elements (a hidden side passage and a trapdoor, respectively) that reward players who search carefully.
-
-- **Pacing:** The entrance chamber [A] and central hall [C] are relatively straightforward, allowing players to get their bearings before moving into more complex areas like the ritual chamber [E] and hidden sections.
-
-- **Realism:** Each room has a clear purpose, reflecting a functioning dungeon environment. The layout is compact but offers sufficient complexity to feel like a realistic, lived-in space.
-
-- **Vertical Space:** The trapdoor in the armory [D] suggests deeper layers to explore, adding vertical complexity and future exploration opportunities without overwhelming the initial district design.
+- **Central Hub**: The Chamber of Echoes serves as the main navigational point, offering multiple directions to explore other rooms.
+- **Flow**: The dungeon encourages exploration with its branching paths from the central hub. Each room has a distinct purpose, rewarding players who seek out every corner.
+- **Discovery**: The Crypt and the Ancient Armory hold secrets that can alter the player’s path through the dungeon, rewarding those who investigate thoroughly.
+- **Pacing**: The Sacrificial Altar acts as a midway point between exploration-heavy areas (Fungal Grotto, Darkened Library) and the more combat-oriented Ancient Armory.
+- **Realism**: The layout reflects a forgotten, ritualistic site with logical room placements, such as the library being a place for knowledge adjacent to the altar.
+- **Vertical Space**: Subtle vertical elements are implied through the crypt's descent and the armory's mechanism, adding depth to exploration.
