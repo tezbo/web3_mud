@@ -1,96 +1,50 @@
-<<<<<<< HEAD
-Certainly! Here's a design for the 'Merchant District' in a Shadowfen style, which might reflect a somewhat dark, swampy, and mysterious atmosphere.
-
-### ASCII Map
+### ASCII Map of the Merchant District
 
 ```
-   [Town Square]
-        |
-   [Market Street] - [Potion Shop]
-        |
-   [Armorer] - [Alleyway]
-        |
-   [Docks]
-=======
-Certainly! Below is the design for a 6-room "Merchant District" in the Shadowfen style, incorporating murky, swamp-like themes mixed with bustling trade activity.
-
-```
-          [ Watchtower ]
-              |
-       [ Market Square ] -- [ Apothecary ]
-         /   |       \
-   [ Fishmonger's ] [ General Store ]
-         \
-    [ Blacksmith ]
->>>>>>> feature/task-2
+   [Market Square]
+       |       \
+   [General]  [Curio Shop]
+       |         |
+   [Blacksmith]-[Alleyway]
+       |         |
+   [Warehouse] [Hidden Path]
 ```
 
-**Room List with Exits:**
+### Room List with Exits and Design Notes
 
-<<<<<<< HEAD
-1. **Town Square**
-   - **Exits**: South to Market Street
-   - **Notes**: Central hub of the district; a bustling area where merchants set up stalls. Players naturally gather here, making it the starting point for exploration.
-
-2. **Market Street**
-   - **Exits**: North to Town Square, East to Potion Shop, South to Armorer
-   - **Notes**: Main thoroughfare lined with various small merchant stalls. Connects important locations and encourages exploration.
-
-3. **Potion Shop**
-   - **Exits**: West to Market Street
-   - **Notes**: A small, dimly-lit shop filled with bubbling cauldrons and rare ingredients. Offers unique potions and serves as a quest point for alchemists.
-
-4. **Armorer**
-   - **Exits**: North to Market Street, East to Alleyway, South to Docks
-   - **Notes**: A sturdy structure where players can upgrade gear. Positioned to be easily accessible from the main path while leading to more hidden areas.
-
-5. **Alleyway**
-   - **Exits**: West to Armorer
-   - **Notes**: A narrow, shadowy path that might hide secrets or shortcuts. Offers a hidden path and potential for storytelling through discovered mysteries.
-
-6. **Docks**
-   - **Exits**: North to Armorer
-   - **Notes**: The end of the district near the water's edge. Serves as a transition point to other areas or quests involving the nearby swamps or waterways.
-=======
 1. **Market Square**
-   - **Exits:** North to Watchtower, East to Apothecary, Southwest to Fishmonger's, Southeast to General Store
-   - **Purpose:** Central hub of the Merchant District; a bustling open-air market where traders from all over gather to sell their goods. It serves as the primary meeting point and navigational center for players.
+   - **Exits**: North to [General], Northeast to [Curio Shop]
+   - **Purpose**: Central hub of the Merchant District; bustling with vendors, perfect for player interaction and trade opportunities.
+   - **Design Notes**: The open space encourages social activities and serves as a primary gathering point. It naturally leads players to explore adjacent shops.
 
-2. **Watchtower**
-   - **Exits:** South to Market Square
-   - **Purpose:** A small guard post overseeing the district, providing security and a vantage point. Offers a potential quest-giver or lookout scenario for players.
+2. **General Store**
+   - **Exits**: South to [Market Square], down to [Warehouse]
+   - **Purpose**: Sells everyday goods; a logical first stop for adventurers.
+   - **Design Notes**: Positioned to draw players from the Market Square, offering essential supplies. The connection to the Warehouse provides a seamless flow of goods narrative.
 
-3. **Apothecary**
-   - **Exits:** West to Market Square
-   - **Purpose:** A dimly lit shop filled with strange herbs and concoctions. Offers healing potions and unique Shadowfen remedies. Encourages exploration due to its mysterious inventory.
+3. **Curio Shop**
+   - **Exits**: Southwest to [Market Square], South to [Alleyway]
+   - **Purpose**: Offers rare and mysterious items, appealing to treasure hunters and lore enthusiasts.
+   - **Design Notes**: The slightly out-of-the-way location adds an air of secrecy and allure, while the connection to an alley suggests hidden dealings.
 
-4. **Fishmonger's**
-   - **Exits:** Northeast to Market Square, South to Blacksmith
-   - **Purpose:** A narrow shop specializing in the local aquatic bounty. Provides crafting ingredients and food supplies. Has a slightly off-the-beaten-path feel, enhancing discovery.
+4. **Blacksmith**
+   - **Exits**: North to [General], East to [Alleyway]
+   - **Purpose**: Forge and repair weapons and armor; essential for player preparation.
+   - **Design Notes**: Situated near the General Store for logical supply flow, with an exit to the Alleyway for potential side quests or illicit activities.
 
-5. **General Store**
-   - **Exits:** Northwest to Market Square
-   - **Purpose:** Sells a variety of general goods and everyday items. Acts as a convenient stop for players needing to restock basic supplies.
+5. **Warehouse**
+   - **Exits**: Up to [General]
+   - **Purpose**: Storage for goods; potential for quests involving missing shipments or hidden contraband.
+   - **Design Notes**: This room uses vertical space to create a sense of depth and realism in how goods are managed within the district.
 
-6. **Blacksmith**
-   - **Exits:** North to Fishmonger's
-   - **Purpose:** Located near the water to use the natural resources for cooling metals. Offers weapons, armor, and repair services. Positioned slightly aside to reward players who explore beyond the main market paths.
->>>>>>> feature/task-2
+6. **Alleyway**
+   - **Exits**: North to [Curio Shop], West to [Blacksmith], East to [Hidden Path]
+   - **Purpose**: A shadowy thoroughfare for clandestine meetings and secretive transactions.
+   - **Design Notes**: Provides a shortcut and introduces a sense of danger and intrigue. The Hidden Path exit rewards exploration and leads to an undisclosed area, suggesting further mysteries.
 
-**Design Notes:**
+### Overall Design Notes
 
-<<<<<<< HEAD
-- **Flow**: The Town Square acts as the central hub, providing a natural starting point. Market Street connects the key commercial locations, ensuring players move through the heart of the district.
-- **Exploration**: The Alleyway serves as a hidden path, rewarding those who venture off the beaten path. It can be used for side quests or to uncover secrets about the district.
-- **Pacing**: The main pathway (Town Square → Market Street → Armorer → Docks) offers a logical progression, while the Potion Shop and Alleyway provide optional detours.
-- **Realism**: The layout reflects a typical trading district with a central gathering spot, main commercial street, and specialized shops. The Docks provide a realistic endpoint connecting to other regions.
-- **Vertical Space**: While this district is primarily horizontal, the potential for vertical exploration exists within shops (e.g., Potion Shop with a basement for rare ingredients). 
-
-This design encourages exploration, balances the central hub with peripheral areas, and maintains a sense of realism and mystery fitting for Shadowfen.
-=======
-- **Flow:** The Market Square acts as the central hub, guiding players naturally to various shops, ensuring they encounter key locations without excessive backtracking.
-- **Discovery:** The Fishmonger's shop offers a hidden connection to the Blacksmith, encouraging players to explore beyond initial expectations.
-- **Vertical Space:** Not emphasized in this district due to the swampy terrain, focusing instead on horizontal exploration.
-- **Realism:** Each shop's placement reflects a logical arrangement based on trade needs and environmental factors (e.g., Blacksmith near water for practicality).
-- **Shadowfen Style:** The district's layout and themed shops reflect a sense of mystery and natural integration typical of Shadowfen, enhancing the atmospheric storytelling.
->>>>>>> feature/task-2
+- **Flow**: The Market Square acts as the central hub, facilitating easy access to essential services while encouraging exploration of less obvious paths.
+- **Discovery**: The Hidden Path and Alleyway offer layers of complexity and reward players who seek out the less-traveled routes.
+- **Pacing**: The district design clusters commerce-related rooms, with more secretive or optional areas branching off, balancing convenience with the thrill of discovery.
+- **Realism**: The layout mimics a logical city district, with stores central to trade and back alleys hinting at the underbelly of urban life.
