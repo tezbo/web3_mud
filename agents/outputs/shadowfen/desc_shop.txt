@@ -1,1 +1,8 @@
 In the dim, flickering light of tallow candles, the shop is a labyrinth of shadow and rusted iron, each corner cloaked in a veil of mist that seeps through cracked windows. Shelves groan under the weight of peculiar trinkets and faded tomes, their surfaces dusted with a fine layer of mildew that releases a musty, earthy scent with each touch. The creak of ancient floorboards echoes beneath your feet, a whispering testament to the shop's age, while the distant drip of water creates a rhythmic, haunting melody. An air of dampness clings to your skin, cool and unsettling, as if the very walls are exhaling the secrets of the marshlands outside.
+
+Ambient Messages:
+1. The air thrums with the gentle clink of glass vials, their contents swirling like liquid starlight, while the scent of dried herbs and spices envelops you like an old friend.  
+
+2. A tapestry of shimmering silk drapes the walls, catching the flickering candlelight, as the faint rustle of parchment whispers secrets of forgotten lore from the corner desk.  
+
+3. The rich aroma of polished wood mingles with the tangy sweetness of exotic incense, while the soft murmur of hushed bartering fills the air, creating a tapestry of lively anticipation.  
