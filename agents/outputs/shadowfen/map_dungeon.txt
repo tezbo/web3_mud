@@ -1,52 +1,59 @@
 ### Shadowfen Dungeon Map
 
 ```
-         [Entrance]
-            |
-      [Guard Post]
-       /       \
-  [Central Chamber]---[Treasure Vault]
-       \       /
-       [Prison Cells]
-           |
-       [Secret Tunnel]
-
+   [Entrance Hall]
+          |
+       (N/S)
+          |
+  [Guard Post] -- (E) -- [Barracks]
+          |
+       (N/S)
+          |
+   [Central Chamber]
+       /   |   \
+     (W)  (S)  (E)
+    /      |      \
+[Storage] [Prison] [Alchemy Lab]
 ```
 
-### Room List and Exits
+### Room List with Exits
 
-1. **Entrance**
-   - **Exits:** South to Guard Post
-   - **Purpose:** Entry point to the dungeon, sets the tone with oppressive architecture and dim lighting.
+1. **Entrance Hall**
+   - Exits: South to [Guard Post]
+   - Notes: The initial entry point into the dungeon. Dimly lit with flickering torches, setting an ominous tone.
 
 2. **Guard Post**
-   - **Exits:** North to Entrance, South to Central Chamber
-   - **Purpose:** Acts as a checkpoint. Guards were stationed here, remnants of their duty still evident. It serves as a transition from the outside world to the dungeon's depths.
+   - Exits: North to [Entrance Hall], South to [Central Chamber], East to [Barracks]
+   - Notes: A checkpoint for sentinels ensuring no unauthorized passage. Contains a small armory.
 
-3. **Central Chamber**
-   - **Exits:** North to Guard Post, East to Treasure Vault, South to Prison Cells
-   - **Purpose:** The main hub of the dungeon, connecting to important locations. It provides a sense of scale and significance, with ancient carvings hinting at the dungeon's history.
+3. **Barracks**
+   - Exits: West to [Guard Post]
+   - Notes: Living quarters for dungeon guards. Contains bunks and personal effects, providing insight into the daily lives of the guards.
 
-4. **Treasure Vault**
-   - **Exits:** West to Central Chamber
-   - **Purpose:** A reward for explorers, guarded by traps and puzzles. Contains lore items and valuable treasures, offering incentive for those who delve deep.
+4. **Central Chamber**
+   - Exits: North to [Guard Post], West to [Storage], South to [Prison], East to [Alchemy Lab]
+   - Notes: The heart of the dungeon, a large circular room with a high ceiling. Used for meetings and planning by dungeon overseers.
 
-5. **Prison Cells**
-   - **Exits:** North to Central Chamber, South to Secret Tunnel
-   - **Purpose:** Holds the echoes of captured souls. Players may find clues or keys here, with interactive elements like old chains and scattered skeletons.
+5. **Storage**
+   - Exits: East to [Central Chamber]
+   - Notes: Supplies and provisions are kept here. Crates and barrels hint at the dungeon's broader operations.
 
-6. **Secret Tunnel**
-   - **Exits:** North to Prison Cells
-   - **Purpose:** A hidden path for those observant or lucky enough to discover it. Offers an escape route or shortcut, possibly leading to other parts of Shadowfen in future expansions.
+6. **Prison**
+   - Exits: North to [Central Chamber]
+   - Notes: A damp and dark area with cells lining the walls. Moans and whispers can be heard, adding to the dungeon's eerie atmosphere.
+
+7. **Alchemy Lab**
+   - Exits: West to [Central Chamber]
+   - Notes: A workshop filled with bubbling potions and strange ingredients. Provides narrative depth, hinting at experiments conducted by the dungeon's inhabitants.
 
 ### Design Notes
 
-- **Flow:** The Central Chamber serves as the primary hub, ensuring players naturally pass through it to reach significant areas like the Treasure Vault or the Prison Cells. This design encourages exploration while maintaining a clear route.
+- **Flow and Exploration**: The design uses a hub-and-spoke layout centered around the [Central Chamber], encouraging players to explore each branch. The map encourages returning to the center to progress.
   
-- **Discovery:** The Secret Tunnel rewards players who explore the Prison Cells thoroughly, offering a shortcut and a sense of mystery. The Treasure Vault is a clear goal, enticing players with the promise of reward.
+- **Convenience vs. Exploration**: The main path proceeds linearly from [Entrance Hall] to [Central Chamber] but offers side paths for exploration (e.g., [Storage], [Prison], [Alchemy Lab]).
 
-- **Pacing:** The layout encourages players to progress from the mundane (Guard Post) to the mysterious (Secret Tunnel), providing a gradual build-up in atmosphere and narrative depth.
+- **Room Purpose and Storytelling**: Each room has a clear purpose, contributing to the narrative of the dungeon's operational structure and its inhabitants' lives.
 
-- **Realism:** The design reflects a defensive structure with logical placements—guards first, main activities central, and valuables hidden away. The Prison Cells are placed to suggest their secondary importance to the structure's original purpose.
+- **Natural Storytelling**: The progression from entry, through security ([Guard Post]), and into the heart of operations ([Central Chamber]) tells a story of a well-guarded, functional facility.
 
-- **Shadowfen Style:** The dungeon reflects the eerie and mysterious nature of Shadowfen, with rooms that tell a story of past use and abandonment, enhanced by atmospheric descriptions and subtle narrative clues.
+- **Realism and Aesthetics**: The layout logically represents a defensive and operational dungeon. The presence of function-specific rooms adds to the realism of the space being used and maintained by its occupants.
