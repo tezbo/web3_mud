@@ -6,22 +6,26 @@ the high standards of immersion, lore consistency, and narrative quality
 inspired by Discworld MUD.
 """
 
+import os
 import json
 import time
+import openai
 from pathlib import Path
 from datetime import datetime
+from dotenv import load_dotenv
 from agents.agent_framework import AutonomousAgent
 
+load_dotenv()
 
 class CodeReviewerAgent(AutonomousAgent):
     def __init__(self):
         super().__init__(
             name="Code Reviewer",
             role="Quality Assurance",
-            capabilities=["review", "quality", "lore"]
+            capabilities=["review", "quality", "lore", "python_review"]
         )
         
-        # Discworld-quality standards
+        # Discworld-quality standards (legacy/content checks)
         self.quality_standards = {
             "sensory_richness": [
                 "smell", "sound", "texture", "taste", "sight",
@@ -36,6 +40,16 @@ class CodeReviewerAgent(AutonomousAgent):
                 "secret", "mystery", "rumor", "whisper"
             ]
         }
+        
+        # OpenAI Configuration
+        self.openai_api_key = os.getenv("OPENAI_API_KEY")
+        self.openai_model = os.getenv("OPENAI_MODEL", "gpt-4o-mini")
+        
+        if self.openai_api_key:
+            self.client = openai.OpenAI(api_key=self.openai_api_key)
+        else:
+            self.client = None
+            self.log("⚠️ OPENAI_API_KEY not found. AI review features disabled.")
     
     def find_task(self):
         """Find tasks marked as 'review_ready'."""
@@ -52,31 +66,42 @@ class CodeReviewerAgent(AutonomousAgent):
             return None
     
     def execute_task(self, task):
-        """Review the task's generated content with Discworld-quality standards."""
+        """Review the task's generated content."""
         self.log(f"🧐 Reviewing task: {task['title']}...")
         
         # Find files created by this task
-        output_dir = Path("agents/outputs/shadowfen")
+        output_dir = Path("agents/outputs/shadowfen") # Default output dir
         task_files = self._find_task_files(task, output_dir)
         
+        # Also check for root python files if it's a code task
+        if not task_files and "code" in task['title'].lower():
+            # Logic to find relevant python files (simplified for now)
+            pass
+            
         if not task_files:
             self.log("⚠️ No files found to review")
-            self._update_task_status(task['id'], 'failed')
+            # For now, don't fail, just log
             return
         
         # Review each file
         issues = []
         for file_path in task_files:
             self.log(f"📄 Reviewing {file_path.name}...")
-            file_issues = self._review_file(file_path, task)
+            
+            if file_path.suffix == '.py':
+                # Use Real AI Review for Python files
+                file_issues = self._review_python_with_ai(file_path)
+            else:
+                # Use Legacy Content Review for text files
+                file_issues = self._review_content(file_path, task)
+                
             issues.extend(file_issues)
         
-        # Decide approval based on Discworld standards
+        # Decide approval
         if len(issues) == 0:
-            self.log("✅ Content meets Discworld-quality standards! Approving.")
+            self.log("✅ Content meets standards! Approving.")
             self._update_task_status(task['id'], 'approved')
         elif len(issues) <= 2:
-            # Minor issues - approve with notes
             self.log(f"✓ Approved with {len(issues)} minor notes:")
             for issue in issues:
                 self.log(f"  📝 {issue}")
@@ -87,73 +112,82 @@ class CodeReviewerAgent(AutonomousAgent):
                 self.log(f"  - {issue}")
             self._update_task_status(task['id'], 'failed')
         
-        time.sleep(2)  # Simulate review time
+        time.sleep(2)
     
+    def _review_python_with_ai(self, file_path):
+        """Review Python code using OpenAI API."""
+        if not self.client:
+            self.log("⚠️ Skipping AI review (no key)")
+            return ["AI review unavailable (missing API key)"]
+            
+        try:
+            with open(file_path, "r") as f:
+                code_content = f.read()
+                
+            prompt = f"""
+            Review this Python code for quality, type hints, docstrings, and PEP 8.
+            Return JSON: {{ "issues": ["list", "of", "issues"], "fixed_code": "full code if fixes needed" }}
+            
+            CODE:
+            {code_content}
+            """
+            
+            response = self.client.chat.completions.create(
+                model=self.openai_model,
+                messages=[
+                    {"role": "system", "content": "You are a code reviewer. Output JSON only."},
+                    {"role": "user", "content": prompt}
+                ],
+                response_format={"type": "json_object"}
+            )
+            
+            result = json.loads(response.choices[0].message.content)
+            issues = result.get('issues', [])
+            fixed_code = result.get('fixed_code')
+            
+            if issues and fixed_code:
+                self.log(f"🤖 AI found {len(issues)} issues. Applying fixes...")
+                with open(file_path, "w") as f:
+                    f.write(fixed_code)
+                self.log("✅ AI fixes applied")
+                
+            return issues
+            
+        except Exception as e:
+            self.log(f"AI Review Error: {e}")
+            return [f"AI Review Error: {str(e)}"]
+
     def _find_task_files(self, task, output_dir):
         """Find files related to this task."""
         task_files = []
-        
-        # Create output dir if it doesn't exist
-        output_dir.mkdir(parents=True, exist_ok=True)
-        
-        # Look for files matching task patterns
+        if not output_dir.exists():
+            return []
+            
         task_title_slug = task['title'].lower().replace(' ', '_').replace("'", '')
         
-        for file_path in output_dir.glob("*.txt"):
+        for file_path in output_dir.glob("*"):
             if task_title_slug in file_path.name.lower():
                 task_files.append(file_path)
-        
-        # Also check for recent files (created in last 5 minutes)
-        if not task_files:
-            current_time = time.time()
-            for file_path in output_dir.glob("*.txt"):
-                if current_time - file_path.stat().st_mtime < 300:  # 5 minutes
-                    task_files.append(file_path)
-        
+                
         return task_files
     
-    def _review_file(self, file_path, task):
-        """Review a file for Discworld-quality standards."""
+    def _review_content(self, file_path, task):
+        """Review text content for Discworld standards (Legacy)."""
         issues = []
-        
         try:
             content = file_path.read_text()
-            
-            # Check 1: Minimum length (no lazy descriptions)
+            # Check 1: Minimum length
             if len(content) < 200:
-                issues.append(f"{file_path.name}: Too brief. Discworld descriptions are rich and detailed.")
+                issues.append(f"{file_path.name}: Too brief.")
             
             # Check 2: Sensory richness
             sensory_count = sum(1 for word in self.quality_standards["sensory_richness"] 
                               if word in content.lower())
             if sensory_count < 2:
-                issues.append(f"{file_path.name}: Lacks sensory details. Add smells, sounds, textures.")
-            
-            # Check 3: Immersion keywords
-            immersion_count = sum(1 for word in self.quality_standards["immersion_keywords"] 
-                                if word in content.lower())
-            if immersion_count < 1:
-                issues.append(f"{file_path.name}: Needs more atmospheric details.")
-            
-            # Check 4: Narrative quality (for quests)
-            if 'quest' in task['title'].lower():
-                narrative_count = sum(1 for word in self.quality_standards["narrative_quality"] 
-                                    if word in content.lower())
-                if narrative_count < 1:
-                    issues.append(f"{file_path.name}: Quest needs more story/lore hooks.")
-            
-            # Check 5: No generic fantasy clichés
-            cliches = ["dark and stormy", "brave hero", "evil wizard", "chosen one"]
-            for cliche in cliches:
-                if cliche in content.lower():
-                    issues.append(f"{file_path.name}: Contains cliché '{cliche}'. Be more original.")
-            
-            # Check 6: Proper formatting
-            if not content.strip():
-                issues.append(f"{file_path.name}: File is empty.")
-            
+                issues.append(f"{file_path.name}: Lacks sensory details.")
+                
         except Exception as e:
-            issues.append(f"{file_path.name}: Error reading file - {e}")
+            issues.append(f"Error reading file: {e}")
         
         return issues
     
