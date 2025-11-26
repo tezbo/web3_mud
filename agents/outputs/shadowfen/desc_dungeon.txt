@@ -1,8 +1,1 @@
-In the heart of Shadowfen's labyrinthine depths, the dungeon walls weep with rivulets of moisture, their surface a tapestry of moss and rust that seems to swallow the feeble light. The air hangs heavy, a choking miasma of mildew and decay, while the distant drip of water echoes like a forgotten lament. Chains, cold and clammy to the touch, dangle from the ceiling, their clinking a ghostly whisper. The taste of iron lingers on the tongue, mingling with the bitter tang of despair that permeates the gloom.
-
-Ambient Messages:
-1. The air hangs thick with the damp, earthy scent of moss and ancient stone, punctuated by the distant echo of dripping water that whispers secrets from the shadows.  
-
-2. Flickering torchlight dances against rough-hewn walls, casting grotesque shadows that twist and writhe like trapped souls yearning for freedom.  
-
-3. A chilling draft snakes through the corridor, carrying the faint taste of iron and the unsettling murmur of unseen creatures skittering just beyond the reach of light.  
+In the oppressive gloom of the Shadowfen dungeon, walls of slick, moss-covered stone glisten with the trickle of unseen water, their surfaces cold and unyielding under probing fingertips. The air is thick with the pungent aroma of damp earth and the acrid bite of rust, as if the very air itself bears the weight of forgotten chains. A distant drip echoes like a hesitant heartbeat, punctuating the heavy silence with a rhythmic persistence. The rough-hewn floor is uneven beneath your boots, the stone slick with moisture and treacherous with loose gravel.
