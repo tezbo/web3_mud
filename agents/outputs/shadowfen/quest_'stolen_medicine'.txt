@@ -1,36 +1,28 @@
-**Title: The Cure's Shadow**
+**Quest Title: The Cure's Dilemma**
 
 **Stage Breakdown:**
 
-1. **Stage 1: The Desperate Plea**
-   - The player encounters Elara, a healer in Shadowfen, distraught over stolen medicine intended for the swamp fever outbreak affecting the village. She suspects a group of outlaws known as the Marsh Reavers, who have been seen nearby.
+1. **Discovery of the Theft:**
+   - While traveling through Shadowfen, the player encounters a distressed herbalist named Elara. Her medicine shipment, crucial for treating a deadly swamp fever affecting the local village of Mirepool, has been stolen.
 
-2. **Stage 2: Unraveling Motives**
-   - The player investigates the Marsh Reavers' camp and discovers that the medicine was indeed taken. However, it becomes clear that the outlaws are not using the medicine for profit or harm but are attempting to treat their own sick members who are also suffering from swamp fever.
+2. **Investigation:**
+   - Elara suspects the local bandit group, the Bog Shadows, who have been known to intercept supplies. The player must gather information on the whereabouts of the stolen medicine.
 
-3. **Stage 3: Decision at Dusk**
-   - The player must decide how to handle the situation, balancing the needs of the village and the outlaws.
+3. **Resolution:**
+   - The player learns the medicine is hidden in the Bog Shadows' camp, but it's also revealed that the bandits stole it to treat their own sick members. The player must choose how to resolve the situation.
 
 **Solutions and Consequences:**
 
-1. **Solution 1: Aid the Outlaws**
-   - The player chooses to help the Marsh Reavers by securing additional medicine from Elara for both the village and the outlaws.
-   - **Consequences:** 
-     - The player gains the trust of the Marsh Reavers, opening future quests where they offer unique services or information.
-     - The village initially distrusts the player for aiding outlaws, leading to a minor reputation hit, but relations improve as both groups recover.
+1. **Retrieve and Return:**
+   - The player decides to stealthily retrieve the medicine from the bandit camp and return it to Elara.
+   - *Consequences:* Mirepool is saved, and the villagers are grateful, offering discounts and aid to the player in future endeavors. However, the Bog Shadows become hostile, increasing bandit encounters in Shadowfen.
 
-2. **Solution 2: Retrieve and Return**
-   - The player retrieves the stolen medicine and returns it to Elara, confronting the outlaws and convincing them to negotiate for help rather than stealing.
-   - **Consequences:** 
-     - The village is grateful, rewarding the player with a rare herbal remedy.
-     - The Marsh Reavers respect the player's strength and diplomacy, leading to a tentative truce and future collaborative quests.
+2. **Negotiate a Truce:**
+   - The player mediates a truce between Elara and the Bog Shadows, suggesting a share of the medicine in exchange for future cooperation.
+   - *Consequences:* Both Mirepool and the bandits receive treatment. The player is seen as a peacemaker, resulting in reduced hostility from the Bog Shadows and the possibility of assistance from them in other quests. However, some villagers question the morality of aiding bandits.
 
-3. **Solution 3: Divide the Cure**
-   - The player negotiates a compromise where the medicine is divided between the village and the outlaws, ensuring both receive enough to combat the outbreak.
-   - **Consequences:**
-     - Both the village and the Marsh Reavers respect the player's wisdom and fairness, strengthening ties between them.
-     - The player gains a reputation as a skilled mediator, leading to future opportunities to resolve conflicts in Shadowfen and beyond.
+3. **Side with the Bandits:**
+   - The player sides with the Bog Shadows, allowing them to keep the medicine to save their own, arguing that the villagers have more resources.
+   - *Consequences:* The bandits become allies, providing the player with unique items and information. Meanwhile, Mirepool suffers, and future interactions with its residents are strained, with some refusing to offer services to the player.
 
-**Tying to World Lore:**
-- The swamp fever is a consequence of "The Sundering," a cataclysmic event that disrupted natural balances, giving context to the disease's virulence.
-- The Marsh Reavers are former villagers who turned to outlaw life after being displaced by realm conflicts over resources exacerbated by Threadsinging, a form of magic that is altering the landscape.
+In all scenarios, the player's choices ripple through Shadowfen, affecting alliances and shaping the player's reputation in the region.
