@@ -1,1 +1,8 @@
 In the depths of Shadowfen, the dungeon looms, a labyrinth of cold stone and iron. The air is thick with dampness, carrying a faint, acrid stench of mildew and rust that clings to the walls. The distant drip of water echoes through the corridors, a haunting rhythm underscoring the oppressive silence. Flickering torchlight casts long, quivering shadows, while the chill of the flagstones seeps through boots, numbing toes with every reluctant step.
+
+Ambient Messages:
+1. The damp walls pulse with a chill that seeps into your bones, while the distant drip of water echoes like a mournful dirge in the suffocating darkness. 
+
+2. Flickering shadows dance along the rough-hewn stone, revealing glistening veins of black moss that exude a pungent, earthy aroma, reminiscent of decay and forgotten secrets.
+
+3. A faint, metallic tang hangs in the air, mingling with the stale scent of ancient dust as the whisper of unseen creatures skitters across the cold, uneven floor.

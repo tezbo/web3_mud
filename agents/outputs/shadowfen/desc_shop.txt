@@ -1,1 +1,8 @@
 The shop is a dim sanctuary nestled within the Shadowfen's perpetual mist, its wooden beams softened by creeping tendrils of moss. Lanterns, their glass panes fogged with age, cast a flickering glow over the cluttered shelves, where bottles of murky potions glint beneath a patina of dust. A damp, earthy scent clings to the air, mingling with the sharp tang of herbs hung in bundles from the ceiling, their dried leaves whispering with each ghostly draft. As you brush against a shelf, the worn wood is cool and slightly slick beneath your fingertips, a reminder of the endless rains outside.
+
+Ambient Messages:
+1. "The air is thick with the earthy aroma of aged leather and the faint crackle of enchanted trinkets, as soft whispers of trade fill the dimly lit corners of the shop."  
+
+2. "Sunlight filters through stained-glass windows, casting kaleidoscopic patterns on polished shelves lined with shimmering potions that hum with latent magic."  
+
+3. "The wooden floorboards creak underfoot, mingling with the distant jingle of bells as colorful fabrics hang like vibrant waterfalls, inviting you to explore their mysteries."  
