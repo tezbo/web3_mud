@@ -1,1 +1,8 @@
-The chamber breathes with the chill of damp stone, its walls cloaked in a perpetual shroud of clinging mist. Faint whispers of trickling water echo through the dimness, murmuring secrets to the rusted iron chains that dangle like forgotten memories from the ceiling. The air is thick with the earthy scent of moss, mingling with the sharp, metallic bite of decay. As you tread across the slick, uneven floor, your fingertips brush the cool, slick surface of ancient jade carvings, their intricate patterns worn smooth by time's relentless passage.
+The room is cloaked in a perpetual shroud of mist, its tendrils curling like ghostly fingers around the iron-wrought furniture, their surfaces mottled with rust. A chorus of distant croaks and the soft patter of unseen droplets lend an eerie rhythm to the gloom. The air is thick with the earthy aroma of damp moss and decaying leaves, mingling with a faint, metallic tang that clings to the back of your throat. As you tread across the uneven stone floor, slick with moisture, the chill seeps through your boots, grounding you in the murky embrace of the Shadowfen's ancient depths.
+
+Ambient Messages:
+1. **Sunward:** "Sunlight filters through tall, arched windows, illuminating polished stone walls adorned with intricate carvings, while the air hums with the rhythmic clanging of hammers shaping molten steel."
+
+2. **Twilight:** "Soft silks drape from the ceiling like whispers, as the gentle rustle of fabric mingles with the sweet scent of blooming night-bloom flowers, casting an enchanting glow in hues of jade and lavender."
+
+3. **Shadowfen:** "A thick fog clings to the damp earth, muffling footsteps and wrapping the room in a cool embrace, while the earthy aroma of moss and decaying leaves lingers, hinting at secrets concealed within the shadows."

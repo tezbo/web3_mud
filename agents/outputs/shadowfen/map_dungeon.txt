@@ -1,47 +1,49 @@
-### Shadowfen Dungeon Map
+Certainly! Below is a design for a 6-room district called 'Dungeon' in the Shadowfen style, featuring a central hub, multiple paths, and hidden areas.
+
+### ASCII Map
 
 ```
-        [Treasure Vault]
-              |
-     [Secret Passage] -- [Hidden Chamber]
-              |
-          [Chamber of Echoes]
-              |
-     [Entry Hall] -- [Guard Post]
+       [Treasure Vault]
+           |
+       [Hidden Chamber] -- [Trap Room]
+           |                   |
+[Entrance Hall] -- [Central Hub] -- [Guard Room]
 ```
 
 ### Room List with Exits
 
-1. **Entry Hall**
-   - Exits: North to Chamber of Echoes, East to Guard Post
-   - Purpose: The primary entry point into the dungeon, where players first arrive. It's a wide room with damp stone walls and a heavy, iron-bound door leading further into the depths.
+1. **Entrance Hall**
+   - **Exits:** South to [Central Hub]
+   - **Notes:** The starting point for adventurers, featuring ancient murals that hint at the dungeon's history.
 
-2. **Guard Post**
-   - Exits: West to Entry Hall
-   - Purpose: A small, fortified room where dungeon guards would traditionally be stationed. Now abandoned, it contains old weapon racks and a few scattered bones, hinting at its history. Offers a quick glimpse into the dungeon’s use as a defensive structure.
+2. **Central Hub**
+   - **Exits:** North to [Entrance Hall], East to [Guard Room], West to [Trap Room], and Secret Passage to [Hidden Chamber]
+   - **Notes:** The heart of the dungeon, a large chamber that acts as a crossroad. It contains a stone pedestal with markings that point to various paths.
 
-3. **Chamber of Echoes**
-   - Exits: South to Entry Hall, North to Secret Passage
-   - Purpose: A large, cavernous room where any sound is amplified and distorted. The room's acoustics are used to disorient intruders. It serves as a central hub within the dungeon, allowing access to deeper, more dangerous areas.
+3. **Guard Room**
+   - **Exits:** West to [Central Hub]
+   - **Notes:** Once the quarters for dungeon sentries, now inhabited by spectral guards. Contains clues about the dungeon's defenses.
 
-4. **Secret Passage**
-   - Exits: South to Chamber of Echoes, North to Treasure Vault, East to Hidden Chamber
-   - Purpose: A narrow, hidden corridor that rewards players' curiosity and exploration. Its discovery is key for accessing the Treasure Vault and an optional side room, the Hidden Chamber.
+4. **Trap Room**
+   - **Exits:** East to [Central Hub], North to [Hidden Chamber]
+   - **Notes:** A perilous corridor filled with mechanical traps. Successful navigation requires solving a puzzle related to the murals in the Entrance Hall.
 
 5. **Hidden Chamber**
-   - Exits: West to Secret Passage
-   - Purpose: A small, secluded room off the Secret Passage. Contains lore-rich artifacts and clues about the dungeon's past, offering narrative depth and rewarding players who explore beyond the main path.
+   - **Exits:** South to [Trap Room], Secret Passage to [Treasure Vault], Secret Passage to [Central Hub]
+   - **Notes:** A concealed area accessed via a hidden mechanism in the Central Hub. Contains magical artifacts and lore about the dungeon's creation.
 
 6. **Treasure Vault**
-   - Exits: South to Secret Passage
-   - Purpose: The ultimate reward room, filled with valuable loot and guarded by a puzzle or trap mechanism. Represents the culmination of the dungeon's exploration and is accessed only by those who find the Secret Passage.
+   - **Exits:** South to [Hidden Chamber]
+   - **Notes:** The final reward for diligent explorers, housing the dungeon's legendary treasures. The vault is guarded by a powerful entity that tests the player's virtue.
 
 ### Design Notes
 
-- **Flow**: The Entry Hall naturally directs players towards the Chamber of Echoes, which functions as a central hub for this small dungeon. From there, players can discover the Secret Passage that branches out to the Treasure Vault and Hidden Chamber.
+- **Flow:** The Central Hub serves as the main navigation point, providing access to various parts of the dungeon. Players are naturally drawn towards it after entering from the Entrance Hall.
   
-- **Exploration vs. Convenience**: While the main path is straightforward, the Secret Passage encourages exploration, rewarding players with access to valuable resources and story elements.
-  
-- **Storytelling through Space**: Each room has been designed to convey the dungeon's history—an abandoned guard post, a disorienting echo chamber, and a hidden treasure vault—offering narrative layers to discover.
-  
-- **Realism and Verticality**: The layout remains horizontal, appropriate for the Shadowfen style, focusing on hidden and narrow passages rather than vertical complexity, fitting the marshy, dense nature of the environment.
+- **Exploration & Discovery:** Hidden passages from the Central Hub and the Hidden Chamber reward players who explore off the beaten path. Clues in the Entrance Hall murals and the Guard Room enhance immersion and storytelling.
+
+- **Purpose & Pacing:** The Entrance Hall introduces players to the dungeon's backstory. The Guard Room and Trap Room present challenges that must be overcome to access the Hidden Chamber. The Treasure Vault acts as the ultimate goal, providing a satisfying conclusion to the journey.
+
+- **Realism & Style:** The dungeon layout reflects a logical progression from entrance to treasure, with thematic elements consistent with Shadowfen's mysterious and ancient atmosphere.
+
+This design balances exploration with a clear progression path, encouraging players to engage with both the narrative and the environment.

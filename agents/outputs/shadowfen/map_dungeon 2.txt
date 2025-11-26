@@ -1,0 +1,53 @@
+### Shadowfen Dungeon ASCII Map
+
+```
+        [Guard Post]
+            |
+        [Entrance]
+            |
+       [Main Chamber] -- [Side Passage]
+            |                 |
+       [Treasure Vault]      |
+            |
+        [Hidden Lair]
+```
+
+### Room List with Exits
+
+1. **Guard Post**
+   - **Exits:** Down to Entrance
+   - **Purpose:** Acts as the first line of defense. Guards monitor the entrance and main pathway.
+   - **Design Notes:** Positioned above the entrance for a strategic advantage.
+
+2. **Entrance**
+   - **Exits:** Up to Guard Post, Down to Main Chamber
+   - **Purpose:** The transition point from the outside world into the dungeon.
+   - **Design Notes:** Serves as a choke point; well-guarded and imposing.
+
+3. **Main Chamber**
+   - **Exits:** Up to Entrance, Right to Side Passage, Down to Treasure Vault
+   - **Purpose:** Central hub of the dungeon; often where players regroup.
+   - **Design Notes:** Spacious room with multiple connections. NPCs or key items may be found here.
+
+4. **Side Passage**
+   - **Exits:** Left to Main Chamber
+   - **Purpose:** Optional exploration route with minor loot or lore.
+   - **Design Notes:** A narrow, winding path that encourages exploration. Leads to small rewards or hidden story elements.
+
+5. **Treasure Vault**
+   - **Exits:** Up to Main Chamber
+   - **Purpose:** Contains valuable rewards and possibly guarded by a boss.
+   - **Design Notes:** Well-protected room requiring players to overcome challenges to access.
+
+6. **Hidden Lair**
+   - **Exits:** Up to Treasure Vault
+   - **Purpose:** Secret room with rare loot or a unique NPC.
+   - **Design Notes:** Requires solving puzzles or finding hidden switches to access. Rewards dedicated explorers.
+
+### Design Notes on Flow and Purpose
+
+- **Central Hub (Main Chamber):** Serves as the main connection point, ensuring players naturally pass through it multiple times.
+- **Exploration (Side Passage and Hidden Lair):** Encourages players to explore off the beaten path for extra rewards, enhancing the sense of discovery.
+- **Pacing:** The layout balances linear progression (Guard Post to Treasure Vault) with optional exploration (Side Passage and Hidden Lair).
+- **Realism:** The layout mimics a fortified underground space, with layers of security and secretive areas fitting the Shadowfen theme.
+- **Vertical Space:** The use of vertical movement (up/down) creates a sense of depth and layers within the dungeon, enhancing the exploratory experience.
