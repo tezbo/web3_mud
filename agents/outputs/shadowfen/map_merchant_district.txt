@@ -1,43 +1,66 @@
-```
-           [T] - [B]
-             |     |
-          [M] - [S]
-             |     |
-          [G] - [D]
+### Merchant District - Shadowfen Style
 
 ```
+        +---------------------+
+        |  Blacksmith's Forge |
+        |   Exits: S, E       |
+        +----------|----------+
+                   |
+         +---------+---------+
+         |    Market Square   |
+         | Exits: N, E, S, W  |
+         +----|---|---|-------+
+              |   |
+  +-----------+   +-------------+
+  |  Apothecary    General Store|
+  | Exits: S, E    Exits: W     |
+  +----|------------------------+
+       |
++------|------------------+
+|  Alchemist's Workshop   |
+|     Exits: N, E         |
++-----------|-------------+
+            |
+       +----+-------------+
+       |    Hidden Alley   |
+       |     Exits: W      |
+       +-------------------+
+```
 
-**Room List and Exits:**
+### Room List with Exits
 
-1. **[T] Tailor's Shop**
-   - Exits: South to [M] Market Square, East to [B] Blacksmith
-   - Purpose: Offers clothing and light armor. Positioned near the market for easy access to cloth merchants.
+1. **Blacksmith's Forge**
+   - **Exits:** South to Market Square, East to General Store
+   - **Purpose:** Provides armor and weapons. High-traffic area for adventurers preparing for quests.
 
-2. **[B] Blacksmith**
-   - Exits: West to [T] Tailor's Shop, South to [S] Stables
-   - Purpose: Provides weapons and armor. Close to the market for trade but slightly distanced to manage noise and heat.
+2. **Market Square**
+   - **Exits:** North to Blacksmith's Forge, East to General Store, South to Alchemist's Workshop, West to Apothecary
+   - **Purpose:** Central hub of the district. A bustling area where players can find various merchants, street performers, and quest givers.
 
-3. **[M] Market Square**
-   - Exits: North to [T] Tailor's Shop, South to [G] General Store, East to [S] Stables
-   - Purpose: Central hub of the Merchant District. Bustling with vendors, ideal for player trade and social interactions.
+3. **General Store**
+   - **Exits:** West to Market Square
+   - **Purpose:** Supplies general goods and adventuring equipment. Conveniently located for quick access from the market.
 
-4. **[S] Stables**
-   - Exits: North to [B] Blacksmith, West to [M] Market Square, South to [D] Docks
-   - Purpose: Houses mounts and supplies for travelers. Positioned on the edge for easy access to incoming and outgoing traffic.
+4. **Apothecary**
+   - **Exits:** South to Alchemist's Workshop, East to Market Square
+   - **Purpose:** Sells potions and herbal remedies. Positioned for easy access from the market while providing a quieter corner for players to explore.
 
-5. **[G] General Store**
-   - Exits: North to [M] Market Square, East to [D] Docks
-   - Purpose: Supplies everyday goods and adventuring essentials. Conveniently located for both locals and visitors.
+5. **Alchemist's Workshop**
+   - **Exits:** North to Apothecary, East to Hidden Alley
+   - **Purpose:** Offers more specialized alchemical items and crafting opportunities. Acts as a bridge to the Hidden Alley, encouraging exploration.
 
-6. **[D] Docks**
-   - Exits: North to [S] Stables, West to [G] General Store
-   - Purpose: Gateway for goods and travelers entering the district via water routes. Positioned at the district's boundary for logistic efficiency.
+6. **Hidden Alley**
+   - **Exits:** West to Alchemist's Workshop
+   - **Purpose:** A secluded area with a mysterious vendor selling rare or illicit goods. Rewards players who explore beyond the obvious paths.
 
-**Design Notes:**
+### Design Notes
 
-- **Flow:** The Market Square [M] serves as the central hub, with most shops connected to it, ensuring high foot traffic and easy navigation for players.
-- **Discovery:** Players may discover hidden discounts or unique items by visiting less apparent shops like the Tailor's Shop [T] and Blacksmith [B].
-- **Pacing:** The layout encourages players to pass through the Market Square multiple times, promoting interaction and trade.
-- **Realism:** The arrangement reflects realistic town planning, with the docks [D] at the edge for trade, and the stables [S] nearby for travelers.
-- **Merchant Dynamics:** The proximity of shops to the Market Square creates a lively commerce atmosphere, while the docks' connection to the stables facilitates the flow of goods and travel.
-- **Shadowfen Style:** The district adopts a slightly swampy, fog-laden atmosphere with wooden planks and lanterns guiding the paths, reflecting the Shadowfen style of murky, mysterious trade routes.
+- **Flow:** The Market Square serves as the central hub, allowing players to easily navigate to key locations. The cluster of shops around the square promotes natural exploration and interaction.
+  
+- **Discovery:** The Hidden Alley is an optional area that rewards players who explore the less obvious paths, adding a layer of mystery and intrigue.
+
+- **Pacing:** The arrangement encourages players to visit multiple shops in sequence, with the Alchemist’s Workshop acting as a transition to more secretive areas.
+
+- **Realism:** The layout reflects a logical organization typical of a bustling district, with essential services like the blacksmith and general store directly accessible from the main square.
+
+- **Vertical Space:** While this layout is primarily horizontal, the inclusion of a Hidden Alley suggests verticality in terms of storytelling, as it hints at deeper, possibly subterranean spaces yet to be discovered.
