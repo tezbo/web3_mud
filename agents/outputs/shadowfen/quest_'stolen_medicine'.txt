@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Title: "The Cure's Cost"
 
 Stage Breakdown:
@@ -21,3 +22,39 @@ Solutions:
    - **Consequences**: Negotiating peace strengthens ties between settlements and may lead to future alliances. Inciting conflict results in a short-term gain of resources but increases hostility and potential future skirmishes.
 
 Each choice the player makes will have rippling effects on their relationship with Shadowfen, its community, and neighboring settlements, influencing future quests and interactions.
+=======
+**Quest Title: "The Missing Cure"**
+
+**Stage Breakdown:**
+
+1. **Stage 1: Discovery of the Theft**
+   - The player arrives in Shadowfen and learns that a vital shipment of medicine for a recent swamp fever outbreak has been stolen. Villagers are in panic, and the local healer, Elara, is desperate for help. The player is tasked with uncovering the truth behind the theft.
+
+2. **Stage 2: Investigation**
+   - The player gathers information around Shadowfen. They learn that local bandits, a rival village, and a mysterious hermit known as Old Fenwick are all potential suspects. Clues are scattered throughout the village and surrounding areas, pointing to different motivations and perpetrators.
+
+3. **Stage 3: Resolution**
+   - The player must decide who to confront and how to resolve the situation, based on the gathered evidence.
+
+**Solutions:**
+
+1. **Confront the Bandits:**
+   - The player can choose to infiltrate the bandits' hideout in the swamp. After a tense negotiation or a stealthy retrieval, the player recovers the medicine.
+   - *Consequences:* 
+     - The bandits are weakened, leading to fewer attacks on Shadowfen. The villagers are grateful, and the healer rewards the player with a unique herbal remedy.
+     - However, the bandits plot revenge, resulting in increased hostility in future encounters with them.
+
+2. **Negotiate with the Rival Village:**
+   - The player discovers that the neighboring village, Swamp's End, took the medicine, fearing their own outbreak. The player can broker a deal where the two villages share resources and knowledge.
+   - *Consequences:*
+     - An alliance is formed, leading to trade benefits and cultural exchanges between the villages. The player is honored as a diplomat in both communities.
+     - However, should tensions rise again, the player may be called upon to mediate further disputes.
+
+3. **Seek Out Old Fenwick:**
+   - The player learns that Old Fenwick took the medicine, believing it to be a powerful reagent for his experiments. The player can persuade him to return it or assist him in creating an alternative cure.
+   - *Consequences:*
+     - If persuaded, Fenwick agrees to share his knowledge with Elara, resulting in more effective treatments and bolstering the village's defenses against future outbreaks.
+     - If the player aids Fenwick, they gain a potent alchemical formula, but rumors of dark magic may spread, affecting the player's reputation among superstitious villagers.
+
+Each choice leads to ripple effects in Shadowfen, altering future interactions, available quests, and the player's standing in the region.
+>>>>>>> feature/task-2

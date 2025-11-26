@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Certainly! Here's a design for the 'Merchant District' in a Shadowfen style, which might reflect a somewhat dark, swampy, and mysterious atmosphere.
 
 ### ASCII Map
@@ -10,10 +11,23 @@ Certainly! Here's a design for the 'Merchant District' in a Shadowfen style, whi
    [Armorer] - [Alleyway]
         |
    [Docks]
+=======
+Certainly! Below is the design for a 6-room "Merchant District" in the Shadowfen style, incorporating murky, swamp-like themes mixed with bustling trade activity.
+
+```
+          [ Watchtower ]
+              |
+       [ Market Square ] -- [ Apothecary ]
+         /   |       \
+   [ Fishmonger's ] [ General Store ]
+         \
+    [ Blacksmith ]
+>>>>>>> feature/task-2
 ```
 
-### Room List with Exits
+**Room List with Exits:**
 
+<<<<<<< HEAD
 1. **Town Square**
    - **Exits**: South to Market Street
    - **Notes**: Central hub of the district; a bustling area where merchants set up stalls. Players naturally gather here, making it the starting point for exploration.
@@ -37,9 +51,35 @@ Certainly! Here's a design for the 'Merchant District' in a Shadowfen style, whi
 6. **Docks**
    - **Exits**: North to Armorer
    - **Notes**: The end of the district near the water's edge. Serves as a transition point to other areas or quests involving the nearby swamps or waterways.
+=======
+1. **Market Square**
+   - **Exits:** North to Watchtower, East to Apothecary, Southwest to Fishmonger's, Southeast to General Store
+   - **Purpose:** Central hub of the Merchant District; a bustling open-air market where traders from all over gather to sell their goods. It serves as the primary meeting point and navigational center for players.
 
-### Design Notes
+2. **Watchtower**
+   - **Exits:** South to Market Square
+   - **Purpose:** A small guard post overseeing the district, providing security and a vantage point. Offers a potential quest-giver or lookout scenario for players.
 
+3. **Apothecary**
+   - **Exits:** West to Market Square
+   - **Purpose:** A dimly lit shop filled with strange herbs and concoctions. Offers healing potions and unique Shadowfen remedies. Encourages exploration due to its mysterious inventory.
+
+4. **Fishmonger's**
+   - **Exits:** Northeast to Market Square, South to Blacksmith
+   - **Purpose:** A narrow shop specializing in the local aquatic bounty. Provides crafting ingredients and food supplies. Has a slightly off-the-beaten-path feel, enhancing discovery.
+
+5. **General Store**
+   - **Exits:** Northwest to Market Square
+   - **Purpose:** Sells a variety of general goods and everyday items. Acts as a convenient stop for players needing to restock basic supplies.
+
+6. **Blacksmith**
+   - **Exits:** North to Fishmonger's
+   - **Purpose:** Located near the water to use the natural resources for cooling metals. Offers weapons, armor, and repair services. Positioned slightly aside to reward players who explore beyond the main market paths.
+>>>>>>> feature/task-2
+
+**Design Notes:**
+
+<<<<<<< HEAD
 - **Flow**: The Town Square acts as the central hub, providing a natural starting point. Market Street connects the key commercial locations, ensuring players move through the heart of the district.
 - **Exploration**: The Alleyway serves as a hidden path, rewarding those who venture off the beaten path. It can be used for side quests or to uncover secrets about the district.
 - **Pacing**: The main pathway (Town Square → Market Street → Armorer → Docks) offers a logical progression, while the Potion Shop and Alleyway provide optional detours.
@@ -47,3 +87,10 @@ Certainly! Here's a design for the 'Merchant District' in a Shadowfen style, whi
 - **Vertical Space**: While this district is primarily horizontal, the potential for vertical exploration exists within shops (e.g., Potion Shop with a basement for rare ingredients). 
 
 This design encourages exploration, balances the central hub with peripheral areas, and maintains a sense of realism and mystery fitting for Shadowfen.
+=======
+- **Flow:** The Market Square acts as the central hub, guiding players naturally to various shops, ensuring they encounter key locations without excessive backtracking.
+- **Discovery:** The Fishmonger's shop offers a hidden connection to the Blacksmith, encouraging players to explore beyond initial expectations.
+- **Vertical Space:** Not emphasized in this district due to the swampy terrain, focusing instead on horizontal exploration.
+- **Realism:** Each shop's placement reflects a logical arrangement based on trade needs and environmental factors (e.g., Blacksmith near water for practicality).
+- **Shadowfen Style:** The district's layout and themed shops reflect a sense of mystery and natural integration typical of Shadowfen, enhancing the atmospheric storytelling.
+>>>>>>> feature/task-2
