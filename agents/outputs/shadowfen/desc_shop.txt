@@ -1,1 +1,8 @@
 The shop crouches in the misty embrace of Shadowfen, its wooden beams groaning softly under the weight of time and secrets. Shelves lined with tarnished trinkets and rusted curiosities seem to whisper stories from forgotten eras, their surfaces cool and slightly damp to the touch. A faint, earthy aroma of wet leaves and ancient moss permeates the air, mingling with the acrid scent of old iron. The low, rhythmic drip of moisture from the ceiling echoes like a heartbeat, a reminder of the swamp's encroachment.
+
+Ambient Messages:
+1. "The air hums with the soft clink of glass vials, their contents swirling like liquid rainbows beneath the warm glow of lantern light, while the faint scent of herbs and spices dances in the shadows."  
+
+2. "A tapestry of muted colors hangs from the rafters, its intricate patterns whispering secrets of distant lands, as the rich aroma of aged leather and polished wood envelops you like a comforting embrace."  
+
+3. "The bell above the door jingles softly, releasing a gust of cool, spiced air that carries the musky scent of incense and the faint crackle of fire from the hearth, wrapping you in a world of enchantment."  
