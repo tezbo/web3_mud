@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 **Quest Title: "The Rotting Faith"**
 
 **Stage Breakdown:**
@@ -19,3 +20,34 @@
    - **Consequences:** Shadowfen becomes a bastion, protected from realm conflicts but isolated from the rest of the world. The player's alliance with the High Priest is viewed with suspicion by other regions, who fear the growing power of Shadowfen.
 
 Each choice impacts future quests and interactions, shaping the player's reputation and the evolving story of Shadowfen.
+=======
+Title: "The Rot Within"
+
+Stage Breakdown:
+1. **The Plague's Whisper**: The player arrives in Shadowfen to find the swamp plagued with disease. Locals speak of a High Priest of Rot, believed to be the source. The player learns of three potential allies: a local herbalist, a disgraced former priest, and a Threadsinging scholar. Each offers a different approach to dealing with the High Priest.
+
+2. **Paths to Confrontation**: The player must choose one of the following paths to confront the High Priest:
+
+   - **The Herbalist's Cure**: Assist the herbalist in crafting an antidote to weaken the High Priest's powers. This involves gathering rare herbs and infusing them with the herbalist's knowledge of the land.
+   
+   - **The Priest's Redemption**: Work with the disgraced priest, who believes that the High Priest can be swayed back to sanity. This path requires gathering relics of the High Priest's past and unearthing hidden memories through sacred rituals.
+   
+   - **The Scholar's Riddle**: Collaborate with the Threadsinging scholar to uncover the High Priest's forgotten true name, which can be used to bind or banish him. This path involves deciphering ancient runes and solving the scholar's riddles.
+
+3. **The Final Confrontation**: The player confronts the High Priest of Rot in his lair, deep within the festering heart of Shadowfen. Depending on the chosen path, the encounter will unfold differently.
+
+Solutions and Consequences:
+1. **Herbalist's Cure**:
+   - *Solution*: Use the antidote to weaken the High Priest, making him vulnerable to physical defeat.
+   - *Consequences*: The swamp begins to heal, and the herbalist becomes a revered figure, offering future aid and potions. However, remnants of the High Priest's followers turn to guerilla warfare, occasionally ambushing the player.
+
+2. **Priest's Redemption**:
+   - *Solution*: Use the relics to remind the High Priest of his past, successfully convincing him to renounce his ways.
+   - *Consequences*: The High Priest aids in reversing the swamp's decay, becoming a powerful ally. However, the player's association with a once-despised figure may cause distrust among certain factions, complicating future interactions.
+
+3. **Scholar's Riddle**:
+   - *Solution*: Discover the High Priest's true name and use it to bind him, ending his reign without bloodshed.
+   - *Consequences*: The scholar gains prestige, and the player is seen as a cunning strategist. The High Priest's essence is trapped, leading to an eventual resurgence of his power if the binding weakens, setting the stage for a future quest.
+
+In all scenarios, the player's choices and alliances will have long-lasting effects on Shadowfen's political landscape and ecological balance. The quest encourages reflection on the nature of power, redemption, and the choices that define a hero.
+>>>>>>> feature/task-2

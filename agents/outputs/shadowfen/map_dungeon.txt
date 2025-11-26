@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Certainly! Below is an ASCII map of a 6-room district called 'Dungeon' in the Shadowfen style.
 
 ```
@@ -52,3 +53,70 @@ Certainly! Below is an ASCII map of a 6-room district called 'Dungeon' in the Sh
 - **Vertical Space**: Utilizes up/down exits to create a sense of depth and exploration, encouraging players to think vertically as well as horizontally.
 
 This map balances exploration and storytelling while maintaining a logical and engaging dungeon crawl experience.
+=======
+Certainly! Here's a design for a 6-room district called "Dungeon" in the Shadowfen style:
+
+```
+           +---------+
+           |  Crypt  |
+           |  (T)    |
+           +----+----+
+                |
+                v
+           +---------+
+           | Catacomb|
+           |  (S)    |
+           +----+----+
+                |
+                v
++---------+   +---------+   +---------+
+|  Guard  |<--|  Cross  |-->| Torture |
+|  Room   |   |  Roads  |   | Chamber |
+| (E, W)  |   | (N, S) |   |  (N)     |
++---------+   +----+----+---+---------+
+                |
+                v
+           +---------+
+           |  Prison  |
+           |  Cells   |
+           |  (S)     |
+           +----+-----+
+```
+
+**Room List with Exits:**
+
+1. **Crypt (Tomb)**
+   - Exits: South to Catacomb
+   - Notes: The starting point of the dungeon, filled with ancient tombs. This room sets the eerie atmosphere and introduces players to the Shadowfen style.
+
+2. **Catacomb (Storage)**
+   - Exits: North to Crypt, South to Crossroads
+   - Notes: A narrow corridor lined with sarcophagi. Serves as a transition space from the Crypt, increasing tension as players delve deeper.
+
+3. **Crossroads**
+   - Exits: North to Catacomb, East to Torture Chamber, West to Guard Room, South to Prison Cells
+   - Notes: The central hub of the dungeon, allowing players to choose different paths. Encourages exploration and decision-making.
+
+4. **Guard Room (Barracks)**
+   - Exits: East to Crossroads
+   - Notes: A room with remnants of old guard equipment. Offers insight into the dungeon's historical use and may contain some minor loot.
+
+5. **Torture Chamber**
+   - Exits: North to Crossroads
+   - Notes: A disturbing room with rusty torture devices. Adds to the dark storytelling and might hold a hidden side passage or treasure for those who search carefully.
+
+6. **Prison Cells**
+   - Exits: North to Crossroads
+   - Notes: The deepest part of the dungeon, featuring iron bars and cells. Potentially houses a quest NPC or an important item.
+
+**Design Notes on Flow and Purpose:**
+
+- **Central Hub (Crossroads):** Designed to be the central point where players make strategic decisions on which path to explore, ensuring they experience the dungeon's breadth.
+- **Flow:** Players naturally progress from the Crypt to the Crossroads, choosing their path while maintaining a sense of exploration.
+- **Discovery:** The Torture Chamber may have a hidden passage to reward those who investigate thoroughly.
+- **Pacing:** The Guard Room and Prison Cells are offset to provide a sense of distance and discovery, while the central Crossroads keeps movement logical and interconnected.
+- **Realism:** The layout mirrors a plausible underground dungeon with practical transitions between rooms.
+- **Storytelling:** Each room contributes to the overall theme of a long-abandoned, once-secure fortress now in decay, hinting at its dark past.
+
+This design balances exploration with narrative depth, offering players a rich experience in the Shadowfen style.
+>>>>>>> feature/task-2

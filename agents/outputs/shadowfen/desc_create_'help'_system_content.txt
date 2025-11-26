@@ -1,1 +1,12 @@
+<<<<<<< HEAD
 The room is a whispering cavern where the air hangs heavy with the musk of damp earth and ancient, decaying leaves. Shadows coil around stalagmites, their surfaces slick and cold to the touch, like the scales of a serpent lurking just beneath the surface. A soft, rhythmic drip echoes from the depths, each drop splashing into unseen pools with a hushed reverence. The scent of rusted iron lingers, mingling with the faint sweetness of overripe fruit, creating an unsettling harmony that clings to your senses. Pale, phosphorescent fungi cast an eerie glow, their light flickering like distant stars obscured by a fog-bound sky.
+=======
+In the heart of Shadowfen, the chamber breathes with an eerie, spectral life. Wisps of mist slither through the cracked stone floor, coiling around rust-veined pillars that seem to hum with a low, unsettling resonance. The air is thick with the scent of damp earth and the faint, acrid bite of decay, clinging to the skin like a cold, clammy shroud. Faded tapestries hang in tattered whispers against the walls, their once-vibrant silks now a muted testament to forgotten tales, while the distant drip of water echoes through the gloom, a steady reminder of time's relentless passage.
+
+Ambient Messages:
+1. "The soft rustle of parchment and the distant clink of glass harmonize with the gentle flicker of candlelight, creating a sanctuary of whispered knowledge amidst the shadowy corners of the library."  
+
+2. "A chill breeze dances through the open window, carrying the earthy scent of damp moss and the faint echo of laughter from the bustling marketplace beyond."  
+
+3. "The rhythmic drip of water from the moss-laden eaves mingles with the haunting call of a nightingale, as the velvety darkness wraps the glade in a shroud of secrets waiting to be uncovered."  
+>>>>>>> feature/task-2

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 The dungeon breathes with the damp, clinging chill of Shadowfen, where walls of crumbling stone weep with stagnant moisture. A faint echo of dripping water punctuates the oppressive silence, each drop a ghostly reminder of time forgotten. The air is thick with the pungent aroma of mildew and rust, mingling with the earthy scent of decaying leaves from the world above. As your fingers brush the slick surface of the iron bars, they leave a trail through the cold, gritty grime, a tactile testament to ages of neglect. In the dim light, shadows pool like ink, shifting and stretching, whispering secrets long entombed.
 
 Ambient Messages:
@@ -13,3 +14,6 @@ Ambient Messages:
 2. Flickers of pale light dance along the jagged edges of the cavern, casting ghostly shadows that writhe and twist as if alive in the stale air thick with the scent of earth and decay.  
 
 3. A low, mournful wail winds through the narrow passages, weaving through the air like a lost soul, while the metallic taste of fear lingers on your tongue.  
+=======
+In the heart of Shadowfen's murky underbelly lies a dungeon where the air hangs heavy with the scent of damp earth and rusting chains. Flickering torchlight casts jagged shadows that dance across the rough-hewn stone walls, their surface slick and cold to the touch, whispering tales of ancient despair. The soft drip-drip of water echoes through the corridors, a haunting lullaby woven with the distant skittering of unseen creatures. A metallic tang lingers on the tongue, mingling with the bitter taste of decay that clings to the back of the throat, as if the dungeon itself breathes a long-forgotten sorrow.
+>>>>>>> feature/task-2

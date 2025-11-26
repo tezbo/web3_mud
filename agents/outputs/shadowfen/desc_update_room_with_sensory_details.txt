@@ -1,1 +1,19 @@
+<<<<<<< HEAD
 In the Update Room, shadows cling stubbornly to the corners, weaving a tapestry of darkness against walls streaked with rust. The air is thick with the earthy scent of damp soil, mingling with the faint acrid tang of mildew. A subtle, rhythmic drip echoes from some unseen source, each droplet splattering with a hollow note upon the cracked stone floor. As you step inside, the chill seeps through your boots, the moisture-laden air clinging to your skin like a cool, clammy shroud.
+=======
+Veins of rust weave through the damp stone walls, exuding a metallic tang that mingles with the earthy scent of moss clinging to crevices. Pale moonlight filters through cracked, slatted windows, casting fractured shadows that dance across the floor like ghostly wraiths. The faint drip of water echoes through the chamber, a rhythmic heartbeat in the otherwise silent gloom. As you brush against the walls, your fingertips graze the cool, slick surface, leaving a faint chill lingering on your skin.
+
+Ambient Messages:
+1. "The air hums with the soft crackle of energy, shimmering like heat waves as the faint scent of ozone dances on your skin, tinged with the sweetness of ripe fruit lingering in the corners."
+
+2. "Dim lights flicker like fireflies in the dusk, casting elongated shadows that sway to the rhythm of whispered conversations, while the rich aroma of spiced tea envelops you in a warm embrace."
+
+3. "A chill lingers in the air, brushing against your skin like a ghostly caress, as the distant echo of metallic clinks and the rustle of silk create a symphony of anticipation in this hidden sanctuary."
+
+Ambient Messages:
+1. The air hums with a subtle energy, vibrant colors swirling in the dim light as the scent of ozone lingers, hinting at the magic woven into the very walls.  
+
+2. Soft whispers flutter like moths around your ears, the faint rustle of silk brushing against stone as a gentle breeze carries the earthy aroma of damp moss and ancient wood.  
+
+3. The room pulses with a warm glow, the flicker of golden lanterns casting playful shadows, while the sweet, smoky fragrance of burning herbs wraps around you like a comforting embrace.  
+>>>>>>> feature/task-2
