@@ -1,0 +1,28 @@
+**Quest Title: The Cure's Cost**
+
+**Stage Breakdown:**
+
+1. **Discovery of the Theft:**
+   - Upon entering Shadowfen, the player encounters Elara, a distressed herbalist. She explains that a crucial shipment of medicinal herbs has been stolen. These herbs are vital for treating a mysterious illness affecting the village.
+   
+2. **Investigation and Decision:**
+   - The player investigates the theft, leading to a group of desperate villagers. They reveal they stole the herbs to treat their own sick loved ones, fearing the village's allocation would run out before reaching them.
+
+3. **Resolution:**
+   - The player must decide how to handle the situation, taking into account the needs of both the villagers and the town.
+
+**Solutions:**
+
+1. **Redistribute the Herbs:**
+   - The player can choose to mediate a compromise, redistributing some herbs back to the village and ensuring the villagers' sick are treated as well.
+   - **Consequences:** The village appreciates the player's fairness, leading to improved relations and future discounts on goods. However, the village's elder, who prefers strict adherence to rules, may distrust the player's judgment in future quests.
+
+2. **Side with the Villagers:**
+   - The player can decide to support the villagers, allowing them to keep the herbs and advising them on how to cultivate their own supply.
+   - **Consequences:** The villagers are grateful, offering the player a unique recipe for a potent healing potion. However, the village suffers from the shortage, leading to tension and a potential outbreak of illness, affecting future quest availability.
+
+3. **Return All Herbs to the Village:**
+   - The player can return the entire shipment to the village, ensuring the town's requirements are met first.
+   - **Consequences:** The village's leaders are pleased and reward the player with a rare artifact. However, the affected villagers view the player as heartless, leading to a potential confrontation or sabotage in future quests.
+
+Each choice not only impacts the immediate situation but also influences the player's reputation and relationships within Shadowfen, creating a dynamic narrative that reflects the complexity of moral decisions in a world shaped by the consequences of The Sundering and the ongoing realm conflicts.
