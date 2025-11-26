@@ -1,15 +1,1 @@
-In the heart of the Shadowfen dungeon, shadows cling to moss-slicked stones, whispering secrets lost to time. The air hangs heavy with the musty aroma of damp earth and the faint, coppery scent of rust. Each footstep echoes with a hollow thud, swallowed by the oppressive silence that presses like a shroud against your skin. Flickers of torchlight dance across the jagged walls, their flickering glow casting eerie, distorted silhouettes that slither and writhe in the corners of your vision.
-
-Ambient Messages:
-1. The damp air clings to your skin, thick with the earthy scent of moss and the faint echo of dripping water, as shadows writhe along the stone walls like specters of forgotten souls.  
-
-2. A chill lingers in the stale air, carrying the metallic tang of old blood while the distant sound of skittering claws sends a shiver down your spine.  
-
-3. Flickering torchlight dances across the jagged rock, illuminating the intricate carvings that whisper of ancient curses, while the taste of rust coats your tongue like a grim omen.  
-
-Ambient Messages:
-1. The air is thick with the musty scent of damp earth and ancient stone, echoing with the distant drip of water that punctuates the oppressive silence like a heartbeat.  
-
-2. Flickering shadows dance across the rough-hewn walls, as the faint rustle of unseen creatures skitters just beyond the reach of your torchlight.  
-
-3. A chill seeps through the cracks in the ground, laced with the tang of iron and decay, as the whispers of forgotten souls brush against your ears like a soft, mournful breeze.
+In the heart of the Shadowfen, the dungeon yawns open like a forgotten maw, its stone walls slick with a sheen of perpetual dampness. The air is thick with the acrid stench of mildew and rust, a testament to the years of neglect and decay. Water drips incessantly from the ceiling, each droplet echoing through the labyrinthine corridors like a whispered secret. The ground underfoot is uneven, the stones shifting slightly with each step, their chill seeping into your bones as your fingers brush against the rough, moss-covered walls. A distant, hollow clang resounds periodically, a haunting reminder of unseen depths and the secrets they might conceal.
