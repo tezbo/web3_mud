@@ -2,12 +2,12 @@
 # This must be done first to patch the standard library for eventlet compatibility
 # Required when using eventlet workers or SocketIO with async_mode='eventlet'
 import os
-try:
-    import eventlet
-    # Always monkey patch if eventlet is available (safe and required for SocketIO with eventlet)
-    eventlet.monkey_patch()
-except ImportError:
-    pass  # eventlet not available, will use sync mode
+# try:
+#     import eventlet
+#     # Always monkey patch if eventlet is available (safe and required for SocketIO with eventlet)
+#     eventlet.monkey_patch()
+# except ImportError:
+#     pass  # eventlet not available, will use sync mode
 
 import json
 import sqlite3
@@ -1818,6 +1818,54 @@ def workforce_chat():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+@app.route("/webhooks/render", methods=["POST"])
+def render_webhook():
+    """
+    Receive Render deployment webhooks and trigger DevOps Agent
+    
+    Webhook events:
+    - deploy.started
+    - deploy.succeeded
+    - deploy.failed
+    -service.degraded
+    - service.resumed
+    """
+    try:
+        # Get webhook payload
+        payload = request.get_json()
+        
+        if not payload:
+            logger.warning("Received empty webhook payload")
+            return jsonify({"error": "Empty payload"}), 400
+        
+        logger.info(f"Received Render webhook: {payload.get('type')}")
+        
+        # Import DevOps Agent
+        from agents.devops import DevOpsAgent
+        
+        # Process webhook with DevOps Agent
+        agent = DevOpsAgent()
+        incident_detected, issue_number = agent.process_render_webhook(payload)
+        
+        if incident_detected and issue_number:
+            logger.info(f"Incident detected - Created GitHub issue #{issue_number}")
+            return jsonify({
+                "success": True,
+                "incident_detected": True,
+                "issue_number": issue_number
+            }), 200
+        else:
+            logger.info("Webhook processed - No incident detected")
+            return jsonify({
+                "success": True,
+                "incident_detected": False
+            }), 200
+            
+    except Exception as e:
+        logger.error(f"Error processing Render webhook: {e}")
+        return jsonify({"error": str(e)}), 500
+
+
 from agent_dashboard import dashboard_bp
 
 app.register_blueprint(dashboard_bp)
@@ -1901,7 +1949,8 @@ if __name__ == "__main__":
     # Start background services before running
     ensure_background_services()
     # Use socketio.run() instead of app.run() for WebSocket support
-    socketio.run(app, host="0.0.0.0", port=port, debug=True)
+    # socketio.run(app, host="0.0.0.0", port=port, debug=False)
+    app.run(host="0.0.0.0", port=port, debug=False)
 else:
     # Running under gunicorn/WSGI server - start on first request
     @app.before_request

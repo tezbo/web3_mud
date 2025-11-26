@@ -36,9 +36,32 @@ class DevOpsAgent(BaseAgent):
         )
         # Load tokens from env
         self.github_token = os.environ.get("GITHUB_TOKEN")
-        self.render_api_key = os.environ.get("RENDER_API_KEY")
+        self.render_api_key = os.environ.get("RENDER_TOKEN", "rnd_aG8HyBDlx8BpaeEp9aV8oBenT0NK")
         self.repo_owner = "tezbo"
         self.repo_name = "web3_mud"
+        
+        # Render API configuration
+        self.render_api_url = "https://api.render.com/v1"
+        self.render_headers = {
+            "Authorization": f"Bearer {self.render_api_key}",
+            "Accept": "application/json"
+        }
+        
+        # Critical error patterns to detect in logs
+        self.critical_patterns = [
+            r"Error:",
+            r"Exception:",
+            r"Traceback",
+            r"CRITICAL",
+            r"FATAL",
+            r"ModuleNotFoundError",
+            r"ImportError",
+            r"SyntaxError",
+            r"IndentationError",
+            r"500 Internal Server Error",
+            r"Connection refused",
+            r"Port \d+ is already in use"
+        ]
         
     def check_github_actions_status(self, branch="main"):
         """Check the status of the latest GitHub Actions run for a branch."""
@@ -344,6 +367,245 @@ class DevOpsAgent(BaseAgent):
             }, timeout=1)
         except:
             pass
+    
+    # === RENDER WEBHOOK & INCIDENT RESPONSE ===
+    
+    def process_render_webhook(self, webhook_payload: dict) -> tuple:
+        """
+        Process Render deployment webhook and create incident if needed
+        
+        Args:
+            webhook_payload: Webhook data from Render
+            
+        Returns:
+            Tuple of (incident_detected: bool, issue_number: int or None)
+        """
+        import re
+        
+        logger.info("=" * 60)
+        logger.info("🤖 DevOps Agent: Processing Render webhook")
+        logger.info("=" * 60)
+        
+        event_type = webhook_payload.get("type")
+        service = webhook_payload.get("service", {})
+        deploy = webhook_payload.get("deploy", {})
+        
+        service_id = service.get("id")
+        service_name = service.get("name")
+        deploy_id = deploy.get("id")
+        deploy_status = deploy.get("status")
+        
+        logger.info(f"Service: {service_name} ({service_id})")
+        logger.info(f"Deploy: {deploy_id}")
+        logger.info(f"Status: {deploy_status}")
+        logger.info(f"Event: {event_type}")
+        
+        # Check for deployment failure
+        if event_type == "deploy.failed" or deploy_status == "failed":
+            logger.error("❌ Deployment FAILED - Creating incident report")
+            
+            # Fetch deployment logs
+            logs = self._get_render_logs(service_id, deploy_id)
+            errors = self._extract_errors_from_logs(logs)
+            
+            incident = {
+                "service_id": service_id,
+                "service_name": service_name,
+                "deploy_id": deploy_id,
+                "status": deploy_status,
+                "timestamp": deploy.get("createdAt", datetime.utcnow().isoformat()),
+                "logs": logs,
+                "errors": errors,
+                "severity": "P0"
+            }
+            
+            issue_number = self._create_incident_issue(incident)
+            return True, issue_number
+            
+        # Check for degraded service
+        elif event_type == "service.degraded":
+            logger.warning("⚠️  Service DEGRADED - Investigating")
+            
+            logs = self._get_render_logs(service_id, None, lines=100)
+            errors = self._extract_errors_from_logs(logs)
+            
+            if errors:
+                incident = {
+                    "service_id": service_id,
+                    "service_name": service_name,
+                    "deploy_id": deploy_id,
+                    "status": "degraded",
+                    "timestamp": datetime.utcnow().isoformat(),
+                    "logs": logs,
+                    "errors": errors,
+                    "severity": "P1"
+                }
+                
+                issue_number = self._create_incident_issue(incident)
+                return True, issue_number
+        
+        # Successful deployment
+        elif event_type == "deploy.succeeded" or deploy_status == "live":
+            logger.info("✅ Deployment successful")
+            self.report_status_log(f"✅ Deployment successful: {service_name}")
+            return False, None
+        
+        return False, None
+    
+    def _get_render_logs(self, service_id: str, deploy_id: str = None, lines: int = 200) -> str:
+        """Fetch logs from Render API via MCP"""
+        try:
+            if deploy_id:
+                # Deployment-specific logs
+                url = f"{self.render_api_url}/services/{service_id}/deploys/{deploy_id}/logs"
+            else:
+                # Service logs
+                url = f"{self.render_api_url}/services/{service_id}/logs"
+            
+            params = {"tail": lines}
+            response = requests.get(url, headers=self.render_headers, params=params, timeout=10)
+            
+            if response.status_code == 200:
+                log_entries = response.json()
+                logs = "\n".join([entry.get("message", "") for entry in log_entries])
+                return logs
+            else:
+                logger.error(f"Failed to fetch logs: {response.status_code}")
+                return "Unable to fetch deployment logs"
+                
+        except Exception as e:
+            logger.error(f"Error fetching logs: {e}")
+            return f"Error fetching logs: {str(e)}"
+    
+    def _extract_errors_from_logs(self, logs: str) -> list:
+        """Extract errors and stack traces from logs"""
+        import re
+        
+        errors = []
+        lines = logs.split("\n")
+        
+        for i, line in enumerate(lines):
+            for pattern in self.critical_patterns:
+                if re.search(pattern, line, re.IGNORECASE):
+                    # Found an error, get context
+                    start = max(0, i - 5)
+                    end = min(len(lines), i + 6)
+                    context = "\n".join(lines[start:end])
+                    
+                    errors.append({
+                        "line_number": i + 1,
+                        "error_line": line.strip(),
+                        "pattern_matched": pattern,
+                        "context": context
+                    })
+                    break
+        
+        return errors
+    
+    def _create_incident_issue(self, incident: dict) -> int:
+        """Create GitHub issue for production incident"""
+        if not self.github_token:
+            logger.error("GitHub token not configured")
+            return None
+        
+        # Build issue title
+        title = f"[PRODUCTION] Deployment failed: {incident['service_name']}"
+        if incident.get('errors'):
+            first_error = incident['errors'][0]['error_line']
+            if len(first_error) > 60:
+                first_error = first_error[:60] + "..."
+            title = f"[PRODUCTION] {first_error}"
+        
+        # Build issue body
+        body = self._build_incident_issue_body(incident)
+        
+        # Determine labels
+        labels = [
+            f"priority: p{incident['severity'][1]}-{'blocker' if incident['severity'] == 'P0' else 'critical'}",
+            "component: backend",
+            "status: blocked",
+            "agent: system",
+            "agent: codereviewer"
+        ]
+        
+        # Create issue
+        try:
+            url = f"https://api.github.com/repos/{self.repo_owner}/{self.repo_name}/issues"
+            headers = {
+                "Authorization": f"Bearer {self.github_token}",
+                "Accept": "application/vnd.github+json",
+                "X-GitHub-Api-Version": "2022-11-28"
+            }
+            payload = {
+                "title": title,
+                "body": body,
+                "labels": labels
+            }
+            
+            response = requests.post(url, headers=headers, json=payload, timeout=10)
+            
+            if response.status_code == 201:
+                issue = response.json()
+                issue_number = issue["number"]
+                logger.info(f"✅ Created incident issue #{issue_number}")
+                self.report_status_log(f"🚨 Created incident issue #{issue_number}")
+                return issue_number
+            else:
+                logger.error(f"Failed to create issue: {response.status_code}")
+                return None
+                
+        except Exception as e:
+            logger.error(f"Error creating GitHub issue: {e}")
+            return None
+    
+    def _build_incident_issue_body(self, incident: dict) -> str:
+        """Build markdown body for incident issue"""
+        body = f"""## 🚨 Production Incident Report
+
+**Service:** {incident['service_name']}  
+**Deployment ID:** `{incident['deploy_id']}`  
+**Timestamp:** {incident['timestamp']}  
+**Status:** {incident['status'].upper()}  
+**Severity:** {incident['severity']}
+
+---
+
+"""
+        
+        # Error summary
+        if incident.get('errors'):
+            body += "## Error Summary\n\n"
+            body += f"**{len(incident['errors'])} critical error(s) detected in logs:**\n\n"
+            
+            for i, error in enumerate(incident['errors'][:3], 1):
+                body += f"### Error {i}\n"
+                body += f"**Line {error['line_number']}:** `{error['error_line']}`\n\n"
+                body += "```\n"
+                body += error['context']
+                body += "\n```\n\n"
+            
+            if len(incident['errors']) > 3:
+                body += f"_...and {len(incident['errors']) - 3} more errors (see full logs below)_\n\n"
+        
+        # Full logs
+        body += "## Deployment Logs\n\n"
+        body += "<details>\n"
+        body += "<summary>Click to expand full logs</summary>\n\n"
+        body += "```\n"
+        body += incident.get('logs', 'No logs available')[:10000]
+        body += "\n```\n"
+        body += "</details>\n\n"
+        
+        # Recommended actions
+        body += "## Recommended Actions\n\n"
+        body += "1. Review the error logs above to identify the root cause\n"
+        body += "2. Create a hotfix branch to address the issue\n"
+        body += "3. Test the fix locally before deploying\n"
+        body += "4. Fast-track the hotfix PR for immediate review\n\n"
+        body += "---\n\n"
+        body += "*This issue was automatically created by the DevOps Agent*\n"
+        
+        return body
 
 if __name__ == "__main__":
     # Simple test run
