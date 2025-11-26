@@ -1,1 +1,8 @@
 In the dim light of the shop, the air is thick with the earthy scent of damp moss and the faint metallic tang of rust. Shadows dance across walls cluttered with trinkets and relics, each item whispering tales from the mire beyond. The wooden floorboards creak softly underfoot, their surface rough and cool, as if the swamp's chill has seeped into the very bones of the building. A muted chorus of croaks and chirps filters in from the marsh outside, mingling with the rustle of leaves brushing against the stone facade, creating a symphony of the Shadowfen's eternal twilight.
+
+Ambient Messages:
+1. "The air is thick with the rich aroma of ancient herbs and spices, while the soft chime of wind bells creates a melodic harmony that dances through the dimly lit aisles of shimmering wares."  
+
+2. "A tapestry of vibrant fabrics hangs from the low ceiling, their silken textures whispering secrets as the flickering candlelight casts playful shadows upon the polished wooden counters."  
+
+3. "The distant sound of glass clinking and laughter spills from the back room, mingling with the sweet scent of candied fruits, inviting you deeper into this treasure trove of curiosities."  
