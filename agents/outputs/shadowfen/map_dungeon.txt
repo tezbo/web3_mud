@@ -1,55 +1,53 @@
-### Shadowfen Dungeon District Map
+### Shadowfen Dungeon Map
 
 ```
-        [Chamber of Echoes]
-              |
-          (hidden)
-              |
-      [Forsaken Hall]--[Gloaming Grotto]
-              |
-          (stairs)
-              |
-      [Silted Cellar]--[Shrouded Niche]
-              |
-      (secret passage)
-              |
-      [Cavern of Whispers]
+       [Entrance Hall]
+             |
+        [Guard Room]
+         /        \
+[Prison Cells]  [Treasure Vault]
+          \        /
+        [Torture Chamber]
+             |
+        [Secret Passage]
 ```
 
 ### Room List with Exits
 
-1. **Chamber of Echoes**
-   - Exits: South (hidden to Forsaken Hall)
-   - Notes: An eerie room where whispers seem to repeat indefinitely. Acts as an introductory chamber that encourages exploration. The hidden exit requires players to investigate the room's acoustics.
+1. **Entrance Hall**
+   - Exits: South to Guard Room
+   - Purpose: The main entry point into the dungeon, sets the tone with damp stone walls and flickering torchlight. A large iron door leads southward.
 
-2. **Forsaken Hall**
-   - Exits: North (hidden to Chamber of Echoes), South (stairs to Silted Cellar), East to Gloaming Grotto
-   - Notes: A central hub with multiple exits, balancing accessibility and mystery. It presents a clear choice between descending further or exploring horizontally.
+2. **Guard Room**
+   - Exits: North to Entrance Hall, East to Treasure Vault, West to Prison Cells
+   - Purpose: Central hub of the dungeon. Guards once kept watch here; now, it's eerily quiet. Players can choose which path to explore next.
 
-3. **Gloaming Grotto**
-   - Exits: West to Forsaken Hall
-   - Notes: A side passage filled with bioluminescent fungi. This optional area rewards players with hidden lore or minor treasures, providing a break from the main path.
+3. **Prison Cells**
+   - Exits: East to Guard Room, South to Torture Chamber
+   - Purpose: Rows of rusty barred cells, some still occupied by long-dead prisoners. Clues about the dungeon's history can be found here.
 
-4. **Silted Cellar**
-   - Exits: North (stairs to Forsaken Hall), East to Shrouded Niche, South (secret passage to Cavern of Whispers)
-   - Notes: A muddy and treacherous area that acts as a transitional space to deeper, darker areas. Players must navigate carefully, emphasizing the dungeon's hazardous nature.
+4. **Treasure Vault**
+   - Exits: West to Guard Room, South to Torture Chamber
+   - Purpose: A hidden trove, mostly plundered but with a few valuable items left. Traps guard the remaining treasures.
 
-5. **Shrouded Niche**
-   - Exits: West to Silted Cellar
-   - Notes: A small, secluded chamber with ancient relics. It serves as a mini-quest location, encouraging players to explore and solve simple environmental puzzles.
+5. **Torture Chamber**
+   - Exits: North to Prison Cells, North to Treasure Vault, South to Secret Passage
+   - Purpose: A grim room filled with sinister implements. Provides narrative depth about past atrocities. A hidden lever opens the way south.
 
-6. **Cavern of Whispers**
-   - Exits: North (secret passage to Silted Cellar)
-   - Notes: The final room that holds a significant narrative or quest-related item. The secret passage back to the Silted Cellar allows for a quick exit after completion.
+6. **Secret Passage**
+   - Exits: North to Torture Chamber
+   - Purpose: A narrow, concealed corridor leading out of the dungeon. Offers an escape route or a surprise entry for players who discover it.
 
-### Design Notes
+### Design Notes on Flow and Purpose
 
-- **Flow and Exploration**: The dungeon is designed with a central hub (Forsaken Hall) that provides multiple paths, encouraging exploration. The hidden and secret passages create a sense of mystery and reward players who pay attention to their surroundings.
+- **Central Hub (Guard Room):** Acts as the dungeon's main junction, aligning with the principle of high-traffic areas having multiple exits. Players can choose their exploration path, enhancing agency and engagement.
 
-- **Vertical Space**: The use of stairs in the Forsaken Hall to the Silted Cellar adds a vertical element, enhancing the sense of descending into a deeper, more dangerous area.
+- **Flow:** The Guard Room's connections ensure players naturally discover key areas (Prison Cells and Treasure Vault) while maintaining a sense of mystery and suspense.
 
-- **Natural Storytelling**: Each room's name and description hint at the history and nature of the dungeon, inviting players to piece together the story as they explore.
+- **Discovery:** The Secret Passage rewards players who pay attention to environmental storytelling in the Torture Chamber, providing a shortcut or potential escape.
 
-- **Balance**: The layout balances exploration with convenience, offering shortcuts and hidden paths to reward curiosity and provide a sense of discovery.
+- **Pacing:** The layout ensures players must navigate through more rooms to reach the Secret Passage, spreading out discovery and encouraging thorough exploration.
 
-This Shadowfen Dungeon District offers a layered experience with both clear objectives and hidden depths, encouraging players to engage with the space thoughtfully.
+- **Realism:** The dungeon's layout makes physical sense, with logical room placements reflecting their functions (e.g., Treasure Vault not directly accessible from the entrance).
+
+- **Vertical Space:** While primarily horizontal, the hidden nature of the Secret Passage introduces a layered complexity, suggesting vertical movement and hidden depths without explicit vertical design.
