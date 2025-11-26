@@ -1,44 +1,50 @@
-Below is the ASCII map of the 'Merchant District' in Shadowfen style, along with room details and design notes:
+Certainly! Below is an ASCII-style map for the 'Merchant District' in Shadowfen style, along with a room list, exits, and design notes.
 
 ```
-     [Blacksmith]---[Armory]
-         |             |
-     [Market Square]---[Herbalist]
-         |             |
-      [Apothecary]---[Tailor]
+     [2]---[3]
+      |     |
+     [1]   [4]
+      |     |
+     [5]---[6]
+
+[1] Market Square
+[2] General Store
+[3] Apothecary
+[4] Armor Shop
+[5] Residential Alley
+[6] Hidden Tavern
 ```
 
 ### Room List with Exits:
 
 1. **Market Square**
-   - Exits: North to Blacksmith, East to Herbalist, South to Apothecary
-   - Purpose: Central hub of the Merchant District, bustling with activity, traders, and shoppers. Acts as a gathering point for players to branch out to other shops.
+   - **Exits:** North to [2] General Store, South to [5] Residential Alley
+   - **Notes:** Central hub of the district, bustling with vendors and shoppers. Serves as the main gathering point with easy access to surrounding shops.
 
-2. **Blacksmith**
-   - Exits: South to Market Square, East to Armory
-   - Purpose: Provides weapons and armor crafting services. The forge's heat and ringing hammers are a constant presence.
+2. **General Store**
+   - **Exits:** South to [1] Market Square, East to [3] Apothecary
+   - **Notes:** Offers a variety of everyday goods. The logical first stop for necessities, encouraging further exploration to the right.
 
-3. **Armory**
-   - Exits: West to Blacksmith, South to Herbalist
-   - Purpose: Sells finished weapons and armor. Positioned next to the Blacksmith for logical resource flow.
+3. **Apothecary**
+   - **Exits:** West to [2] General Store, South to [4] Armor Shop
+   - **Notes:** Specializes in potions and remedies. Positioned to be easily accessible but slightly off the main path, adding to the sense of discovery.
 
-4. **Herbalist**
-   - Exits: West to Market Square, North to Armory, South to Tailor
-   - Purpose: Offers various herbs and potions. The aroma of fresh herbs fills the air, providing a calm transition from the busy market.
+4. **Armor Shop**
+   - **Exits:** North to [3] Apothecary, West to [6] Hidden Tavern
+   - **Notes:** Offers protection gear. Its location requires some exploration past the apothecary, rewarding players with useful equipment.
 
-5. **Apothecary**
-   - Exits: North to Market Square, East to Tailor
-   - Purpose: Specializes in potions and remedies. A quieter place for players to prepare for their adventures.
+5. **Residential Alley**
+   - **Exits:** North to [1] Market Square, East to [6] Hidden Tavern
+   - **Notes:** A quiet area with homes, providing a contrast to the bustling square. Leads to a secretive entrance to the tavern.
 
-6. **Tailor**
-   - Exits: North to Herbalist, West to Apothecary
-   - Purpose: Offers custom clothing and armor enhancements. A creative corner where players can upgrade their appearance and gear.
+6. **Hidden Tavern**
+   - **Exits:** West to [5] Residential Alley, East to [4] Armor Shop
+   - **Notes:** A concealed establishment known to locals, offering a sense of discovery. Provides a social hub tucked away from the main path.
 
 ### Design Notes on Flow and Purpose:
 
-- **Central Hub:** The Market Square serves as the central hub, ensuring players can easily navigate to the primary shops.
-- **Logical Layout:** Shops that logically benefit from proximity are placed adjacent to each other (e.g., Blacksmith next to Armory).
-- **Flow:** The layout encourages players to pass through the Market Square, reinforcing its role as a central location.
-- **Discovery:** Players exploring beyond the Market Square will find specialized shops rewarding their exploration.
-- **Pacing:** Related services (e.g., Blacksmith and Armory) are clustered, while more distant services (e.g., Apothecary and Tailor) provide a sense of distance and exploration.
-- **Realism and Storytelling:** The layout reflects a realistic merchant district, with the Market Square as the heart of commerce, surrounded by specialized trade shops, each with its own character and offerings.
+- **Central Hub:** The Market Square ([1]) acts as the central hub with multiple exits, ensuring high traffic and easy navigation to key locations.
+- **Flow:** Starting at the Market Square, players are naturally directed to the General Store ([2]) and then further encouraged to explore the Apothecary ([3]) and Armor Shop ([4]).
+- **Discovery:** The Hidden Tavern ([6]) is an optional area that rewards players who explore beyond the main paths, accessed through the Residential Alley ([5]).
+- **Pacing:** Shops are clustered around the square, while the residential area provides a quieter space, spaced out from the bustling commercial areas.
+- **Realism:** The layout logically places shops around a central market, with a residential alley leading to a hidden tavern, mimicking a realistic district layout.

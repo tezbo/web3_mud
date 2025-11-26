@@ -6,3 +6,10 @@ Ambient Messages:
 2. "A gentle chime of crystal wind catchers fills the air, mingling with the earthy scent of polished wood and the faint hints of leather, as treasures from distant lands beckon for your touch."  
 
 3. "Sunlight filters through stained glass, casting a kaleidoscope of colors upon the worn stone floor, where the faint sound of bubbling potions dances with the sweetness of dried herbs and flowers."
+
+Ambient Messages:
+1. The air is thick with the rich aroma of aged leather and polished wood, punctuated by the soft chime of bells as the door swings open, welcoming whispers of trade and secrets.  
+
+2. Sunlight filters through the dusty windows, casting golden rays on shelves brimming with vibrant trinkets, where the faint clink of glass and the rustle of parchment weave together a tapestry of bustling commerce.  
+
+3. A waft of spiced incense envelops the space, mingling with the sharp, metallic scent of tools, as the low murmur of haggling voices creates a rhythmic backdrop to the symphony of craftsmanship and curiosity.
