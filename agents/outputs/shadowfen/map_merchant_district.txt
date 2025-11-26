@@ -1,54 +1,47 @@
 ```
-          [Clocktower]
-               |
-            (north)
-               |
-         [Market Square]
-        /        |     \
-   (west)  (south)  (east)
-      /        |        \
-[Blacksmith]  [Tavern]  [Tailor]
-               |
-            (south)
-               |
-       [Residential Alley]
-
+        [Plaza]
+        /  |  \
+   [Alchemist] [General Store]
+       |          |
+[Blacksmith] [Tailor]
+       \          /
+       [Warehouse]
 ```
 
-**Room List and Exits:**
+### Room List and Exits:
 
-1. **Clocktower**
-   - Exits: South to Market Square
-   - Purpose: A landmark and potential quest hub. Provides a vantage point over the district.
+1. **Plaza**
+   - Exits: North to Alchemist, East to General Store, Southeast to Tailor, Southwest to Blacksmith
+   - Purpose: Central hub for the Merchant District, a bustling area where players can gather, trade, and socialize. Acts as the primary navigation point.
 
-2. **Market Square**
-   - Exits: North to Clocktower, West to Blacksmith, South to Tavern, East to Tailor
-   - Purpose: Central hub of the Merchant District, bustling with vendors and travelers. Connects to all major areas, encouraging exploration.
+2. **Alchemist**
+   - Exits: South to Plaza
+   - Purpose: Offers potions, herbs, and magical supplies. Located slightly away from the central Plaza to maintain the allure of mystery and delicate wares.
 
-3. **Blacksmith**
-   - Exits: East to Market Square
-   - Purpose: Provides weapon and armor services. Logical placement near the central hub for easy access by adventurers.
+3. **General Store**
+   - Exits: West to Plaza, South to Tailor
+   - Purpose: Provides everyday necessities and adventuring gear. Positioned for easy access from the Plaza and Tailor, encouraging players to stop by frequently.
 
-4. **Tavern**
-   - Exits: North to Market Square, South to Residential Alley
-   - Purpose: Social gathering spot for storytelling and quest opportunities. Connects to residential area to reflect real-world tavern locations.
+4. **Blacksmith**
+   - Exits: North to Plaza, East to Warehouse
+   - Purpose: Supplies weapons and armor, located near the Plaza to reflect its importance. Its proximity to the Warehouse facilitates the movement of heavy goods.
 
 5. **Tailor**
-   - Exits: West to Market Square
-   - Purpose: Offers clothing and special items. Positioned near the market to attract customers.
+   - Exits: North to General Store, Northwest to Plaza, South to Warehouse
+   - Purpose: Offers clothing and fabric goods, conveniently placed between the Plaza and the Warehouse to symbolize the flow of textiles through the district.
 
-6. **Residential Alley**
-   - Exits: North to Tavern
-   - Purpose: A quiet area leading to homes, providing a sense of community. Encourages exploration beyond commerce-focused areas.
+6. **Warehouse**
+   - Exits: North to Blacksmith, North to Tailor
+   - Purpose: Storage for goods and materials, a quieter area where players might stumble upon hidden paths or side quests. Acts as a supplementary hub for the district's economy.
 
-**Design Notes:**
+### Design Notes:
 
-- **Flow:** The Market Square acts as the central hub, allowing players to discover important locations naturally. Exits are positioned to create a logical flow between commerce, social, and residential spaces.
+- **Flow:** The Plaza acts as the central hub, ensuring easy navigation while connecting to all primary shops directly. This setup promotes a natural flow from high-traffic areas to more specialized locations.
   
-- **Discovery:** The Clocktower offers potential hidden paths (e.g., a rooftop or cellar) for players inclined to explore vertically. The Residential Alley could have hidden entrances to underground networks or special homes.
+- **Exploration and Discovery:** The Warehouse, being slightly off the main path, offers opportunities for hidden paths and side quests, rewarding players who take the time to explore less obvious routes.
 
-- **Pacing:** By clustering shops around the Market Square and placing the Residential Alley further out, the design maintains a balance between accessibility and exploration.
+- **Pacing:** The layout creates a balanced experience, with clusters of related rooms (e.g., Blacksmith near Warehouse) and clear distance between them, reflecting a realistic sense of space.
 
-- **Realism:** Shops are logically placed around the market for easy access, while the tavern's connection to the residential area reflects its role as a communal hub.
+- **Realism:** The organization reflects a logical town structure, with heavy industry (Blacksmith) close to storage (Warehouse) and specialized services (Alchemist) slightly detached for thematic reasons.
 
-- **Vertical Space:** The Clocktower serves as a vertical element, providing both narrative importance and a physical feature for players to interact with.
+- **Vertical Space:** While this district is laid out on a single plane, the suggestion of hidden paths in the Warehouse could imply vertical exploration, such as a basement or secret loft area.
