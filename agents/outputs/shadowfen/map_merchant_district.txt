@@ -1,45 +1,53 @@
 ### Merchant District - Shadowfen Style
 
 ```
-   [Market Square]
-       |      |
-[Blacksmith] [Apothecary]
-       |      |
-   [Silk Road]---[Jeweler]
-       | 
-  [Warehouse]
+        [Market Square]
+           /   |    \
+          /    |     \
+[General Store] [Armory] [Apothecary]
+          \        |
+           \       |
+           [Alleyway]
+               |
+          [Storage Shed]
 ```
 
-#### Room List with Exits:
+### Room List and Exits
 
 1. **Market Square**
-   - Exits: North to Blacksmith, East to Apothecary, South to Silk Road
-   - Purpose: Central hub for the Merchant District. Bustling with traders and shoppers, this is where players can gather information and purchase general goods.
+   - **Exits:** North to General Store, Northeast to Armory, East to Apothecary
+   - **Purpose:** Central hub of the Merchant District. Bustling with traders and buyers. A large fountain sits in the center, serving as a meeting point.
+   - **Design Notes:** Acts as the main connection point; all other rooms are accessible from here, encouraging players to return.
 
-2. **Blacksmith**
-   - Exits: South to Market Square
-   - Purpose: Provides weapons and armor. Logical placement next to Market Square for easy access by adventurers seeking upgrades before heading out on quests.
+2. **General Store**
+   - **Exits:** South to Market Square
+   - **Purpose:** Supplies everyday goods and essentials. Shelves cramped with items from traveling merchants.
+   - **Design Notes:** Positioned to be one of the first stops for players needing basic supplies.
 
-3. **Apothecary**
-   - Exits: West to Market Square
-   - Purpose: Offers potions and herbal remedies. Positioned for convenient access for those in need of healing supplies or concoctions.
+3. **Armory**
+   - **Exits:** Southwest to Market Square, South to Alleyway
+   - **Purpose:** Offers weapons and armor. The blacksmith's forge can be heard from afar.
+   - **Design Notes:** Positioned to allow quick access from the Market Square but also connects to the Alleyway, providing a secretive path.
 
-4. **Silk Road**
-   - Exits: North to Market Square, South to Warehouse, East to Jeweler
-   - Purpose: A narrow, winding street lined with various stalls selling exotic textiles and trinkets. Acts as a connector between key areas while offering exploration opportunities.
+4. **Apothecary**
+   - **Exits:** West to Market Square
+   - **Purpose:** Filled with exotic herbs and potions. A mysterious air permeates the small shop.
+   - **Design Notes:** Located at the edge to suggest its slightly mysterious nature, encouraging exploration for curious players.
 
-5. **Jeweler**
-   - Exits: West to Silk Road
-   - Purpose: Specializes in rare gems and jewelry. Positioned slightly off the main path to create a sense of discovery, encouraging players to venture beyond the primary routes.
+5. **Alleyway**
+   - **Exits:** North to Armory, South to Storage Shed
+   - **Purpose:** A narrow path between buildings, often used for discreet transactions.
+   - **Design Notes:** Adds a layer of intrigue and a shortcut between Armory and Storage Shed, rewarding players who explore beyond the main paths.
 
-6. **Warehouse**
-   - Exits: North to Silk Road
-   - Purpose: Storage for goods coming in and out of the district. Potential side quest location involving supply chain disruptions or hidden treasure.
+6. **Storage Shed**
+   - **Exits:** North to Alleyway
+   - **Purpose:** Used to store excess goods for merchants. Occasionally, rare items can be found here.
+   - **Design Notes:** Positioned to be a reward location for players who explore the less obvious routes.
 
-#### Design Notes:
+### Design Notes on Flow and Purpose
 
-- **Flow and Centralization:** The Market Square serves as the hub, with all initial paths leading from it, ensuring players naturally encounter the primary services.
-- **Exploration and Discovery:** The Jeweler is placed off the main Silk Road, rewarding players who take the time to explore beyond the obvious paths.
-- **Realism and Cohesion:** The arrangement logically groups similar services together (e.g., Blacksmith and Apothecary near the central hub for quick access; Warehouse at the district's edge).
-- **Pacing:** Important rooms (Market Square, Blacksmith, Apothecary) are immediately accessible, while the exploration of Silk Road and the discovery of the Jeweler add depth.
-- **Shadowfen Style:** Reflects the district's dark, swampy aesthetic with twisting paths and tightly packed structures, creating an atmosphere of mystery and intrigue.
+- **Central Hub:** The Market Square serves as the main hub, ensuring high traffic and easy navigation to other key locations.
+- **Flow:** Logical placement of shops around the Market Square supports natural flow for players engaging in trade.
+- **Discovery:** The Alleyway introduces an element of mystery and serves as a connection to the Storage Shed, rewarding players who explore it.
+- **Pacing:** Shops are clustered around the square for convenience, while the Alleyway and Storage Shed provide a slight detour for those seeking additional adventures.
+- **Realism:** The layout reflects a realistic merchant district, with shops logically placed around a central gathering area and a hidden alley for discreet activities.

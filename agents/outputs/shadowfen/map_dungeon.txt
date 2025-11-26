@@ -1,51 +1,45 @@
-### Shadowfen Dungeon District Map
-
 ```
-[Entrance Hall]
-     |
-   [Crossroads] -- [Mossy Chamber]
-     |              |
-[Underground]     [Treasure Vault]
-     |
-[Hidden Lair]
+       [A] - [B]
+        |     |
+       [C] - [D]
+        |     |
+       [E] - [F]
 ```
 
-### Room List with Exits and Purpose
+### Room List with Exits
 
-1. **Entrance Hall**
-   - **Exits:** South to Crossroads
-   - **Purpose:** The first room that players enter. It serves as the initial landing point, offering the first glimpse of the dungeon's aesthetic with damp walls and flickering torchlight.
+- **[A] Entrance Chamber**
+  - **Exits:** South to [C], East to [B]
+  - **Purpose:** Starting point for adventurers entering the dungeon. Dimly lit with moss-covered stone walls. A place to set the tone for the exploration.
 
-2. **Crossroads**
-   - **Exits:** North to Entrance Hall, South to Underground, East to Mossy Chamber
-   - **Purpose:** Acts as the central hub of the dungeon, providing multiple paths. It creates a sense of choice for players, encouraging exploration.
+- **[B] Guardroom**
+  - **Exits:** West to [A], South to [D]
+  - **Purpose:** Once manned by guards, now abandoned. Contains old weapons and a hidden side passage to a small treasure cache (not shown on the map).
 
-3. **Mossy Chamber**
-   - **Exits:** West to Crossroads, East to Treasure Vault
-   - **Purpose:** A side chamber with a hidden, overgrown look. This room provides a side path leading to potential rewards, inviting players to explore beyond the main route.
+- **[C] Central Hall**
+  - **Exits:** North to [A], South to [E], East to [D]
+  - **Purpose:** The main hub of the dungeon, a large room with multiple pathways leading out. Its openness encourages exploration in different directions. 
 
-4. **Treasure Vault**
-   - **Exits:** West to Mossy Chamber
-   - **Purpose:** A rewarding room filled with treasures and traps. It serves as a payoff for players who decide to explore the Mossy Chamber.
+- **[D] Armory**
+  - **Exits:** West to [C], North to [B]
+  - **Purpose:** Contains old, rusted weapons and armor. Offers clues about the dungeon's past. A hidden trapdoor here leads down to a secondary, unexplored lower level (not shown).
 
-5. **Underground**
-   - **Exits:** North to Crossroads, South to Hidden Lair
-   - **Purpose:** The main path leading deeper into the dungeon. It maintains a sense of progression while offering a hint of danger and mystery as players move further away from the entrance.
+- **[E] Ritual Chamber**
+  - **Exits:** North to [C], East to [F]
+  - **Purpose:** A dark, foreboding room with an altar at its center. Offers lore and hints about the dungeon's origins. A sense of mystery surrounds this room.
 
-6. **Hidden Lair**
-   - **Exits:** North to Underground
-   - **Purpose:** A secretive room for players who explore the depth of the dungeon. It can house a mini-boss or special loot, rewarding players for their persistence.
+- **[F] Storage Room**
+  - **Exits:** West to [E]
+  - **Purpose:** Filled with old crates and barrels. Some might still contain useful supplies. Offers the potential for hidden rewards for those who take the time to search.
 
-### Design Notes on Flow and Purpose
+### Design Notes
 
-- **Flow:** The Crossroads room is the key hub, offering players multiple choices right from the start. This design encourages a sense of adventure and exploration, as players decide whether to pursue obvious paths or explore side passages.
+- **Flow:** The central hall [C] serves as the primary hub, allowing players to choose between multiple paths (north to the entrance, south to the ritual chamber, east to the armory). This creates a natural flow and encourages exploration.
   
-- **Exploration vs. Convenience:** The dungeon balances the main path (Crossroads to Underground) with optional areas (Mossy Chamber to Treasure Vault). This allows players to choose between a straightforward route or riskier exploration for potential rewards.
+- **Discovery:** The guardroom [B] and the armory [D] both contain secret elements (a hidden side passage and a trapdoor, respectively) that reward players who search carefully.
 
-- **Discovery:** Hidden Lair is a secluded room at the end of the Underground path, rewarding those who venture further. The Mossy Chamber provides a hidden path to the Treasure Vault, offering a sense of discovery for thorough explorers.
+- **Pacing:** The entrance chamber [A] and central hall [C] are relatively straightforward, allowing players to get their bearings before moving into more complex areas like the ritual chamber [E] and hidden sections.
 
-- **Realism:** The design simulates a natural progression deeper into a dungeon, with rooms logically connected. Mossy Chamber's overgrown aesthetic contrasts with the cold, dark underground, adding environmental storytelling.
+- **Realism:** Each room has a clear purpose, reflecting a functioning dungeon environment. The layout is compact but offers sufficient complexity to feel like a realistic, lived-in space.
 
-- **Pacing:** The layout clusters related rooms, such as the Mossy Chamber and Treasure Vault, while spreading out the Hidden Lair to give a sense of distance and challenge.
-
-This Shadowfen-style dungeon provides a balanced mix of exploration, challenge, and reward, inviting players to delve into its depths while maintaining a logical and engaging spatial design.
+- **Vertical Space:** The trapdoor in the armory [D] suggests deeper layers to explore, adding vertical complexity and future exploration opportunities without overwhelming the initial district design.
