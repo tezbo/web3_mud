@@ -1,8 +1,1 @@
-In the stifling embrace of the dungeon, the air clings damply to your skin, a cold, clammy touch that sends shivers down your spine. Shadows writhe along the walls, cast by the flickering dance of a single torch, its flame struggling against the encroaching gloom. The metallic scent of rust mingles with the acrid stench of decaying moss, a testament to years of neglect. Every footstep resounds with a hollow echo against the stone floor, where the slick surface offers a treacherous grip, threatening to betray your every move.
-
-Ambient Messages:
-1. A faint, echoing drip of water punctuates the stillness, each drop splattering against the cold stone floor like the heartbeat of the dungeon itself. 
-
-2. Shadows creep along the damp walls, flickering in the glow of distant torches, while the musty scent of ancient decay hangs thick in the air, clinging to your skin. 
-
-3. The chilling whisper of unseen winds sends a shiver through the narrow passage, carrying with it the stale taste of iron and the promise of long-buried secrets.
+The dungeon sprawls beneath the earth like a forgotten warren, its walls slick with the perpetual embrace of creeping damp. A chill mist clings to the floor, swirling around your ankles with each cautious step, while the air is thick with the scent of mildew and ancient rust. The distant drip of water echoes through the passageways, a haunting rhythm that underscores the oppressive silence. Every surface is cold to the touch, a clammy reminder of the shadows that twist and dance across the jagged stone, cast by flickering torches that sputter with a sickly, greenish light.
