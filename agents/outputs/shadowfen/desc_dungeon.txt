@@ -1,1 +1,8 @@
 The dungeon yawns like a forgotten maw, its stone walls slick with a perpetual sheen of moisture that seeps from the earth. Shadows cling thick and heavy, whispering secrets in the creak of rusted chains that dangle from the ceiling like spectral fingers. The air is a heady mix of damp earth and the sharp, acrid bite of iron, a scent that clings to the back of your throat. Underfoot, the ground is uneven, the cold, rough-hewn stones pressing against your soles with each careful step, as if the dungeon itself were testing your resolve.
+
+Ambient Messages:
+1. The damp air clings to your skin, heavy with the musty scent of ancient stone and the distant echo of dripping water, each drop a reminder of the darkness that surrounds you.  
+
+2. Flickering shadows dance along the rough-hewn walls as the faint hiss of unseen creatures weaves through the stale silence, mingling with the coppery tang of blood-stained earth.  
+
+3. A chill creeps down your spine as a gust of cold air carries whispers of long-forgotten secrets, the taste of iron lingering on your tongue like a warning from the past.  
