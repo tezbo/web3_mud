@@ -1,16 +1,1 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-The chamber yawns open like a cavernous maw, its walls slick with a sheen of eternal dampness that glistens in the half-light. A chorus of distant drips echoes from the stalactites above, their rhythm a ghostly accompaniment to the stifling silence. The air hangs heavy with the earthy scent of decaying leaves and the faint, acrid tang of rust, as if the very stones are slowly corroding. Touching the walls, one feels the clammy chill seep into the skin, leaving a lingering sensation of something ancient and forgotten.
-=======
-The chamber is steeped in shadows, where the air seems to quiver with ancient whispers that slither through the damp, stone walls. A cloying scent of decaying leaves hangs heavy, mingling with the earthy aroma of moss that carpets the floor in a spongy embrace. Flickering torchlight dances upon rusted iron sconces, casting elongated, spectral figures that shift and sway like restless spirits. The distant drip of water echoes softly, each droplet a ghostly reminder of time's relentless passage in this forgotten hollow.
-
-Ambient Messages:
-1. The distant murmur of the waterfall harmonizes with the rustling leaves, wrapping you in a symphony of nature's whispers as the cool mist kisses your skin.  
-   
-2. Flickering lanterns cast playful shadows across the cobblestone street, their warm glow mingling with the rich aroma of spiced wine and roasting meats, inviting you to linger.  
-
-3. A chill clings to the air, thick with the scent of damp earth and decay, as unseen creatures skitter through the underbrush, their soft rustle echoing in the oppressive silence of the shadowed glade.  
->>>>>>> feature/task-2
-=======
-In the heart of Shadowfen, the chamber unfolds like a murmur in the mist, its walls draped in a tapestry of creeping ivy and rust-streaked stone. The air tastes of damp earth and decaying leaves, a musty aroma that clings to the skin like an unwelcome shroud. The only sound is the soft drip of water echoing from unseen crevices, a mournful rhythm that underscores the oppressive silence. Underfoot, the moss-covered floor yields with a spongy give, each step a whispered secret in the dim, green-tinged light filtering through the mist.
->>>>>>> feature/task-1
+The chamber is shrouded in a perpetual, whispering mist that clings to your skin like a damp shroud, its chill seeping through your clothes. Rusted chains hang from the ceiling, their links clinking softly in the murk, a haunting symphony of forgotten echoes. The air is thick with the pungent scent of decaying leaves and wet earth, a testament to the swamp's relentless encroachment. Flickering shadows dance across the stone walls, their movements casting eerie, fleeting patterns that seem almost alive in the dim, shifting light.
