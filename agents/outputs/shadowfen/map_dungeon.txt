@@ -1,65 +1,44 @@
-Certainly! Below is the design for a 6-room district called 'Dungeon' in the Shadowfen style. This design includes a main path with hidden side passages and a central hub for exploration.
+### ASCII Map of the 'Dungeon' District in Shadowfen Style
 
 ```
-ASCII Map:
-           +-------------------+
-           |  Shadow Chamber   |
-           |(Treasure Room)    |
-           +--------+----------+
-                    |
-                    v
-+-------------------+-----------------+
-|  Forgotten Hallway|                 |
-| (Entrance)        +----+------------+
-+---------+---------+    |
-          |              |
-          v              v
-+---------+---------+  +-------------------+
-|  Echoing Cavern  |  |  Abandoned Armory  |
-| (Main Path)      |  | (Loot and Weapons) |
-+---------+---+----+  +---------+----------+
-          |   |                 |
-          v   v                 v
-+---------+---+-----------------+---------+
-|  Whispering Crypt            Hidden Alcove |
-| (Hidden Passage)            (Optional Area)|
-+-------------------------------------------+
+      [Guard Post]
+          |
+    [Prison Cells 1]--[Prison Cells 2]
+          |
+      [Main Chamber]
+          |
+      [Torture Room]--[Hidden Armory]
 ```
 
-### Room List and Exits:
+### Room List with Exits
 
-1. **Forgotten Hallway (Entrance)**
-   - Exits: South to Echoing Cavern
-   - Notes: The entry point to the dungeon, a narrow passage with faint markings on the walls. Sets the tone for the Shadowfen style with an eerie atmosphere.
+1. **Guard Post**
+   - **Exits**: South to Main Chamber
+   - **Notes**: Entry point to the dungeon, where guards monitor the entrance. This room serves as a checkpoint and security measure, ensuring that only authorized personnel proceed further into the dungeon.
 
-2. **Echoing Cavern (Main Path)**
-   - Exits: North to Forgotten Hallway, East to Abandoned Armory, South to Whispering Crypt
-   - Notes: A large, resonant chamber where players need to decide their path. Central hub for exploration.
+2. **Prison Cells 1**
+   - **Exits**: South to Main Chamber, East to Prison Cells 2
+   - **Notes**: The first cluster of prison cells, housing various prisoners. A direct connection to the Main Chamber allows for easy access to move prisoners as needed.
 
-3. **Abandoned Armory (Loot and Weapons)**
-   - Exits: West to Echoing Cavern
-   - Notes: A treasure trove of forgotten weapons and armor. A reward room for those who explore off the main path.
+3. **Prison Cells 2**
+   - **Exits**: West to Prison Cells 1
+   - **Notes**: Additional cells for overflow or higher-security prisoners. This area is more isolated to increase security for dangerous captives.
 
-4. **Whispering Crypt (Hidden Passage)**
-   - Exits: North to Echoing Cavern, East to Hidden Alcove
-   - Notes: An eerie room with faint whispers echoing throughout. Hidden passage leads to a secret area.
+4. **Main Chamber**
+   - **Exits**: North to Guard Post, South to Torture Room, East to Prison Cells 1
+   - **Notes**: Central hub of the dungeon, facilitating movement between the guard post, cells, and torture room. It serves as an observation area for the guards and dungeon master.
 
-5. **Shadow Chamber (Treasure Room)**
-   - Exits: South to Whispering Crypt
-   - Notes: A heavily guarded room with lore-rich artifacts. The ultimate reward for those who navigate through the dungeon.
+5. **Torture Room**
+   - **Exits**: North to Main Chamber, East to Hidden Armory
+   - **Notes**: A grim area used for interrogation and punishment. Linked directly to the Main Chamber for easy movement of prisoners and personnel.
 
-6. **Hidden Alcove (Optional Area)**
-   - Exits: West to Whispering Crypt
-   - Notes: A secluded space with rare items and lore details. Rewards those who seek out secrets.
+6. **Hidden Armory**
+   - **Exits**: West to Torture Room
+   - **Notes**: A secretive location accessible from the Torture Room, used to store weapons and equipment. Its hidden nature provides strategic advantages during emergencies.
 
-### Design Notes:
+### Design Notes
 
-- **Flow and Purpose**: The dungeon is designed with a central hub (Echoing Cavern) that branches out to other important areas. Players must choose their path strategically, balancing risk and reward.
-
-- **Exploration**: The hidden passage (Whispering Crypt) and the optional area (Hidden Alcove) encourage players to explore beyond the obvious routes, rewarding them with unique items and lore.
-
-- **Pacing**: The layout clusters related rooms, creating a natural progression from entry to treasure. The Shadow Chamber is an end goal, providing a satisfying climax to the exploration.
-
-- **Realism**: The physical layout makes sense as a dungeon with interconnected spaces and strategically placed rooms for storage, defense, and secrets.
-
-- **Vertical Space**: While this design is horizontal, vertical elements (such as staircases or ladders) could be added in specific rooms for additional complexity, like a tower in the Shadow Chamber or a pit in the Whispering Crypt.
+- **Flow and Purpose**: The dungeon's design emphasizes security and control. The Guard Post acts as the initial barrier, while the Main Chamber serves as the central hub, allowing for efficient oversight and management of the dungeon's various areas.
+- **Exploration vs. Convenience**: The layout encourages exploration, with the Hidden Armory rewarding those who investigate the Torture Room closely. The central Main Chamber ensures convenient access to key areas while maintaining a sense of distance and scale.
+- **Realism and Storytelling**: The clustering of prison cells near the Main Chamber reflects a logical organization for managing prisoners, while the hidden nature of the armory provides narrative depth, suggesting secrets and hidden agendas within the dungeon's operations.
+- **Vertical Space and Complexity**: Though a single level, the dungeon's design incorporates complexity through hidden paths and strategic room placement, enhancing the player's sense of discovery and immersion in the Shadowfen atmosphere.

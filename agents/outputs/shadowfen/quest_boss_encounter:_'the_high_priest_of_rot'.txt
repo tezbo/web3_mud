@@ -1,0 +1,30 @@
+**Quest Title: The Rotting Revelation**
+
+**Stage 1: The Rotting Call**
+- **Objective:** Investigate the unusual spread of decay in Shadowfen, which has disrupted the local ecosystem and infected the flora and fauna.
+- **NPCs:** 
+  - **Elder Thistle:** A Threadsinging druid deeply concerned about the unnatural rot.
+  - **Mira:** A local herbalist whose supply of medicinal herbs has been ruined by the rot.
+
+**Stage 2: Confronting the Source**
+- **Objective:** Discover the source of the rot, which leads to the ruins of an ancient altar, where the High Priest of Rot is performing a ritual to corrupt the land with dark magic.
+
+**Stage 3: The High Priest of Rot**
+- **Objective:** Deal with the High Priest to stop the spread of decay.
+
+**Solution 1: Direct Confrontation**
+- **Action:** Fight and defeat the High Priest of Rot in combat.
+- **Consequence:** The immediate threat is neutralized, but remnants of the rot linger, requiring constant vigilance from the druids. Elder Thistle's confidence in combat prowess grows, but the druid community becomes more militant, wary of future threats.
+
+**Solution 2: Ritual Counter-Spell**
+- **Action:** Assist Elder Thistle in performing a counter-spell to neutralize the High Priest's ritual without direct combat.
+- **Consequence:** The rot is cleansed, and the balance is restored. However, the counter-spell requires a sacrifice: Mira’s beloved herb garden is consumed in the process. This strengthens the bond between the druids and herbalists, leading to a future alliance, but leaves Mira personally devastated.
+
+**Solution 3: Diplomacy with the Rot**
+- **Action:** Seek out the High Priest's true motives and discover that he believes the rot is a form of natural balance. Convince him to alter his methods to create a symbiotic relationship between the rot and the land.
+- **Consequence:** A fragile truce is established, allowing parts of Shadowfen to thrive in new ways. This approach leads to a new sect of druids who study decay as part of nature's cycle, creating tension with traditionalists like Elder Thistle. The player gains access to unique alchemical recipes derived from the rot.
+
+**Overall Consequences:**
+- Each solution affects the political and ecological landscape of Shadowfen, influencing future quests and NPC interactions.
+- The player's reputation with the druidic or herbalist communities will shift based on their approach.
+- The choice of solution can lead to new quests or alter existing ones, as the balance of power and nature in Shadowfen evolves.
