@@ -1,53 +1,54 @@
-Certainly! Here's an ASCII-style map and design notes for the "Dungeon" district in a Shadowfen style, which is known for its murky and mysterious ambiance:
+Here's a design for a 6-room district called 'Dungeon' in the Shadowfen style:
 
 ```
-   [Entrance]
-       |
-   [Guard Room] -- [Armory]
-       |
-   [Main Hall] -- [Prison Cells]
-       |
-   [Torture Chamber]
-       |
-   [Secret Passage]
+       [Treasure Chamber]
+             |
+          (secret)
+             |
+       [Lair of the Beast]
+             |
+             |
+       [Flooded Passage]
+        /          \
+[Entrance] -- [Collapsed Chamber]
+        \          /
+      [Guardroom]
 ```
 
-### Room List and Exits:
+### Room List with Exits:
 
 1. **Entrance**
-   - Exits: South to Guard Room
-   - Notes: The entrance is a narrow, damp corridor leading into the depths of the dungeon. It sets the tone with flickering torchlight and the distant sound of dripping water.
+   - Exits: North to Flooded Passage, East to Collapsed Chamber, South to Guardroom
+   - Notes: The main entry point into the dungeon. It's intentionally placed to encourage players to explore different paths leading deeper into the dungeon.
 
-2. **Guard Room**
-   - Exits: North to Entrance, East to Armory, South to Main Hall
-   - Notes: This is where the dungeon guards are stationed. It's a hub for security, allowing access to essential areas. Contains basic supplies and a small barracks area.
+2. **Flooded Passage**
+   - Exits: South to Entrance, North to Lair of the Beast
+   - Notes: A narrow, waterlogged corridor that slows movement, increasing tension. Acts as a bottleneck leading to the central chambers.
 
-3. **Armory**
-   - Exits: West to Guard Room
-   - Notes: A small room filled with weapons and armor, secured with heavy locks. It's a crucial resource for guards and adventurers who manage to find a way in.
+3. **Lair of the Beast**
+   - Exits: South to Flooded Passage, North (secret) to Treasure Chamber
+   - Notes: A larger room, home to a formidable creature. The secret exit to the Treasure Chamber is well-hidden, rewarding players who thoroughly investigate this area.
 
-4. **Main Hall**
-   - Exits: North to Guard Room, East to Prison Cells, South to Torture Chamber
-   - Notes: The central area of the dungeon, with a high ceiling and eerie echoes. It's a crossroad with easy access to other key locations, fostering exploration.
+4. **Treasure Chamber**
+   - Exits: South (secret) to Lair of the Beast
+   - Notes: The reward for players' exploration efforts, filled with valuable loot. Accessible only through the secret path from the Lair of the Beast.
 
-5. **Prison Cells**
-   - Exits: West to Main Hall
-   - Notes: A row of grimy cells, each holding a tale of its own. This area adds depth to the storytelling with clues about previous prisoners and hidden messages.
+5. **Collapsed Chamber**
+   - Exits: West to Entrance, South to Guardroom
+   - Notes: A partially caved-in room, offering environmental storytelling about the dungeon's instability. Provides a shortcut back to the Guardroom.
 
-6. **Torture Chamber**
-   - Exits: North to Main Hall, South to Secret Passage
-   - Notes: A chilling room with various devices that evoke a sense of dread. It serves as a psychological turning point, daring players to delve deeper.
-
-7. **Secret Passage**
-   - Exits: North to Torture Chamber
-   - Notes: A hidden tunnel behind a false wall in the Torture Chamber, rewarding players for their curiosity. Leads to an unknown exit or treasure, enhancing the sense of discovery.
+6. **Guardroom**
+   - Exits: North to Entrance, East to Collapsed Chamber
+   - Notes: Once manned, now abandoned. Contains clues about the dungeon's history and potential threats. Serves as a hub for players to plan their next move.
 
 ### Design Notes:
 
-- **Flow:** The dungeon has a clear progression from the Entrance to the Secret Passage, encouraging players to explore while maintaining a logical flow through the rooms.
-- **Purpose:** Each room serves a distinct function, from security (Guard Room) to exploration (Secret Passage), ensuring a balanced experience between narrative and gameplay.
-- **Discovery:** The Secret Passage rewards players who explore thoroughly, offering an optional route that can lead to hidden treasures or exits.
-- **Realism:** The layout mimics practical medieval dungeons, with security at the forefront and layered challenges as players move deeper.
-- **Vertical Space:** Although this map doesn't explicitly use vertical space, future expansions could include staircases or trapdoors leading to other dungeon levels.
+- **Flow and Exploration**: The main path runs from the Entrance through the Flooded Passage to the Lair of the Beast. Players are encouraged to explore side rooms like the Collapsed Chamber and Guardroom, which provide background lore and alternative routes.
 
-This design creates a mysterious and engaging dungeon experience, inviting players to uncover its secrets while navigating its treacherous corridors.
+- **Central Hub**: The Entrance acts as a central hub with multiple exits, allowing for varied exploration paths.
+
+- **Discovery and Reward**: The secret path to the Treasure Chamber is a reward for players who engage in thorough exploration, accessible only through the Lair of the Beast.
+
+- **Realism and Storytelling**: The Flooded Passage and Collapsed Chamber create a sense of neglect and danger, fitting the Shadowfen theme of a forgotten, treacherous place.
+
+- **Vertical Space**: While not explicitly vertical, the use of hidden paths and narrow passages creates a sense of layered complexity and depth.
