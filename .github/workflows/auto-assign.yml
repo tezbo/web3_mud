@@ -1,0 +1,50 @@
+name: Auto-Assign Issues
+
+on:
+  issues:
+    types: [opened, labeled]
+
+jobs:
+  assign:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Auto-assign based on agent labels
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const issue = context.payload.issue;
+          const labels = issue.labels.map(l => l.name);
+          
+          // Agent assignments based on labels
+          const agentMap = {
+            'agent: system': ['tezbo'],  // Replace with actual GitHub usernames
+            'agent: codereviewer': ['tezbo'],
+            'agent: wordsmith': ['tezbo'],
+            'agent: lorekeeper': ['tezbo'],
+            'agent: personalitydesigner': ['tezbo'],
+            'agent: questarchitect': ['tezbo'],
+            'agent: mapmaker': ['tezbo']
+          };
+          
+          // Find matching agent labels
+          const assignees = [];
+          for (const label of labels) {
+            if (agentMap[label]) {
+              assignees.push(...agentMap[label]);
+            }
+          }
+          
+          // Auto-assign if agent label found
+          if (assignees.length > 0) {
+            const uniqueAssignees = [...new Set(assignees)];
+            
+            await github.rest.issues.addAssignees({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issue.number,
+              assignees: uniqueAssignees
+            });
+            
+            console.log(`Assigned ${uniqueAssignees.join(', ')} to issue #${issue.number}`);
+          }
