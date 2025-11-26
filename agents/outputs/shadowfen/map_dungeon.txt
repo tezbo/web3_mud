@@ -1,52 +1,47 @@
-### Shadowfen Dungeon District Map
+### Shadowfen Dungeon Design
 
 ```
-        [Crypt]
-          |
-          N
-          |
-[Chamber of Echoes] -- W -- [Fungal Grotto]
-          |
-          S
-          |
-[Sacrificial Altar] -- E -- [Darkened Library]
-          |
-          S
-          |
-     [Ancient Armory]
+   D1 - D2 - D3
+    |    |
+   D4   D5
+    |
+   D6
 ```
 
-### Room List and Exits
+**Room List and Exits**
 
-1. **Chamber of Echoes**
-   - **Exits**: North to Crypt, South to Sacrificial Altar, West to Fungal Grotto
-   - **Purpose**: Central hub of the dungeon; echoes amplify sound, hinting at hidden passages.
+1. **D1: Entrance Hall**
+   - Exits: East to D2, South to D4
+   - Purpose: Entry point into the dungeon, serves as a gathering area for adventurers. Damp and dimly lit, with moss-covered stone walls.
 
-2. **Crypt**
-   - **Exits**: South to Chamber of Echoes
-   - **Purpose**: Holds ancient secrets and potentially valuable relics. Key to unlocking a hidden path in the dungeon.
+2. **D2: Guard Post**
+   - Exits: West to D1, East to D3, South to D5
+   - Purpose: A checkpoint manned by spectral guards. Provides a sense of danger and sets the tone for the dungeon. Contains a hidden lever that unlocks a secret passage to D6.
 
-3. **Fungal Grotto**
-   - **Exits**: East to Chamber of Echoes
-   - **Purpose**: Overgrown with bioluminescent fungi. Acts as a resource area for crafting or potion-making.
+3. **D3: Armory**
+   - Exits: West to D2
+   - Purpose: Storage for old, rusted weapons and armor. A chance for players to find useful gear. The room is cluttered with racks and crates, creating a maze-like feel.
 
-4. **Sacrificial Altar**
-   - **Exits**: North to Chamber of Echoes, East to Darkened Library, South to Ancient Armory
-   - **Purpose**: Dark rituals were once performed here. Clues to the dungeon’s past can be found.
+4. **D4: Prison Cells**
+   - Exits: North to D1, South to D6
+   - Purpose: A grim area lined with barred cells. Players can find clues about the dungeon's history and possibly rescue a captive NPC for a side quest.
 
-5. **Darkened Library**
-   - **Exits**: West to Sacrificial Altar
-   - **Purpose**: Houses forbidden knowledge and ancient scrolls. Important for lore discovery.
+5. **D5: Ritual Chamber**
+   - Exits: North to D2
+   - Purpose: A dark, foreboding room with an altar at its center. The room is used for sinister rituals, offering players a mystery to uncover. Contains a puzzle that, when solved, reveals a hidden cache of magical items.
 
-6. **Ancient Armory**
-   - **Exits**: North to Sacrificial Altar
-   - **Purpose**: Contains old weapons and armor. A hidden mechanism here unlocks a shortcut back to the Chamber of Echoes.
+6. **D6: Hidden Treasury**
+   - Exits: North to D4
+   - Purpose: A secret room filled with treasure and guarded by a powerful spirit. Accessed either through solving the puzzle in D5 or by discovering the hidden passage from D2. Provides a significant reward for exploration and problem-solving.
 
-### Design Notes
+**Design Notes**
 
-- **Central Hub**: The Chamber of Echoes serves as the main navigational point, offering multiple directions to explore other rooms.
-- **Flow**: The dungeon encourages exploration with its branching paths from the central hub. Each room has a distinct purpose, rewarding players who seek out every corner.
-- **Discovery**: The Crypt and the Ancient Armory hold secrets that can alter the player’s path through the dungeon, rewarding those who investigate thoroughly.
-- **Pacing**: The Sacrificial Altar acts as a midway point between exploration-heavy areas (Fungal Grotto, Darkened Library) and the more combat-oriented Ancient Armory.
-- **Realism**: The layout reflects a forgotten, ritualistic site with logical room placements, such as the library being a place for knowledge adjacent to the altar.
-- **Vertical Space**: Subtle vertical elements are implied through the crypt's descent and the armory's mechanism, adding depth to exploration.
+- **Flow and Exploration:** The dungeon is structured to encourage exploration and discovery. Players naturally move from the entrance through the guard post, with optional detours to the armory and ritual chamber before reaching the prison cells and hidden treasury.
+  
+- **Central Hub Concept:** D2 acts as a mini-hub, with multiple exits leading to other rooms, allowing players to make choices about their path.
+
+- **Pacing and Discovery:** The layout provides a balance between linear progression and optional exploration. Hidden elements in D2 and D5 reward players who pay attention to details.
+
+- **Realism:** The dungeon's layout reflects its purpose as a fortified underground complex. The placement of rooms such as the guard post and prison cells make logical sense within the context of a dungeon environment.
+
+- **Vertical Space:** Though primarily horizontal, the hidden treasury (D6) adds a layer of vertical complexity by being a concealed lower chamber, enhancing the sense of depth and discovery.
