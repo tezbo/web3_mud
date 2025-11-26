@@ -1,0 +1,29 @@
+**Quest Title: The Shadow of Coin**
+
+**Stage Breakdown:**
+
+1. **Discovery at Shadowfen Market:**
+   - The player overhears a heated argument between two merchants at the bustling Shadowfen Market. One accuses the other of distributing counterfeit coins, causing a stir among the townsfolk. The accused merchant, Lira, pleads her innocence, claiming she was duped by her supplier, a mysterious figure known only as "The Mint."
+
+2. **Investigating the Source:**
+   - The player is tasked with uncovering the truth. The leads point to three potential sources: a local blacksmith with a hidden minting operation, a traveling bard known for his sleight of hand, and a recluse alchemist who dabbles in metallurgy. Each suspect has a motive and an alibi, requiring the player to gather evidence and testimonies.
+
+3. **Confrontation and Resolution:**
+   - With evidence in hand, the player must decide how to resolve the situation: confront the true counterfeiter, negotiate a settlement to keep the peace, or leverage the information for personal gain.
+
+**Solutions and Consequences:**
+
+1. **Confront the Counterfeiter:**
+   - The player identifies the blacksmith, Harlan Steelhand, as the mastermind behind the counterfeit coins. Confronting him leads to a tense showdown where the player can either bring him to justice or let him flee for a bribe.
+   - **Consequences:** Bringing Harlan to justice earns the player respect and a reward from the merchants' guild, but his criminal associates may seek revenge. Letting him flee with a bribe increases the player's wealth but sows distrust among local merchants, affecting future trade.
+
+2. **Negotiate a Settlement:**
+   - The player gathers all parties, including Lira, Harlan, and the merchants' guild, proposing a settlement where profits from the counterfeit operation are used to compensate the victims and fund community projects.
+   - **Consequences:** The settlement restores peace and stability to Shadowfen, enhancing the player's reputation as a mediator. However, some merchants feel justice was not served, leading to lingering resentment and potential future disputes.
+
+3. **Leverage for Personal Gain:**
+   - The player discovers the bard, Talon the Swift, was involved in passing the counterfeit coins. Rather than exposing him, the player strikes a deal to share in future profits or gain access to valuable information and contacts.
+   - **Consequences:** This choice enriches the player and opens new opportunities for espionage or influence in Shadowfen. However, the counterfeit operation continues, causing economic instability and eventual crackdowns by law enforcement, complicating future dealings in the area.
+
+**World Lore Integration:**
+- The counterfeiting operation ties into the broader conflict of The Sundering, as the coins are stamped with ancient symbols linked to the lost art of Threadsinging, hinting at deeper conspiracies within the realm.
