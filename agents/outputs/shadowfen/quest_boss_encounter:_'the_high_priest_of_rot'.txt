@@ -1,0 +1,25 @@
+**Quest Title: The Rot Within**
+
+**Stage Breakdown:**
+
+1. **The Corrupted Shrine**: The player discovers that a mysterious plague is spreading through Shadowfen, emanating from the ancient shrine of the High Priest of Rot. Villagers report seeing strange figures and hearing eerie chants at night.
+
+2. **Confronting the High Priest**: The player reaches the shrine, where the High Priest of Rot performs dark rituals to spread the plague. The player must decide how to approach the confrontation with the High Priest and his followers.
+
+3. **Resolving the Plague**: After dealing with the High Priest, the player must choose how to address the lingering effects of the plague on Shadowfen and its people.
+
+**Solutions and Consequences:**
+
+1. **Direct Confrontation**:
+   - **Approach**: The player charges into the shrine, weapon drawn, to directly combat the High Priest and his followers.
+   - **Consequence**: With the High Priest defeated, the immediate threat is neutralized, but the shrine is damaged, releasing residual dark energies. The player gains a reputation for bravery, but the dark energies periodically cause minor plagues, which the player must occasionally return to quell.
+
+2. **Ritual Disruption**:
+   - **Approach**: The player sneaks in and disrupts the ritual by destroying the source of the High Priest’s power, an ancient artifact, without bloodshed.
+   - **Consequence**: The shrine is purified, and the plague halts, but the High Priest escapes, vowing revenge. The player is hailed as a savior, but must remain vigilant for the High Priest’s eventual return, potentially leading to future encounters with his cult.
+
+3. **Alliance with the Followers**:
+   - **Approach**: The player learns of a schism among the High Priest’s followers and incites a rebellion, convincing some to turn against him with the promise of redemption and a cure for the plague.
+   - **Consequence**: The High Priest is overthrown by his own followers, who now seek to atone and assist in healing Shadowfen. The player gains allies among the former cultists, who provide aid in future quests, but some villagers remain distrustful of their intentions.
+
+Each choice not only influences the immediate outcome but also has lasting effects on the player’s reputation, future interactions with Shadowfen, and potential storylines involving the remnants of the High Priest’s cult.

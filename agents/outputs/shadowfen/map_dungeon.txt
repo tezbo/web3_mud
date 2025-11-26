@@ -1,44 +1,49 @@
-### Shadowfen Dungeon District Map
+### ASCII Map of 'Shadowfen Dungeon'
 
 ```
-  [Entrance]
-      |
-  [Antechamber]--[Guard Room]
-      |            |
-   [Main Hall]--[Treasure Vault]
-      |
-  [Hidden Chamber]
+        [Treasure Vault]
+              |
+          [Secret Room]
+              |
+[Entrance] - [Main Hall] - [Prison Cells]
+              |
+           [Alchemist's Lair]
 ```
 
 ### Room List with Exits
 
 1. **Entrance**
-   - Exits: South to Antechamber
-   - Notes: The entry point into the dungeon, overgrown with Shadowfen flora, giving a foreboding and mysterious atmosphere.
+   - Exits: East to Main Hall
+   - Purpose: Entry point to the dungeon. A narrow, dimly lit passage that sets the eerie tone.
 
-2. **Antechamber**
-   - Exits: North to Entrance, East to Guard Room, South to Main Hall
-   - Notes: Serves as a central hub, allowing initial exploration in multiple directions. Dimly lit with flickering torches, setting the mood for deeper exploration.
+2. **Main Hall**
+   - Exits: West to Entrance, East to Prison Cells, South to Alchemist's Lair, North to Secret Room
+   - Purpose: Central hub of the dungeon. A large, damp chamber with high ceilings, serving as a crossroads for exploration.
 
-3. **Guard Room**
-   - Exits: West to Antechamber, South to Treasure Vault
-   - Notes: Filled with old weapon racks and a few skeletal remains, hinting at past defenses. Offers a direct path to the Treasure Vault, suggesting a guarded treasure.
+3. **Prison Cells**
+   - Exits: West to Main Hall
+   - Purpose: A row of decrepit cells. Chains and old bones hint at past captives. Key for Secret Room might be hidden here.
 
-4. **Main Hall**
-   - Exits: North to Antechamber, East to Treasure Vault, South to Hidden Chamber
-   - Notes: The largest room, decorated with murals depicting ancient battles. Acts as a gathering point before choosing to delve deeper or search for treasure.
-
-5. **Treasure Vault**
-   - Exits: West to Guard Room, West to Main Hall
-   - Notes: A heavily secured room with a large, ornately carved door. Inside, players find valuable loot, guarded by a simple trap or puzzle to overcome.
-
-6. **Hidden Chamber**
+4. **Alchemist's Lair**
    - Exits: North to Main Hall
-   - Notes: Accessible only through a concealed door in the Main Hall. Contains cryptic lore or clues to the dungeon’s history, rewarding keen explorers.
+   - Purpose: A cluttered workspace with potions and strange artifacts. Contains clues to access the Secret Room.
+
+5. **Secret Room**
+   - Exits: South to Main Hall, North to Treasure Vault
+   - Purpose: Hidden chamber accessed by solving a puzzle or finding a key. Contains lore and a powerful artifact.
+
+6. **Treasure Vault**
+   - Exits: South to Secret Room
+   - Purpose: Final reward for exploration. Lavishly decorated with chests of gold and rare items. Must be unlocked via Secret Room.
 
 ### Design Notes
 
-- **Flow and Exploration**: The Antechamber serves as the central hub, allowing players to choose their path. The Guard Room provides a shortcut to the Treasure Vault, rewarding those who explore thoroughly.
-- **Discovery and Secrets**: The Hidden Chamber is a secret room, encouraging players to investigate their surroundings carefully. Its lore ties back to the overarching narrative of Shadowfen.
-- **Pacing and Realism**: Rooms are logically clustered, with the Guard Room and Treasure Vault adjacent, simulating a logical defense layout. The Hidden Chamber introduces vertical complexity, as it requires players to discover a hidden route.
-- **Atmosphere**: The design incorporates the Shadowfen style, with rooms described in a way that conveys a dark, swampy aesthetic, enhancing the immersive experience.
+- **Flow:** The Entrance leads players directly into the Main Hall, the central hub, allowing them to choose their path of exploration. The Main Hall connects all other rooms, ensuring players return here as they explore deeper.
+  
+- **Exploration vs. Convenience:** While the Main Hall offers easy access to multiple rooms, secrets encourage thorough exploration. The Secret Room and Treasure Vault reward players for delving into less obvious areas.
+  
+- **Storytelling:** Each room provides clues about the dungeon's history and inhabitants. The Prison Cells hint at a darker past, while the Alchemist's Lair suggests ongoing experiments.
+  
+- **Realism:** The layout simulates a functional dungeon with a central area for operations (Main Hall) and specialized rooms for different purposes (Prison Cells, Alchemist's Lair).
+  
+- **Vertical Space:** Though all rooms are on the same level, the Secret Room acts as a vertical challenge by requiring players to 'descend' into deeper knowledge and skill to unlock the Treasure Vault.

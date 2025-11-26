@@ -1,45 +1,41 @@
-### Shadowfen Style: Merchant District Map
-
 ```
-    [Central Plaza]
-         |
-    [General Store] -- [Herbalist's Shop]
-         |
-    [Blacksmith] -- [Tailor's Shop]
-         |
-    [Warehouse]
+       [Warehouse]
+           |
+[Blacksmith]---[Market Square]---[Alchemist]
+           |         |
+        [Tavern]---[Tailor]
 ```
 
 ### Room List with Exits
 
-1. **Central Plaza**
-   - Exits: North to General Store, South to Blacksmith
-   - Notes: The heart of the Merchant District, a bustling open area. Acts as the main hub for players to navigate the district. Street performers and market stalls add life and color.
+1. **Market Square**
+   - Exits: North to Blacksmith, East to Alchemist, South to Tailor
+   - Notes: Central hub of the Merchant District. Bustling with activity, stalls set up with various goods. Serves as the main point of reference for navigation.
 
-2. **General Store**
-   - Exits: South to Central Plaza, East to Herbalist's Shop
-   - Notes: A multipurpose shop selling essentials. Positioned north of the plaza to draw players naturally from the central hub.
+2. **Blacksmith**
+   - Exits: South to Market Square, North to Warehouse
+   - Notes: Smithy with the sound of clanging metal. Positioned close to the Warehouse for easy access to raw materials.
 
-3. **Herbalist's Shop**
-   - Exits: West to General Store
-   - Notes: A small, cozy shop filled with the scent of exotic herbs. Positioned as a side path for players interested in potions and alchemy, rewarding exploration.
+3. **Warehouse**
+   - Exits: South to Blacksmith
+   - Notes: Storage for trade goods. Acts as a logistical support to the Blacksmith and other merchants. Not often visited by players, but an essential part of the district's economy.
 
-4. **Blacksmith**
-   - Exits: North to Central Plaza, East to Tailor's Shop, South to Warehouse
-   - Notes: A crucial service location for players seeking weapons and armor. Located along the main path to ensure visibility and accessibility.
+4. **Alchemist**
+   - Exits: West to Market Square
+   - Notes: A shop filled with potions and mystical ingredients. It is ideally placed near the market for easy access to rare and exotic materials.
 
-5. **Tailor's Shop**
-   - Exits: West to Blacksmith
-   - Notes: Offers clothing and accessories. Situated off the main path to encourage players to explore side areas for specific needs.
+5. **Tailor**
+   - Exits: North to Market Square, West to Tavern
+   - Notes: Offers custom clothing and repairs. Conveniently located for customers moving between the Tavern and the Market Square.
 
-6. **Warehouse**
-   - Exits: North to Blacksmith
-   - Notes: A large, dimly lit space filled with crates and supplies. Serves as a backdrop for potential quests or storage-related activities.
+6. **Tavern**
+   - Exits: North to Blacksmith, East to Tailor
+   - Notes: A social hub for merchants and adventurers. Positioned to act as a rest stop between the busy Market Square and the industrious Blacksmith.
 
-### Design Notes on Flow and Purpose
+### Design Notes
 
-- **Flow**: The layout encourages players to pass through the Central Plaza frequently, allowing them to naturally discover all key locations. The main path from General Store to Blacksmith ensures essential services are easily accessible.
-- **Discovery**: The Herbalist's Shop and Tailor's Shop are positioned as optional explorations off the main path, rewarding players who venture beyond the obvious route.
-- **Realism**: This layout reflects a logical progression from the central hub of commerce (Central Plaza) outward to specialized services, with the Warehouse at the district's edge suggesting goods flow into the district.
-- **Pacing**: By clustering the General Store and Blacksmith near the center, players can efficiently gather supplies. The Herbalist's Shop offers a break in the main path for focused, quieter exploration.
-- **Storytelling**: The district's design narrates a bustling center of trade, with each shop contributing to the theme of commerce and community in Shadowfen style.
+- **Flow**: The Market Square is the central hub, ensuring all players naturally pass through this area when navigating the district. This design encourages social interaction and trading.
+- **Exploration**: Although the main areas are easily accessible, there are incentives to explore the less obvious connections, such as the path through the Tavern to the Tailor.
+- **Realism**: The placement of the Blacksmith near the Warehouse makes sense for material supply logistics. The Alchemist's proximity to the Market Square allows for easy access to exotic goods.
+- **Pacing**: The Market Square's central location balances the district, providing a consistent point for players to branch out and explore the other specialized shops and facilities.
+- **Storytelling**: Each room contributes to the narrative of a thriving trading hub, where each shop has a role in the overall economy. The Blacksmith and Warehouse highlight the industrial aspect, while the Market Square and Alchemist emphasize commerce and mystery.
