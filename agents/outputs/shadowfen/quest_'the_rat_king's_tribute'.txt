@@ -2,33 +2,6 @@
 
 **Stage Breakdown:**
 
-<<<<<<< HEAD
-1. **The Missing Tribute:**
-   - The player arrives in Shadowfen, a murky swamp town, and learns that the annual tribute meant for the Rat King has gone missing. Without it, the town risks unleashing the Rat King's wrath, a fearsome entity revered and feared by the townsfolk.
-   
-2. **Uncovering the Culprit:**
-   - The player investigates the town, gathering clues and speaking to the villagers. They discover three potential leads: a suspicious merchant, a rebellious youth, and a mysterious outsider recently seen lurking around the swamps.
-
-3. **Resolution:**
-   - The player must decide how to handle the situation based on their investigation, choosing between three paths to resolve the crisis.
-
-**Solutions:**
-
-1. **The Diplomatic Solution:**
-   - **Action:** The player discovers that the mysterious outsider stole the tribute, intending to offer it to a rival swamp entity for protection. The player can negotiate with the outsider, convincing them to return the tribute by promising to mediate between the two factions.
-   - **Consequences:** The town avoids conflict, and the player gains a reputation as a peacemaker. Future quests may involve mediating between different factions, and the player is given a token by the Rat King that allows safe passage through his domain.
-
-2. **The Enforcement Solution:**
-   - **Action:** The player concludes that the rebellious youth, feeling oppressed by the Rat King's demands, hid the tribute to incite change. The player can choose to expose the youth and return the tribute to the Rat King.
-   - **Consequences:** The town breathes a sigh of relief, but the youth and sympathizers view the player as an enforcer of tyranny. Future interactions with rebellious factions will be strained, but the Rat King rewards the player with a unique item that grants temporary invisibility in the swamps.
-
-3. **The Revolutionary Solution:**
-   - **Action:** The player discovers the merchant orchestrated the theft, intending to weaken the Rat King's hold on the town by forcing them to confront their fears. The player can decide to support the merchant's plan, allowing the tribute to be used to rally the town against the Rat King.
-   - **Consequences:** The town is inspired to stand up against the Rat King's rule, leading to a new era of independence but also potential chaos. The player is hailed as a hero by some and a disruptor by others. Future quests involve dealing with the power vacuum and the emergence of new leaders in Shadowfen.
-
-**Tie to World Lore:**
-The Rat King is said to be a result of The Sundering, an ancient event that transformed creatures and landscapes. His domain is a remnant of the old world, bound by the Threadsingers who once sang to keep such powers in check. The player's actions could influence how the Threadsingers view their role in maintaining balance in the realm.
-=======
 1. **Stage 1: The Call of the Shadows**
    - The player arrives in the murky swamps of Shadowfen, where rumors speak of the Rat King, a mysterious figure who demands tribute from the local swampfolk in exchange for protection from the more dangerous creatures of the fen.
    - The player meets Elda, an old swamp dweller whose family has long paid tribute but now struggles due to a poor harvest. She asks the player to intervene, fearing the Rat King's wrath.
@@ -54,4 +27,3 @@ The Rat King is said to be a result of The Sundering, an ancient event that tran
    - *Consequences:* The swampfolk gain independence and self-sufficiency, viewing the player as a hero. However, the artifact's power attracts the attention of outside forces, such as Threadsingers or realm officials, potentially leading to future quests that involve defending the swamp from external threats.
 
 Each choice provides a meaningful impact on the world of Shadowfen and allows the player to explore different facets of the realm's lore and conflicts.
->>>>>>> b91101023fea0627e883b31ebe59bee0a37ab749
