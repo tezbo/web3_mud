@@ -10,3 +10,11 @@ Ambient Messages:
 =======
 Within the heart of Shadowfen, a dimly lit chamber sprawls, its stone walls slick with perpetual dampness, reflecting the pale glow of phosphorescent fungi. The air hangs heavy with the earthy scent of moss and the faint metallic bite of rust, mingling with the distant croak of unseen creatures. Underfoot, the ground is soft and yielding, a carpet of loamy soil and decaying leaves that squelches softly with each step. A chill pervades the air, prickling at exposed skin like the whisper of a forgotten curse, while tendrils of mist curl lazily around your ankles, as if welcoming you into their embrace.
 >>>>>>> feature/task-2
+
+
+Ambient Messages:
+1. The soft rustle of parchment fills the air as ink flows from quills, each stroke echoing the weight of knowledge long sought by eager minds.  
+
+2. A distant chime rings out, resonating through the cool, damp corridors, mingling with the faint whispers of long-forgotten spells woven into the very stone.  
+
+3. The rich aroma of aged tomes and fragrant herbs wafts through the room, inviting seekers to delve into mysteries hidden beneath layers of dust and time.
