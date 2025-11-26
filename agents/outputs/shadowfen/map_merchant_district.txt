@@ -1,49 +1,59 @@
-Certainly! Below is the design for the "Merchant District" in a Shadowfen style, emphasizing a murky, mysterious atmosphere with a bustling trade environment.
+Certainly! Here's a design for the 'Merchant District' in a Shadowfen style, complete with a map, room list, and design notes:
 
-### ASCII Map
-
+### ASCII Map:
 ```
-    [Alchemist Lab]
-         |
-    [Herbalist Shop]---[Central Market Square]---[Shadowy Alley]---[Secret Warehouse]
-         |
-    [Fishmonger's Stall]
+       +------------+
+       |  Watchtower|
+       |    (U)     |
+       +-----+------+
+             |
+             D
++------------+------------+
+|  Apothecary|  Market    |
+|     (N)    | Square (S) |
++------------+------------+
+             |
+             S
++------------+------------+
+|   Tavern   |  Smithy    |
+|     (E)    |    (W)     |
++------------+------------+
+             |
+             S
++------------+
+|   Docks    |
+|    (N)     |
++------------+
 ```
 
-### Room List with Exits
+### Room List with Exits:
+1. **Market Square**
+   - **Exits:** North to Apothecary, East to Tavern, South to Docks, Up to Watchtower
+   - **Notes:** Central hub with high traffic. The square is bustling with vendors, a great place for players to gather information or acquire items.
 
-1. **Central Market Square**
-   - Exits: North (Herbalist Shop), East (Shadowy Alley), West (Alchemist Lab), South (Fishmonger's Stall)
-   - Notes: The heart of the Merchant District. Bustling with traders, this area acts as the main hub connecting all other rooms. It's a lively area with constant foot traffic and various vendors.
+2. **Apothecary**
+   - **Exits:** South to Market Square
+   - **Notes:** Offers potions and herbs. Located north of the Market Square for easy access to supplies. The shadowy interior matches the Shadowfen aesthetic.
 
-2. **Herbalist Shop**
-   - Exits: South (Central Market Square)
-   - Notes: A quaint shop filled with the aromas of rare herbs and potions. It serves as a gateway to the northern part of the district, offering players various alchemical supplies.
+3. **Watchtower**
+   - **Exits:** Down to Market Square
+   - **Notes:** Overlooks the district and provides a vantage point. Accessible via the Market Square, offering a vertical element to the district.
 
-3. **Alchemist Lab**
-   - Exits: East (Central Market Square)
-   - Notes: A mysterious, dimly-lit room cluttered with alchemical apparatus. It's where players can gather unique ingredients and have potions crafted.
+4. **Tavern**
+   - **Exits:** West to Market Square
+   - **Notes:** A place for rest and gathering information. The entrance from the east side provides a natural flow of movement from the market.
 
-4. **Fishmonger's Stall**
-   - Exits: North (Central Market Square)
-   - Notes: Located at the southern end, this stall is vibrant with the sounds and smells of the day's catch. It provides a contrast to the more arcane-focused northern shops.
+5. **Smithy**
+   - **Exits:** East to Market Square
+   - **Notes:** Provides weapons and armor, essential for adventurers. Located conveniently by the Market Square for quick access to gear.
 
-5. **Shadowy Alley**
-   - Exits: West (Central Market Square), East (Secret Warehouse)
-   - Notes: A narrow, dimly-lit path that connects to the less savory parts of the district. The alley is a favorite spot for shady deals and offers a sense of hidden danger.
+6. **Docks**
+   - **Exits:** North to Market Square
+   - **Notes:** Offers a transition to the water routes. Located south, serving as an entry or exit point for those arriving by water, emphasizing the district's trade focus.
 
-6. **Secret Warehouse**
-   - Exits: West (Shadowy Alley)
-   - Notes: A concealed location accessible only through the Shadowy Alley. It contains rare and possibly illicit goods, rewarding those who explore the darker corners of the district.
-
-### Design Notes
-
-- **Flow and Exploration:** The Central Market Square serves as the main hub, ensuring players naturally find the exits to other rooms. Each room offers something different, encouraging players to explore each area for unique interactions or items.
-  
-- **Discovery and Hidden Paths:** The Shadowy Alley and Secret Warehouse provide elements of mystery and reward exploration. The secretive nature of these areas offers special goods or quests not found elsewhere.
-  
-- **Pacing and Realism:** Shops related to each other in function are clustered together, with the Herbalist Shop and Alchemist Lab both focusing on potion-making. The Fishmonger's Stall provides a different atmosphere, enhancing the district's diversity.
-  
-- **Vertical and Layered Complexity:** While the district is primarily on one level, the inclusion of a hidden warehouse adds a layer of depth, suggesting the presence of more beneath the surface.
-
-This layout balances a sense of bustling trade with Shadowfen's murkier aspects, encouraging players to delve into both commerce and intrigue.
+### Design Notes:
+- **Flow:** The Market Square serves as the central hub, ensuring all paths lead through it, facilitating natural discovery of key locations.
+- **Exploration and Convenience:** The Watchtower provides a unique perspective and additional room to explore without cluttering the ground level.
+- **Realism and Storytelling:** The placement of the Docks fosters a sense of trade and travel, while the Apothecary and Smithy reflect the district's commercial focus.
+- **Vertical Space:** The inclusion of the Watchtower adds vertical interest and a storytelling element of surveillance and protection in a potentially dangerous area.
+- **Shadowfen Style:** The district's layout and room purposes reflect the murky, mysterious vibe typical of Shadowfen, with a focus on trade and subtle intrigue.
