@@ -1,3 +1,53 @@
+<<<<<<< HEAD
+```
+        [1] Marketplace
+         | N
+         |
+[2] Potion Shop -- [3] Blacksmith
+   W     | S          | E
+         |
+       [4] General Store
+         | S
+         |
+       [5] Alchemist's Alley
+         | W
+         |
+       [6] Hidden Courtyard
+```
+
+### Room List and Exits:
+
+1. **Marketplace**
+   - Exits: North to Potion Shop, South to General Store
+   - Notes: The central hub of the Merchant District. It is bustling with stalls and merchants, serving as the primary point of entry for players exploring the area.
+
+2. **Potion Shop**
+   - Exits: South to Marketplace, West to Blacksmith
+   - Notes: A compact shop filled with shelves of potions and ingredients. Positioned close to the marketplace for easy access to alchemical supplies.
+
+3. **Blacksmith**
+   - Exits: East to Potion Shop
+   - Notes: The clanging of metal echoes through the shop. Situated near the Potion Shop for logical synergy between crafting and enchanting tools/weapons.
+
+4. **General Store**
+   - Exits: North to Marketplace, South to Alchemist's Alley
+   - Notes: A catch-all store offering a variety of goods. Located just south of the Marketplace for convenience, serving as an introduction to the more specialized shops.
+
+5. **Alchemist's Alley**
+   - Exits: East to General Store, West to Hidden Courtyard
+   - Notes: A narrow, winding path filled with the scent of exotic herbs. A bit off the beaten path, encouraging exploration to find unique alchemical goods.
+
+6. **Hidden Courtyard**
+   - Exits: East to Alchemist's Alley
+   - Notes: A secluded area with a small fountain and benches, offering a peaceful retreat. Provides a hidden reward for players who explore beyond the typical routes.
+
+### Design Notes:
+
+- **Flow and Exploration:** The Marketplace serves as a central hub, with logical paths leading to each specialized shop. The design encourages movement through the district while allowing players to discover hidden areas like the Hidden Courtyard.
+- **Purpose and Connection:** Shops are organized to reflect practical adjacency (e.g., Potion Shop near Blacksmith). This spatial arrangement improves player immersion and storytelling.
+- **Discovery and Convenience:** The Alchemist's Alley and Hidden Courtyard provide opportunities for players to find unique items, rewarding those who venture beyond the main thoroughfare.
+- **Realism and Style:** The layout mimics a realistic district with a central marketplace, specialized shops, and hidden paths, fitting the Shadowfen's mysterious and bustling atmosphere.
+=======
 ### ASCII Map for 'Merchant District'
 
 ```
@@ -51,3 +101,4 @@
 - **Vertical Space and Complexity**: While this district is primarily on a single plane, the Hidden Alley introduces an element of layered complexity. Future expansion could consider vertical elements like an upstairs room in the Bank or a cellar in the General Store.
 
 This design balances accessibility with the intrigue of discovery, utilizing logical spatial organization to create a believable and engaging district.
+>>>>>>> b91101023fea0627e883b31ebe59bee0a37ab749
