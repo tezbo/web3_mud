@@ -1,8 +1,1 @@
-The dungeon breathes with a damp, earthy chill, its stone walls slick with moisture and veined with creeping tendrils of moss. Shadows pool in the corners, shifting like restless phantoms as the dim light from flickering torches dances across rusted iron bars. The air is thick with the musty odor of decay, mingled with the faint, coppery scent of old blood and the acrid tang of mold. Each step echoes hollowly, the sound swallowed by the oppressive silence, while the gritty floor underfoot offers a cold, unyielding embrace.
-
-Ambient Messages:
-1. The damp air clings to your skin, thick with the pungent aroma of mold and the distant echo of dripping water reverberating through the darkened stone corridors.  
-
-2. Flickering torchlight dances across the jagged walls, casting elongated shadows that seem to whisper secrets of lost souls and forgotten treasures.  
-
-3. A faint, metallic tang lingers in the stale air, punctuated by the unsettling skitter of unseen creatures scuttling across the cold, uneven floor.
+The dungeon breathes with the damp, cloying chill of the Shadowfen, its stone walls slick with a sheen of moisture that clings stubbornly to the skin. Chains hang from the ceiling like rusted vines, their metallic clatter echoing through the oppressive silence. A musty odor of decaying leaves and stagnant water seeps into every crevice, mingling with the faint, acrid bite of ancient iron. Flickering torches cast wavering shadows that dance across the floor, illuminating the jagged outlines of moss-covered stones underfoot.
