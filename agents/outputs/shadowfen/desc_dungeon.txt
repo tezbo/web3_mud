@@ -1,1 +1,8 @@
 In the oppressive gloom of the Shadowfen dungeon, walls of slick, moss-covered stone glisten with the trickle of unseen water, their surfaces cold and unyielding under probing fingertips. The air is thick with the pungent aroma of damp earth and the acrid bite of rust, as if the very air itself bears the weight of forgotten chains. A distant drip echoes like a hesitant heartbeat, punctuating the heavy silence with a rhythmic persistence. The rough-hewn floor is uneven beneath your boots, the stone slick with moisture and treacherous with loose gravel.
+
+Ambient Messages:
+1. The damp air clings to your skin, heavy with the scent of ancient stone and the faint, echoing drip of water that whispers secrets from the shadows.  
+
+2. Flickering torchlight dances across the rough-hewn walls, casting elongated, ghostly shapes that seem to skitter just beyond your peripheral vision.  
+
+3. A low, mournful moan reverberates through the darkness, mingling with the metallic tang of rust and the faintest trace of something long buried.  
