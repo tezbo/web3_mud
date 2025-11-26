@@ -20,3 +20,10 @@ Ambient Messages:
 2. "A gentle breeze stirs the heavy silk drapes, carrying the faint, sweet aroma of blooming nightshade, as the distant sound of a lute plucks at the heartstrings, weaving tales of longing in the hushed corners of the chamber."
 
 3. "The floorboards creak underfoot, their polished surface cool to the touch, while the rich scent of damp earth and moss fills the space, evoking memories of twilight strolls through the verdant, hidden paths of the Shadowfen."
+
+Ambient Messages:
+1. The air hums with the electric buzz of anticipation, as the scent of polished mahogany and lingering incense wraps around you like a warm embrace.  
+
+2. A soft, golden glow spills from flickering sconces, casting dancing shadows that whisper secrets across the stone walls, while the faint melody of a lute weaves through the air like a gentle breeze.  
+
+3. The cool, damp touch of mist clings to your skin, mingling with the earthy aroma of moss and wet stone, as distant echoes of dripping water create a rhythm that lulls the senses into a tranquil reverie.  

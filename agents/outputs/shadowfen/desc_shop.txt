@@ -13,3 +13,10 @@ Ambient Messages:
 2. A gentle chime of wind bells announces your arrival, while the faint scent of exotic spices lingers, inviting you to explore shelves overflowing with vibrant jars and intricate trinkets.  
 
 3. Soft murmurs of patrons blend with the crackle of a hearth, where the warmth wraps around you like a well-worn cloak, and the sweet, nutty fragrance of freshly brewed herbal tea beckons from behind the counter.  
+
+Ambient Messages:
+1. "The air hums with the soft chime of glass wind catchers, their hues shifting like a sunset's blush as the warm scent of spiced herbs wafts through the open door."  
+
+2. "A tapestry of colors dances across the walls, while the clatter of wooden crates and the sweet tang of dried fruits beckon passersby into this treasure trove of curiosities."  
+
+3. "The faint crackle of flickering candles illuminates shelves lined with intricate trinkets, their polished surfaces reflecting the soft laughter of patrons mingling amidst the scent of aged parchment and leather."
