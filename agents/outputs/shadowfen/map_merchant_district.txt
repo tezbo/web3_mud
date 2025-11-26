@@ -1,50 +1,62 @@
-### ASCII Map of the Merchant District
+### Merchant District: Shadowfen Style
 
 ```
-   [Market Square]
-       |       \
-   [General]  [Curio Shop]
-       |         |
-   [Blacksmith]-[Alleyway]
-       |         |
-   [Warehouse] [Hidden Path]
+        +-------------+
+        |  Guild Hall |
+        |   (Up)      |
+        +------|------+
+               |
+               V
+        +-------------+
+        |  Market     |
+        |   Square    |
+        +------|------+
+        |             |
+      +-V-+         +-V-+
+      |  |           |  |
+  +---+  |       +---+  +---+
+  |      |       |         |
+  |  Apothecary  |   Armory  |
+  |      |       |           |
+  +---|--+       +---|---|---+
+      |              |
+    +-V-+          +-V-+
+    |   |          |   |
+    |  Alchemist   |  Tailor   |
+    |   Shop       |   Shop    |
+    +-------------+-----------+
 ```
 
-### Room List with Exits and Design Notes
+### Room List with Exits
 
-1. **Market Square**
-   - **Exits**: North to [General], Northeast to [Curio Shop]
-   - **Purpose**: Central hub of the Merchant District; bustling with vendors, perfect for player interaction and trade opportunities.
-   - **Design Notes**: The open space encourages social activities and serves as a primary gathering point. It naturally leads players to explore adjacent shops.
+1. **Guild Hall**
+   - **Exits:** Down to Market Square
+   - **Purpose:** Central hub for traders and merchants, serves as a meeting place and administrative center.
 
-2. **General Store**
-   - **Exits**: South to [Market Square], down to [Warehouse]
-   - **Purpose**: Sells everyday goods; a logical first stop for adventurers.
-   - **Design Notes**: Positioned to draw players from the Market Square, offering essential supplies. The connection to the Warehouse provides a seamless flow of goods narrative.
+2. **Market Square**
+   - **Exits:** Up to Guild Hall, East to Armory, South to Apothecary
+   - **Purpose:** Central hub of the Merchant District, bustling with stalls and vendors. Main area for players to congregate and trade.
 
-3. **Curio Shop**
-   - **Exits**: Southwest to [Market Square], South to [Alleyway]
-   - **Purpose**: Offers rare and mysterious items, appealing to treasure hunters and lore enthusiasts.
-   - **Design Notes**: The slightly out-of-the-way location adds an air of secrecy and allure, while the connection to an alley suggests hidden dealings.
+3. **Apothecary**
+   - **Exits:** North to Market Square, South to Alchemist Shop
+   - **Purpose:** Provides herbs and potions, a vital stop for adventurers needing supplies for healing and enhancements.
 
-4. **Blacksmith**
-   - **Exits**: North to [General], East to [Alleyway]
-   - **Purpose**: Forge and repair weapons and armor; essential for player preparation.
-   - **Design Notes**: Situated near the General Store for logical supply flow, with an exit to the Alleyway for potential side quests or illicit activities.
+4. **Armory**
+   - **Exits:** West to Market Square, South to Tailor Shop
+   - **Purpose:** Sells weapons and armor; essential for players preparing for combat.
 
-5. **Warehouse**
-   - **Exits**: Up to [General]
-   - **Purpose**: Storage for goods; potential for quests involving missing shipments or hidden contraband.
-   - **Design Notes**: This room uses vertical space to create a sense of depth and realism in how goods are managed within the district.
+5. **Alchemist Shop**
+   - **Exits:** North to Apothecary
+   - **Purpose:** Specializes in crafting potions and elixirs, offering advanced alchemical services beyond simple apothecary stock.
 
-6. **Alleyway**
-   - **Exits**: North to [Curio Shop], West to [Blacksmith], East to [Hidden Path]
-   - **Purpose**: A shadowy thoroughfare for clandestine meetings and secretive transactions.
-   - **Design Notes**: Provides a shortcut and introduces a sense of danger and intrigue. The Hidden Path exit rewards exploration and leads to an undisclosed area, suggesting further mysteries.
+6. **Tailor Shop**
+   - **Exits:** North to Armory
+   - **Purpose:** Offers clothing and armor upgrades, customization services for players looking to improve their defense or alter their appearance.
 
-### Overall Design Notes
+### Design Notes
 
-- **Flow**: The Market Square acts as the central hub, facilitating easy access to essential services while encouraging exploration of less obvious paths.
-- **Discovery**: The Hidden Path and Alleyway offer layers of complexity and reward players who seek out the less-traveled routes.
-- **Pacing**: The district design clusters commerce-related rooms, with more secretive or optional areas branching off, balancing convenience with the thrill of discovery.
-- **Realism**: The layout mimics a logical city district, with stores central to trade and back alleys hinting at the underbelly of urban life.
+- **Flow:** The Market Square serves as the central hub, ensuring high traffic and ease of access to key locations like the Guild Hall, Apothecary, and Armory.
+- **Exploration vs. Convenience:** Shops are clustered around the Market Square for convenience, but players must travel through the square to access specialized services, encouraging exploration.
+- **Natural Storytelling:** The Guild Hall's position above the Market Square symbolizes its importance and oversight of the district's commerce.
+- **Indoor/Outdoor Transitions:** The district is primarily outdoor with covered areas for each shop, enhancing the bustling marketplace atmosphere.
+- **Layered Complexity:** While the main paths are straightforward, hidden interactions and NPCs within shops can lead to quests or uncover additional lore about Shadowfen's mercantile traditions.
