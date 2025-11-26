@@ -1,45 +1,55 @@
-Certainly! Here's a 6-room district called 'Dungeon' in the Shadowfen style:
+### Shadowfen Dungeon District Map
 
 ```
-       [Guard Post]
-           |
-   [Torture Chamber] -- [Storage Room]
-           |
-       [Prison Cells] -- [Secret Passage]
-           |
-       [Warden's Office]
+        [Treasure Chamber]
+                |
+                D
+                |
+         [Hidden Passage]
+                |
+                D
+                |
+          [Guard Post]
+            /     \
+          W       E
+         /         \
+[Entrance]---S----[Prison Cells]
+          \
+           S
+            \
+         [Torture Room]
 ```
 
-### Room List with Exits:
+### Room List with Exits
 
-1. **Guard Post**
-   - Exits: South to Torture Chamber
-   - Purpose: Entry point with vigilant guards, sets the tone and guards the path deeper into the dungeon.
+1. **Entrance**
+   - Exits: North (N) to [Guard Post], South (S) to [Torture Room], West (W) to outside (District Entrance)
+   - Notes: Starting point for adventurers. Serves as the primary access point to the dungeon. Has a foreboding atmosphere to set the mood.
 
-2. **Torture Chamber**
-   - Exits: North to Guard Post, South to Prison Cells, East to Storage Room
-   - Purpose: Central hub within the dungeon, where prisoners are broken. High traffic area with multiple exits.
+2. **Guard Post**
+   - Exits: South (S) to [Entrance], East (E) to [Prison Cells], Down (D) to [Hidden Passage]
+   - Notes: Central hub within the dungeon. Heavily fortified, leading to other critical areas. Guards here are vigilant, providing a challenge for players.
 
-3. **Storage Room**
-   - Exits: West to Torture Chamber
-   - Purpose: Holds torture devices and supplies, a small room off the main path. Could hide a key or item for exploration rewards.
+3. **Prison Cells**
+   - Exits: West (W) to [Guard Post]
+   - Notes: Holds prisoners and contains potential quest-related NPCs. Offers opportunities for stealth or rescue missions.
 
-4. **Prison Cells**
-   - Exits: North to Torture Chamber, East to Secret Passage
-   - Purpose: Rows of cells where prisoners are kept. Contains a hidden switch leading to the Secret Passage, rewarding players who explore.
+4. **Torture Room**
+   - Exits: North (N) to [Entrance]
+   - Notes: Adds a darker element to the dungeon. Contains clues or key items needed to progress further into the dungeon.
 
-5. **Secret Passage**
-   - Exits: West to Prison Cells
-   - Purpose: A hidden path that might lead to an escape route or treasure. Adds layered complexity and encourages exploration.
+5. **Hidden Passage**
+   - Exits: Up (U) to [Guard Post], Down (D) to [Treasure Chamber]
+   - Notes: A secretive route discovered through exploration. Provides a stealthy path to bypass the Guard Post or to access hidden treasures.
 
-6. **Warden's Office**
-   - Exits: North to Prison Cells
-   - Purpose: The office of the dungeon's overseer. Contains important documents or clues for lore and quest progression.
+6. **Treasure Chamber**
+   - Exits: Up (U) to [Hidden Passage]
+   - Notes: Final reward area, containing valuable loot and possibly a guardian or trap. Its location requires players to navigate the hidden passage successfully.
 
-### Design Notes:
+### Design Notes
 
-- **Flow**: The dungeon's flow is designed to lead players from the entry Guard Post down into the more sinister areas, with the Torture Chamber serving as a central hub. 
-- **Purpose**: Each room has a clear role, enhancing the narrative of a grim and oppressive place. 
-- **Exploration**: The Secret Passage offers a hidden discovery element, rewarding players who thoroughly explore their environment.
-- **Pacing**: The layout encourages players to traverse through different layers of the dungeon, from the functional Guard Post to the depths of the Prison Cells, enhancing the feeling of descent into a shadowy underworld.
-- **Realism**: The layout makes sense for a dungeon, with logical placements of rooms based on their functions and the need for security and concealment.
+- **Flow and Purpose:** The dungeon is designed with a guarded central hub (Guard Post) that players must navigate around. The flow encourages exploration, with the primary challenge being the guards and the potential discovery of secret passages.
+- **Exploration vs. Convenience:** The Hidden Passage offers an exploration reward, creating a shortcut and alternative route to the Treasure Chamber.
+- **Natural Storytelling:** The layout tells the story of a functioning prison dungeon, with areas logically placed to suggest their function (e.g., Prison Cells near Guard Post, Treasure Chamber hidden away).
+- **Vertical Space:** Utilizes vertical transitions in the Guard Post to add depth (Hidden Passage, Treasure Chamber).
+- **Realism:** The layout is designed to make sense structurally for a dungeon, with the Guard Post as the central control point, and side areas serving distinct purposes.
