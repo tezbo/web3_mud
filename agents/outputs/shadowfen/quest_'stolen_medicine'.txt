@@ -1,31 +1,29 @@
-**Quest Title: The Shadowed Remedy**
+**Quest Title: "The Cure's Cost"**
 
 **Stage Breakdown:**
 
-1. **The Plea for Help:** The player encounters Elira, a desperate herbalist, in the murky swamps of Shadowfen. Her shipment of rare medicinal herbs, vital for treating a plague in the nearby village of Murkwater, has been stolen. She suspects the notorious bandit, Varrik, whose hideout lies deep within the swamp.
+1. **Discovery:**
+   - The player arrives in Shadowfen, a marshy region plagued by a mysterious illness known as the "Dusk Malaise." At the local healer's hut, the healer, Elara, is in distress. She reveals that a crucial shipment of rare herbs and medicines meant to alleviate the illness has been stolen from her storage.
 
-2. **The Hidden Truth:** As the player investigates, they learn that Varrik didn’t steal the herbs for profit. Instead, he plans to use them to heal his own band of misfits, who are also suffering from the same plague. The player must navigate the moral complexity of the situation.
+2. **Investigation:**
+   - The player is tasked with tracking down the stolen medicine. Clues around the storage area suggest the involvement of a local group known as the Fen Shadows, a band of outcasts who live deep within the swamps.
 
-3. **Resolution and Consequences:** The player must decide how to resolve the conflict.
+3. **Confrontation:**
+   - The player locates the Fen Shadows' hideout, where they find the group’s leader, Rurik. It’s revealed that the group took the medicine not for profit, but to treat their own members who are suffering from the same illness.
 
 **Solutions:**
 
-1. **Negotiate a Compromise:** The player can choose to negotiate with Varrik, convincing him to share the herbs with Murkwater. This requires the player to broker a deal where Varrik's group receives a portion of future herbs from Elira in exchange for the immediate return of the stolen shipment.
+1. **Negotiate a Share:**
+   - The player can choose to negotiate with Rurik, convincing him to share the medicine between the town and the Fen Shadows. This requires a skill check (e.g., persuasion or bartering).
+   - **Consequences:** Both the town and the Fen Shadows receive partial relief from the illness, fostering a tentative truce between the two groups. Future quests may involve cooperative efforts between the town and the outcasts.
 
-   - **Consequences:** 
-     - Trust between Varrik and Murkwater is established, leading to a potential alliance that could assist the player in future quests.
-     - Elira becomes a key ally, offering rare potions and insights into the swamp's flora.
+2. **Side with the Town:**
+   - The player can decide to recover the medicine by force or stealth, returning it all to Elara and leaving the Fen Shadows to fend for themselves.
+   - **Consequences:** The town's illness is alleviated more quickly, but tensions with the Fen Shadows escalate. The player may encounter future ambushes or sabotage from the outcasts as they seek revenge.
 
-2. **Side with Elira:** The player can side with Elira and confront Varrik, retrieving the herbs by force or stealth, thus ensuring the village gets the medicine immediately.
+3. **Aid the Fen Shadows:**
+   - The player can choose to help the Fen Shadows by leaving the medicine with them and finding an alternative solution for the town, such as seeking out another source of herbs or concocting a new remedy with Elara.
+   - **Consequences:** The Fen Shadows are grateful and offer their aid to the player in future endeavors. However, the town’s recovery is slower, and some townsfolk may distrust the player’s motives, affecting reputation and future dealings.
 
-   - **Consequences:**
-     - Varrik's band becomes hostile, potentially ambushing the player in future travels through Shadowfen.
-     - Murkwater thrives, leading to a healthier and more productive village that can offer better trade opportunities.
-
-3. **Aid Varrik:** The player opts to help Varrik, ensuring his group receives the medicine first, believing that a healthy bandit group might better protect the swamp's balance.
-
-   - **Consequences:**
-     - Murkwater suffers further casualties, and the villagers' trust in the player diminishes, affecting future interactions and quests in the region.
-     - Varrik's loyalty to the player grows, and he offers aid in the form of safe passage and unique swamp resources.
-
-Each choice ripples through the world, affecting the player's reputation, available resources, and future quest dynamics in Shadowfen and beyond.
+**World Lore Tie-In:**
+- The quest is tied to "The Sundering," as the illness is a lingering effect of the ancient magical catastrophe. Additionally, the Fen Shadows are descendants of those who were exiled due to their ancestors' involvement in forbidden Threadsinging practices, adding depth to the realm's social conflicts.
