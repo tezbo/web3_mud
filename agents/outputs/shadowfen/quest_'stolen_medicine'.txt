@@ -1,33 +1,25 @@
-**Quest Title: The Cure's Cost**
+**Title: Shadows of Compassion**
 
 **Stage Breakdown:**
 
-**Stage 1: The Missing Tonic**
-- Hook: In the murky swamps of Shadowfen, healer Eldra approaches the player in distress. A shipment of rare medicine she desperately needs to treat a deadly swamp fever has gone missing. Without it, the afflicted will perish within days.
-- Task: Investigate the missing shipment.
+1. **Discovery:** The player arrives in Shadowfen, a dreary swamp town plagued by a mysterious illness. They learn that a crucial shipment of medicine meant to alleviate the suffering has been stolen, and tensions between the local swampfolk and a group of displaced refugees are on the rise, each blaming the other for the theft.
 
-**Stage 2: The Traitor's Trail**
-- The player discovers that the shipment was stolen by a local named Jorvik, who claims he needed it for his ailing daughter. However, rumors suggest he intends to sell it to a rival healer in the neighboring village for profit.
+2. **Investigation:** The player must gather information to locate the stolen medicine. They can speak with the swampfolk leader, Eldra, who suspects the refugees, or with Kellan, the refugee spokesperson, who insists that the swampfolk are trying to drive them away. Clues point to a third party, a group of smugglers exploiting the conflict.
 
-**Stage 3: The Decision**
-- Present the player with three choices:
-  1. **Confrontation**: Confront Jorvik and retrieve the medicine by force or persuasion. Return it to Eldra.
-  2. **Negotiation**: Mediate a deal between Eldra and Jorvik, promising Eldra a portion of the future profits if she agrees to provide some medicine to Jorvik's daughter.
-  3. **Subterfuge**: Secretly help Jorvik sell the medicine, but arrange for him to donate a portion of his earnings back to the village to fund future medicine supplies.
+3. **Resolution:** The player tracks the medicine to the smugglers' hideout, revealing that the smugglers are selling the medicine at exorbitant prices. The player must decide how to handle the situation.
 
-**Consequences:**
+**Solutions:**
 
-1. **Confrontation**:
-   - *Positive*: Eldra is grateful and treats the sick, enhancing her reputation and offering the player discounted healing services in the future.
-   - *Negative*: Jorvik is resentful, and tension in the community increases, leading to possible future conflicts that may involve the player.
+1. **Negotiate with the Smugglers:** The player can use diplomacy or bribery to convince the smugglers to return the medicine, perhaps by offering them future trade opportunities or a share of the swampfolk's rare herbs. 
 
-2. **Negotiation**:
-   - *Positive*: A new alliance forms between Eldra and Jorvik. The village benefits from a steady supply of medicine, and both parties vouch for the player, granting them influence in village decisions.
-   - *Negative*: Future tensions arise if the deal is perceived as unfair by either side, potentially dragging the player into community disputes.
+   **Consequences:** The medicine is returned, and the player is seen as a peacemaker. Relations improve slightly between swampfolk and refugees, but the smugglers remain a looming threat, emboldened by the successful negotiation.
 
-3. **Subterfuge**:
-   - *Positive*: The player gains a cut of the profits and a reputation for cunning. Jorvik uses the money for his daughter and the village, gaining local support.
-   - *Negative*: Eldra is suspicious of the player’s involvement and trust is damaged, leading to increased prices for her services and reluctance to help in future quests.
+2. **Expose the Smugglers:** The player can gather evidence of the smugglers' activities and present it to the local authorities, ensuring the medicine is returned and the smugglers are arrested.
 
-**World Impact:**
-- The player's choices ripple through Shadowfen, affecting trade, community trust, and the player's standing among the villagers. Rumors of their actions spread, influencing how they are received in other territories and by different factions within the realm.
+   **Consequences:** The medicine is returned, and the player is hailed as a hero by both swampfolk and refugees. However, the heavy-handed approach leads to increased vigilance and stricter controls in Shadowfen, which strains resources.
+
+3. **Join Forces with One Faction:** The player can choose to align with either the swampfolk or the refugees to launch an attack on the smugglers, ensuring the medicine's return.
+
+   **Consequences:** Choosing the swampfolk strengthens their influence, leading to the refugees being marginalized and potentially driven out. Choosing the refugees empowers them, which shifts the power balance, causing unrest among the swampfolk. Either choice resolves the immediate crisis but sows seeds of future conflict.
+
+**Tying to World Lore:** Shadowfen's illness is rumored to stem from a disturbance in the ancient Threadsinging rituals, which maintain balance in the realm. The player's actions could lead to uncovering a deeper plot linked to The Sundering, as the smugglers are unknowingly part of a larger conspiracy aiming to disrupt these rituals for profit.
