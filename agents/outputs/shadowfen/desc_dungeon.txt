@@ -1,1 +1,8 @@
 The dungeon sprawls beneath the earth like a forgotten serpent, its rusted iron bars and chains clinging to the damp stone walls. A thick, oppressive mist coils at your ankles, carrying the bitter scent of mildew and decay, mingled with the faintest hint of something acrid and metallic. The only sound is the distant, rhythmic drip of water echoing through the corridors, a haunting lullaby that reverberates in the hollow chambers. As you run your fingers along the gritty, moisture-laden walls, a chill seeps into your bones, a whisper of forgotten anguish from those who lingered here long before.
+
+Ambient Messages:
+1. A faint, rhythmic dripping echoes from the shadows, punctuating the stale air thick with the musty scent of damp stone and ancient decay.  
+
+2. The flickering torchlight dances across the crumbling walls, revealing twisted roots that snake through the cracks like spectral fingers reaching for the unwary.  
+
+3. A chill breeze whispers through the dark passage, carrying the metallic tang of old blood and the distant, mournful cries of unseen creatures that haunt the depths.  
