@@ -1,1 +1,8 @@
 The chamber is shrouded in a perpetual, whispering mist that clings to your skin like a damp shroud, its chill seeping through your clothes. Rusted chains hang from the ceiling, their links clinking softly in the murk, a haunting symphony of forgotten echoes. The air is thick with the pungent scent of decaying leaves and wet earth, a testament to the swamp's relentless encroachment. Flickering shadows dance across the stone walls, their movements casting eerie, fleeting patterns that seem almost alive in the dim, shifting light.
+
+Ambient Messages:
+1. "The distant sound of a mournful flute drifts through the air, weaving through the gnarled branches that cradle the twilight sky, as shadows dance in the flickering light of lanterns hung beneath the ancient trees."
+
+2. "A cool breeze carries the scent of damp earth and blooming nightshade, wrapping around you like a whispered secret as the fog clings to the ground, shrouding the path ahead in a soft, silvery haze."
+
+3. "The rhythmic drip of water echoes from the moss-covered stones, while the faint rustle of unseen creatures in the underbrush stirs the air with a palpable tension, as if the forest itself holds its breath in anticipation."
