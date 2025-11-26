@@ -1,63 +1,47 @@
 ### Shadowfen Dungeon ASCII Map
 
 ```
-                  +---------+
-                  | Treasure|
-                  |  Room   |
-                  | [Exit S]|
-                  +----+----+
-                       |
-                  +----+----+
-                  |   Hidden |
-                  | Passage  |
-                  | [N, S]   |
-                  +----+----+
-                       |
-+---------+       +----+----+       +---------+
-|  Guard  |-------|   Main   |-------|  Cells  |
-| Chamber |       |  Chamber |       |         |
-| [Exit E]|       | [N, E, W]|       | [W, D] |
-+---------+       +----+----+       +----+----+
-                       |
-                  +----+----+
-                  | Entrance |
-                  |          |
-                  | [U, N]   |
-                  +----+----+
+        [Entrance Hall]
+             |
+         [Armory]
+             |
+         [Main Chamber] -- [Hidden Alcove]
+             |
+         [Prison Cells]
+             |
+         [Treasure Vault]
 ```
 
-### Room List and Exits
+### Room List with Exits
 
-1. **Entrance**
-   - Exits: Up (U) to the surface, North (N) to Main Chamber
-   - Notes: The entry point for adventurers. Provides a clear ingress/egress to the surface, setting the tone for the dungeon.
+1. **Entrance Hall**
+   - Exits: South to Armory
+   - Purpose: Entry point into the dungeon. Dimly lit with moss-covered stones, setting the tone for the Shadowfen theme.
 
-2. **Main Chamber**
-   - Exits: North (N) to Hidden Passage, East (E) to Cells, West (W) to Guard Chamber
-   - Notes: The central hub of the dungeon. Acts as a crossroad, facilitating exploration of the dungeon's various sections.
+2. **Armory**
+   - Exits: North to Entrance Hall, South to Main Chamber
+   - Purpose: Contains old, rusting weapons and armor. Serves as a buffer zone before reaching the main areas, hinting at the dungeon's previous occupants.
 
-3. **Guard Chamber**
-   - Exits: East (E) to Main Chamber
-   - Notes: A room for dungeon keepers, possibly housing guard NPCs. Provides a logical defense point for the dungeon.
+3. **Main Chamber**
+   - Exits: North to Armory, East to Hidden Alcove, South to Prison Cells
+   - Purpose: Central hub of the dungeon. High-ceiling room with a large, stone table. Used for planning by the dungeon's inhabitants.
 
-4. **Cells**
-   - Exits: West (W) to Main Chamber, Down (D) to secret passage or lower level (not depicted)
-   - Notes: Contains prisoners or captives, adding narrative depth. The down exit encourages further exploration for secrets.
+4. **Hidden Alcove**
+   - Exits: West to Main Chamber
+   - Purpose: Secret room accessible via a concealed lever in the Main Chamber. Contains lore-related items and a minor treasure, rewarding exploration.
 
-5. **Hidden Passage**
-   - Exits: North (N) to Treasure Room, South (S) to Main Chamber
-   - Notes: Rewards players who explore beyond the obvious path. The passage is a secret and requires keen observation to find.
+5. **Prison Cells**
+   - Exits: North to Main Chamber, South to Treasure Vault
+   - Purpose: Dark and damp, with several locked cells. Provides context to the dungeon's sinister past. Contains clues or keys needed for further exploration.
 
-6. **Treasure Room**
-   - Exits: South (S) to Hidden Passage
-   - Notes: The ultimate reward area with loot or special items. Its location at the map's end provides a satisfying conclusion to exploration.
+6. **Treasure Vault**
+   - Exits: North to Prison Cells
+   - Purpose: Final destination with a treasure chest. Heavily guarded by traps or a guardian creature. The ultimate reward for navigating through the dungeon.
 
 ### Design Notes
 
-- **Flow and Purpose**: The map design encourages players to navigate through the Main Chamber, which serves as the central hub, ensuring they encounter multiple paths and decisions. The design also guides players naturally from the Entrance to key areas like the Cells and Guard Chamber, while the Hidden Passage and Treasure Room offer an optional, rewarding exploration path.
-  
-- **Exploration and Discovery**: The Hidden Passage and the down exit from the Cells room encourage players to explore and discover secrets, providing optional challenges and rewards.
-  
-- **Pacing and Realism**: The dungeon's layout is compact but non-linear, providing a sense of depth and complexity without overwhelming the player. The spatial logic is consistent with a dungeon setting, emphasizing security (Guard Chamber) and mystery (Hidden Passage).
-
-- **Vertical Space**: Although the map is primarily horizontal, the Entrance and Cells incorporate vertical elements, enhancing the dungeon's dimensionality and realism.
+- **Flow and Purpose**: The dungeon features a linear progression with a key central hub (Main Chamber) encouraging exploration and discovery. The Hidden Alcove provides an optional path for players who enjoy searching for secrets.
+- **Exploration and Convenience**: While the main path is straightforward, the secret room adds an additional layer of depth. The Treasure Vault at the end offers a satisfying payoff for exploring the entire dungeon.
+- **Natural Storytelling**: Each room tells a part of the dungeon's story: the Entrance Hall sets the atmosphere, the Armory hints at its past defenders, the Main Chamber serves as a strategic hub, the Prison Cells reveal its darker aspects, and the Treasure Vault offers a rewarding climax.
+- **Vertical Space**: While this design primarily uses horizontal space, vertical elements like the high ceiling in the Main Chamber and the damp, sunken nature of the Prison Cells add depth.
+- **Realism**: The layout reflects a logical progression from entry to treasure, with rooms serving distinct purposes that make sense within the context of a Shadowfen-style dungeon.
