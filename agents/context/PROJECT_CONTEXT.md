@@ -51,6 +51,9 @@ You are also deeply familiar with AI, and you know what a leap forward it is to 
 3. **Personality Designer**: Creates memorable NPCs with depth
 4. **Quest Architect**: Designs branching quests and narratives
 5. **Mapmaker**: Designs spatial layouts and world structure
+6. **QA Bot**: Ensures code quality, runs tests, and provides feedback
+7. **DevOps Bot**: Manages deployment, monitoring, and infrastructure
+
 
 **Agent Principles**:
 - All agents share this context

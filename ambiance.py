@@ -416,7 +416,8 @@ def process_room_ambiance(game: Dict, broadcast_fn=None) -> List[str]:
     Returns:
         list: List of ambiance messages to add to the log
     """
-    from game_engine import WORLD, WEATHER_STATE, get_time_of_day
+    from game_engine import WORLD, get_time_of_day
+    from game.state import WEATHER_STATE
     
     loc_id = game.get("location", "town_square")
     if loc_id not in WORLD:
@@ -433,6 +434,88 @@ def process_room_ambiance(game: Dict, broadcast_fn=None) -> List[str]:
     if ambiance_msg:
         # Format with cyan color tag for consistency
         return [f"[CYAN]{ambiance_msg}[/CYAN]"]
+    
+    return []
+
+
+def get_weather_ambiance_message(room_def: Dict, weather_type: str, weather_intensity: str, time_of_day: str) -> Optional[str]:
+    """
+    Get a weather-specific ambiance message for outdoor rooms.
+    These appear more frequently (every 30-60 seconds) than general ambiance.
+    
+    Args:
+        room_def: Room definition dict
+        weather_type: Weather type (e.g., "rain", "clear")
+        weather_intensity: Weather intensity (e.g., "light", "heavy")
+        time_of_day: Time of day ("dawn", "day", "dusk", "night")
+    
+    Returns:
+        Optional message string for weather, or None
+    """
+    # Only show weather messages for outdoor rooms
+    if not room_def.get("outdoor", False):
+        return None
+    
+    # Import weather messages system
+    from game.systems.weather_messages import get_weather_message, should_show_weather_message
+    
+    # Check if we should show a weather message (prevents spam)
+    # For active weather (non-clear), always show. For clear, show 30% of time.
+    if not should_show_weather_message(weather_type, weather_intensity):
+        return None
+    
+    # Get weather message
+    weather_msg = get_weather_message(weather_type, weather_intensity, time_of_day)
+    
+    # Debug: Log when we're returning None to understand why messages might not appear
+    import logging
+    logger = logging.getLogger(__name__)
+    if not weather_msg:
+        logger.debug(f"No weather message for {weather_type} {weather_intensity} at {time_of_day}")
+    
+    return weather_msg
+
+
+def process_weather_ambiance(game: Dict, broadcast_fn=None) -> List[str]:
+    """
+    Process and return weather-specific ambiance messages for outdoor rooms ONLY.
+    These appear every 30-60 seconds (more frequently than general ambiance).
+    
+    Args:
+        game: Player's game state dict
+        broadcast_fn: Optional callback for broadcasting to room
+    
+    Returns:
+        list: List of weather ambiance messages to add to the log (empty for indoor rooms)
+    """
+    from game_engine import WORLD, get_time_of_day
+    from game.state import WEATHER_STATE
+    
+    loc_id = game.get("location", "town_square")
+    if loc_id not in WORLD:
+        return []
+    
+    room_def = WORLD[loc_id]
+    
+    # Triple-check: absolutely no weather messages for indoor rooms
+    # This is the final gate - if room is not outdoor, return empty list immediately
+    is_room_outdoor = room_def.get("outdoor", False)
+    if not is_room_outdoor:
+        import logging
+        logger = logging.getLogger(__name__)
+        logger.debug(f"Blocking weather ambiance for indoor room: {loc_id}")
+        return []
+    
+    time_of_day = get_time_of_day()
+    weather_type = WEATHER_STATE.get("type", "clear")
+    weather_intensity = WEATHER_STATE.get("intensity", "none")
+    
+    # Get weather-specific message (also checks outdoor inside)
+    weather_msg = get_weather_ambiance_message(room_def, weather_type, weather_intensity, time_of_day)
+    
+    if weather_msg:
+        # Format with dark yellow color tag for weather messages
+        return [f"[WEATHER]{weather_msg}[/WEATHER]"]
     
     return []
 

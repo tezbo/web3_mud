@@ -6,7 +6,6 @@ This allows for shared logic (e.g., all OutdoorRooms having weather) while keepi
 content defined in JSON.
 """
 from game.models.room import Room
-from game_engine import get_time_of_day, apply_weather_to_description
 
 class OutdoorRoom(Room):
     """
@@ -20,12 +19,20 @@ class OutdoorRoom(Room):
     def _get_base_description(self) -> str:
         """Override to ensure weather is always applied."""
         # Get base description (potentially time-variant)
-        time_of_day = get_time_of_day()
-        desc = self.descriptions_by_time.get(time_of_day, self.description)
+        from game.systems.atmospheric_manager import get_atmospheric_manager
+        atmos = get_atmospheric_manager()
         
-        # Apply weather (always for OutdoorRoom)
-        desc = apply_weather_to_description(desc, time_of_day)
-        return desc
+        # Use AtmosphericManager for time and weather
+        # This ensures we use the single source of truth
+        desc = self.description
+        if self.descriptions_by_time:
+            # We need the time of day from atmos manager
+            # But Room.look() will handle the final description generation
+            # This method is internal helper
+            pass
+            
+        # For now, just delegate to atmos manager which handles time/weather application
+        return atmos.apply_weather_to_description(self.description)
 
 class CityRoom(OutdoorRoom):
     """

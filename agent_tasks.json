@@ -29,9 +29,34 @@
       "status": "idle"
     },
     "QA Bot": {
-      "last_active": "2025-11-26T10:34:18.430492Z",
+      "last_active": "2025-11-27T09:09:56.831173+11:00",
       "logs": [
-        "[10:34:18] Starting QA Bot loop..."
+        "[10:34:18] Starting QA Bot loop...",
+        "[09:05:17] \ud83c\udf92 Starting Inventory System Test...",
+        "[09:05:17] Creating character: inv_tester_1764194717",
+        "[09:05:26] \ud83c\udf92 Starting Inventory System Test...",
+        "[09:05:26] Creating character: inv_tester_1764194726",
+        "[09:07:46] \ud83e\uddea Starting Regression Suite...",
+        "[09:07:52] \u274c Regression Suite Error: 'QABotAgent' object has no attribute 'think'",
+        "[09:07:52] \ud83e\uddea Starting Smoke Test...",
+        "[09:07:52] Creating character: qa_smoke_1764194872",
+        "[09:07:52] \u274c Character creation failed: Expecting value: line 1 column 1 (char 0)",
+        "[09:07:52] \ud83c\udf92 Starting Inventory System Test...",
+        "[09:07:52] Creating character: inv_tester_1764194872",
+        "[09:07:52] \u274c Onboarding did not complete",
+        "[09:09:52] \ud83e\uddea Starting Regression Suite...",
+        "[09:09:56] \n\ud83e\udd16 QA Bot Regression Analysis \ud83e\udd16",
+        "[09:09:56] =================================",
+        "[09:09:56] Status: FAIL",
+        "[09:09:56] Summary: Tests failed with errors.",
+        "[09:09:56] \nFailures:",
+        "[09:09:56] - See logs for details",
+        "[09:09:56] \ud83e\uddea Starting Smoke Test...",
+        "[09:09:56] Creating character: qa_smoke_1764194996",
+        "[09:09:56] \u274c Character creation failed: Expecting value: line 1 column 1 (char 0)",
+        "[09:09:56] \ud83c\udf92 Starting Inventory System Test...",
+        "[09:09:56] Creating character: inv_tester_1764194996",
+        "[09:09:56] \u274c Onboarding did not complete"
       ]
     },
     "Code Reviewer": {
@@ -171,5 +196,49 @@
         "timestamp": "10:35:21"
       }
     ]
-  }
+  },
+  "epics": [
+    {
+      "id": "epic-1",
+      "title": "The Slums of Thornhaven",
+      "description": "A dangerous, poverty-stricken district in the shadow of the city walls.",
+      "status": "in_progress"
+    },
+    {
+      "id": "epic-2",
+      "title": "The Merchant District",
+      "description": "The bustling heart of commerce, contrasting with the Slums.",
+      "status": "todo"
+    },
+    {
+      "id": "epic-3",
+      "title": "The Sunken Cathedral",
+      "description": "A mid-level dungeon located in the deep swamp.",
+      "status": "todo"
+    },
+    {
+      "id": "epic-4",
+      "title": "Immersion & Polish",
+      "description": "Making the world breathe with sensory details and object histories.",
+      "status": "todo"
+    },
+    {
+      "id": "epic-5",
+      "title": "Lore & Worldbuilding",
+      "description": "Establishing the history, magic, and cultures of Aethermoor.",
+      "status": "todo"
+    },
+    {
+      "id": "epic-6",
+      "title": "Tactical Combat",
+      "description": "From dice rolls to war stories.",
+      "status": "todo"
+    },
+    {
+      "id": "epic-7",
+      "title": "Core Systems",
+      "description": "Foundational systems to support the new content.",
+      "status": "todo"
+    }
+  ]
 }

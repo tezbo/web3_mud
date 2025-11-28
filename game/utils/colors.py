@@ -5,7 +5,7 @@ Replaces ANSI codes with HTML-friendly tags.
 
 def room(text: str) -> str:
     """Wrap text in room color tag."""
-    return f"[ROOM]{text}[/ROOM]"
+    return f"[ROOM_DESCRIPTIONS]{text}[/ROOM_DESCRIPTIONS]"
 
 def item(text: str) -> str:
     """Wrap text in item color tag."""

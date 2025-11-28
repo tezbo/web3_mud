@@ -24,22 +24,41 @@ class AtmosphericManager:
         self.last_sunrise_minute: int = -1
         self.last_sunset_minute: int = -1
     
-    def update(self) -> bool:
+    def update(self) -> Tuple[bool, Optional[str]]:
         """
         Update all atmospheric systems.
         Should be called on every player command.
         
         Returns:
-            bool: True if weather changed
+            Tuple[bool, Optional[str]]: (True if weather changed, transition_message or None)
         """
+        from game.state import WEATHER_STATE
+        
+        # If weather is locked (manually set), sync WeatherSystem FROM WEATHER_STATE
+        # instead of allowing automatic changes
+        if WEATHER_STATE.get("locked", False):
+            # Sync WeatherSystem to match WEATHER_STATE (locked weather takes precedence)
+            weather_data = {
+                "type": WEATHER_STATE.get("type", "clear"),
+                "intensity": WEATHER_STATE.get("intensity", "none"),
+                "temperature": WEATHER_STATE.get("temperature", "mild"),
+                "last_update_tick": WEATHER_STATE.get("last_update_tick", 0),
+            }
+            self.weather.from_dict(weather_data)
+            return False, None  # No change when locked
+        
         current_tick = self.time.get_current_tick()
         day_of_year = self.time.get_day_of_year()
         season = self.seasons.get_season(day_of_year)
         
         # Update weather (may change based on season)
-        weather_changed = self.weather.update(current_tick, season)
+        weather_changed, transition_message = self.weather.update(current_tick, season)
         
-        return weather_changed
+        # Sync to global WEATHER_STATE if weather changed
+        if weather_changed:
+            WEATHER_STATE.update(self.weather.to_dict())
+        
+        return weather_changed, transition_message
     
     def get_combined_description(self, is_outdoor: bool = True) -> str:
         """
@@ -52,9 +71,62 @@ class AtmosphericManager:
         Returns:
             str: Combined atmospheric description
         """
-        day_of_year = self.time.get_day_of_year()
-        season = self.seasons.get_season(day_of_year)
-        time_of_day = self.time.get_time_of_day(season)
+        # Read weather from WEATHER_STATE BEFORE updating (to preserve manually set weather)
+        # This ensures descriptions match what the weather command shows
+        from game.state import WEATHER_STATE
+        weather_type = WEATHER_STATE.get("type", "clear")
+        weather_intensity = WEATHER_STATE.get("intensity", "none")
+        
+        # DEBUG: Log what we're reading
+        import logging
+        logger = logging.getLogger(__name__)
+        logger.info(f"[WEATHER_DESC_DEBUG] Reading weather_type={weather_type}, intensity={weather_intensity} from WEATHER_STATE")
+        
+        # Update atmospheric systems to ensure current time
+        # Note: update() may change weather, but we use the pre-update value for consistency
+        self.update()
+        
+        # DEBUG: Log after update
+        logger.info(f"[WEATHER_DESC_DEBUG] After update: WEATHER_STATE={WEATHER_STATE.get('type')}, using weather_type={weather_type} (preserved from before update)")
+        
+        # Use legacy time functions directly to ensure perfect sync with time command
+        from game_engine import get_current_hour_in_minutes, get_time_of_day, get_season, get_day_of_year
+        
+        # Force sync TimeSystem timestamp before using legacy functions
+        from game.state import GAME_TIME
+        if GAME_TIME.get("start_timestamp") and self.time.start_timestamp != GAME_TIME["start_timestamp"]:
+            self.time.start_timestamp = GAME_TIME["start_timestamp"]
+            self.time.from_dict({"start_timestamp": GAME_TIME["start_timestamp"]})
+        
+        # Use legacy functions for minutes/season/day, but calculate time_of_day directly to ensure correctness
+        minutes = get_current_hour_in_minutes()
+        season = get_season()
+        day_of_year = get_day_of_year()
+        
+        # Calculate time_of_day directly from minutes (don't trust legacy function)
+        from game_engine import get_sunrise_sunset_times
+        sunrise_min, sunset_min = get_sunrise_sunset_times()
+        dawn_start = max(0, sunrise_min - 30)
+        dawn_end = sunrise_min + 30
+        dusk_start = max(0, sunset_min - 30)
+        dusk_end = min(24 * 60, sunset_min + 30)
+        
+        # Calculate time_of_day directly from minutes
+        if dawn_start <= minutes < dawn_end:
+            time_of_day = "dawn"
+        elif dawn_end <= minutes < dusk_start:
+            time_of_day = "day"
+        elif dusk_start <= minutes < dusk_end:
+            time_of_day = "dusk"
+        else:
+            time_of_day = "night"
+        
+        # Debug: Log time calculation
+        hour = minutes // 60
+        minute = minutes % 60
+        import logging
+        logger = logging.getLogger(__name__)
+        logger.info(f"[WEATHER_DEBUG] minutes={minutes} ({hour:02d}:{minute:02d}), time_of_day={time_of_day}, season={season}")
         
         # For indoor rooms, keep it simple
         if not is_outdoor:
@@ -68,9 +140,11 @@ class AtmosphericManager:
                 return "The night is dark outside, little light reaching in."
         
         # Outdoor rooms - combine time, moon, and weather
+        # Use the FRESH weather state from self.weather (which was just updated)
+        # This ensures the description matches the actual current state, even if it just changed
         weather_state = self.weather.get_state()
-        weather_type = weather_state["type"]
-        weather_intensity = weather_state["intensity"]
+        weather_type = weather_state.get("type", "clear")
+        weather_intensity = weather_state.get("intensity", "none")
         
         moon_phase = self.lunar.get_moon_phase(day_of_year)
         moon_desc = self.lunar.get_moon_phase_description(day_of_year)
@@ -145,6 +219,25 @@ class AtmosphericManager:
                     return "Snow falls steadily through the night, the full moon's light reflecting off the white ground."
                 else:
                     return f"Snow drifts down through the night, the {moon_desc} casting an eerie glow on the falling flakes."
+            elif weather_type == "rain":
+                if weather_intensity == "heavy":
+                    return "Heavy rain pounds down through the darkness, soaking everything below."
+                else:
+                    return "Rain falls steadily through the night, pattering against the ground."
+            elif weather_type == "storm":
+                return "A fierce storm rages through the night, thunder and lightning illuminating the darkness."
+            elif weather_type == "sleet":
+                return "Icy sleet pelts down through the night, making the darkness even more miserable."
+            elif weather_type == "fog":
+                return "Thick fog blankets the night, reducing visibility to almost nothing."
+            elif weather_type == "windy":
+                temp_desc = self.weather.current_temperature
+                if weather_intensity == "heavy":
+                    return f"A howling {temp_desc} wind tears through the darkness, the only sound in the night."
+                else:
+                    return f"A {temp_desc} wind blows through the night, rustling unseen leaves."
+            elif weather_type == "overcast":
+                return "The night is dark under heavy cloud cover, blocking out stars and moon alike."
             else:
                 return "The night is dark and moonless."
     
@@ -174,15 +267,15 @@ class AtmosphericManager:
             # Generate weather-aware sunrise message
             if wtype == "rain":
                 if intensity == "heavy":
-                    message = f"[CYAN]The sun struggles to rise through heavy clouds and driving rain, marking the start of a new {season_name} day.[/CYAN]"
+                    message = f"[WEATHER]The sun struggles to rise through heavy clouds and driving rain, marking the start of a new {season_name} day.[/WEATHER]"
                 else:
-                    message = f"[CYAN]The sun rises through rain, its light diffused by clouds, marking the start of a new {season_name} day.[/CYAN]"
+                    message = f"[WEATHER]The sun rises through rain, its light diffused by clouds, marking the start of a new {season_name} day.[/WEATHER]"
             elif wtype == "snow":
-                message = f"[CYAN]The sun rises through falling snow, its light soft and muted, marking the start of a new {season_name} day.[/CYAN]"
+                message = f"[WEATHER]The sun rises through falling snow, its light soft and muted, marking the start of a new {season_name} day.[/WEATHER]"
             elif wtype == "clear":
-                message = f"[CYAN]The sun rises over Hollowvale, marking the start of a new {season_name} day.[/CYAN]"
+                message = f"[WEATHER]The sun rises over Hollowvale, marking the start of a new {season_name} day.[/WEATHER]"
             else:
-                message = f"[CYAN]The sun rises, marking the start of a new {season_name} day.[/CYAN]"
+                message = f"[WEATHER]The sun rises, marking the start of a new {season_name} day.[/WEATHER]"
             
             notifications.append(("sunrise", message))
         
@@ -193,11 +286,11 @@ class AtmosphericManager:
             
             # Generate weather-aware sunset message
             if wtype == "clear":
-                message = f"[CYAN]The sun sets over Hollowvale, painting the sky in brilliant colors as {season_name} evening arrives.[/CYAN]"
+                message = f"[WEATHER]The sun sets over Hollowvale, painting the sky in brilliant colors as {season_name} evening arrives.[/WEATHER]"
             elif wtype == "overcast":
-                message = f"[CYAN]The sun sets behind thick clouds, darkness falling quickly as {season_name} evening arrives.[/CYAN]"
+                message = f"[WEATHER]The sun sets behind thick clouds, darkness falling quickly as {season_name} evening arrives.[/WEATHER]"
             else:
-                message = f"[CYAN]The sun sets, and {season_name} evening settles over the land.[/CYAN]"
+                message = f"[WEATHER]The sun sets, and {season_name} evening settles over the land.[/WEATHER]"
             
             notifications.append(("sunset", message))
         
@@ -247,6 +340,31 @@ _atmospheric_manager: Optional[AtmosphericManager] = None
 def get_atmospheric_manager() -> AtmosphericManager:
     """Get or create the global atmospheric manager instance."""
     global _atmospheric_manager
+    from game.state import WEATHER_STATE, GAME_TIME
+    
     if _atmospheric_manager is None:
         _atmospheric_manager = AtmosphericManager()
+        
+        # Load from global WEATHER_STATE if available
+        if WEATHER_STATE:
+            _atmospheric_manager.weather.from_dict(WEATHER_STATE)
+    
+    # ALWAYS sync TimeSystem start_timestamp with GAME_TIME (ensure they're always in sync)
+    # Priority: Use GAME_TIME if it exists and is valid, otherwise use TimeSystem's timestamp
+    if GAME_TIME and "start_timestamp" in GAME_TIME and GAME_TIME["start_timestamp"]:
+        # Sync TimeSystem to GAME_TIME (legacy system is the source of truth)
+        if _atmospheric_manager.time.start_timestamp != GAME_TIME["start_timestamp"]:
+            _atmospheric_manager.time.from_dict({"start_timestamp": GAME_TIME["start_timestamp"]})
+    else:
+        # Sync GAME_TIME to TimeSystem's timestamp (newer system provides timestamp)
+        if _atmospheric_manager.time.start_timestamp:
+            GAME_TIME["start_timestamp"] = _atmospheric_manager.time.start_timestamp
+    
     return _atmospheric_manager
+
+def sync_weather_state():
+    """Sync the atmospheric manager's weather state to global WEATHER_STATE."""
+    from game.state import WEATHER_STATE
+    atmos = get_atmospheric_manager()
+    weather_data = atmos.weather.to_dict()
+    WEATHER_STATE.update(weather_data)

@@ -26,6 +26,7 @@ class TimeSystem:
     def get_current_minutes(self) -> int:
         """
         Calculate current game time in minutes based on elapsed real-world time.
+        Uses GAME_TIME from game.state to ensure consistency with legacy system.
         
         Time conversion rate:
         - 1 in-game day = 2 real-world hours = 120 real-world minutes
@@ -36,8 +37,21 @@ class TimeSystem:
         Returns:
             int: Total in-game minutes elapsed since game start
         """
+        # Use GAME_TIME from game.state (shared with legacy system) to ensure perfect sync
+        from game.state import GAME_TIME
+        
+        # Ensure start_timestamp is synced
+        if not self.start_timestamp or (GAME_TIME.get("start_timestamp") and GAME_TIME["start_timestamp"] != self.start_timestamp):
+            if GAME_TIME.get("start_timestamp"):
+                self.start_timestamp = GAME_TIME["start_timestamp"]
+            elif self.start_timestamp:
+                GAME_TIME["start_timestamp"] = self.start_timestamp
+        
+        # Use GAME_TIME timestamp if available, otherwise use self.start_timestamp
+        timestamp_to_use = GAME_TIME.get("start_timestamp") or self.start_timestamp
+        
         # Calculate elapsed real-world time since start
-        start_time = datetime.fromisoformat(self.start_timestamp)
+        start_time = datetime.fromisoformat(timestamp_to_use)
         elapsed_real_seconds = (datetime.now() - start_time).total_seconds()
         elapsed_real_minutes = elapsed_real_seconds / 60.0
         

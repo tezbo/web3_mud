@@ -25,8 +25,7 @@ QUEST_GLOBAL_STATE = {}
 # --- Quest-Specific Items (items only visible to quest owners) ---
 QUEST_SPECIFIC_ITEMS = {}
 
-# --- NPC Periodic Actions State ---
-NPC_ACTIONS_STATE = {}
+
 
 # --- NPC Route Positions ---
 NPC_ROUTE_POSITIONS = {}
@@ -61,5 +60,6 @@ WEATHER_STATE = {
     "last_update_tick": 0,
     "next_change_tick": 100,  # Initial change after 100 ticks
     "wind_direction": "none",
-    "wind_speed": "calm"
+    "wind_speed": "calm",
+    "locked": False  # If True, weather cannot be automatically changed by update()
 }

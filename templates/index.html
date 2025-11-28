@@ -437,8 +437,8 @@
     // Default colors if user hasn't set preferences
     const DEFAULT_COLORS = {
       "say": "cyan", "emote": "white", "tell": "yellow", "exits": "darkgreen",
-      "weather": "darkyellow", "room_descriptions": "white", "command": "blue",
-      "error": "red", "success": "green", "npc": "orange", "system": "gray",
+      "weather": "white", "weather_desc": "white", "room_descriptions": "white", "command": "blue",
+      "error": "red", "success": "green", "npc": "white", "system": "gray",
       "wallet": "lightgreen", "quest": "lightblue", "ambiance": "lightgray"
     };
 
@@ -454,6 +454,10 @@
       sessionText: [], // Array of {text: string, timestamp: Date, type: 'output'|'command'}
       theme: 'dark' // 'dark' or 'light'
     };
+
+    // Polling state (declared early to avoid temporal dead zone issues)
+    let pollInterval = null;
+    let isPollingActive = false;
 
     // Initialize theme from localStorage if available
     const savedTheme = localStorage.getItem('hollowvale_theme');
@@ -619,12 +623,21 @@
           let processed = data.message;
 
           // Process type-based color tags
-          processed = processed.replace(/\[SAY\](.*?)\[\/SAY\]/g, (match, content) => {
-            return `<span style="color: ${getColorForType('say')}; font-weight: 500;">${content}</span>`;
+          const tags = [
+            "say", "emote", "tell", "exits", "weather", "weather_desc", "room_descriptions",
+            "command", "error", "success", "npc", "system", "wallet",
+            "quest", "ambiance"
+          ];
+
+          tags.forEach(tag => {
+            const upperTag = tag.toUpperCase();
+            const regex = new RegExp(`\\[${upperTag}\\](.*?)\\[\\/${upperTag}\\]`, 'gs'); // 's' flag for dotAll (newlines)
+            processed = processed.replace(regex, (match, content) => {
+              return `<span style="color: ${getColorForType(tag)}; font-weight: 500;">${content}</span>`;
+            });
           });
-          processed = processed.replace(/\[NPC\](.*?)\[\/NPC\]/g, (match, content) => {
-            return `<span style="color: ${getColorForType('npc')}; font-weight: 500;">${content}</span>`;
-          });
+
+          // Legacy color tags support
           processed = processed.replace(/\[CYAN\](.*?)\[\/CYAN\]/g, (match, content) => {
             return `<span style="color: ${getColorForType('say')}; font-weight: 500;">${content}</span>`;
           });
@@ -775,7 +788,9 @@
         const textContent = tempDiv.textContent || tempDiv.innerText || '';
         const lines = textContent.split('\n').filter(line => line.trim());
         const initialTimestamp = new Date();
-        lines.forEach(line => {
+
+        // Store in session state
+        lines.forEach((line, index) => {
           if (line.trim()) {
             sessionState.sessionText.push({
               text: line.trim(),
@@ -784,6 +799,15 @@
             });
           }
         });
+
+        // Clear the output and re-render with processed colors
+        outputEl.innerHTML = '';
+
+        // Process each line through the color tag system
+        const processedOutput = processLogForDisplay(lines);
+
+        // Render processed output (already a string from processLogForDisplay)
+        outputEl.innerHTML = processedOutput;
       }
     }
 
@@ -839,6 +863,11 @@
           return `<span class="location-name">${content}</span>`;
         });
 
+        // Room descriptions [ROOM_DESCRIPTIONS]...[/ROOM_DESCRIPTIONS]
+        processed = processed.replace(/\[ROOM_DESCRIPTIONS\](.*?)\[\/ROOM_DESCRIPTIONS\]/g, (match, content) => {
+          return `<span style="color: ${getColorForType('room_descriptions')};">${content}</span>`;
+        });
+
         // Item names [ITEM]...[/ITEM]
         processed = processed.replace(/\[ITEM\](.*?)\[\/ITEM\]/g, (match, content) => {
           return `<span class="item-name">${content}</span>`;
@@ -879,14 +908,34 @@
           return `<span style="color: ${getColorForType('exits')}; font-weight: bold;">${content}</span>`;
         });
 
-        // Weather messages [WEATHER]...[/WEATHER] - default darkyellow
+        // Weather messages [WEATHER]...[/WEATHER] - default white
         processed = processed.replace(/\[WEATHER\](.*?)\[\/WEATHER\]/g, (match, content) => {
           return `<span style="color: ${getColorForType('weather')}; font-weight: 500;">${content}</span>`;
+        });
+
+        // Weather description [WEATHER_DESC]...[/WEATHER_DESC] - default white
+        processed = processed.replace(/\[WEATHER_DESC\](.*?)\[\/WEATHER_DESC\]/g, (match, content) => {
+          return `<span style="color: ${getColorForType('weather_desc')}; font-weight: 500;">${content}</span>`;
         });
 
         // NPC messages [NPC]...[/NPC] - default orange
         processed = processed.replace(/\[NPC\](.*?)\[\/NPC\]/g, (match, content) => {
           return `<span style="color: ${getColorForType('npc')}; font-weight: 500;">${content}</span>`;
+        });
+
+        // Ambiance messages [AMBIANCE]...[/AMBIANCE]
+        processed = processed.replace(/\[AMBIANCE\](.*?)\[\/AMBIANCE\]/g, (match, content) => {
+          return `<span style="color: ${getColorForType('ambiance')}; font-style: italic;">${content}</span>`;
+        });
+
+        // Quest messages [QUEST]...[/QUEST]
+        processed = processed.replace(/\[QUEST\](.*?)\[\/QUEST\]/g, (match, content) => {
+          return `<span style="color: ${getColorForType('quest')}; font-weight: bold;">${content}</span>`;
+        });
+
+        // Wallet messages [WALLET]...[/WALLET]
+        processed = processed.replace(/\[WALLET\](.*?)\[\/WALLET\]/g, (match, content) => {
+          return `<span style="color: ${getColorForType('wallet')}; font-weight: bold;">${content}</span>`;
         });
 
         // Combat messages [COMBAT]...[/COMBAT]
@@ -908,6 +957,11 @@
         // Handle green color tags [GREEN]...[/GREEN] (maps to 'success' color)
         processed = processed.replace(/\[GREEN\](.*?)\[\/GREEN\]/g, (match, content) => {
           return `<span style="color: ${getColorForType('success')}; font-weight: 500;">${content}</span>`;
+        });
+
+        // Handle dark yellow tags [DARK_YELLOW]...[/DARK_YELLOW] (maps to 'weather' color)
+        processed = processed.replace(/\[DARK_YELLOW\](.*?)\[\/DARK_YELLOW\]/g, (match, content) => {
+          return `<span style="color: ${getColorForType('weather')}; font-weight: 500;">${content}</span>`;
         });
 
         // Handle dark green tags [DARK_GREEN]...[/DARK_GREEN] (maps to 'exits' color)
@@ -1070,13 +1124,11 @@
 
       // If text is a string (from error), process it; if it's an array, process it
       if (typeof text === 'string') {
-        // Process string to highlight various elements
-        text = text.replace(/Exits:/g, '<span class="exits-highlight">Exits:</span>');
-        if (text.includes('[Error') || text.includes('Error:')) {
-          text = `<span class="error-message">${text}</span>`;
-        }
+        // Split into lines and process each through color system
+        const lines = text.split('\n');
+        const processed = processLogForDisplay(lines);
         const div = document.createElement('div');
-        div.innerHTML = text;
+        div.innerHTML = processed;
         outputEl.appendChild(div);
       } else {
         // Process array of log entries
@@ -1327,7 +1379,7 @@
 
         // Check if logout was confirmed
         if (data.logout) {
-          // Redirect to logout URL
+          // Redirect to logout endpoint which will clear session and redirect to welcome
           window.location.href = "{{ url_for('logout') }}";
           return;
         }
@@ -1408,8 +1460,7 @@
 
     // Real-time ambiance polling - check for new messages every 5 seconds
     // This makes the world feel alive even when the player is idle
-    let pollInterval = null;
-    let isPollingActive = false;
+    // (pollInterval and isPollingActive declared earlier to avoid temporal dead zone)
 
     function startAmbiancePolling() {
       // Don't start polling if WebSocket is connected

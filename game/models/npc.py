@@ -1,8 +1,9 @@
 """
 NPC Model
 """
-from typing import Dict, List, Optional, Any, TYPE_CHECKING
+from typing import Dict, List, Optional, Any, TYPE_CHECKING, Tuple
 from game.models.entity import Entity
+from game.systems.weather import WeatherStatusTracker
 
 if TYPE_CHECKING:
     from game.models.player import Player
@@ -22,6 +23,10 @@ class NPC(Entity):
         self.faction: str = "neutral"
         self.attackable: bool = False
         
+        # Weather Status (Phase 2)
+        self.weather_status = WeatherStatusTracker()
+        self.weather_reactions: Dict[Tuple[str, str], str] = {}  # (weather_type, intensity) -> message
+        
         # Merchant data
         self.merchant_inventory: Dict[str, int] = {}  # item_id -> stock
 
@@ -38,6 +43,15 @@ class NPC(Entity):
         self.traits = data.get("traits", {})
         self.pronoun = data.get("pronoun", "they")
         
+        # Load weather reactions (Phase 2)
+        weather_reactions = data.get("weather_reactions", {})
+        for key_str, message in weather_reactions.items():
+            # Parse "rain_heavy" -> ("rain", "heavy")
+            parts = key_str.split("_", 1)
+            if len(parts) == 2:
+                wtype, intensity = parts
+                self.weather_reactions[(wtype, intensity)] = message
+        
         stats = data.get("stats", {})
         if stats:
             self.stats.update(stats)
@@ -51,6 +65,91 @@ class NPC(Entity):
         # Simple rotation or random choice could go here
         import random
         return random.choice(options)
+    
+    def update_weather_status(self, atmos_manager):
+        """Update weather status based on current location and atmospheric conditions."""
+        if not self.location:
+            return
+        
+        is_outdoor = getattr(self.location, 'outdoor', False)
+        weather_state = atmos_manager.weather.get_state()
+        day_of_year = atmos_manager.time.get_day_of_year()
+        season = atmos_manager.seasons.get_season(day_of_year)
+        current_tick = atmos_manager.time.get_current_tick()
+        
+        self.weather_status.update(current_tick, is_outdoor, weather_state, season)
+    
+    def get_weather_description(self, pronoun: str = None) -> str:
+        """Get weather status description for this NPC."""
+        if not pronoun:
+            pronoun = self.pronoun
+        
+        if not self.weather_status.has_status():
+            return ""
+        
+        wetness = self.weather_status.wetness
+        cold = self.weather_status.cold
+        heat = self.weather_status.heat
+        
+        # Find dominant condition
+        max_condition = max(wetness, cold, heat)
+        if max_condition == 0:
+            return ""
+        
+        # Use proper verb conjugation
+        if pronoun == "you":
+            verb_look = "look"
+            verb_be = "are"
+            verb_have = "have"
+        elif pronoun in ["he", "she", "it"]:
+            verb_look = "looks"
+            verb_be = "is"
+            verb_have = "has"
+        else:  # they
+            verb_look = "look"
+            verb_be = "are"
+            verb_have = "have"
+        
+        # Generate description (same logic as Player)
+        if wetness == max_condition:
+            if wetness <= 2:
+                return f"{pronoun.capitalize()} {verb_look} a bit damp."
+            elif wetness <= 4:
+                return f"You can tell {pronoun} {verb_have} been standing in the rain for a while."
+            elif wetness <= 7:
+                return f"{pronoun.capitalize()} {verb_look} thoroughly soaked through."
+            else:
+                return f"{pronoun.capitalize()} {verb_be} absolutely drenched from head to toe."
+        elif cold == max_condition:
+            if cold <= 2:
+                return f"{pronoun.capitalize()} {verb_look} a little chilled."
+            elif cold <= 4:
+                return f"{pronoun.capitalize()} {verb_be} shivering slightly in the cold."
+            elif cold <= 7:
+                return f"{pronoun.capitalize()} {verb_look} very cold and uncomfortable."
+            else:
+                return f"{pronoun.capitalize()} {verb_be} shivering violently, lips tinged blue."
+        else:  # heat
+            if heat <= 2:
+                return f"{pronoun.capitalize()} {verb_look} a touch flushed from the heat."
+            elif heat <= 4:
+                return f"A sheen of sweat glistens on {pronoun} skin."
+            elif heat <= 7:
+                return f"{pronoun.capitalize()} {verb_look} overheated and unsteady."
+            else:
+                return f"{pronoun.capitalize()} {verb_be} drenched in sweat and {verb_look} ready to collapse from the heat."
+    
+    def get_weather_reaction(self, weather_state: Dict, season: str) -> Optional[str]:
+        """Get NPC's reaction to current weather, if they have one."""
+        if not self.weather_status.has_status():
+            return None  # Only react if affected by weather
+        
+        wtype = weather_state.get("type", "clear")
+        intensity = weather_state.get("intensity", "none")
+        key = (wtype, intensity)
+        
+        return self.weather_reactions.get(key)
+    
     def respond_to(self, player: 'Player', game_state: Dict[str, Any], db_conn=None) -> str:
         """
         Generate a response to a player.
@@ -120,9 +219,9 @@ class NPC(Entity):
         
         # Transfer inventory to corpse
         # We copy the list to avoid modification issues during iteration
-        for item in list(self.inventory):
+        for item in list(self.inventory.contents):
             self.inventory.remove(item)
-            corpse.inventory.append(item)
+            corpse.inventory.add(item)
             
         # Add corpse to room
         self.location.items.append(corpse)

@@ -4,6 +4,7 @@ Inspired by Discworld MUDlib's /std/object and /obj structure.
 """
 from typing import Dict, Any, List, Optional
 from game.models.base import GameObject
+from game.systems.inventory_system import InventorySystem
 
 class Item(GameObject):
     """Represents an item in the game world."""
@@ -17,6 +18,22 @@ class Item(GameObject):
         self.stackable: bool = False
         self.adjectives: List[str] = [] # For parsing (e.g., "rusty sword")
         self.destroyed: bool = False
+        self.inventory: Optional[InventorySystem] = None
+        
+        # New immersion fields
+        self.detailed_description: str = ""
+        self.history: str = ""
+        
+        # Visibility/State
+        self.is_held: bool = False
+
+    @property
+    def total_weight(self) -> float:
+        """Calculate total weight including contents."""
+        base = self.weight
+        if self.inventory:
+            return base + self.inventory.current_weight
+        return base
         
     def load_from_def(self, item_def: Dict[str, Any]):
         """Hydrate item from ITEM_DEFS definition."""
@@ -26,6 +43,11 @@ class Item(GameObject):
         self.weight = item_def.get("weight", 0.1)
         self.value = item_def.get("value", 0)
         self.droppable = item_def.get("droppable", True)
+        
+        # Load immersion fields
+        self.detailed_description = item_def.get("detailed_description", "")
+        self.history = item_def.get("history", "")
+        self.is_held = item_def.get("is_held", False)
         
         # Handle flags
         flags = item_def.get("flags", [])
@@ -75,24 +97,19 @@ class Item(GameObject):
 class Container(Item):
     def __init__(self, oid: str, name: str, description: str = ""):
         super().__init__(oid, name, description)
-        self.inventory: List[Item] = []
-        self.max_weight: float = 10.0
+        # Initialize inventory system for containers
+        self.inventory = InventorySystem(self, max_weight=10.0, max_items=20)
         self.closed: bool = False
         self.locked: bool = False
         self.key_id: Optional[str] = None
         
     def add_item(self, item: Item) -> bool:
         """Add item to container. Returns False if full."""
-        current_weight = sum(i.weight for i in self.inventory)
-        if current_weight + item.weight > self.max_weight:
-            return False
-        self.inventory.append(item)
-        return True
+        return self.inventory.add(item)
         
     def remove_item(self, item: Item):
         """Remove item from container."""
-        if item in self.inventory:
-            self.inventory.remove(item)
+        self.inventory.remove(item)
 
 class Weapon(Item):
     def __init__(self, oid: str, name: str, description: str = ""):

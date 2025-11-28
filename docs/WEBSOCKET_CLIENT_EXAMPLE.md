@@ -217,3 +217,14 @@ function sendCommand(cmd) {
 4. **Simple**: Clean API, easy to use
 5. **Scalable**: Works with multi-instance setup via Redis
 
+
+
+---
+
+## Backend expectations
+
+- The backend Socket.IO server is provided by `app.py` in this repository.  
+- In local development, it typically runs on `http://localhost:5000` (or the port configured via environment variables).  
+- In production (Render), the WebSocket endpoint is served by the `srv-d4gn2sf5r7bs73bcbqfg` service; refer to the Render dashboard for the correct public URL and TLS configuration.
+
+When adjusting Socket.IO namespaces or events, keep the contract between this client and the server-side handlers in `app.py` in sync.

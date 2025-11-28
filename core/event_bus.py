@@ -45,6 +45,12 @@ class EventBus:
         Returns:
             True if published successfully
         """
+        if self._redis is None:
+            # Redis unavailable, skip publishing
+            # TODO: Implement local fallback if needed, but for now just silence errors
+            # logger.debug(f"Redis unavailable, skipping event publish: {event_type}")
+            return False
+            
         event = {
             "type": event_type,
             "data": data,

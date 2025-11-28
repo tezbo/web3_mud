@@ -5,6 +5,7 @@ Provides 8 weather types with intensity levels, temperature tracking,
 and season-based probability transitions.
 """
 import random
+from datetime import datetime, timedelta
 from typing import Dict, List, Any, Tuple, Optional
 
 
@@ -28,7 +29,7 @@ class WeatherSystem:
         self.current_temperature: str = "mild"
         self.last_update_tick: int = 0
     
-    def update(self, current_tick: int, season: str) -> bool:
+    def update(self, current_tick: int, season: str) -> Tuple[bool, Optional[str]]:
         """
         Update weather state based on season and time.
         Called periodically to create weather transitions.
@@ -38,42 +39,13 @@ class WeatherSystem:
             season: Current season ("spring", "summer", "autumn", "winter")
         
         Returns:
-            bool: True if weather changed, False otherwise
+            Tuple[bool, Optional[str]]: (True if weather changed, transition_message or None)
         """
         # Update weather every 10 ticks (roughly every 10 game minutes)
         if current_tick - self.last_update_tick < 10:
-            return False
+            return False, None
         
         self.last_update_tick = current_tick
-        
-        # Weather transition probabilities by season
-        season_weather = {
-            "spring": {
-                "clear": 0.3,
-                "rain": 0.4,
-                "overcast": 0.2,
-                "storm": 0.1,
-            },
-            "summer": {
-                "clear": 0.5,
-                "heatwave": 0.2,
-                "storm": 0.2,
-                "windy": 0.1,
-            },
-            "autumn": {
-                "windy": 0.3,
-                "rain": 0.3,
-                "overcast": 0.2,
-                "clear": 0.2,
-            },
-            "winter": {
-                "snow": 0.4,
-                "sleet": 0.2,
-                "overcast": 0.2,
-                "clear": 0.1,
-                "windy": 0.1,
-            },
-        }
         
         # Temperature by season
         season_temp = {
@@ -83,48 +55,33 @@ class WeatherSystem:
             "winter": ["cold", "chilly"],
         }
         
-        # Get current weather type probabilities
-        weather_probs = season_weather.get(season, season_weather["spring"])
+        # Check if weather is locked (manually set via setweather)
+        # If locked, don't allow automatic changes
+        from game.state import WEATHER_STATE
+        if WEATHER_STATE.get("locked", False):
+            return False, None
         
-        # Decide if weather should change (30% chance)
-        if random.random() < 0.3:
-            # Pick new weather type based on probabilities
-            rand = random.random()
-            cumulative = 0
-            new_type = self.current_type  # Default: stay same
-            
-            for wtype, prob in weather_probs.items():
-                cumulative += prob
-                if rand <= cumulative:
-                    new_type = wtype
-                    break
-            
+        # Use realistic weather transitions instead of random changes
+        from game.systems.weather_transitions import get_realistic_weather_transition
+        from game_engine import get_time_of_day
+        
+        # Get realistic transition (returns (new_type, new_intensity, transition_message) or (None, None, None))
+        new_type, new_intensity, transition_message = get_realistic_weather_transition(
+            current_type=self.current_type,
+            current_intensity=self.current_intensity,
+            season=season,
+            locked=False
+        )
+        
+        if new_type or new_intensity:
             old_type = self.current_type
-            self.current_type = new_type
+            old_intensity = self.current_intensity
             
-            # Set intensity based on weather type
-            if new_type in ["rain", "snow", "sleet"]:
-                intensities = ["light", "moderate", "heavy"]
-                weights = [0.4, 0.4, 0.2]
-                self.current_intensity = random.choices(intensities, weights=weights)[0]
-            elif new_type == "windy":
-                intensities = ["light", "moderate", "heavy"]
-                weights = [0.3, 0.5, 0.2]
-                self.current_intensity = random.choices(intensities, weights=weights)[0]
-            elif new_type == "heatwave":
-                intensities = ["moderate", "heavy"]
-                weights = [0.6, 0.4]
-                self.current_intensity = random.choices(intensities, weights=weights)[0]
-            elif new_type == "storm":
-                intensities = ["moderate", "heavy"]
-                weights = [0.5, 0.5]
-                self.current_intensity = random.choices(intensities, weights=weights)[0]
-            elif new_type == "overcast":
-                intensities = ["light", "moderate"]
-                weights = [0.5, 0.5]
-                self.current_intensity = random.choices(intensities, weights=weights)[0]
-            else:
-                self.current_intensity = "none"
+            # Update type and/or intensity
+            if new_type:
+                self.current_type = new_type
+            if new_intensity:
+                self.current_intensity = new_intensity
             
             # Update temperature based on season and weather
             temp_options = season_temp.get(season, ["mild"])
@@ -135,9 +92,11 @@ class WeatherSystem:
             else:
                 self.current_temperature = random.choice(temp_options)
             
-            return old_type != new_type
+            # Return True if type or intensity changed, along with transition message
+            changed = (old_type != self.current_type) or (old_intensity != self.current_intensity)
+            return changed, transition_message
         
-        return False
+        return False, None
     
     def get_description(self) -> str:
         """
@@ -255,11 +214,15 @@ class WeatherSystem:
 class WeatherStatusTracker:
     """Tracks weather exposure status for entities (players/NPCs)."""
     
+    # Minimum seconds between weather status updates (allows gradual decay/accumulation)
+    UPDATE_INTERVAL_SECONDS = 5
+    
     def __init__(self):
         self.wetness: int = 0  # 0-10 scale
         self.cold: int = 0     # 0-10 scale
         self.heat: int = 0     # 0-10 scale
         self.last_update_tick: int = 0
+        self.last_update_time: Optional[str] = None  # ISO format timestamp
     
     def update(self, current_tick: int, is_outdoor: bool, weather_state: Dict[str, str], season: str) -> None:
         """
@@ -271,28 +234,47 @@ class WeatherStatusTracker:
             weather_state: Current weather state dict
             season: Current season
         """
-        if current_tick <= self.last_update_tick:
-            return
+        now = datetime.now()
         
+        # Check if enough time has passed since last update (time-based throttling)
+        if self.last_update_time:
+            try:
+                last_update = datetime.fromisoformat(self.last_update_time)
+                elapsed_seconds = (now - last_update).total_seconds()
+                if elapsed_seconds < self.UPDATE_INTERVAL_SECONDS:
+                    # Not enough time has passed, skip update
+                    return
+            except (ValueError, TypeError):
+                # Invalid timestamp, allow update
+                pass
+        
+        # Update timestamp
+        self.last_update_time = now.isoformat()
         self.last_update_tick = current_tick
         
-        if not is_outdoor:
-            # Indoor: gradually decay all status
-            if self.wetness > 0:
-                self.wetness = max(0, self.wetness - 1)
-            if self.cold > 0:
-                self.cold = max(0, self.cold - 1)
-            if self.heat > 0:
-                self.heat = max(0, self.heat - 1)
-            return
-        
-        # Outdoor: apply weather effects
+        # Get weather conditions
         wtype = weather_state.get("type", "clear")
         intensity = weather_state.get("intensity", "none")
         temp = weather_state.get("temperature", "mild")
         
-        # Wetness from rain/snow/sleet
-        if wtype in ["rain", "snow", "sleet"]:
+        if not is_outdoor:
+            # Indoor: faster decay for all status (shelter provides warmth/dryness)
+            # Decay rate: 2 per update (faster than outdoor)
+            if self.wetness > 0:
+                self.wetness = max(0, self.wetness - 2)
+            if self.cold > 0:
+                # Wetness slows warming (wet clothes take longer to dry/warm)
+                if self.wetness > 0:
+                    self.cold = max(0, self.cold - 1)  # Slower if wet
+                else:
+                    self.cold = max(0, self.cold - 2)  # Faster if dry
+            if self.heat > 0:
+                self.heat = max(0, self.heat - 2)
+            return
+        
+        # Outdoor: apply weather effects and conditional decay
+        # Wetness from rain/snow/sleet/storm
+        if wtype in ["rain", "snow", "sleet", "storm"]:
             if intensity == "light":
                 self.wetness = min(10, self.wetness + 1)
             elif intensity == "moderate":
@@ -300,48 +282,61 @@ class WeatherStatusTracker:
             elif intensity == "heavy":
                 self.wetness = min(10, self.wetness + 3)
         else:
-            # Gradually dry off
+            # Gradually dry off outdoors (slower than indoors)
             if self.wetness > 0:
                 self.wetness = max(0, self.wetness - 1)
         
-        # Cold from winter/snow/sleet/cold temps
-        if season == "winter" or wtype in ["snow", "sleet"] or temp in ["cold", "chilly"]:
+        # Cold accumulation and decay
+        # Note: "chilly" is mild and doesn't accumulate cold, only "cold" does
+        if season == "winter" or wtype in ["snow", "sleet"] or temp == "cold":
+            # Accumulate cold from severe conditions
             if intensity in ["moderate", "heavy"] or temp == "cold":
                 self.cold = min(10, self.cold + 2)
             else:
                 self.cold = min(10, self.cold + 1)
         else:
-            # Gradually warm up
+            # Gradually warm up outdoors when conditions allow
+            # Being wet slows warming (wet clothes conduct heat away), but body heat still works
             if self.cold > 0:
+                # Always allow decay - wetness naturally slows it because you stay wet longer
+                # The time-based update system (5 seconds) already provides natural rate limiting
                 self.cold = max(0, self.cold - 1)
         
-        # Heat from summer/hot temps
-        if season == "summer" or temp in ["hot", "warm"]:
-            if temp == "hot":
+        # Heat accumulation and decay
+        if season == "summer" or wtype == "heatwave" or temp in ["hot", "warm"]:
+            if wtype == "heatwave" and intensity == "heavy":
+                self.heat = min(10, self.heat + 2)
+            elif temp == "hot" or (wtype == "heatwave" and intensity in ["moderate", "heavy"]):
                 self.heat = min(10, self.heat + 2)
             else:
                 self.heat = min(10, self.heat + 1)
         else:
-            # Gradually cool down
+            # Gradually cool down when conditions allow
             if self.heat > 0:
-                self.heat = max(0, self.heat - 1)
+                # Wetness helps cool down faster (evaporation)
+                if self.wetness > 0:
+                    self.heat = max(0, self.heat - 2)  # Faster cooling if wet
+                else:
+                    self.heat = max(0, self.heat - 1)  # Normal cooling
     
     def has_status(self) -> bool:
         """Check if entity has any weather status effects."""
         return max(self.wetness, self.cold, self.heat) > 0
     
-    def to_dict(self) -> Dict[str, int]:
+    def to_dict(self) -> Dict:
         """Serialize to dictionary."""
         return {
             "wetness": self.wetness,
             "cold": self.cold,
             "heat": self.heat,
-            "last_update_tick": self.last_update_tick
+            "last_update_tick": self.last_update_tick,
+            "last_update_time": self.last_update_time
         }
     
-    def from_dict(self, data: Dict[str, int]) -> None:
+    def from_dict(self, data: Dict) -> None:
         """Load from dictionary."""
         self.wetness = data.get("wetness", 0)
         self.cold = data.get("cold", 0)
         self.heat = data.get("heat", 0)
         self.last_update_tick = data.get("last_update_tick", 0)
+        self.last_update_time = data.get("last_update_time")

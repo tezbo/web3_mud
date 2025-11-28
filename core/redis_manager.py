@@ -18,6 +18,7 @@ logger = logging.getLogger(__name__)
 # Redis connection pools (created on first use)
 _cache_pool: Optional[redis.ConnectionPool] = None
 _pubsub_pool: Optional[redis.ConnectionPool] = None
+_redis_available: Optional[bool] = None  # Circuit breaker: None=Unknown, True=Available, False=Unavailable
 
 
 def get_redis_url(service: str = "cache") -> str:
@@ -53,7 +54,11 @@ def get_cache_connection() -> Optional[redis.Redis]:
     Returns:
         Redis client instance, or None if Redis is unavailable
     """
-    global _cache_pool
+    global _cache_pool, _redis_available
+    
+    # Circuit breaker check
+    if _redis_available is False:
+        return None
     
     try:
         if _cache_pool is None:
@@ -70,36 +75,56 @@ def get_cache_connection() -> Optional[redis.Redis]:
             logger.info(f"Created Redis cache pool: {url}")
         
         client = redis.Redis(connection_pool=_cache_pool)
-        # Don't ping here - let operations fail gracefully if connection is down
+        
+        # Verify connection on first use
+        if _redis_available is None:
+            try:
+                client.ping()
+                _redis_available = True
+                logger.info("Redis connection verified successfully")
+            except Exception as e:
+                _redis_available = False
+                logger.warning(f"Redis connection failed ({e}), disabling Redis cache")
+                return None
+                
         return client
     except Exception as e:
         logger.debug(f"Redis cache connection unavailable: {e}")
+        _redis_available = False
         return None
 
 
-def get_pubsub_connection() -> redis.Redis:
+def get_pubsub_connection() -> Optional[redis.Redis]:
     """
     Get Redis connection for pub/sub (events).
     
     Returns:
-        Redis client instance
+        Redis client instance, or None if unavailable
     """
-    global _pubsub_pool
+    global _pubsub_pool, _redis_available
     
-    if _pubsub_pool is None:
-        url = get_redis_url("pubsub")
-        _pubsub_pool = redis.ConnectionPool.from_url(
-            url,
-            max_connections=50,
-            decode_responses=True,
-            socket_connect_timeout=5,
-            socket_timeout=5,
-            retry_on_timeout=True,
-            health_check_interval=30,
-        )
-        logger.info(f"Created Redis pub/sub pool: {url}")
+    # Circuit breaker check
+    if _redis_available is False:
+        return None
     
-    return redis.Redis(connection_pool=_pubsub_pool)
+    try:
+        if _pubsub_pool is None:
+            url = get_redis_url("pubsub")
+            _pubsub_pool = redis.ConnectionPool.from_url(
+                url,
+                max_connections=50,
+                decode_responses=True,
+                socket_connect_timeout=5,
+                socket_timeout=5,
+                retry_on_timeout=True,
+                health_check_interval=30,
+            )
+            logger.info(f"Created Redis pub/sub pool: {url}")
+        
+        return redis.Redis(connection_pool=_pubsub_pool)
+    except Exception as e:
+        logger.debug(f"Redis pub/sub connection unavailable: {e}")
+        return None
 
 
 def test_redis_connection() -> bool:
@@ -173,6 +198,9 @@ def get_cached_state(key: str, default: Any = None) -> Optional[Any]:
     """
     try:
         cache = get_cache_connection()
+        if cache is None:
+            return default
+            
         value = cache.get(key)
         if value:
             return json.loads(value)
@@ -196,6 +224,9 @@ def set_cached_state(key: str, value: Any, ttl: int = 900) -> bool:
     """
     try:
         cache = get_cache_connection()
+        if cache is None:
+            return False
+            
         cache.setex(key, ttl, json.dumps(value))
         return True
     except Exception as e:
@@ -207,6 +238,9 @@ def delete_cached_state(key: str) -> bool:
     """Delete cached state."""
     try:
         cache = get_cache_connection()
+        if cache is None:
+            return False
+            
         cache.delete(key)
         return True
     except Exception as e:

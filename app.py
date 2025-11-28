@@ -18,9 +18,17 @@ from flask import Flask, render_template, request, session, jsonify, redirect, u
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_socketio import SocketIO, emit, join_room, leave_room, disconnect
 
-# Set up logging
+# Set up logging with timestamps
 logger = logging.getLogger(__name__)
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    datefmt='%Y-%m-%d %H:%M:%S',
+    handlers=[
+        logging.FileHandler("server.log"),
+        logging.StreamHandler()
+    ]
+)
 
 # Try to load .env file if python-dotenv is available
 try:
@@ -51,13 +59,13 @@ from game_engine import (
     get_npcs_in_room,
     get_current_game_tick,
     update_player_weather_status,
-    update_npc_weather_statuses,
     process_npc_movements,
 )
 import ambiance
 from core.state_manager import get_state_manager
 from core.socketio_handlers import register_socketio_handlers
 from game.systems.atmospheric_manager import get_atmospheric_manager
+from core.redis_manager import test_redis_connection
 
 app = Flask(__name__)
 
@@ -72,11 +80,23 @@ app.config["PERMANENT_SESSION_LIFETIME"] = 86400  # 24 hours
 # Initialize Flask-SocketIO with Redis adapter for multi-instance scaling
 REDIS_URL = os.environ.get("REDIS_URL", "redis://localhost:6379/0")
 
+# Check if Redis is actually available
+use_redis = False
+if REDIS_URL:
+    try:
+        if test_redis_connection():
+            use_redis = True
+            logger.info(f"Redis connection successful, using Redis for SocketIO message queue: {REDIS_URL}")
+        else:
+            logger.warning("Redis connection failed, falling back to in-memory SocketIO")
+    except Exception as e:
+        logger.warning(f"Error checking Redis connection: {e}, falling back to in-memory SocketIO")
+
 try:
     socketio = SocketIO(
         app,
         cors_allowed_origins="*",
-        message_queue=REDIS_URL if REDIS_URL else None,
+        message_queue=REDIS_URL if use_redis else None,
         async_mode='eventlet',
         logger=True,
         engineio_logger=False,
@@ -171,6 +191,8 @@ def init_db() -> None:
             "npc_action_interval_max": ("60", "Maximum seconds between NPC actions (real-world time)"),
             "ambiance_interval_min": ("120", "Minimum seconds between ambiance messages (real-world time)"),
             "ambiance_interval_max": ("240", "Maximum seconds between ambiance messages (real-world time)"),
+            "weather_ambiance_interval_min": ("90", "Minimum seconds between weather ambiance messages (real-world time)"),
+            "weather_ambiance_interval_max": ("180", "Maximum seconds between weather ambiance messages (real-world time)"),
             "poll_interval": ("3", "Client polling interval in seconds"),
         }
         
@@ -185,9 +207,11 @@ def init_db() -> None:
 init_db()
 
 def get_db() -> sqlite3.Connection:
-    """Get database connection."""
-    conn = sqlite3.connect(DATABASE)
+    """Get database connection with WAL mode enabled for better concurrency."""
+    conn = sqlite3.connect(DATABASE, timeout=10.0)  # 10 second timeout
     conn.row_factory = sqlite3.Row
+    # Enable WAL mode for better concurrency (allows reads during writes)
+    conn.execute("PRAGMA journal_mode=WAL")
     return conn
 
 # --- Game Settings Management ---
@@ -301,6 +325,7 @@ def cleanup_stale_sessions():
             # Notify others
             logout_msg = f"[{username} has been logged out automatically for being idle too long.]"
             broadcast_to_room(username, game.get("location"), logout_msg)
+            ACTIVE_GAMES.pop(username, None)
         ACTIVE_SESSIONS.pop(username, None)
 
 def list_active_players():
@@ -439,15 +464,35 @@ def get_game():
 
 def save_game(game):
     """Save the game state."""
-    user_id = session.get("user_id")
-    username = session.get("username", "adventurer")
-    if not user_id: return
+    # Get username from game state first (works in background tasks)
+    # Fall back to session if available (works in request context)
+    username = game.get("username")
+    if not username:
+        try:
+            username = session.get("username", "adventurer")
+        except RuntimeError:
+            # No request context (background task) - can't save without username
+            return
+    
+    # Get user_id from game state or session
+    user_id = game.get("user_id")
+    if not user_id:
+        try:
+            user_id = session.get("user_id")
+        except RuntimeError:
+            # No request context - try to continue without user_id for in-memory save
+            pass
+    
+    if not username: return
     
     ACTIVE_GAMES[username] = game
     
     try:
         state_manager = get_state_manager_instance()
-        state_manager.save_player_state(username, game, sync_to_db=True, use_cache=True)
+        # Only sync to DB if we have user_id (i.e., we're in a request context)
+        # In background tasks, just update in-memory cache
+        sync_to_db = bool(user_id)
+        state_manager.save_player_state(username, game, sync_to_db=sync_to_db, use_cache=True)
         
         # Update Redis location
         if "location" in game:
@@ -464,26 +509,33 @@ def save_game(game):
                 cache.sadd(CacheKeys.room_players(room_id), username)
     except Exception as e:
         logger.warning(f"Error saving via StateManager: {e}")
-        # DB Fallback
+        # DB Fallback - use single connection for all updates to avoid locking
         conn = get_db()
-        conn.execute(
-            """
-            INSERT INTO games (user_id, game_state, updated_at)
-            VALUES (?, ?, CURRENT_TIMESTAMP)
-            ON CONFLICT(user_id) DO UPDATE SET
-                game_state = excluded.game_state,
-                updated_at = CURRENT_TIMESTAMP
-            """,
-            (user_id, json.dumps(game))
-        )
-        conn.commit()
-        conn.close()
-    
-    if "user_description" in game:
-        conn = get_db()
-        conn.execute("UPDATE users SET description = ? WHERE id = ?", (game["user_description"], user_id))
-        conn.commit()
-        conn.close()
+        try:
+            conn.execute(
+                """
+                INSERT INTO games (user_id, game_state, updated_at)
+                VALUES (?, ?, CURRENT_TIMESTAMP)
+                ON CONFLICT(user_id) DO UPDATE SET
+                    game_state = excluded.game_state,
+                    updated_at = CURRENT_TIMESTAMP
+                """,
+                (user_id, json.dumps(game))
+            )
+            
+            # Update user description in the same transaction
+            if "user_description" in game:
+                conn.execute("UPDATE users SET description = ? WHERE id = ?", (game["user_description"], user_id))
+            
+            conn.commit()
+        except sqlite3.OperationalError as e:
+            if "database is locked" in str(e).lower():
+                logger.warning(f"Database locked when saving game for {username}, will retry on next save")
+                conn.rollback()
+            else:
+                raise
+        finally:
+            conn.close()
 
 # --- Routes ---
 
@@ -632,6 +684,16 @@ def index():
         return redirect(url_for("welcome"))
     
     username = session.get("username", "adventurer")
+    
+    # Check if user was auto-logged out (not in ACTIVE_SESSIONS)
+    # If they were, clear their session and redirect to welcome
+    if username not in ACTIVE_SESSIONS:
+        # User was likely auto-logged out for inactivity
+        session.clear()
+        session.modified = True
+        flash("Your session has expired due to inactivity. Please log in again.", "info")
+        return redirect(url_for("welcome"))
+    
     ACTIVE_SESSIONS[username] = {
         "last_activity": datetime.now(),
         "session_id": session.get("session_id", id(session)),
@@ -870,6 +932,8 @@ def command():
         broadcast_to_room(username, game.get("location"), f"[{username} has logged out.]")
         ACTIVE_GAMES.pop(username, None)
         ACTIVE_SESSIONS.pop(username, None)
+        
+        # Note: Session is NOT cleared here - client will redirect to /logout which handles session clearing
         return jsonify({"logout": True, "message": "You have logged out.", "log": []})
     
     session.setdefault("last_log_index", -1)
@@ -911,24 +975,37 @@ def poll_updates():
     user_id = session.get("user_id")
     if not username or not user_id: return jsonify({"messages": []})
     
+    # Optimization & Fix: Don't load game from DB during polling.
+    # If the user is not in ACTIVE_GAMES, they are either logged out
+    # or the server restarted. In either case, we shouldn't resurrect
+    # the game state just for a poll. The user must interact (login/command)
+    # to restore state.
+    if username not in ACTIVE_GAMES:
+        return jsonify({"messages": []})
+    
     game = get_game()
     if not game: return jsonify({"messages": []})
     
-    ACTIVE_SESSIONS[username] = {
-        "last_activity": datetime.now(),
-        "session_id": session.get("session_id", id(session)),
-    }
+    # Only add to ACTIVE_SESSIONS if user actually has an active game
+    # This prevents logged-out users from being re-added on polling
+    if username in ACTIVE_GAMES:
+        ACTIVE_SESSIONS[username] = {
+            "last_activity": datetime.now(),
+            "session_id": session.get("session_id", id(session)),
+        }
+    
     
     def broadcast_fn(room_id, text):
         broadcast_to_room(username, room_id, text)
     
     # Update weather/player status (but don't accumulate messages)
     atmos = get_atmospheric_manager()
-    atmos.update()
+    weather_changed, transition_message = atmos.update()
+    # Note: Transition messages are handled in background task, not here
     
     # process_world_clock_events() # Removed as it no longer exists
     update_player_weather_status(game)
-    update_npc_weather_statuses()
+    # NPC weather updates now handled in handle_command() via new model methods (Phase 2)
     # cleanup_buried_items() # Removed
     # process_time_based_exit_states() # Removed
     process_npc_movements(broadcast_fn=broadcast_fn)
@@ -975,6 +1052,10 @@ def poll_updates():
             new_messages.append(ambiance_msg[0])
             next_interval = random.uniform(ambiance_interval_min, ambiance_interval_max)
             poll_state["last_ambiance_time"] = current_time - timedelta(seconds=elapsed_ambiance_seconds - next_interval)
+    
+    # Weather messages for outdoor rooms (using old working system)
+    # Weather messages are now handled by the background events system
+    # (removed duplicate weather message logic from poll_updates)
     
     if new_messages:
         game.setdefault("log", [])
@@ -1092,7 +1173,90 @@ def set_budget():
     return jsonify({"success": True, "message": f"Budget set to {budget} tokens"})
 
 # Register SocketIO handlers
-register_socketio_handlers(socketio, get_game, handle_command, save_game)
+register_socketio_handlers(socketio, get_game, handle_command, save_game, ACTIVE_GAMES, ACTIVE_SESSIONS)
+
+# Start background event generator (including automatic weather updates)
+try:
+    from core.background_events import start_background_event_generator
+    from game.systems.weather_updates import update_all_weather_statuses
+    from game_engine import NPC_STATE
+    
+    # Create wrapper functions for background events
+    def get_all_rooms():
+        """Get all room IDs from world definition."""
+        from game_engine import WORLD
+        return list(WORLD.keys())
+    
+    def update_weather_statuses():
+        """Wrapper to update weather for all players and NPCs, and broadcast transition messages."""
+        from game.systems.atmospheric_manager import get_atmospheric_manager
+        from game_engine import WORLD
+        
+        atmos = get_atmospheric_manager()
+        weather_changed, transition_message = atmos.update()
+        
+        # If weather changed and we have a transition message, broadcast to all outdoor rooms
+        if weather_changed and transition_message:
+            # Get all outdoor rooms
+            outdoor_rooms = [room_id for room_id, room_def in WORLD.items() 
+                           if room_def.get("outdoor", False)]
+            
+            # Broadcast transition message to all outdoor rooms
+            for room_id in outdoor_rooms:
+                try:
+                    # Check if room has active players
+                    from core.redis_manager import get_cache_connection, CacheKeys
+                    cache = get_cache_connection()
+                    room_players_key = CacheKeys.room_players(room_id)
+                    players = cache.smembers(room_players_key)
+                    players = list(players) if players else []
+                    
+                    if players:
+                        # Format message with CYAN tags for visibility
+                        formatted_message = f"[CYAN]{transition_message}[/CYAN]"
+                        socketio.emit('room_message', {
+                            'room_id': room_id,
+                            'message': formatted_message,
+                            'message_type': 'weather_transition'
+                        }, room=f"room:{room_id}")
+                except Exception as e:
+                    # If Redis unavailable or other error, still try to broadcast via SocketIO
+                    # (SocketIO will handle rooms even if Redis is down)
+                    try:
+                        formatted_message = f"[CYAN]{transition_message}[/CYAN]"
+                        socketio.emit('room_message', {
+                            'room_id': room_id,
+                            'message': formatted_message,
+                            'message_type': 'weather_transition'
+                        }, room=f"room:{room_id}")
+                    except Exception:
+                        pass  # Silently fail if SocketIO also unavailable
+        
+        # Update weather status for all players and NPCs
+        update_all_weather_statuses(
+            get_active_games_fn=lambda: ACTIVE_GAMES,
+            get_active_sessions_fn=lambda: ACTIVE_SESSIONS,
+            save_game_fn=save_game,
+            get_npc_state_fn=lambda: NPC_STATE,
+        )
+    
+    # Import ambiance processing functions
+    from ambiance import process_room_ambiance, process_weather_ambiance
+    
+    # Start background events (weather updates run every 5 seconds along with other events)
+    start_background_event_generator(
+        socketio,
+        get_game_setting_fn=None,  # Can be added later if needed
+        get_all_rooms_fn=get_all_rooms,
+        process_ambiance_fn=process_room_ambiance,  # General ambiance (every 2-4 minutes)
+        process_weather_ambiance_fn=process_weather_ambiance,  # Weather messages (every 30-60 seconds)
+        process_decay_fn=None,  # Decay can be added later
+        update_weather_fn=update_weather_statuses,
+        get_active_games_fn=lambda: ACTIVE_GAMES,
+    )
+    logger.info("Background weather updates started")
+except Exception as e:
+    logger.warning(f"Could not start background event generator: {e}", exc_info=True)
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))

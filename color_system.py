@@ -13,12 +13,13 @@ DEFAULT_COLORS = {
     "emote": "white",        # Social gestures
     "tell": "yellow",        # Private messages
     "exits": "darkgreen",    # Exit descriptions
-    "weather": "darkyellow", # Weather messages
+    "weather": "white",      # Weather messages (periodic)
+    "weather_desc": "white", # Weather description in room look
     "room_descriptions": "white",  # Location descriptions
     "command": "blue",       # Command prompts ("> ")
     "error": "red",          # Error messages
     "success": "green",      # Success messages
-    "npc": "orange",         # NPC messages
+    "npc": "white",          # NPC messages
     "system": "gray",        # System messages
     "wallet": "lightgreen",  # Wallet info
     "quest": "lightblue",    # Quest messages
@@ -89,6 +90,12 @@ def get_color_settings(game: Dict) -> Dict[str, str]:
     """
     if "color_settings" not in game:
         game["color_settings"] = DEFAULT_COLORS.copy()
+    else:
+        # Ensure all default keys exist in stored settings (for new keys like weather_desc)
+        for key, value in DEFAULT_COLORS.items():
+            if key not in game["color_settings"]:
+                game["color_settings"][key] = value
+                
     return game["color_settings"]
 
 

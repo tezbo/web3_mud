@@ -42,11 +42,20 @@ from onboarding import (
 # Import command registry
 from command_registry import register_command, get_handler
 
+# Import inventory commands
+from game.commands.inventory import (
+    handle_inventory_command,
+    handle_take_command,
+    handle_drop_command,
+    handle_bury_command
+)
+from game.commands.player import handle_description_command
+
 # --- Game Package Imports ---
 from game.world.data import WORLD
 from game.state import (
     ROOM_STATE, BURIED_ITEMS, QUEST_GLOBAL_STATE, QUEST_SPECIFIC_ITEMS,
-    NPC_ACTIONS_STATE, NPC_STATE, WORLD_CLOCK, GAME_TIME, WEATHER_STATE,
+    NPC_STATE, WORLD_CLOCK, GAME_TIME, WEATHER_STATE,
     NPC_ROUTE_POSITIONS, EXIT_STATES, IN_GAME_HOUR_DURATION, IN_GAME_DAY_DURATION
 )
 from game.systems.ambient import AmbientSystem
@@ -1142,194 +1151,10 @@ EMOTES = {
 
 # --- Item definitions (interactables system) ---
 
-ITEM_DEFS = {
-    "copper_coin": {
-        "name": "copper coin",
-        "type": "currency",
-        "description": "A simple copper coin, worn and slightly tarnished.",
-        "weight": 0.01,
-        "flags": ["stackable"],
-    },
-    "wooden_tankard": {
-        "name": "wooden tankard",
-        "type": "container",
-        "description": "A simple wooden tankard, well-used but sturdy.",
-        "weight": 0.2,
-        "flags": [],
-    },
-    "iron_hammer": {
-        "name": "iron hammer",
-        "type": "tool",
-        "description": "A heavy iron hammer, well-balanced and ready for work.",
-        "weight": 2.0,
-        "flags": [],
-    },
-    "lump_of_ore": {
-        "name": "lump of ore",
-        "type": "material",
-        "description": "A rough lump of unrefined ore, heavy and promising.",
-        "weight": 1.5,
-        "flags": [],
-    },
-    "fresh_bread": {
-        "name": "fresh bread",
-        "type": "food",
-        "description": "A loaf of fresh bread, still warm and smelling of the oven.",
-        "weight": 0.5,
-        "flags": [],
-    },
-    "simple_amulet": {
-        "name": "simple amulet",
-        "type": "trinket",
-        "description": "A small amulet of simple design, worn smooth by time.",
-        "weight": 0.1,
-        "flags": [],
-    },
-    "smooth_rune_stone": {
-        "name": "smooth rune stone",
-        "type": "artifact",
-        "description": "A smooth stone marked with ancient runes, humming with subtle energy.",
-        "weight": 0.3,
-        "flags": [],
-        "droppable": False,  # Example of a non-droppable item (bound artifact)
-    },
-    "bundle_of_herbs": {
-        "name": "bundle of herbs",
-        "type": "material",
-        "description": "A small bundle of dried herbs, fragrant and useful.",
-        "weight": 0.1,
-        "flags": [],
-    },
-    "lost_package": {
-        "name": "lost package",
-        "type": "misc",
-        "description": "A small wrapped package, slightly dusty. It looks like it was misplaced.",
-        "weight": 0.3,
-        "flags": [],
-    },
-    "mara_lucky_charm": {
-        "name": "Mara's lucky charm",
-        "type": "trinket",
-        "description": "A small, handcrafted charm given to you by Mara as a token of gratitude. It seems to carry a bit of luck with it.",
-        "weight": 0.05,
-        "flags": ["quest"],
-        "droppable": False,
-    },
-    "strange_leaf": {
-        "name": "strange leaf",
-        "type": "material",
-        "description": "An unusual leaf that seems to shimmer slightly in the light.",
-        "weight": 0.05,
-        "flags": [],
-    },
-    "loose_stone": {
-        "name": "loose stone",
-        "type": "misc",
-        "description": "A loose stone that has fallen from the path.",
-        "weight": 0.3,
-        "flags": [],
-    },
-    "cracked_spyglass": {
-        "name": "cracked spyglass",
-        "type": "tool",
-        "description": "A spyglass with a cracked lens, but still somewhat functional.",
-        "weight": 0.4,
-        "flags": [],
-    },
-    "weathered_signpost": {
-        "name": "weathered signpost",
-        "type": "misc",
-        "description": "An old signpost, its markings faded but still readable.",
-        "weight": 5.0,
-        "flags": [],
-    },
-    "mara_kitchen_knife": {
-        "name": "kitchen knife",
-        "type": "weapon",
-        "description": "A well-balanced kitchen knife, sharp and sturdy. Though meant for cooking, it could serve as a weapon in a pinch. The handle is worn smooth from years of use.",
-        "weight": 0.5,
-        "flags": ["tool", "weapon"],
-        "weapon_type": "melee",
-        "damage": 2,
-    },
-    "bowl_of_stew": {
-        "name": "bowl of stew",
-        "type": "food",
-        "description": "A hearty bowl of stew that smells of herbs and slow-cooked meat.",
-        "weight": 0.3,
-        "flags": [],
-    },
-    "tankard_of_ale": {
-        "name": "tankard of ale",
-        "type": "food",
-        "description": "A frothy tankard of ale, cool and refreshing.",
-        "weight": 0.3,
-        "flags": [],
-    },
-    "loaf_of_bread": {
-        "name": "loaf of bread",
-        "type": "food",
-        "description": "A substantial loaf of bread, perfect for sharing or keeping.",
-        "weight": 0.5,
-        "flags": [],
-    },
-    "piece_of_bread": {
-        "name": "piece of bread",
-        "type": "food",
-        "description": "A small piece of bread, still fresh and soft.",
-        "weight": 0.1,
-        "flags": [],
-    },
-}
+# --- Item definitions (interactables system) ---
+# Refactored to game.systems.inventory
+from game.systems.inventory import ITEM_DEFS, get_item_def, calculate_inventory_weight
 
-
-def get_item_def(item_id: str) -> dict:
-    """
-    Get item definition, with graceful fallback for unknown items.
-    
-    Args:
-        item_id: The item identifier (e.g., "copper_coin")
-    
-    Returns:
-        dict: Item definition with at least name, type, description, flags, droppable, weight
-    """
-    if item_id in ITEM_DEFS:
-        item_def = ITEM_DEFS[item_id].copy()
-        # Ensure droppable defaults to True if not specified
-        if "droppable" not in item_def:
-            item_def["droppable"] = True
-        # Ensure weight is set (default 0.1 kg for unknown items)
-        if "weight" not in item_def:
-            item_def["weight"] = 0.1
-        return item_def
-    
-    # Fallback for unknown items
-    return {
-        "name": item_id.replace("_", " "),
-        "type": "misc",
-        "description": "",
-        "weight": 0.1,  # Default weight in kg
-        "flags": [],
-        "droppable": True,  # Default to droppable
-    }
-
-
-def calculate_inventory_weight(inventory: list) -> float:
-    """
-    Calculate total weight of items in inventory (in kg).
-    
-    Args:
-        inventory: List of item IDs
-    
-    Returns:
-        float: Total weight in kg
-    """
-    total_weight = 0.0
-    for item_id in inventory:
-        item_def = get_item_def(item_id)
-        weight = item_def.get("weight", 0.1)
-        total_weight += weight
-    return total_weight
 
 
 def calculate_room_items_weight(room_items: list) -> float:
@@ -1747,152 +1572,8 @@ MERCHANT_ITEMS = {
 # NPC_ACTIONS_STATE imported from game.state
 
 
-def process_npc_periodic_actions(game, broadcast_fn=None, who_fn=None):
-    """
-    Process NPC periodic actions based on elapsed time.
-    Shows accumulated NPC actions and weather reactions since last update.
-    
-    Args:
-        game: Player's game state dict
-        broadcast_fn: Optional callback(room_id: str, text: str) for broadcasting to room
-        who_fn: Optional callback() -> list[dict] for getting active players
-    """
-    global NPC_ACTIONS_STATE, GAME_TIME, WEATHER_STATE
-    import random
-    
-    current_tick = get_current_game_tick()
-    current_room = game.get("location", "town_square")
-    
-    # Initialize room state if needed
-    if current_room not in NPC_ACTIONS_STATE:
-        NPC_ACTIONS_STATE[current_room] = {
-            "last_action_tick": current_tick,
-            "last_weather_change_tick": current_tick,
-            "last_weather_state": WEATHER_STATE.copy()
-        }
-    
-    room_state = NPC_ACTIONS_STATE[current_room]
-    last_action_tick = room_state.get("last_action_tick", current_tick)
-    
-    # Calculate elapsed time (ticks since last action)
-    elapsed_ticks = current_tick - last_action_tick
-    
-    # NPC actions should happen roughly every 3-8 in-game minutes (36-96 ticks at 12x speed)
-    # More frequent if there are more NPCs in the room
-    # This makes NPCs more active, even when player is idle
-    npc_ids = get_npcs_in_room(current_room)
-    num_npcs = len(npc_ids)
-    
-    if num_npcs > 0:
-        # Calculate how many actions should have happened
-        # Every 3-5 in-game minutes (36-60 ticks) on average, but more NPCs = more frequent actions
-        # At 12x speed: 3 game minutes = ~15 real-world seconds, so NPCs act more frequently
-        action_interval = max(36, 72 - (num_npcs * 6))  # 36-72 ticks depending on NPC count
-        
-        # Show accumulated actions based on elapsed time
-        # Allow more actions if more time has passed, but cap to avoid spam
-        actions_to_show = elapsed_ticks // action_interval
-        # Cap at reasonable number: allow up to 5-8 actions depending on NPC count
-        max_actions_to_show = min(max(5, num_npcs * 2), 10)  # More NPCs = can show more actions
-        actions_to_show = min(actions_to_show, max_actions_to_show)
-        
-        if actions_to_show > 0:
-            from npc_actions import get_all_npc_actions_for_room
-            npc_actions = get_all_npc_actions_for_room(current_room)
-            
-            if npc_actions:
-                # Show actions (one per NPC if possible, or random selection)
-                shown_count = 0
-                action_list = list(npc_actions.items())
-                random.shuffle(action_list)  # Randomize order
-                
-                for npc_id, action in action_list:
-                    if shown_count >= actions_to_show:
-                        break
-                    
-                    # Format with NPC color tag (will be mapped to 'npc' color)
-                    action_text = f"[NPC]{action}[/NPC]"
-                    
-                    # Add to player's log
-                    game.setdefault("log", [])
-                    game["log"].append(action_text)
-                    game["log"] = game["log"][-50:]
-                    
-                    # Broadcast to other players in the room
-                    if broadcast_fn:
-                        broadcast_fn(current_room, action_text)
-                    
-                    shown_count += 1
-                
-                # Update last action tick (space them out)
-                room_state["last_action_tick"] = current_tick - (elapsed_ticks % action_interval)
-    
-    # Check for weather changes and NPC reactions
-    last_weather_state = room_state.get("last_weather_state", {})
-    last_weather_tick = room_state.get("last_weather_change_tick", current_tick)
-    
-    # Check if weather has changed significantly
-    weather_changed = False
-    if last_weather_state.get("type") != WEATHER_STATE.get("type") or \
-       last_weather_state.get("intensity") != WEATHER_STATE.get("intensity"):
-        weather_changed = True
-        room_state["last_weather_change_tick"] = current_tick
-        room_state["last_weather_state"] = WEATHER_STATE.copy()
-    
-    # Show NPC weather reactions when weather changes (for outdoor rooms)
-    room_def = WORLD.get(current_room, {})
-    if room_def.get("outdoor", False) and weather_changed and num_npcs > 0:
-        season = get_season()
-        
-        # Show weather reaction for one NPC (if any have reactions)
-        random.shuffle(npc_ids)
-        
-        for npc_id in npc_ids:
-            # Sanity check: only show reaction if NPC actually has weather status effects
-            if has_npc_weather_status(npc_id):
-                reaction = get_npc_weather_reaction(npc_id, WEATHER_STATE, season, check_status=True)
-                if reaction:
-                    # Format with NPC color tag (will be mapped to 'npc' color)
-                    reaction_text = f"[NPC]{reaction}[/NPC]"
-                    
-                    # Add to player's log
-                    game.setdefault("log", [])
-                    game["log"].append(reaction_text)
-                    game["log"] = game["log"][-50:]
-                    
-                    # Broadcast to other players in outdoor rooms
-                    if broadcast_fn:
-                        broadcast_fn(current_room, reaction_text)
-                    
-                    # Only show one weather reaction per change
-                    break
-    
-    # Also check for periodic weather reactions (not just on change)
-    # Show weather reaction occasionally (every ~30 ticks if weather is significant)
-    if room_def.get("outdoor", False) and num_npcs > 0:
-        wtype = WEATHER_STATE.get("type", "clear")
-        intensity = WEATHER_STATE.get("intensity", "none")
-        
-        # Only for significant weather (not just clear)
-        if wtype != "clear" and intensity in ["moderate", "heavy"]:
-            # Show weather reaction every ~30 ticks (30% chance per command)
-            if random.random() < 0.3:
-                season = get_season()
-                random.shuffle(npc_ids)
-                
-                for npc_id in npc_ids:
-                    # Sanity check: only show reaction if NPC actually has weather status effects
-                    if has_npc_weather_status(npc_id):
-                        reaction = get_npc_weather_reaction(npc_id, WEATHER_STATE, season, check_status=True)
-                        if reaction:
-                            reaction_text = f"[NPC]{reaction}[/NPC]"
-                            game.setdefault("log", [])
-                            game["log"].append(reaction_text)
-                            game["log"] = game["log"][-50:]
-                            
-                            if broadcast_fn:
-                                broadcast_fn(current_room, reaction_text)
-                            break
+
+
 
 # --- World Clock (tracks in-game time) ---
 # In-game time: 1 in-game hour = 1 real-world hour (configurable)
@@ -2004,110 +1685,8 @@ WEATHER_STATE = {
 }
 
 # Weather messages by type and intensity
-WEATHER_MESSAGES = {
-    "windy": {
-        "light": [
-            "A gentle breeze rustles through the area.",
-            "The wind picks up slightly, carrying a few leaves along the ground.",
-        ],
-        "moderate": [
-            "A brisk wind tugs at your clothes.",
-            "The wind is picking up, carrying leaves and dust along the ground.",
-        ],
-        "heavy": [
-            "It's blowing a gale. Debris whips past you – you should find shelter.",
-            "Strong winds howl around you, making it hard to keep your footing.",
-        ],
-    },
-    "rain": {
-        "light": [
-            "A light rain patters gently around you.",
-            "Drizzle falls softly, barely noticeable at first.",
-        ],
-        "moderate": [
-            "Rain falls steadily, soaking the road and your clothes.",
-            "The rain comes down in sheets, making everything slick and wet.",
-        ],
-        "heavy": [
-            "Sheets of rain hammer the ground, making it hard to see far.",
-            "Torrential rain lashes down, turning the ground to mud.",
-        ],
-    },
-    "snow": {
-        "light": [
-            "A light snow floats gently to the ground, vanishing as it touches the earth.",
-            "Delicate snowflakes drift down, dusting everything in white.",
-        ],
-        "moderate": [
-            "Snow drifts down in thick flakes, softening the edges of the world.",
-            "Steady snowfall blankets the ground, muffling all sound.",
-        ],
-        "heavy": [
-            "A heavy snowfall blankets everything in white; your footprints fill in behind you.",
-            "Blinding snow falls in thick curtains, obscuring the world around you.",
-        ],
-    },
-    "sleet": {
-        "moderate": [
-            "Freezing sleet stings your face and soaks your clothes.",
-            "Icy sleet pelts down, making the ground treacherous.",
-        ],
-        "heavy": [
-            "Driving sleet cuts through the air like needles.",
-            "The sleet comes down hard, coating everything in a layer of ice.",
-        ],
-    },
-    "clear": {
-        "none": {
-            "dawn": [
-                "The sky is clear in the pale morning light, with the rising sun just visible on the horizon.",
-                "Clear skies stretch overhead as dawn breaks, promising a pleasant day.",
-            ],
-            "day": [
-                "The sky is clear and bright, with the sun high above.",
-                "Clear skies stretch overhead, promising a pleasant day.",
-            ],
-            "dusk": [
-                "The sky is clear as evening approaches, with the sun setting in the west.",
-                "Clear skies stretch overhead, the last rays of sunlight painting the horizon.",
-            ],
-            "night": [
-                "The sky is clear and dark, with stars and the moon visible above.",
-                "Clear skies stretch overhead, the moon and stars providing the only light.",
-            ],
-        },
-    },
-    "heatwave": {
-        "moderate": [
-            "It's hot and still; heat shimmers above the stone.",
-            "The air is oppressive with heat, making every breath feel heavy.",
-        ],
-        "heavy": [
-            "The heat is unbearable; the sun beats down mercilessly.",
-            "Scorching heat radiates from every surface, making shade a precious commodity.",
-        ],
-    },
-    "overcast": {
-        "light": [
-            "Grey clouds hang low overhead, muting the light.",
-            "The sky is overcast, casting everything in a dull grey light.",
-        ],
-        "moderate": [
-            "Thick clouds block out most of the sun, creating a somber atmosphere.",
-            "Heavy clouds press down, making the day feel darker than it should.",
-        ],
-    },
-    "storm": {
-        "moderate": [
-            "Thunder rumbles in the distance as dark clouds gather overhead.",
-            "A storm is brewing; lightning flashes across the sky.",
-        ],
-        "heavy": [
-            "A fierce storm rages, with thunder and lightning crashing all around.",
-            "The storm unleashes its fury; you can barely see through the driving rain and wind.",
-        ],
-    },
-}
+# Weather messages have been moved to game/systems/weather_messages.py
+# This dictionary is deprecated and removed to prevent duplicate sources of truth.
 
 # Seasonal overlays by feature and season
 SEASONAL_OVERLAYS = {
@@ -2508,167 +2087,8 @@ def get_moon_phase_description():
     return phase_descriptions.get(phase, "moon")
 
 
-def get_combined_time_weather_description(is_outdoor=True):
-    """
-    Get a combined time-of-day, moon phase, and weather description in a single coherent line.
-    This replaces both the separate time-of-day/moon description and weather message.
-    
-    Args:
-        is_outdoor: Whether the room is outdoor (affects descriptions)
-    
-    Returns:
-        str: Combined time-of-day/moon/weather description
-    """
-    time_of_day = get_time_of_day()
-    weather_type = WEATHER_STATE.get("type", "clear")
-    weather_intensity = WEATHER_STATE.get("intensity", "none")
-    moon_phase = get_moon_phase()
-    moon_desc = get_moon_phase_description()
-    
-    # For indoor rooms, keep it simple
-    if not is_outdoor:
-        if time_of_day == "day":
-            return "The day's light filters in from outside."
-        elif time_of_day == "dawn":
-            return "The pale light of dawn filters in through the windows."
-        elif time_of_day == "dusk":
-            return "Evening light fades as darkness settles outside."
-        else:  # night
-            return "The night is dark outside, little light reaching in."
-    
-    # Outdoor room descriptions - combine time, moon, and weather intelligently
-    # Daytime
-    if time_of_day == "day":
-        if weather_type == "clear":
-            return "The sun shines brightly overhead in clear skies, illuminating the land."
-        elif weather_type == "overcast":
-            return "The day is grey and muted under heavy overcast skies."
-        elif weather_type == "rain":
-            if weather_intensity == "heavy":
-                return "The day is darkened by heavy rain and thick clouds that block out the sun."
-            else:
-                return "Rain falls steadily, darkening the day and soaking everything below."
-        elif weather_type == "storm":
-            return "A fierce storm darkens the day, with thunder and lightning crashing overhead."
-        elif weather_type == "snow":
-            if weather_intensity == "heavy":
-                return "Heavy snow blankets the day, reducing visibility and muffling all sound."
-            else:
-                return "Snow drifts down steadily, softening the edges of the day."
-        elif weather_type == "sleet":
-            return "Freezing sleet falls through the day, making everything slick and treacherous."
-        elif weather_type == "heatwave":
-            return "The sun beats down mercilessly in the sweltering heat, baking the land."
-        elif weather_type == "windy":
-            if weather_intensity == "heavy":
-                return "Strong winds howl through the day, making it hard to keep your footing."
-            else:
-                return "A brisk wind tugs at your clothes as the day progresses."
-        elif weather_type == "fog":
-            return "Thick fog obscures the day, reducing visibility to just a few paces."
-        else:
-            return "The day passes under an uncertain sky."
-    
-    # Dawn
-    elif time_of_day == "dawn":
-        if weather_type == "clear":
-            return "Dawn breaks, painting the sky in shades of pink and gold with clear skies above."
-        elif weather_type == "overcast":
-            return "Dawn struggles through heavy grey clouds, casting everything in muted light."
-        elif weather_type == "rain":
-            return "Dawn breaks weakly through heavy clouds and steady rain."
-        elif weather_type == "storm":
-            return "Dawn battles against a raging storm, barely visible through the chaos."
-        elif weather_type == "fog":
-            return "Dawn light filters weakly through thick morning fog."
-        else:
-            return "Dawn breaks, though the weather obscures much of the morning light."
-    
-    # Dusk
-    elif time_of_day == "dusk":
-        if weather_type == "clear":
-            return "Evening settles in with clear skies, the horizon painted in deep oranges and purples."
-        elif weather_type == "overcast":
-            return "Evening falls under heavy grey clouds, darkness coming early."
-        elif weather_type == "rain":
-            return "Evening arrives with steady rain, darkness deepened by the heavy weather."
-        elif weather_type == "storm":
-            return "Evening falls as the storm continues, darkness and chaos merging together."
-        elif weather_type == "fog":
-            return "Evening mist thickens as daylight fades, obscuring the horizon."
-        else:
-            return "Evening settles in, bringing darkness as the day ends."
-    
-    # Night (with moon phases)
-    else:  # night
-        moon_visible = moon_phase != "new" and weather_type not in ["overcast", "storm", "fog"]
-        
-        # Night with clear weather
-        if weather_type == "clear":
-            if moon_phase == "new":
-                return "The night is pitch black under clear skies. The new moon provides no light, leaving only the faintest stars visible."
-            elif moon_phase == "full":
-                return "Clear skies stretch overhead, and the land is bathed in the bright silvery light of the full moon."
-            elif moon_phase in ["waxing_gibbous", "waning_gibbous"]:
-                return f"Clear skies stretch overhead, and the land is lit up by the bright light of the {moon_desc}."
-            elif moon_phase in ["first_quarter", "last_quarter"]:
-                return f"Clear skies stretch overhead, and the land is lit up by the eerie light of the {moon_desc}."
-            elif moon_phase in ["waxing_crescent", "waning_crescent"]:
-                return f"Clear skies stretch overhead. The {moon_desc} provides only dim light, leaving much of the land in shadow."
-            else:
-                return f"Clear skies stretch overhead, the {moon_desc} and stars providing the only light."
-        
-        # Night with overcast
-        elif weather_type == "overcast":
-            return "The night is pitch black, with thick clouds obscuring any light from above."
-        
-        # Night with rain
-        elif weather_type == "rain":
-            if weather_intensity == "heavy":
-                return "The night is black as pitch, with heavy rain and thick clouds blocking out all light."
-            else:
-                return "The night is dark, with steady rain falling and clouds obscuring the sky above."
-        
-        # Night with storm
-        elif weather_type == "storm":
-            return "The night is black as pitch, with no light penetrating the storm clouds overhead."
-        
-        # Night with snow
-        elif weather_type == "snow":
-            if moon_visible:
-                if moon_phase == "full":
-                    return f"Snow falls steadily through the night, the full moon's light reflecting off the white ground."
-                else:
-                    return f"Snow drifts down through the night, the {moon_desc} casting an eerie glow on the falling flakes."
-            else:
-                return "Snow falls steadily through the dark night, reducing visibility to just a few paces."
-        
-        # Night with sleet
-        elif weather_type == "sleet":
-            return "Freezing sleet falls through the pitch black night, making the ground treacherous."
-        
-        # Night with fog
-        elif weather_type == "fog":
-            return "The night is lost in impenetrable fog, no light reaching through the thick mist."
-        
-        # Night with windy
-        elif weather_type == "windy":
-            if moon_visible:
-                if moon_phase == "full":
-                    return "A brisk wind tugs at your clothes as the full moon's light illuminates the restless night."
-                else:
-                    return f"A brisk wind tugs at your clothes under the {moon_desc}'s dim light."
-            else:
-                return "The night is dark and windy, with clouds scudding across the sky."
-        
-        # Default night (shouldn't happen, but fallback)
-        else:
-            if moon_phase == "new":
-                return "The night is pitch black, the new moon providing no light."
-            elif moon_visible:
-                return f"The land is lit up by the light of the {moon_desc}."
-            else:
-                return "The night is dark and moonless."
+# Legacy get_combined_time_weather_description has been removed.
+# Use game.systems.atmospheric_manager.get_atmospheric_manager().get_combined_description() instead.
 
 
 def get_previous_season(current_season):
@@ -2810,288 +2230,14 @@ def update_weather_if_needed():
         WEATHER_STATE["temperature"] = random.choice(temp_options)
 
 
-def get_weather_message():
-    """
-    Get a random weather message based on current weather state and time of day.
-    
-    Returns:
-        str: Weather message or empty string
-    """
-    wtype = WEATHER_STATE.get("type", "clear")
-    intensity = WEATHER_STATE.get("intensity", "none")
-    time_of_day = get_time_of_day()
-    
-    if wtype not in WEATHER_MESSAGES:
-        return ""
-    
-    # Check if this weather type has time-specific messages
-    intensity_dict = WEATHER_MESSAGES[wtype].get(intensity, {})
-    
-    # If intensity_dict is a dict with time keys, use time-specific messages
-    if isinstance(intensity_dict, dict) and time_of_day in intensity_dict:
-        messages = intensity_dict[time_of_day]
-    elif isinstance(intensity_dict, list):
-        # Old format: list of messages
-        messages = intensity_dict
-    else:
-        # Fallback to "none" intensity if available
-        none_dict = WEATHER_MESSAGES[wtype].get("none", {})
-        if isinstance(none_dict, dict) and time_of_day in none_dict:
-            messages = none_dict[time_of_day]
-        elif isinstance(none_dict, list):
-            messages = none_dict
-        else:
-            messages = []
-    
-    if messages:
-        return random.choice(messages)
-    return ""
+# Legacy get_weather_message has been removed.
+# Use game.systems.weather_messages.get_weather_message instead.
 
 
-def apply_weather_to_description(description, time_of_day):
-    """
-    Apply weather-aware modifications to a room description.
-    Modifies descriptions to reflect current weather conditions.
-    
-    Args:
-        description: The base room description
-        time_of_day: Current time of day (dawn/day/dusk/night)
-    
-    Returns:
-        str: Modified description that reflects weather conditions
-    """
-    wtype = WEATHER_STATE.get("type", "clear")
-    intensity = WEATHER_STATE.get("intensity", "none")
-    temp = WEATHER_STATE.get("temperature", "mild")
-    
-    modified = description
-    
-    # Wind modifications
-    if wtype == "windy":
-        if intensity == "heavy":
-            # Replace calm wind references with strong wind
-            modified = modified.replace("The wind is", "The wind is")
-            modified = modified.replace("wind whips", "wind howls and tears")
-            modified = modified.replace("wind howls", "wind howls violently")
-            modified = modified.replace("The air is still", "The wind howls around you")
-            modified = modified.replace("still air", "howling wind")
-        elif intensity == "moderate":
-            modified = modified.replace("The air is still", "A brisk wind blows")
-            modified = modified.replace("still air", "brisk wind")
-        elif intensity == "light":
-            modified = modified.replace("The air is still", "A gentle breeze stirs")
-            modified = modified.replace("still air", "gentle breeze")
-    elif wtype in ["clear", "heatwave"] and intensity == "none":
-        # Still conditions - only modify if description mentions wind
-        if "wind howls" in modified.lower() or "wind whips" in modified.lower():
-            if time_of_day == "night":
-                modified = modified.replace("wind howls", "air is still")
-                modified = modified.replace("wind whips", "air is still")
-            else:
-                modified = modified.replace("wind howls", "wind is calm")
-                modified = modified.replace("wind whips", "wind is calm")
-    
-    # Rain/snow/sleet modifications
-    if wtype in ["rain", "snow", "sleet"]:
-        if intensity == "heavy":
-            # Heavy precipitation affects visibility
-            if time_of_day == "night":
-                modified = modified.replace("only the faintest lights", "no lights are visible through the")
-                modified = modified.replace("faintest lights", "no lights visible")
-                modified = modified.replace("horizon is lost", "horizon is completely obscured")
-                modified = modified.replace("horizon is", "horizon is barely visible through the")
-            else:
-                modified = modified.replace("horizon is", "horizon is obscured by the")
-                modified = modified.replace("you can see", "you can barely see")
-        # Add precipitation context
-        if "rain" in wtype and "rain" not in modified.lower():
-            if time_of_day == "night":
-                modified = modified.replace("pitch dark", "pitch dark, with rain lashing")
-            else:
-                modified = modified.replace("spreads out", "spreads out, though visibility is reduced by the rain")
-    
-    # Snow/sleet specific
-    if wtype in ["snow", "sleet"]:
-        if intensity == "heavy":
-            if time_of_day == "night":
-                modified = modified.replace("pitch dark", "pitch dark, with snow/sleet blinding")
-                modified = modified.replace("sea of darkness", "blinding whiteout")
-            else:
-                modified = modified.replace("spreads out", "spreads out, though the snow/sleet makes it hard to see far")
-    
-    # Temperature modifications
-    if temp == "hot" and time_of_day == "night":
-        modified = modified.replace("cold beneath your feet", "warm, still radiating heat from the day")
-        modified = modified.replace("stone is cold", "stone is still warm")
-        modified = modified.replace("air is still", "air is hot and still, heavy with humidity")
-    elif temp == "cold" and time_of_day == "night":
-        modified = modified.replace("stone is cold", "stone is freezing cold")
-        modified = modified.replace("cold beneath your feet", "bitterly cold beneath your feet")
-    
-    # Heatwave modifications
-    if wtype == "heatwave":
-        if time_of_day == "night":
-            modified = modified.replace("pitch dark", "oppressively hot and dark")
-            modified = modified.replace("air is still", "air is hot and heavy, making it hard to breathe")
-        else:
-            modified = modified.replace("spreads out", "spreads out, shimmering in the heat")
-    
-    # Storm modifications
-    if wtype == "storm":
-        if intensity == "heavy":
-            if time_of_day == "night":
-                modified = modified.replace("pitch dark", "pitch dark, with lightning illuminating")
-                modified = modified.replace("horizon is lost", "horizon flashes with lightning")
-            else:
-                modified = modified.replace("spreads out", "spreads out, though the storm makes it hard to see")
-    
-    # Overcast modifications
-    if wtype == "overcast":
-        if time_of_day == "night":
-            modified = modified.replace("pitch dark", "pitch dark, with clouds blocking any starlight")
-            modified = modified.replace("moon and stars", "no moon or stars visible")
-        else:
-            modified = modified.replace("spreads out", "spreads out under the grey, overcast sky")
-    
-    return modified
 
 
-def apply_weather_to_description(description, time_of_day):
-    """
-    Apply weather-aware modifications to a room description.
-    Modifies descriptions to reflect current weather conditions.
-    
-    Args:
-        description: The base room description
-        time_of_day: Current time of day (dawn/day/dusk/night)
-    
-    Returns:
-        str: Modified description that reflects weather conditions
-    """
-    wtype = WEATHER_STATE.get("type", "clear")
-    intensity = WEATHER_STATE.get("intensity", "none")
-    temp = WEATHER_STATE.get("temperature", "mild")
-    
-    modified = description
-    
-    # Wind modifications
-    if wtype == "windy":
-        if intensity == "heavy":
-            # Replace calm wind references with strong wind
-            modified = modified.replace("wind whips", "wind howls and tears")
-            modified = modified.replace("wind howls", "wind howls violently")
-            modified = modified.replace("The air is still", "The wind howls around you")
-            modified = modified.replace("still air", "howling wind")
-            modified = modified.replace("air is still", "wind howls")
-        elif intensity == "moderate":
-            modified = modified.replace("The air is still", "A brisk wind blows")
-            modified = modified.replace("still air", "brisk wind")
-            modified = modified.replace("air is still", "brisk wind blows")
-        elif intensity == "light":
-            modified = modified.replace("The air is still", "A gentle breeze stirs")
-            modified = modified.replace("still air", "gentle breeze")
-            modified = modified.replace("air is still", "gentle breeze stirs")
-    elif wtype in ["clear", "heatwave"] and intensity == "none":
-        # Still conditions - only modify if description mentions wind
-        if "wind howls" in modified.lower() or "wind whips" in modified.lower():
-            if time_of_day == "night":
-                modified = modified.replace("wind howls", "air is still")
-                modified = modified.replace("wind whips", "air is still")
-            else:
-                modified = modified.replace("wind howls", "wind is calm")
-                modified = modified.replace("wind whips", "wind is calm")
-    
-    # Rain/snow/sleet modifications
-    if wtype in ["rain", "snow", "sleet"]:
-        if intensity == "heavy":
-            # Heavy precipitation affects visibility
-            if time_of_day == "night":
-                # Fix visibility descriptions - do most specific first
-                if "only the faintest lights from Hollowvale visible" in modified:
-                    modified = modified.replace("only the faintest lights from Hollowvale visible", "no lights visible from Hollowvale")
-                elif "faintest lights" in modified:
-                    modified = modified.replace("faintest lights", "no lights visible")
-                # Fix horizon descriptions - do most specific first
-                if "horizon is lost in blackness" in modified:
-                    modified = modified.replace("horizon is lost in blackness", "horizon is completely obscured")
-                elif "horizon is lost" in modified:
-                    modified = modified.replace("horizon is lost", "horizon is completely obscured")
-                # Add precipitation context to "pitch dark of night" or "pitch dark"
-                if "pitch dark of night" in modified and "rain" not in modified.lower() and "snow" not in modified.lower() and "sleet" not in modified.lower():
-                    if wtype == "rain":
-                        modified = modified.replace("pitch dark of night", "pitch dark of night, with torrential rain lashing down")
-                    elif wtype == "snow":
-                        modified = modified.replace("pitch dark of night", "pitch dark of night, with blinding snow")
-                    elif wtype == "sleet":
-                        modified = modified.replace("pitch dark of night", "pitch dark of night, with freezing sleet")
-                elif "pitch dark" in modified and "rain" not in modified.lower() and "snow" not in modified.lower() and "sleet" not in modified.lower():
-                    if wtype == "rain":
-                        modified = modified.replace("pitch dark", "pitch dark, with torrential rain lashing down")
-                    elif wtype == "snow":
-                        modified = modified.replace("pitch dark", "pitch dark, with blinding snow")
-                    elif wtype == "sleet":
-                        modified = modified.replace("pitch dark", "pitch dark, with freezing sleet")
-            else:
-                modified = modified.replace("horizon is", "horizon is obscured by the")
-                modified = modified.replace("you can see", "you can barely see")
-                if "spreads out" in modified and "rain" not in modified.lower() and "snow" not in modified.lower():
-                    if wtype == "rain":
-                        modified = modified.replace("spreads out", "spreads out, though visibility is reduced by the driving rain")
-                    elif wtype == "snow":
-                        modified = modified.replace("spreads out", "spreads out, though the heavy snow makes it hard to see far")
-                    elif wtype == "sleet":
-                        modified = modified.replace("spreads out", "spreads out, though the freezing sleet obscures your view")
-    
-    # Temperature modifications
-    if temp == "hot" and time_of_day == "night":
-        modified = modified.replace("cold beneath your feet", "warm, still radiating heat from the day")
-        modified = modified.replace("stone is cold", "stone is still warm")
-        if "air is still" in modified:
-            modified = modified.replace("air is still", "air is hot and still, heavy with humidity")
-    elif temp == "cold" and time_of_day == "night":
-        modified = modified.replace("stone is cold", "stone is freezing cold")
-        if "cold beneath your feet" in modified:
-            modified = modified.replace("cold beneath your feet", "bitterly cold beneath your feet")
-        elif "stone is freezing cold" in modified and "bitterly" not in modified:
-            # Avoid double modification
-            pass
-    
-    # Heatwave modifications
-    if wtype == "heatwave":
-        if time_of_day == "night":
-            if "pitch dark of night" in modified:
-                modified = modified.replace("pitch dark of night", "oppressively hot and dark night")
-            elif "pitch dark" in modified:
-                modified = modified.replace("pitch dark", "oppressively hot and dark")
-            if "air is still" in modified:
-                modified = modified.replace("air is still", "air is hot and heavy, making it hard to breathe")
-        else:
-            modified = modified.replace("spreads out", "spreads out, shimmering in the heat")
-    
-    # Storm modifications
-    if wtype == "storm":
-        if intensity == "heavy":
-            if time_of_day == "night":
-                if "pitch dark of night" in modified:
-                    modified = modified.replace("pitch dark of night", "pitch dark of night, with lightning illuminating the sky")
-                elif "pitch dark" in modified:
-                    modified = modified.replace("pitch dark", "pitch dark, with lightning illuminating the sky")
-                modified = modified.replace("horizon is lost", "horizon flashes with lightning")
-            else:
-                modified = modified.replace("spreads out", "spreads out, though the storm makes it hard to see")
-    
-    # Overcast modifications
-    if wtype == "overcast":
-        if time_of_day == "night":
-            if "pitch dark of night" in modified:
-                modified = modified.replace("pitch dark of night", "pitch dark of night, with clouds blocking any starlight")
-            elif "pitch dark" in modified:
-                modified = modified.replace("pitch dark", "pitch dark, with clouds blocking any starlight")
-            modified = modified.replace("moon and stars", "no moon or stars visible")
-        else:
-            modified = modified.replace("spreads out", "spreads out under the grey, overcast sky")
-    
-    return modified
+# Legacy apply_weather_to_description has been removed.
+# Use game.systems.atmospheric_manager.get_atmospheric_manager().apply_weather_to_description instead.
 
 
 def calculate_room_distance(start_room_id, target_room_id, max_distance=10):
@@ -3525,95 +2671,6 @@ def get_seasonal_room_overlay(room_def, season, weather_state):
     return ""
 
 
-def has_npc_weather_status(npc_id):
-    """
-    Check if an NPC currently has weather status effects (wetness, cold, or heat > 0).
-    This is a sanity check to ensure NPCs only react to weather if they're actually affected.
-    
-    Args:
-        npc_id: NPC identifier
-    
-    Returns:
-        bool: True if NPC has weather status effects, False otherwise
-    """
-    if npc_id not in NPC_STATE:
-        return False
-    
-    npc_state = NPC_STATE[npc_id]
-    if "weather_status" not in npc_state:
-        return False
-    
-    status = npc_state["weather_status"]
-    wetness = status.get("wetness", 0)
-    cold = status.get("cold", 0)
-    heat = status.get("heat", 0)
-    
-    # Check if any weather status is present
-    return max(wetness, cold, heat) > 0
-
-
-def get_npc_weather_reaction(npc_id, weather_state, season, check_status=True):
-    """
-    Get an NPC's reaction to current weather/season.
-    
-    Args:
-        npc_id: NPC ID
-        weather_state: Current weather state dict
-        season: Current season string
-        check_status: If True, only return reaction if NPC has weather status effects (default: True)
-    
-    Returns:
-        str or None: Reaction message or None
-    """
-    # Sanity check: only react if NPC actually has weather status effects
-    if check_status and not has_npc_weather_status(npc_id):
-        return None
-    
-    wtype = weather_state.get("type", "clear")
-    intensity = weather_state.get("intensity", "none")
-    
-    reactions = {
-        "old_storyteller": {
-            ("heatwave", "moderate"): "The Old Storyteller wipes sweat from his brow. 'These summers grow warmer every year,' he murmurs.",
-            ("heatwave", "heavy"): "The Old Storyteller fans himself with a weathered hand. 'This heat is unbearable. I remember when summers were gentler.'",
-            ("snow", "heavy"): "The Old Storyteller shivers slightly. 'Winter's grip tightens. Stay warm, traveler.'",
-            ("rain", "heavy"): "The Old Storyteller pulls his robes closer. 'The rain tells stories of its own, if you know how to listen.'",
-        },
-        "innkeeper": {
-            ("rain", "heavy"): "'Good night for staying inside,' Mara says, glancing toward the rain-streaked windows.",
-            ("snow", "moderate"): "Mara looks out at the falling snow. 'At least it'll keep the troublemakers indoors tonight.'",
-            ("heatwave", "moderate"): "Mara wipes her brow. 'This heat makes the ale taste better, at least.'",
-        },
-        "patrolling_guard": {
-            ("rain", "moderate"): "The Patrolling Guard grumbles, adjusting their cloak. 'You'd think they'd issue us umbrellas for this job.'",
-            ("sleet", "moderate"): "The Patrolling Guard shivers. 'This sleet is worse than snow. At least snow doesn't soak through everything.'",
-            ("snow", "heavy"): "The Patrolling Guard stamps their feet. 'Standing watch in this weather is no joke.'",
-        },
-        "forest_spirit": {
-            ("rain", "light"): "The Forest Spirit seems to dance with the falling rain, its form rippling with delight.",
-            ("rain", "moderate"): "The Forest Spirit moves through the rain as if it were part of the water itself.",
-            ("windy", "moderate"): "The Forest Spirit sways with the wind, its form blending with the rustling leaves.",
-        },
-        "nervous_farmer": {
-            ("windy", "heavy"): "The Nervous Farmer peers anxiously at the trees. 'Wind like this always brings trouble from the woods,' they mutter.",
-            ("storm", "moderate"): "The Nervous Farmer looks skyward nervously. 'Storms make the forest restless. Best stay away.'",
-            ("snow", "heavy"): "The Nervous Farmer shivers. 'When the snow falls this heavy, you never know what's hiding beneath it.'",
-        },
-        "blacksmith": {
-            ("snow", "moderate"): "The Blacksmith works the forge harder. 'At least the fire keeps me warm in this weather.'",
-            ("heatwave", "moderate"): "The Blacksmith wipes sweat from their brow. 'This heat makes the forge unbearable, but work must go on.'",
-        },
-    }
-    
-    npc_reactions = reactions.get(npc_id, {})
-    key = (wtype, intensity)
-    
-    if key in npc_reactions:
-        return npc_reactions[key]
-    
-    return None
-
-
 def update_player_weather_status(game):
     """
     Update player's weather exposure status based on current location and weather.
@@ -3795,166 +2852,6 @@ def get_player_weather_description(game, pronouns=None):
             if pronoun == "you":
                 return "You are drenched in sweat and look ready to collapse from the heat."
             return f"{pronoun.capitalize()} {verb_be} drenched in sweat and {verb_look} ready to collapse from the heat."
-
-
-def get_npc_weather_description(npc_id, npc):
-    """
-    Get weather condition description for an NPC.
-    
-    Args:
-        npc_id: NPC identifier
-        npc: NPC object
-    
-    Returns:
-        str: Weather description or empty string
-    """
-    if npc_id not in NPC_STATE:
-        return ""
-    
-    state = NPC_STATE[npc_id]
-    if "weather_status" not in state:
-        return ""
-    
-    status = state["weather_status"]
-    pronoun = getattr(npc, 'pronoun', 'they') if hasattr(npc, 'pronoun') else 'they'
-    
-    wetness = status.get("wetness", 0)
-    cold = status.get("cold", 0)
-    heat = status.get("heat", 0)
-    
-    # Find dominant condition
-    max_condition = max(wetness, cold, heat)
-    if max_condition == 0:
-        return ""
-    
-    # Use proper verb conjugation based on pronoun
-    if pronoun in ["he", "she", "it"]:
-        verb_look = "looks"
-        verb_be = "is"
-        verb_have = "has"
-    else:  # they
-        verb_look = "look"
-        verb_be = "are"
-        verb_have = "have"
-    
-    # Generate description (same logic as player weather, but third person)
-    if wetness == max_condition:
-        if wetness <= 2:
-            return f"{npc.name} {verb_look} a bit damp."
-        elif wetness <= 4:
-            return f"You can tell {npc.name} {verb_have} been standing in the rain for a while."
-        elif wetness <= 7:
-            return f"{npc.name} {verb_look} thoroughly soaked through."
-        else:
-            return f"{npc.name} {verb_be} absolutely drenched from head to toe."
-    elif cold == max_condition:
-        if cold <= 2:
-            return f"{npc.name} {verb_look} a little chilled."
-        elif cold <= 4:
-            return f"{npc.name} {verb_be} shivering slightly in the cold."
-        elif cold <= 7:
-            return f"{npc.name} {verb_look} very cold and uncomfortable."
-        else:
-            return f"{npc.name} {verb_be} shivering violently, lips tinged blue."
-    else:  # heat
-        if heat <= 2:
-            return f"{npc.name} {verb_look} a touch flushed from the heat."
-        elif heat <= 4:
-            return f"A sheen of sweat glistens on {npc.name}'s skin."
-        elif heat <= 7:
-            return f"{npc.name} {verb_look} overheated and unsteady."
-        else:
-            return f"{npc.name} {verb_be} drenched in sweat and {verb_look} ready to collapse from the heat."
-
-
-def update_npc_weather_statuses():
-    """
-    Update weather exposure status for all NPCs based on their current location and weather.
-    Similar to update_player_weather_status but for NPCs.
-    """
-    global NPC_STATE
-    
-    current_tick = get_current_game_tick()
-    
-    for npc_id, npc_state in NPC_STATE.items():
-        # Initialize weather_status if not present
-        if "weather_status" not in npc_state:
-            npc_state["weather_status"] = {
-                "wetness": 0,
-                "cold": 0,
-                "heat": 0,
-                "last_update_tick": 0,
-            }
-        
-        status = npc_state["weather_status"]
-        last_update = status.get("last_update_tick", 0)
-        
-        # Update every tick
-        if current_tick <= last_update:
-            continue
-        
-        status["last_update_tick"] = current_tick
-        
-        # Get NPC's current room
-        room_id = npc_state.get("room", "town_square")
-        if room_id not in WORLD:
-            continue
-        
-        room_def = WORLD[room_id]
-        is_outdoor = room_def.get("outdoor", False)
-        
-        if not is_outdoor:
-            # Indoor: gradually decay all status
-            if status["wetness"] > 0:
-                status["wetness"] = max(0, status["wetness"] - 1)
-            if status["cold"] > 0:
-                status["cold"] = max(0, status["cold"] - 1)
-            if status["heat"] > 0:
-                status["heat"] = max(0, status["heat"] - 1)
-            continue
-        
-        # Outdoor: apply weather effects (same logic as players)
-        wtype = WEATHER_STATE.get("type", "clear")
-        intensity = WEATHER_STATE.get("intensity", "none")
-        temp = WEATHER_STATE.get("temperature", "mild")
-        season = get_season()
-        
-        # Wetness from rain/snow/sleet
-        if wtype in ["rain", "snow", "sleet"]:
-            if intensity == "light":
-                status["wetness"] = min(10, status["wetness"] + 1)
-            elif intensity == "moderate":
-                status["wetness"] = min(10, status["wetness"] + 2)
-            elif intensity == "heavy":
-                status["wetness"] = min(10, status["wetness"] + 3)
-        else:
-            # Gradually dry off if not in precipitation
-            if status["wetness"] > 0:
-                status["wetness"] = max(0, status["wetness"] - 1)
-        
-        # Cold from winter/snow/sleet/cold temps
-        if season == "winter" or wtype in ["snow", "sleet"] or temp in ["cold", "freezing"]:
-            if intensity in ["moderate", "heavy"] or temp == "freezing":
-                status["cold"] = min(10, status["cold"] + 2)
-            else:
-                status["cold"] = min(10, status["cold"] + 1)
-        else:
-            # Gradually warm up
-            if status["cold"] > 0:
-                status["cold"] = max(0, status["cold"] - 1)
-        
-        # Heat from summer/hot temps
-        if season == "summer" or temp in ["hot", "scorching"]:
-            if temp == "scorching":
-                status["heat"] = min(10, status["heat"] + 3)
-            elif temp == "hot":
-                status["heat"] = min(10, status["heat"] + 2)
-            else:
-                status["heat"] = min(10, status["heat"] + 1)
-        else:
-            # Gradually cool down
-            if status["heat"] > 0:
-                status["heat"] = max(0, status["heat"] - 1)
 
 
 def should_restock_merchant(npc_id):
@@ -4158,6 +3055,10 @@ def resolve_npc_target(game, target_text):
     # Use existing match_npc_in_room helper
     npc_id, npc = match_npc_in_room(npc_ids, target_text)
     if npc_id and npc:
+        # Ensure NPC has state loaded from WorldManager (includes weather_status)
+        from game.world.manager import WorldManager
+        wm = WorldManager.get_instance()
+        npc = wm.get_npc(npc_id) or npc  # Use WorldManager version if available
         return npc_id, npc
     
     # Fallback: try global NPC lookup (for admin stat command)
@@ -4167,7 +3068,11 @@ def resolve_npc_target(game, target_text):
         if (target_lower == candidate_id.lower() or
             target_lower == candidate_npc.name.lower() or
             (hasattr(candidate_npc, 'shortname') and target_lower == candidate_npc.shortname.lower())):
-            return candidate_id, candidate_npc
+            # Ensure NPC has state loaded from WorldManager
+            from game.world.manager import WorldManager
+            wm = WorldManager.get_instance()
+            npc = wm.get_npc(candidate_id) or candidate_npc
+            return candidate_id, npc
     
     return None, None
 
@@ -4416,10 +3321,56 @@ def _format_npc_look(npc_id, npc, game):
         if status != "idle":
             lines.append(f"{npc.name} appears to be {status}.")
         
-        # Add weather description for NPCs
-        weather_desc = get_npc_weather_description(npc_id, npc)
-        if weather_desc:
-            lines.append(weather_desc)
+        # Add weather description for NPCs (Phase 2 - use new method)
+        # Ensure NPC has location set and weather status updated before displaying
+        if hasattr(npc, 'get_weather_description'):
+            # CRITICAL: Load weather_status from NPC_STATE first (it may have been updated by handle_command)
+            if npc_id in NPC_STATE and "weather_status" in NPC_STATE[npc_id]:
+                npc.weather_status.from_dict(NPC_STATE[npc_id]["weather_status"])
+            
+            # NPC needs location to check if outdoor, so try to set it if missing
+            if not npc.location and npc_id in NPC_STATE:
+                room_id = NPC_STATE[npc_id].get("room")
+                if room_id:
+                    from game.world.manager import WorldManager
+                    wm = WorldManager.get_instance()
+                    room = wm.get_room(room_id)
+                    if room:
+                        npc.location = room
+                        # Also add NPC to room's contents if not already there
+                        if npc_id not in room.npcs:
+                            room.npcs.append(npc_id)
+            
+            # Update weather status if location is set
+            # CRITICAL: Always ensure location is set before updating
+            if not npc.location and npc_id in NPC_STATE:
+                room_id = NPC_STATE[npc_id].get("room")
+                if room_id:
+                    from game.world.manager import WorldManager
+                    wm = WorldManager.get_instance()
+                    room = wm.get_room(room_id)
+                    if room:
+                        npc.location = room
+            
+            if npc.location and hasattr(npc, 'update_weather_status'):
+                from game.systems.atmospheric_manager import get_atmospheric_manager
+                atmos = get_atmospheric_manager()
+                
+                # Force first update if last_update_tick is 0 (allows initial weather accumulation)
+                if npc.weather_status.last_update_tick == 0:
+                    npc.weather_status.last_update_tick = -1
+                
+                npc.update_weather_status(atmos)
+                
+                # Sync weather_status back to NPC_STATE
+                if npc_id in NPC_STATE:
+                    if "weather_status" not in NPC_STATE[npc_id]:
+                        NPC_STATE[npc_id]["weather_status"] = {}
+                    NPC_STATE[npc_id]["weather_status"] = npc.weather_status.to_dict()
+            
+            weather_desc = npc.get_weather_description()
+            if weather_desc:
+                lines.append(weather_desc)
     
     # Traits hints (subtle, in-universe)
     if hasattr(npc, 'traits') and npc.traits:
@@ -5939,13 +4890,8 @@ def describe_location(game):
     viewer = Player(game.get("username", "adventurer"))
     
     # Return the description from the Room object
+    # Room.look() already handles weather/time lines for outdoor rooms
     description = room.look(viewer)
-    
-    # Append Weather (if outdoors)
-    # For now, we assume all rooms are outdoors or we check room flags if available
-    # Simple check: if room name doesn't contain "Inside", show weather
-    if "inside" not in room.name.lower():
-        description += f"\n\n{WEATHER_SYSTEM.get_description()}"
         
     return description
     
@@ -6972,6 +5918,22 @@ def _legacy_handle_command_body(
     broadcast_fn=None,
     who_fn=None,
 ):
+    # Admin Commands
+    if verb in ["setweather"]:
+        from game.commands.admin import handle_setweather_command
+        return handle_setweather_command(
+            verb=verb,
+            tokens=tokens,
+            game=game,
+            username=username,
+            user_id=user_id,
+            db_conn=db_conn,
+            broadcast_fn=broadcast_fn,
+            who_fn=who_fn,
+        )
+    
+    # === LEGACY COMMANDS (from monolithic game_engine.py) ===
+    # These will gradually be migrated to the command registry or moved to their own modules
     """
     Legacy command handler - contains the original if/elif chain logic.
     
@@ -6997,8 +5959,7 @@ def _legacy_handle_command_body(
     advance_time(ticks=1)
     update_weather_if_needed()
     update_player_weather_status(game)
-    # Update NPC weather status for all NPCs
-    update_npc_weather_statuses()
+    # NPC weather updates now handled in handle_command() via new model methods (Phase 2)
     
     # Clean up old buried items periodically (every command)
     cleanup_buried_items()
@@ -7092,15 +6053,32 @@ def _legacy_handle_command_body(
                     # Broadcast leave message to old room
                     if broadcast_fn is not None:
                         actor_name = username or "Someone"
-                        leave_msg = get_entrance_exit_message(old_loc, target, full_direction, actor_name, is_exit=True, is_npc=False)
-                        broadcast_fn(old_loc, leave_msg)
+                        # Use Room object to get message
+                        from game.world.manager import WorldManager
+                        wm = WorldManager.get_instance()
+                        old_room = wm.get_room(old_loc)
+                        
+                        if old_room:
+                            leave_msg = old_room.get_exit_message(actor_name, full_direction, is_npc=False)
+                            broadcast_fn(old_loc, leave_msg)
+                        else:
+                             # Fallback if room object not found (shouldn't happen)
+                            broadcast_fn(old_loc, f"[CYAN]{actor_name} leaves {full_direction}.[/CYAN]")
                     
                     # Broadcast arrive message to new room
                     if broadcast_fn is not None:
                         actor_name = username or "Someone"
                         opposite = OPPOSITE_DIRECTION.get(full_direction, "somewhere")
-                        arrive_msg = get_entrance_exit_message(target, old_loc, opposite, actor_name, is_exit=False, is_npc=False)
-                        broadcast_fn(target, arrive_msg)
+                        
+                        from game.world.manager import WorldManager
+                        wm = WorldManager.get_instance()
+                        new_room = wm.get_room(target)
+                        
+                        if new_room:
+                            arrive_msg = new_room.get_entrance_message(actor_name, opposite, is_npc=False)
+                            broadcast_fn(target, arrive_msg)
+                        else:
+                            broadcast_fn(target, f"[CYAN]{actor_name} arrives from the {opposite}.[/CYAN]")
                     
                     # Get movement message and room description
                     movement_msg = get_movement_message(target, full_direction)
@@ -7167,47 +6145,7 @@ def _legacy_handle_command_body(
                 else:
                     response = result_msg
 
-    elif tokens[0] in ["inventory", "inv", "i"]:
-        # Bridge to OO System
-        from game.models.player import Player
-        player = Player(username or "adventurer")
-        player.load_from_state(game)
-        
-        response_parts = []
-        
-        # Show items
-        if player.inventory:
-            # Group items by name
-            from collections import Counter
-            item_names = [item.get_display_name() for item in player.inventory]
-            counts = Counter(item_names)
-            grouped_items = []
-            for name, count in counts.items():
-                if count > 1:
-                    grouped_items.append(f"{count}x {name}")
-                else:
-                    grouped_items.append(name)
-            
-            if len(grouped_items) == 1:
-                response_parts.append(f"You are carrying {grouped_items[0]}.")
-            elif len(grouped_items) == 2:
-                response_parts.append(f"You are carrying {grouped_items[0]} and {grouped_items[1]}.")
-            else:
-                response_parts.append("You are carrying: " + ", ".join(grouped_items[:-1]) + f", and {grouped_items[-1]}.")
-        else:
-            response_parts.append("You are not carrying anything.")
-        
-        # Show currency in wallet
-        from economy.currency import get_currency, format_currency
-        currency = get_currency(game)
-        currency_str = format_currency(currency)
-        
-        # Only show wallet if player has currency
-        if currency_str != "no currency":
-            response_parts.append(f"Wallet: You have {currency_str}.")
-        
-        response = "\n".join(response_parts)
-    
+
     elif tokens[0] in ["gold", "money", "currency"]:
         # Show player's currency amount
         from economy.currency import get_currency, format_currency
@@ -7262,261 +6200,7 @@ def _legacy_handle_command_body(
             from economy import handle_search_command
             response = handle_search_command(game, loc_id)
 
-    elif tokens[0] == "take" and len(tokens) >= 2:
-        item_input = " ".join(tokens[1:]).lower()
-        loc_id = game.get("location", "town_square")
-        
-        # OO Refactor: Use Player.take_item()
-        from game.models.player import Player
-        from game.world.manager import WorldManager
-        from game_engine import QUEST_SPECIFIC_ITEMS
-        
-        wm = WorldManager.get_instance()
-        room = wm.get_room(loc_id)
-        player = Player(game.get("username", "adventurer"))
-        player.load_from_state(game)
-        
-        if not room:
-            response = "You reach for something that isn't really there."
-        elif item_input in ["all", "everything"]:
-            # Take all items
-            items_to_take = list(room.items) # Copy list as we'll modify it
-            taken_names = []
-            full = False
-            
-            for item in items_to_take:
-                success, msg = player.take_item(item.oid, room, game_state_for_quests=game)
-                if success:
-                    taken_names.append(item.get_display_name())
-                elif "fall over" in msg: # Weight limit
-                    full = True
-                    break
-            
-            if taken_names:
-                if len(taken_names) == 1:
-                    response = f"You pick up the {taken_names[0]}."
-                else:
-                    response = f"You pick up: {', '.join(taken_names)}."
-                
-                if full:
-                    response += "\nYou can't carry any more."
-            else:
-                if full:
-                    response = "You can't carry any more."
-                else:
-                    response = "There's nothing here to pick up."
-        else:
-            # Take specific item
-            target_oid = None
-            
-            # 1. Check standard items in room
-            for item in room.items:
-                # Exact match or partial match
-                if item_input == item.name.lower() or item_input in [adj.lower() for adj in item.adjectives] or item_input in item.name.lower().split():
-                    target_oid = item.oid
-                    break
-            
-            # 2. Check quest items (legacy)
-            if not target_oid:
-                username = game.get("username", "")
-                for item_id, quest_item_data in QUEST_SPECIFIC_ITEMS.items():
-                    if quest_item_data.get("room_id") == loc_id and quest_item_data.get("owner_username") == username:
-                        # Check name match (need item def)
-                        from game_engine import get_item_def
-                        item_def = get_item_def(item_id)
-                        name = item_def.get("name", "").lower()
-                        if item_input in name:
-                            target_oid = item_id
-                            break
-            
-            if target_oid:
-                success, msg = player.take_item(target_oid, room, game_state_for_quests=game)
-                response = msg
-            else:
-                response = f"You don't see '{item_input}' here."
-        
-        # Sync inventory back
-        game["inventory"] = [i.oid for i in player.inventory]
 
-
-    elif tokens[0] == "drop" and len(tokens) >= 2:
-        item_input = " ".join(tokens[1:]).lower()
-        loc_id = game.get("location", "town_square")
-        
-        # OO Refactor: Use Player.drop_item()
-        from game.models.player import Player
-        from game.world.manager import WorldManager
-        
-        wm = WorldManager.get_instance()
-        room = wm.get_room(loc_id)
-        player = Player(game.get("username", "adventurer"))
-        player.load_from_state(game)
-        
-        if not room:
-            response = "You feel disoriented for a moment."
-        elif not player.inventory:
-            response = "You're not carrying anything."
-        elif item_input in ["all", "everything"]:
-             # Drop all
-             items_to_drop = list(player.inventory)
-             dropped_names = []
-             for item in items_to_drop:
-                 success, msg = player.drop_item(item.oid, room)
-                 if success:
-                     dropped_names.append(item.get_display_name())
-             
-             if dropped_names:
-                 if len(dropped_names) == 1:
-                     response = f"You drop the {dropped_names[0]}."
-                 else:
-                     response = f"You drop: {', '.join(dropped_names)}."
-             else:
-                 response = "You couldn't drop anything."
-        else:
-            # Find item in inventory
-            target_oid = None
-            for item in player.inventory:
-                 # Exact match or partial match
-                 if item_input == item.name.lower() or item_input in [adj.lower() for adj in item.adjectives] or item_input in item.name.lower().split():
-                    target_oid = item.oid
-                    break
-            
-            if target_oid:
-                success, msg = player.drop_item(target_oid, room)
-                response = msg
-            else:
-                response = f"You don't have a '{item_input}'."
-                
-        # Sync inventory back
-        game["inventory"] = [i.oid for i in player.inventory]
-
-
-    elif tokens[0] == "bury" and len(tokens) >= 2:
-        # Bury command: permanently remove an item from the game
-        item_input = " ".join(tokens[1:]).lower()
-        loc_id = game.get("location", "town_square")
-        inventory = game.get("inventory", [])
-        
-        if loc_id not in WORLD:
-            response = "You feel disoriented for a moment."
-        else:
-            room_state = ROOM_STATE.setdefault(loc_id, {"items": []})
-            room_items = room_state["items"]
-            
-            if item_input in ["all", "everything"]:
-                # Bury all buryable items in the room
-                buried_items = []
-                non_buryable_items = []
-                current_tick = GAME_TIME.get("tick", 0)
-                current_minutes = GAME_TIME.get("minutes", 0)
-                
-                # Initialize buried items tracking for this room if needed
-                if loc_id not in BURIED_ITEMS:
-                    BURIED_ITEMS[loc_id] = []
-                
-                # Check each item in the room
-                for item_id in room_items[:]:  # Use slice to iterate over copy
-                    can_bury, reason = is_item_buryable(item_id)
-                    if can_bury:
-                        buried_items.append(item_id)
-                        room_items.remove(item_id)
-                        # Add to buried items with timestamp
-                        BURIED_ITEMS[loc_id].append({
-                            "item_id": item_id,
-                            "buried_at_tick": current_tick,
-                            "buried_at_minutes": current_minutes,
-                        })
-                    else:
-                        non_buryable_items.append(item_id)
-                
-                room_state["items"] = room_items
-                
-                # Build response
-                if buried_items:
-                    item_names = [render_item_name(item_id) for item_id in buried_items]
-                    if len(buried_items) == 1:
-                        response = f"You dig a small hole and bury the {item_names[0]}, covering it with earth. You can recover it within a day."
-                    else:
-                        response = f"You dig a hole and bury {len(buried_items)} items, covering them with earth. You can recover them within a day.\nBuried: {', '.join(item_names)}."
-                    
-                    if non_buryable_items:
-                        non_buryable_names = [render_item_name(item_id) for item_id in non_buryable_items]
-                        response += f"\n(You cannot bury: {', '.join(non_buryable_names)}.)"
-                    
-                    # Broadcast to room if other players are present
-                    if broadcast_fn is not None:
-                        actor_name = username or "Someone"
-                        if len(buried_items) == 1:
-                            broadcast_message = f"{actor_name} digs a hole and buries something in the ground."
-                        else:
-                            broadcast_message = f"{actor_name} digs a hole and buries several items in the ground."
-                        broadcast_fn(loc_id, broadcast_message)
-                else:
-                    if non_buryable_items:
-                        non_buryable_names = [render_item_name(item_id) for item_id in non_buryable_items]
-                        response = f"There's nothing buryable here. ({', '.join(non_buryable_names)} cannot be buried.)"
-                    else:
-                        response = "There's nothing here to bury."
-            else:
-                # Bury a specific item - try inventory first, then room
-                matched_item = None
-                source = None
-                
-                # Check inventory
-                matched_item = match_item_name_in_collection(item_input, inventory)
-                if matched_item:
-                    source = "inventory"
-                else:
-                    # Check room
-                    matched_item = match_item_name_in_collection(item_input, room_items)
-                    if matched_item:
-                        source = "room"
-                
-                if not matched_item:
-                    response = f"You don't see a '{item_input}' here to bury."
-                else:
-                    # Check if item is buryable
-                    can_bury, reason = is_item_buryable(matched_item)
-                    
-                    if not can_bury:
-                        response = reason
-                    else:
-                        # Bury item (store with timestamp for recovery)
-                        item_def = get_item_def(matched_item)
-                        display_name = render_item_name(matched_item)
-                        current_tick = GAME_TIME.get("tick", 0)
-                        current_minutes = GAME_TIME.get("minutes", 0)
-                        
-                        if source == "inventory":
-                            inventory.remove(matched_item)
-                            game["inventory"] = inventory
-                            # Items buried from inventory go to the room's buried items
-                            if loc_id not in BURIED_ITEMS:
-                                BURIED_ITEMS[loc_id] = []
-                            BURIED_ITEMS[loc_id].append({
-                                "item_id": matched_item,
-                                "buried_at_tick": current_tick,
-                                "buried_at_minutes": current_minutes,
-                            })
-                            response = f"You dig a small hole and bury the {display_name}, covering it with earth. You can recover it within a day."
-                        elif source == "room":
-                            room_items.remove(matched_item)
-                            room_state["items"] = room_items
-                            # Store in buried items tracking
-                            if loc_id not in BURIED_ITEMS:
-                                BURIED_ITEMS[loc_id] = []
-                            BURIED_ITEMS[loc_id].append({
-                                "item_id": matched_item,
-                                "buried_at_tick": current_tick,
-                                "buried_at_minutes": current_minutes,
-                            })
-                            response = f"You dig a small hole and bury the {display_name}, covering it with earth. You can recover it within a day."
-                        
-                        # Broadcast to room if other players are present
-                        if broadcast_fn is not None:
-                            actor_name = username or "Someone"
-                            broadcast_message = f"{actor_name} digs a hole and buries something in the ground."
-                            broadcast_fn(loc_id, broadcast_message)
 
     elif tokens[0] == "recover" and len(tokens) >= 2:
         # Recover command: dig up buried items
@@ -9227,11 +7911,9 @@ def _legacy_handle_command_body(
                 status = "on" if notify_cfg["system"] else "off"
                 response = f"System notifications (room changes, etc.) are now {status}."
             else:
-                response = (
-                    "Unknown notify setting. Supported: 'notify', 'notify login', "
-                    "'notify login on/off', 'notify time', 'notify time on/off', "
-                    "'notify system', 'notify system on/off'."
-                )
+                response = "Unknown notification setting. Available: login, time, system."
+
+
 
     elif tokens[0] == "touch" and len(tokens) >= 2:
         # Touch command for interacting with room details/fixtures
@@ -9352,6 +8034,20 @@ def _legacy_handle_command_body(
 
     elif tokens[0] == "weather":
         # Weather command - show current weather and season info
+        # Force sync from locked WEATHER_STATE before reading (in case update() changed it)
+        from game.state import WEATHER_STATE
+        if WEATHER_STATE.get("locked", False):
+            from game.systems.atmospheric_manager import get_atmospheric_manager
+            atmos = get_atmospheric_manager()
+            # Ensure WeatherSystem matches locked WEATHER_STATE
+            weather_data = {
+                "type": WEATHER_STATE.get("type", "clear"),
+                "intensity": WEATHER_STATE.get("intensity", "none"),
+                "temperature": WEATHER_STATE.get("temperature", "mild"),
+                "last_update_tick": WEATHER_STATE.get("last_update_tick", 0),
+            }
+            atmos.weather.from_dict(weather_data)
+        
         season = get_season()
         time_of_day = get_time_of_day()
         day_of_year = get_day_of_year()
@@ -9407,7 +8103,45 @@ def handle_command(
     # Update atmospheric systems (weather, time, seasons, lunar)
     from game.systems.atmospheric_manager import get_atmospheric_manager
     atmos = get_atmospheric_manager()
-    atmos.update()
+    weather_changed, transition_message = atmos.update()
+    # Note: Transition messages are handled in background task, not here
+    
+    # Update player weather status (NEW - Phase 1 refactor)
+    # Create Player object from game state to update weather
+    from game.models.player import Player
+    player_obj = Player(username or "adventurer")
+    player_obj.load_from_state(game)
+    player_obj.update_weather_status(atmos)
+    # Sync weather status back to game state
+    game["weather_status"] = player_obj.weather_status.to_dict()
+    
+    # Update NPC weather statuses for ALL NPCs (NEW - Phase 2 refactor)
+    # Update weather for all NPCs, not just in current room, since they can be anywhere
+    from game.world.manager import WorldManager
+    wm = WorldManager.get_instance()
+    for npc_id in NPC_STATE.keys():
+        npc = wm.get_npc(npc_id)
+        if npc and hasattr(npc, 'update_weather_status'):
+            # Ensure NPC has location set
+            if not npc.location:
+                if npc_id in NPC_STATE:
+                    room_id = NPC_STATE[npc_id].get("room")
+                    if room_id:
+                        room = wm.get_room(room_id)
+                        if room:
+                            npc.location = room
+            # Update weather status
+            if npc.location:
+                # Force first update if last_update_tick is 0 (allows initial weather accumulation)
+                if npc.weather_status.last_update_tick == 0:
+                    npc.weather_status.last_update_tick = -1
+                
+                npc.update_weather_status(atmos)
+                # Sync weather_status back to NPC_STATE
+                if npc_id in NPC_STATE:
+                    if "weather_status" not in NPC_STATE[npc_id]:
+                        NPC_STATE[npc_id]["weather_status"] = {}
+                    NPC_STATE[npc_id]["weather_status"] = npc.weather_status.to_dict()
     
     # Check for sunrise/sunset notifications and broadcast to all players
     notifications = atmos.check_sunrise_sunset_transitions()
@@ -9630,82 +8364,104 @@ def load_global_state_snapshot(snapshot):
         EXIT_STATES = snapshot["exit_states"]
 
 
-def _handle_colour_command(game, tokens):
+def _handle_colour_command(verb, tokens, game, *args, **kwargs):
     """
     Handle the 'colour' command for customizing message colors.
     Usage:
         colour                    - Show current color settings
-        colour set <type> <color> - Set color for a message type
+        colour <type> <color>     - Set color for a message type
+        colour set <type> <color> - Set color for a message type (alternative)
         colour reset              - Reset all colors to defaults
     """
     from color_system import (
         get_color_settings, set_color_for_type, reset_colors,
         DEFAULT_COLORS, VALID_COLORS
     )
+    from app import save_game, save_state_to_disk
 
     if len(tokens) == 1:
         # Show current settings
         settings = get_color_settings(game)
-        lines = ["Your current color settings:"]
+        lines = ["Current Colour Settings:"]
+        
         for color_type in sorted(DEFAULT_COLORS.keys()):
-            current_color = settings.get(color_type, DEFAULT_COLORS[color_type])
-            default_marker = " (default)" if current_color == DEFAULT_COLORS[color_type] else ""
-            lines.append(f"  {color_type}: {current_color}{default_marker}")
+            current_color = settings.get(color_type, "default")
+            default_val = DEFAULT_COLORS.get(color_type, "white")
+            
+            if current_color == "default":
+                lines.append(f"  {color_type.ljust(15)} : default ({default_val})")
+            else:
+                lines.append(f"  {color_type.ljust(15)} : {current_color}")
         
         lines.append("")
-        lines.append("To change a color: colour set <type> <color>")
-        lines.append("Example: colour set say cyan")
+        lines.append("To change a color: colour <type> <color>")
+        lines.append(f"Available colors: {', '.join(sorted(VALID_COLORS))}")
         return "\n".join(lines), game
 
     subcommand = tokens[1].lower()
     
+    # Handle 'reset'
+    if subcommand == "reset":
+        message = reset_colors(game)
+        game["_update_color_settings"] = True
+        save_game(game)
+        save_state_to_disk()
+        return message, game
+        
+    # Handle 'help' or 'list'
+    if subcommand == "help" or subcommand == "list":
+        return _handle_colour_command(verb, ["colour"], game, *args, **kwargs)
+
+    # Handle 'set' subcommand or direct type
     if subcommand == "set":
         if len(tokens) < 4:
             return "Usage: colour set <type> <color>\nExample: colour set say cyan", game
-        
-        color_type = tokens[2]
-        color = tokens[3]
-        
-        success, message = set_color_for_type(game, color_type, color)
-        return message, game
-
-    elif subcommand == "reset":
-        message = reset_colors(game)
-        return message, game
-        
-    elif subcommand == "help" or subcommand == "list":
-        lines = [
-            "Color customization system:",
-            "  colour                    - Show your current color settings",
-            "  colour set <type> <color> - Set color for a message type",
-            "  colour reset              - Reset all colors to defaults",
-            "",
-            "Available types:",
-        ]
-        
-        for color_type in sorted(DEFAULT_COLORS.keys()):
-            default_color = DEFAULT_COLORS[color_type]
-            lines.append(f"  {color_type:20} (default: {default_color})")
-            
-        lines.append("")
-        lines.append("Available colors:")
-        colors_list = sorted(VALID_COLORS)
-        # Group colors in rows of 4
-        for i in range(0, len(colors_list), 4):
-            line_colors = colors_list[i:i+4]
-            lines.append("  " + ", ".join(f"{c:12}" for c in line_colors))
-            
-        return "\n".join(lines), game
-
+        color_type = tokens[2].lower()
+        color = tokens[3].lower()
     else:
-        return "Usage: colour [set <type> <color>|reset|help]", game
+        # Assume syntax: colour <type> <color>
+        if len(tokens) < 3:
+            return "Usage: colour <type> <color>\nExample: colour say cyan", game
+        color_type = subcommand
+        color = tokens[2].lower()
+        
+    # Handle 'default' color
+    if color == "default":
+        settings = get_color_settings(game)
+        if color_type in settings:
+            del settings[color_type]
+        message = f"Reset colour for '{color_type}' to default."
+        game["_update_color_settings"] = True
+        save_game(game)
+        save_state_to_disk()
+        return message, game
+
+    # Set color
+    success, message = set_color_for_type(game, color_type, color)
+    if success:
+        game["_update_color_settings"] = True
+        save_game(game)
+        save_state_to_disk()
+        
+    return message, game
 
 
 # Register command handlers
 # This is done at module level after all handler functions are defined
+# Register commands
 register_command("help", _handle_help_command, aliases=["?"])
 register_command("quests", _handle_quests_command, aliases=["questlog"])
 register_command("colour", _handle_colour_command, aliases=["color", "colors", "colours"])
+
+# Register inventory commands
+register_command("inventory", handle_inventory_command, aliases=["inv", "i"])
+register_command("take", handle_take_command, aliases=["get"])
+register_command("drop", handle_drop_command)
+register_command("bury", handle_bury_command)
+
+# Player Commands
+register_command("description", handle_description_command)
+register_command("desc", handle_description_command)
 
 
 def highlight_exits_in_log(log_entries):

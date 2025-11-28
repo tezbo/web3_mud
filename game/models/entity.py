@@ -2,6 +2,7 @@
 Entity Model (Living Things)
 """
 from game.models.base import GameObject
+from game.systems.inventory_system import InventorySystem
 
 class Entity(GameObject):
     """Base class for Players and NPCs."""
@@ -14,10 +15,18 @@ class Entity(GameObject):
             "agi": 10,
             "int": 10
         }
-        self.inventory: list[GameObject] = []
+        self.inventory = InventorySystem(self)
 
     def move(self, direction: str) -> bool:
         """Attempt to move in a direction."""
+        # Check encumbrance
+        if self.inventory.current_weight >= self.inventory.max_weight:
+            # If player, they get a message via return value handling in command
+            # If NPC, we need to handle it. 
+            # For now, return False.
+            # We can also print a message if it's a player or if we want debug info.
+            return False
+
         if not self.location:
             return False
         
@@ -47,7 +56,7 @@ class Entity(GameObject):
     def get_weapon(self):
         """Get the currently equipped weapon (simplified: best weapon in inventory)."""
         from game.models.item import Weapon
-        weapons = [item for item in self.inventory if isinstance(item, Weapon)]
+        weapons = [item for item in self.inventory.contents if isinstance(item, Weapon)]
         if not weapons:
             return None
         # Return weapon with highest damage
@@ -56,7 +65,7 @@ class Entity(GameObject):
     def get_defense(self) -> int:
         """Get total defense from armor (simplified: sum of all armor)."""
         from game.models.item import Armor
-        armors = [item for item in self.inventory if isinstance(item, Armor)]
+        armors = [item for item in self.inventory.contents if isinstance(item, Armor)]
         base_ac = 0
         for armor in armors:
             base_ac += armor.ac

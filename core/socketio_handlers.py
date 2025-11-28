@@ -25,7 +25,7 @@ CONNECTION_STATE = {}
 DISCONNECTED_PLAYERS = {}
 
 
-def register_socketio_handlers(socketio, get_game_fn, handle_command_fn, save_game_fn):
+def register_socketio_handlers(socketio, get_game_fn, handle_command_fn, save_game_fn, active_games, active_sessions):
     """
     Register all SocketIO event handlers.
     
@@ -36,6 +36,8 @@ def register_socketio_handlers(socketio, get_game_fn, handle_command_fn, save_ga
         get_game_fn: Function to get game state (username) -> game dict
         handle_command_fn: Function to handle commands (command, game, username, ...) -> (response, game)
         save_game_fn: Function to save game state (game) -> None
+        active_games: Dictionary of active games (shared global)
+        active_sessions: Dictionary of active sessions (shared global)
     """
     
     @socketio.on('connect')
@@ -117,7 +119,8 @@ def register_socketio_handlers(socketio, get_game_fn, handle_command_fn, save_ga
             "last_activity": datetime.now(),
             "is_connected": True,
             "was_connected": True,
-            "room_id": room_id  # Track current room for notifications
+            "room_id": room_id,  # Track current room for notifications
+            "sid": request.sid   # Store Socket ID for forced disconnects
         }
         
         # Join user-specific room (for direct messages)
@@ -277,6 +280,16 @@ def register_socketio_handlers(socketio, get_game_fn, handle_command_fn, save_ga
                             # Update connection state
                             CONNECTION_STATE[username]["is_connected"] = False
                             
+                            # Force disconnect the socket
+                            sid = CONNECTION_STATE[username].get("sid")
+                            if sid:
+                                try:
+                                    if room_id:
+                                        socketio.server.leave_room(sid, f"room:{room_id}")
+                                    socketio.server.disconnect(sid)
+                                except Exception:
+                                    pass
+                            
                             return
                 
                 # Update last activity time (after checking, so next check uses this time)
@@ -378,6 +391,13 @@ def register_socketio_handlers(socketio, get_game_fn, handle_command_fn, save_ga
                     session.modified = True
                     logger.info(f"Cleared Flask session for {username} on logout")
                     
+                    # CRITICAL: Remove from active lists so /welcome doesn't redirect back
+                    # Using shared references passed from app.py
+                    if username in active_games:
+                        active_games.pop(username, None)
+                    if username in active_sessions:
+                        active_sessions.pop(username, None)
+                    
                     # Send logout event to client
                     emit('logout', {
                         'message': 'You have logged out. Thank you for playing!'
@@ -405,7 +425,16 @@ def register_socketio_handlers(socketio, get_game_fn, handle_command_fn, save_ga
                 
                 # Handle room changes (if player moved)
                 new_room_id = game.get('location')
-                old_room_id = data.get('current_room')
+                
+                # CRITICAL FIX: Use server-side state to determine old room
+                # Do not rely on client 'current_room' which may be missing or stale
+                old_room_id = None
+                if username in CONNECTION_STATE:
+                    old_room_id = CONNECTION_STATE[username].get("room_id")
+                
+                # Fallback to client data if server state is missing (e.g. first connect)
+                if not old_room_id:
+                    old_room_id = data.get('current_room')
                 
                 if new_room_id and new_room_id != old_room_id:
                     # Player moved to new room
@@ -506,6 +535,19 @@ def register_socketio_handlers(socketio, get_game_fn, handle_command_fn, save_ga
                             
                             # Update connection state (next command will be rejected)
                             CONNECTION_STATE[username]["is_connected"] = False
+                            
+                            # Force disconnect the socket
+                            sid = state.get("sid")
+                            if sid:
+                                try:
+                                    # Force leave room first
+                                    if room_id:
+                                        socketio.server.leave_room(sid, f"room:{room_id}")
+                                    # Force disconnect
+                                    socketio.server.disconnect(sid)
+                                    logger.info(f"Forced disconnect for idle user {username} (sid: {sid})")
+                                except Exception as e:
+                                    logger.warning(f"Failed to force disconnect {username}: {e}")
                             
                         except Exception as e:
                             logger.error(f"Error auto-logging out {username}: {e}", exc_info=True)

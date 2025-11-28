@@ -5,7 +5,8 @@ This module defines the NPC class and provides NPC matching and interaction logi
 """
 
 from collections import defaultdict
-from typing import Optional, Tuple, Callable, Dict
+from typing import Optional, Tuple, Callable, Dict, Any
+from game.models.entity import Entity
 
 # Safe import of AI client (optional)
 try:
@@ -14,7 +15,7 @@ except ImportError:
     generate_npc_reply = None
 
 
-class NPC:
+class NPC(Entity):
     """Represents a non-player character in the game."""
     
     def __init__(self, npc_id: str, name: str, title: Optional[str] = None,
@@ -22,20 +23,66 @@ class NPC:
                  reactions: dict = None, home: Optional[str] = None,
                  use_ai: bool = False, shortname: Optional[str] = None,
                  stats: dict = None, traits: dict = None, pronoun: str = "they",
-                 attackable: bool = False, hostile: bool = False):
+                 attackable: bool = False, hostile: bool = False,
+                 inventory: list = None, weather_reactions: dict = None,
+                 idle_actions: dict = None):
+        super().__init__(npc_id, name) # Entity init sets up self.inventory = InventorySystem(self)
         self.id = npc_id
-        self.name = name
+        
         self.title = title
         self.description = description
         self.personality = personality
         self.reactions = reactions or {}
         self.home = home
         self.use_ai = use_ai
-        self.stats = stats or {}
+        self.stats.update(stats or {})
         self.traits = traits or {}
-        self.pronoun = pronoun  # "he", "she", "they", "it"
-        self.attackable = attackable  # Whether this NPC can be attacked
-        self.hostile = hostile  # Whether this NPC is hostile (for future aggro)
+        self.pronoun = pronoun
+        self.attackable = attackable
+        self.hostile = hostile
+        self.idle_actions = idle_actions or {}
+        
+        # Weather Status (Phase 2)
+        from game.systems.weather import WeatherStatusTracker
+        self.weather_status = WeatherStatusTracker()
+        
+        # Weather reactions: {("rain", "heavy"): "message", ...}
+        self.weather_reactions = {}
+        if weather_reactions:
+            for key_str, message in weather_reactions.items():
+                parts = key_str.split("_", 1)
+                if len(parts) == 2:
+                    wtype, intensity = parts
+                    self.weather_reactions[(wtype, intensity)] = message
+        
+        # Populate inventory
+        if inventory:
+            from game.models.item import Item
+            from game.systems.inventory import get_item_def
+            
+            for item_id in inventory:
+                # Create item instance
+                item_def = get_item_def(item_id)
+                item = Item(item_id, item_def["name"], item_def["description"])
+                # Load other properties
+                item.weight = item_def.get("weight", 0.1)
+                item.detailed_description = item_def.get("detailed_description", "")
+                item.is_held = item_def.get("is_held", False)
+                
+                # Handle container contents if needed (simple for now)
+                if item_id == "herbal_satchel":
+                    # Hardcode content for now or add 'contents' to item def?
+                    # Let's just add dried herbs if it's the satchel
+                    from game.systems.inventory_system import InventorySystem
+                    item.inventory = InventorySystem(item, max_weight=item_def.get("capacity", 10.0))
+                    
+                    # Add dried herbs
+                    herb_def = get_item_def("dried_herbs")
+                    herb = Item("dried_herbs", herb_def["name"], herb_def["description"])
+                    herb.weight = herb_def.get("weight", 0.1)
+                    item.inventory.add(herb)
+                
+                self.inventory.add(item)
         
         # Auto-generate shortname if not provided (last word of name, lowercased)
         if shortname is None:
@@ -62,6 +109,171 @@ class NPC:
         if self.traits:
             result["traits"] = self.traits
         return result
+    
+    def update_weather_status(self, atmos_manager):
+        """Update weather status based on current location and atmospheric conditions."""
+        if not self.location:
+            return
+        
+        is_outdoor = getattr(self.location, 'outdoor', False)
+        weather_state = atmos_manager.weather.get_state()
+        day_of_year = atmos_manager.time.get_day_of_year()
+        season = atmos_manager.seasons.get_season(day_of_year)
+        current_tick = atmos_manager.time.get_current_tick()
+        
+        self.weather_status.update(current_tick, is_outdoor, weather_state, season)
+    
+    def get_weather_description(self, pronoun: str = None) -> str:
+        """Get weather status description for this NPC."""
+        if not pronoun:
+            pronoun = self.pronoun
+        
+        if not self.weather_status.has_status():
+            return ""
+        
+        wetness = self.weather_status.wetness
+        cold = self.weather_status.cold
+        heat = self.weather_status.heat
+        
+        # Find dominant condition
+        max_condition = max(wetness, cold, heat)
+        if max_condition == 0:
+            return ""
+        
+        # Use proper verb conjugation
+        if pronoun == "you":
+            verb_look = "look"
+            verb_be = "are"
+            verb_have = "have"
+        elif pronoun in ["he", "she", "it"]:
+            verb_look = "looks"
+            verb_be = "is"
+            verb_have = "has"
+        else:  # they
+            verb_look = "look"
+            verb_be = "are"
+            verb_have = "have"
+        
+        # Generate description (same logic as Player/NPC model)
+        if wetness == max_condition:
+            if wetness <= 2:
+                return f"{pronoun.capitalize()} {verb_look} a bit damp."
+            elif wetness <= 4:
+                return f"You can tell {pronoun} {verb_have} been standing in the rain for a while."
+            elif wetness <= 7:
+                return f"{pronoun.capitalize()} {verb_look} thoroughly soaked through."
+            else:
+                return f"{pronoun.capitalize()} {verb_be} absolutely drenched from head to toe."
+        elif cold == max_condition:
+            if cold <= 2:
+                return f"{pronoun.capitalize()} {verb_look} a little chilled."
+            elif cold <= 4:
+                return f"{pronoun.capitalize()} {verb_be} shivering slightly in the cold."
+            elif cold <= 7:
+                return f"{pronoun.capitalize()} {verb_look} very cold and uncomfortable."
+            else:
+                return f"{pronoun.capitalize()} {verb_be} shivering violently, lips tinged blue."
+        else:  # heat
+            if heat <= 2:
+                return f"{pronoun.capitalize()} {verb_look} a touch flushed from the heat."
+            elif heat <= 4:
+                return f"A sheen of sweat glistens on {pronoun} skin."
+            elif heat <= 7:
+                return f"{pronoun.capitalize()} {verb_look} overheated and unsteady."
+            else:
+                return f"{pronoun.capitalize()} {verb_be} drenched in sweat and {verb_look} ready to collapse from the heat."
+    
+    def get_weather_reaction(self, weather_state: Dict, season: str, time_of_day: str = None) -> Optional[str]:
+        """Get NPC's reaction to current weather, if they have one."""
+        wtype = weather_state.get("type", "clear")
+        intensity = weather_state.get("intensity", "none")
+        
+        # Try exact match first (allows clear weather reactions even if status is neutral)
+        key = (wtype, intensity)
+        if key in self.weather_reactions:
+            return self.weather_reactions[key]
+            
+        # Special handling for clear weather with time of day
+        if wtype == "clear" and time_of_day:
+            # Try ("clear", "day") or ("clear", "night")
+            key = ("clear", time_of_day)
+            if key in self.weather_reactions:
+                return self.weather_reactions[key]
+        
+        # Only check generic status-based reactions if they are actually affected
+        if not self.weather_status.has_status():
+            return None
+        
+        # Fallback logic: Heavy -> Moderate -> Light
+        # Also handle storm -> rain fallback
+        
+        # Define type fallbacks (e.g. storm is just heavy rain usually)
+        type_fallbacks = {
+            "storm": "rain",
+            "drizzle": "rain",
+            "blizzard": "snow",
+            "flurries": "snow"
+        }
+        
+        # List of types to check: [actual_type, fallback_type]
+        types_to_check = [wtype]
+        if wtype in type_fallbacks:
+            types_to_check.append(type_fallbacks[wtype])
+            
+        # List of intensities to check in order
+        intensities_to_check = [intensity]
+        if intensity == "heavy":
+            intensities_to_check.extend(["moderate", "light"])
+        elif intensity == "moderate":
+            intensities_to_check.append("light")
+            
+        # Check all combinations
+        for check_type in types_to_check:
+            for check_intensity in intensities_to_check:
+                # Skip the exact match we already checked at the top
+                if check_type == wtype and check_intensity == intensity:
+                    continue
+                    
+                key = (check_type, check_intensity)
+                if key in self.weather_reactions:
+                    return self.weather_reactions[key]
+            
+        return None
+
+    def get_idle_action(self, room_id: str, weather_state: Dict = None) -> Optional[str]:
+        """
+        Get a random idle action for this NPC based on room and weather.
+        """
+        import random
+        
+        # 1. Check for weather-aware idle actions (if outdoor)
+        if weather_state and self.idle_actions.get("weather"):
+            wtype = weather_state.get("type", "clear")
+            intensity = weather_state.get("intensity", "none")
+            
+            # Try exact match
+            key = f"{wtype}_{intensity}"
+            actions = self.idle_actions["weather"].get(key)
+            
+            # Fallback to intensity-independent match if needed
+            if not actions:
+                for k, v in self.idle_actions["weather"].items():
+                    if k.startswith(f"{wtype}_"):
+                        actions = v
+                        break
+            
+            if actions and random.random() < 0.6:  # 60% chance to use weather action if available
+                return random.choice(actions)
+        
+        # 2. Check for room-specific actions
+        if room_id in self.idle_actions:
+            return random.choice(self.idle_actions[room_id])
+            
+        # 3. Fallback to default actions
+        if "default" in self.idle_actions:
+            return random.choice(self.idle_actions["default"])
+            
+        return None
 
 
 # Reaction counters for deterministic NPC reactions
@@ -76,6 +288,7 @@ _NPCS_DICT = {
         "description": "An elderly figure with kind eyes, known for sharing tales of the past.",
         "personality": "wise, patient, loves stories",
         "pronoun": "he",
+        "inventory": ["carved_pipe", "tattered_journal"],
         "stats": {
             "max_hp": 15,
             "attack": 1,
@@ -101,6 +314,69 @@ _NPCS_DICT = {
                 "The Old Storyteller raises a weathered hand in greeting.",
             ],
         },
+        "weather_reactions": {
+            "heatwave_moderate": {
+                "action": "The Old Storyteller wipes sweat from his brow.",
+                "vocal": "These summers grow warmer every year."
+            },
+            "heatwave_heavy": {
+                "action": "The Old Storyteller fans himself with a weathered hand.",
+                "vocal": "This heat is unbearable. I remember when summers were gentler."
+            },
+            "snow_heavy": {
+                "action": "The Old Storyteller shivers slightly.",
+                "vocal": "Winter's grip tightens. Stay warm, traveler."
+            },
+            "rain_heavy": {
+                "action": "The Old Storyteller pulls his robes closer.",
+                "vocal": "The rain tells stories of its own, if you know how to listen."
+            },
+            "clear_night": {
+                "action": "The Old Storyteller looks up at the stars.",
+                "vocal": "The ancestors are watching closely tonight."
+            },
+            "clear_day": {
+                "action": "The Old Storyteller smiles at the sunshine.",
+                "vocal": "A fine day for a tale, isn't it?"
+            },
+        },
+        "idle_actions": {
+            "town_square": [
+                "The Old Storyteller strokes his beard thoughtfully, lost in memory.",
+                "The Old Storyteller gazes at the fountain, as if seeing stories in the water.",
+                "The Old Storyteller adjusts his robes and settles into a comfortable position.",
+                "The Old Storyteller looks up at the watchtower, a knowing smile on his face.",
+                "The Old Storyteller traces patterns in the air with his finger, as if recounting an old tale.",
+                "The Old Storyteller closes his eyes briefly, as if listening to voices only he can hear.",
+            ],
+            "default": [
+                "The Old Storyteller looks around, taking in his surroundings.",
+                "The Old Storyteller adjusts his robes and settles in.",
+            ],
+            "weather": {
+                "rain_heavy": [
+                    "The Old Storyteller pulls his robes tighter and moves closer to the fountain's shelter.",
+                    "The Old Storyteller glances up at the heavy clouds. 'Rain has its own stories to tell,' he murmurs.",
+                    "The Old Storyteller shakes water from his beard, looking thoughtful despite the downpour.",
+                ],
+                "rain_moderate": [
+                    "The Old Storyteller adjusts his position to stay drier under the eaves.",
+                    "The Old Storyteller watches the rain fall, his expression contemplative.",
+                ],
+                "snow_heavy": [
+                    "The Old Storyteller stamps his feet and wraps his robes tighter. 'Winter's tales are the coldest,' he says to no one in particular.",
+                    "The Old Storyteller's breath forms white clouds as he speaks, his hands tucked into his sleeves.",
+                ],
+                "heatwave_moderate": [
+                    "The Old Storyteller wipes his brow and seeks shade near the fountain.",
+                    "The Old Storyteller fans himself with a weathered hand. 'These summers grow warmer,' he muses.",
+                ],
+                "windy_moderate": [
+                    "The Old Storyteller's robes flutter in the wind as he adjusts them.",
+                    "The Old Storyteller squints against the wind, his eyes watering slightly.",
+                ],
+            },
+        },
     },
     "innkeeper": {
         "name": "Mara",
@@ -110,6 +386,7 @@ _NPCS_DICT = {
         "home": "tavern",
         "use_ai": True,
         "pronoun": "she",
+        "inventory": ["herbal_satchel"],
         "stats": {
             "max_hp": 18,
             "attack": 2,
@@ -133,6 +410,43 @@ _NPCS_DICT = {
             ],
             "wave": [
                 "Mara waves back while continuing to wipe down a table.",
+            ],
+        },
+        "weather_reactions": {
+            "rain_heavy": {
+                "action": "Mara glances toward the rain-streaked windows.",
+                "vocal": "Good night for staying inside."
+            },
+            "snow_moderate": {
+                "action": "Mara looks out at the falling snow.",
+                "vocal": "At least it'll keep the troublemakers indoors tonight."
+            },
+            "heatwave_moderate": {
+                "action": "Mara wipes her brow.",
+                "vocal": "This heat makes the ale taste better, at least."
+            },
+            "storm_heavy": {
+                "action": "Mara flinches at a crack of thunder.",
+                "vocal": "Hope the roof holds up..."
+            },
+            "clear_day": {
+                "action": "Mara opens a window to let in the fresh air.",
+                "vocal": "Lovely day to air out the tavern."
+            }
+        },
+        "idle_actions": {
+            "tavern": [
+                "Mara squints at you quizzically, then returns to her work.",
+                "Mara straightens the signboard hanging near the entrance.",
+                "Mara picks up a cloth and wipes down a bench, humming quietly to herself.",
+                "Mara checks the fire in the hearth, adjusting the logs.",
+                "Mara arranges tankards on a shelf, making sure everything is in order.",
+                "Mara glances around the room, making sure all is well.",
+                "Mara wipes her hands on her apron and looks around the tavern.",
+            ],
+            "default": [
+                "Mara looks around, seeming slightly out of place.",
+                "Mara adjusts her clothing and looks around.",
             ],
         },
     },
@@ -163,6 +477,31 @@ _NPCS_DICT = {
                 "The Blacksmith raises a soot-stained hand in greeting.",
             ],
         },
+        "weather_reactions": {
+            "heatwave_moderate": {
+                "action": "The Blacksmith grunts.",
+                "vocal": "Hot enough in the forge without the sun helping."
+            },
+            "rain_light": {
+                "action": "The Blacksmith wipes their brow.",
+                "vocal": "Good weather for cooling the steel."
+            },
+        },
+        "idle_actions": {
+            "smithy": [
+                "The Blacksmith examines a piece of metal, turning it over in their hands.",
+                "The Blacksmith wipes sweat from their brow with the back of their hand.",
+                "The Blacksmith adjusts the tools on the wall, organizing them by size.",
+                "The Blacksmith stokes the forge, sending sparks flying.",
+                "The Blacksmith tests the edge of a blade, running a thumb along it carefully.",
+                "The Blacksmith takes a moment to stretch, working out the kinks in their back.",
+                "The Blacksmith checks the temperature of the forge, nodding in satisfaction.",
+            ],
+            "default": [
+                "The Blacksmith looks around, their hands still covered in soot.",
+                "The Blacksmith flexes their hands, as if missing their tools.",
+            ],
+        },
     },
     "herbalist": {
         "name": "Herbalist",
@@ -189,6 +528,34 @@ _NPCS_DICT = {
             ],
             "smile": [
                 "The Herbalist offers a small, shy smile.",
+            ],
+        },
+        "weather_reactions": {
+            "rain_light": {
+                "action": "The Herbalist smiles faintly.",
+                "vocal": "The plants are thirsty properly today."
+            },
+            "fog_moderate": {
+                "action": "The Herbalist peers into the mist.",
+                "vocal": "Some mushrooms only grow in this weather."
+            },
+            "clear_day": {
+                "action": "The Herbalist hums softly while sorting herbs in the sunlight.",
+                "vocal": "A beautiful day for gathering."
+            }
+        },
+        "idle_actions": {
+            "market_lane": [
+                "The Herbalist carefully examines a bundle of herbs, checking their quality.",
+                "The Herbalist arranges plants on their stall, making sure each is properly labeled.",
+                "The Herbalist sniffs a leaf, then nods in approval.",
+                "The Herbalist gently touches the petals of a flower, a soft smile on their face.",
+                "The Herbalist checks the soil of a potted plant, adjusting its position.",
+                "The Herbalist writes something in a small notebook, then looks up thoughtfully.",
+            ],
+            "default": [
+                "The Herbalist looks around, as if searching for plants.",
+                "The Herbalist adjusts their robes and looks about.",
             ],
         },
     },
@@ -219,6 +586,20 @@ _NPCS_DICT = {
                 "The Quiet Acolyte's expression softens with a peaceful smile.",
             ],
         },
+        "idle_actions": {
+            "shrine_of_the_forgotten": [
+                "The Quiet Acolyte kneels before the shrine, their lips moving in silent prayer.",
+                "The Quiet Acolyte traces the ancient carvings with reverent fingers.",
+                "The Quiet Acolyte lights a small candle, the flame casting gentle shadows.",
+                "The Quiet Acolyte arranges offerings at the base of the shrine.",
+                "The Quiet Acolyte closes their eyes and breathes deeply, finding peace.",
+                "The Quiet Acolyte studies the runes on the shrine, lost in contemplation.",
+            ],
+            "default": [
+                "The Quiet Acolyte looks around, their expression serene.",
+                "The Quiet Acolyte adjusts their robes and settles into a meditative pose.",
+            ],
+        },
     },
     "nervous_farmer": {
         "name": "Nervous Farmer",
@@ -245,6 +626,34 @@ _NPCS_DICT = {
             ],
             "wave": [
                 "The Nervous Farmer hesitantly raises a hand, looking around uneasily.",
+            ],
+        },
+        "weather_reactions": {
+            "storm_moderate": {
+                "action": "The Nervous Farmer jumps at a thunderclap.",
+                "vocal": "The spirits are angry tonight!"
+            },
+            "fog_moderate": {
+                "action": "The Nervous Farmer shivers.",
+                "vocal": "Nothing good comes out of the fog..."
+            },
+            "windy_heavy": {
+                "action": "The Nervous Farmer looks around wildly.",
+                "vocal": "Do you hear voices in the wind?"
+            },
+        },
+        "idle_actions": {
+            "forest_edge": [
+                "The Nervous Farmer glances toward the forest, then quickly looks away.",
+                "The Nervous Farmer shifts uneasily, keeping one eye on the trees.",
+                "The Nervous Farmer mutters something under their breath, too quiet to hear.",
+                "The Nervous Farmer checks their tools, as if preparing to leave quickly.",
+                "The Nervous Farmer looks over their shoulder, then relaxes slightly.",
+                "The Nervous Farmer wipes their hands on their trousers, looking nervous.",
+            ],
+            "default": [
+                "The Nervous Farmer looks around anxiously.",
+                "The Nervous Farmer shifts from foot to foot, seeming uneasy.",
             ],
         },
     },
@@ -277,6 +686,20 @@ _NPCS_DICT = {
                 "There's a sense of warmth from the Forest Spirit, like sunlight through leaves.",
             ],
         },
+        "idle_actions": {
+            "whispering_trees": [
+                "The Forest Spirit seems to move between the trees, barely visible.",
+                "A sense of watchfulness emanates from the Forest Spirit, as if it's observing everything.",
+                "The Forest Spirit's presence makes the leaves rustle in a pattern that almost sounds like speech.",
+                "The Forest Spirit drifts closer, then fades back into the shadows.",
+                "The Forest Spirit seems to glow faintly, its ethereal form shifting.",
+                "The Forest Spirit reaches out with an otherworldly hand, touching a tree trunk gently.",
+            ],
+            "default": [
+                "The Forest Spirit's presence feels out of place here.",
+                "The Forest Spirit drifts, its form barely visible.",
+            ],
+        },
     },
     "patrolling_guard": {
         "name": "Patrolling Guard",
@@ -284,6 +707,7 @@ _NPCS_DICT = {
         "description": "A watchful figure keeping an eye on the path to the watchtower.",
         "personality": "alert, professional, duty-focused",
         "pronoun": "they",
+        "inventory": ["steel_spear", "guard_badge"],
         "stats": {
             "max_hp": 20,
             "attack": 3,
@@ -304,6 +728,84 @@ _NPCS_DICT = {
             "wave": [
                 "The Patrolling Guard acknowledges your wave with a curt nod.",
             ],
+        },
+        "weather_reactions": {
+            "rain_moderate": {
+                "action": "The Patrolling Guard pulls their cloak tighter.",
+                "vocal": "Just a bit of rain."
+            },
+            "rain_heavy": {
+                "action": "The Patrolling Guard wipes water from their face.",
+                "vocal": "This rain is relentless."
+            },
+            "sleet_moderate": {
+                "action": "The Patrolling Guard shivers.",
+                "vocal": "Nasty weather, this."
+            },
+            "snow_heavy": {
+                "action": "The Patrolling Guard stamps their feet.",
+                "vocal": "Standing watch in this weather is no joke."
+            },
+            "clear_night": {
+                "action": "The Patrolling Guard scans the horizon.",
+                "vocal": "Quiet night. I like quiet."
+            },
+            "clear_day": {
+                "action": "The Patrolling Guard nods, appreciating the clear view.",
+                "vocal": "Good visibility today."
+            },
+            "storm_heavy": {
+                "action": "The Patrolling Guard braces against the wind.",
+                "vocal": "This storm is getting worse."
+            }
+        },
+        "idle_actions": {
+            "watchtower_path": [
+                "The Patrolling Guard scans the path ahead, hand resting on their weapon.",
+                "The Patrolling Guard checks the horizon, looking for any signs of trouble.",
+                "The Patrolling Guard adjusts their armor, making sure everything is secure.",
+                "The Patrolling Guard pauses to rest, but remains alert.",
+                "The Patrolling Guard marks something in a small notebook, then continues watching.",
+                "The Patrolling Guard stands at attention, their eyes constantly moving.",
+            ],
+            "default": [
+                "The Patrolling Guard looks around, remaining alert.",
+                "The Patrolling Guard checks their equipment and looks about.",
+            ],
+            "weather": {
+                "rain_heavy": [
+                    {
+                        "action": "The Patrolling Guard wipes water from their face and continues their watch.",
+                        "vocal": "Duty regardless of weather."
+                    },
+                    "The Patrolling Guard's armor glistens with rainwater as they scan the horizon.",
+                    {
+                        "action": "The Patrolling Guard keeps patrolling.",
+                        "vocal": "At least it's not snow."
+                    }
+                ],
+                "snow_heavy": [
+                    "The Patrolling Guard's breath is visible as they continue their patrol through the snow.",
+                    {
+                        "action": "The Patrolling Guard stamps their boots to stay warm.",
+                        "vocal": "Can't feel my toes."
+                    }
+                ],
+                "heatwave_moderate": [
+                    "The Patrolling Guard wipes sweat from their brow but remains alert.",
+                    {
+                        "action": "The Patrolling Guard takes a swig from their water flask.",
+                        "vocal": "Stay hydrated."
+                    }
+                ],
+                "windy_moderate": [
+                    "The Patrolling Guard squints against the wind, hand steady on their weapon.",
+                    {
+                        "action": "The Patrolling Guard adjusts their stance against the wind.",
+                        "vocal": "Wind's picking up."
+                    }
+                ],
+            },
         },
     },
     "watch_guard": {
@@ -334,6 +836,44 @@ _NPCS_DICT = {
                 "Darin cracks a small smile. 'Not much to smile about up here, but I appreciate the gesture.'",
             ],
         },
+        "weather_reactions": {
+            "fog_moderate": {
+                "action": "Darin squints into the distance.",
+                "vocal": "Can't see a thing in this soup."
+            },
+            "windy_heavy": {
+                "action": "Darin holds onto his hat.",
+                "vocal": "Wind's picking up. Storm might be brewing."
+            },
+        },
+        "idle_actions": {
+            "watchtower": [
+                "Darin peers through a spyglass, scanning the horizon methodically.",
+                "Darin leans against the tower wall, taking a brief moment to rest.",
+                "Darin checks the wind direction, then returns to watching.",
+                "Darin makes a note in a logbook, then looks up at the sky.",
+                "Darin stretches, working out the stiffness from long hours of watching.",
+                "Darin adjusts the spyglass, then continues scanning the valley below.",
+            ],
+            "default": [
+                "Darin looks around, maintaining his watchful posture.",
+                "Darin checks his equipment and remains alert.",
+            ],
+            "weather": {
+                "rain_heavy": [
+                    "Darin peers through his spyglass despite the heavy rain, his duty unwavering.",
+                    "Darin wipes water from the spyglass lens and continues scanning the horizon.",
+                ],
+                "windy_moderate": [
+                    "Darin adjusts the spyglass against the wind, muttering about visibility.",
+                    "Darin checks the wind direction in his logbook, noting the conditions.",
+                ],
+                "heatwave_moderate": [
+                    "Darin shades his eyes from the sun, continuing his watch despite the heat.",
+                    "Darin takes a break to wipe sweat from his face, then returns to scanning.",
+                ],
+            },
+        },
     },
     "wandering_trader": {
         "name": "Wandering Trader",
@@ -361,8 +901,33 @@ _NPCS_DICT = {
             "smile": [
                 "The Wandering Trader grins broadly. 'Ah, a smile! That's what I like to see.'",
             ],
-            "wave": [
-                "The Wandering Trader waves back with enthusiasm. 'Greetings, traveler!'",
+        },
+        "weather_reactions": {
+            "rain_light": {
+                "action": "The Wandering Trader holds out a hand to catch the drizzle.",
+                "vocal": "Good for the roots."
+            },
+            "clear_day": {
+                "action": "The Wandering Trader hums, inspecting a sun-drenched leaf.",
+                "vocal": "The plants are happy today."
+            },
+            "rain_moderate": {
+                "action": "The Wandering Trader covers their wares.",
+                "vocal": "A little rain never hurt business... much."
+            },
+        },
+        "idle_actions": {
+            "old_road": [
+                "The Wandering Trader organizes goods in their pack, checking each item carefully.",
+                "The Wandering Trader looks down the road, as if expecting someone.",
+                "The Wandering Trader counts coins, then tucks them away safely.",
+                "The Wandering Trader adjusts their hat and looks around with interest.",
+                "The Wandering Trader examines a trinket, holding it up to the light.",
+                "The Wandering Trader hums a traveling tune, their eyes scanning the horizon.",
+            ],
+            "default": [
+                "The Wandering Trader looks around, as if assessing the area.",
+                "The Wandering Trader adjusts their pack and looks about.",
             ],
         },
     },
@@ -392,7 +957,10 @@ def load_npcs() -> dict:
             traits=npc_data.get("traits"),  # Optional traits dict
             pronoun=npc_data.get("pronoun", "they"),  # Default to "they" if not specified
             attackable=npc_data.get("attackable", False),  # Default to False for backwards compatibility
-            hostile=npc_data.get("hostile", False)  # Default to False
+            hostile=npc_data.get("hostile", False),  # Default to False
+            inventory=npc_data.get("inventory"),  # Optional inventory list
+            weather_reactions=npc_data.get("weather_reactions", {}),  # Phase 2
+            idle_actions=npc_data.get("idle_actions", {})  # Phase 3: Merged from npc_actions.py
         )
         npcs[npc_id] = npc
     return npcs
@@ -508,7 +1076,10 @@ def match_npc_in_room(room_npc_ids: list, target_text: str) -> Tuple[Optional[st
         if npc_id not in NPCS:
             continue
         
-        npc = NPCS[npc_id]
+        # Use WorldManager to get NPC with loaded state (includes weather_status)
+        from game.world.manager import WorldManager
+        wm = WorldManager.get_instance()
+        npc = wm.get_npc(npc_id) or NPCS[npc_id]
         npc_id_lower = npc_id.lower()
         npc_name_lower = npc.name.lower()
         npc_shortname_lower = npc.shortname.lower()
